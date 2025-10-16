@@ -1,0 +1,23 @@
+<div class="org d-flex">
+    <div class="inf d-flex">
+        <div class="img-top">
+            <img src="../../../../../../../assets/deskapp.gif" alt=""
+                style="width: 50px; margin-top: -6px; margin-left: 12px; border-radius: 16px;">
+        </div>
+        <div>
+            <h3 class="titulo-top">Painel de Controlo</h3>
+            <h5 class="titulo-bt">Conteúdo incial da aplicação | <b>SIGRH+360º</b> - Sistema de Gestão de Recursos Humanos</h5>
+        </div>
+    </div>
+    <div class="add-inf">
+        <div class="top">
+            <div class="icone1">
+                <img [src]="logoPath" alt="Logo" width="60px">
+            </div>
+            <div class="botm">
+                <h5 *ngIf="this.setup.orgao?.['nome_completo']"><span><b>ÓRGÃO:</b> </span> {{this.getModulo}}</h5>
+                <p><span><b><i style="font-size: 10px; color: var(--use-color);" class="bi bi-house-gear"></i></b> </span></p>
+            </div>
+        </div>
+    </div>
+</div>

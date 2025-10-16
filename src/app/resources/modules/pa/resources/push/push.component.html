@@ -1,0 +1,100 @@
+<div class="modal fade" id="removerNotificacao">
+  <div class="modal-dialog modal-dialog-centered modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Remoção de notificação</h5>
+        <a href="#"
+          class="text-danger"
+          data-dismiss="modal"
+        >
+          <i class="bi bi-x" [style.fontSize]="'1.6rem'"></i>
+        </a>
+      </div>
+      <div class="modal-body">
+        <div
+          class="d-flex flex-column align-items-center"
+          [style]="{ rowGap: '2rem' }"
+        >
+          <span>Tem certeza que deseja remover está notificacão</span>
+          <div
+            class="btn-group w-50 d-flex border"
+            [style]="{ justifyContent: 'center' }"
+          >
+            <button class="btn-primary btn">Sim</button>
+            <button class="btn-outline-danger btn" data-dismiss="modal">
+              Não
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main id="main_" class="main_">
+  <div class="pagetitle my-4">
+    <ng-container *ngIf="this.temNotificacoes; else nao">
+      <h5 class="card-title border-bottom">Notificação</h5>
+    </ng-container>
+    <ng-template #nao>
+      <h5 class="card-title border-bottom">Sem notificação</h5>
+    </ng-template>
+  </div>
+
+  <section class="section" *ngIf="this.temNotificacoes">
+    <div class="row">
+      <div class="col-lg-12">
+        <div
+          class="card recent-sales overflow-auto p-0"
+          style="box-shadow: unset"
+        >
+          <div class="card-body p-0">
+            <ul
+              class="list-group list-group-flush p-0"
+              style="border: unset !important"
+            >
+              <li
+                class="list-group-item p-0 my-1"
+                *ngFor="let item of this.notificacoes"
+              >
+                <div
+                  class="d-flex px-4 py-1"
+                  style="flex-direction: column"
+                  [class.n_lido]="!item.lido"
+                >
+                  <div
+                    class="d-flex justify-content-between"
+                    style="align-items: center"
+                  >
+                    <a class="d-flex justify-content-between w-100 py-1">
+                      <i
+                        class="bi bi-info-circle-fill mx-2"
+                        style="color: #012970; font-size: 1.2rem"
+                      ></i>
+                      <div class="d-flex flex-column flex-fill">
+                        <h5 [style]="{ color: '#444' }">{{ item.titulo }}</h5>
+                        <span>{{ item.texto }}</span>
+                      </div>
+                    </a>
+                    <a
+                      data-toggle="modal"
+                      data-target="#removerNotificacao"
+                      (click)="global('item.id')"
+                      class="bi bi-eraser-fill text-muted px-2"
+                      style="font-size: 20px; cursor: pointer"
+                    ></a>
+                  </div>
+                  <span
+                    class="d-flex justify-content-end"
+                    style="font-size: 0.8rem; font-weight: bolder; color: #bbb"
+                    >{{ item.createdAt }}</span
+                  >
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

@@ -1,0 +1,40 @@
+#cor_dashboard{
+  background-color: var(--use-color);
+  color: aliceblue;
+  font-family: 'Arial';
+}
+
+.card-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  justify-items: center;
+}
+
+.inverter{
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+
+.sutotal{
+  /*background-color: #dbdfe6;*/
+  text-align: center;
+}
+
+.subtotal{
+  background-color: #eff0f1;
+}
+
+tr,th{border:1px solid var(--use-color);  font-size: 14px;}
+
+.linhaSubtitulo{
+  background-color: #a7b0c3;
+}
+
+.linhaSubtitulo-subtotal{
+  background-color: #cfcbcb;
+  padding-left: 10px;
+}

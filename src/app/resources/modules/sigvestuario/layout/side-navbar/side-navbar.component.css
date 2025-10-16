@@ -1,0 +1,201 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* reset */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Poppins, sans-serif;
+    font-size: 100%;
+    border: 0;
+    outline: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+h3 {
+    font-size: 1rem;
+    text-align: left;
+    margin-top: 25px;
+    font-weight: 400;
+    margin-bottom: 3px; 
+    padding-left: 15px;
+
+    span {
+        background-color: #04102b;
+        padding: 5px 12px;
+        border-radius: 8px;
+    }
+}
+
+hr {
+    height: 3px;
+    width: 60%;
+    margin: 0 auto;
+    border-top: 1.5px solid white;
+}
+
+#side-navbar {
+    padding-left: 15px;
+    margin-top: 25px;
+    padding-bottom: 2rem;
+    animation: sidebar .5s linear forwards;
+    transition: all .5s linear;
+    overflow: auto;
+
+    img {
+        width: 17px;
+        height: 17px;
+    }
+
+    li {
+        /* margin-bottom: .2rem;*/
+        font-size: .9rem;
+        line-height: 3rem;
+
+        a {
+            color: white;
+            text-decoration: none;
+            font-weight: 300;
+            padding-left: 10px;
+            transition: all .1s ease-in-out;
+
+            i {
+                margin-right: 5px;
+            }
+        }
+
+        div {
+            li {
+                line-height: 2rem;
+                font-size: .8rem;
+            }
+        }
+    }
+
+    a:hover {
+        background-color: #fbfbfb;
+        color: #041b4e;
+        border-radius: 5px;
+        padding: 10px 10px 10px 15px;
+        cursor: pointer;
+        font-weight: 350;
+
+        span,
+        i {
+            font-weight: 400;
+        }
+
+        div {
+            background-color: transparent;
+        }
+
+        .iii {
+            font-size: 2rem;
+        }
+    }
+
+
+}
+
+.rodape {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: left;
+    padding: 5px 5px 20px 5px;
+    font-size: .7rem;
+    display: block;
+
+    div {
+        background: linear-gradient(#041B4E, #040c1e);
+        border-radius: 8px;
+        padding: 8px;
+        font-size: .5rem;
+    }
+}
+
+/* .efeito {background-color:#0d6dfd88; border-radius: 4px; transition: all .2s; padding-left:2rem;} */
+/* .efeito2 {
+    background-color: #fffffff9; color: #041b4e; border-radius: 5px 0px 0px 5px; transition: all .1s ease-in-out; padding-left: 10px; font-weight: 500;
+    a {color: #041b4e;
+        span, i {color: #041b4e; font-weight: 500;}
+    }
+    a:hover {background-color: transparent;}
+    div{ background-color: transparent;}
+    .ii {font-size: 1.5rem;}
+} */
+
+.efeito2 {
+    a {
+        background-color: #fbfbfb;
+        padding: 10px 10px 10px 15px !important;
+        cursor: pointer;
+        font-weight: 350;
+        border-radius: 5px;
+        font-weight: 400;
+        
+        i {
+            color: #041b4e;
+        }
+    }
+
+}
+
+/** Animation */
+@keyframes sidebar {
+    from {
+        transform: translateX(-50px);
+    }
+
+    to {
+        transform: translateX(0)
+    }
+}
+
+.girar-icon {
+    transform: rotate(45deg);
+}
+
+/** Media queries */
+
+/* @media screen and (min-width: 1400px){
+    h3 {font-size: 1rem; text-align: left; margin-top: 30px; font-weight: 450; margin-bottom: 3px; padding-left: 35px;}
+    #side-navbar {
+        padding-left: 30px; margin-top: 37px; padding-bottom: 2rem;
+    
+        li {
+            font-size: 1rem;
+            line-height: 3.5rem;
+            
+            a {font-weight: 300; padding-left: 10px;
+                i { margin-right: 10px;}
+            }
+    
+            div {
+                li {line-height: 2.3rem; font-size: .9rem;}
+            }
+        }
+        a:hover {background-color: #fffffff1; color: #041b4e; border-radius: 5px 40px 40px 5px;  padding: 10px 20px 10px 20px; cursor: pointer; font-weight: 350;
+            span, i {font-weight: 400;}
+            div{ background-color: transparent;}
+            .iii {font-size: 2rem;}
+        }
+        
+        
+    }
+    .rodape {padding-left: 35px;}
+}
+
+@media  screen and (min-width:1800px) {
+    h3 {font-size: 1.2rem; text-align: left; margin-top: 30px; font-weight: 450; margin-bottom: 3px; padding-left: 55px;}
+
+    #side-navbar {
+        padding-left: 50px; margin-top: 37px; padding-bottom: 2rem;
+    }
+} */
+
+.nmg-hide-text {
+    display: none;
+}

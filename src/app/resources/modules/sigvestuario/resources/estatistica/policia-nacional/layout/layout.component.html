@@ -1,0 +1,40 @@
+<section class="section-pna-container-nmg">
+    <div class="banner-nmg">
+        <h3>Polícia Nacional de Angola</h3>
+        <p>Dados estatísticos provenientes do Sistema de Gestão Pessoal & Quadro <strong>(SIGPQ)</strong> e do Portal do Agente <strong>(PA)</strong> </p>
+        <div>
+            <i class="bi bi-chevron-down"></i>
+        </div>
+    </div>
+
+    <div class="cards-nmg">
+        <sigvest-cards class="row"></sigvest-cards>
+    </div>
+
+    <div class="tabela-nmg">
+        <table class="table table-custom table-striped">
+            <thead>
+                <caption>
+                    EFECTIVOS MASCULINOS
+                </caption>
+                <tr>
+                    <th>N/O</th>
+                    <th>Quant. Efectivo</th>
+                    <th>Posto</th>
+                    <th>Designação do Meio</th>
+                    <th>Tamanho</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let item of this.DADOS_EFECTIVOS; index as i">
+                    <td>{{(i+1) <= 9 ? '0' + (i+1) : i+1}}</td>
+                    <td>{{item.numero_efect}}</td>
+                    <td>{{item.patente}}</td>
+                    <td>{{item.design_meio}}</td>
+                    <td>{{item.tam}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>

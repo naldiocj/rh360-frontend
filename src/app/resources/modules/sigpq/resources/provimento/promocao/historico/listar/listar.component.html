@@ -1,0 +1,111 @@
+<div class="content">
+    <div class="row">
+        <div class="col-sm-7">
+            <h4 style="color: var(--use-color);" class="page-title"><b>Listagem de Histórico de patenteamento do funcionário</b>
+            </h4>
+            <h4 style="font-size: 14px;">Sistema de Gerenciamento - <b>Módulo de Pessoal e Quadros</b></h4>
+        </div>
+        <div class="col-sm-5 text-right m-b-20">
+
+            <a href="javascript:void(0)" data-toggle="modal" data-target="#" class="btn btn-primary btnExportar"><i
+                    class="fa fa-list-alt"></i> Exportar</a>
+        </div>
+    </div>
+    <div class="row">
+        <nav class="navbar navbar-light bg-light">
+            <form class="form-inline">
+                <select class="form-control mr-sm-1" (change)="filtrarPagina('perPage',$event)">
+                    <option *ngFor="let item of [5,10,20,50]" [value]="item">{{item}}</option>
+                </select>
+                <input class="form-control mr-sm-1" type="text" [ngModel]="filtro.search"
+                    (ngModelChange)="filtrarPagina('search',$event)" placeholder="Pesquisa ...">
+                <button (click)="this.recarregarPagina()" id="btpe1" class="btn btn-outline-success my-2 my-sm-0"
+                    type="submit">
+                    <i style="font-size: 14px;" class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+                    <b>Recarregar</b>
+                </button>
+            </form>
+        </nav>
+        <div class="col-md-12">
+            <table class="table table-border table-striped custom-table datatable mb-0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Patente</th>
+                        <th>Número do Despacho</th>
+                        <th>Progressão</th>
+                        <th>Nº do Agente</th>
+                        <th>Estado</th>
+                        <th>Data Registado</th>
+                        <th>Data Actualização</th>
+                        <th class="text-right">Operação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngIf="this.isLoading">
+                        <td colspan="9">
+                            <aside *ngIf="this.isLoading">
+                                <loading-page [texto]="'lista de agentes'"></loading-page>
+                            </aside>
+                        </td>
+                    </tr>
+                    <tr
+                        *ngFor="let item of this.historicos | paginate: { id: 'emtemposId', itemsPerPage: this.pagination.per_page, currentPage: this.pagination.current_page,totalItems: this.pagination.total }; index as i">
+                        <td>{{i+1}}</td>
+                        <td>{{item.patente_nome}}</td>
+                        <td>{{item.numero_despacho}}</td>
+                        <td>{{item.patente_nome}}</td>
+                        <td>{{item.sigpq_acto_progressaos_nome}}</td>
+                        <td>
+                            <span *ngIf="item.activo" class="custom-badge status-green">Activo</span>
+                            <span *ngIf="!item.activo" class="custom-badge status-orange">Inactivo</span>
+                        </td>
+                        <td>{{item.created_at}}</td>
+                        <td>{{item.updated_at}}</td>
+                        <td class="text-right">
+                            <div class="dropdown dropdown-action">
+                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
+                                    aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                <div class="dropdown-menu">
+                                    <a *ngIf="!item.activo" href="#" class="dropdown-item" routerLink="/"
+                                        [routerLink]="['/piips/sigpg/provimento/promocao/historico/', item.id]"
+                                        href="javascript:void(0)">
+                                        <i class="fa fa-eye m-r-5"></i>
+                                        Activar
+                                    </a>
+                                    <a class="dropdown-item" href="#" (click)="this.construcao()"><i
+                                            class="fa fa-pencil m-r-5"></i>
+                                        Editar
+                                    </a>
+                                    <a class="dropdown-item" href="#" (click)="this.construcao()" data-toggle="modal"
+                                        data-target="#delete_patient"><i class="fa fa-trash-o m-r-5"></i> Apagar</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-sm-6">
+                    Mostrando de {{ this.pagination.current_page }} á
+                    {{ this.pagination.per_page }} de {{ this.pagination.total }} Registo
+                </div>
+                <div class="col-sm-6">
+                    <div class="float-right">
+                        <pagination-controls id="idHistorico" (pageChange)="this.filtrarPagina('page', $event)"
+                            [directionLinks]="true" [autoHide]="true" previousLabel="Anterior" nextLabel="Próximo"
+                            [maxSize]="4" [responsive]="true"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <app-sigpq-promover-modal *ngIf="this.emTempo" [emTempo]="this.emTempo"
+    (eventRegistarPromocaoModel)="this.recarregarPagina()"></app-sigpq-promover-modal> -->
+<!-- <app-sigpq-provimento-promocao-em-tempo-registar-ou-editar-modal
+    [emTempo]="this.emTempo"></app-sigpq-provimento-promocao-em-tempo-registar-ou-editar-modal> -->

@@ -1,0 +1,55 @@
+<div class="busca-biometrica-panel" *ngIf="isOpen">
+  <div class="scanner-header">
+    <h3>Verificação Biométrica</h3>
+    <button (click)="closeScanner()" class="btn-fechar">Fechar</button>
+  </div>
+
+  <div class="scanner-body">
+    <div class="scanner-left">
+      <div class="finger-image" *ngIf="getFingerImage(); else noImage">
+        <img [src]="getFingerImage()" alt="Digital Capturada" />
+      </div>
+      <ng-template #noImage>
+        <p>Nenhuma imagem capturada</p>
+      </ng-template>
+
+      <button 
+        (click)="verifyIfFingerprintIsRegistered()" 
+        [disabled]="isSearching"
+        class="btn-verificar"
+      >
+        {{ isSearching ? 'Verificando...' : 'Verificar Digital' }}
+      </button>
+    </div>
+
+    <div class="scanner-right">
+      <ng-container *ngIf="isLoading">
+        <p>Buscando no banco de dados...</p>
+        <div class="spinner"></div>
+      </ng-container>
+
+      <ng-container *ngIf="!isLoading && matchResult">
+        <h4>Digital Encontrada</h4>
+        <ul>
+          <li><strong>Nome:</strong> {{ matchResult.nome }}</li>
+          <li><strong>Documento:</strong> {{ matchResult.documento }}</li>
+          <li><strong>ID:</strong> {{ matchResult.id }}</li>
+          <!-- Adicione mais campos conforme o retorno da API -->
+        </ul>
+      </ng-container>
+
+      <ng-container *ngIf="!isLoading && !matchResult && !isSearching && capturedFingerprint">
+        <p>Nenhuma correspondência encontrada.</p>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<!-- Botão para abrir scanner (fora do painel) -->
+<button 
+  *ngIf="!isOpen" 
+  (click)="openScanner()" 
+  class="btn-abrir-scanner"
+>
+  Iniciar Verificação Biométrica
+</button>

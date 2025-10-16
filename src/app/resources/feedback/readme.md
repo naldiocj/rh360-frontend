@@ -1,0 +1,1 @@
+componente responsavel por guardar as anomalias que os usuarios iriam relatar para nos ,

@@ -1,0 +1,241 @@
+<div class="modal fade" id="modalRegistarOuEditarUtilizador" aria-labelledby="modalRegistarOuEditarUtilizador"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document" style="overflow-y: hidden;min-width: 70%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>
+          <i class="fa fa-user"></i>
+          {{ this.utilizador? 'Editar Utilizador':'Registar Utilizador' }}
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <ng-container *ngIf="isLoadingProcess;else mostrarDados">
+        <p>Carregando informações ......</p>
+      </ng-container>
+      <ng-template #mostrarDados>
+      <div class="modal-body">
+        <form [formGroup]="this.simpleForm">
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-sm-12">
+                <nav class="navbar navbar-light bg-light">
+                  <form class="form-inline">
+                    <select id="perPageSelector" class="form-control mr-sm-1"
+                      (change)="filtrarPagina('perPage',$event)">
+                      <option *ngFor="let item of [5,10,20,50]" [value]="item">{{item}}</option>
+                    </select>
+                    <select id="regimeSelector" class="form-control mr-sm-1" (change)="filtrarPagina('regime',$event)">
+                      <option *ngFor="let item of this.regimes" [value]="item.id">{{item.sigla}}</option>
+                    </select>
+                    <input class="form-control mr-sm-1" type="text" [ngModel]="filtro.search"
+                      (ngModelChange)="filtrarPagina('search',$event)" placeholder="Pesquisa ...">
+                  </form>
+                </nav>
+                <div class="col-sm-12">
+                  <table class="table table-border table-striped custom-table datatable mb-0">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Patente</th>
+                        <th>Nome Completo</th>
+                        <th class="text-center">NIP</th>
+                        <th class="text-center">NAS</th>
+                        <th class="text-center">Colocação</th>
+                        <th>Data de Registo</th>
+                        <th class="text-right">Operação</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        *ngFor="let item of this.funcionarios | paginate: { id: 'registar-utilizador', itemsPerPage: this.pagination.per_page, currentPage: this.pagination.current_page,totalItems: this.pagination.total }; index as i">
+                        <td>{{this.totalBase + i}}</td>
+                        <td>
+                          <ng-container *ngIf="item.patente_nome; else elseTemplate">
+                            {{item.patente_nome}}
+                          </ng-container>
+                          <ng-template #elseTemplate>
+                            S/N
+                          </ng-template>
+                        </td>
+                        <td>
+                          <strong>
+                            <a routerLink="/" ariaCurrentWhenActive="page"
+                              [routerLink]="['/piips/sigpg/perfil/',item.id]" style="font-size: 15px;">
+                              {{item.nome_completo | uppercase}} {{item.apelido | uppercase}}
+                            </a>
+                          </strong>
+                        </td>
+                        <td class="text-center">
+                          <ng-container *ngIf="item.nip; else elseTemplate">
+                            {{item.nip}}
+                          </ng-container>
+                          <ng-template #elseTemplate>
+                            S/N
+                          </ng-template>
+                        </td>
+                        <td class="text-center">
+                          <ng-container *ngIf="item.numero_agente; else elseTemplate">
+                            {{item.numero_agente}}
+                          </ng-container>
+                          <ng-template #elseTemplate>
+                            S/N
+                          </ng-template>
+                        </td>
+                        <td class="text-center">
+                          <ng-container *ngIf="item.orgao?.nome; else elseOrgao">
+                            {{item?.orgao?.nome}}
+                          </ng-container>
+                          <ng-template #elseOrgao>
+                            S/N
+                          </ng-template>
+                        </td>
+                        <td>{{item.created_at}}</td>
+                        <td class="text-right">
+                          <div class="dropdown dropdown-action">
+                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
+                              aria-expanded="false">
+                              <i class="fa fa-ellipsis-v"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modal"
+                                (click)="selecionarFuncionario(item)">
+                                <i class="fa fa-plus-circle m-r-5"></i>
+                                Adicionar
+                              </a>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="col-ms-12">
+                  <br>
+                  <div class="row">
+                    <div class="col-sm-6 col-md-6 col-md-6">
+                      Mostrando de {{ this.pagination.current_page }} á
+                      {{ this.pagination.per_page }} de {{ this.pagination.total }} Registo
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-md-6">
+                      <div class="float-right">
+                        <pagination-controls id="registar-utilizador" (pageChange)="this.filtrarPagina('page', $event)"
+                          [directionLinks]="true" [autoHide]="true" previousLabel="Anterior" nextLabel="Próximo"
+                          [maxSize]="4" [responsive]="true"></pagination-controls>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label><b>Selecione Nip/Funcionário</b><span class="text-danger"> *</span></label>
+                <input [disabled]="true" [value]="this.funcionario?.nip +' - '+ this.funcionario?.nome_completo"
+                  type="text" class="form-control">
+              </div>
+
+              <div class="form-group col-md-6">
+                <label>Genero</label>
+                <ng-select2 placeholder="Selecione uma opção" width="100%" [disabled]="true">
+                  <option value="" *ngIf="!this.funcionario">&nbsp;</option>
+                  <option value="1" *ngIf="this.funcionario?.genero == 'M'"> Masculíno </option>
+                  <option value="2" *ngIf="this.funcionario?.genero == 'F'"> Feminíno</option>
+                </ng-select2>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label>Email<span class="text-danger"> *</span></label>
+                <input name="username" type="text" class="form-control" formControlName="email">
+              </div>
+
+              <div class="form-group col-md-6">
+                <label>Apelido</label>
+                <input type="text" class="form-control" [disabled]="true" [value]="this.funcionario?.apelido">
+              </div>
+
+              <div class="form-group col-md-6">
+                <label>Utilizador<span class="text-danger"> *</span></label>
+                <input name="username" type="text" class="form-control" formControlName="username">
+              </div>
+
+              <div class="form-group col-md-6">
+                <aside *ngIf="this.idUtilizador; else showSenha">
+                  <label>Senha</label>
+                  <input type="text" class="form-control" [disabled]="true">
+                </aside>
+                <ng-template #showSenha>
+                  <label>Senha<span class="text-danger"> *</span></label>
+                  <input type="text" class="form-control" formControlName="password">
+                </ng-template>
+
+              </div>
+
+              <div class="form-group col-md-6">
+                <label><b>Modulo</b><span class="text-danger"> *</span></label>
+                <ng-select2 [options]="options" [data]="this.modulos" formControlName="modulo_id"
+                  (valueChanged)="selecionarModulo($event)">
+                </ng-select2>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label><b>Perfil</b><span class="text-danger"> *</span></label>
+                <ng-select2 [options]="options" [data]="this.perfis" formControlName="role_id">
+                </ng-select2>
+              </div>
+
+              <div class="form-group col-md-12">
+                <b style="color: red;">Atenção:</b> <br>
+                <label>Deseja conceder acesso a todos os agentes, incluindo os
+                  agentes de outros órgãos a este utilizador ?</label>
+                <input type="checkbox" class="ml-1" formControlName="aceder_todos_agentes"><br>
+                <!-- Condicional para mostrar as opções quando 'aceder_todos_agentes' não estiver marcado -->
+                <div *ngIf="!simpleForm.get('aceder_todos_agentes')?.value">
+                  <div class="form-group col-md-12">
+                    <label><input type="checkbox" formControlName="aceder_direccao" value="direccao" [checked]="acesso == 'direccao'" (change)="this.ajustarAcesso('direccao')"> {{mostrarMensagem('da Direcção / Comando')}}</label><br>
+
+                    <label><input type="checkbox" formControlName="aceder_departamento" value="departamento" [checked]="acesso == 'departamento'" (change)="this.ajustarAcesso('departamento')"> {{mostrarMensagem('do Departamento/Comando Munícipal/Unidade')}}</label><br>
+
+                    <label><input type="checkbox" formControlName="aceder_seccao" value="seccao" [checked]="acesso == 'seccao'" (change)="this.ajustarAcesso('seccao')"> {{mostrarMensagem('da Secção/Esquadra/Subunidade')}}</label><br>
+
+                    <label><input type="checkbox" formControlName="aceder_posto_policial" value="posto_policial" [checked]="acesso == 'posto_policial'" (change)="this.ajustarAcesso('posto_policial')"> {{mostrarMensagem('do Posto Policial')}}</label><br>
+                  </div>
+                </div>
+                <label>Deseja conceder o acesso do painel da piips a este utilizador ?</label>
+                <input type="checkbox" class="ml-1" formControlName="aceder_painel_piips">
+              </div>
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-danger btn-square" type="reset" (click)="this.reiniciarFormulario()" disabled="true">
+              <span class="fa fa-refresh"></span> Limpar
+            </button>
+            <ng-container *ngIf="this.simpleForm.valid; else ocultarBotao">
+              <aside *ngIf="this.isLoading; else regista">
+                <button id="bookreset" disabled="true" class="btn btn-primary btnRegistar">
+                  <div class="spinner-border spinner-border-sm m-1"></div>
+                  <a style="text-decoration: none;color: white;"> A
+                    {{ this.utilizador? 'Editar':'Registar' }} ...</a>
+                </button>
+              </aside>
+              <ng-template #regista>
+                <button id="bookreset" (click)="onSubmit()" class="btn btn-primary btnRegistar">
+                  <i class="fa fa-plus-circle"></i>
+                  {{ this.utilizador? 'Editar':'Registar' }}
+                </button>
+              </ng-template>
+            </ng-container>
+            <ng-template #ocultarBotao>
+              <button id="bookreset" disabled="true" class="btn btn-primary btnRegistar">
+                <i class="fa fa-plus-circle"></i>
+                {{ this.utilizador? 'Editar':'Registar' }}
+              </button>
+            </ng-template>
+          </div>
+        </form>
+      </div>
+    </ng-template>
+    </div>
+  </div>

@@ -1,0 +1,124 @@
+<section>
+
+    <!-- <div class="row p-2 col-md-12 col-sm-12 mb-12 justify-content-evenly w-100">
+                  <div class="col-2 d-flex justify-content-lg-start align-items-start align-items-lg-start">
+  
+                    <button data-toggle="modal" class="btn-piips btn-piips-primary m-0 py-2 btn-piips-button-all1"
+                      data-target="#modalRegistarOuEditarVitima">
+                      <i class="fa fa-search-plus m-r-5"></i> Aplicar Filtros
+                    </button>
+                    <button data-toggle="modal" class="btn-piips btn-piips-red m-0 py-2 btn-piips-button-all0"
+                      data-target="#registarOuEditarEemergencia">
+                      <i class="fa fa-plus"></i> Imprimir
+                    </button>
+  
+                  </div>
+  
+                  <div class="col-7 d-flex justify-content-between align-items-center">
+                    <div class="custom-radius btn-group" role="group" aria-label="Basic example">
+                   
+                  
+                        <select title="kivova" class="w-20s btn input-select"
+                            (change)="filtrarPagina($event,'perPage')">
+                            <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">
+                              {{ item }}
+                            </option>
+                          </select>
+                          <button class="btn input-buscar w-30s" type="button">
+                            <i class="bi bi-search"></i>
+                          </button>
+                        <input class="btn input-search" type="text" [ngModel]="filtro.search"
+                            (ngModelChange)="filtrarPagina($event,'search')" placeholder="Pesquisa ..." />
+                          <button data-bs-target="#ToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                            aria-expanded="false" aria-label="Toggle navigation"
+                            class="btn  input-filtro w-30s" type="button" data-bs-toggle="collapse">
+    
+                            <i class="bi bi-filter toggle-sidebar-btn"></i>
+    
+                          </button>
+                          <button (click)="this.recarregarPagina()" class="btn input-filtro " type="submit">
+                            <i style="font-size: 12px" class="fa fa-refresh fa-spin fa-3x fa-fw"></i> 
+                          </button>
+    
+    
+    
+    
+                          
+                    </div>
+                   
+                  </div>
+                     
+  
+    </div> -->
+   
+    
+    
+    
+    <div *ngIf="isLoading" class="loading">
+      Carregando...
+    </div>
+    
+    <table class="table table-striped" #tableToPrint *ngIf="!isLoading && this.vitimas.length > 0" class="table table-striped">
+        <thead class="table-thead">
+        <tr>
+          <th>#</th>
+          <th> Nome          </th>
+          <th> Alcunha       </th>
+          <th> Genero        </th>
+          <th> Raca          </th>
+          <th> Data Nascimento  </th>
+          <th> Contacto      </th>
+          <th> Local de Trabalho </th>
+          <th> Pais      </th>
+          <th> Residência     </th>
+          <th> Tipo de Dano   </th> 
+          <th>caracteristica</th> 
+        </tr>
+      </thead>
+      <tbody class="table-tbody">
+        <tr *ngFor="let vitima of vitimas; let i = index; trackBy: trackById">
+          <td  class="text-center">{{ i + 1 }}</td>
+          <td>{{ vitima.nome }}</td>
+          <td>{{ vitima.alcunha }}</td>
+          <td>{{ vitima.genero }}</td>
+          <td>{{ vitima.raca }}</td>
+          <td>{{ vitima.data_nascimento }}</td>
+          <td>{{ vitima.contacto }}</td>
+          <td>{{ vitima.local_de_trabalho }}</td>
+          <td>{{ vitima.nome_pais }}</td>
+          <td>{{ vitima.residencia }}</td>
+          <td>{{ vitima.tipo_de_dano }}</td>
+          <td>{{ vitima.caracteristica }}</td>
+        </tr>
+        <tr>
+            <td colspan="12">
+                 
+                <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-sm-6">
+                        Mostrando de {{ this.pagination.current_page }} á
+                        {{ this.pagination.per_page }} de {{ this.pagination.total }} Registo
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="float-right">
+                          <pagination-controls id="idVitimas" (pageChange)="this.filtrarPagina($event,'page')" [directionLinks]="true"
+                            [autoHide]="false" previousLabel="Anterior" nextLabel="Próximo" [maxSize]="4"
+                            [responsive]="true"></pagination-controls>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <div *ngIf="!isLoading && vitimas.length === 0">
+      Nenhuma vítima encontrada.
+    </div>
+    
+   
+  
+  </section>
+  
+   

@@ -1,0 +1,84 @@
+ <section class="map mt-4"> 
+    <div class="map-container">
+      <div id="map"></div>
+      
+      <div class="map-controls">
+        <button (click)="locateUser()" [disabled]="loadingLocation" title="Centralizar na minha localização">
+          <i class="fas fa-location-arrow"></i>
+          <span class="control-text">{{ loadingLocation ? 'Localizando...' : 'Minha Localização' }}</span>
+        </button>
+        
+        <button (click)="exportShapesToCSV()" title="Exportar dados para CSV">
+          <i class="fas fa-download"></i>
+          <span class="control-text">Exportar</span>
+        </button>
+        
+        <button (click)="toggleAutoRefresh()" [class.active]="autoRefreshActive" title="Atualização automática">
+          <i class="fas fa-sync-alt"></i>
+          <span class="control-text">Auto-Update</span>
+        </button>
+        
+        <div class="refresh-control">
+          <label>Intervalo:</label>
+          <select (change)="updateRefreshInterval($event)" [disabled]="!autoRefreshActive">
+            <option value="30">30s</option>
+            <option value="60">1m</option>
+            <option value="300">5m</option>
+            <option value="600">10m</option>
+          </select>
+        </div>
+
+        
+      </div>
+      
+      <div class="map-stats">
+        <div class="stat-item">
+          <span class="stat-icon pendente"></span>
+          <span>{{ countByStatus('pendente') }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-icon em_andamento"></span>
+          <span>{{ countByStatus('em_andamento') }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-icon concluido"></span>
+          <span>{{ countByStatus('concluido') }}</span>
+        </div>
+        <div class="stat-total">
+          Total: {{ totalOcorrenciasVisiveis }}
+        </div>
+      </div>
+      
+      <div class="map-legend">
+        <div class="legend-item">
+          <div class="legend-color pendente"></div>
+          <span>Pendente</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color em-andamento"></div>
+          <span>Em Andamento</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color concluido"></div>
+          <span>Concluído</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color user"></div>
+          <span>Sua Localização</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+
+  <div class="liquid-container">
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+    <defs>
+      <filter id="goo">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"></feGaussianBlur>
+        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -7" result="goo"></feColorMatrix>
+        <feBlend in="SourceGraphic" in2="goo" operator="atop"></feBlend>
+      </filter>
+    </defs>
+  </svg>
+  </div>

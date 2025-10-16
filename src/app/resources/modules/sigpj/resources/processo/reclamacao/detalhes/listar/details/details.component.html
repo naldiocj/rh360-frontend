@@ -1,0 +1,583 @@
+  
+      <div class="modal-header">
+        <div class="col-lg-4 offset-lg-2">
+          <h4 style="color: #002d54" class="page-title">
+            <b>Processo - Reclamacão</b>
+          </h4>
+          <p>Informacoes adicionais do interveniente</p>
+        </div>
+       
+      </div>
+
+      <div class="content" style="display: flex; justify-content: center;align-items: center; width: 100%;">
+        <div class="col-sm-8">
+          <div class="card">
+            <div class="card-header">
+              <aside
+                style="
+                  background-color: #002d59;
+                  color: white;
+                  padding: 5px 5px 5px 5px;
+                "
+              >
+                <img src="../../../assets/img/justica.png" />
+                <b style="margin-left: 5px"> Dados do Interveniente </b>
+              </aside>
+            </div>
+            <div class="card-body">
+              <div class="col-sm-6 pull-left">
+                <aside class="mb-1">
+                  <b>ID: </b> {{ this.dadosArguido?.id }}
+                </aside>
+
+                <aside class="mb-1">
+                  <b>Nome Completo: </b>
+                  {{ this.dadosArguido?.nome_completo }}
+                </aside> 
+                <aside class="mb-1">
+                  <b>NIP:</b> {{ this.dadosArguido?.nip }}<br />
+                </aside>
+              
+                <aside class="mb-1">
+                  <b>Nome do Pai:</b> {{ this.dadosArguido?.nome_pai }}<br />
+                </aside>
+                <aside class="mb-1">
+                  <b>Nome da Mae:</b> {{ this.dadosArguido?.nome_mae }}<br />
+                </aside>
+              </div>
+              <div class="col-sm-6 pull-left">
+                <h4><b>Antecedentes</b></h4>
+                <aside class="mb-1">
+                  {{ this.disciplinarTipo }} 
+                <b>{{ this.disciplinarTotal }} </b> 
+                </aside>
+                <aside class="mb-1">
+                {{ this.reclamacaoTipo }}
+                  
+                  <b> {{ this.reclamacaoTotal }} </b> 
+                </aside>
+                <aside class="mb-1"> 
+                  <b>Total de Antecedentes: </b>  {{ this.reclamacaoTotal + this.disciplinarTotal }}
+                </aside>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <aside
+                style="
+                  background-color: #002d59;
+                  color: white;
+                  padding: 5px 5px 5px 5px;
+                "
+              >
+                <img src="../../../assets/img/justica.png" />
+                <b style="margin-left: 5px">Parecer </b>
+              </aside>
+            </div>
+            <div class="card-body">
+              <!-- <aside *ngIf="this.diversos.id === this.getId  ; else verDisciplinar"> -->
+
+              <div class="col-sm-6 pull-left">
+                <aside class="mb-1">
+                  <b>ID: </b> {{ this.dadosParecer?.id }}
+                </aside>
+                <aside class="mb-1">
+                  <b>Nº do Processo: </b> 000{{this.dadosParecer?.processo}}/DAJ/{{this.dadosDecisao?.updated_at}}
+                </aside>
+                <aside class="mb-1">
+                  <b>Nº do Oficío: </b> {{ this.dadosParecer?.oficio }}
+                </aside>
+
+                <aside class="mb-1">
+                  <b>Assunto:</b> {{ this.dadosParecer?.assunto }}<br />
+                </aside>
+              </div> 
+            </div>
+            <nav class="navbar navbar-light" style="margin-top: 2em">
+              <form class="form-inline">
+                <select
+                  class="form-control mr-sm-1"
+                  (change)="filtrarPecasParecer('perPage', $event)"
+                >
+                  <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">
+                    {{ item }}
+                  </option>
+                </select>
+                <input
+                  class="form-control mr-sm-1"
+                  type="text"
+                  [ngModel]="filtro.search"
+                  (ngModelChange)="filtrarPecasParecer('search', $event)"
+                  placeholder="Pesquisa ..."
+                />
+                <button
+                  (click)="this.recarregarPecasParecer()"
+                  id="btpe1"
+                  class="btn btn-outline-success my-2 my-sm-0"
+                  type="submit"
+                >
+                  <i
+                    style="font-size: 14px"
+                    class="fa fa-refresh fa-spin fa-3x fa-fw"
+                  ></i>
+                  <b>Pesquisar</b>
+                </button>
+              </form>
+            </nav>
+            <div class="col-sm-12 pull-right">
+              <aside class="mb-1">
+                <table
+                  class="table table-border table-striped custom-table datatable mb-0"
+                >
+                  <thead>
+                    <tr>
+                      <th>Peças do Parecer</th>
+                      <th>Data do Parecer</th>
+                      <th>Visualizar</th>
+                      <th class="text-right">Baixar</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="
+                        let item of this.pecasParecer
+                          | paginate
+                            : {
+                                itemsPerPage: this.pagination.per_page,
+                                currentPage: this.pagination.current_page,
+                                totalItems: this.pagination.total
+                              };
+                        index as i
+                      "
+                    >
+                      <td>{{ item.id }}</td>
+                      <td>{{ this.dadosParecer?.data }}</td>
+                      <td>
+                        <button
+                          (click)="verFile(item)"
+                          class="btn btn-outline-primary bi bi-eye-fill"
+                        ></button>
+                      </td>
+
+                      <td class="text-right">
+                        <button
+                          (click)="downloadFile(item)"
+                          class="btn btn-outline-primary bi bi-download"
+                        ></button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </aside>
+            </div>
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-sm-6">
+                  Mostrando de {{ this.pagination.current_page }} á
+                  {{ this.pagination.per_page }} de
+                  {{ this.pagination.total }} Registo
+                </div>
+                <div class="col-sm-6">
+                  <div class="float-right">
+                    <pagination-controls
+                      id="funcionarioEspecial"
+                      (pageChange)="
+                        this.filtrarPecasParecer('page', $event)
+                      "
+                      [directionLinks]="true"
+                      [autoHide]="true"
+                      previousLabel="Anterior"
+                      nextLabel="Próximo"
+                      [maxSize]="4"
+                      [responsive]="true"
+                    ></pagination-controls>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="card">
+            <div class="card-header">
+              <aside
+                style="
+                  background-color: #002d59;
+                  color: white;
+                  padding: 5px 5px 5px 5px;
+                "
+              >
+                <img src="../../../assets/img/justica.png" />
+                <b style="margin-left: 5px"> Historico do Parecer </b>
+              </aside>
+            </div>
+          <nav class="navbar navbar-light bg-light">
+            <form class="form-inline">
+              <select
+                class="form-control mr-sm-1"
+                (change)="filtrarHistoricoParecer('perPage', $event)"
+              >
+                <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">
+                  {{ item }}
+                </option>
+              </select>
+              <input
+                class="form-control mr-sm-1"
+                type="text"
+                [ngModel]="filtro.search"
+                (ngModelChange)="filtrarHistoricoParecer('search', $event)"
+                placeholder="Pesquisa ..."
+              />
+              <button
+                (click)="this.recarregarHistoricoParecer()"
+                id="btpe1"
+                class="btn btn-outline-success my-2 my-sm-0"
+                type="submit"
+              >
+                <i
+                  style="font-size: 14px"
+                  class="fa fa-refresh fa-spin fa-3x fa-fw"
+                ></i>
+                <b>Pesquisar</b>
+              </button>
+            </form>
+          </nav>
+          <div class="col-md-12">
+            <table
+              class="table table-border table-striped custom-table datatable mb-0"
+            >
+              <thead>
+                <tr> 
+                  <th>N* processo</th>
+                  <th>N* Parecer</th>
+                  <th>Assunto</th>
+                  <th>Estado</th>
+                  <th>Data de Registro</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="
+                    let item of this.historicoParecer
+                      | paginate
+                        : {
+                            itemsPerPage: this.pagination.per_page,
+                            currentPage: this.pagination.current_page,
+                            totalItems: this.pagination.total
+                          };
+                    index as i
+                  "
+                > 
+                  <td>000{{ item.processo }}/DAJ/{{ item.created_at }}</td>
+                  <td>{{ item.oficio }}</td>
+                  <td>{{ item.assunto }}</td>
+                  <td>
+                    <ng-container *ngIf="item.activo; else elseTemplate">
+                      <span class="custom-badge status-green">Activo</span>
+                    </ng-container>
+                    <ng-template #elseTemplate>
+                      <span class="custom-badge status-red">Inactivo</span>
+                    </ng-template>
+                  </td>
+
+                  <td>{{ item.updated_at }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-sm-6">
+                Mostrando de {{ this.pagination.current_page }} á
+                {{ this.pagination.per_page }} de
+                {{ this.pagination.total }} Registo
+              </div>
+              <div class="col-sm-6">
+                <div class="float-right">
+                  <pagination-controls
+                    id="funcionarioEspecial"
+                    (pageChange)="
+                      this.filtrarHistoricoParecer('page', $event)
+                    "
+                    [directionLinks]="true"
+                    [autoHide]="true"
+                    previousLabel="Anterior"
+                    nextLabel="Próximo"
+                    [maxSize]="4"
+                    [responsive]="true"
+                  ></pagination-controls>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+          <div class="card">
+            <div class="card-header">
+              <aside
+                style="
+                  background-color: #002d59;
+                  color: white;
+                  padding: 5px 5px 5px 5px;
+                "
+              >
+                <img src="../../../assets/img/justica.png" />
+                <b style="margin-left: 5px">Decisão </b>
+              </aside>
+            </div>
+            <div class="card-body">
+              <!-- <aside *ngIf="this.diversos.id === this.getId  ; else verDisciplinar"> -->
+
+              <div class="col-sm-6 pull-left">
+                <aside class="mb-1">
+                  <b>ID: </b> {{ this.dadosDecisao?.id }}
+                </aside>
+                <aside class="mb-1">
+                  <b>Nº do Processo: </b> 000{{this.dadosDecisao?.processo}}/DAJ/{{this.dadosDecisao?.updated_at}}
+                </aside>
+                <aside class="mb-1">
+                  <b>Nº do Oficío: </b> {{ this.dadosDecisao?.oficio }}
+                </aside>
+                <aside class="mb-1">
+                  <b>N* Despcaho:</b> {{ this.dadosDecisao?.despacho }}<br />
+                </aside>
+                <aside class="mb-1">
+                  <b>Tipo de Decisao:</b> {{ this.dadosDecisao?.decisao }}<br />
+                </aside>
+                <aside class="mb-1">
+                  <b>Transcricao:</b> {{ this.dadosDecisao?.transcricao }}
+                </aside>
+              </div>
+            </div>
+
+            <nav class="navbar navbar-light bg-light" style="margin-top: 2em">
+              <form class="form-inline">
+                <select
+                  class="form-control mr-sm-1"
+                  (change)="filtrarPecasDecisao('perPage', $event)"
+                >
+                  <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">
+                    {{ item }}
+                  </option>
+                </select>
+                <input
+                  class="form-control mr-sm-1"
+                  type="text"
+                  [ngModel]="filtro.search"
+                  (ngModelChange)="filtrarPecasDecisao('search', $event)"
+                  placeholder="Pesquisa ..."
+                />
+                <button
+                  (click)="this.recarregarPecasDecisao()"
+                  id="btpe1"
+                  class="btn btn-outline-success my-2 my-sm-0"
+                  type="submit"
+                >
+                  <i
+                    style="font-size: 14px"
+                    class="fa fa-refresh fa-spin fa-3x fa-fw"
+                  ></i>
+                  <b>Pesquisar</b>
+                </button>
+              </form>
+            </nav>
+
+            <div class="col-sm-12 pull-right">
+              <aside class="mb-1">
+                <table
+                  class="table table-border table-striped custom-table datatable mb-0"
+                >
+                  <thead>
+                    <tr>
+                      <th>Peças da Decisão</th>
+                      <th>Dados da Decisão</th>
+                      <th>Visualizar</th>
+                      <th class="text-right">Baixar</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="
+                        let item of this.pecasDecisao
+                          | paginate
+                            : {
+                                itemsPerPage: this.pagination.per_page,
+                                currentPage: this.pagination.current_page,
+                                totalItems: this.pagination.total
+                              };
+                        index as i
+                      "
+                    >
+                      <td>{{ item.id }}</td>
+                      <td>{{ this.dadosDecisao?.data }}</td>
+                      <td>
+                        <button
+                          (click)="verFile(item)"
+                          class="btn btn-outline-primary bi bi-eye-fill"
+                        ></button>
+                      </td>
+
+                      <td class="text-right">
+                        <button
+                          (click)="downloadFile(item)"
+                          class="btn btn-outline-primary bi bi-download"
+                        ></button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </aside>
+            </div>
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-sm-6">
+                  Mostrando de {{ this.pagination.current_page }} á
+                  {{ this.pagination.per_page }} de
+                  {{ this.pagination.total }} Registo
+                </div>
+                <div class="col-sm-6">
+                  <div class="float-right">
+                    <pagination-controls
+                      id="funcionarioEspecial"
+                      (pageChange)="this.filtrarPecasDecisao('page', $event)"
+                      [directionLinks]="true"
+                      [autoHide]="true"
+                      previousLabel="Anterior"
+                      nextLabel="Próximo"
+                      [maxSize]="4"
+                      [responsive]="true"
+                    ></pagination-controls>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="card">
+            <div class="card-header">
+              <aside
+                style="
+                  background-color: #002d59;
+                  color: white;
+                  padding: 5px 5px 5px 5px;
+                "
+              >
+                <img src="../../../assets/img/justica.png" />
+                <b style="margin-left: 5px"> Historico da Decisão </b>
+              </aside>
+            </div>
+
+            <nav class="navbar navbar-light bg-light">
+              <form class="form-inline">
+                <select
+                  class="form-control mr-sm-1"
+                  (change)="filtrarHistoricoDecisao('perPage', $event)"
+                >
+                  <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">
+                    {{ item }}
+                  </option>
+                </select>
+                <input
+                  class="form-control mr-sm-1"
+                  type="text"
+                  [ngModel]="filtro.search"
+                  (ngModelChange)="filtrarHistoricoDecisao('search', $event)"
+                  placeholder="Pesquisa ..."
+                />
+                <button
+                  (click)="this.recarregarHistoricoDecisao()"
+                  id="btpe1"
+                  class="btn btn-outline-success my-2 my-sm-0"
+                  type="submit"
+                >
+                  <i
+                    style="font-size: 14px"
+                    class="fa fa-refresh fa-spin fa-3x fa-fw"
+                  ></i>
+                  <b>Pesquisar</b>
+                </button>
+              </form>
+            </nav>
+            <div class="col-md-12">
+              <table
+                class="table table-border table-striped custom-table datatable mb-0"
+              >
+                <thead>
+                  <tr>
+                    <th>N* processo</th>
+                    <th>N* Decisão</th> 
+                    <th>Tipo de  Decisao</th>
+                    <th>Estado</th>
+                    <th>Data de Registro</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="
+                      let item of this.historicoDecisao
+                        | paginate
+                          : {
+                              itemsPerPage: this.pagination.per_page,
+                              currentPage: this.pagination.current_page,
+                              totalItems: this.pagination.total
+                            };
+                      index as i
+                    "
+                  >
+                    <td>
+                      000{{ item.processo }}/DAJ/{{ this.item.created_at }}
+                    </td>
+                    <td>{{ item.oficio }}</td> 
+                    <td>{{ item.decisao }}</td>
+                    <td>
+                      <ng-container *ngIf="item.activo; else elseTemplate">
+                        <span class="custom-badge status-green">Activo</span>
+                      </ng-container>
+                      <ng-template #elseTemplate>
+                        <span class="custom-badge status-red">Inactivo</span>
+                      </ng-template>
+                    </td>
+                    <td>{{ item.created_at }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-sm-6">
+                  Mostrando de {{ this.pagination.current_page }} á
+                  {{ this.pagination.per_page }} de
+                  {{ this.pagination.total }} Registo
+                </div>
+                <div class="col-sm-6">
+                  <div class="float-right">
+                    <pagination-controls
+                      id="funcionarioEspecial"
+                      (pageChange)="
+                        this.filtrarHistoricoDecisao('page', $event)
+                      "
+                      [directionLinks]="true"
+                      [autoHide]="true"
+                      previousLabel="Anterior"
+                      nextLabel="Próximo"
+                      [maxSize]="4"
+                      [responsive]="true"
+                    ></pagination-controls>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+        </div>
+      </div> 

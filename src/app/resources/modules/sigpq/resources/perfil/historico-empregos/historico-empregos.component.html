@@ -1,0 +1,157 @@
+<div class="row">
+  <div class="col-md-12">
+      <nav class="navbar navbar-light bg-light w-100">
+          <div class="form-inline align-items-center d-flex justify-content-between w-100">
+              <div class="d-flex justify-content-start">
+                  <select class="form-control mr-sm-1" (change)="filtrarPagina('perPage', $event)">
+                      <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">{{ item }}</option>
+                  </select>
+                  <input class="form-control mr-sm-1" type="text" [ngModel]="filtro.search"
+                      name="search" placeholder="Pesquisa ..."
+                      (ngModelChange)="filtrarPagina('search', $event)" />
+                  <button class="btn-piips btn-piips-primary m-0" (click)="this.recarregarPagina()">
+                      <i style="font-size: 14px" class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+                      <b>Recarregar</b>
+                  </button>
+              </div>
+          </div>
+      </nav>
+  </div>
+
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+      <div class="table-responsive">
+          <table class="table table-border table-striped custom-table datatable mb-0">
+              <thead>
+                  <tr>
+                      <th>ID</th>
+                      <th>Empresa</th>
+                      <th>Cargo</th>
+                      <th>Ano de Início</th>
+                      <th>Ano de Fim</th>
+                      <th>Tipo de Contrato</th>
+                      <th>Data de Registo</th>
+                      <th>Data de Actualização</th>
+                      <th class="text-right">Operação</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let item of this.historicoEmpregos | paginate: { id: 'historicoId', itemsPerPage: this.pagination.per_page, currentPage: this.pagination.current_page, totalItems: this.pagination.total }; index as i">
+                      <td>{{ i + 1 }}</td>
+                      <td>{{ item.empresa | uppercase }}</td>
+                      <td>{{ item.cargo | uppercase }}</td>
+                      <td>{{ item.ano_inicio }}</td>
+                      <td>{{ item.ano_fim }}</td>
+                      <td>{{ item.tipo_de_contrato | uppercase }}</td>
+                      <td>{{ item.created_at }}</td>
+                      <td>{{ item.updated_at }}</td>
+                      <td class="text-right">
+                           <div class="dropdown dropdown-action position-static">
+                              <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
+                                  aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                              <div class="dropdown-menu">
+                                  <a class="dropdown-item" href="javascript:void(0)"
+                                      (click)="visualizar(item)">
+                                      <i class="fa fa-eye m-r-5"></i>
+                                      Visualizar
+                                  </a>
+
+                                  
+                              </div>
+
+                          </div>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>
+
+  <!-- Paginação -->
+  <div class="col-md-12">
+      <div class="row">
+          <div class="col-sm-6">
+              Mostrando de {{ this.pagination.current_page }} á
+              {{ this.pagination.per_page }} de {{ this.pagination.total }} Registos
+          </div>
+          <div class="col-sm-6">
+              <div class="float-right">
+                  <pagination-controls id="historicoId" (pageChange)="this.filtrarPagina('page', $event)"
+                      [directionLinks]="true" [autoHide]="false" previousLabel="Anterior"
+                      nextLabel="Próximo" [maxSize]="4" [responsive]="true"></pagination-controls>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+<div id="modalEmprego" class="modal secand-modal" tabindex="-1" role="dialog" style="display:none;" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="overflow-y: hidden;min-width: 70%;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5>
+            <i class="fa fa-user"></i>
+            Visualizar documento
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal('modalEmprego')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="content">
+          <div class="modal-body">
+            <div class="row">
+  
+              <div class="col-sm-12">
+                <nav class="navbar navbar-light bg-light">
+                  <h3>{{this.documento?.sigpq_tipo_documento_nome}}</h3>
+                  <aside *ngIf="this.documento">
+                    <span *ngIf="this.documento.activo" class="custom-badge status-green">Activo</span>
+                    <span *ngIf="!this.documento.activo" class="custom-badge status-orange">Inactivo</span>
+                  </aside>
+                </nav>
+                <div class="col-sm-12">
+                  <aside *ngIf="carregarDocumento;else carregarDocumentoVerMensagem">
+                    <div class="container">
+                      <div class="row justify-content-center">
+                        Carregando documento ...
+                        <div class="col-sm-12 text-center">
+                          <div class="spinner-border text-primary" style="width: 2rem; height: 2rem;" role="status">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </aside>
+                  <ng-template #carregarDocumentoVerMensagem>
+                    <aside *ngIf="fileUrl; else verMensagem">
+                      <iframe [src]="fileUrl" width="100%" height="700px"></iframe>
+                    </aside>
+                    <ng-template #verMensagem>
+                      <div class="container">
+                        <div class="row justify-content-center">
+                          <div class="col-sm-12 text-center">
+                            Sem documento adicionado
+                          </div>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </ng-template>
+                </div>
+  
+              </div>
+  
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal('modalEmprego')">
+              <span class="fa fa-close m-r-2"></span>Fechar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

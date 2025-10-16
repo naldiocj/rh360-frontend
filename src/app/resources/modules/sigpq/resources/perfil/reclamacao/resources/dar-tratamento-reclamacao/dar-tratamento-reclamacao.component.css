@@ -1,0 +1,30 @@
+.texto{
+    font-size: 1.1rem;
+  }
+  
+  .bold{
+    font-weight: bolder;
+  }
+  
+  .observacao{
+    font-size: 1.1rem;
+  }
+  
+  .inc{
+    font-size: 1.02rem;
+    font-weight: bold;
+  }
+  
+  .titulo{
+    font-size: 1.2rem;
+  }
+  .title-header{
+    font-size: 1.1rem;
+  }
+  .iframe{
+    width: 100%;
+    height: 600px;
+    overflow: hidden;
+    border: none!important;
+    
+   }

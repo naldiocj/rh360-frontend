@@ -1,0 +1,132 @@
+<main id="main_" class="main_">
+  <div class="pagetitle my-3">
+    <h1>
+      <i class="bi bi-person-square"></i><span class="mx-2">Meu perfíl</span>
+    </h1>
+  </div>
+
+  <section class="section profile">
+    <div class="row align-items-stretch">
+      <div class="col-xl-3 col-lg-3 col-md-4 col-sm-12">
+        <div class="card shadow rounded-2">
+          <div class="card-body profile-card py-4 d-flex flex-column align-items-center">
+            <div style="position: relative">
+              <ng-container *ngIf="this.fileUrl; else semImage">
+                <img [src]="this.fileUrl" alt="Profile" class="rounded-circle my-2" style="width: 150px; height: 120px"
+                  (click)="setPessoa(this.perfil)" />
+                <div style="
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 50%;
+                    background-color: lightgreen;
+                    border: 3px solid white;
+                    position: absolute;
+                    top: 15px;
+                    right: 10px;
+                  "></div>
+              </ng-container>
+              <ng-template #semImage>
+                <img src="assets/img/user.jpg" alt="Profile" class="rounded-circle my-2"
+                  style="width: 150px; height: 120px" />
+                <div style="
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 50%;
+                    background-color: lightgreen;
+                    border: 3px solid white;
+                    position: absolute;
+                    top: 15px;
+                    right: 10px;
+                  "></div>
+              </ng-template>
+            </div>
+            <h5 class="my-1 text-center">
+              {{ this.perfil?.nome_completo | uppercase }} <br />
+              {{ this.perfil?.apelido | uppercase }}
+            </h5>
+            <h6 class="text-muted" *ngIf="this.perfil != null">
+              {{ this.perfil?.patente_nome }}
+            </h6>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-9 col-lg-9 col-md-8 col-sm-12">
+        <div class="card shadow rounded-2">
+          <div class="card-body profile-card py-4 d-flex flex-column" style="row-gap: 0.8rem">
+            <div class="row">
+              <div class="col-lg-4 col-md-4 label">Nome completo</div>
+              <div class="col-lg-8 col-md-8">
+                {{this.utilsHelper.capitalize(this.perfil?.nome_completo) }}
+
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-4 col-md-4 label">Patente</div>
+              <div class="col-lg-8 col-md-8">
+                {{ this.utilsHelper.capitalize(this.perfil?.patente_nome)}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-4 col-md-4 label">NAS</div>
+              <div class="col-lg-8 col-md-8">
+                {{ this.perfil?.numero_agente ?? 'S/N' }}
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-4 col-md-4 label">NIP</div>
+              <div class="col-lg-8 col-md-8">
+                <ng-container
+                  *ngIf="this.perfil?.nip && this.utilsHelper.temQuadro(this.perfil?.regime_quadro); else semQuadro">
+                  {{this.perfil?.regime_quadro}} {{ this.perfil.nip }}
+                </ng-container>
+                <ng-template #semQuadro>
+                  S/N
+                </ng-template>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-4 col-md-4 label ">Colocação</div>
+              <div class="col-lg-8 col-md-8">
+                {{ this.utilsHelper.capitalize(this.perfil?.sigpq_funcionario_orgao?.nome_completo)}}
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-4 col-md-4 label ">Cargo</div>
+              <div class="col-lg-8 col-md-8">
+                {{this.utilsHelper.buscarFuncao(this.perfil?.regime_nome,this.perfil?.sigpq_funcao?.nome,
+                this.perfil?.sigpq_cargo?.nome)}}</div>
+            </div>
+
+            <!-- <div class="row">
+                    <div class="col-lg-4 col-md-4 label ">Contacto</div>
+                    <div class="col-lg-8 col-md-8">+244  9XX-XXX-XXX</div>
+                  </div> -->
+
+            <div class="row">
+              <div class="col-lg-4 col-md-4 label">
+                E-mail Institucional
+              </div>
+              <div class="col-lg-8 col-md-8">{{ this.email }}</div>
+            </div>
+
+          </div>
+
+          <!-- <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+                  <app-edit-perfil></app-edit-perfil>
+
+                </div> -->
+
+          <!-- <div class="tab-pane fade pt-3" id="profile-change-password">
+                  <app-edit-pass></app-edit-pass>
+                </div> -->
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+
+<pa-zoom-foto [isEfectivo]="true" [pessoa]="this.pessoa" (onSair)="this.setNullPessoa()"></pa-zoom-foto>

@@ -1,0 +1,41 @@
+                        <h5 class="card-title">Documentos em [Formato PDF]</h5>
+                        <form [formGroup]="this.simpleForm" class="row d-flex align-items-center">
+                          <div class="form-group col-md-12">
+                            <label><b>Espaço reservado para digitalização de documentos</b></label>
+
+                              <!-- <h3 class="page-title" style="color: #041b43;"><b>Criar novo Documento</b> </h3> -->
+                              <angular-editor [config]="editorConfig" [(ngModel)]="htmlContent">
+                              </angular-editor>
+
+                              <div class="row">
+                                <div class="col-sm-12 m-t-20">
+                                  <button (click)="getContent()" type="button" class="btn btn-primary submit-btn" style="background-color: #041b43;color: white;">
+                                    Visualizar Documento
+                                  </button>
+                                </div>
+                              </div>
+
+                            <div class="row">
+                              <div class="col-md-12 d-flex justify-content-end">
+                                <button class="btn-piips btn-piips-red py-2 m-0" (click)="this.reiniciarFormulario()">
+                                  <span class="fa fa-refresh"></span> Limpar
+                                </button>
+
+                                <button [disabled]="this.carregando|| this.submitted || !this.simpleForm.valid" type="button"
+                                  (click)="onSubmit()" class="btn-piips btn-piips-primary m-0 py-2" style="border-radius: 0px">
+                                  <ng-container *ngIf="this.carregando || this.submitted; else naoRegistar">
+                                    <div class="spinner-border spinner-border-sm m-1"></div>
+                                    Carregando...
+                                  </ng-container>
+                                  <ng-template #naoRegistar>
+
+                                    {{this.getId ? 'Editar': 'Gravar'}}
+
+                                  </ng-template>
+                                </button>
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </form>

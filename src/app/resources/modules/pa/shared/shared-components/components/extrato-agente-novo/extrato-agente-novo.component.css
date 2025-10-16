@@ -1,0 +1,197 @@
+.ficha-completa {
+  width: 100%;
+}
+
+.header-ficha {
+  width: 100%;
+ /*  background-color: #041B4E; */
+  margin: 0 auto;
+  padding: .8rem;
+  color: #041B4E;
+}
+
+.ficha-completa span{
+  font-size: 14px;
+}
+
+.main-ficha {
+  width: 99%;
+  margin: .4rem auto;
+
+}
+
+th{
+  text-transform: uppercase;
+}
+
+.titulo{
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+.descricao{
+  margin-left: 5px;
+}
+.ficha-ficha {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.ficha-ficha .img-background {
+  position: fixed;
+  width: 800px;
+  height: 850px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.img-background img {
+  width: 100%;
+  height: 100%;
+}
+
+
+.header-content-ficha {
+  width: 100%;
+  padding: .8rem .4rem;
+  background-color: var(--use-color);
+  color: white;
+  margin: .8rem auto;
+}
+
+.header-content-ficha h5 {
+  text-transform: uppercase;
+}
+
+.main-ficha .image-civil {
+  width: 160px;
+  height: 180px;
+  display: block;
+  object-fit: fill;
+}
+
+.civil{
+  margin-top: 60px;
+}
+
+
+.main-ficha .image-civil img {
+  width: 110%;
+  height: 110%;
+  margin-left: -15px;
+}
+.nome-agente{
+  width: 80%;
+  text-align: center;
+  color: var(--use-color);
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+}
+.mais-dados {
+  max-width: 98%;
+  margin: .8rem auto;
+}
+
+.border-dados {
+  width: 100%;
+  margin: 0 auto;
+  padding: .8rem .4rem;
+  /* border: 1px solid rgba(0, 0, 0, 0.25); */
+}
+
+b {
+  font-weight: 500;
+}
+
+b+* {
+  font-weight: 600;
+}
+
+
+.card-footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 0 !important;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+}
+
+.img-background img {
+  width: 100%;
+  height: 100%;
+}
+
+.card-body {
+  width: 100%;
+  margin-top: 0rem !important;
+
+  margin-bottom: 100px !important;
+}
+
+.another-text {
+  display: flex;
+  grid-gap: -0.8rem;
+  flex-direction: column;
+  border-left: 1px solid black;
+  margin-left: -0.8rem;
+  padding: 1rem 0px 0px 0.8rem;
+}
+
+.another-text p {
+  line-height: 8px;
+}
+
+.only-p {
+  line-height: 2px !important;
+}
+
+.card-body {
+  padding-top: 0px !important;
+}
+
+.card-header {
+  padding-bottom: 0px !important;
+}
+
+.text-body {
+  padding: 0rem 3.6rem 1rem 3.6rem;
+}
+
+.dropdown-options {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: normal;
+    margin-left: 3px;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+
+.option-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    margin-left: 44px;
+    text-transform: capitalize;
+}
+
+.option-item:hover {
+  text-decoration: bold; /* Adiciona um efeito de hover */
+}
+
+
+.option-item-item{
+  display: flex;
+  align-items: flex-start;
+  width: max-content;
+  justify-content: space-between;
+  text-transform: capitalize;
+}

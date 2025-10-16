@@ -1,0 +1,305 @@
+<section
+    id="{{grupoId}}"
+    class="offcanvas   offcanvas-container "
+    tabindex="-1"
+    aria-labelledby="offcanvasExampleLabel"
+    *ngIf="grupoId"
+>
+
+ 
+   
+    <div *ngIf="grupoData">
+        <div class="associa">
+            <!-- Informações da Associação -->
+            <p>
+                <strong>Código do Sistema:</strong>
+                {{ grupoData.associacao.codigo_sistema }}
+            </p>
+            <p>
+                <strong>Local de Atuação:</strong>
+                {{ grupoData.associacao.local_atuacao }}
+            </p>
+            <p>
+                <strong>Ponto de Concentração:</strong>
+                {{ grupoData.associacao.ponto_concentracao }}
+            </p>
+            <p>
+                <strong>Hora de Concentração:</strong>
+                {{ grupoData.associacao.hora_concentracao | date: 'dd/MM/yyyy HH:mm'}}
+            </p>
+            <p>
+                <strong>Hora de Atuação:</strong>
+                {{ grupoData.associacao.hora_atuacao | date: 'dd/MM/yyyy HH:mm'}}
+            </p>
+            <p>
+                <strong>Meios:</strong>
+                {{ grupoData.associacao.meios }}
+            </p>
+            <p>
+                <strong>Modo Operante:</strong>
+                {{ grupoData.associacao.modo_operante }}
+            </p>
+        </div>
+        <!-- Informações do Grupo Principal -->
+
+        <!-- Modo Operante -->
+        <div class="container">
+            <!-- Card closed state -->
+            <div class="card--closed p-2">
+                <div class="fs-2 mt-0">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="30"
+                        height="30"
+                        fill="currentColor"
+                        class="bi bi-person-fill"
+                        viewBox="0 0 14 14"
+                    >
+                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"></path>
+                    </svg>
+                </div>
+
+                <div class="divisor--closed"></div>
+                <p class="title mt-3">&nbsp; Modos Operantes</p>
+                <div class="divisor--open"></div>
+            </div>
+            <!-- Card opened state -->
+            <div class="card--open">
+
+                <!-- Verifica se a lista 'item.delituosos' está vazia -->
+                <div *ngFor=" let items of grupoData.modooperantes">
+                    <div class="mt-1 container-min">
+                        <div class>
+                            {{items.codigo_sistema}}
+                            <div>
+                                <h5>
+                                    <strong>titulo:</strong>
+                                    {{ items.titulo }}
+                                </h5>
+                                <p>
+                                    <strong>Crime:</strong>
+                                    {{ items.familia_crime || 'Desconhecida' }}
+                                </p>
+                                <h5>
+                                    <strong>observacao:</strong>
+                                    {{ items.descricao || 'Não informado' }}
+                                </h5>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Card Antecedentes -->
+        <div class="container">
+            <!-- Card closed state -->
+            <div class="card--closed">
+                <svg
+                    class="icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="30"
+                    height="30"
+                    fill="currentColor"
+                    class="bi bi-people-fill"
+                    viewBox="0 0 16 16"
+                >
+                    <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"></path>
+                </svg>
+                <div class="divisor--closed"></div>
+                <p class="title mt-3">Antecedentes</p>
+                <div class="divisor--open"></div>
+            </div>
+            <!-- Card opened state -->
+            <div class="card--open">
+
+                <fieldset>
+                    <legend>
+                        <i class="bi bi-people-fill"></i>
+                        Antecedentes
+                    </legend>
+                    <!-- Verifica se a lista 'item.delituosos' está vazia -->
+                    <div *ngIf="grupoData.antecedentes && grupoData.antecedentes.length > 0; else vazioTemplate">
+                        <div *ngFor="let delituoso of grupoData.antecedentes">
+                            <div class="row mt-2">
+                                <div class="col-sm-5 offset-sm-2 col-md-9 offset-md-0">
+                                    <p>
+                                        <strong>Código do Sistema:</strong>
+                                        {{ delituoso.codigo_sistema }}
+                                    </p>
+                                    <div class="d-flex">
+                                        <p>{{delituoso.titulo}}</p>
+                                        <p>{{delituoso.familia_crime}}</p>
+                                        Crime - {{delituoso.tipicidade_crime}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Template a ser exibido se a lista de delituosos estiver vazia -->
+                    <ng-template #vazioTemplate>
+                        <p class="text-center">Não há delituosos para exibir.</p>
+                    </ng-template>
+
+                </fieldset>
+
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- Card closed state -->
+            <div class="card--closed">
+                <svg
+                    class="icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="30"
+                    height="30"
+                    fill="currentColor"
+                    class="bi bi-people-fill"
+                    viewBox="0 0 16 16"
+                >
+                    <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"></path>
+                </svg>
+                <div class="divisor--closed"></div>
+                <p class="title mt-3">
+                    Grupo {{grupoData.grupo_principal.codigo_sistema}}
+                </p>
+                <div class="divisor--open"></div>
+            </div>
+            <!-- Card opened state -->
+            <div class="card--open">
+                <div class="grid text-start">
+                    <div class="g-col-6 ml-2">
+                        Nome: {{grupoData.grupo_principal.nome }}
+                    </div>
+                    <div class="g-col-6 ml-2">
+                        Codigo sistema: {{grupoData.codigo_sistema}}
+                    </div>
+                </div>
+
+                <fieldset>
+                    <legend>
+                        <i class="bi bi-people-fill"></i>
+                        Delituosos Associados
+                    </legend>
+                    <!-- Verifica se a lista 'item.delituosos' está vazia -->
+                    <div *ngIf="grupoData.grupo_principal.delituosos && grupoData.grupo_principal.delituosos.length > 0; else vazioTemplate">
+                        <div *ngFor="let delituoso of grupoData.grupo_principal.delituosos">
+                            <div class="row mt-2">
+                                <div class="col-sm-3 col-md-3">
+                                    <div class="borders">
+                                        <div class="borders-img">
+                                            <img
+                                                [src]="delituoso.fileUrlFrontal || fotodfault"
+                                                alt
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5 offset-sm-2 col-md-9 offset-md-0">
+                                    <p>
+                                        <strong>Código do Sistema:</strong>
+                                        {{ delituoso.codigo_sistema }}
+                                    </p>
+                                    <div class="d-flex">
+                                        - {{delituoso.delituoso_nome}}
+                - Idade: {{calculateAge(delituoso.dataNascimento)}}
+                                        <div *ngIf="idade !== null">{{ idade }}</div>
+                                    </div>
+                                    <div class="g-col-6 ml-1">Apelido: {{delituoso.alcunha}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Template a ser exibido se a lista de delituosos estiver vazia -->
+                    <ng-template #vazioTemplate>
+                        <p class="text-center">Não há delituosos para exibir.</p>
+                    </ng-template>
+
+                </fieldset>
+
+            </div>
+        </div>
+
+        <!-- Informações dos Grupos Associados -->
+
+        <div *ngFor="let grupo of grupoData.grupo_associado">
+            <!-- Card -->
+            <div class="container">
+                <!-- Card closed state -->
+                <div class="card--closed">
+                    <svg
+                        class="icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="30"
+                        height="30"
+                        fill="currentColor"
+                        class="bi bi-people-fill"
+                        viewBox="0 0 16 16"
+                    >
+                        <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"></path>
+                    </svg>
+                    <div class="divisor--closed"></div>
+                    <p class="title mt-3">Grupo {{grupo.codigo_sistema}}</p>
+                    <div class="divisor--open"></div>
+                </div>
+                <!-- Card opened state -->
+                <div class="card--open">
+                    <div class="grid text-start">
+                        <div class="g-col-6 ml-2">Nome: {{grupo.nome}}</div>
+                        <div class="g-col-6 ml-2">
+                            Codigo sistema: {{grupo.codigo_sistema}}
+                        </div>
+                    </div>
+
+                    <fieldset>
+                        <legend>
+                            <i class="bi bi-people-fill"></i>
+                            Delituosos Associados
+                        </legend>
+                        <!-- Verifica se a lista 'item.delituosos' está vazia -->
+                        <div *ngIf="grupo.delituosos && grupo.delituosos.length > 0; else vazioTemplate">
+                            <div *ngFor="let delito of grupo.delituosos">
+                                <div class="row mt-2">
+                                    <div class="col-sm-3 col-md-3">
+
+                                        <div class="borders">
+                                            <div class="borders-img">
+                                                <img
+                                                    [src]="delito.fileUrlFrontal || fotodfault"
+                                                    alt
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5 offset-sm-2 col-md-9 offset-md-0">
+                                        <div class="d-flex">
+                                            - {{delito.delituoso_nome}}
+                - Idade: {{calculateAge(delito.dataNascimento)}}
+                                            <div *ngIf="idade !== null">{{ idade }}</div>
+                                        </div>
+                                        <div class="g-col-6 ml-1">Apelido: {{delito.alcunha}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Template a ser exibido se a lista de delituosos estiver vazia -->
+                        <ng-template #vazioTemplate>
+                            <p class="text-center">Não há delituosos para exibir.</p>
+                        </ng-template>
+
+                    </fieldset>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>

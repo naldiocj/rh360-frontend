@@ -1,0 +1,45 @@
+<div class="modal fade" id="reset-password">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header d-flex justify-content-between align-items-center">
+                <span class="d-flex align-items-center justify-content-start">
+                    <i class="fa fa-lock mx-2"></i>
+                    Redefinir senha
+                </span>
+                <button (click)="emitaEvento()" style="border:none; outline:none;" id="btn-close-redefinir-senha"
+                    type="button" class="close text-red" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex justify-content-center align-items-center flex-column">
+                    <p>Será redefinida senha do utilizar <span
+                            style="font-weight:bold; text-decoration:underline">{{this.utilizador?.username}}</span> com
+                        e-email
+                        <span style="font-weight:bold; text-decoration:underline">{{this.utilizador?.email}}</span>
+                        registado no <span
+                            style="font-weight:bold; text-decoration:underline">{{this.utilizador?.modulo_nome}}</span>
+                        ,
+                        tendo a sua
+                        colocação
+                        no/a <span style="font-weight:bold; text-decoration:underline">{{this.utilizador?.orgao}}</span>
+                    </p>
+                    <p>Para senha padraão: <span style="font-weight:bold; text-decoration:underline">12345678</span>
+                    </p>
+                    <p>Tens certeza?</p>
+                    <div class="d-flex justfy-content-center align-items-center">
+
+                        <button data-dismiss="modal" (click)="emitaEvento()" type="button"
+                            class="btn-piips-red btn-piips m-0">
+                            <i class="fa fa-close"></i> Cancelar
+                        </button>
+                        <button (click)="this.redefinirSenha(this.utilizador?.id)" type="button"
+                            class="btn-piips-primary btn-piips m-0">
+                            <i class="fa fa-check"></i> OK
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

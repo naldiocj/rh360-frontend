@@ -1,0 +1,184 @@
+<sigpj-registar-ou-editar-model [novoProcesso]="this.novoProcesso"
+  (eventRegistarOuEditDisciplinarModel)="this.buscarDisciplinar()">
+</sigpj-registar-ou-editar-model>
+
+<main id="main_" class="main_">
+  <div class="header-ficha mb-2">
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 d-flex justify-content-start align-items-start"
+        style="column-gap:.8rem;">
+        <div class="image">
+          <img src="assets/img/logopolice.png" alt="image-logo" style="width:80px; height: 80px;">
+        </div>
+        <div class="logos">
+          <h1>POLÍCIA NACIONAL DE ANGOLA</h1>
+          <h3 class="text-uppercase">Sistema de Gestão de Processos Jurídicos</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pagetitle mb-4">
+    <h1> <i class="bi bi-journal-text"></i><span class="mx-2">Listagem do processo disciplinar </span></h1>
+  </div>
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+
+        <nav class="navbar navbar-light bg-light">
+          <form class="form-inline">
+            <select class="form-control mr-sm-1" (change)="filtrarPagina('perPage',$event)">
+              <option *ngFor="let item of [5,10,20,50]" [value]="item">{{item}}</option>
+            </select>
+            <input class="form-control mr-sm-1" type="text" [ngModel]="filtro.search"
+              (ngModelChange)="filtrarPagina('search',$event)" placeholder="Nº processo, ofício, orgão ...">
+            <button (click)="this.recarregarPagina()" id="btpe1" class="btn btn-outline-success my-2 my-sm-0"
+              type="submit">
+              <i style="font-size: 14px;" class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+              <b>Recarregar</b>
+            </button>
+            <a data-toggle="modal" id="book" class="btn btn btn-primary btn-rounded float-right"
+              data-target="#modalRegistarOuEditarDisciplinar">
+              <i class="bi bi-plus-circle"></i> <b> Registar</b>
+            </a>
+          </form>
+          <div>
+            <span *ngFor="let item of estados" class="btn btn btn-primary float-right" [ngStyle]="{'background-color': buscarCor(item)}">{{buscarTexto(item)}}</span>
+          </div>
+        </nav>
+        <table class="table text-center table-border table-striped custom-table datatable mb-2">
+          <thead class="text-center">
+            <tr>
+              <th>#</th>
+              <th>ID</th>
+              <th class="text-center">Nº de Processo</th>
+              <th class="text-center">Nº de Ofício</th>
+              <th class="text-center">Orgão de proveniência</th>
+              <!-- <th>Função</th> -->
+              <th class="text-center">Nº de Intervenientes</th>
+              <th class="text-center">Data de Registro</th>
+              <th colspan="3" class="text-right">Operação</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="this.isLoading">
+              <td colspan="9">
+                <aside *ngIf="this.isLoading">
+                  <loading-page [texto]="'lista de processos disciplinares'"></loading-page>
+                </aside>
+              </td>
+            </tr>
+            <tr
+              *ngFor="let item of this.disciplinars | paginate: { id: 'processo-disciplinar', itemsPerPage: this.pagination.per_page, currentPage: this.pagination.current_page,totalItems: this.pagination.total }; index as i">
+              <!-- <td class="text-center">{{ item.id }}/DAJ</td> -->
+              <td [ngStyle]="{'background-color': buscarCor(item.estado)}"></td>
+              <td class="text-center">{{this.totalBase + i}}</td>
+              <td class="text-center">
+                <a class="dropdown-item d-flex align-items-center text-dark"
+                  [routerLink]="[ '/piips/sigpj/processo/disciplinar/detalhes', item.id ]">
+                  {{ item.processo}}
+                </a>
+              </td>
+              <td class="text-center">{{ item.oficio }}</td>
+              <td class="text-center">({{ item.sigla }}) - {{ item.orgao }}</td>
+              <!-- <td>{{ item.funcao }}</td> -->
+              <td class="text-center">{{ item.totalInterveniente }}</td>
+              <td class="text-center">{{ item.updated_at }}</td>
+              <td class="text-right">
+                <nav class="header-nav_ flex-fill d-flex">
+                  <ul class="d-flex align-items-center">
+                    <li class="nav-item dropdown">
+                      <a class="nav-link nav-profile d-flex align-items-center" href="#" data-toggle="dropdown">
+                        <i class="fa fa-ellipsis-v"></i> ...
+                      </a>
+                      <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                        <li>
+                          <a class="dropdown-item d-flex align-items-center"
+                            [routerLink]="['/piips/sigpj/processo/disciplinar/detalhes', item.id ]">
+                            <i class="bi bi-list-ul"></i>
+                            <span>Mais detalhes</span>
+                          </a>
+                        </li>
+                        <!-- <li>
+                          <hr class="dropdown-divider">
+                        </li> -->
+                        <!-- <li>
+                          <a class="dropdown-item d-flex align-items-center text-dark"
+                            [routerLink]="['/piips/sigpj/processo/disciplinar/ver-pecas', item.id]">
+                            <i class="fa fa-eye"></i>
+                            <span>Ver peças</span>
+                          </a>
+                        </li>
+                        <li>
+                          <hr class="dropdown-divider">
+                        </li> -->
+                        <!-- <li>
+                          <a class="dropdown-item d-flex align-items-center text-dark pointer" data-toggle="modal"
+                            data-target="#modalRegistarOuEditarDisciplinar" (click)="this.setDisciplinar(item)">
+                            <i class="fa fa-pencil"></i>
+                            <span>Editar processo</span>
+                          </a>
+                        </li> -->
+                        <!-- <li>
+                          <hr class="dropdown-divider">
+                        </li> -->
+
+                        <!-- <li>
+                          <a class="dropdown-item d-flex align-items-center text-dark"
+                            [routerLink]="['/piips/sigpj/processo/disciplinar/detalhes/listagem/parecer/registar-ou-editar',item.id]">
+                            <i class="bi bi-journal-text"></i>
+                            <span>Parecer</span>
+                          </a>
+                        </li> -->
+
+                        <!-- <li>
+                          <hr class="dropdown-divider">
+                        </li> -->
+                        <!--
+                        <li>
+                          <a class="dropdown-item d-flex align-items-center text-dark"
+                            [routerLink]="['/piips/sigpj/processo/disciplinar/detalhes/listagem/decisao/registar-ou-editar',item.id]">
+                            <i class="bi bi-journal-text"></i>
+                            <span>Decisão</span>
+                          </a>
+                        </li> -->
+
+                        <!-- <li>
+                          <hr class="dropdown-divider">
+                        </li> -->
+
+                        <!-- <li>
+                          <a class="dropdown-item d-flex align-items-center text-dark"
+                            [routerLink]="['/piips/sigpj/processo/disciplinar/novos-arguidos',item.id]">
+                            <i class="bi bi-person-square"></i>
+                            <span>Adicionar Arguidos</span>
+                          </a>
+                        </li> -->
+
+                      </ul>
+                    </li>
+
+                  </ul>
+                </nav>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-sm-6">
+              Mostrando de {{ this.pagination.current_page }} á
+              {{ this.pagination.per_page }} de {{ this.pagination.total }} Registo
+            </div>
+            <div class="col-sm-6">
+              <div class="float-right">
+                <pagination-controls id="processo-disciplinar" (pageChange)="this.filtrarPagina('page', $event)"
+                  [directionLinks]="true" [autoHide]="true" previousLabel="Anterior" nextLabel="Próximo" [maxSize]="4"
+                  [responsive]="true"></pagination-controls>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

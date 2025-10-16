@@ -1,0 +1,14 @@
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
+private destroy$ = new Subject<void>();
+
+ngOnInit() {
+    meuObservable
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(value => console.log(value));
+}
+ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+}

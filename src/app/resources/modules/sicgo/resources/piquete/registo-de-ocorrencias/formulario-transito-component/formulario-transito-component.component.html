@@ -1,0 +1,310 @@
+<div class="page__content ml-2">
+    <div class="page__frame">
+        <div class="page-tab-header">
+            <p class="ml-0 pl-3">
+                <i class="bi bi-exclamation-triangle-fill text-warning"></i>
+                Os campos marcados com (<strong class="asterisco">*</strong>) são de carácter <strong>obrigatório</strong>.
+            </p>
+
+            <nav class="navigation" id="js--navid">
+                <ul class="navigation-menu">
+                  <li *ngFor="let option of menuOptions"
+                      class="nav-item"
+                      [class.active]="currentStep === option.step"
+                      [attr.aria-current]="currentStep === option.step ? 'page' : null">
+                  <a class="nav-tab t--tab" 
+                      (click)="handleNavigation(option)">
+                      <i [class]="option.icon"></i> {{ option.label }}
+                  </a>
+                  </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <section class="page__segment">
+        <div class="page__frame">
+            <div class="tab__content">
+              
+              
+ <!-- Step 1: Dados Primários -->
+ <form [formGroup]="ocorrenciaForm" (ngSubmit)="onSubmit()">
+    <div class="modal-body">
+         
+                        <div class="tab__content">
+                          
+             
+                           <!-- Step 1: Dados Primários -->
+                           <div *ngIf="currentStep === 1" class="row mt-4">
+
+                              
+                              <div class="form-group col-md-4">
+                                  <label><b>Família de crime</b> <span class="text-red">*</span></label>
+                                  <ng-select2 
+                                      class="custom-border ng-select-container" 
+                                      [options]="options" 
+                                      [data]="familiaCrimes" 
+                                      formControlName="sicgo_familia_crime_id" 
+                                      (valueChanged)="handlerTipocrime($event)" 
+                                      [class.is-invalid]="isInvalid('sicgo_familia_crime_id')">
+                                  </ng-select2>
+                                  <div class="error1 mt-2" *ngIf="isInvalid('sicgo_familia_crime_id')">
+                                      <small>Família de crime é obrigatório</small>
+                                  </div>
+                              </div>
+                              
+                              <div class="form-group col-md-4">
+                                  <label><b>Tipo de Crime</b> <span class="text-red">*</span></label>
+                                  <ng-select2 
+                                      [options]="options" 
+                                      [data]="tipoOcorrencias" 
+                                      formControlName="sicgo_tipo_crime_id" 
+                                      (valueChanged)="selecionarCategoriaCrime($event)" 
+                                      [class.is-invalid]="isInvalid('sicgo_tipo_crime_id')">
+                                  </ng-select2>
+                                  <div class="error1 mt-2" *ngIf="isInvalid('sicgo_tipo_crime_id')">
+                                      <small>Tipo de Crime é obrigatório</small>
+                                  </div>
+                              </div>
+                              
+                              <div class="form-group col-md-4">
+                                  <label><b>Tipicidade</b> <span class="text-red">*</span></label>
+                                  <ng-select2 
+                                      [options]="options" 
+                                      [data]="tipoCategorias" 
+                                      formControlName="sicgo_tipicidade_crime_id" 
+                                      [class.is-invalid]="isInvalid('sicgo_tipicidade_crime_id')">
+                                  </ng-select2>
+                                  <div class="error1 mt-2" *ngIf="isInvalid('sicgo_tipicidade_crime_id')">
+                                      <small>Tipicidade é obrigatório</small>
+                                  </div>
+                              </div>
+                              
+                            <div class="form-group col-md-4">
+                                <label><b>Importância</b> <span class="text-red">*</span></label>
+                                <ng-select2 [options]="options" [data]="importancias" formControlName="sicgo_importancia_id" [class.is-invalid]="sicgo_importancia_idValidate"></ng-select2>
+                                <div class="error1 mt-2" *ngIf="ocorrenciaForm.get('sicgo_importancia_id')?.invalid && ocorrenciaForm.get('sicgo_importancia_id')?.touched">
+                                    <small>Importância é obrigatório</small>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label><b>Tipo de Local</b> <span class="text-danger">*</span></label>
+                                <ng-select2 class="custom-border ng-select-container" [options]="options" [data]="tipolocals" formControlName="sicgo_tipo_local_id"></ng-select2>
+                                <div class="error1 mt-2" *ngIf="ocorrenciaForm.get('sicgo_tipo_local_id')?.invalid && ocorrenciaForm.get('sicgo_tipo_local_id')?.touched">
+                                    <small>Tipo de Local é obrigatório</small>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label><b>Local</b> <span class="text-red">*</span></label>
+                                <input type="text" class="form-control bt-radius" formControlName="local" [class.is-invalid]="local_Validate" />
+                                <div class="error1 mt-2" *ngIf="ocorrenciaForm.get('local')?.invalid && ocorrenciaForm.get('local')?.touched">
+                                    <small>Local é obrigatório</small>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label><b>Província</b> <span class="text-danger">*</span></label>
+                                <ng-select2 class="custom-border ng-select-container" [options]="options" [data]="provincias" [(ngModel)]="provincia" formControlName="provincia_id" (valueChanged)="handlerProvincias($event)"></ng-select2>
+                                <div class="error1 mt-2" *ngIf="ocorrenciaForm.get('provincia_id')?.invalid && ocorrenciaForm.get('provincia_id')?.touched">
+                                    <small>Província é obrigatório</small>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label><b>Município</b></label>
+                                <ng-select2 [options]="options" formControlName="municipio_id" [data]="municipios" (valueChanged)="selecionarMunicipio($event)"></ng-select2>
+                                <div class="error1 mt-2" *ngIf="ocorrenciaForm.get('municipio_id')?.invalid && ocorrenciaForm.get('municipio_id')?.touched">
+                                    <small>Município é obrigatório</small>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="date"><b>Data da ocorrência</b> <span class="text-danger">*</span></label>
+                                <input type="datetime-local" id="data" class="form-control bt-radius" formControlName="data_ocorrido" [class.is-invalid]="data_ocorridoValidate" [max]="validarData" />
+                                <div class="error1 mt-2" *ngIf="ocorrenciaForm.controls['data_ocorrido'].errors?.['futureDate']">A data não pode ser no futuro.</div>
+                                <div class="error1 mt-2" *ngIf="ocorrenciaForm.get('data_ocorrido')?.invalid && ocorrenciaForm.get('data_ocorrido')?.touched">
+                                    <small>Data ocorrido é obrigatório</small>
+                                </div>
+                            </div>
+                        </div>
+
+
+                           <!-- Step 2: Intervenientes -->
+                           <div *ngIf="currentStep === 2">
+                            <div formArrayName="veiculos" class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                <div *ngFor="let veiculo of veiculos; let i = index" [formGroupName]="i">
+                                    <div class="row">
+                                        <div class="col-xl-7 col-lg-7 col-md-7 col-sm-7 mt-4">
+                                            <label for="matricula"><b>Matrícula</b> <span class="text-red">*</span></label>
+                                            <input type="text" class="form-control" id="matricula" formControlName="matricula" placeholder="Ex: ABCD 12 AB" />
+                                            <span *ngIf="veiculo.get('matricula')?.valid && veiculo.get('matricula')?.touched" class="icon icon-valid">✔️</span>
+                                            <span *ngIf="veiculo.get('matricula')?.invalid && veiculo.get('matricula')?.touched" class="icon icon-invalid">❌</span>
+                                            <div *ngIf="veiculo.get('matricula')?.invalid && veiculo.get('matricula')?.touched" class="error">Matrícula inválida! O formato correto é: ABCD 12 AB.</div>
+                                        </div>
+                                        <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 mt-4">
+                                            <label><b>DANOS-AVALIADOS</b> <span class="text-red">*</span></label>
+                                            <input type="text" formControlName="danos" class="form-control" placeholder="500.000kz" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-4 mt-2">
+                                            <label><b>Marca</b> <span class="text-red">*</span></label>
+                                            <br>
+                                            <ng-select2 formControlName="marca" [options]="options" [(ngModel)]="selectedMarca" [data]="marcas" [valueField]="'id'" [labelField]="'text'" (ngModelChange)="onMarcaChange()"></ng-select2>
+                                        </div>
+                                        <div class="form-group col-xl-4 col-lg-4 col-md-4 col-sm-4 mt-2">
+                                            <label><b>Modelo</b> <span class="text-red">*</span></label>
+                                            <br>
+                                            <ng-select2 formControlName="modelo" [options]="options" [(ngModel)]="selectedModelo" [data]="modelosDisponiveis" [valueField]="'id'" [labelField]="'text'"></ng-select2>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 mt-2">
+                                            <label><b>COR</b> <span class="text-red">*</span></label>
+                                            <select formControlName="cor" class="form-control">
+                                                <option value="Vermelha">Vermelha</option>
+                                                <option value="Azul">Azul</option>
+                                                <option value="Castanha">Castanha</option>
+                                                <option value="Verde">Verde</option>
+                                                <option value="Preta">Preta</option>
+                                                <option value="Sizenta">Sizenta</option>
+                                                <option value="Amarela">Amarela</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="btn-group d-grid gap-2 mx-auto p-2 col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-4">
+                                            <button type="button" class="btn btn-danger" (click)="removeVeiculo(i)"><i class="bi bi-trash3-fill"></i> Remover o veículo</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="btn-group d-grid gap-2 col-12 mx-auto p-2" role="group">
+                                <button class="btn btn-primary" type="button" (click)="addVeiculo()"><i class="bi bi-car-front-fill"></i> Adicionar</button>
+                            </div>
+                        </div>
+
+                        <div *ngIf="currentStep === 3">
+
+                            <div class="row mt-2">
+                                <form (ngSubmit)="consultar()" class="ml-5" #biForm="ngForm">
+                                    <label for="biNumber">Bilhete de Identidade Nº:<br>
+                                        <input type="text" id="biNumber" [(ngModel)]="biNumber" name="biNumber" placeholder="Digite o BI" required minlength="8" maxlength="14" #biInput="ngModel" />
+                                    </label>
+                                    <div *ngIf="biInput.invalid && biInput.touched" class="error-message">O número do BI deve ter entre 8 e 14 caracteres.</div>
+                                    <button type="submit" [disabled]="biForm.invalid || isLoading" class="btn btn-primary">Consultar</button>
+                                </form>
+
+                                <div formArrayName="participantes" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-2">
+                                    <div *ngFor="let item of participantes; let i = index" [formGroup]="item">
+                                        <div class="row">
+                                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                                <label><b>Tipo de Interveniente</b> <span class="text-red">*</span></label>
+                                                <select formControlName="sicgo_denucia" class="form-control" [class.is-invalid]="sicgo_denucia_Validate">
+                                                    <option *ngFor="let tipo of tiposInterveniente" [value]="tipo.value">{{ tipo.label }}</option>
+                                                </select>
+                                                <div class="error1 mt-2" *ngIf="ocorrenciaForm.get('sicgo_denucia')?.invalid && ocorrenciaForm.get('sicgo_denucia')?.touched">
+                                                    <small class="error">Tipo de interveniente é obrigatório</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 form-group">
+                                                <label for="nome"><b>Nome {{ item.value.nome }}</b> <span class="text-red">*</span></label>
+                                                <input id="nome" type="text" placeholder="Nome" class="form-control bt-radius" formControlName="nome" [class.is-invalid]="nome_Validate" [value]="pesquisarDadosPessoaisForm.value.name" />
+                                                <div class="error1 mt-2" *ngIf="ocorrenciaForm.get('nome')?.invalid && ocorrenciaForm.get('nome')?.touched">
+                                                    <small>Nome ocorrido é obrigatório</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                                <label><b>Gênero</b> <span class="text-red">*</span></label>
+                                                <select formControlName="genero" class="form-control" [class.is-invalid]="genero_Validate" [value]="pesquisarDadosPessoaisForm.value.name">
+                                                    <option value="Masculino">Masculino</option>
+                                                    <option value="Femenino">Femenino</option>
+                                                </select>
+                                                <div class="error1 mt-2" *ngIf="ocorrenciaForm.get('genero')?.invalid && ocorrenciaForm.get('genero')?.touched">
+                                                    <small class="error">Gênero é obrigatório</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                                <label for="tel"><b>Telefone</b></label>
+                                                <input id="tel" class="form-control" formControlName="tel" placeholder="Telefone {{ i + 1 }}" />
+                                                <div class="error1 mt-2" *ngIf="ocorrenciaForm.get('tel')?.invalid && ocorrenciaForm.get('tel')?.touched">
+                                                    <small class="error">Telefone é obrigatório</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12">
+                                                <label><b>Remover</b></label>
+                                                <button type="button" class="btn btn-danger" (click)="removeParticipante(i)"><i class="bi bi-trash3-fill"></i></button>
+                                            </div>
+ 
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+
+                            <div class="btn-group d-grid gap-2 col-12 mx-auto p-2" role="group">
+                                <button class="btn btn-primary" type="button" (click)="addParticipante()"><i class="bi bi-person-fill-add"></i> Adicionar</button>
+                            </div>
+                        </div>
+
+                            <!-- Step 3: Descrição do Evento -->
+                            <div *ngIf="currentStep === 4">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-3">
+                                    <div class="form-group">
+                                        <label><b>Descrição do Evento</b> <span class="text-danger">*</span></label>
+                                        <editor [disabled]="false" formControlName="descricao" [class.is-invalid]="descricaoValidate" placeholder="Descrição detalhada do evento"></editor>
+                                        <div class="error1 mt-2" *ngIf="ocorrenciaForm.get('descricao')?.invalid && ocorrenciaForm.get('descricao')?.touched">
+                                            <small>Descrição é obrigatória</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                         
+                           
+
+                            <!-- Step 4: Meios -->
+                            <div *ngIf="currentStep === 5">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="list-group" [class.hidden]="isSelectHidden">
+                                        <div *ngIf="objectoCrimes.length === 0">
+                                            <p>Vazio</p>
+                                        </div>
+                                        <div *ngIf="objectoCrimes.length > 0">
+                                            <span class="mt-2">Armas selecionadas: &nbsp;</span>
+                                            <ng-select2 class="form-control" [options]="options" [data]="objectoCrimes" [(ngModel)]="Crimesobjecto" formControlName="sicgo_objecto_crimes_id"></ng-select2>
+                                            <div *ngIf="ocorrenciaForm.get('sicgo_objecto_crimes_id')?.invalid && ocorrenciaForm.get('sicgo_objecto_crimes_id')?.touched">
+                                                <small class="error">Objeto crimes é obrigatório</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                   
+           
+    </div>
+
+    <div class="modal-footer">
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-primary" (click)="prevStep()" [disabled]="currentStep === 1">Anterior</button>
+            <button type="button" class="btn btn-primary" (click)="nextStep()" [disabled]="!canSubmit()">Próximo</button>
+        </div>
+
+        <div class="btn-group w-100" role="group">
+            <button class="btn btn-danger btn-square" type="reset" (click)="reiniciarFormulario()">Limpar</button>
+            <button *ngIf="currentStep === 4 && canSubmit()" [disabled]="isLoading || submitted" type="submit" class="btn btn-primary w-100">
+                <ng-container *ngIf="isLoading; else regista">
+                    <i class="spinner-border spinner-border-sm mx-1"></i> Carregando..
+                </ng-container>
+                <ng-template #regista>
+                    <i class="bi bi-floppy2"></i> {{ ocorrenciaId ? "Actualizar" : "Registar" }}
+                </ng-template>
+            </button>
+        </div>
+    </div>
+     
+</form>
+                
+            
+
+            </div>
+        </div>
+    </section>
+</div>
+ 

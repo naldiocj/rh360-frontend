@@ -1,0 +1,78 @@
+ 
+<div class="modal fade " id="modalRegistarOuEditarDelituosoArquivos" aria-labelledby="modalRegistarOuEditarDelituosofoto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalRegistarOuEditarDelituosoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-prima text-white">
+            <h4 class="modal-title"><b>Arquivos</b></h4>
+                  <a
+                   
+                  type="button"
+                      data-bs-dismiss="modal" aria-label="Close"
+                    >
+                    <i  class="bi bi-backspace-reverse-fill cursor-pointer rounded-lg "
+                    style="font-size: 1.2em"></i>
+                    </a>
+        </div>
+            <form   (ngSubmit)="onSubmit()">
+               
+              <div class=" modal-body bg-light" >
+                
+                <div class="file-upload">
+                    <!-- Input de arquivo oculto -->
+                    <input #fileInput type="file"  (change)="handleFileUpload($event)" multiple accept="image/*, video/*, audio/*" style="display: none;" />
+
+                    <!-- Botão que dispara a seleção de arquivo -->
+                    <a (click)="fileInput.click()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 24 24">
+                            <rect width="24" height="24" fill="none" />
+                            <path fill="#4a4a4a" d="M12 22c-4.714 0-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12s0-7.071 1.464-8.536C4.93 2 7.286 2 12 2s7.071 0 8.535 1.464C22 4.93 22 7.286 22 12s0 7.071-1.465 8.535C19.072 22 16.714 22 12 22" opacity="0.6" />
+                            <path fill="#4a4a4a" d="M12 8.25a.75.75 0 0 1 .75.75v2.25H15a.75.75 0 0 1 0 1.5h-2.25V15a.75.75 0 0 1-1.5 0v-2.25H9a.75.75 0 0 1 0-1.5h2.25V9a.75.75 0 0 1 .75-.75" />
+                        </svg>
+                        Escolher Arquivos
+                    </a>
+
+                    <div class="captured-images">
+                        <div *ngFor="let fileObj of capturedFiles; let i = index">
+                            <div *ngIf="isImage(fileObj)"  class="captured-image">
+                                <button (click)="removeFile(i)"><i class="bi bi-x-circle-fill"></i></button>
+                                    <img [src]="fileObj.fileData" alt="Imagem carregada" style="max-width: 200px;" />
+                                 
+                              </div>
+                        </div>
+                         
+                      </div>
+                    <div class=" captured-images" *ngFor="let fileObj of capturedFiles; let i = index">
+                      
+                      <div *ngIf="isAudio(fileObj)">
+                        <p>{{ fileObj.file.name }} <button (click)="removeFile(i)">Remover</button></p>
+                        <audio controls>
+                          <source [src]="fileObj.fileData" type="audio/mp3" />
+                          Seu navegador não suporta o elemento de áudio.
+                        </audio>
+                      </div>
+                      <div *ngIf="isVideo(fileObj)">
+                        <p>{{ fileObj.file.name }} <button (click)="removeFile(i)">Remover</button></p>
+                        <video width="320" height="240" controls>
+                          <source [src]="fileObj.fileData" type="video/mp4" />
+                          Seu navegador não suporta o elemento de vídeo.
+                        </video>
+                      </div>
+                    </div>
+                  </div>
+  
+  
+              <div class="modal-footer">
+                  <button type="button"  data-bs-dismiss="modal" class="btn btn-secondary">
+                      Fechar
+                  </button>
+                  <button type="submit" type="submit" (click)="onSubmit()" [disabled]="isLoading" class="btn btn-primary">{{ isLoading ? 'Enviando...' : 'Enviar Imagens' }}</button>
+              </div>
+              </div>
+          </form>
+    </div>
+  </div>
+  </div>
+  
+  
+
+ 

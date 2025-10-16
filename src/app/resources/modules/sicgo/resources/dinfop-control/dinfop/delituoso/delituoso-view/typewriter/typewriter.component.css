@@ -1,0 +1,10 @@
+@keyframes blinkCaret {
+    50% {
+      opacity: 0;
+    }
+  }
+  
+  #typewriter-text span {
+    display: inline-block;
+  }
+  

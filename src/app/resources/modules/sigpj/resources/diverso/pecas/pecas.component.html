@@ -1,0 +1,79 @@
+ 
+<main id="main_" class="main_">
+    <div class="pagetitle mb-4">
+      <h1> <i class="fa fa-eye"></i><span class="mx-2">Ver peças - diversos </span></h1>
+    </div>
+  
+    <div class="content">
+     
+        <div class="row">
+            <nav class="navbar navbar-light bg-light">
+                <form class="form-inline">
+                    <select class="form-control mr-sm-1" (change)="filtrarPagina('perPage',$event)">
+                        <option *ngFor="let item of [5,10,20,50]" [value]="item">{{item}}</option>
+                    </select>
+                    <input class="form-control mr-sm-1" type="text" [ngModel]="filtro.search"
+                        (ngModelChange)="filtrarPagina('search',$event)" placeholder="Pesquisa ...">
+                    <button (click)="this.recarregarPagina()" id="btpe1" class="btn btn-outline-success my-2 my-sm-0"
+                        type="submit">
+                        <i style="font-size: 14px;" class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+                        <b>Pesquisar</b>
+                    </button>
+                </form>
+            </nav>
+    
+            <div class="col-md-12">
+              
+    
+                <table class="table table-border table-striped custom-table datatable mb-0">
+                    <thead>
+                        <tr>
+                            <th >Numero do Arquivo</th>
+                            <th >Data de Registro</th>
+                            <th >Visualizar</th>
+                            <th class="text-right">Baixar</th>
+                        </tr>
+                    </thead>
+                    <tbody> 
+                        <tr
+                            *ngFor="let item of this.pecas | paginate: {  itemsPerPage: this.pagination.per_page, currentPage: this.pagination.current_page,totalItems: this.pagination.total }; index as i">
+                           
+                         
+                  
+                            <td>{{item.id}}</td>
+                            <td>{{item.updated_at}}</td> 
+                            <td><button (click)="verFile(item)"  class="btn btn-outline-primary bi bi-eye-fill" ></button> </td>
+                         
+     
+                            <td class="text-right"> 
+                                <button (click)="downloadFile(item)"  class="btn btn-outline-primary bi bi-download"></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+    
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-sm-6">
+                        Mostrando de {{ this.pagination.current_page }} á
+                        {{ this.pagination.per_page }} de {{ this.pagination.total }} Registo
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="float-right">
+                            <pagination-controls id="funcionarioEspecial" (pageChange)="this.filtrarPagina('page', $event)"
+                                [directionLinks]="true" [autoHide]="true" previousLabel="Anterior" nextLabel="Próximo"
+                                [maxSize]="4" [responsive]="true"></pagination-controls>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+  </main>
+
+
+
+
+

@@ -1,0 +1,243 @@
+<main id="main_" class="main_"> 
+    <div class="pagetitle mb-4">
+        <h1> <i class="bi bi-journal-text"></i><span class="mx-2">Definir permissões </span></h1>
+        <p class="mx-4" ><b>{{this.user?.username}}</b></p> 
+    </div>
+
+    <div class="content">
+
+        <form [formGroup]="permissionForm" class="col-sm-12 col-md-12 col-lg-12">
+            <div class="m-b-30">
+                <ul class="list-group">
+
+                    <li class="list-group-item">
+                        Painel de Controlo
+                        <div class="material-switch float-right">
+                            <input formControlName="sigpj_painel_show" (click)="verifyChanges('sigpj_painel_show', 0)"  id="sigpj-painel" type="checkbox" [(ngModel)]="painelShow">
+                            <label for="sigpj-painel" class="badge-success"></label>
+                        </div>
+                    </li>
+
+                    <li class="list-group-item">
+                        Processo Disciplinar
+                        <div class="material-switch float-right">
+                            <input formControlName="disciplinar_show" id="disciplinar" type="checkbox" (click)="verifyChanges('disciplinar_show', 1)" [(ngModel)]="disciplinarShow">
+                            <label for="disciplinar" class="badge-success"></label>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        Adicionar Arguidos Disciplinar
+                        <div class="material-switch float-right">
+                            <input formControlName="disciplinar_arguido_store" id="arguido-disciplinar" type="checkbox"(click)="verifyChanges('disciplinar_arguido_store', 2)"  [(ngModel)]="disciplinarArguidoStore">
+                            <label for="arguido-disciplinar" class="badge-success"></label>
+                        </div>
+                    </li>
+
+                    <li class="list-group-item">
+                        Reclamações
+                        <div class="material-switch float-right">
+                            <input formControlName="reclamacao_show" id="reclamacao" type="checkbox" (click)="verifyChanges('reclamacao_show', 3)" [(ngModel)]="reclamacaoShow" >
+                            <label for="reclamacao" class="badge-success"></label>
+                        </div>
+                    </li>
+
+
+                    <li class="list-group-item">
+                        Diversos
+                        <div class="material-switch float-right">
+                            <input formControlName="diverso_show" id="diversos" type="checkbox" (click)="verifyChanges('diverso_show', 4)" [(ngModel)]="diversoShow" >
+                            <label for="diversos" class="badge-success"></label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped custom-table">
+                    <thead>
+                        <tr>
+                            <th>Permissão do Sistema</th>
+                            <th class="text-center">Listar</th>
+                            <th class="text-center">Atualizar</th>
+                            <th class="text-center">Registrar</th>
+                            <th class="text-center">Ver detalhes</th>
+                            <th class="text-center">Ver peças</th>
+                            <th class="text-center">Adicionar peças</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Processo Disciplinar</td>
+                            <td class="text-center">
+                                <input formControlName="disciplinar_index" type="checkbox"  (click)="verifyChanges('disciplinar_index', 5)"  [(ngModel)]="disciplinarIndex" >
+                            </td>
+                            <td class="text-center">
+                                <input formControlName="disciplinar_update" type="checkbox" (click)="verifyChanges('disciplinar_update', 6)"  [(ngModel)]="disciplinarUpdate" >
+                            </td>
+                            <td class="text-center">
+                                <input formControlName="disciplinar_store" type="checkbox"  (click)="verifyChanges('disciplinar_store', 7)" [(ngModel)]="disciplinarStore" >
+                            </td>
+                            <td class="text-center">
+                                <input formControlName="disciplinar_detalhes_show" type="checkbox" (click)="verifyChanges('disciplinar_detalhes_show', 8)" [(ngModel)]="disciplinarDetalhesShow">
+                            </td>
+                            <td class="text-center">
+                                <input formControlName="disciplinar_pecas_show" type="checkbox" (click)="verifyChanges('disciplinar_pecas_show', 9)" [(ngModel)]="disciplinarPecasShow" >
+                            </td>
+
+                            <td class="text-center">
+                                <input formControlName="disciplinar_pecas_store" type="checkbox" (click)="verifyChanges('disciplinar_pecas_store', 10)" [(ngModel)]="disciplinarPecasStore">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Reclamações</td>
+                            <td class="text-center">
+                                <input formControlName="reclamacao_index" type="checkbox" (click)="verifyChanges('reclamacao_index', 11)" [(ngModel)]="reclamacaoIndex">
+                            </td>
+                            <td class="text-center">
+                                <input formControlName="reclamacao_update" type="checkbox" (click)="verifyChanges('reclamacao_update', 12)" [(ngModel)]="reclamacaoUpdate">
+                            </td>
+                            <td class="text-center">
+                                <input formControlName="reclamacao_store" type="checkbox" (click)="verifyChanges('reclamacao_store', 13)" [(ngModel)]="reclamacaoStore">
+                            </td>
+                            <td class="text-center">
+                                <input formControlName="reclamacao_detalhes_show" type="checkbox" (click)="verifyChanges('reclamacao_detalhes_show', 14)" [(ngModel)]="reclamacaoDetalhesShow">
+                            </td>
+                            <td class="text-center">
+                                <input formControlName="reclamacao_pecas_show" type="checkbox" (click)="verifyChanges('reclamacao_pecas_show', 15)" [(ngModel)]="reclamacaoPecasShow">
+                            </td>
+
+                            <td class="text-center">
+                                <input formControlName="reclamacao_pecas_store" type="checkbox" (click)="verifyChanges('reclamacao_pecas_store', 16)" [(ngModel)]="reclamacaoPecasStore">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Diversos</td>
+                            <td class="text-center">
+                                <input formControlName="diverso_index" type="checkbox" (click)="verifyChanges('diverso_index', 17)" [(ngModel)]="diversoIndex">
+                            </td>
+                            <td class="text-center">
+                                <input formControlName="diverso_update" type="checkbox" (click)="verifyChanges('diverso_update', 18)" [(ngModel)]="diversoUpdate">
+                            </td>
+                            <td class="text-center">
+                                <input formControlName="diverso_store" type="checkbox" (click)="verifyChanges('diverso_store', 19)" [(ngModel)]="diversoStore">
+                            </td>
+                            <td class="text-center">
+                                <input formControlName="diverso_detalhes_show" type="checkbox" (click)="verifyChanges('diverso_detalhes_show', 20)" [(ngModel)]="diversoDetalhesShow">
+                            </td>
+                            <td class="text-center">
+                                <input formControlName="diverso_pecas_show" type="checkbox" (click)="verifyChanges('diverso_pecas_show', 21)" [(ngModel)]="diversoPecasShow">
+                            </td>
+                            <td class="text-center">
+                                <input formControlName="diverso_pecas_store" type="checkbox" (click)="verifyChanges('diverso_pecas_store', 22)" [(ngModel)]="diversoPecasStore">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped custom-table">
+                    <thead>
+                        <tr>
+                            <th>Permissão do Parecer</th>
+                            <th class="text-center">Listar</th>
+                            <th class="text-center">Atualizar</th>
+                            <th class="text-center">Registrar</th>
+                            <th class="text-center">Ver peças</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Processo Disciplinar</td>
+                            <td class="text-center">
+                                <input formControlName="disciplinar_parecer_index" type="checkbox" (click)="verifyChanges('disciplinar_parecer_index', 23)" [(ngModel)]="disciplinarParecerIndex">
+                            </td>
+                            <td class="text-center">
+                                <input formControlName="disciplinar_parecer_update" type="checkbox" (click)="verifyChanges('disciplinar_parecer_update', 24)" [(ngModel)]="disciplinarParecerUpdate">
+                            </td>
+                            <td class="text-center">
+                                <input formControlName="disciplinar_parecer_store" type="checkbox" (click)="verifyChanges('disciplinar_parecer_store', 25)" [(ngModel)]="disciplinarParecerStore">
+                            </td>
+                            <td class="text-center">
+                                <input formControlName="disciplinar_parecer_pecas_show" type="checkbox" (click)="verifyChanges('disciplinar_parecer_pecas_show', 26)" [(ngModel)]="disciplinarParecerPecasShow">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Reclamações</td>
+                            <td class="text-center">
+                                <input formControlName="reclamacao_parecer_index" type="checkbox" (click)="verifyChanges('reclamacao_parecer_index', 27)" [(ngModel)]="reclamacaoParecerIndex">
+                            </td>
+                            <td class="text-center">
+                                <input formControlName="reclamacao_parecer_update" type="checkbox" (click)="verifyChanges('reclamacao_parecer_update', 28)" [(ngModel)]="reclamacaoParecerUpdate">
+                            </td>
+                            <td class="text-center">
+                                <input formControlName="reclamacao_parecer_store" type="checkbox" (click)="verifyChanges('reclamacao_parecer_store', 29)" [(ngModel)]="reclamacaoParecerStore">
+                            </td>
+                            <td class="text-center">
+                                <input formControlName="reclamacao_parecer_pecas_show" type="checkbox" (click)="verifyChanges('reclamacao_parecer_pecas_show', 30)" [(ngModel)]="reclamacaoParecerPecasShow">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-striped custom-table">
+                    <thead>
+                        <tr>
+                            <th>Permissão da Decisão</th>
+                            <th class="text-center">Listar</th>
+                            <th class="text-center">Atualizar</th>
+                            <th class="text-center">Registrar</th>
+                            <th class="text-center">Ver peças</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Processo Disciplinar</td>
+                            <td class="text-center">
+                                <input formControlName="disciplinar_decisao_index" type="checkbox" (click)="verifyChanges('disciplinar_decisao_index', 31)" [(ngModel)]="disciplinarDecisaoIndex">
+                            </td>
+                            <td class="text-center">
+                                <input formControlName="disciplinar_decisao_update" type="checkbox" (click)="verifyChanges('disciplinar_decisao_update', 32)" [(ngModel)]="disciplinarDecisaoUpdate">
+                            </td>
+                            <td class="text-center">
+                                <input formControlName="disciplinar_decisao_store" type="checkbox" (click)="verifyChanges('disciplinar_decisao_store', 33)" [(ngModel)]="disciplinarDecisaoStore">
+                            </td>
+                            <td class="text-center">
+                                <input formControlName="disciplinar_decisao_pecas_show" type="checkbox" (click)="verifyChanges('disciplinar_decisao_pecas_show', 34)" [(ngModel)]="disciplinarDecisaoPecasShow">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Reclamações</td>
+                            <td class="text-center">
+                                <input formControlName="reclamacao_decisao_index" type="checkbox" (click)="verifyChanges('reclamacao_decisao_index', 35)" [(ngModel)]="reclamacaoDecisaoIndex">
+                            </td>
+                            <td class="text-center">
+                                <input formControlName="reclamacao_decisao_update" type="checkbox" (click)="verifyChanges('reclamacao_decisao_update', 36)" [(ngModel)]="reclamacaoDecisaoUpdate">
+                            </td>
+                            <td class="text-center">
+                                <input formControlName="reclamacao_decisao_store" type="checkbox" (click)="verifyChanges('reclamacao_decisao_store', 37)" [(ngModel)]="reclamacaoDecisaoStore">
+                            </td>
+                            <td class="text-center">
+                                <input formControlName="reclamacao_decisao_pecas_show" type="checkbox" (click)="verifyChanges('reclamacao_decisao_pecas_show', 38)" [(ngModel)]="reclamacaoDecisaoPecasShow">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+ 
+            <button type="submit" [disabled]="this.permissionForm.invalid" style="height: 3em; width:10em;"
+                (click)="onSubmit()" class="btn btn btn-primary">
+                Salvar
+            </button>
+
+        </form>
+    </div>
+
+
+</main>

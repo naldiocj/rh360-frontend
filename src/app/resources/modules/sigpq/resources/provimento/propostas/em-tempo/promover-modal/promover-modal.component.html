@@ -1,0 +1,172 @@
+<div
+  class="modal fade"
+  id="modalRegistarProvimento"
+  aria-labelledby="modalsigpqprovimentopromocaoemtempo"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog"
+    role="document"
+    style="overflow-y: hidden; min-width: 60%"
+  >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>
+          <i class="fa fa-plus"></i>
+          Registar Propostas
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="this.reiniciarFormulario()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="content mt-4">
+        <form [formGroup]="this.simpleForm">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <aside
+                  *ngIf="
+                    this.emTempos?.length == 0;
+                    else temAgentesSelecionados
+                  "
+                >
+                  <h5 style="color: var(--red); font-weight: normal !important">
+                    Nenhum agente selecionado <i class="fa fa-times"></i>
+                  </h5>
+                </aside>
+                <ng-template #temAgentesSelecionados>
+                  <h5
+                    style="
+                      color: var(--use-color);
+                      font-weight: normal !important;
+                    "
+                  >
+                    {{ this.emTempos?.length }}
+                    {{
+                      this.emTempos?.length == 1
+                        ? "Agente Selecionado"
+                        : "Agentes Selecionados"
+                    }}
+                    <!-- Patente Actual {{this.emTempos[0].patente_nome}} --><i
+                      class="fa fa-check"
+                    ></i>
+                  </h5>
+                </ng-template>
+              </div>
+
+              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                <div class="form-group">
+                  <label for=""><b>Tipo do acto</b></label>
+                  <ng-select2
+                    [options]="options"
+                    formControlName="sigpq_acto_progressao_id"
+                    [data]="this.actoProgressaos"
+                    (valueChanged)="this.handlerTipoPatente($event)"
+                  >
+                  </ng-select2>
+                </div>
+              </div>
+              <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                <div class="form-group">
+                  <label for=""
+                    ><b>{{ this.tituloPatente }}</b></label
+                  >
+                  <ng-select2
+                    [options]="options"
+                    formControlName="patente_id"
+                    [data]="this._patentes"
+                  >
+                  </ng-select2>
+                </div>
+              </div>
+              <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                <div class="form-group">
+                  <label for=""
+                    ><b>{{ this.tituloClasse }}</b></label
+                  >
+                  <ng-select2
+                    [options]="options"
+                    formControlName="sigpq_tipo_carreira_id"
+                    [data]="this.classes"
+                  >
+                  </ng-select2>
+                </div>
+              </div>
+
+              <div class="my-2 col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                <div class="form-group">
+                  <label for=""
+                    ><b>Tipo do acto(nomeação ou exoneração)</b></label
+                  >
+                  <ng-select2
+                    [options]="options"
+                    formControlName="sigpq_acto_nomeacao_id"
+                    [data]="this.actoNomeacaos"
+                    (valueChanged)="this.handlerTipo($event)"
+                  >
+                  </ng-select2>
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 my-2">
+                <label for=""
+                  ><b>Cargo<span class="text-red"></span></b
+                ></label>
+                <ng-select2
+                  [options]="options"
+                  [data]="this.tipoCargos"
+                  formControlName="sigpq_tipo_cargo_id"
+                >
+                </ng-select2>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                class="btn-piips btn-piips-red"
+                type="reset"
+                (click)="this.reiniciarFormulario()"
+                data-dismiss="modal"
+              >
+                <span class="fa fa-refresh"></span> Limpar
+              </button>
+              <ng-container *ngIf="this.simpleForm.valid; else ocultarBotao">
+                <aside *ngIf="this.isLoading; else regista">
+                  <button
+                    disabled="true"
+                    class="btn-piips btn-piips-primary m-0"
+                  >
+                    <div class="spinner-border spinner-border-sm m-1"></div>
+                    <a style="text-decoration: none; color: white">
+                      A {{ this.buscarId() ? "Actualizar" : "Registar" }} ...</a
+                    >
+                  </button>
+                </aside>
+                <ng-template #regista>
+                  <button
+                    (click)="onSubmit()"
+                    class="btn-piips btn-piips-primary m-0"
+                  >
+                    <i class="fa fa-plus-circle"></i>
+                    {{ this.buscarId() ? "Actualizar" : "Registar" }}
+                  </button>
+                </ng-template>
+              </ng-container>
+              <ng-template #ocultarBotao>
+                <button disabled="true" class="btn-piips btn-piips-primary m-0">
+                  <i class="fa fa-plus-circle"></i>
+                  {{ this.buscarId() ? "Actualizar" : "Registar" }}
+                </button>
+              </ng-template>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

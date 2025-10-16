@@ -1,0 +1,44 @@
+
+
+
+<a [routerLink]="'/piips/porpna' + link">
+  <div class="card border-0 shadow card">
+    <div
+      class="card-body shadow p-0 overflow-hidden"
+      [style]="{ backgroundColor: 'var(--bg-color)', borderRadius: '5px' }"
+    >
+      <div class="row p-4">
+        <div class="col-12 d-flex align-items-center justify-content-between">
+          <span class="card-title">{{ title }}</span>
+          <div
+            [style]="{ backgroundColor: 'var(--bg-color)', border: '2px solid var(--light-white)' }"
+            class="p-1 px-2 rounded-pill d-flex align-items-center justify-content-center"
+          >
+            <i
+              [class]="icon"
+              [style]="{ fontSize: '1.2rem', color: 'white' }"
+            ></i>
+          </div>
+        </div>
+        <div class="col-12 my-2 text-light">
+          <h1 [style]="{ fontWeight: 'normal' }">{{ total }}</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div
+          class="col-12 bg-light d-flex flex-column justify-content-center align-items-center"
+        >
+          <p
+            [style]="{ fontWeight: 'bold' }"
+            class="d-flex align-items-center justify-content-center pt-2 px-2"
+          >
+            <span [class]="this.calc(total, actual).sinal"
+              >{{ this.calc(total, actual).number }} &nbsp;</span
+            >
+            Activos no PORPNA
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</a>

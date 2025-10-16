@@ -1,0 +1,54 @@
+# para criar service.ts no angular
+ng g s pintura
+
+#criar uma nova branch:
+git branch nome_da_branch
+
+#Agora que você criou a nova branch, você precisa mudar para ela usando o seguinte comando:
+
+git checkout nome_da_branch
+git checkout criar-migrarions-combustivel
+
+#Agora você pode começar a trabalhar na sua nova branch.
+
+#Quando terminar de trabalhar na nova branch, você pode fazer o commit das suas alterações usando o seguinte comando:
+git add .
+git commit -m "Mensagem do commit"
+
+#Por fim, você pode enviar a nova branch para o repositório remoto usando o seguinte comando:
+git push -u origin nome_da_branch
+
+Isso criará uma nova branch com o nome nome_da_branch e a enviará para o repositório remoto.
+Agora você pode alternar entre as branches usando o comando git checkout.
+
+#Digite o seguinte comando no terminal para criar o arquivo:
+ng generate class pintura --type=model
+ng generate component listar
+ng generate module listagem
+ng generate module modelo
+
+
+Toyota
+Ford
+Chevrolet
+Honda
+Nissan
+Volkswagen
+BMW
+Mercedes-Benz
+Audi
+Hyundai
+Kia
+Fiat
+Jeep
+Dodge
+Porsche
+Ferrari
+Lamborghini
+Aston Martin
+Rolls-Royce
+Bentley
+
+
+
+

@@ -1,0 +1,414 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* @import "~bootstrap/dist/css/bootstrap.css"; */
+
+*{
+  font-family: Poppins-Regular;
+  .fa{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  } 
+}
+
+
+@font-face {
+  font-family: Montserrat-Regular;
+  src: url(../src/assets/fonts/Montserrat/Montserrat-Regular.ttf);
+}
+
+@font-face {
+  font-family: Montserrat-Bold;
+  src: url(../src/assets/fonts/Montserrat/Montserrat-Bold.ttf);
+}
+
+@font-face {
+  font-family: Poppins-Regular;
+  src: url(../src/assets/fonts/Poppins/Poppins-Regular.ttf);
+}
+@font-face {
+  font-family: Poppins-Bold;
+  src: url(../src/assets/fonts/Poppins/Poppins-Bold.ttf);
+} 
+
+@font-face {
+  font-family: 'Poppins', 'Poppins-Bold';
+  src: url('../src/assets/fonts/Poppins/Poppins-Regular.ttf');
+  src: url('../src/assets/fonts/Poppins/Poppins-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins-Bold';
+  src: url('../src/assets/fonts/Poppins/Poppins-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins-Black';
+  src: url('../src/assets/fonts/Poppins/Poppins-Black.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins-ExtraBold';
+  src: url('../src/assets/fonts/Poppins/Poppins-ExtraBold.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins-Thin';
+  src: url('../src/assets/fonts/Poppins/Poppins-Thin.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins-Light';
+  src: url('../src/assets/fonts/Poppins/Poppins-Light.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('../src/assets/fonts/Poppins/Poppins-Regular.ttf');
+}
+
+
+
+.base {
+  animation: animar 0.3s linear;
+}
+
+@keyframes animar {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+/*
+  ESTILIZAÇÂO DO MENU LATERAL DO PORTAL DO AGENTE - SONHADORA!
+  RESPONSIVO.
+
+*/
+@media (max-width: 1199px) {
+  .toggle-sidebar .asidebar {
+    left: 0;
+  }
+
+}
+
+.toggle-sidebar #main_ {
+  margin-left: 0;
+}
+
+@media (min-width: 1200px) {
+
+  .toggle-sidebar #main_ {
+    margin-left: 0;
+  }
+
+  .toggle-sidebar .asidebar {
+    left: -300px;
+  }
+}
+
+@import "./app/quill/quill-emoji.css";
+@import "./app/quill/quill-mention.css";
+
+
+/* styles.css */
+:root {
+
+  /* --bg-color: #3BC5EA; */
+  --bg-color: #041b4e;
+  --bg-pacity: #041b4ef0;
+  --bg-gradient: linear-gradient(to right, #041b43d4 10%, white);
+  --opacity: rgba(1, 42, 112, 0.637);
+  --txt-olor: #798eb3;
+  --aux-bg-color: #659fdb;
+  --new-shadow: 2px 20px 20px rgba(0, 0, 0, 0.112);
+  --shadow: 3px 3px 15px -1px rgba(2, 52, 139, 0.2);
+  /* --shadow: 3px 3px 15px -1px rgba(0,0,0,0.77); */
+  --black: #000;
+  --semi-black: #262625;
+  --aux-black: #363739;
+  --border: 1px solid rgba(255, 255, 255, 0.106);
+  --main-border: 1px solid rgba(4, 27, 67, 0.514);
+  --red: rgb(255, 0, 0);
+  --tomato: tomato;
+  --active: #22e77e;
+  --white: #d3d0d0;
+  --light-white: #f5f6fa;
+  --second-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  --color-incoming: #ebf3fe;
+  --opacity-second: rgba(0, 0, 255, 0.059);
+  --color-send: #f7f7f7;
+  --lateral-color: #2d2525;
+  --nav-color: #202020;
+  --color-in: #6a5c58;
+  --color-out: #443131;
+  --gray-color: rgba(204, 204, 204, 0.093);
+  /* #041B4E */
+  --primary-color: #041B4E;
+  --secondary-color: #ffff;
+  --error-color: #D83131;
+  --color-bar-collapse: rgba(4, 27, 78, 0.1);
+
+
+  --blue: #6a0000;
+  --indigo: #6e3dbd;
+  --purple: #6f42c1;
+  --pink: #e83e8c;
+  --red: #dc3545;
+  --orange: #fd7e14;
+  --yellow: #ffc107;
+  --green: #28a745;
+  --teal: #20c997;
+  --cyan: #17a2b8;
+  --white: #fff;
+  --gray: #6c757d;
+  --gray-dark: #343a40;
+  --primary: #01468f;
+  --secondary: #6c757d;
+  --success: #28a745;
+  --info: #17a2b8;
+  --warning: #ffc107;
+  --danger: #dc3545;
+  --light: #f8f9fa;
+  --dark: #343a40;
+  --breakpoint-xs: 0;
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+  --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace
+  --blue: #123456;
+  /* Use as suas cores escuras */
+  --indigo: #789012;
+  --purple: #345678;
+  --pink: #901234;
+}
+
+/* * {
+  font-weight: normal !important;
+} */
+
+/* .modal[id^="view"] .card
+{
+  overflow-y:scroll;
+} */
+/*
+  Estilo para PA e PORPNA
+*/
+.modal[id^="view"] .card::-webkit-scrollbar {
+  width: 0px;
+
+}
+
+.bg-primary-color {
+  background-color: var(--primary--color);
+}
+
+.text-primary-color {
+  color: var(--primary-color)
+}
+
+.bg-secondary-color {
+  background-color: var(--secondary-color);
+}
+
+.text-secondary-color {
+  color: var(--secondary-color);
+}
+
+.bg-red-color {
+  background-color: var(--error-color);
+}
+
+.text-red-color {
+  color: var(--error-color);
+}
+
+.text-red {
+  color: var(--red);
+}
+
+/*
+  Estilo para PORPNA
+*/
+
+.porpna-title {
+  font-size: 1.2rem;
+  color: var(--bg-color);
+
+}
+
+.porpna-title h1 {
+  font-size: 1.4rem;
+  font-weight: normal !important;
+
+}
+
+
+
+.btn-piips {
+  border-radius: 0px !important;
+  padding: 10px 20px;
+  margin: 10px auto;
+  font-size: 14px;
+  transition: all 0.4s;
+  border: var(--border);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  font-weight: 400;
+  outline: none !important;
+
+}
+
+.btn-piips {
+
+  &.btn-piips-primary {
+    background-color: var(--use-color);
+    color: white;
+
+    &:hover,
+    &.active {
+      background-color: white;
+      color: var(--use-color);
+      border: 1px solid var(--use-color);
+    }
+
+  }
+
+
+  &.btn-piips-red {
+    background-color: var(--red);
+    color: white;
+
+    &:hover,
+    &.active {
+      background-color: white;
+      color: var(--red);
+      border: 1px solid var(--red);
+    }
+  }
+
+  &.btn-piips-secondary {
+    background-color: white;
+    color: var(--use-color);
+    border: 1px solid var(--use-color);
+
+    &:hover,
+    &.active {
+      background-color: var(--use-color);
+      color: white;
+      border: 1px solid var(--use-color);
+    }
+  }
+
+}
+
+
+
+
+
+
+
+.colocacao_title {
+  border-bottom: 1px solid var(--use-color);
+
+}
+
+/* styles.css para o drawer empurrar quando estiver aberto*/
+
+body.drawer-open {
+  overflow-x: hidden;
+  /* Evita rolagem horizontal quando o drawer está aberto */
+  padding-right: 400px;
+  /* A largura do drawer, ajuste conforme necessário */
+}
+
+a.dropdown-item.bold {
+  cursor: pointer;
+}
+
+/*Estilo para cabeçalho do formulario de registo do funcionario*/
+.colocacao_title a {
+  color: var(--use-color);
+  font-size: 1rem;
+  font-weight: 500;
+  width: 100%;
+  cursor: pointer;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.first-title h1 {
+  text-transform: uppercase;
+  font-size: 1rem !important;
+}
+
+
+.btn-piips.btn-piips-primary:disabled,
+.btn-piips.btn-piips-primary:disabled:hover {
+  background-color: var(--aux-bg-color);
+  color: white;
+  border: 1px solid var(--aux-bg-color);
+}
+
+
+.piips-text-color {
+  color: var(--use-color) !important;
+}
+
+.piips-bg-color {
+  background-color: var(--use-color) !important;
+}
+
+/* tbody td {
+  word-wrap: break-word;
+  word-break: break-all;
+} */
+
+
+@media only screen and (max-width: 575.98px) {
+  .content {
+    padding: 0 0px;
+
+  }
+}
+
+.table-sigps {
+  border-top: 2px solid rgba(76, 141, 235, 0.24);
+  padding: 0.4rem auto;
+  .table {
+    overflow: hidden;
+    border-radius: 20px 20px 0px 0px;
+    padding: 8px!important;
+    margin-top: 0.8rem;
+    thead {
+      tr {
+        padding: 8px!important;
+        background: rgba(4, 27, 78, 1);
+        border: none;
+        color: white;
+      }
+    }
+
+    tbody {
+      tr {
+        padding: 8px!important;
+        background: white;
+        transition: background 0.06s ease-in-out;
+        cursor: pointer;
+        &:hover {
+          background: rgba(76, 141, 235, 0.04);
+        }
+
+        td {
+          color: black;
+        }
+      }
+    }
+  }
+}

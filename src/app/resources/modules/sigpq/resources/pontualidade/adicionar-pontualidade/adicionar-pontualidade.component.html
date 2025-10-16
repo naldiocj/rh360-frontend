@@ -1,0 +1,176 @@
+<div >
+  <div class="modal-dialog modal-fullscreen" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title" id="modalAdicionarLicencaLabel">
+          <h4 class="agente"> Gerenciamento
+            de Assiuidade do Agente <b>{{ agenteSelecionado.nome_completo | uppercase }} {{ agenteSelecionado.apelido | uppercase }}</b></h4>
+        </div>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body d-flex flex-column align-items-center justify-content-center">
+
+        <!-- <form class="w-100">
+          <div class="form-group d-flex" style="margin-top: 20px;">
+            <div class="mr-2" style="flex: 1;">
+              <label>Ano</label>
+              <ng-select2 [data]="anosDisponiveis"
+                           [options]="options"
+                           [ngModel]="anoAtual"
+                           (valueChanged)="onMesOuAnoSelecionado($event,'year')"
+                           name="ano">
+              </ng-select2>
+            </div>
+            <div class="mr-2" style="flex: 1;">
+              <label>Mês</label>
+              <ng-select2 [data]="mesesDisponiveis"
+                           [options]="options"
+                           [ngModel]="mesAtual"
+                           (valueChanged)="onMesOuAnoSelecionado($event,'month')"
+                           name="mes">
+              </ng-select2>
+            </div>
+          </div>
+        </form> -->
+
+
+
+        <ng-container *ngIf="agenteSelecionado;else templateNameSemLicenca">
+
+          <div class="container mt-1">
+            <div class="card p-3 shadow-sm rounded">
+              <p class="text-primary mb-2 custom-link bi bi-chat-dots" style="font-size: 18px;" (click)="this.showModal('modalMaisDetalhes')"></p>
+              <p class="text-secondary mb-2 custom-link bi bi-chat-text" style="color:#32CD32;font-size: 18px;" (click)="this.showModal('modalResposta_licenca')">{{informacao == 'planificar'?'Ver':''}}</p>
+            </div>
+          </div>
+
+              <div class="col-sm-12 col-md-6 col-lg-9 d-flex justify-content-center align-items-center calendar-container">
+                <full-calendar #fullCalendar [options]="calendarOptions"></full-calendar>
+              </div>
+        </ng-container>
+
+        <ng-template #templateNameSemLicenca>
+          <p>Porfavor selecione </p>
+        </ng-template>
+      </div>
+      <div>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="this.notificarPai()">Voltar</button>
+      </div>
+      <!-- <div class="modal-footer">
+        <ng-container *ngIf="informacao=='planificar';else OutroNivel">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="this.zerarDados()">Voltar</button>
+        <ng-container *ngIf="!possuiErroNumaAtualizacaoDaBd && licencaSelecionada">
+          <button type="button" class="btn btn-primary" (click)="this.planejarLicenca()">Planificar  {{local=='licenca'?'Licença':'Falta'}}</button>
+        </ng-container>
+        </ng-container>
+
+        <ng-template #OutroNivel>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="this.zerarDados()">Voltar</button>
+        </ng-template>
+
+      </div> -->
+    </div>
+  </div>
+</div>
+
+<div id="eventModalPendente" class="modal secand-modal" tabindex="-1" role="dialog" style="display:none;" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{this.selectedDate | date}}</h5>
+        <button type="button" class="close" (click)="closeModal('eventModalPendente')" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <div class="options mt-3">
+        <ng-container>
+          <label for="eventDescription"></label>
+         <p class="tempo">O Agente {{momento_de_entrada?'Chegou':'Saiu'}} {{getTime()}}.</p>
+         </ng-container>
+        <div class="d-flex flex-column">
+          <button (click)="aproveEvent()" class="btn btn-primary mb-2">Confirmar</button>
+        </div>
+      </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal('eventModalPendente')">FECHAR FORMULARIO</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="eventModalEliminar" class="modal secand-modal" tabindex="-1" role="dialog" style="display:none;" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar Tempo do Dia {{this.selectedDate | date}}</h5>
+        <button type="button" class="close" (click)="closeModal('eventModalEliminar')" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <div class="options mt-3">
+        <ng-container>
+          <label for="eventDescription"></label>
+         <p class="tempo">Deseja Eliminar ? {{getTime()}}.</p>
+         </ng-container>
+        <div class="d-flex flex-column">
+          <button (click)="deleteEvent()" class="btn btn-primary mb-2">Confirmar</button>
+        </div>
+      </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal('eventModalEliminar')">FECHAR FORMULARIO</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal - Mais Detalhes -->
+
+<div id="modalMaisDetalhes" class="modal secand-modal" tabindex="-1" role="dialog" style="display:none;" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalMaisDetalhesLabel">Mais Informações</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal('modalMaisDetalhes')"></button>
+      </div>
+      <div class="modal-body">
+        <textarea class="textarea-modal" placeholder="Digite mais detalhes aqui..." [(ngModel)]="mais_informacoes" [disabled]="informacao != 'planificar'"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" (click)="closeModal('modalMaisDetalhes')">Fechar</button>
+        <button type="button" class="btn btn-primary" *ngIf="mais_informacoes" (click)="enviarMaisInformacoes('motivo')" (click)="closeModal('modalMaisDetalhes')" data-bs-dismiss="modal">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal - Resposta -->
+<div id="modalResposta_licenca" class="modal secand-modal" tabindex="-1" role="dialog" style="display:none;" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalResposta_licencaLabel">Resposta</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal('modalResposta_licenca')"></button>
+      </div>
+      <div class="modal-body">
+        <textarea class="textarea-modal"
+        placeholder="Digite sua resposta aqui no planificar..."
+        [(ngModel)]="resposta_supervisor"
+        >
+</textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" (click)="closeModal('modalResposta_licenca')">Fechar</button>
+        <button type="button" class="btn btn-primary" *ngIf="resposta_supervisor"
+
+ (click)="enviarMaisInformacoes('resposta')" (click)="closeModal('modalResposta_licenca')" data-bs-dismiss="modal">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>

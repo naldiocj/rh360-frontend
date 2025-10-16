@@ -1,0 +1,129 @@
+<div class="modal fade" id="atribuirMeios" data-backdrop="static" data-keyboard="false" aria-labelledby="documentoLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document" style="min-width: 60%;">
+        <div class="modal-content">
+            <div class="modal-header align-items-center" style="background-color: #041b4e; color: white; height: 55px;">
+                <h1 class="modal-title fl-5 my-0" id="staticBackdropLabel" style="font-size: 1.1rem;">
+                    <i class="bi bi-person-fill" style="font-size: 1.3rem; margin-top: 0px; margin-right: 5px;"></i>
+                    Atribuir Meios ao Efectivo {{': ' + funcionario?.nome_completo}}
+                </h1>
+                <button type="button" class="btn ms-auto" data-dismiss="modal" aria-label="Close" style="color: white;"
+                    id="btn-fechar-modal-atribuir-meios" (click)="limparDados()">
+                    <i class="bi bi-backspace-fill" style="font-size: 1.2rem;"></i>
+                </button>
+            </div>
+
+            <div class="modal-body">
+              <!-- {{atribuir_meios_ao_efectivo_dados_do_agente | json}} -->
+                <section class="row container-fluid cadastro-container pr-0 pt-0">
+                    <div class="col-12 p-0 m-0" style="width: 100%;">
+                        <form [formGroup]="this.produtosPlanificadosForm" (ngSubmit)="onSubmitProdutosPlanificados()" #formDir="ngForm"
+                        class="row container-fluid pr-0" style="padding-left: 8px;">
+                        <div class="row d-flex p-0 m-0 align-items-center produtos">
+                          <div class="pe-0 img-produto-label">
+                            <label for="descricao_id" class="form-label"> </label>
+                          </div>
+                          <div class="pe-0 nome-produto">
+                            <label for="descricao_id" class="form-label">Designação do Meio <i class="bi bi-exclamation-circle-fill icone-alerta"></i></label>
+                          </div>
+                          <div class="ml-2 mt-2 pr-0 quantidade">
+                            <label for="quantidade" class="form-label">Quantidade <i class="bi bi-exclamation-circle-fill icone-alerta"></i></label>
+                          </div>
+                        </div>
+                        <div *ngFor="let item of itens; let i = index">
+                      
+                          <div [formGroup]="item" class="row d-flex p-0 m-0 align-items-center produtos">
+                            <div class="img-produto">
+                              <img *ngIf="item.get('imagemUrl')?.value" [src]="item.get('imagemUrl')?.value" alt="img" class="img-responsive">
+                              <ng-container *ngIf="!item.get('imagemUrl')?.value">
+                                <img src="../../../../../../../../assets/assets_sigv/img/img/img-capa.png" alt="img" class="img-responsive">
+                              </ng-container>
+                            </div>
+                            <div class="pe-0 nome-produto">
+                              <!-- primeiro -->
+                              <div class="">
+                                <ng-select2 [options]="options" [data]="produtosPlanificados" id="meios_id"
+                                  aria-describedby="nomeProdutoHelp" formControlName="meios_id" style="border-radius: 10px; "
+                                  class="mb-2" (valueChanged)="setarUnidades($event, i)">
+                                </ng-select2>
+                              </div>
+                              <div id="nomeProdutoHelp" class="form-text validation-error"
+                                *ngIf="produtosPlanificadosForm.get('meios_id')?.hasError('required') && formDir.submitted">
+                                <p>O Órgão / Comando é obrigatório</p>
+                              </div>
+                            </div>
+                            <!--  <input type="text" value="{{ lastPlanoAdd }}" [hidden]="false" [disabled]="false" class="mb-2 pl-3" id="quantidade" aria-describedby="quantidadeHelp" name="id_plano" formControlName="id_plano">
+                                                -->
+                            <!-- segundo -->
+                            <div class="ml-2 mt-2 pr-0 quantidade">
+                              <div class="segundo-quant">
+                                <!-- se eu adicionar um form-control como class desse input, ele ficará colorido ao clicá-lo-->
+                                <input type="number" required placeholder=" " class="mb-2 pl-3" id="quantidade" [min]="'1'" [max]="'1000'"
+                                  aria-describedby="quantidadeHelp" name="quantidade_atribuidos" formControlName="quantidade_atribuidos">
+                                  <select formControlName="unidade_meios">
+                                      <option value="">Selecione Unidade</option>
+                                      <option *ngFor="let item of [
+                                            {id: 'Unids', valor: 'Unid(s)'},
+                                            {id: 'Par', valor: 'Par(es)'}
+                                          ]" [value]="item.id" [selected]="item.id=='Unid(s)'"> {{ item.valor }} 
+                                      </option>
+                                  </select>
+                              </div>
+                              <div id="quantidadeHelp" class="form-text validation-error"
+                                *ngIf="produtosPlanificadosForm.get('quantidade_atribuidos')?.hasError('required') && formDir.submitted">
+                                <p>O número do pedido é obrigatório</p>
+                              </div>
+                            </div>
+                      
+                            <div class="ml-2" style="margin-top: 0px;">
+                              <button (click)="removerItem(i)" class="btn btn-danger p-2"
+                                style="box-shadow: 0px 5px 8px rgba(0,0,0,0.323); height: 44px;">
+                                <i class="bi bi-trash-fill"></i> Remover
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      
+                        <!-- botão submit da planificacao -->
+                        <div class="col-12 mb-3 p-0 d-flex justify-content-end">
+                          <button type="button" class="btn mb-0 mt-3 mr-3 btn-outline-danger"
+                            style="box-shadow: 0px 5px 8px rgba(0,0,0,0.323)" [routerLink]="['piips/sigvest/distribuicao/individual/listar']">
+                            <i class="bi bi-trash-fill"></i>
+                            Descartar
+                          </button>
+                      
+                          <button type="button" class="btn mb-0 mt-3 mr-3"
+                            style="background-color: #f3f3f3; color: #041b4e; box-shadow: 0px 5px 8px rgba(0,0,0,0.323); font-weight: 400;">
+                            <i class="bi bi-x-circle-fill"></i>
+                            Limpar Dados
+                          </button>
+                      
+                          <button type="button" class="btn mb-0 mt-3 mr-3"
+                            style="background-color: #041b4e; color: white; box-shadow: 0px 5px 8px rgba(0,0,0,0.323)"
+                            [disabled]="this.produtosPlanificadosForm.invalid" (click)="adicionarItem()">
+                            <i class="bi bi-plus-circle"></i>
+                            Adicionar Produtos
+                          </button>
+                      
+                          <button type="Submit" class="btn mb-0 mt-3"
+                            style="background-color: #041b4e; color: white; box-shadow: 0px 5px 8px rgba(0,0,0,0.323)"
+                            [disabled]="this.produtosPlanificadosForm.invalid">
+                            <i class="bi bi-check"></i>
+                            Finalizar & Salvar
+                          </button>
+                        </div>
+                      </form>
+                        
+                    </div>
+                </section>
+            </div>
+
+            <!--
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Understood</button>
+            </div>
+        -->
+        </div>
+    </div>
+</div>

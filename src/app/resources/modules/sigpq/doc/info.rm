@@ -1,0 +1,21 @@
+SIGPQ - Sistema Integrado de Gestão de Pessoal e Quadros
+
+#Resources
+ - Contem todos os componentes de visualização do módulo
+
+#Core
+ - Composta por serviços que chamam as rotas da api
+
+#Resources
+    branch - dev-sigpq-v2
+    - Funcionarios
+        - Registar ou Editar
+            10/01/2024
+             - Foi adicionado um trecho de código CSS no style global do fo rmulario de registo do agente
+             - Os titulos de collapse e painel de formulario do agente, transformado em maisculos
+             - Melhorias e validações na secção do registo de progressão de carreira, na ficha do formulário
+             - Melhorias e validações na secção do registo de progressão de carreira, na ficha do formulário
+             *** Melhorias no formulario do registo do agente, validacçoes e instancia do form object em todos as tabs.
+
+             13/01/2024
+             - Optimizou-se o secção do registo de dados pessoal e profisssional do agente, organizando assim os campos de acordo a necessidade.

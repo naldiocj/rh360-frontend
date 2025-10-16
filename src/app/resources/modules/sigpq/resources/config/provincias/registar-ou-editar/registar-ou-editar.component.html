@@ -1,0 +1,65 @@
+<div class="modal fade" id="modalRegistar" aria-labelledby="modalRegistar" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="overflow-y: hidden;min-width: 30%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>
+                    <i class="fa fa-user"></i>
+                    Registar Provincia
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" id="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="content">
+                <form [formGroup]="this.simpleForm">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="form-group col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                <label><b>Nome</b><span class="text-danger"> *</span></label>
+                                <input type="text" class="form-control" formControlName="nome">
+                            </div>
+
+                            <div class="form-group col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                <label><b>Sigla</b><span class="text-danger"> *</span></label>
+                                <input type="text" class="form-control" formControlName="sigla">
+                            </div>
+                            <div class="form-group col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                <label><b>Descrição</b></label> <br>
+                                <textarea class="form-control" style="height: 150px; resize: none;"
+                                    formControlName="descricao"></textarea>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a id="closed" data-dismiss="modal" type="hidden"></a>
+                        <button class="btn-piips btn-piips-red m-0" type="reset" (click)="this.reiniciarFormulario()"
+                            disabled="true">
+                            <span class="fa fa-refresh"></span> Limpar
+                        </button>
+                        <ng-container *ngIf="this.simpleForm.valid; else ocultarBotao">
+                            <aside *ngIf="this.isLoading; else regista">
+                                <button disabled="true" class="btn-piips btn-piips-primary m-0">
+                                    <div class="spinner-border spinner-border-sm m-1"></div>
+                                    <a style="text-decoration: none; color: white;">A {{this.buscarId ? 'Editar' :
+                                        'Registar'}} ... </a>
+                                </button>
+                            </aside>
+                            <ng-template #regista>
+                                <button (click)="onSubmit()" class="btn-piips btn-piips-primary m-0">
+                                    <i class="fa fa-plus-circle"></i>
+                                    {{ this.buscarId ? 'Editar': 'Registar' }}
+                                </button>
+                            </ng-template>
+                        </ng-container>
+                        <ng-template #ocultarBotao>
+                            <button disabled="true" class="btn-piips btn-piips-primary m-0">
+                                <i class="fa fa-plus-circle"></i>
+                                {{ this.buscarId ? 'Editar': 'Registar' }}
+                            </button>
+                        </ng-template>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>

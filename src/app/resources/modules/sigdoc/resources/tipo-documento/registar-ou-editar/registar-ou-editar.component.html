@@ -1,0 +1,61 @@
+<div class="modal fade" id="modalRegistarTipoDocumento" aria-labelledby="modalRegistarUtilizador" aria-hidden="true">
+  <div class="modal-dialog modal-md" role="document" style="overflow-y: hidden;min-width: 50%;">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5>
+                  <i class="fa fa-plus"></i>
+                  Registar Tipo de Documento
+              </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="content">
+              <form [formGroup]="this.simpleForm">
+                  <div class="modal-body">
+                      <div class="row">
+
+                          <div class="form-group col-md-12">
+                              <label>Nome <span class="text-danger"> *</span></label>
+                              <input formControlName="nome" type="text" class="form-control">
+
+                              <!-- nome_completo -->
+                          </div>
+
+                          <div class="form-group col-md-12">
+                              <label class="placeholder">Sigla<span class="text-danger"> *</span></label>
+                              <input formControlName="sigla" type="text" class="form-control">
+                          </div>
+
+                          <div class="form-group col-md-12">
+                              <label class="placeholder">Observação</label>
+                              <textarea class="form-control" style="resize:none; width:100%; height: 250px;"
+                                  formControlName="descricao"></textarea>
+                          </div>
+
+                      </div>
+                  </div>
+                  <div class="modal-footer">
+                    <div class="col-md-12 d-flex justify-content-end">
+                        <button class="btn-piips btn-piips-red py-2 m-0" (click)="this.reiniciarFormulario()">
+                          <span class="fa fa-refresh"></span> Limpar
+                        </button>
+  
+                        <button [disabled]="this.carregando|| this.submitted || !this.simpleForm.valid" type="button"
+                          (click)="onSubmit()" class="btn-piips btn-piips-primary m-0 py-2" style="border-radius: 0px">
+                          <ng-container *ngIf="this.carregando || this.submitted; else naoRegistar">
+                            <div class="spinner-border spinner-border-sm m-1"></div>
+                            Carregando...
+                          </ng-container>
+                          <ng-template #naoRegistar>
+  
+                            {{this.documento ? 'Gravar': 'Gravar'}}
+  
+                          </ng-template>
+                        </button>
+                      </div>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>

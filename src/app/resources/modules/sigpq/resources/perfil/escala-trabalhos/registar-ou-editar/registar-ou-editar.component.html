@@ -1,0 +1,133 @@
+<div
+  class="modal fade"
+  id="modalRegistar"
+  aria-labelledby="modalRegistar"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog rounded-0 border-0 shadow bg-light"
+    role="document"
+    style="overflow: hidden; min-width: 30%"
+  >
+    <div class="modal-content">
+      <div class="modal-header">
+        <ng-container *ngIf="this.buscarId(); else pRegistar">
+          <h5>
+            <i class="fa fa-edit mx-2"></i>
+            Editar Escala de trabalho para agente de NIP
+            {{ this.getFuncionario?.nip }}
+          </h5>
+        </ng-container>
+        <ng-template #pRegistar>
+          <i class="fa fa-paper-plane mx-2"></i>
+          Enviar Escala de trabalho para agente de NIP
+          {{ this.getFuncionario?.nip }}
+        </ng-template>
+
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          id="close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="content">
+        <form [formGroup]="this.simpleForm">
+          <div class="modal-body">
+            <div class="row">
+              <div class="form-group col-md-12">
+                <label
+                  ><b>Departamento</b><span class="text-danger"> *</span></label
+                >
+                <ng-select2
+                  [options]="options"
+                  formControlName="departamento_id"
+                  [data]="this.departamentos"
+                ></ng-select2>
+              </div>
+              <div class="form-group col-md-7">
+                <label><b>Seccão</b><span class="text-danger"> *</span></label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="seccao"
+                />
+              </div>
+              <div class="form-group col-md-5">
+                <label><b>Data</b><span class="text-danger"> *</span></label>
+                <input
+                  type="date"
+                  class="form-control"
+                  [min]="this.getAno"
+                  formControlName="data"
+                />
+              </div>
+              <div class="form-group col-md-12">
+                <label><b>Turno </b><span class="text-danger"> *</span></label>
+                <ng-select2
+                  [options]="options"
+                  formControlName="turno"
+                  [data]="this.turnos"
+                ></ng-select2>
+              </div>
+              <div class="form-group col-md-12">
+                <label
+                  ><b>Descrição</b> <span class="text-danger"> *</span>
+                </label>
+                <br />
+                <textarea
+                  [style]="{ width: '100%' }"
+                  rows="8"
+                  formControlName="descricao"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              class="btn btn-danger btn-square"
+              (click)="this.reiniciarFormulario()"
+            >
+              <span class="fa fa-refresh"></span> Limpar
+            </button>
+            <ng-container *ngIf="this.buscarId(); else registando">
+              <button
+                class="btn btn-primary btnRegistar"
+                id="bookreset"
+                [disabled]="!this.simpleForm.valid"
+                (click)="onSubmit()"
+              >
+                <ng-container *ngIf="this.isLoading; else registar">
+                  <i class="spinner-border spinner-border-sm m-1"></i>
+                  Editando..
+                </ng-container>
+                <ng-template #registar>
+                  <i class="fa fa-edit"></i> Editar
+                </ng-template>
+              </button>
+            </ng-container>
+            <ng-template #registando>
+              <button
+                class="btn btn-primary btnRegistar"
+                id="bookreset"
+                [disabled]="!this.simpleForm.valid"
+                (click)="onSubmit()"
+              >
+                <ng-container *ngIf="this.isLoading; else enviar">
+                  <i class="spinner-border spinner-border-sm m-1"></i>
+                  Enviando...
+                </ng-container>
+                <ng-template #enviar>
+                  <i class="fa fa-paper-plane"></i> Enviar
+                </ng-template>
+              </button>
+            </ng-template>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

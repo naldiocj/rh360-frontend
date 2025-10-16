@@ -1,0 +1,98 @@
+<div class="row">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+    <nav class="navbar navbar-light bg-light">
+      <form class="form-inline">
+        <select class="form-control mr-sm-1" (change)="filtrarPagina('perPage', $event)">
+          <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">
+            {{ item }}
+          </option>
+        </select>
+        <input class="form-control mr-sm-1" type="text" [ngModel]="filtro.search"
+          (ngModelChange)="filtrarPagina('search', $event)" placeholder="Pesquisa ..." />
+        <button (click)="this.recarregarPagina()" class="btn-piips btn-piips-secondary m-0 py-2" type="submit">
+          <i style="font-size: 14px" class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+          <b>Recarregar</b>
+        </button>
+      </form>
+    </nav>
+  </div>
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+    <div class="table-responsive">
+      <table class="table table-border table-striped custom-table datatable mb-0">
+        <thead>
+          <tr>
+            <th>ID</th>
+      
+            <th>Posto/Classe</th>
+            <th>Funcão</th>
+            <!-- <th>Despacho</th> -->
+            <th>Colocação</th>
+            <th>Estado</th>
+            <th>Data de Actualização</th>
+            <th class="text-right">Operação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="
+              let item of this.funcaos
+                | paginate
+                  : {
+                      id: 'funcaoId',
+                      itemsPerPage: this.pagination.per_page,
+                      currentPage: this.pagination.current_page,
+                      totalItems: this.pagination.total
+                    };
+              index as i
+            ">
+            <td> {{i+1}}</td>
+           
+            <td> {{ item?.patente?.toString().toUpperCase() ?? 'S/N'}}</td>
+            <td> {{ item?.nome?.toString()?.toUpperCase() ?? 'S/N'}}</td>
+            <td> {{ item?.direcao ?? 'S/N' }}</td>
+            <td>
+              <span *ngIf="item.situacao=='actual'" class="custom-badge status-green">Actual</span>
+              <span *ngIf="item.situacao=='exercída'" class="custom-badge status-orange">Exercída</span>
+            </td>
+            <td> {{ item?.updatedAt}}</td>
+            <td class="text-right">
+              <div class="dropdown dropdown-action position-static">
+                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
+                    class="fa fa-ellipsis-v"></i></a>
+                <div class="dropdown-menu">
+                  <a *ngIf="!item.activo" class="dropdown-item" (click)="construcao()" href="javascript:void(0)">
+                    <i class="fa fa-thumbs-o-up m-r-5"></i>
+                    Activar
+                  </a>
+                  <a *ngIf="item.activo" class="dropdown-item" (click)="construcao()" href="javascript:void(0)">
+                    <i class="fa fa-thumbs-o-down m-r-5"></i>
+                    Desactivar
+                  </a>
+                
+                  <a class="dropdown-item" href="#" (click)="construcao()" data-toggle="modal"
+                    data-target="#delete_patient">
+                    <i class="fa fa-trash-o m-r-5"></i> Eliminar</a>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+    <div class="row">
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+        Mostrando de {{ this.pagination.current_page }} á
+        {{ this.pagination.per_page }} de {{ this.pagination.total }} Registo
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+        <div class="float-right">
+          <pagination-controls id="funcaoId" (pageChange)="this.filtrarPagina('page', $event)" [directionLinks]="true"
+            [autoHide]="true" previousLabel="Anterior" nextLabel="Próximo" [maxSize]="4"
+            [responsive]="true"></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

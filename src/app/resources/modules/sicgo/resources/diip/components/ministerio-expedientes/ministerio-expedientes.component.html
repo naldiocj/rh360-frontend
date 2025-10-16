@@ -1,0 +1,128 @@
+
+<section class="">
+    <div class="col-112">
+       
+    <div class="col-md-12 col-sm-12 mb-12">
+      <div class="bg-light row p-1">
+        <div class="col-xl-5 col-sm-5 col-lg-5 col-md-12">
+          <div class="p-0">
+            <h1>Ministério Público</h1>
+            <p class="lead" style="font-size:small">Lista de Expedientes / Processos Crime.</p>
+          </div>
+          
+        </div>
+        <div class="col-xl-7 col-sm-7 col-lg-7 col-md-12 col-sm-12">       
+            <div class="row">
+                 
+                <div class="col-xl-7 col-lg-12 col-md-12 col-sm-12">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <select title="kivova" class="form-control input-piips-search btn-piips-select w-25 custom-selec"
+                       >
+                      <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">
+                        {{ item }}
+                      </option>
+                    </select>
+                    <input class="form-control mr-sm-1 input-piips-search" type="text" [ngModel]="filtro.search"
+                        placeholder="Pesquisa ..." />
+                    <button data-bs-target="#ToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                      aria-expanded="false" aria-label="Toggle navigation"
+                      class="input-piips-search btn-piips-button w-50 " type="button" data-bs-toggle="collapse">
+  
+                      <i class="bi bi-filter toggle-sidebar-btn"></i>
+                      Filtros
+                    </button>
+                    <button   class="btn w-50 navbar-toggler btn-piips-filter"
+                      type="submit">
+                      <i style="font-size: 14px" class="fa fa-refresh fa-spin fa-3x fa-fw"></i> Limpar Filtro
+                    </button>
+                  </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div class="legend">
+            <span class="legend-item" *ngFor="let item of this.estados">
+                <div class="legend-color btn" [style.backgroundColor]="item.cor"></div>
+                <span class="legend-text">{{ item.texto }}</span>
+            </span>
+            </div>
+        </div>
+      </div>
+    </div>
+  
+      
+   
+     
+  </div>
+  
+  <p>opcs-expedientes works!</p>
+  <table>
+    <tr *ngFor="let expediente of expedientes">
+      <td>{{ expediente.id }}</td>
+      <td>{{ expediente.descricao }}</td>
+      <td>{{ expediente.status }}</td>
+      <td>{{ expediente.codigo_sistema }}</td>
+      <td>{{ expediente.data_ocorrido }}</td>
+      <td>{{ expediente.tipicidade }}</td>
+      <td>{{ expediente.tipo_ocorrencia }}</td>
+      <td>{{ expediente.categoria }}</td>
+      <td>{{ expediente.provincia }}</td>
+      <td>{{ expediente.municipio }}</td>
+      <td>{{ expediente.local }}</td>
+      <td>{{ expediente.importancia }}</td>
+      <td>
+        <ng-container *ngFor="let item of expediente.testemunhas || []">
+          <div>{{ item.nome | slice: 0:10 }}</div>
+          <div>{{ item.tel | slice: 0:13 }}..</div>
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngFor="let item of expediente.evidencias || []">
+          <div>{{ item.descricao }}</div>
+        </ng-container>
+      </td>
+      <td>{{ expediente.created_at }}</td>
+      <td>{{ expediente.updated_at }}</td>
+      <td>
+        <button (click)="remeterMinisterio(expediente.id)" *ngIf="expediente.status === 'Despacho Secretaria'">Remeter Ministério</button>
+     </td>
+    </tr>
+  </table>
+  
+  
+    <table class="table table-striped " cellpadding="5"  #tableToPrint>
+        <thead class="table-thead">
+          <tr>
+            <th>Processo</th>
+            <th>Denunciante</th>
+            <th>Status</th>
+            <th>NUP</th>
+            <th>NUP</th>
+            <th>NUP</th>
+            <th>NUP</th>
+            <th>NUP</th>
+            <th>NUP</th> 
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let expediente of expedientes">
+            <td  *ngIf="expediente.status === 'Despacho Secretaria'">{{ expediente.codigo_sistema }}</td>
+            <td  *ngIf="expediente.status === 'Despacho Secretaria'">{{ expediente.tipicidade }}</td>
+            <td  *ngIf="expediente.status === 'Despacho Secretaria'">{{ expediente.tipo_ocorrencia }}</td>
+            <td  *ngIf="expediente.status === 'Despacho Secretaria'">{{ expediente.categoria }}</td>
+            <td  *ngIf="expediente.status === 'Despacho Secretaria'">{{ expediente.data_ocorrido }}</td>
+            <td  *ngIf="expediente.status === 'Despacho Secretaria'">{{ expediente.importancia }}</td>
+            <td  *ngIf="expediente.status === 'Despacho Secretaria'">{{ expediente.municipio }}</td> 
+            <td  *ngIf="expediente.status === 'Despacho Secretaria'">{{ expediente.status }}</td>
+            <td  *ngIf="expediente.status === 'Despacho Secretaria'">{{ expediente.nup || '-' }}</td>
+            <td  *ngIf="expediente.status === 'Despacho Secretaria'">
+              <!-- Botões aparecem conforme o status atual -->
+               <button (click)="remeterMinisterio(expediente.id)" *ngIf="expediente.status === 'Despacho Secretaria'">Remeter Ministério</button>
+              
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  </section>

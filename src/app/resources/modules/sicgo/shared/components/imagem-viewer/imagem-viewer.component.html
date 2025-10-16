@@ -1,0 +1,19 @@
+
+
+<div class="modal fade " id="modalRegistarOuEditarDelituosoviewer" aria-labelledby="modalRegistarOuEditarDelituosoviewer" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalRegistarOuEditarDelituosoviewerLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="image-viewer">
+          <img [src]="imageUrl" [style.transform]="'scale(' + zoomLevel + ') rotate(' + rotation + 'deg)'" alt="Image Viewer">
+          <div class="controls">
+            <button (click)="zoomIn()">Zoom In</button>
+            <button (click)="zoomOut()">Zoom Out</button>
+            <button (click)="rotateClockwise()">Rotate Clockwise</button>
+            <button (click)="rotateCounterClockwise()">Rotate Counter-Clockwise</button>
+          </div>
+  </div>
+</div>
+</div>
+</div>
+
+

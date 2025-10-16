@@ -1,0 +1,28 @@
+.header-text {
+    font-size: 32px;
+    font-weight: 500;
+    font-family: Arial;
+    margin-left: 5px;
+    font-style: bold;
+    margin-top: 2%;
+}
+
+table th {
+    color: white;
+    background-color: var(--primary-color);
+    height: 53px;
+    margin-top: -15px;
+}
+
+td {
+    height: 52px;
+    padding-top: 11px;
+}
+
+th:first-of-type {
+    border-top-left-radius: 8px;
+}
+
+th:last-of-type {
+    border-top-right-radius: 8px;
+}

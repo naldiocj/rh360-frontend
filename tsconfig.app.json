@@ -1,0 +1,19 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/app",
+    "types": []
+  },
+  "files": [
+    "src/main.ts",
+    "src/polyfills.ts",
+    "src/app/resources/modules/sicgo/core/speech-recognition.d.ts"
+  ],
+  "paths": {
+    "@angular/*": ["./node_modules/@angular/*"]
+  },
+  "include": [
+    "src/**/*.d.ts" 
+  ]
+}

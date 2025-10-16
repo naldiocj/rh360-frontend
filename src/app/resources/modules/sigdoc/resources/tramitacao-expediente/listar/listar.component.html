@@ -1,0 +1,42 @@
+<main id="main_" class="main_">
+  <div>
+  <div class="pagetitle mb-4">
+    <h1><i class="bi bi-file-earmark-arrow-up" style="font-size:3.2rem"></i><span class="mx-2">Tramitação do Expediente</span></h1>
+  </div>
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body p-0">
+            <ul class="nav nav-tabs nav-tabs-bordered d-flex" id="borderedTabJustified" role="tablist">
+              <li class="nav-item flex-fill" role="presentation">
+                <a class="nav-link w-100 active d-flex align-items-center justify-content-center" id="home-tab" data-toggle="tab" href="#enviar" role="tab" aria-controls="home" aria-selected="true"><i class="bi bi-list-check mx-2" style="font-size:1.2rem"></i>Expedientes Recebidos</a>
+              </li>
+              <li class="nav-item flex-fill" role="presentation">
+                <a class="nav-link w-100 d-flex align-items-center justify-content-center" id="profile-tab" data-toggle="tab" href="#listagem" role="tab" aria-controls="listagem" aria-selected="false"><i class="bi bi-file-earmark-arrow-up" style="font-size:1.2rem"></i>Expedientes Tramitado</a>
+              </li>
+            </ul>
+            <div class="tab-content pt-2" id="borderedTabJustifiedContent">
+              <div class="tab-pane fade active show" id="enviar" role="tabpanel" aria-labelledby="home-tab">
+                <!-- Começa Aqui-->
+                <div class="card-body">
+                <app-expediente-recebido></app-expediente-recebido>
+                <!-- Termina Aqui-->
+                </div>
+              </div>
+              <div class="tab-pane fade" id="listagem" role="tabpanel" aria-labelledby="profile-tab">
+                <!-- Começa Aqui-->
+                <div class="card-body">
+                  <app-expediente-tramitado></app-expediente-tramitado>
+                  <!-- Termina Aqui-->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+</main>

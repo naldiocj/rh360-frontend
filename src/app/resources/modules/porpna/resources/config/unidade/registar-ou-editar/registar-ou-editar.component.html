@@ -1,0 +1,115 @@
+<div
+  class="modal fade"
+  id="registar-ou-editar"
+  aria-labelledby="modalRegistarOuEditarPosto"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog"
+    role="document"
+    style="overflow-y: hidden; min-width: 30%"
+  >
+    <div class="modal-content shadow border" style="border-radius: 0px">
+      <div class="modal-header">
+        <h5 style="color: var(--bg-color)">
+          <i
+            class="fa"
+            [class.fa-plus]="!this.getUnidadeId"
+            [class.fa-edit]="this.getUnidadeId"
+          ></i>
+          {{
+            this.getUnidadeId
+              ? "Editar unidade das FAA  - " + this.unidade?.sigla
+              : "Registrar Unidade das FAA"
+          }}
+        </h5>
+        <button
+          type="button"
+          class="close"
+          id="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="content">
+        <form [formGroup]="this.simpleForm" (ngSubmit)="this.onSubmit()">
+          <div class="modal-body">
+            <div class="row">
+              <div class="form-group col-md-12">
+                <label>
+                  Nome
+                  <span class="text-danger"> *</span>
+                </label>
+                <input
+                  formControlName="nome"
+                  type="text"
+                  class="form-control"
+                />
+              </div>
+
+              <div class="form-group col-md-12">
+                <label>
+                  Sigla
+                  <span class="text-danger"> *</span>
+                </label>
+                <input
+                  formControlName="sigla"
+                  type="text"
+                  class="form-control"
+                />
+              </div>
+              <div class="form-group col-md-12">
+                <label>
+                  Endereço
+                  <span class="text-danger"> *</span>
+                </label>
+                <input
+                  formControlName="endereco"
+                  type="text"
+                  class="form-control"
+                />
+              </div>
+              <div class="form-group col-md-12">
+                <label>
+                  Obervação
+                  <span class="text-danger"> *</span>
+                </label>
+                <textarea
+                  formControlName="descricao"
+                  type="text"
+                  class="form-control"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer d-flex justify-content-end">
+            <button class="btn btn-red m-0 p-1 px-2" (click)="this.resetForm()">
+              <span class="fa fa-refresh"></span> Limpar
+            </button>
+            <button
+              type="submit"
+              class="btn m-0 p-1 btn-primary px-2"
+              [disabled]="!this.simpleForm.valid || isLoading"
+            >
+              <ng-container *ngIf="!this.isLoading; else loading">
+                <ng-container *ngIf="this.getUnidadeId; else registarUnidade">
+                  <i class="fa fa-edit"></i> Editar
+                </ng-container>
+                <ng-template #registarUnidade>
+                  <i class="fa fa-plus-circle"></i> Registar
+                </ng-template>
+              </ng-container>
+              <ng-template #loading>
+                <i class="spinner-border spinner-border-sm m-1"></i>
+                Carregando...
+              </ng-template>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

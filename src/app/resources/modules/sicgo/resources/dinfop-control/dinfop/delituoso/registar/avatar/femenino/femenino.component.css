@@ -1,0 +1,135 @@
+ 
+
+#container,
+.head,
+.eye,
+.mouth,
+.hair,
+.fringe,
+.ear,
+.nose {
+  position: absolute;
+}
+
+.layer, .hair, .ear, .fringe, .eye, .head, .nose, .mouth, .tongue {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-origin: center;
+    transition: transform 0.3s ease-out; /* Transição mais longa e suave */
+}
+
+#container {
+  margin: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 200px;
+  height: 200px;
+  transform-origin: bottom;
+}
+
+.hair {
+  z-index: 5;
+  top: -20px;
+  left: 0;
+  width: 109px;
+  height: 109px;
+  background: #404E4D;
+  border-radius: 100px 100px 10px 10px;
+}
+
+.fringe {
+  z-index: 99;
+  top: -2px !important;
+  left: 36px !important;
+  width: 60px;
+  height: 40px;
+  background: #404E4D;
+  border-radius: 0 100px 100% 250px;
+  transform: rotate(30deg);
+}
+.fringe:before {
+  position: absolute;
+  content: "";
+  top: -3px;
+  left: -34px;
+  width: 57px;
+  height: 30px;
+  background: #424B54;
+  border-radius: 100%;
+  transform: rotate(-50deg);
+}
+
+.head {
+  left: 10px;
+  z-index: 9;
+  width: 85px;
+  height: 108px;
+  background: #af5b2c;
+  border-radius: 100px;
+}
+
+.eye {
+  z-index: 20;
+  top: 45px !important;
+  left: 12px !important;
+  width: 12px;
+  height: 12px;
+  background: #404E4D;
+  border-radius: 100%;
+}
+.eye:before {
+  position: absolute;
+  content: "";
+  width: 12px;
+  height: 12px;
+  background: #404E4D;
+  border-radius: 100%;
+  left: 53px;
+}
+
+.mouth {
+  top: 75px;
+  left: 30px;
+  width: 30px;
+  height: 15px;
+  border-radius: 0 0 100px 100px;
+  background: #404E4D;
+  overflow: hidden;
+}
+
+.tongue {
+  position: absolute;
+  top: 7px;
+  left: 10px;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  background: #f05902;
+}
+
+.ear {
+  z-index: -1;
+  width: 30px;
+  height: 30px;
+  background: #E8C2B7;
+  top: 39px;
+  left: -5px;
+  border-radius: 100%;
+}
+
+.ear.right {
+  left: 60px;
+}
+
+.nose {
+  z-index: 20;
+  top: 54px;
+  left: 40px;
+  width: 8px;
+  height: 14px;
+  background: #7c5452;
+  border-radius: 100px;
+}

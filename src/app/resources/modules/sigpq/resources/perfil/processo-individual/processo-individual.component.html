@@ -1,0 +1,240 @@
+<div class="row">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+    <form class="form-inline">
+      <select class="form-control mr-sm-1" (change)="filtrarPagina('perPage', $event)">
+        <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">
+          {{ item }}
+        </option>
+      </select>
+      <input class="form-control mr-sm-1" type="text" [ngModel]="filtro.search"
+        (ngModelChange)="filtrarPagina('search', $event)" placeholder="Pesquisa ..." />
+      <button (click)="this.recarregarPagina()" class="btn-piips btn-piips-secondary m-0 py-2">
+        <i style="font-size: 14px" class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+        <b>Recarregar</b>
+      </button>
+    </form>
+  </div>
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="table-responsive">
+          <table class="table table-border table-striped custom-table datatable mb-0">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Tipo</th>
+                <th>Documento</th>
+                <th>Data que expira</th>
+                <th>Estado</th>
+                <th>Data de Registo</th>
+                <th>Data de Actualização</th>
+                <th class="text-right">Operação</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of this.documentos; index as i">
+                <td> {{i+1}}</td>
+                <td> {{ item?.sigpq_tipo_documento_nome}}</td>
+                <td> {{ item?.nid}}</td>
+                <td> {{ this.formatarDataHelper.formatDate(item?.data_expira)}}</td>
+                <td>
+                  <span *ngIf="item?.data_expira"
+                  [ngClass]="{
+                      'custom-badge status-orange': !isExpired(item.data_expira),
+                      'custom-badge status-green': isExpired(item.data_expira)
+                  }">
+                    {{ isExpired(item.data_expira) ? 'Desatualizado' : 'Atualizado' }}
+                  </span>
+                  <span *ngIf="!item?.data_expira" class="custom-badge status-green">
+                    Atualizado
+                  </span>
+                </td>
+                <!-- <td>
+                  {{ item?.data_expira
+                    ? (item.data_expira > today ? 'Desatualizada' : 'Atualizado')
+                    : 'Atualizado' }}
+                   <span *ngIf="item.activo" class="custom-badge status-green">Activo</span>
+                  <span *ngIf="!item.activo" class="custom-badge status-orange">Inactivo</span>
+                </td> -->
+                <td> {{ item?.created_at}}</td>
+                <td> {{ item?.updated_at}}</td>
+                <td class="text-right">
+                  <div class="dropdown dropdown-action">
+                    <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
+                        class="fa fa-ellipsis-v"></i></a>
+                    <div class="dropdown-menu">
+                      <!-- <a *ngIf="!item.activo" class="dropdown-item" (click)="construcao()" href="javascript:void(0)">
+                        <i class="fa fa-thumbs-o-up m-r-5"></i>
+                        Activar
+                      </a>
+                      <a *ngIf="item.activo" class="dropdown-item" (click)="construcao()" href="javascript:void(0)">
+                        <i class="fa fa-thumbs-o-down m-r-5"></i>
+                        Desactivar
+                      </a> -->
+                      <a class="dropdown-item" href="javascript:void(0)"
+                                      (click)="visualizar(item)">
+                                      <i class="fa fa-eye m-r-5"></i>
+                                      Visualizar
+                      </a>
+                      <!-- <a class="dropdown-item" href="#" (click)="construcao()" data-toggle="modal"
+                        data-target="#delete_patient">
+                        <i class="fa fa-trash-o m-r-5"></i> Eliminar</a> -->
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+              Mostrando de {{ this.pagination.current_page }} á
+              {{ this.pagination.per_page }} de {{ this.pagination.total }} Registo
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+              <div class="float-right">
+                <pagination-controls id="documentoId" (pageChange)="this.filtrarPagina('page', $event)"
+                  [directionLinks]="true" [autoHide]="false" previousLabel="Anterior" nextLabel="Próximo" [maxSize]="4"
+                  [responsive]="true"></pagination-controls>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="modalProvimento" class="modal secand-modal" tabindex="-1" role="dialog" style="display:none;" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="overflow-y: hidden;min-width: 70%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>
+          <i class="fa fa-user"></i>
+          Visualizar documento
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal('modalProvimento')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="content">
+        <div class="modal-body">
+          <div class="row">
+
+            <div class="col-sm-12">
+              <nav class="navbar navbar-light bg-light">
+                <h3>{{this.documento?.sigpq_tipo_documento_nome}}</h3>
+                <aside *ngIf="this.documento">
+                  <span *ngIf="this.documento.activo" class="custom-badge status-green">Activo</span>
+                  <span *ngIf="!this.documento.activo" class="custom-badge status-orange">Inactivo</span>
+                </aside>
+              </nav>
+              <div class="col-sm-12">
+                <aside *ngIf="carregarDocumento;else carregarDocumentoVerMensagem">
+                  <div class="container">
+                    <div class="row justify-content-center">
+                      Carregando documento ...
+                      <div class="col-sm-12 text-center">
+                        <div class="spinner-border text-primary" style="width: 2rem; height: 2rem;" role="status">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </aside>
+                <ng-template #carregarDocumentoVerMensagem>
+                  <aside *ngIf="fileUrl; else verMensagem">
+                    <iframe [src]="fileUrl" width="100%" height="700px"></iframe>
+                  </aside>
+                  <ng-template #verMensagem>
+                    <div class="container">
+                      <div class="row justify-content-center">
+                        <div class="col-sm-12 text-center">
+                          Sem documento adicionado
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                </ng-template>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal('modalProvimento')">
+            <span class="fa fa-close m-r-2"></span>Fechar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 
+<div class="modal fade" id="modalProvimento" aria-labelledby="modalProvimento" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="overflow-y: hidden;min-width: 70%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>
+          <i class="fa fa-user"></i>
+          Visualizar documento
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="content">
+        <div class="modal-body">
+          <div class="row">
+
+            <div class="col-sm-12">
+              <nav class="navbar navbar-light bg-light">
+                <h3>{{this.documento?.sigpq_tipo_documento_nome}}</h3>
+                <aside *ngIf="this.documento">
+                  <span *ngIf="this.documento.activo" class="custom-badge status-green">Activo</span>
+                  <span *ngIf="!this.documento.activo" class="custom-badge status-orange">Inactivo</span>
+                </aside>
+              </nav>
+              <div class="col-sm-12">
+                <aside *ngIf="carregarDocumento;else carregarDocumentoVerMensagem">
+                  <div class="container">
+                    <div class="row justify-content-center">
+                      Carregando documento ...
+                      <div class="col-sm-12 text-center">
+                        <div class="spinner-border text-primary" style="width: 2rem; height: 2rem;" role="status">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </aside>
+                <ng-template #carregarDocumentoVerMensagem>
+                  <aside *ngIf="fileUrl; else verMensagem">
+                    <iframe [src]="fileUrl" width="100%" height="700px"></iframe>
+                  </aside>
+                  <ng-template #verMensagem>
+                    <div class="container">
+                      <div class="row justify-content-center">
+                        <div class="col-sm-12 text-center">
+                          Sem documento adicionado
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                </ng-template>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            <span class="fa fa-close m-r-2"></span>Fechar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->

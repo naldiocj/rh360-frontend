@@ -1,0 +1,191 @@
+<main id="main_" class="main_">
+  <div class="pagetitle mb-4">
+    <h1>
+      <i class="bi bi bi-receipt"></i
+      ><span class="mx-2">Ordem de Serviço</span>
+    </h1>
+  </div>
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card recent-sales overflow-auto">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12">
+                <div
+                  class="card-body-header d-flex justify-content-between align-items-center my-2"
+                >
+                  <h5 class="card-title">Órdens</h5>
+                </div>
+              </div>
+              <div class="col-12 my-2">
+                <form class="form-inline">
+                  <select
+                    id="perPageSelector"
+                    class="form-control mr-sm-1"
+                    (change)="filtrarPagina('perPage', $event)"
+                  >
+                    <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">
+                      {{ item }}
+                    </option>
+                  </select>
+                  <input
+                    class="form-control mr-sm-1"
+                    type="text"
+                    [ngModel]="filtro.search"
+                    name="search"
+                    (ngModelChange)="filtrarPagina('search', $event)"
+                    placeholder="Pesquisa ..."
+                  />
+                  <button
+                    (click)="this.recarregarPagina()"
+                    id="btpe1"
+                    class="btn btn-outline-success my-2 my-sm-0"
+                    type="submit"
+                  >
+                    <i
+                      style="font-size: 14px"
+                      class="fa fa-refresh fa-spin fa-3x fa-fw"
+                    ></i>
+                    <b>Recarregar</b>
+                  </button>
+                </form>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table text-centers ms-auto">
+                <thead class="text-centers">
+                  <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Data Registado</th>
+                    <!-- <th>Data Actualização</th> -->
+                    <th colspan="4" class="text-center">Visualizar</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr *ngFor="let item of _ordens_de_servico;index as i">
+                    <td>{{ i + 1 }}</td>
+
+                    <td>N.º {{item.nome}}</td>
+
+                    <td>{{ item.created_at }}</td>
+                    <!-- <td>{{ item.updated_at }}</td> -->
+                    <td class="text-center">
+                      <a href="javascript:void(0)" (click)="visualizar(item)" data-toggle="modal"
+                            data-target="#modalVisualizarOrdem">
+                            <i class="fa fa-eye m-r-5"></i>
+                          </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-lg-12">
+                  Mostrando de {{ this.pagination.current_page }} a
+                  {{ this.pagination.per_page }} de {{ this.pagination.total }}
+                  <aside *ngIf="this.pagination.total < 2; else outrosRegistos">
+                    registos
+                  </aside>
+                  <ng-template #outrosRegistos>registos</ng-template>
+                </div>
+                <div class="col-sm-6">
+                  <div class="float-right">
+                    <pagination-controls
+                      id="funcionarioEspecial"
+                      (pageChange)="this.filtrarPagina('page', $event)"
+                      [directionLinks]="true"
+                      [autoHide]="true"
+                      previousLabel="Anterior"
+                      nextLabel="Próximo"
+                      [maxSize]="4"
+                      [responsive]="true"
+                    ></pagination-controls>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+
+<div class="modal fade" id="modalVisualizarOrdem" aria-labelledby="modalVisualizarOrdem" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="overflow-y: hidden;min-width: 70%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>
+          <i class="fa fa-user"></i>
+          Visualizar Ordem de Serviço
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="content">
+        <div class="modal-body">
+          <div class="row">
+
+            <div class="col-sm-12">
+              <nav class="navbar navbar-light bg-light">
+                <h5>Ordem de Serviço N.º{{documento?.nome}}</h5>
+                <!-- <aside *ngIf="this.documento">
+                  <span *ngIf="this.documento.activo" class="custom-badge status-green">Activo</span>
+                  <span *ngIf="!this.documento.activo" class="custom-badge status-orange">Inactivo</span>
+                </aside> -->
+              </nav>
+              <div class="col-sm-12">
+                <aside *ngIf="carregarDocumento;else carregarDocumentoVerMensagem">
+                  <div class="container">
+                    <div class="row justify-content-center">
+                      Carregando documento ...
+                      <div class="col-sm-12 text-center">
+                        <div class="spinner-border text-primary" style="width: 2rem; height: 2rem;" role="status">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </aside>
+                <ng-template #carregarDocumentoVerMensagem>
+                  <aside *ngIf="fileUrl; else verMensagem">
+                    <!-- <iframe [src]="fileUrl" width="100%" height="700px"></iframe> -->
+                    <ngx-extended-pdf-viewer
+                    [src]="fileUrl"
+                    [height]="'auto'"
+                    [textLayer]="true" 
+                    [showHandToolButton]="true" 
+                    [filenameForDownload]="'Public Domain.pdf'"> 
+                   </ngx-extended-pdf-viewer>
+                  </aside>
+                  <ng-template #verMensagem>
+                    <div class="container">
+                      <div class="row justify-content-center">
+                        <div class="col-sm-12 text-center">
+                          Sem documento adicionado
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                </ng-template>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            <span class="fa fa-close m-r-2"></span>Fechar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

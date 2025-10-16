@@ -1,0 +1,218 @@
+<h3>
+    <span><i style="" class="bi bi-grid-fill"></i>
+        <span class="nmg-hide-text">Menu Principal</span>
+    </span>
+</h3>
+  <!-- <hr> -->
+  
+  <ul type="none" id="side-navbar">
+    <!-- Painel de controlo -->
+    <li routerLinkActive="efeito2" (mouseover)="callSideNavBar()" (mouseout)="this.hideSideNavBar()">
+      <a [routerLink]="['/piips/sigvest/dashboard']" ariaCurrentWhenActive="page" class="" data-toggle="tooltip" data-placement="right" title=" Painel Controlo ">
+        <i class="bi bi-laptop ii"></i>
+        <span class="nmg-hide-text">Painel Controlo </span>
+      </a>
+    </li>
+    
+    <!-- Planificação [routerLink]="['/piips/sigv/dashboard']" -->
+    <li routerLinkActive="efeito2">
+      <a [routerLink]="['/piips/sigvest/planificacao']" class="" data-toggle="tooltip" data-placement="right" title=" Planificação " ariaCurrentWhenActive="page">
+        <i class="bi bi-clipboard ii"></i>
+        <span class="nmg-hide-text"> Planificação </span>
+      </a>
+    </li>
+  
+    <!-- Gestão de Estoque -->
+    <li>
+      <a [routerLink]="['/piips/sigvest/gestao-de-estoque']" class="" data-toggle="tooltip" data-placement="right" title=" Gestão de Estoque " ariaCurrentWhenActive="page">
+      <i class="bi bi-house  ii"></i>
+        <span class="nmg-hide-text">Gestão de Estoque <i class="bi bi-chevron-right icon-girar"></i></span>  
+      </a>
+  
+      <!-- <div id="estoque" class="collapse">
+        <li style="padding-left: 30px; padding-top: 10px; padding-bottom: 5px" routerLinkActive="efeito2">
+          <a
+            [routerLink]="['/piips/sigv/abastecimento']"
+            ariaCurrentWhenActive="page"
+          ><i class="bi bi-house-down-fill ii"></i>
+            <span>Abastecimento</span>
+          </a>
+        </li>
+      </div>
+  
+      <div id="estoque" class="collapse">
+        <li style="padding-left: 30px; padding-top: 10px; padding-bottom: 5px" routerLinkActive="efeito2">
+          <a
+            [routerLink]="['/piips/sigv/distribuicao']"
+            ariaCurrentWhenActive="page"
+          ><i class="bi bi-house-up-fill ii"></i>
+            <span class="nmg-hide-text">Distribuição</span>
+          </a>
+        </li>
+      </div>
+  
+      <div id="estoque" class="collapse">
+        <li style="padding-left: 30px; padding-top: 10px; padding-bottom: 5px" routerLinkActive="efeito2">
+          <a
+            [routerLink]="['/piips/sigv/estoque']"
+            ariaCurrentWhenActive="page"
+          ><i class="bi bi-house-lock-fill ii"></i>
+            <span>Reserva</span>
+          </a>
+        </li>
+      </div> -->
+      <!--
+      <div id="estoque" class="collapse">
+        <li style="padding-left: 30px; padding-top: 10px; padding-bottom: 5px" (click)="aviso()">
+           [routerLink]="['/piips/sigef/configuracoes/listar']" 
+          <a
+        
+            ariaCurrentWhenActive="page"
+          >
+           <i class="bi bi-box-arrow-in-right ii"></i>
+            <span>Registo E/S</span>
+          </a>
+        </li>
+      </div>-->
+    </li>
+  
+    <!-- Gestão de Pedidos -->
+    <li routerLinkActive="efeito2">
+      <a ariaCurrentWhenActive="page" [routerLink]="['/piips/sigvest/gestao-de-pedidos']" class="" data-toggle="tooltip" data-placement="right" title=" Gestão de Pedidos ">
+        <i class="bi bi-archive ii"></i>
+        <span class="nmg-hide-text">Gestão de Pedidos </span> <span class="menu-arrow"></span>
+      </a>
+
+    </li>
+  
+    <!-- Transporte [routerLink]="['/piips/sigv/dashboard']" -->
+     <!-- <li (click)="aviso()">
+      <a  ariaCurrentWhenActive="page">
+        <i class="bi bi-truck ii"></i>
+        <span> Transporte </span>
+      </a>
+    </li> -->
+  
+    <!-- Segurança e controlo 
+    <li>
+      <a
+        ariaCurrentWhenActive="page"
+        href="#controlo"
+        data-toggle="collapse"
+      >
+        <img src="../../../../../../assets/assets_sigv/img/img/new/Laptop Settings.png" alt="" >
+        <span>Segurança & Controlo <i class="bi bi-chevron-right"></i></span> <span class="menu-arrow"></span>
+      </a>
+  
+      <div id="controlo" class="collapse">
+        <li style="padding-left: 30px; padding-top: 10px; padding-bottom: 5px">
+          <a
+            [routerLink]="['/piips/sigef/configuracoes/listar']"
+            ariaCurrentWhenActive="page"
+          >
+            <span>Segurança Alimentar</span>
+          </a>
+        </li>
+      </div>
+  
+      <div id="controlo" class="collapse">
+        <li style="padding-left: 30px; padding-top: 10px; padding-bottom: 5px">
+          <a
+            [routerLink]="['/piips/sigef/configuracoes/listar']"
+            ariaCurrentWhenActive="page"
+          >
+            <span>Controlo & Acesso</span>
+          </a>
+        </li>
+      </div>
+    </li>
+    -->
+    
+    <!-- Relatório & análises   -->
+    <li routerLinkActive="efeito2">
+      <a  ariaCurrentWhenActive="page" [routerLink]="['/piips/sigvest/relatorios']" class="" data-toggle="tooltip" data-placement="right" title=" Relatórios & Análises ">
+        <i class="bi bi-graph-up-arrow ii"></i>
+        <span class="nmg-hide-text"> Relatório & Análises </span>
+      </a>
+    </li>
+  
+    <!-- Configurações -->
+    <li routerLinkActive="efeito2">
+      <a ariaCurrentWhenActive="page" [routerLink]="['/piips/sigvest/configuracoes']" class="" data-toggle="tooltip" data-placement="right" title=" Configurações ">
+        <i class="bi bi-tools ii"></i>
+        <span class="nmg-hide-text">Configurações </span> <span class="menu-arrow"></span>
+      </a>
+  
+  <!--     <div id="configuracoes" class="collapse">
+        <li style="padding-left: 30px; padding-top: 10px; padding-bottom: 5px" (click)="aviso()">
+          <a
+            
+            ariaCurrentWhenActive="page"
+          >
+          <i class="bi bi-person"></i>
+            <span>Controlo de Usuário</span>
+          </a>
+        </li>
+      </div>
+  
+      <div id="configuracoes" class="collapse">
+        <li style="padding-left: 30px; padding-top: 10px; padding-bottom: 5px" routerLinkActive="efeito2">
+          <a
+            [routerLink]="['/piips/sigv/categoria/listar']"
+            ariaCurrentWhenActive="page"
+          >
+            <i class="bi bi-person-circle ii"></i>
+            <span>Grupos Calóricos</span>
+          </a>
+        </li>
+      </div>
+  
+      <div id="configuracoes" class="collapse">
+        <li style="padding-left: 30px; padding-top: 10px; padding-bottom: 5px" (click)="aviso()">
+          <a
+            
+            ariaCurrentWhenActive="page"
+          >
+            <i class="bi bi-person-circle"></i>
+            <span>Fornecedor</span>
+          </a>
+        </li>
+      </div>
+  
+      <div id="configuracoes" class="collapse">
+        <li style="padding-left: 30px; padding-top: 10px; padding-bottom: 5px" routerLinkActive="efeito2">
+          <a
+          [routerLink]="['/piips/sigv/tipo-plano']"
+            ariaCurrentWhenActive="page"
+          >
+            <i class="bi bi-person-circle ii"></i>
+            <span>Gestão de Plano</span>
+          </a>
+        </li>
+      </div>
+  
+      <div id="configuracoes" class="collapse">
+        <li style="padding-left: 30px; padding-top: 10px; padding-bottom: 5px" routerLinkActive="efeito2">
+          <a
+          [routerLink]="['/piips/sigv/descricao-produto']"
+            ariaCurrentWhenActive="page"
+          >
+            <i class="bi bi-person-circle ii"></i>
+            <span>Descrição de Produto</span>
+          </a>
+        </li>
+      </div> -->
+  
+    </li>
+  </ul>
+  
+  
+  <div class="rodape">
+    <div>
+      <strong>Versão 0.1</strong> <br>
+      <!-- <span style="font-size: .6rem">
+        DTTI/PNA Todos os direitos reservados.<br>
+        Module of the PIIPS
+      </span> -->
+    </div>
+  </div>

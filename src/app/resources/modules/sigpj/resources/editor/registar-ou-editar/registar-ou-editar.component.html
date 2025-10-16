@@ -1,0 +1,12 @@
+
+ 
+<form [formGroup]="templateForm" class="NgxEditor__Wrapper">  
+    <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
+    <ngx-editor [editor]="editor"   [(ngModel)]="html" [disabled]="false"  formControlName="textEditor"  ></ngx-editor>
+    
+   
+</form> 
+
+<button class="btn btn-success my-3 " (click)="mostrarConteudo()" >
+    Gerar Documento
+</button>

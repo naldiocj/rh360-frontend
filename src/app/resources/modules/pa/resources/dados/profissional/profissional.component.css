@@ -1,0 +1,43 @@
+.nav-tabs-bordered {
+    border-bottom: 2px solid #ebeef4;
+    background-color:  #041b43!important;
+  }
+  
+  .nav-tabs-bordered .nav-link {
+    margin-bottom: -2px;
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    border-radius: unset;
+    background:  #041b43;
+  }
+  
+  .nav-tabs-bordered .nav-link:hover{
+    color:  #041b43!important;
+    background: #fff!important;
+    border-bottom: 2px solid  #041b43!important;
+  }
+  
+  .nav-tabs-bordered .nav-link.active {
+    background-color: #fff;
+    color:  #041b43!important;
+    font-weight: 600;
+  
+  }
+
+  .pagetitle .btn.btn-outline-primary, 
+.modal .btn.btn-outline-primary,
+.card-body-header .btn.btn-outline-primary{
+  border-color: #041b43!important;
+  color: #041b43;
+  transition: all .6s;
+  border-radius: 5px!important;
+  padding: 10px 15px!important;
+}
+
+.pagetitle .btn-outline-primary:hover,
+.modal .btn-outline-primary:hover,
+.card-body-header .btn.btn-outline-primary:hover{
+  background: #041b43;
+  color: #fff;
+}

@@ -1,0 +1,395 @@
+<!--formulario de atribuicao de arma para agente-->
+<div
+  class="modal fade"
+  id="atribuir"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div style="margin-top: 5%" class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Atribuição de Armas</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form
+          class="forma d-grid justify-content-center w-100"
+          [formGroup]="formAt"
+        >
+          <ng-select2
+            [options]="options"
+            [data]="this.direcaoOuOrgao"
+            formControlName="orgao_id"
+            (valueChanged)="selecionarAgente($event)"
+            style="width: 210px"
+          >
+          </ng-select2>
+
+          <form action="">
+            <input
+              class="form-control mr-sm-1"
+              type="search"
+              placeholder="Pesquisa pelo NIP,NOME"
+              name="search"
+              [(ngModel)]="setorgao"
+              (ngModelChange)="SetOrgao($event)"
+            />
+            &nbsp;
+            <table
+              class="table table-border table-resposive table-striped custom-table datatable mb-0"
+            >
+              <thead>
+                <tr>
+                  <th>Nip</th>
+                  <th>Nome do Agente</th>
+                  <th>acção</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="let item of func"
+                  [class]="this.id == item.id ? 'bg-success text-white' : ''"
+                >
+                  <td>{{ item.nip }}</td>
+                  <td>{{ item.nome }}</td>
+                  <td>
+                    <a
+                      *ngIf="this.showATs"
+                      class="btn text-white bg-primary p-1"
+                      style="height: 30px"
+                      (click)="setAgente(item.id)"
+                      >Adicionar
+                    </a>
+                    <a
+                      *ngIf="!this.showATs && this.id == item.id"
+                      class="btn text-white bg-danger p-1"
+                      style="height: 30px"
+                      (click)="unsetAgente()"
+                      >remover
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </form>
+
+          <div
+            class="form-group col"
+            id="inp_at"
+            *ngIf="verDesconhecido != true"
+          >
+            <label>
+              <b>
+                Agente:
+                <span class="text-danger"> *</span>
+              </b> </label
+            ><br />
+            <input
+              type="text"
+              formControlName="sem_pessoa_id"
+              class="w-100"
+              style="border-radius: 0px; height: 40px"
+              required
+            />
+          </div>
+
+          <div class="form-group col" id="inp_at">
+            <label>
+              <b>
+                Nº de Despacho ou Nº Guia:
+                <span class="text-danger"> *</span>
+              </b> </label
+            ><br />
+            <input
+              type="text"
+              formControlName="num_despacho"
+              maxlength="20"
+              class="w-100"
+              style="border-radius: 0px; height: 40px"
+              required
+            />
+          </div>
+
+          <div class="form-group col" id="inp_at">
+            <label>
+              <b>
+                Anexo de Guia:
+                <span class="text-danger"> *</span>
+              </b>
+              <br />
+              <span
+                class="text-danger"
+                style="font-size: 10px; margin-top: -15%"
+                >O ficheiro não pode ser acima de 5mb
+              </span> </label
+            ><br />
+            <input
+              type="file"
+              (change)="pegarFileGuia($event)"
+              class="w-100"
+              style="border-radius: 0px; height: 40px"
+              formControlName="ficheiro"
+              required
+              accept=".pdf"
+            />
+          </div>
+          <div class="form-group col" id="inp_at">
+            <label>
+              <b>
+                Anexo de Processo:
+                <span class="text-danger"> *</span>
+              </b>
+              <br />
+              <span
+                class="text-danger"
+                style="font-size: 10px; margin-top: -15%"
+                >O ficheiro não pode ser acima de 5mb
+              </span> </label
+            ><br />
+            <input
+              type="file"
+              (change)="pegarFile($event)"
+              class="w-100"
+              style="border-radius: 0px; height: 40px"
+              formControlName="processo_doc"
+              required
+              accept=".pdf"
+            />
+          </div>
+
+          <div class="form-group">
+          </div>
+        </form>
+      </div>
+      <div class="w-100 container gap-1 bg-danger">
+        <button
+        type="reset"
+        class=" btn-secondary mx-5"
+        data-dismiss="modal"
+      >
+        Cancelar
+      </button>
+      <button
+        type="submit" 
+        class=" btn-primary mx-5 "
+        (click)="passar()"
+
+      >
+        Confirmar
+      </button>
+
+      </div>
+        
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="grid">
+  <div class="modal fade" id="retribuir"  role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modalAt" role="document">
+          <div class="modal-content">
+              <div class="modal-header bg-success">
+                  <h5 class="modal-title text-white" id="exampleModalLabel">Atribuição de Armas</h5>
+                  <button type="button" (click)="this.limparOrgao();" class="close" data-dismiss="modal" aria-label="Close">
+                      <span class="text-white" aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+
+                  <div class="row">
+                      <form class="forma d-flex justify-content-center w-100 " [formGroup]="formAt"
+                         >
+                          <div class="form-group d-flex w-100" id="inp_at">
+                              <div class="col-6"  >
+                                  <div class="form-group">
+                                      <label >
+                                          <b>
+                                              Orgão:
+                                              <span class="text-danger"> *</span>
+                                          </b>
+                                      </label>
+                              <ng-select2
+                              style="height:40px;border-radius: 1px; width: 100%!important;"
+                              [options]="options"
+                              [data]="this.direcaoOuOrgao"
+                              formControlName="orgao_id"
+                              [placeholder]="'Selecione um órgão...'"
+                               (valueChanged)="selecionarAgente($event)" 
+                            >
+                            </ng-select2>
+                      
+                                </div>
+
+                
+                                <div class="form-group col" id="inp_at">
+                                  <label>
+                                    <b>
+                                      Nº de Despacho ou Nº Guia:
+                                      <span class="text-danger"> *</span>
+                                    </b> </label
+                                  ><br />
+                                  <input
+                                    type="text"
+                                    formControlName="num_despacho"
+                                    maxlength="20"
+                                    class="w-100"
+                                    style="border-radius: 0px; height: 40px"
+                                    required
+                                  />
+                                </div>
+                      
+                                <div class="form-group col" id="inp_at">
+                                  <label>
+                                    <b>
+                                      Anexo de Guia:
+                                      <span class="text-danger"> *</span>
+                                    </b>
+                                    <br />
+                                    <span
+                                      class="text-danger"
+                                      style="font-size: 10px; margin-top: -15%"
+                                      >O ficheiro não pode ser acima de 5mb
+                                    </span> </label
+                                  ><br />
+                                  <input
+                                    type="file"
+                                    (change)="pegarFileGuia($event)"
+                                    class="w-100"
+                                    style="border-radius: 0px; height: 40px"
+                                    formControlName="ficheiro"
+                                    required
+                                    accept=".pdf"
+                                  />
+                                </div>
+                                <div class="form-group col" id="inp_at">
+                                  <label>
+                                    <b>
+                                      Anexo de Processo:
+                                      <span class="text-danger"> *</span>
+                                    </b>
+                                    <br />
+                                    <span
+                                      class="text-danger"
+                                      style="font-size: 10px; margin-top: -15%"
+                                      >O ficheiro não pode ser acima de 5mb
+                                    </span> </label
+                                  ><br />
+                                  <input
+                                    type="file"
+                                    (change)="pegarFile($event)"
+                                    class="w-100"
+                                    style="border-radius: 0px; height: 40px"
+                                    formControlName="processo_doc"
+                                    required
+                                    accept=".pdf"
+                                  />
+                                </div>
+                      
+
+                              <div class="form-group col" id="inp_at">
+                                  <label>
+                                      <b>
+                                          Situação:
+                                          <span class="text-danger"> *</span>
+                                      </b>
+                                  </label><br>
+                                  <input type="text" formControlName="situacao" class="w-100"
+                                      style="border-radius:0px;height:40px;" required >
+                              </div>
+
+                          </div>
+
+                          <div class="col-7">
+                      <label >
+                                          <b>
+                                              Pesquisar Agente:
+                                              <span class="text-danger"> *</span>
+                                          </b>
+                                      </label>
+                       <form action="">
+                                  <input
+                                    class="form-control mr-sm-1 w-100   "
+                                    type="search"
+                                    placeholder="Pesquisa pelo NIP,NOME"
+                                    name="search"
+                                    [(ngModel)]="setorgao"
+                                    (ngModelChange)="SetOrgao($event)"
+                                  />
+                       </form>
+                       
+                                
+                                      <table
+                                      class="table table-border w-100 table-resposive table-striped custom-table datatable mb-2"
+                                    >
+                                      <thead>
+                                        <tr class="mt-1">
+                                          <th>Nip</th>
+                                          <th>Nome do Agente</th>
+                                          <th>acção</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody
+                                      style="min-height: 200px;height: auto;"
+                                      class="mb-4"
+                                      >
+                                        <tr
+                                        *ngFor="
+                        let item of func "
+                        [class]="this.id == item.id?'bg-success text-white':''"
+                    >
+                      <td>{{ item.nip }}</td>
+                      <td>{{ item.nome}}</td>
+                      <td>
+                        <a
+                  *ngIf="this.showATs"
+                          class="btn text-white bg-primary p-1"
+                          style="height: 30px;"
+                          (click)="setAgente(item.id)"
+                        >Adicionar
+                        </a>
+                        <a
+                        *ngIf="!this.showATs && this.id == item.id"
+                                class="btn text-white bg-danger p-1"
+                                style="height: 30px;"
+                                (click)="unsetAgente()"
+                              >remover
+                              </a>
+                                          </td>       
+                                        </tr>
+                                 <h4 class="text-primary  p-5 m-auto  text-center w-100"  *ngIf=" this.id == false">
+                                              sem dados
+                                          </h4>
+                                      </tbody>   
+                                    </table>
+                                
+                                  </div>
+                             
+    
+                                 
+                          </div>
+                   <div class="modal-footer" style="margin-left: -8%;margin-top: 28%;">
+                                      <button type="reset " class="btn btn-secondary mt-4" data-dismiss="modal">Cancelar</button>
+                                      <button type="submit" class="btn btn-primary mt-4"
+                                      (click)="passar()"
+                                          [disabled]="!formAt.valid">Confirmar</button>
+                                  </div>
+                      </form>    
+                  </div>
+              </div>
+
+          </div>
+      </div>
+  </div>
+</div>

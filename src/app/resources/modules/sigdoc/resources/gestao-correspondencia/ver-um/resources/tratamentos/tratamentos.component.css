@@ -1,0 +1,12 @@
+th{
+    background: var(--bg-color);
+    color: white;
+    text-align: center;
+}
+
+td{
+    text-align: center;
+}
+#i {
+    color:brown;
+}

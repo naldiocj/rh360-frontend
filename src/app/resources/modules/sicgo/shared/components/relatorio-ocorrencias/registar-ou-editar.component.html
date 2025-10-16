@@ -1,0 +1,302 @@
+<div class="modal fade" id="modalRegistarOuEditarGrupos" aria-labelledby="modalRegistarOuEditarGrupos"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h4 class="modal-title"><b>{{ this.buscarId() ? "Actualizar" : "Registar" }} Grupo Suspeito</b></h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form [formGroup]="this.sForm" (ngSubmit)="this.onSubmit()">
+      <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-7">
+              <div class="form-group">
+                <label><b>Nome</b></label>
+                <input type="text" class="form-control" placeholder="Os dose tribuibos" formControlName="nome" />
+              </div>
+            </div>
+            <div class="col-lg-5">
+              <div class="form-group">
+                <label><b>Sigla</b><span class="text-danger">*</span></label>
+                <input type="text" class="form-control" formControlName="sigla" placeholder="12tribos" required />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label><b>Provincia</b><span class="text-danger">*</span></label>
+                <ng-select2
+                class="custom-border ng-select-container"
+                [options]="this.options"
+                [data]="this.provincias"
+                formControlName="sicgo_provincia_id" (valueChanged)="this.handlerProvincias($event)"></ng-select2>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label><b>Municipio</b></label>
+                <ng-select2 [options]="options" formControlName="sicgo_municipio_id"
+                      [data]="this.municipios" (valueChanged)="selecionarMunicipio($event)">
+                    </ng-select2>
+              </div>
+            </div>
+          </div>
+          <div class="row"> 
+            <div class="col-lg-12">
+              <div class="form-group">
+                <label><b>Identificado com Familia de Crime</b></label>
+                <ng-select2
+                class="custom-border ng-select-container"
+                [options]="this.options"
+                [data]="this.familiaDcrimes"
+                formControlName="sicgo_tipicidade_ocorrencia_id"
+            >
+            </ng-select2>
+              </div>
+            </div>
+            
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label><b>Endereço</b></label>
+                <input type="text" class="form-control" formControlName="endereco"/>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label><b>Data de Criação</b></label>
+                <input type="date" class="form-control" formControlName="datacriada"/>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="form-group">
+                <label><b>Observação</b></label>
+                <textarea class="form-control" rows="4" formControlName="observacao"></textarea>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label> <b>Presos (sim/nao)</b><span class="text-danger">*</span></label>
+                <div class="my-1">
+                  <label class="switch"> 
+                <input type="checkbox" class="input" checked="true"  formControlName="ativos">
+                <span class="slider"></span>
+              </label>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button
+        class="btn btn-danger btn-square"
+        type="reset"
+        (click)="this.reiniciarFormulario()"
+        disabled="true"
+      >
+        Limpar
+      </button>
+ 
+            <button type="submit"
+              style="
+                background: #041b4e;
+                width: 110px;
+                height: 33px;
+                flex-shrink: 0;
+                border: #041b4e;
+              "
+              id="bookreset"
+              class="btnRegistar"
+            >
+              {{ this.buscarId() ? "Actualizar" : "Registar" }}
+            </button>
+      </div>
+    </form>
+      </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<!--<div class="modal fade" id="modalRegistarOuEditarGrupos" aria-labelledby="modalRegistarOuEditarGrupos"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h4 class="modal-title"><b>Registrar Grupo Suspeito</b></h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label><b>Nome</b></label>
+                <input type="text" class="form-control" formControlName="nome" />
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label><b>Provincias</b><span class="text-danger">*</span></label>
+                <input type="datetime-local" class="form-control" formControlName="provincia" required />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label><b>Municipio</b><span class="text-danger">*</span></label>
+                <input type="datetime-local" class="form-control" formControlName="dataHoraAtuacao" required />
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label><b>Nome do Lider</b></label>
+                <input type="text" class="form-control" formControlName="nome" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label><b>Dados do Lider</b><span class="text-danger">*</span></label>
+                <input type="datetime-local" class="form-control" formControlName="dataHoraAtuacao" required />
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label><b>Dados dos integrantes</b></label>
+                <input type="text" class="form-control" formControlName="nome" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label><b>Data do acontecimento do crime</b><span class="text-danger">*</span></label>
+                <input type="datetime-local" class="form-control" formControlName="dataHoraAtuacao" required />
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label><b>Familias de Crimes</b></label>
+                <ng-select2
+                class="custom-border ng-select-container"
+                [options]="this.options"
+                [data]="this.familiaDcrimes"
+                formControlName="sicgo_tipicidade_ocorrencia_id"
+            >
+            </ng-select2>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label><b>Presos (sim/nao)</b><span class="text-danger">*</span></label>
+                <div class="my-3">
+                  <div class="form-check">
+                    <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked="" required="">
+                    <label class="form-check-label" for="credit">Sim</label>
+                  </div>
+                  <div class="form-check">
+                    <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required="">
+                    <label class="form-check-label" for="debit">Não</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label><b>Nome da esquadra</b><span class="text-danger">*</span></label>
+                <input type="text" class="form-control" formControlName="localAtuacao" />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label><b>Julgados (sim/nao)</b></label>
+                <div class="my-3">
+                  <div class="form-check">
+                    <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked="" required="">
+                    <label class="form-check-label" for="credit">Sim</label>
+                  </div>
+                  <div class="form-check">
+                    <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required="">
+                    <label class="form-check-label" for="debit">Não</label>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label><b>Data do julgamento</b></label>
+                <input type="date" class="form-control" formControlName="modoOperante" />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label><b>Historico de sentença</b></label>
+                <input type="text" class="form-control" formControlName="alvoPreferencial" />
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label><b>Modos Operante</b></label>
+                <input type="text" class="form-control" formControlName="meioUtilizado" />
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label><b>Observação</b></label>
+                <textarea class="form-control" rows="4" formControlName="observacao"></textarea>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label><b>Observação</b></label>
+                <textarea class="form-control" rows="4" formControlName="observacao"></textarea>
+              </div>
+            </div>
+          </div>
+
+
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Fechar
+        </button>
+        <button type="submit" class="btn btn-primary">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+ 

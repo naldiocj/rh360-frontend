@@ -1,0 +1,174 @@
+<div class="modal fade" id="modalRegistarOuEditarProcessos" aria-labelledby="modalRegistarOuEditarProcessos"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h4 class="modal-title"><b>Registrar Processos</b></h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label><b>Evento/Piquete</b></label>
+                        <input type="text" class="form-control" formControlName="eventoPiquete" />
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label><b>Número</b></label>
+                        <input type="text" class="form-control" formControlName="numero" />
+                    </div>
+                </div>
+            </div>
+        
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label><b>Expediente</b><span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" formControlName="expediente" required />
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label><b>Data de Despacho</b><span class="text-danger">*</span></label>
+                        <input type="datetime-local" class="form-control" formControlName="dataDespacho" required />
+                    </div>
+                </div>
+            </div>
+        
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label><b>Número do Processo</b></label>
+                        <input type="text" class="form-control" formControlName="numeroProcesso" />
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label><b>Data de Abertura do Código</b></label>
+                        <input type="datetime-local" class="form-control" formControlName="dataAberturaCodigo" />
+                    </div>
+                </div>
+            </div>
+        
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label><b>Data de Distribuição</b></label>
+                        <input type="datetime-local" class="form-control" formControlName="dataDistribuicao" />
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label><b>Data de Receção</b></label>
+                        <input type="datetime-local" class="form-control" formControlName="dataRecepcao" />
+                    </div>
+                </div>
+            </div>
+        
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label><b>Área Distribuída</b></label>
+                        <input type="text" class="form-control" formControlName="areaDistribuida" />
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label><b>Instrutor</b></label>
+                        <input type="text" class="form-control" formControlName="instrutor" />
+                    </div>
+                </div>
+            </div>
+        
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label><b>Decisão Final M.P</b></label>
+                        <input type="text" class="form-control" formControlName="decisaoFinalMP" />
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label><b>Data de Decisão</b></label>
+                        <input type="datetime-local" class="form-control" formControlName="dataDecisao" />
+                    </div>
+                </div>
+            </div>
+        
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label><b>Destino do Processo</b></label>
+                        <input type="text" class="form-control" formControlName="destinoProcesso" />
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label><b>Número do Ofício</b></label>
+                        <input type="text" class="form-control" formControlName="numeroOficio" />
+                    </div>
+                </div>
+            </div>
+        
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label><b>Data do Juízo</b></label>
+                        <input type="datetime-local" class="form-control" formControlName="dataJuizo" />
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label><b>Observação</b></label>
+                        <textarea class="form-control" rows="4" formControlName="observacao"></textarea>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label><b>Adicionar Novo Interveniente</b></label>
+                        <input type="text" class="form-control" formControlName="adicionarNovoInterveniente" />
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label><b>Adicionar Pessoas Citadas</b></label>
+                        <input type="text" class="form-control" formControlName="adicionarPessoasCitadas" />
+                    </div>
+                </div>
+            </div>
+        
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label><b>Adicionar Formulários Relacionados</b></label>
+                        <input type="text" class="form-control" formControlName="adicionarFormulariosRelacionados" />
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label><b>Observação</b></label>
+                        <textarea class="form-control" rows="4" formControlName="observacaoAdicional"></textarea>
+                    </div>
+                </div>
+            </div>
+        </form>
+        
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Fechar
+        </button>
+        <button type="submit" class="btn btn-primary">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>

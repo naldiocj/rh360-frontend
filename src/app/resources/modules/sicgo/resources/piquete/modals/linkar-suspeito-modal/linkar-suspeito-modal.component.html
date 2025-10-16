@@ -1,0 +1,106 @@
+
+
+<div class="modal fade" id="modalRegistarOuEditarLinkar" aria-labelledby="modalRegistarOuEditarLinkar" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-prima text-white">
+        <h4 class="modal-title"><b>Delituosos</b></h4>
+        <a  data-dismiss="modal" aria-label="Close">
+          <i class="bi bi-backspace-reverse-fill cursor-pointer rounded-lg " style="font-size: 1.5em"></i>
+        </a>
+      </div>
+      <form>
+        <div class="modal-body bg-light">
+          <div class="content p-3 rounded">
+            <div class="row mb-3">
+              
+              <div class="col-xl-9 col-md-12">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <ng-container *ngIf="delituososSelecionados?.length === 0; else temAgentesSelecionados">
+                      <h5 class="text-danger">Nenhum delituoso selecionado <i class="fa fa-times"></i></h5>
+                    </ng-container>
+                    <ng-template #temAgentesSelecionados>
+                      <h5 class="text-success">
+                        {{ delituososSelecionados?.length }} {{ delituososSelecionados?.length === 1 ? 'Delituoso Selecionado' : 'Delituosos Selecionados' }} <i class="fa fa-check"></i>
+                      </h5>
+                    </ng-template>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+
+            
+
+            <table class="table  table-striped " #tableToPrint>
+              <thead class="table-thead">
+                <tr>
+                  <th>#</th>
+                  <th>Código</th>
+                  <th>foto</th>
+                  <th>Nome</th>
+                  <th>Apelido</th>
+                  <th>Gênero</th> 
+                  <th>Idade</th> 
+                </tr>
+              </thead>
+              <tbody class="table-tbody">
+                <tr *ngFor="let item of delituosos">
+                  <td>
+                   <div class="checkboxes__item">
+                      <label class="checkbox style-c">
+                        <input title="f" type="checkbox" [id]="item.id"   [checked]="validarSelecionado(item?.id)" (change)="selecionarDelituosoParaOcorrencia(item.id)" />
+                        <div class="checkbox__checkmark hover:bg-muted-100 dark:hover:bg-muted-700/70"></div>
+                      </label>
+                    </div>
+                  </td>
+                  <td>{{ item.codigo_sistema }}</td>
+                  <td>
+                    <img class="rounded-circle" width="30" height="30" [src]="item.fileUrlFrontal || fotodfault" alt="Foto de {{ item.nome }}">
+                     
+                  </td>
+                  <td>
+                    {{ item.nome | uppercase }}
+                  </td>
+                  <td>{{ item.alcunha }}</td>
+                  <td>{{ item.genero }}</td>
+                   <td class="text-center">
+                    {{calculateAge(item.dataNascimento)}}
+                    
+                    <div *ngIf="idade !== null">{{ idade }}</div>
+                  </td>
+                  
+                </tr>
+                <tr>
+                
+                  <td colspan="4">
+                    Mostrando de {{ this.pagination.current_page }} a
+                    {{ this.pagination.per_page }} de {{ this.pagination.total }}
+                    <aside *ngIf="this.pagination.total < 2; else outrosRegistos">
+                        registos
+                    </aside>
+                    <ng-template #outrosRegistos>registos</ng-template>
+                  </td>
+                  <td colspan="3">
+                    <div class="float-right">
+                      <pagination-controls id="idDelituoso" (pageChange)="this.filtrarPagina('page', $event, false)"
+                      [directionLinks]="true" [autoHide]="false" previousLabel="Anterior" nextLabel="Próximo" [maxSize]="4"
+                      [responsive]="true"></pagination-controls>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">  
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-primary  btn-info" (click)="addGrupos()">Associar</button>
+            <!-- <button type="button" class="btn btn-primary" (click)="removeGrupos()">Remover </button> -->
+          </div>
+        </div>
+       </form>
+    </div>
+  </div>
+</div>

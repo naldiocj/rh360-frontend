@@ -1,0 +1,169 @@
+<section>
+
+  <div class="row">
+    <div class="col-lgkv-3 col-md-2 col-sm-12">
+
+    </div>
+    <div class="row col-lgkv-1 col-md-12 col-sm-12 mb-12">
+
+      <div class="bg-light">
+
+        <div class="mt-2 col-md-12 col-sm-12">
+
+          <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+              <div class="row justify-content-evenly w-100">
+                <div class="col-5 d-flex justify-content-lg-start align-items-start align-items-lg-start">
+
+                  <button data-toggle="modal" class="btn-piips btn-piips-primary m-0 py-2 btn-piips-button-all1"
+                    data-target="#modalRegistarOuEditarVitima">
+                    <i class="fa fa-search-plus m-r-5"></i> Aplicar Filtros
+                  </button>
+                  <button data-toggle="modal" class="btn-piips btn-piips-red m-0 py-2 btn-piips-button-all0"
+                    data-target="#registarOuEditarEemergencia">
+                    <i class="fa fa-plus"></i> Imprimir
+                  </button>
+
+                </div>
+
+                <div class="col-7 d-flex justify-content-between align-items-center">
+                  <select title="kivova" class="form-control input-piips-search btn-piips-select w-25 custom-selec"
+                    (change)="filtrarPagina($event,'perPage')">
+                    <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">
+                      {{ item }}
+                    </option>
+                  </select>
+                  <input class="form-control mr-sm-1 input-piips-search" type="text" [ngModel]="filtro.search"
+                    (ngModelChange)="filtrarPagina($event,'search')" placeholder="Pesquisa ..." />
+                  <button data-bs-target="#ToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                    aria-expanded="false" aria-label="Toggle navigation"
+                    class="input-piips-search btn-piips-button w-50 " type="button" data-bs-toggle="collapse">
+
+                    <i class="bi bi-filter toggle-sidebar-btn"></i>
+                    Filtros
+                  </button>
+                  <button (click)="this.recarregarPagina()" class="btn w-50 navbar-toggler btn-piips-filter"
+                    type="submit">
+                    <i style="font-size: 14px" class="fa fa-refresh fa-spin fa-3x fa-fw"></i> Limpar Filtro
+                  </button>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12"></div>
+
+              </div>
+
+            </div>
+            <div id="ToggleExternalContent" class="collapse col-12 m-b-10" data-bs-theme="dark">
+
+              <div class="row">
+                <div class="col-lgkv-2 col-md-4 col-sm-12 mb-12">
+                  <label><b>Lesões físicas ou Danos</b></label>
+                  <ng-select2   
+                    (valueChanged)="filtrarPagina($event,'data_nascimento')">
+                  </ng-select2>
+                </div>
+
+                <div class="col-lgkv-2 col-md-4 col-sm-12 mb-12">
+                  <label><b>Tipo de Crime</b></label>
+                  <ng-select2
+                    (valueChanged)="filtrarPagina($event,'tipo_de_dano')">
+                  </ng-select2>
+                </div>
+
+                <div class="col-lgkv-2 col-md-4 col-sm-12 mb-12">
+                  <label><b>País / Nacionalidade</b></label>
+                  <ng-select2  (valueChanged)="filtrarPagina($event,'tipo_ocorrencia')"
+                    >
+                  </ng-select2>
+                </div>
+                <div class="col-lgkv-2 col-md-4 col-sm-12 mb-12">
+                  <label><b>De</b></label>
+                  <input title="kivova" type="date" name="dataDe" class="form-control bt-radius"
+                      (ngModelChange)="this.filtrarPagina($event,'dataDe')" id="" />
+                </div>
+                <div class="col-lgkv-2 col-md-4 col-sm-12 mb-12">
+                  <label><b>Até</b></label>
+                  <input title="kivova" type="date" name="dataAte" class="form-control bt-radius"
+                      (ngModelChange)="this.filtrarPagina($event,'dateAte')" id="" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+ <app-registro-ou-editar-empresa></app-registro-ou-editar-empresa>
+
+  <div class="bg-lightt">
+    <table class="table table-striped" #tableToPrint>
+      <thead class="table-thead">
+        <tr>
+          <th></th>
+          <th>Codigo Ocorrencia</th>
+          <th>Nome</th>
+          <th>Idade</th>
+          <th>Genero</th>
+          <th>Tipo Ocorrencia</th>
+          <th>Tipo de Denúncia</th>
+          <th>Importância</th>
+          <th>Nacionalidade</th>
+          <th>Nacionalidade</th>
+          <th>Telefone</th>
+          <th>Nº Identificação</th>
+          <th>Data ocorrido</th>
+
+          <th class="text-right">Opções</th>
+        </tr>
+      </thead>
+
+      <tbody class="table-tbody" >
+
+        <tr *ngFor="let item of diversos; index as i ">
+          <td>
+            <!-- Toggle Button Style 7 -->
+
+          </td>
+
+          <!--<td scope="row">{{ i + 1 }}</td>-->
+        <td >
+            {{ 'd' }}
+        </td>
+
+
+
+          <td class="text-right">
+            <div class="dropdown dropdown-action">
+              <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
+                  class="fs-2 bi bi-three-dots-vertical"></i>
+              </a>
+              <!-- editar configuações -->
+
+            </div>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-sm-6">
+          Mostrando de {{ this.pagination.current_page }} á
+          {{ this.pagination.per_page }} de {{ this.pagination.total }} Registo
+        </div>
+        <div class="col-sm-6">
+          <div class="float-right">
+            <pagination-controls id="idVitimas" (pageChange)="this.filtrarPagina($event,'page')" [directionLinks]="true"
+              [autoHide]="false" previousLabel="Anterior" nextLabel="Próximo" [maxSize]="4"
+              [responsive]="true"></pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+

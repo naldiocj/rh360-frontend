@@ -1,0 +1,146 @@
+<!-- <app-pa-aprovacao [solicitacao]="this.solicitacao" [solicitacao_id]="this.solicitacao?.id" [pessoaId]="this.agented_id"
+  (onTratamento)="tratamento()" *ngIf="this.isAprovar"></app-pa-aprovacao>
+
+<app-pa-pendente [solicitacao]="this.solicitacao" [solicitacao_id]="this.solicitacao.id" [pessoaId]="this.agented_id"
+  (onTratamento)="tratamento()"></app-pa-pendente>
+<app-pa-reprovacao [solicitacao]="this.solicitacao" [solicitacao_id]="this.solicitacao?.id" [pessoaId]="this.agented_id"
+  (onTratamento)="tratamento()" *ngIf="this.isReprovado"></app-pa-reprovacao>
+
+
+<app-pa-pendente [solicitacao]="this.solicitacao" [solicitacao_id]="this.solicitacao?.id" [pessoaId]="this.agented_id"
+  (onTratamento)="tratamento()" *ngIf="this.isPendente"></app-pa-pendente> -->
+
+
+
+
+
+<div class="modal fade" id="mostrar-solicitacao" aria-labelledby="modalPortalRegistarAcidente" aria-hidden="true"
+  data-backdrop="static">
+  <div class="modal-dialog modal-lg" role="document" style="overflow-y: hidden; min-width: 30%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="title-header" style="color: black">
+          <i class="fa fa-calendar"></i>
+          Tratamento da solicitação
+          {{
+          this.informacaoAgente?.genero.toString().toUpperCase() == "F"
+          ? "da"
+          : "do"
+          }}
+          agente
+          {{this.capitalize(this.utilsHelper.criarApelido(this.informacaoAgente?.nome_completo,
+          this.informacaoAgente?.apelido, false))}}
+          {{this.capitalize(this.utilsHelper.criarApelido(this.informacaoAgente?.nome_completo,
+          this.informacaoAgente?.apelido, true))}}
+
+        </h5>
+
+        <button type="button" class="close" id="btn-close-modal" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="content">
+          <div class="row">
+            <div class="col-12">
+              <p class="texto">
+                O agente de número
+                <span class="bold">
+                  {{ this.informacaoAgente?.numero_agente }}
+                </span>
+                de nip
+                <span class="bold">
+                  <ng-container
+                    *ngIf="this.informacaoAgente?.nip && this.utilsHelper.temQuadro(this.informacaoAgente?.regime_quadro); else semQuadro">
+                    {{this.informacaoAgente?.regime_quadro}} {{ this.informacaoAgente.nip }}
+                  </ng-container>
+                  <ng-template #semQuadro>
+                    s/n
+                  </ng-template>
+                </span>
+                de nome
+
+                <span class="bold">
+                  {{this.capitalize(this.utilsHelper.criarApelido(this.informacaoAgente?.nome_completo,
+                  this.informacaoAgente?.apelido, false))}}
+                  {{this.capitalize(this.utilsHelper.criarApelido(this.informacaoAgente?.nome_completo,
+                  this.informacaoAgente?.apelido, true))}}
+                </span>
+
+                enviou uma solicitação de
+                <span class="bold">{{ this.solicitacao?.evento}}</span>. Enviada em
+                <span class="bold">{{this.solicitacao?.createdExtension?.extensao}} {{ this.solicitacao?.createdAt |
+                  date : 'HH:mm'
+                  }}.</span>
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-x-l-12 col-lg-12 col-md-12 col-sm-12">
+              <p class="titulo">Nota : </p>
+            </div>
+            <div class="col-x-l-12 col-lg-12 col-md-12 col-sm-12">
+              <div class="observacao" [innerHTML]="this.sanitizerText(this.solicitacao?.nota)">
+              </div>
+            </div>
+          </div>
+          <form class="row my-2" [formGroup]="this.simpleForm">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12  collapse" id="collapse-aprovar">
+              <label for="data-licenca" class="form-label text-primary-color bold" style="font-size: 0.9rem;">Data da
+                Licença</label>
+              <input formControlName="data" type="date" [min]="this.hoje" class="form-control w-100" id="data-licenca">
+            </div>
+          </form>
+          <div class="row mt-2">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+              <div class="d-flex justify-content-end align-items-end">
+                <span class="inc text-primary-color"> PNA/{{this.solicitacao?.orgao_sigla}} </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <div class="row d-flex justify-content-end align-items-end">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="btn-group">
+              <button (click)="this.setAprovar(true)" class="btn btn-success"
+                *ngIf="this.solicitacao?.estado != 'A' && !this.getIsAprovado" data-toggle="collapse"
+                href="#collapse-aprovar">
+                <i class="fa fa-check"></i> Aprovar
+              </button>
+              <ng-container *ngIf="!this.simpleForm.valid; else invalid">
+                <button (click)="this.aprovar()" class="btn btn-success"
+                  *ngIf="this.solicitacao?.estado != 'A' && this.getIsAprovado" data-toggle="modal">
+                  <i class="fa fa-check"></i> Concluido
+                </button>
+              </ng-container>
+              <ng-template #invalid>
+                <button (click)="this.setAprovar(true)" class="btn btn-seondary"
+                  *ngIf="this.solicitacao?.estado != 'A' && this.getIsAprovado" data-toggle="modal">
+                  <i class="fa fa-info"></i> Inválido
+                </button>
+              </ng-template>
+
+              <button class="btn btn-danger" *ngIf="this.solicitacao?.estado != 'R'" data-dismiss="modal" (click)="reprovar(this.solicitacao?.id)">
+                <i class="fa fa-times"></i> Reprovar
+              </button>
+              <button class="btn btn-warning text-light" *ngIf="this.solicitacao?.estado != 'P'"
+                (click)="pendente(this.solicitacao?.id)">
+                <i class="fa fa-refresh"></i> Pendente
+              </button>
+              <!-- <button class="btn btn-warning text-light" *ngIf="this.solicitacao?.estado != 'P'" data-toggle="modal"
+                data-target="#pendente-solicitacao" data-dismiss="modal" (click)="openPendente()">
+                <i class="fa fa-refresh"></i> Pendente
+              </button> -->
+              <button (click)="setAprovar(false)" class="btn btn-danger" data-dismiss="modal">
+                <i class="fa fa-times"></i> Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

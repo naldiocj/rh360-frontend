@@ -1,0 +1,128 @@
+<div class="content">
+  <div class="top_content">
+    <h4 class="title">Execução de Obras</h4>
+    <img
+      style="width: 200px"
+      src="../../../../../../../assets/sigio/outros/worker.png"
+      alt=""
+    />
+  </div>
+
+  <div class="row">
+    <div class="card w-50">
+      <div class="row">
+        <div class="col-md-6">
+          <label for="">Tipo de Obra</label>
+          <input class="form-control" type="text" />
+        </div>
+        <div class="col-md-6">
+          <label for="">Endereço</label>
+          <input class="form-control" type="text" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label for="">Orgão/Comando</label>
+          <input class="form-control" type="text" />
+        </div>
+        <div class="col-md-6">
+          <label for="">Provimento de Obra</label>
+          <input class="form-control" type="text" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <label for="">Ano de Execução</label>
+          <input class="form-control" type="year" />
+        </div>
+        <div class="col-md-3">
+          <label for="">Mês de Execução</label>
+          <input class="form-control" type="date" />
+        </div>
+        <div class="col-md-6">
+          <label for="">Estádo</label>
+          <div id="estado-options" class="row">
+            <button type="button" class="primary btn-outline-primary">
+              Baixa
+            </button>
+            <button
+              style="background-color: brown; color: white"
+              type="button"
+              class="primary btn-outline-danger"
+            >
+              Normal
+            </button>
+            <button type="button" class="primary btn-outline-primary">
+              Alto
+            </button>
+            <button type="button" class="primary btn-outline-primary">
+              Urgente
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+    <div class="card">
+      <h4 class="title">Controlo de Tempo e Custo</h4>
+      <hr />
+      <div class="row">
+        <div class="col-md-6">
+          <label for="">Tipo de Obra</label>
+          <input class="form-control" type="text" />
+        </div>
+        <div class="col-md-6">
+          <label for="">Endereço</label>
+          <input class="form-control" type="text" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <label for="">Orgão/Comando</label>
+          <input class="form-control" type="text" />
+        </div>
+        <div class="col-md-12">
+          <label for="">Provimento de Obra</label>
+          <input class="form-control" type="text" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="card w-50">
+      <div id="" class="card-header d-f">
+        <h4 class="title">Descrição</h4>
+      </div>
+      <hr />
+
+      <angular-editor
+        [config]="editorConfig"
+        formControlName="texto"
+        style="width: 100%"
+        class="editor"
+      ></angular-editor>
+
+    </div>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+    <div class="card" style="height: 20px; width: 430px">
+      <div class="row">
+        <div class="col-md-12">
+          <label for="">Anexar a maqueta da obra</label>
+          <input class="form-control" type="file" />
+          &nbsp;
+          <div class="btn-content">
+            <button class="cancelar">Cancelar</button>
+            &nbsp;
+            <button class="guardar">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

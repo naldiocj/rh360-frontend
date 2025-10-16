@@ -1,0 +1,114 @@
+<div class="modal fade" id="registar-ou-editar-assinatura" aria-labelledby="modalRegistarRegistar" aria-hidden="true"
+    data-backdrop="static">
+    <div class="modal-dialog" role="document" style="overflow-y: hidden;" [style.min-width]="'50%'">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="piips-text-color">
+                    <i class="fa fa-pencil"></i>
+                    Registar Assinatura Digital
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    (click)="reiniciarFormulario()" id="close-modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="content">
+                <form [formGroup]="this.simpleForm">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <label for="" class="piips-text-color">
+                                        <b>
+                                            Estrutura Orgânica
+                                            <span class="text-danger">*</span>
+                                        </b>
+                                    </label>
+                                    <ng-select2 [options]="options" [data]="this.tipoEstruturaOrganicas" (valueChanged)="
+                      this.selecionarOrgaoOuComandoProvincial($event)
+                    " formControlName="tipo_orgao"></ng-select2>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <label for="" class="piips-text-color">
+                                        <b>
+                                            Direcção ou Orgao
+                                            <span class="text-danger">*</span>
+                                        </b>
+                                    </label>
+                                    <ng-select2 [options]="options" [data]="this.direcaoOuOrgao"
+                                        formControlName="pessoajuridica_id"
+                                        (valueChanged)="this.handlerDirecaoOrgao($event)"></ng-select2>
+
+                                </div>
+                            </div>
+
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
+                                <div class="form-group">
+                                    <label for="" class="piips-text-color">
+                                        <b>
+                                            Efectivo
+                                            <span class="text-danger"></span>
+                                        </b>
+                                    </label>
+                                    <ng-select2 [options]="options" [data]="this.funcionarios"
+                                        formControlName="pessoafisica_id"></ng-select2>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 ">
+                                <div class="row">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                        <canvas #canvas class="w-100"
+                                            style="height: 120px; border-radius: 1px; border: 1px solid var(--bg-color)"></canvas>
+                                    </div>
+                                    <div class="col-xl-12 col-lg-12 col-md-12 sm-12">
+                                        <div class="d-flex align-items-center justify-content-end">
+                                            <button [disabled]="this.assinado" type="button"
+                                                (click)="this.limparAssinatura()" style="column-gap: .4rem;"
+                                                class="btn-piips btn-piips-red m-0 py-1 px-3 d-flex justify-content-center    align-items-center ">
+                                                <i class="fa fa-close"></i> Limpar
+                                            </button>
+                                            <button [disabled]="this.temAssinatura" type="button"
+                                                (click)="this.salvarAssinatura()" style="column-gap: .4rem;"
+                                                class="btn-piips-primary btn-piips m-0 py-1 px-3 d-flex justify-content-center    align-items-center ">
+                                                <i class="fa fa-check"></i> Ok
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 d-flex justify-content-end ">
+                                <div *ngIf="assinado==false">
+                                    <img src="{{ assinaturaImg }}" alt="" srcset=""
+                                        style="height: 120px; border-radius: 1px; border: 1px solid var(--bg-color)" />
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-12 d-flex align-items-center justify-content-end p-0">
+                            <button class="btn-piips btn-piips-red m-0 px-2 py-1" (click)="this.reiniciarFormulario()">
+                                <span class="fa fa-refresh"></span>
+                                Limpar
+                            </button>
+                            <button (click)="onSubmit()" [disabled]="!this.simpleForm.valid || this.isLoading"
+                                class="btn btn-piips btn-piips-primary m-0 px-2 py-1" type="submit">
+                                <ng-container *ngIf="this.isLoading; else naoCarregando">
+                                    <i class="spinner-border spinner-border-sm m-1"></i>
+                                    Carregando...
+                                </ng-container>
+                                <ng-template #naoCarregando>
+                                    {{this.getId ? 'Editar' : 'Registar'}}
+                                    <i class="fa fa-send"></i>
+                                </ng-template>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

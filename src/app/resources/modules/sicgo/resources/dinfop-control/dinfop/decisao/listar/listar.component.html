@@ -1,0 +1,171 @@
+<div class="d-flex">
+    <div
+         
+        class="col-xl-12 col-sm-12 col-lg-12 col-md-12"
+    >
+
+    <div class="row col-lgkv-1">
+        <div class=" col-xl-10 col-sm-10 col-lg-10 col-md-10 mt-2">
+            <div class="p-1 ml-3 rounded">
+                <h4>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="30"
+                        height="30"
+                        fill="currentColor"
+                        class="bi bi-people-fill"
+                        viewBox="0 0 16 16"
+                    >
+                        <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"></path>
+                    </svg>
+                    Decisão de Tribunal
+                </h4>
+                <p
+                    class="lead"
+                    style="font-size:small"
+                >
+                    Listagem.
+                </p>
+            </div>
+
+
+
+            <div>
+                <ul class="nav nav-pills ml-2 p-2">
+
+
+
+
+                    <li class="nav-item">
+                        <div
+                            class="custom-radius btn-group"
+                            role="group"
+                            aria-label="Basic example"
+                        >
+                            
+                            <select
+                                class="btn input-select"
+                                (change)="filtrarPagina('perPage', $event)"
+                            >
+                                <option
+                                    *ngFor="let item of [5, 10, 20, 50]"
+                                    [value]="item"
+                                >
+                                    {{ item }}
+                                </option>
+                            </select>
+                            <input
+                                class="btn input-search"
+                                type="search"
+                                [ngModel]="filtro.search"
+                                name="search"
+                                (ngModelChange)="filtrarPagina('search', $event)"
+                                placeholder="360% Pesquisa ..."
+                            >
+ 
+                        </div>
+
+                    </li>
+                </ul>
+                
+                 
+            </div>
+
+
+
+
+        </div>
+       
+ 
+    </div>
+       
+
+
+
+        <table class="table  table-stripedkv">
+            <thead class="table-thead">
+                <tr>
+                    <th>#</th>
+                    <th>codigo_sistema</th>
+                    <th>Resultado Processo</th>
+                    <th>Numero Processo</th>
+                    <th>Julgado Pelo Crime</th>
+                    <th>Data Registado</th>
+                    <th class="text-right">Operação</th>
+                </tr>
+            </thead>
+            <tbody class="table-tbody">
+                <tr *ngFor="let item of this.decisaos | paginate: {  itemsPerPage: this.pagination.per_page, currentPage: this.pagination.current_page,totalItems: this.pagination.total }; index as i">
+                    <td (click)="toggle(item.id)"><span class="p-3">{{item.id}}</span></td>
+                    <td (click)="toggle(item.id)">{{item.codigo_sistema}}</td>
+                    <td (click)="toggle(item.id)">{{item.resultado_processo}}</td>
+                    <td (click)="toggle(item.id)">{{item.numero_processo}}</td>
+                    <td (click)="toggle(item.id)">{{item.julgado_pelo_crime}}</td>
+                    <td (click)="toggle(item.id)">{{item.data_julgamento}}</td>
+                    <td class="text-right">
+                        <div class="dropdown dropdown-action">
+                            <a
+                                href="#"
+                                class="action-icon dropdown-toggle"
+                                data-toggle="dropdown"
+                                aria-expanded="false"
+                            >
+                            <i class="bi bi-three-dots-vertical"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+
+
+                                <a
+                                    class="dropdown-item"
+                                    [routerLink]="['/piips/sigpj/diverso/detalhes/listagem', item.id]"
+                                >
+                                    <i class="fa fa-eye m-r-5"></i>
+                                    Detalhes
+                                </a>
+
+
+                                <a
+                                    class="dropdown-item"
+                                    href="#"
+                                    data-toggle="modal"
+                                    data-target="#modalRegistarOuEditarDiverso"
+                                    (click)="this.setDiverso(item)"
+                                >
+                                    <i class="fa fa-pencil m-r-5"></i>
+                                    Editar
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="7">
+                        <div class="col-xl-12 col-sm-12 col-lg-12 col-md-12 row">
+                            Mostrando de {{ this.pagination.current_page }} á
+                        {{ this.pagination.per_page }} de {{ this.pagination.total }} Registo
+                            <div class="float-right">
+                                <pagination-controls
+                                    id="funcionarioEspecial"
+                                    (pageChange)="this.filtrarPagina('page', $event)"
+                                    [directionLinks]="true"
+                                    [autoHide]="true"
+                                    previousLabel="Anterior"
+                                    nextLabel="Próximo"
+                                    [maxSize]="4"
+                                    [responsive]="true"
+                                ></pagination-controls>
+                            </div>
+
+
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+    </div>
+    
+        <sicgo-decisao-view id="asidebar" [showBannerup]="this.isOffcanvasVisible"></sicgo-decisao-view>
+    

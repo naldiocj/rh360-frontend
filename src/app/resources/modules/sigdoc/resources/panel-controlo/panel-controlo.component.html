@@ -1,0 +1,243 @@
+<main id="main_" class="main_">
+    <div class="org d-flex" style="margin-bottom: 40px;">
+      <div class="inf d-flex">
+          <div class="img-top">
+              <img src="../../../../../../assets/deskapp.gif" alt="" style="width: 50px; margin-top: -6px; margin-left: 12px; border-radius: 16px;">
+         </div>
+         <div>
+             <h3 class="titulo-top">Painel de Controlo</h3>
+             <h5 class="titulo-bt">Conteúdo incial da aplicação | <b>SIGDOC</b> - Sistema  Integrado de Gestão - Documental e Arquivos</h5>
+         </div> 
+      </div>
+      <div class="add-inf">
+          <div class="top">
+              <div class="icone1">
+                  <img src="../../../../../../../assets/dashboard/Vector 51.png" alt="" width="60px">
+              </div>
+              <div class="botm"> 
+                  <h5><span><b>Orgão: </b> </span>{{this.orgaoSigla}} - {{this.orgaoId}}</h5>
+                  <!--p><span><b>Província:</b> </span> Indefinido</p-->
+              </div>
+          </div>
+      </div>
+    </div>
+  
+    <section class="section dashboard">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="row">
+            
+            <div class="col-xl-3 col-lg-3 col-md-5 col-sm-10" style="border-radius: 20px;">
+              <a routerLink="/piips/sigdoc/entrada-expediente/listar">
+              <div class="card" style="border-radius: 15px; padding: 16px; box-shadow: 0px 0px 15px 2px rgb(222, 222, 222);">
+                <div class="d-flex justify-content-between align-items-center gap-3">
+                  <!-- Ícone -->
+                  <div class="rounded-circle bg-light d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                    <i class="bi bi-file-earmark-arrow-down text-primary" style="font-size: 1.5rem;"></i>
+                  </div>
+                  <!-- Informações alinhadas à direita -->
+                  <div class="ms-auto text-end">
+                    <h5 class="mb-1" style="font-size: 1rem; color: #041B4E;">Registo Entrada de Documentos</h5>
+                    <p class="text-muted small mb-0">Dados Fornecidos pelo Sistema</p>
+                  </div>
+                </div> 
+                <!-- Dados dinâmicos -->
+                <div style="border-radius: 15px;" class="bg-light rounded-6 p-3 mt-3 d-flex justify-content-between align-items-center brd">
+                  <div></div>
+                  <div>
+                    <h4 class="font-weight-bold text-end" style="font-size: 2.2rem; color: #041B4E;">{{ contagemRegistros }}</h4>
+                    <p class="text-muted small mb-0" style="color: #041B4E;">+ {{ porcentagemDocumetosEntrada }} %</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+            </div>
+
+            <div class="col-xl-3 col-lg-3 col-md-5 col-sm-10" style="border-radius: 20px;">
+              <a routerLink="/piips/sigdoc/gestao-correspondencia/enviadas">
+              <div class="card" style="border-radius: 15px; padding: 16px; box-shadow: 0px 0px 15px 2px rgb(222, 222, 222);">
+                <div class="d-flex justify-content-between align-items-center gap-3">
+                  <!-- Ícone -->
+                  <div class="rounded-circle bg-light d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                    <i class="position-absolute bi-envelope-fill text-primary" style="font-size: 1.5rem;"></i>
+                  </div>
+                  <!-- Informações alinhadas à direita -->
+                  <div class="ms-auto text-end">
+                    <h5 class="mb-1" style="font-size: 1rem; color: #041B4E">Documentos Em Tramitação</h5>
+                    <p class="text-muted small mb-0">Dados Fornecidos pelo Sistema</p>
+                  </div>
+                </div>          
+                <!-- Dados dinâmicos -->
+                <div style="border-radius: 15px;" class="bg-light rounded-6 p-3 mt-3 d-flex justify-content-between align-items-center brd">
+                  <div></div>
+                  <div>
+                    <h4 class="font-weight-bold text-end" style="font-size: 2.2rem; color: #041B4E;">{{ contagemDocumetosTramitado }}</h4>
+                    <p class="text-muted small mb-0" style="color: #041B4E;">+ {{ porcentagemDocumetosTramitado }} %</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+            </div>
+
+            <div class="col-xl-3 col-lg-3 col-md-5 col-sm-10" style="border-radius: 20px;">
+              <a routerLink="/piips/sigdoc/gestao-correspondencia/recebidas">
+              <div class="card" style="border-radius: 15px; padding: 16px; box-shadow: 0px 0px 15px 2px rgb(222, 222, 222);">    
+                <div class="d-flex justify-content-between align-items-center gap-3">
+                  <!-- Ícone -->
+                  <div class="rounded-circle bg-light d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                    <i class="position-absolute bi-download text-primary" style="font-size: 1.5rem;"></i>
+                  </div>
+                  <!-- Informações alinhadas à direita -->
+                  <div class="ms-auto text-end">
+                    <h5 class="mb-1" style="font-size: 1rem; color: #041B4E">Documentos Recebidos</h5>
+                    <p class="text-muted small mb-0">Dados Fornecidos pelo Sistema</p>
+                  </div>
+                </div>
+                <!-- Dados dinâmicos -->
+                <div style="border-radius: 15px;" class="bg-light rounded-6 p-3 mt-3 d-flex justify-content-between align-items-center brd">
+                  <div></div>
+                  <div>
+                    <h4 class="font-weight-bold text-end" style="font-size: 2.2rem; color: #041B4E;">{{ contagemDocumetosRecebido }}</h4>
+                    <p class="text-muted small mb-0" style="color: #041B4E;">+ {{ porcentagemDocumetosRecebido }} %</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+            </div>
+
+            <div class="col-xl-3 col-lg-3 col-md-5 col-sm-10" style="border-radius: 20px;">
+              <div class="card" style="border-radius: 15px; padding: 16px; box-shadow: 0px 0px 15px 2px rgb(222, 222, 222);">      
+                <div class="d-flex justify-content-between align-items-center gap-3">
+                  <!-- Ícone -->
+                  <div class="rounded-circle bg-light d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                    <i class="bi bi-file-earmark-arrow-down text-primary" style="font-size: 1.5rem;"></i>
+                  </div>
+                  <!-- Informações alinhadas à direita -->
+                  <div class="ms-auto text-end">
+                    <h5 class=" mb-1" style="font-size: 1rem; color: #041B4E">Pedidos de Parecer</h5>
+                    <p class="text-muted small mb-0">Dados Fornecidos pelo Sistema</p>
+                  </div>
+                </div>
+                <!-- Dados dinâmicos -->
+                <div style="border-radius: 15px;" class="bg-light rounded-6 p-3 mt-3 d-flex justify-content-between align-items-center brd">
+                  <div></div>
+                  <div>
+                    <h4 class="font-weight-bold text-end" style="font-size: 2.2rem; color: #041B4E;">{{ contagemDocumetosRecebidoPendente }}</h4>
+                    <p class="text-muted small mb-0" style="color: #041B4E;">+ {{ porcentagemDocumetosRecebido }} %</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-3 col-md-5 col-sm-10" style="border-radius: 20px;">
+              <div class="card" style="border-radius: 15px; padding: 16px; box-shadow: 0px 0px 15px 2px rgb(222, 222, 222);">      
+                <div class="d-flex justify-content-between align-items-center gap-3">
+                  <!-- Ícone -->
+                  <div class="rounded-circle bg-light d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                    <i class="bi bi-file-earmark-arrow-down text-primary" style="font-size: 1.5rem;"></i>
+                  </div>
+                  <!-- Informações alinhadas à direita -->
+                  <div class="ms-auto text-end">
+                    <h5 class="mb-1" style="font-size: 1rem; color: #041B4E">Parecer Pendentes</h5>
+                    <p class="text-muted small mb-0">Dados Fornecidos pelo Sistema</p>
+                  </div>
+                </div>
+                <!-- Dados dinâmicos -->
+                <div style="border-radius: 15px;" class="bg-light rounded-6 p-3 mt-3 d-flex justify-content-between align-items-center brd">
+                  <div></div>
+                  <div>
+                    <h4 class="font-weight-bold text-end" style="font-size: 2.2rem; color: #041B4E;">{{ contagemDocumetosRecebidoPendente }}</h4>
+                    <p class="text-muted small mb-0" style="color: #041B4E;">+ {{ porcentagemDocumetosRecebido }} %</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-3 col-md-5 col-sm-10" style="border-radius: 20px;">
+              <a routerLink="/piips/sigdoc/arquivos/listar">
+              <div class="card" style="border-radius: 15px; padding: 16px; box-shadow: 0px 0px 15px 2px rgb(222, 222, 222);">
+                
+                <div class="d-flex justify-content-between align-items-center gap-3">
+                  <!-- Ícone -->
+                  <div class="rounded-circle bg-light d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                    <i class="bi bi-archive-fill text-primary" style="font-size: 1.5rem;"></i>
+                  </div>
+                  <!-- Informações alinhadas à direita -->
+                  <div class="ms-auto text-end">
+                    <h5 class="mb-1" style="font-size: 1rem; color: #041B4E">Documentos Arquivados</h5>
+                    <p class="text-muted small mb-0">Dados Fornecidos pelo Sistema</p>
+                  </div>
+                </div>
+                
+                <!-- Dados dinâmicos -->
+                <div style="border-radius: 15px;" class="bg-light rounded-6 p-3 mt-3 d-flex justify-content-between align-items-center brd">
+                  <div></div>
+                  <div>
+                    <h4 class="font-weight-bold text-end" style="font-size: 2.2rem; color: #041B4E;">{{ contagemArquivosDitais }}</h4>
+                    <p class="text-muted small mb-0" style="color: #041B4E;">+ {{ porcentagemArquivosDitais }} %</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+            </div>
+
+            <div class="col-xl-3 col-lg-3 col-md-5 col-sm-10" style="border-radius: 20px;">
+              <a routerLink="/piips/sigdoc">
+              <div class="card" style="border-radius: 15px; padding: 16px; box-shadow: 0px 0px 15px 2px rgb(222, 222, 222);">
+                
+                <div class="d-flex justify-content-between align-items-center gap-3">
+                  <!-- Ícone -->
+                  <div class="rounded-circle bg-light d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                    <i class="bi bi-file-earmark-fill text-primary" style="font-size: 1.5rem;"></i>
+                  </div>
+                  <!-- Informações alinhadas à direita -->
+                  <div class="ms-auto text-end">
+                    <h5 class="mb-1" style="font-size: 1rem; color: #041B4E">Gerados pela Aplicação</h5>
+                    <p class="text-muted small mb-0">Dados Fornecidos pelo Sistema</p>
+                  </div>
+                </div>
+                
+                <!-- Dados dinâmicos -->
+                <div style="border-radius: 15px;" class="bg-light rounded-6 p-3 mt-3 d-flex justify-content-between align-items-center brd">
+                  <div></div>
+                  <div>
+                    <h4 class="font-weight-bold text-end" style="font-size: 2.2rem; color: #041B4E;">{{ contagemCriarDocumentos }}</h4>
+                    <p class="text-muted small mb-0" style="color: #041B4E;">+ {{ porcentagemCriarDocumentos }} %</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+            </div>
+
+            <div class="col-xl-3 col-lg-3 col-md-5 col-sm-10" style="border-radius: 20px;">
+              <a routerLink="/piips/sigdoc">
+              <div class="card" style="border-radius: 15px; padding: 16px; box-shadow: 0px 0px 15px 2px rgb(222, 222, 222);">
+                
+                <div class="d-flex justify-content-between align-items-center gap-3">
+                  <!-- Ícone -->
+                  <div class="rounded-circle bg-light d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                    <i class="bi bi-receipt text-primary" style="font-size: 1.5rem;"></i>
+                  </div>
+                  <!-- Informações alinhadas à direita -->
+                  <div class="ms-auto text-end">
+                    <h5 class="mb-1" style="font-size: 1rem; color: #041B4E">Total de Documentos</h5>
+                    <p class="text-muted small mb-0">Dados Fornecidos pelo Sistema</p>
+                  </div>
+                </div>
+                
+                <!-- Dados dinâmicos -->
+                <div style="border-radius: 15px;" class="bg-light rounded-6 p-3 mt-3 d-flex justify-content-between align-items-center brd">
+                  <div></div>
+                  <div>
+                    <h4 class="font-weight-bold text-end" style="font-size: 2.2rem; color: #041B4E;">{{ totalDocumentos }}</h4>
+                    <p class="text-muted small mb-0" style="color: #041B4E;">+ {{ porcentagem }} %</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>

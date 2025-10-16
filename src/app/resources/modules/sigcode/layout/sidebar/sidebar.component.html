@@ -1,0 +1,108 @@
+<div class="modal fade" id="logout-modal" style="border-radius: unset;">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-ms">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title w-100 d-flex justify-content-between align-items-center">
+                    Terminar sessão
+                    <a data-dismiss="modal" class="bi bi-x-lg text-danger" style="cursor: pointer;"></a>
+                </div>
+            </div>
+            <div class="modal-body text-center" style="font-size:16px; color: #041b43;">
+                <span>Confirmas o termino da sessão?</span>
+                <div class="btn-groups my-2">
+                    <a class="btn btn-link" style="text-decoration: none; color: #041b43;" (click)="sair()">Sim</a>
+                    <div class="btn btn-link" data-dismiss="modal" style="text-decoration: none; color:  #041b43;">Não
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<aside id="asidebar" class="asidebar">
+    <ul class="asidebar-nav" id="sidebar-nav">
+        <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/piips/sigcod/dashboard']" routerLinkActive="active">
+                <img src="../../../../../../assets/img/icons do sigae/menu/Dashboard.png" alt="ic">
+                <h5>Painel de Controlo</h5>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link " routerLinkActive="active" data-target="#Gerar" data-toggle="collapse">
+                <img src="../../../../../../assets/sigcod/boublos.png" alt="ic">
+                <h5>Gerar Codigo</h5>
+                <i class="bi bi-chevron-down flex-fill " style="text-align:right"></i>
+            </a>
+            <ul id="Gerar" class="nav-content collapse bg-light rounded-bottom py-0" data-parent="#sidebar-nav">
+                <li id="SUB4">
+                    <a id="item-link" class="d-flex justify-content-between align-items-center pr-2" [routerLink]="['/piips/sigcod/qr']" aria-expanded="false" aria-controls="collapseExample">
+                        <i class="bi bi-circle-fill" style="font-size:14px;">&nbsp;&nbsp;Gerad codigo Qr</i></a>
+                </li>
+                <li id="SUB4">
+                    <a id="item-link" class="d-flex justify-content-between align-items-center pr-2" [routerLink]="['/piips/sigcod/guia']" aria-expanded="false" aria-controls="collapseExample">
+                        <i class="bi bi-circle-fill" style="font-size:14px;">&nbsp;&nbsp;Gerar codigo de Guia</i></a>
+                </li>
+                <li id="SUB4">
+                    <a id="item-link" class="d-flex justify-content-between align-items-center pr-2" [routerLink]="['/piips/sigcod/nip']" aria-expanded="false" aria-controls="collapseExample">
+                        <i class="bi bi-circle-fill" style="font-size:14px;">&nbsp;&nbsp;Gerar codigo NIP</i></a>
+                </li>
+                <li id="SUB4">
+                    <a id="item-link" class="d-flex justify-content-between align-items-center pr-2" [routerLink]="['/piips/sigcod/multinip']" aria-expanded="false" aria-controls="collapseExample">
+                        <i class="bi bi-circle-fill" style="font-size:14px;">&nbsp;&nbsp;Gerar Multi-NIPs</i></a>
+                </li>
+                <li id="SUB4">
+                    <a id="item-link" class="d-flex justify-content-between align-items-center pr-2" [routerLink]="['/piips/sigcod/multiqrcode']" aria-expanded="false" aria-controls="collapseExample">
+                        <i class="bi bi-circle-fill" style="font-size:14px;">&nbsp;&nbsp;Gerar Multi-QrCodes</i></a>
+                </li>
+                <li id="SUB4">
+                    <a id="item-link" class="d-flex justify-content-between align-items-center pr-2" [routerLink]="['/piips/sigcod/gerar-texto']" aria-expanded="false" aria-controls="collapseExample">
+                        <i class="bi bi-circle-fill" style="font-size:14px;">&nbsp;&nbsp;Gerar texto </i></a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " routerLinkActive="active" data-target="#control" data-toggle="collapse">
+                <img src="../../../../../../assets/sigcod/settings.png" alt="ic">
+                <h5>Gestão de Controlo</h5>
+                <i class="bi bi-chevron-down flex-fill " style="text-align:right"></i>
+            </a>
+            <ul id="control" class="nav-content collapse bg-light rounded-bottom py-0" data-parent="#sidebar-nav">
+                <li id="SUB4">
+                    <a id="item-link" class="d-flex justify-content-between align-items-center pr-2" data-toggle="collapse" data-target="#atribuir" aria-expanded="false" aria-controls="collapseExample" [routerLink]="['/piips/sigcod/listar-qr']">
+                        <i class="bi bi-circle-fill" style="font-size:14px;">&nbsp;&nbsp;Qr Gerados</i></a>
+                </li>
+                <li id="SUB4">
+                    <a id="item-link" class="d-flex justify-content-between align-items-center pr-2" [routerLink]="['/piips/sigcod/listar-guia']" aria-expanded="false" aria-controls="collapseExample">
+                        <i class="bi bi-circle-fill" style="font-size:14px;">&nbsp;&nbsp;Guia Gerados</i></a>
+                </li>
+                <li id="SUB4">
+                    <a id="item-link" class="d-flex justify-content-between align-items-center pr-2" [routerLink]="['/piips/sigcod/listar-nip']" aria-expanded="false" aria-controls="collapseExample">
+                        <i class="bi bi-circle-fill" style="font-size:14px;">&nbsp;&nbsp;NIP Gerados</i></a>
+                </li>
+            </ul>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link " routerLinkActive="active" data-target="#rela" data-toggle="collapse">
+                <i class="bi bi-bell-fill" style="font-size: 30px;"></i>
+                <h5> Relatórios</h5>
+                <i class="bi bi-chevron-down flex-fill " style="text-align:right"></i>
+            </a>
+            <ul id="rela" class="nav-content collapse bg-light rounded-bottom py-0" data-parent="#sidebar-nav">
+                <li id="SUB4">
+                    <a id="item-link" class="d-flex justify-content-between align-items-center pr-2" data-toggle="collapse" data-target="#atribuir" aria-expanded="false" aria-controls="collapseExample" [routerLink]="['/piips/sigcod/nip-historico']">
+                        <i class="bi bi-circle-fill" style="font-size:14px;">&nbsp;&nbsp;Nip Historicos</i></a>
+                </li>
+                <li id="SUB4">
+                    <a id="item-link" class="d-flex justify-content-between align-items-center pr-2" [routerLink]="['/piips/sigcod/guia-historico']" aria-expanded="false" aria-controls="collapseExample">
+                        <i class="bi bi-circle-fill" style="font-size:14px;">&nbsp;&nbsp;Guia Historicos</i></a>
+                </li>
+            
+            </ul>
+        </li>
+
+    </ul>
+
+</aside>

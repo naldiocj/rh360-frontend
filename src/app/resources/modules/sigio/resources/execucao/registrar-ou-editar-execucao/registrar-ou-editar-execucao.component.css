@@ -1,0 +1,58 @@
+.content{
+    padding-left: 200px;
+}
+
+.top_content{
+    display: flex;
+    justify-content: space-between;
+}
+
+.title{
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    color: #041B4E;
+    padding-left: 20px;
+    padding-top: 20px;
+}
+
+.registo_alignment{
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-content{
+    justify-content: end;
+    display: flex;
+}
+
+.btn-content button{
+    border: none;
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#estado-options{
+    display: flex;
+    justify-content: space-around;
+}
+
+#estado-options button{
+    border: none;
+    width: 80px;
+    height: 35px;
+    border-radius: 5px;
+}
+
+.cancelar{
+    background-color: red;
+    color: white;
+    font-weight: bold;
+}
+
+.guardar{
+    background-color: #041B4E;
+    color: white;
+    font-weight: bold;
+}

@@ -1,0 +1,13 @@
+<div class="photo-viewer-backdrop" (click)="onClose()">
+  <div class="photo-viewer-content" (click)="$event.stopPropagation()">
+    <div class="borders-viewer" (click)="$event.stopPropagation()">
+      <div class="borders-img">
+        <img [src]="photoUrl" [alt]="altText"/>
+      </div>
+    </div>
+    <div class="photo-viewer-actions">
+      <button *ngIf="showDownloadButton" (click)="downloadImage()">Download</button>
+      <button (click)="onClose()">Fechar</button>
+    </div>
+  </div>
+</div>

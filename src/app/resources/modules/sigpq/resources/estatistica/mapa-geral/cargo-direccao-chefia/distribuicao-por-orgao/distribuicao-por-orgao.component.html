@@ -1,0 +1,73 @@
+
+<div style="height: 16px; margin-top: 23px; opacity: 0%;"></div>
+<div class="col-md-12">
+    <div id="cor_dashboard" class="card-header"  style="cursor: pointer;" (click)="toggledistribuicaoOrgao()">
+        <h4 style="color: white;" class="card-title d-inline-block"><b>
+         DISTRIBUIÇÃO POR  ÓRGÃOS
+        </b></h4>
+
+        <!-- <article class="opcoes">
+          <div style="display: flex; flex-direction: column; margin-right: 20px;">
+            <label><b>Dados</b></label>
+            <button (click)="toggledistribuicaoOrgao()">
+              <p *ngIf="!distribuicaoOrgao">Visualizar</p>
+              <p *ngIf="distribuicaoOrgao">Ocultar</p>
+            </button>
+          </div>
+
+          <div>
+            <label><b>Tipo Orgão</b></label>
+            <ng-select2 [options]="options" [data]="this.orgaoOuComandoProvincial"
+            (valueChanged)="selecionarOrgaoOuComandoProvincial($event)">
+        </ng-select2>
+        </div>
+
+          <div>
+            <label><b>Orgão</b></label>
+            <ng-select2 [options]="optionsOrgao" [data]="this.direcaoOuOrgao" (valueChanged)="searchByOrgao($event)">
+            </ng-select2>
+        </div>
+
+        </article> -->
+
+    </div>
+    <div class="table-responsive">
+        <table class="table  table-striped  datatable mb-0" *ngIf="distribuicaoOrgao">
+            <thead class="sutotal">
+                    <tr>
+                      <th>Id</th>
+                      <th>Nome do Órgão</th>
+                      <th>Quantidade</th>
+                      <th>Percentagem</th>
+                    </tr>
+
+            </thead>
+            <tbody>
+
+              <ng-container *ngFor="let item of distribuicaoOrgaos; index as i">
+
+                <tr>
+                  <td>{{i+1}}</td>
+                  <td>{{item.nome | uppercase}}</td>
+                  <td style="text-align: center;">{{item.informacao[0].total}}</td>
+                  <td style="text-align: center;">{{item.informacao[0].percentagem}}</td>
+                </tr>
+
+              </ng-container>
+
+
+                 <!--<tr>
+                   <td>5</td>
+                   <td>Em Formação</td>
+                   <td style="text-align: center;">9.661</td>
+                   <td style="text-align: center;">8.0%</td>
+                 </tr>--->
+
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+

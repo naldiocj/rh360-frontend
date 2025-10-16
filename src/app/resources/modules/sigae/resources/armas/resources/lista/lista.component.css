@@ -1,0 +1,26 @@
+
+
+.btn-green {
+    background: rgb(20, 203, 20);
+}
+
+
+a i:hover {
+    color: black !important;
+}
+
+.modal-lg{
+
+    max-width: 80%;
+    margin: auto;
+    top: 10%;
+    bottom: 0;
+    left: 0;
+    height: 100vh;
+    display: flex;
+  }
+
+  .modalAt{
+    margin-top:8%; 
+   max-width: 70%;
+ }

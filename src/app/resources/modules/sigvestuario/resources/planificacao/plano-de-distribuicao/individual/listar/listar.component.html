@@ -1,0 +1,361 @@
+<div class="bg-light pt-4" style="height: calc(100vh - 97px);">
+    <!-- Breadcrumbs -->
+
+    <div class="ml-4 pl-1 pt-2 pr-2 pb-2 mr-4 sigv-breadCrumb">
+        <ul type="none" class="d-flex align-items-center m-0 pl-0">
+            <li>
+                <a [routerLink]="['/piips/sigvest/dashboard']">
+                    <i class="bi bi-house-door-fill"></i> <i class="bi bi-chevron-right"></i>
+                </a>
+            </li>
+            <li>
+                <a [routerLink]="['/piips/sigvest/planificacao']">
+                    Planificação <i class="bi bi-chevron-right"></i>
+                </a>
+            </li>
+            <li>
+                <a [routerLink]="['/piips/sigvest/planificacao/plano-de-distribuicao']">
+                    Plano de Distribuição <i class="bi bi-chevron-right"></i>
+                </a>
+            </li>
+            <li>
+                <a [routerLink]="['/piips/sigvest/planificacao/plano-de-distribuicao/individual']">
+                    Plano Individual <i class="bi bi-chevron-right"></i>
+                </a>
+            </li>
+            <li routerLinkActive="efeito-breadcrumb">
+                <a [routerLink]="['/piips/sigvest/planificacao/plano-de-distribuicao/individual/listar']">
+                    <span>Listar</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <section class="container-fluid p-3" style="border-radius: 26px 26px 0 0;">
+        <!-- Titulo -->
+        <h3 class="pl-4 mt-3 titulo">
+            <!-- <img src="../../../../../../assets/assets_sigv/img/img1/livro.gif" alt=""> -->
+            <div>
+                Listar Planos de Distribuição Individual <br>
+                <div style="font-size: 0.7rem; transform: translate(-15px, -10px)">
+                    <i class="bi bi-dot" style="font-size: 2rem;"></i>
+                    <div style=" transform: translate(-14px, -9px); display:inline-block;">Gestão de planificações da
+                        logística
+                        PNA</div>
+                </div>
+            </div>
+
+            <div>
+                <span><i class="bi bi-square-fill text-danger"></i></span>
+                <span><i class="bi bi-square-fill text-warning"></i></span>
+                <span><i class="bi bi-square-fill text-info"></i></span>
+                <span><i class="bi bi-square-fill text-success"></i></span>
+                <span><i class="bi bi-square-fill"></i></span>
+            </div>
+        </h3>
+
+        <div
+            style="border: none; border-radius: 24px; padding: 20px; background-color: white; box-shadow: 0 8px 10px #cccccc71;">
+            <div class="container-fluid">
+                <nav style="float: left; width: 100%;">
+                    <div style="border-bottom: 1px solid #dddddd99; width: 70%; margin-right: 2rem; float: left;">
+                        <ul style="display: flex; align-items: center; border-bottom: 1px solid #ddd;" type="none">
+                            <!-- <li class="li-menu"><a href="javascript:void(0)">Todos</a></li>
+                    <li class="li-menu"><a href="javascript:void(0)">Activo</a></li>
+                    <li class="li-menu"><a href="javascript:void(0)">Desativado</a></li> -->
+                            <li class="li-menu">
+                                <a>
+                                    <select class="" name="b"
+                                        style="padding: 5px 10px; border-radius: 8px; background-color: #f5f5f5;font-size: .9rem; box-shadow: 0px 3px 5px #cccccc71;">
+                                        <option *ngFor="let item of ['TODOS','APROVADOS', 'NÃO APROVADOS']"
+                                            [value]="item">{{item}}</option>
+                                    </select>
+                                </a>
+                            </li>
+                            <li class="li-menu"><a>
+                                    <select class="" name="b"
+                                        style="padding: 5px 10px; border-radius: 8px; background-color: #f5f5f5;font-size: .9rem; box-shadow: 0px 3px 5px #cccccc71;"
+                                        (change)="filtrarPagina('perPage', $event)">
+                                        <option *ngFor="let item of [5,10,20,50]" [value]="item">{{item}}</option>
+                                    </select>
+                                </a></li>
+                            <li class="li-menu"><a href="javascript:void(0)">
+                                    <button type="button" class="btn"
+                                        style="padding: 5px 10px; border-radius: 8px; background-color: #f5f5f5;font-size: .9rem; box-shadow: 0px 3px 5px #cccccc71;">
+                                        <img src="../../../../../../../assets/assets_sigv/img/img/new/Refresh.png"
+                                            alt="" id="gira" class="me-2" height="20" width="20"> Actualizar
+                                    </button>
+                                </a></li>
+                            <li class="li-menu"><a href="javascript:void(0)">
+                                    <button type="button" class="btn"
+                                        style="padding: 5px 10px; border-radius: 8px; color:#041b4e; background-color: #f5f5f5;font-size: .9rem; box-shadow: 0px 3px 5px #cccccc71;"
+                                        (click)="this.mostrarPesquisaAvancada()">
+                                        <i [ngClass]="[this.pesquisaAvancada? 'bi bi-x-lg' : 'bi bi-search']"
+                                            style="font-size: .9rem; margin-right: 5px;"></i>
+                                        {{this.pesquisaAvancada? 'Fechar Pesquisa' : 'Pesquisa Avançada'}}
+                                    </button>
+                                </a></li>
+                            <li class="li-menu"><a href="javascript:void(0)">
+                                    <!-- Button trigger modal data-bs-toggle="modal" data-bs-target="#staticBackdrop"-->
+                                    <button type="button" class="btn"
+                                        style="padding: 5px 15px; border-radius: 16px; background-color: #041b4e; color: #fff; box-shadow: 0px 3px 5px #041b4e71; font-size: .9rem;"
+                                        [routerLink]="['/piips/sigvest/planificacao/plano-de-distribuicao/individual/registar']">
+                                        <i class="bi bi-plus-circle" style="font-size: .9rem;"></i> Novo
+                                    </button>
+                                </a></li>
+                        </ul>
+                    </div>
+                    <div style="width: 26%; float: right;">
+                        <form style="display:flex; align-items: center; width: 100%;">
+                            <button type="button"
+                                style="border: 1px solid #f6f6f6; border-right: none; padding: 10px 15px; background-color: #f6f6f6; border-radius: 16px 0 0 16px; height: 46px;">
+                                <i class="bi bi-search" style="color: #666; font-size: 18px;"></i>
+                            </button>
+                            <input type="search"
+                                style="border: 1px solid #f6f6f6; border-left: none; padding: 10px; background-color: #f6f6f6; border-radius: 0 16px 16px 0; height: 46px; width: calc(100% - 49px)"
+                                placeholder="Pesquisar..." [ngModel]="filtro.search"
+                                (ngModelChange)="filtrarPagina('search',$event)">
+                        </form>
+                    </div>
+                </nav>
+            </div>
+
+            <p style="padding: 10px; margin-bottom: 8px;">{{ this.pagination.total }} Documents</p>
+
+            <ng-container *ngIf="this.pesquisaAvancada">
+                <div class=" p-3 mb-4 row filtro" style="border-radius: 5px; background-color: #f6f6f6;">
+
+                    <div class="col-3 pr-2 pb-2">
+                        <label for="">RMM5</label>
+                        <ng-select2 class="" [options]="options" [data]="this.rmm" id="plano_minit_id"
+                            style="border-radius: 10px; ">
+                        </ng-select2>
+                    </div>
+
+                    <div class="col-3 pr-2">
+                        <label for="">Referência do Plano</label>
+                        <ng-select2 class="" [options]="options" [data]="this.rmm" id="plano_minit_id"
+                            style="border-radius: 10px; ">
+                        </ng-select2>
+                    </div>
+
+                    <div class="col-3 pr-2">
+                        <label for="">Estado dos Produtos</label>
+                        <ng-select2 class="" [options]="options" [data]="this.rmm" id="plano_minit_id"
+                            style="border-radius: 10px; ">
+                        </ng-select2>
+                    </div>
+
+                    <div class="col-3">
+                        <label for="">RMM5</label>
+                        <ng-select2 class="" [options]="options" [data]="this.rmm" id="plano_minit_id"
+                            style="border-radius: 10px; ">
+                        </ng-select2>
+                    </div>
+
+                    <div class="col-3 pr-2">
+                        <label for="">RMM5</label>
+                        <ng-select2 class="" [options]="options" [data]="this.rmm" id="plano_minit_id"
+                            style="border-radius: 10px; ">
+                        </ng-select2>
+                    </div>
+
+                    <div class="col-3 pr-2">
+                        <label for="">Referência do Plano</label>
+                        <ng-select2 class="" [options]="options" [data]="this.rmm" id="plano_minit_id"
+                            style="border-radius: 10px; ">
+                        </ng-select2>
+                    </div>
+
+                    <div class="col-3 pr-2">
+                        <label for="">Estado dos Produtos</label>
+                        <ng-select2 class="" [options]="options" [data]="this.rmm" id="plano_minit_id"
+                            style="border-radius: 10px; ">
+                        </ng-select2>
+                    </div>
+
+                    <div class="col-3">
+                        <label for="">RMM5</label>
+                        <ng-select2 class="" [options]="options" [data]="this.rmm" id="plano_minit_id"
+                            style="border-radius: 10px; ">
+                        </ng-select2>
+                    </div>
+                </div>
+
+            </ng-container>
+
+            <table class="table custom-table" style="border-radius: 40px;">
+                <thead>
+                    <tr id="cabecalho" class="">
+                        <!-- <th >#</th> -->
+                        <th>ID</th>
+                        <th>Documento</th>
+                        <!-- <th>Nome da plano</th> -->
+                        <th>Órgão Benificiário</th>
+                        <!-- <th>Referência</th> -->
+                        <th>Validade Doc</th>
+                        <th>Local Busca</th>
+                        <th>Estado</th>
+                        <th>Última Actualização</th>
+                        <th class="text-center">Operação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let planoDotacao of planificacaoInters
+                | paginate
+                : {
+                    itemsPerPage: this.pagination.per_page,
+                    currentPage: this.pagination.current_page,
+                    totalItems: this.pagination.total,
+                    id:'idAllPlanos'
+                  }; index as i">
+
+                        <!-- <td>
+                    <input type="checkbox"/>
+                  </td> -->
+                        <td style="font-weight: 500;">{{i+1 <= 9 ? '0' + (i+1) : (i+1)}}</td>
+                        <td class="coluna-selecionada" data-toggle="modal" data-target="#exportar"
+                            (click)="setItem('exportar', planoDotacao)">
+                            <div style="display: flex; align-items: center;">
+                                <i class="bi bi-file-earmark-pdf-fill pr-2"
+                                    style="color: #B30C00; font-size: 24px;"></i>
+                                <div>
+                                    <div>{{planoDotacao.nome}} -
+                                        {{'02'}}/{{2025}}</div>
+                                    <div style="font-size: 0.7rem; color: #7d7d7d;">uploaded 5th Feb, 2023</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class=" ">
+                            <div style="display: flex; align-items: center;">
+                                <i class="bi bi-person-circle pr-2" style="color: #041b4e; font-size: 24px;"></i>
+                                <div>
+                                    <div>{{'15 EFECTIVOS'}}</div>
+                                    <!-- <div style="font-size: 0.7rem;">uploaded 5th Feb, 2023</div> -->
+                                </div>
+                            </div>
+                        </td>
+                        <!-- <td class=" ">{{planoDotacao.referencia_plano}}</td> -->
+                        <td class=" ">{{ '72H' }}</td>
+                        <td class=" ">{{ 'BCA'}}</td>
+                        <td class=" ">
+                            <ng-container *ngIf="planoDotacao.estado_pre_despacho?.toLowerCase() == 'aprovada'">
+                                <button type="button" id="sucesso" class="btn"
+                                    style="padding: 5px 10px; border-radius: 16px; background-color: #28a745; color: #fff;">
+                                    {{planoDotacao.estado_pre_despacho}}
+                                </button>
+                            </ng-container>
+
+                            <ng-container *ngIf="planoDotacao.estado_pre_despacho?.toLowerCase() == 'pendente' || planoDotacao.estado_pre_despacho?.toLowerCase() == null">
+                                <button type="button" class="btn btn-warning"
+                                    style="padding: 5px 10px; border-radius: 16px; color: #fff;" data-toggle="modal"
+                                    data-target="#modalValidarPlano" (click)="setItem('validar-plano', planoDotacao)">
+                                    {{planoDotacao.estado_pre_despacho ?? 'PENDENTE'}}
+                                </button>
+                            </ng-container>
+
+                            <ng-container *ngIf="planoDotacao.estado_pre_despacho?.toLowerCase() == 'rejeitada'">
+                                <button type="button" class="btn btn-danger"
+                                    style="padding: 5px 10px; border-radius: 16px;">
+                                    {{planoDotacao.estado_pre_despacho}}
+                                </button>
+                            </ng-container>
+
+                            <ng-container *ngIf="planoDotacao.estado_pre_despacho?.toLowerCase() == 'retificar'">
+                                <button type="button" class="btn"
+                                    style="padding: 5px 10px; border-radius: 16px; background-color: #17a2b8; color: white;"
+                                    data-toggle="modal" data-target="#modalEditarPlanos"
+                                    (click)="setItem('editar', planoDotacao)">
+                                    {{planoDotacao.estado_pre_despacho}}
+                                </button>
+                            </ng-container>
+
+                            <ng-container *ngIf="planoDotacao.estado_pre_despacho?.toLowerCase() == 'retificado'">
+                                <button type="button" class="btn"
+                                    style="padding: 5px 10px; border-radius: 16px; background-color: #041b4e; color: white"
+                                    data-toggle="modal" data-target="#modalValidarPlano"
+                                    (click)="setItem('validar-plano',planoDotacao)">
+                                    {{planoDotacao.estado_pre_despacho}}
+                                </button>
+                            </ng-container>
+
+                        </td>
+                        <td class=" ">{{planoDotacao.updated_at}} </td>
+                        <td class=" text-center">
+                            <div class="dropdown dropdown-action position-static">
+                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
+                                    aria-expanded="false"><i class="bi bi-three-dots-vertical"></i></a>
+                                <div class="dropdown-menu dropdown-menu-right lista-option">
+                                    <a href="javascript:void(0)" class="dropdown-item" data-toggle="modal"
+                                        data-target="#exportar" (click)="setItem('exportar', planoDotacao)">
+                                        <i class="bi bi-file-pdf-fill"></i> Exportar Documento
+                                    </a>
+                                    <a class="dropdown-item" href="javascript:void(0)" data-toggle="modal"
+                                        data-target="#detalhe" (click)="setItem('ver-detalhes', planoDotacao)">
+                                        <i class="bi bi-info-circle"></i>
+                                        Mais informações
+                                    </a>
+                                    <a class="dropdown-item" href="javascript:void(0)" data-toggle="modal"
+                                        *ngIf="planoDotacao?.estado_pre_despacho?.toLowerCase() === 'pendente'"
+                                        data-target="#modalValidarPlano"
+                                        (click)="setItem('validar-plano',planoDotacao)">
+                                        <i class="bi bi-pencil-square"></i>
+                                        Validar Plano
+                                    </a>
+                                    <a routerLink="/piips/sigvest/planificacao/plano-de-distribuicao/individual/listar/{{planoDotacao.id}}"
+                                        class="dropdown-item" href="javascript:void(0)">
+                                        <i class="bi bi-plus-circle"></i>
+                                        Visualizar Meios
+                                    </a>
+                                    <a class="dropdown-item" href="javascript:void(0)"
+                                        *ngIf="planoDotacao?.estado_pre_despacho?.toLowerCase() === 'retificar'"
+                                        data-toggle="modal" data-target="#modalEditarPlanos"
+                                        (click)="setItem('editar', planoDotacao)">
+                                        <i class="bi bi-pencil-square"></i>
+                                        Editar Plano
+                                    </a>
+                                    <a class="dropdown-item" href="javascript:void(0)" data-bs-toggle="modal"
+                                        data-bs-target="#modalEliminar" (click)="this.validarEliminar(planoDotacao)"
+                                        style="color: #dc3545; font-size: .9rem;">
+                                        <i class="bi bi-trash-fill"></i>
+                                        Eliminar
+                                    </a>
+
+                                </div>
+                            </div>
+                        </td>
+
+
+                    </tr>
+
+                </tbody>
+            </table>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-1 ml-0 pl-0 mt-2">
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                        Mostrando de {{ this.pagination.current_page }} a
+                        {{ this.pagination.per_page }} de {{ this.pagination.total}}
+                        <aside *ngIf="this.pagination.total < 2; else outrosRegistos">registos</aside>
+                        <ng-template #outrosRegistos>registos</ng-template>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                        <div class="float-right">
+                            <pagination-controls id="idAllPlanos" (pageChange)="filtrarPagina('page', $event, false)"
+                                [directionLinks]="true" [autoHide]="false" previousLabel="Anterior" nextLabel="Próximo"
+                                [maxSize]="4" [responsive]="true">
+                            </pagination-controls>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- <sigv-exportar-documento-modal [planificacao]="pre_despacho" (limparValores)="recarregarPagina()"></sigv-exportar-documento-modal> -->
+<!-- Validar o plano selecionado -->
+<!-- <sigv-validar-plano [planificacao]="planificacao_para_modal_validar_plano" (onEditarForm)="recarregarPagina()"></sigv-validar-plano> -->
+<!-- Editar o plano selecionado com os produtos incluso -->
+<!-- <sigv-editar-planos [planificacao]="planificacao_para_modal_editar" (onEditarForm)="recarregarPagina()"></sigv-editar-planos> -->
+<!-- Ver detalhes do plano selecionado -->
+<!-- <sigv-detalhe-plano-modal [planificacao]="planificacao_para_modal_detalhe" (limparValores)="recarregarPagina()"> </sigv-detalhe-plano-modal> -->

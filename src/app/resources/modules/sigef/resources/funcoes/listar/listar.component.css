@@ -1,0 +1,58 @@
+.down {
+    border-radius: 8px;
+    background: #FCFCFC;
+    box-shadow: 30px 20px 40px 0px rgba(32, 32, 32, 0.25);
+}
+
+.btn-outline-success,
+.btn.btn-outline-primary.my-2.my-sm-0 {
+    width: 150px;
+    height: 42px;
+    flex-shrink: 0;
+}
+
+
+/*Botão Registrar*/
+
+.btn.btn-primary.btnRegistar {
+    width: 104px;
+    height: 38px;
+    flex-shrink: 0;
+}
+
+
+/* Botão atribuir*/
+
+.btn.btn-primary.btnExportar {
+    width: 104px;
+    height: 38px;
+    flex-shrink: 0;
+    padding: 10px;
+}
+
+.btn.btn-primary.btnExportar img {
+    width: 20px;
+    height: 20px;
+}
+
+
+/*botão recarregar*/
+
+.fa.fa-refresh.fa-spin.fa-3x.fa-fw {
+    width: 20px;
+    height: 20px;
+}
+
+th {
+    color: white;
+    text-align: center;
+}
+
+td {
+    text-align: center;
+}
+
+.estado p {
+    text-align: center;
+    padding-top: 5px;
+}

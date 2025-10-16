@@ -1,0 +1,80 @@
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <!-- Formulário de consulta -->
+        <form (ngSubmit)="consultar()" #biForm="ngForm">
+          <label for="biNumber">
+            Bilhete de Identidade Nº: 
+            <input 
+              type="text" 
+              id="biNumber"
+              [(ngModel)]="biNumber"
+              name="biNumber"
+              placeholder="Digite o BI"
+              required 
+              minlength="8"
+              maxlength="14"
+              #biInput="ngModel"
+            />
+          </label>
+          <div *ngIf="biInput.invalid && biInput.touched" class="error-message">
+            O número do BI deve ter entre 8 e 14 caracteres.
+          </div>
+          <button type="submit" [disabled]="biForm.invalid || isLoading" class="btn btn-primary">Consultar</button>
+        </form>
+
+        <!-- Indicador de Carregamento -->
+        <div *ngIf="isLoading" class="spinner">
+          <div class="cube-wrapper">
+            <div class="cube">
+              <div class="face"></div>
+              <div class="face"></div>
+              <div class="face"></div>
+              <div class="face"></div>
+              <div class="face"></div>
+              <div class="face"></div>
+            </div>
+          </div>
+          <p>Carregando...</p>
+        </div>
+
+        <!-- Mensagem de erro -->
+        <div *ngIf="errorMessage" class="alert alert-danger">
+          {{ errorMessage }}
+        </div>
+
+        <!-- Exibição do resultado -->
+        <div *ngIf="resultado">
+          <h3>Resultado da Consulta:</h3>
+          <pre>{{ this.resultado | json }}</pre>
+        </div>
+
+        <div *ngIf="resultado">
+          <h3>Resultado: {{this.pesquisarDadosPessoaisForm.value.type}} </h3>
+          <form>
+            <label for="name">Nome:</label>
+            <input id="name" type="text" [value]="this.pesquisarDadosPessoaisForm.value.name" placeholder="Nome" [readonly]="true">
+            
+            <label for="data_de_nascimento">Data de Nascimento:</label>
+            <input id="data_de_nascimento" type="data" [value]="this.pesquisarDadosPessoaisForm.value.data_de_nascimento" placeholder="Data de Nascimento" [readonly]="true">
+
+            <label for="pai">Pai:</label>
+            <input id="pai" type="text" [value]="this.pesquisarDadosPessoaisForm.value.pai" placeholder="Pai" [readonly]="true">
+
+            <label for="mae">Mãe:</label>
+            <input id="mae" type="text"  [value]="this.pesquisarDadosPessoaisForm.value.mae"  placeholder="Mãe" [readonly]="true">
+
+            <label for="morada">Morada:</label>
+            <input id="morada" type="text" [value]="this.pesquisarDadosPessoaisForm.value.morada" placeholder="Morada" [readonly]="true">
+
+            <label for="emitido_em">Emitido em:</label>
+            <input id="emitido_em" type="text" [value]="this.pesquisarDadosPessoaisForm.value.emitido_em" placeholder="Emitido em" [readonly]="true">
+
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

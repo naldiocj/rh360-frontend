@@ -1,0 +1,99 @@
+<!-- Início das tabs -->
+
+
+
+<main id="main_" class="base main_">
+  <div class="pagetitle mb-4">
+    <div class="infor-top">
+      <h4>PIIPS <i style="margin-left: 15px; margin-right: 15px;" class="bi bi-chevron-right" aria-hidden="true"></i></h4>
+      <h4>SIGIAC <i style="margin-left: 15px; margin-right: 15px;" class="bi bi-chevron-right" aria-hidden="true"></i></h4>
+      <h4>FISCALIZAÇÃO <i style="margin-left: 15px; margin-right: 15px;" class="bi bi-chevron-right" aria-hidden="true"></i></h4>
+<!--       <h4><b> <a style="color: rgb(38, 38, 38);" [routerLink]="['/piips/sigev2/piqueteo/ocorrencias']">OCORRÊNCIAS</a> <i style="margin-left: 15px; margin-right: 15px;" class="bi bi-chevron-right" aria-hidden="true"></i></b></h4> -->
+      <h4>REGISTAR</h4>
+    </div>
+
+     <!-- Fim Guia de rotas -->
+
+    <div class="org d-flex">
+      <div class="wt d-flex">
+        <div class="img-top">
+          <i class="bi bi-plus-circle-fill"></i>
+      </div>
+      <div>
+          <h3 class="titulo-top">Registar Fiscalizações </h3>
+          <h5 class="titulo-bt">Registo de Fiscalizações no Sistema | <b>SIGIAC</b> - Sistema Integrado de Gestão de Inspecção e Atendimento ao Cidadão</h5>
+      </div> 
+      </div>
+
+      <div class="wj">
+        <div class="alerta">
+          <div>
+            <i class="bi bi-exclamation-triangle"></i>
+          </div>
+          <div>
+            <p class="text-dark text">Funcionalidades em Desenvolvimento <br> Aguardando atualizações ....</p>
+          </div>
+        </div>
+      </div>
+     
+    </div>
+
+  </div>
+
+
+
+  <div class="alerta-o">
+    <div>
+      <i class="bi-o bi-question-circle"></i>
+    </div>
+    <div>
+      <p class="text-dark text-o">Os dados que contêm a figura <i class="ico bi bi-exclamation-circle-fill"></i> <br> São de carácter obrigatório</p>
+    </div>
+  </div>
+
+
+  <div class="content">
+    <div class="col-12 col-md-6">
+      <form  enctype="multipart/form-data" (submit)="registrar()">
+        <div class="row">
+          <div class="col-lg-4 col-md-6 col-6">
+            <label><b> Nº do Processo </b><i class="ico bi bi-exclamation-circle-fill"></i></label>
+
+            <button disabled class="form-control">
+              44
+            </button>
+          </div>
+
+          <div class="col-lg-4 col-md-6 col-6">
+            <label><b>Nº do Ofício </b><i class="ico bi bi-exclamation-circle-fill"></i></label>
+            <input type="text" id="name" class="form-control" required formControlName="oficio" />
+          </div>
+          <div class="col-lg-4 col-md-6 col-6">
+            <label><b>Data do Parecer </b><i class="ico bi bi-exclamation-circle-fill"></i></label>
+            <input type="date" id="name" class="form-control" required formControlName="data" />
+          </div>
+        </div>
+
+        <div class="col-md-12 col-12" style="left: -15px; margin-top: 10px;">
+          <label><b>Transcrição do Assunto</b></label>
+          <textarea class="form-control" style="height:10em;" required formControlName="assunto"></textarea>
+        </div>
+
+        <div class="form-group my-2">
+          <p>Carregar peças vinculadas <i class="ico bi bi-question-circle"></i></p>
+          <div class="d-flex flex-row" >
+            <label class="upload-input " id="label">
+              <i class="bi bi-file-pdf-fill  mx-2 " style="font-size:1.3rem"></i>
+              Carregar
+              <input id="file" type="file" (change)="onFileSelected($event)" class="up form-control" multiple />
+            </label>
+            <button class="btn btn-primary submit-btn mx-4" type="submit" style=" height: 2.5em;">
+              Registar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</main>

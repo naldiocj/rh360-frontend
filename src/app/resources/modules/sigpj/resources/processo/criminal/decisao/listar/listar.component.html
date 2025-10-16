@@ -1,0 +1,73 @@
+<!-- Início das tabs -->
+<div class="content">
+  <div style="margin-top: -19px;" class="row">
+    <div style="margin-left: 24px;" class="col-sm-12">
+    </div>
+    <br>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-8 offset-lg-2">
+      <h4 style="color: #002d54;" class="page-title"> <b>Decisão do Processo - Criminal</b></h4>
+      <p>Os campos com (<span id="ob"><b>*</b></span>) são de carácter obrigatório </p>
+    </div>
+  </div>
+
+  <div class="col-lg-8 offset-lg-2">
+    <form style="margin-top: 50px;">
+
+      <div class="row">
+        <div class="col-lg-4 col-md-4 ">
+          <label><b>Processo Nº </b><span class="text-danger"></span></label>
+          <input style="width: 85px; background-color: rgb(211, 210, 210); border-color: white;" class="form-control"
+            required formControlName="oficio">
+        </div>
+
+        <div class="col-lg-4 col-md-4 " style="margin-left: -260px; ">
+          <label><b>Nº do Ofício </b><span class="text-danger">*</span></label>
+          <input style="width: 172px;" type="number" id="name" class="form-control" required formControlName="oficio">
+        </div>
+
+        <div class="col-lg-4 col-md-4" style="margin-left: -170px;">
+          <label><b>Nº do Despacho </b><span class="text-danger">*</span></label>
+          <input style="width: 172px;" type="number" id="name" class="form-control" required formControlName="processo">
+        </div>
+        <div class="col-md-4" style="margin-left: -160px; ">
+          <label><b>Decisão </b><span class="text-danger">*</span></label>
+          <select style="width: 11em; " class="form-control select" formControlName="">
+            <option disabled selected>Selecione</option>
+            <option value="CPL">Multa</option>
+            <option value="DEPOL"> Despromoção</option>
+            <option value="DTTI">Demissão</option>
+            <option value="DTTI">Prisão</option>
+          </select>
+  
+      </div>
+      </div>
+
+      <div class="mt-3">
+        <label><b>Transcrição do Despacho da Decisão</b></label>
+        <textarea style="width: 650px; height: 200px;" class="form-control" required
+          formControlName="infracao"> </textarea>
+      </div>
+
+      <div class="mt-3 all">
+        <div class="form-group">
+          <label><b>Carregar Despacho</b></label>
+          <div class="profile-upload">
+            <div class="upload-img">
+              <img alt="" src="assets/img/user.jpg">
+            </div>
+            <div class="upload-input">
+              <input style="width: 400px;" type="file" class="form-control">
+            </div>
+            <button id="bookreset" class="btn btn-primary submit-btn  "
+              style="margin-top: -1px; margin-right: 400px; background-color: orange;">
+              <a style="text-decoration: none;color: black; ">Registar</a>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

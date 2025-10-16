@@ -1,0 +1,65 @@
+/* Styling the icon and title of navbar*/
+.logo{
+    display: flex;
+    padding-left: 40px;
+    flex-direction: row;
+}
+
+
+.logo h2{
+    font-family: "Poppins";
+    color: #041B48;
+    font-size: 30px;
+    font-weight: 600;
+    line-height: normal;
+    font-style: normal;
+    padding-left: 30px;
+}
+
+#right_menu{
+    background-color: white;
+    color: black;
+}
+
+.menu_text {
+    color: black;
+}
+
+.imgp{
+    width: 32px;
+    height: 33px;
+}
+
+/* Local of user Notifications and user icon on the navbar*/
+
+
+.user-img img{
+    width: 34px;
+    height: 35px;
+    padding-top: 0;
+    padding-left: 6px;
+    padding-bottom: 5px;
+}
+
+
+
+/* User or agent name beside notification and user icon on the navbar*/
+
+
+#ad{
+    color: #000;
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.header {
+    transition: all 0.5s;
+    z-index: 997;
+    height: 50px;
+    box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
+    background-color: #fff;
+    padding-left: 20px;
+  }

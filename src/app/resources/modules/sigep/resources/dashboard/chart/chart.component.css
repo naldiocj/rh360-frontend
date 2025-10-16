@@ -1,0 +1,12 @@
+
+
+
+.charts{   
+    display: flex;
+    justify-content: center;
+}
+ 
+canvas{
+     
+    max-height: 28em;  
+}

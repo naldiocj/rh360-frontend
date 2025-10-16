@@ -1,0 +1,178 @@
+/* Estilo da sobreposição (overlay) */
+
+  
+  .close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  
+   /* Estilo para o vídeo */
+   .video-container {
+    grid-area: stack; /* Permite que ele fique na mesma posição que as blobs */
+    position: relative; /* Evita ser afetado por transformações do contêiner pai */
+    z-index: 0; /* Garante que fique acima das blobs */
+  
+  }
+  
+  /* Estilo para o canvas gerado pelo face-api.js */
+  .video-container canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+  }
+   
+   
+  /* Ajuste do tamanho do vídeo para centralizá-lo corretamente */
+  video {
+    display: block;
+    object-fit: cover;
+    width: 100%;
+    height: 400px;
+    background-color: black; 
+    border-radius: 2%;
+    position: relative; 
+    grid-template-areas: 'stack';
+  }
+   
+  
+  button {
+    margin: 2px;
+  }
+  
+  .captured-images {
+    border: 1px dashed #bdbbbb;
+    display: block;
+    justify-content: center;
+    gap: 5px;
+    flex-wrap: wrap;
+    background-color: #e8e8e8;
+  }
+  
+  .image-container {
+    border: 2px dashed #ddd;
+    width: 125px;
+    height: 145px;
+    overflow: hidden;
+  }
+  
+  .image-container h3{
+    font-size: 10pt;
+  }
+  
+  .image-container img {
+    border: 2px dashed #bdbbbb;
+    max-width: 100%;
+    height: auto;
+  }
+  
+  
+  
+  .camera-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  
+  
+  #vercamera {
+    transition: all 0.3s cubic-bezier(.175, .885, .32, 1.275);
+    text-transform: uppercase;
+    line-height: 20px;
+    position: fixed;
+    bottom: 0;
+  }
+  
+  @media (max-width: 1199px) {
+    #vercamera {
+      padding: 0px;
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    #vercamera {
+      margin-left: 0px;
+    }
+  }
+  
+  
+  
+  
+  
+  
+  
+
+  
+  .video-container:after {
+    height: 9em; width: 12em;
+    top: 8.2em;
+  }
+  
+  .bar {
+    --color: rgba(69,142,255,.8);
+    z-index: 1;
+    height: .25em;
+    width: 100%;
+    background-color: var(--color);
+    transform: translatey(4em);
+    position: relative;
+    animation-name: moveUpAndDown;
+    animation-duration: 1.2s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+  
+  .bar:before, .bar:after {
+    position: absolute;
+    content: '';
+    left: 0; right: 0; margin: auto;
+    width: 100%; height: 60px;
+    filter: blur(.25em);
+    animation-duration: 1.2s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+  
+  .bar:before {
+    top: -60px;
+    background: linear-gradient(to top, var(--color) 0%, transparent 100%);
+    animation-name: visibilityOn;
+  }
+  
+  .bar:after {
+    top: .125em;
+    background: linear-gradient(to bottom, var(--color) 0%, transparent 100%);
+    animation-name: visibilityOff;
+  
+  }
+  
+  @keyframes moveUpAndDown {
+    from {
+      transform: translatey(1em);
+    }
+    to {
+      transform: translatey(28em);
+    }
+  }
+  
+  @keyframes visibilityOn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes visibilityOff {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }

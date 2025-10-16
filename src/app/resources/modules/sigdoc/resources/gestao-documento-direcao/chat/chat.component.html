@@ -1,0 +1,255 @@
+<div class="container-fluid">
+  <div class="row">
+    <!-- Barra lateral de Conversas -->
+    <div class="col-4 border-end bg-light chat-conversas">
+      <div class="d-flex justify-content-between align-items-center p-3">
+        <h4 class="mb-0">Conversas</h4>
+        <button class="btn btn-primary btn-sm rounded-circle">
+          <i class="bi bi-plus"></i>
+        </button>
+      </div>
+
+      <!-- Barra de Pesquisa e Filtros -->
+      <div class="px-3 mb-3">
+        <div class="navbar navbar-light bg-light w-100">
+          <form class="form-inline d-flex justify-content-between align-items-center w-100">
+            <div class="d-flex justify-content-start align-items-center w-100">
+              <select class="form-control me-2" (change)="filtrarPagina('perPage', $event)">
+                <option *ngFor="let item of [5, 10, 20]" [value]="item">{{ item }}</option>
+              </select>
+              <input 
+                class="form-control me-2" 
+                type="text" 
+                [ngModel]="filtro.search"
+                (ngModelChange)="filtrarPagina('search', $event)" 
+                placeholder="Pesquisar conversas"
+              >
+              <button class="btn btn-outline-primary" (click)="carregarConversas()">
+                <i class="bi bi-arrow-repeat"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Tabela de Conversas -->
+      <div class="table-responsive">
+        <table class="table table-border table-striped custom-table datatable mb-0">
+          <thead>
+            <tr>
+              <th>
+                <input type="checkbox" (change)="selecionarTodos($event)" [checked]="todosSelecionados()" />
+              </th>
+              <th>ID</th>
+              <th>Nome</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let conversa of conversas | paginate: { itemsPerPage: pagination.per_page, currentPage: pagination.current_page, totalItems: pagination.total, id: 'conversasPagination' }; let i = index">
+              <td>
+                <input 
+                  type="checkbox" 
+                  (click)="toggleDestinatario(conversa); $event.stopPropagation()"
+                  [checked]="validarSelecionado(conversa.id)"
+                />
+              </td>
+              <td (click)="selecionarConversa(conversa)">{{ i + 1 + (pagination.current_page - 1) * pagination.per_page }}</td>
+              <td (click)="selecionarConversa(conversa)">
+                <div class="d-flex align-items-center">
+                  <img 
+                    src="../../../../../../../assets/dashboard/Vector 51.png" 
+                    class="rounded-circle me-2" 
+                    width="30" 
+                    height="30"
+                  >
+                  {{ conversa.nome }}
+                </div>
+              </td>
+              <td (click)="selecionarConversa(conversa)">
+                <span 
+                  class="badge" 
+                  [ngClass]="{
+                    'bg-success': conversa.online, 
+                    'bg-danger': !conversa.online
+                  }"
+                >
+                  {{ conversa.online ? 'Online' : 'Offline' }}
+                </span>
+              </td>              
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Paginação -->
+      <div class="d-flex justify-content-between align-items-center p-3">
+        <div>
+          Mostrando {{ (pagination.current_page - 1) * pagination.per_page + 1 }} a 
+          {{ pagination.current_page * pagination.per_page > pagination.total ? pagination.total : pagination.current_page * pagination.per_page }} 
+          de {{ pagination.total }} conversas
+        </div>
+        <pagination-controls 
+          id="conversasPagination" 
+          (pageChange)="filtrarPagina('page', $event)"
+          [directionLinks]="true" 
+          [autoHide]="true" 
+          previousLabel="Anterior" 
+          nextLabel="Próximo"
+          [maxSize]="5" 
+          [responsive]="true"
+        ></pagination-controls>
+      </div>
+    </div>
+
+    <!-- Área de Mensagens e Envio (col-8) -->
+    <div class="col-8 d-flex flex-column">
+      <!-- Cabeçalho da conversa -->
+      <div class="border-bottom p-3 d-flex justify-content-between align-items-center" *ngIf="conversaSelecionada">
+        <div class="d-flex align-items-center">
+          <div class="position-relative me-3">
+            <img 
+              src="../../../../../../../assets/dashboard/Vector 51.png" 
+              class="rounded-circle" 
+              width="50" 
+              height="50"
+            >
+            <span 
+              *ngIf="conversaSelecionada.online"
+              class="position-absolute bottom-0 end-0 p-1 bg-success border border-light rounded-circle"
+            ></span>
+          </div>
+          <div>
+            <h6 class="mb-0">
+              Destinatários: 
+              <span *ngIf="destinatariosSelecionados.length > 0; else singleDestinatario">
+                <span *ngFor="let id of destinatariosSelecionados" class="badge bg-secondary me-1">
+                  {{ getNomeConversa(id) }}
+                </span>
+              </span>
+              <ng-template #singleDestinatario>
+                <span class="badge bg-secondary me-1">{{ conversaSelecionada.nome }}</span>
+              </ng-template>
+            </h6>
+            <small class="text-muted">
+              {{ conversaSelecionada.online ? 'Online' : 'Offline' }}
+            </small>
+          </div>
+        </div>
+        <div>
+          <button class="btn btn-outline-secondary me-2"><i class="bi bi-telephone"></i></button>
+          <button class="btn btn-outline-secondary me-2"><i class="bi bi-camera-video"></i></button>
+          <button class="btn btn-outline-secondary"><i class="bi bi-three-dots-vertical"></i></button>
+        </div>
+      </div>
+
+      <!-- Área de mensagens -->
+      <div class="chat-messages flex-grow-1" #chatMessages>
+        <div class="d-flex flex-column" *ngIf="mensagensCarregadas">
+          <div 
+            *ngFor="let mensagem of mensagens" 
+            class="mb-3"
+            [ngClass]="{'d-flex': true, 'justify-content-end': mensagem.remetente === 'eu'}"
+          >
+            <div 
+              class="card max-width-70 p-2"
+              [ngClass]="{'bg-primary text-white': mensagem.remetente === 'eu', 'bg-white': mensagem.remetente === 'outro'}"
+            >
+              <div class="card-body py-2 px-3">
+                <!-- Exibir mensagem citada, se houver -->
+                <div *ngIf="mensagem.mensagemRespondida" class="border-start border-3 ps-2 mb-2" [ngClass]="{'border-light': mensagem.remetente === 'eu', 'border-secondary': mensagem.remetente === 'outro'}">
+                  <small class="d-block" [ngClass]="{'text-white-50': mensagem.remetente === 'eu', 'text-muted': mensagem.remetente === 'outro'}">
+                    {{ mensagem.mensagemRespondida.remetente === 'eu' ? 'Você' : conversaSelecionada?.nome }}:
+                  </small>
+                  <p class="mb-0">{{ mensagem.mensagemRespondida.texto }}</p>
+                  <div *ngIf="mensagem.mensagemRespondida.arquivo">
+                    <img *ngIf="mensagem.mensagemRespondida.arquivo.tipo === 'imagem'" [src]="mensagem.mensagemRespondida.arquivo.url" alt="Imagem" class="img-fluid" style="max-width: 100px;">
+                    <span *ngIf="mensagem.mensagemRespondida.arquivo.tipo === 'pdf'">Documento PDF</span>
+                  </div>
+                </div>
+
+                <!-- Exibir texto da mensagem -->
+                <p class="card-text mb-1" *ngIf="mensagem.texto">{{ mensagem.texto }}</p>
+
+                <!-- Exibir imagem, se for do tipo 'imagem' -->
+                <div *ngIf="mensagem.arquivo && mensagem.arquivo.tipo === 'imagem'" class="mb-1">
+                  <img [src]="mensagem.arquivo.url" alt="Imagem" class="img-fluid" style="max-width: 200px; border-radius: 8px;" (click)="abrirArquivo(mensagem.arquivo.url)">
+                </div>
+
+                <!-- Exibir PDF, se for do tipo 'pdf' -->
+                <div *ngIf="mensagem.arquivo && mensagem.arquivo.tipo === 'pdf'" class="mb-1">
+                  <a [href]="mensagem.arquivo.url" target="_blank" class="d-flex align-items-center text-decoration-none" style="color: inherit;">
+                    <i class="bi bi-file-earmark-pdf me-2" style="font-size: 1.5rem;"></i>
+                    <span>Documento PDF</span>
+                  </a>
+                </div>
+
+                <!-- Hora da mensagem e botão Responder -->
+                <div class="d-flex justify-content-between align-items-center">
+                  <small 
+                    [ngClass]="{'text-white-50': mensagem.remetente === 'eu', 'text-muted': mensagem.remetente === 'outro'}"
+                  >
+                    {{ mensagem.hora }}
+                  </small>
+                  <button class="btn btn-sm btn-outline-secondary ms-2" (click)="responderMensagem(mensagem)">
+                    <i class="bi bi-reply"></i>
+                  </button>
+                  <!--button *ngIf="!mensagem.lido && mensagem.remetente === 'outro'" class="btn btn-sm btn-outline-primary ms-2" (click)="marcarComoLida(mensagem, i)">
+                    Marcar como lido
+                  </button-->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Área de envio -->
+      <div class="border-top p-3 bg-white">
+        <div 
+          class="d-flex flex-column w-100" 
+          (drop)="onFileDropped($event)" 
+          (dragover)="onDragOver($event)"
+          [ngClass]="{'border-dashed': arquivosSelecionados.length === 0}"
+        >
+          <!-- Exibir mensagem que está sendo respondida -->
+          <div *ngIf="mensagemParaResponder" class="border-start border-3 border-primary ps-2 mb-2 bg-light p-2">
+            <small class="d-block text-muted">
+              Respondendo a {{ mensagemParaResponder.remetente === 'eu' ? 'Você' : conversaSelecionada?.nome }}:
+            </small>
+            <p class="mb-0">{{ mensagemParaResponder.texto }}</p>
+            <div *ngIf="mensagemParaResponder.arquivo">
+              <img *ngIf="mensagemParaResponder.arquivo.tipo === 'imagem'" [src]="mensagemParaResponder.arquivo.url" alt="Imagem" class="img-fluid" style="max-width: 100px;">
+              <span *ngIf="mensagemParaResponder.arquivo.tipo === 'pdf'">Documento PDF</span>
+            </div>
+            <button class="btn btn-sm btn-link text-danger" (click)="cancelarResposta()">Cancelar</button>
+          </div>
+
+          <div *ngIf="arquivosSelecionados.length > 0" class="mb-2 d-flex flex-wrap">
+            <div *ngFor="let arquivo of arquivosSelecionados; let i = index" class="d-flex align-items-center me-2 mb-2 p-2 border rounded">
+              <span>{{ arquivo.name }}</span>
+              <button class="btn btn-sm btn-danger ms-2" (click)="removerArquivo(i)"><i class="bi bi-x"></i></button>
+            </div>
+          </div>
+          <div class="d-flex">
+            <button class="btn btn-outline-secondary me-2" type="button">
+              <label for="file-upload" class="mb-0 cursor-pointer"><i class="bi bi-paperclip"></i></label>
+              <input id="file-upload" type="file" class="d-none" multiple (change)="onFileSelected($event)">
+            </button>
+            <button class="btn btn-outline-secondary me-2"><i class="bi bi-emoji-smile"></i></button>
+            <div class="flex-grow-1 me-2">
+              <input 
+                type="text" 
+                class="form-control" 
+                placeholder="Escreva uma mensagem ou arraste arquivos aqui"
+                [(ngModel)]="novaMensagem"
+                (keyup.enter)="enviarMensagem()"
+              >
+            </div>
+            <button class="btn btn-primary" (click)="enviarMensagem()"><i class="bi bi-send"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,96 @@
+<div class="modal fade" id="dar-tratamento-modal-reclamacao" aria-labelledby="modalPortalRegistarAcidente"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document" style="overflow-y: hidden;min-width: 30%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="title-header">
+                    <i class="fa fa-calendar"></i>
+                    Tratamento da reclamacao {{this.informacaoAgente?.genero.toString().toUpperCase()=='F' ? 'da' :
+                    'do'}} agente
+                    {{this.informacaoAgente?.nome_completo}}
+                </h5>
+
+                <button type="button" class="close" id="close-modal" data-dismiss="modal" aria-label="Close"
+                    (click)="reset()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="texto">
+                                {{this.informacaoAgente?.genero.toString().toUpperCase()=='F' ? 'A' : 'O'}} agente <span
+                                    class="bold">{{this.informacaoAgente?.nome_completo}}</span> de nip
+                                <span class="bold">{{this.informacaoAgente?.nip}}</span> e
+                                número
+                                <span class="bold">{{this.informacaoAgente?.numero_agente}}</span> enviou uma
+                                reclamacação em <span class="bold">{{this.reclamacao?.createdAt}}</span>,
+                                contextualizando o
+                                seguinte:
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="observacao" [innerHTML]="this.reclamacao?.texto">
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <ng-container *ngIf="this.fileUrl; else notFile">
+                            <div class="col-12">
+                                <p class="titulo bold">
+                                    Em anexo, no seguinte arquivo:
+                                </p>
+                            </div>
+                            <div class="col-12">
+                                <p class="observacao">
+                                    <iframe [src]="this.fileUrl" class="iframe"></iframe>
+                                </p>
+                            </div>
+                        </ng-container>
+                        <ng-template #notFile>
+                            <div class="col-12">
+                                <p class="titulo bold">
+                                    Sem anexo.
+                                </p>
+                            </div>
+                        </ng-template>
+
+
+                    </div>
+                    <div class="row">
+
+                        <div class="col-12">
+                            <div class="d-flex justify-content-end align-items-end">
+                                <span class="inc">
+                                    PNA/DTTI
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row  d-flex justify-content-end align-items-end">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="btn-group">
+                            <button class="btn btn-success" *ngIf="this.reclamacao.estado!='A'"
+                                (click)="this.aprovar(this.reclamacao?.id)"> <i class="fa fa-check"></i>
+                                Aprovar</button>
+                            <button class="btn btn-danger" *ngIf="this.reclamacao.estado!='R'"
+                                (click)="this.reprovar(this.reclamacao?.id)"><i class="fa fa-times"></i>
+                                Reprovar</button>
+                            <button class="btn btn-warning text-light" *ngIf="this.reclamacao.estado!='P'"
+                                (click)="this.pendente(this.reclamacao?.id)"> <i class="fa fa-refresh"></i>
+                                Pendente</button>
+                            <button class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

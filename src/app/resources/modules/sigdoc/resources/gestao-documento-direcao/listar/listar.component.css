@@ -1,0 +1,71 @@
+#main_ {
+  margin-top: 60px;
+  padding: 20px 30px;
+  transition: all 0.3s;
+}
+
+@media (max-width: 1199px) {
+  #main_ {
+    padding: 20px;
+  }
+}
+
+@media (min-width: 1200px) {
+  #main_,
+  #footer {
+    margin-left: 300px;
+  }
+}
+
+@media (max-width: 1199px) {
+  .toggle-sidebar .asidebar {
+    left: 0;
+  }
+}
+
+@media (min-width: 1200px) {
+  .toggle-sidebar #main_,
+  .toggle-sidebar #footer {
+    margin-left: 0;
+  }
+}
+
+/* Estilos para o offcanvas */
+.offcanvas {
+  visibility: hidden;
+}
+
+.offcanvas.show {
+  visibility: visible;
+}
+
+/* Estilos para a modal */
+.modal {
+  z-index: 1055; /* Garante que a modal fique acima do offcanvas */
+}
+
+.modal-backdrop {
+  z-index: 1050; /* Abaixo da modal, mas acima do resto */
+  background-color: rgba(0, 0, 0, 0.5); /* Ajusta a opacidade do fundo */
+}
+
+.modal-content {
+  background-color: #fff; /* Fundo branco para a modal */
+}
+
+.modal-body {
+  padding: 1rem;
+}
+
+iframe {
+  background-color: #fff; /* Fundo branco para o iframe */
+  border: none;
+  width: 100%;
+  min-height: 600px;
+}
+
+a.disabled {
+  pointer-events: none;
+  opacity: 0.6;
+  cursor: not-allowed;
+}

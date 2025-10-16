@@ -1,0 +1,11 @@
+.modal-lg{
+
+    max-width: 80%;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+
+    height: 100vh;
+    display: flex;
+  }

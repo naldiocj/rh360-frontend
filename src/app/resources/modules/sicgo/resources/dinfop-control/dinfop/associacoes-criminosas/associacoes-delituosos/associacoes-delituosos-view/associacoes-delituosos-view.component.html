@@ -1,0 +1,328 @@
+<section
+    id="{{associacaoId}}"
+    class="offcanvas offcanvas-container "
+    tabindex="-1"
+    aria-labelledby="offcanvasExampleLabel"
+    *ngIf="associacaoId"
+>
+
+    <div class="the-page">
+        <div class="page__frame">
+            <div class="page-tab-header">
+
+                <nav
+                    class="navigation"
+                    id="js--navid"
+                >
+                    <ul
+                        class="navigation-menu"
+                        #navigationMenu
+                    >
+
+                        <li
+                            class="nav-item"
+                            [class.active]="activeTab === 'alpha'"
+                        >
+                            <a
+                                class="nav-tab t--tab"
+                                (click)="openTab('alpha')"
+                                title="Beta"
+                            >
+                                Modo Operante
+                            </a>
+                        </li>
+                        <li
+                            class="nav-item"
+                            [class.active]="activeTab === 'beta'"
+                        >
+                            <a
+                                class="nav-tab t--tab"
+                                (click)="openTab('beta')"
+                                title="Gamma"
+                            >
+                                <i class="bi bi-people-fill"></i>
+                                Delituosos
+                            </a>
+                        </li>
+                        <li
+                            class="nav-item"
+                            [class.active]="activeTab === 'gamma'"
+                        >
+                            <a
+                                class="nav-tab t--tab"
+                                (click)="openTab('gamma')"
+                                title="Delta"
+                            >
+                                <i class="bi bi-bank2"></i>
+                                Tribunal
+                            </a>
+                        </li>
+                        <li
+                            class="nav-item active"
+                            [class.active]="activeTab === 'grupo'"
+                        >
+                            <a
+                                class="nav-tab t--tab"
+                                (click)="openTab('assodelituosos')"
+                                title="assodelituosos"
+                            >
+                                <i class="bi bi-people-fill"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <section class="page__frame">
+            <div class="tab__content">
+                <main class="tab__main">
+
+                    <div>
+
+                        <section
+                            *ngIf="activeTab === 'assodelituosos'"
+                            id="assodelituosos"
+                        >
+                            <div class="col-12 d-flex mt-3">
+                                   <h5 class=""><strong>Associação Delituosa</strong> - {{ associacaoDelituosa.codigo_sistema }}</h5>
+                                
+                            </div>
+
+                             
+                            <div
+                                class="associa"
+                                *ngIf="associacaoDelituosa"
+                            >
+
+                                <p>
+                                    <strong>Local de Atuação:</strong>
+                                    {{ associacaoDelituosa.local_atuacao }}
+                                </p>
+                                <p>
+                                    <strong>Ponto de Concentração:</strong>
+                                    {{ associacaoDelituosa.ponto_concentracao }}
+                                </p>
+                                <p>
+                                    <strong>Hora de Concentração:</strong>
+                                    {{ associacaoDelituosa.hora_concentracao | date: 'dd/MM/yyyy HH:mm' }}
+                                </p>
+                                <p>
+                                    <strong>Hora de Atuação:</strong>
+                                    {{ associacaoDelituosa.hora_atuacao | date: 'dd/MM/yyyy HH:mm' }}
+                                </p>
+                            </div>
+
+                        </section>
+
+                        <section
+                            *ngIf="activeTab === 'alpha'"
+                            id="alpha"
+                        >
+                            <div class="d-flex">
+                                <div class="col-10">
+                                    <h5 class="head-title mt-3">Modo Operante</h5>
+                                </div>
+
+                            </div>
+
+                            <!-- Modo Operante -->
+
+                            <!-- Modo Operante -->
+                            <div class="container">
+                                <!-- Card closed state -->
+                                <div class="card--closed p-2">
+                                    <div class="fs-2 mt-0">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="30"
+                                            height="30"
+                                            fill="currentColor"
+                                            class="bi bi-person-fill"
+                                            viewBox="0 0 14 14"
+                                        >
+                                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"></path>
+                                        </svg>
+                                    </div>
+
+                                    <div class="divisor--closed"></div>
+                                    <p class="title mt-3">&nbsp; Modos Operantes</p>
+                                    <div class="divisor--open"></div>
+                                </div>
+                                <!-- Card opened state -->
+                                <div class="card--open">
+
+                                    <!-- Verifica se a lista 'item.delituosos' está vazia -->
+                                    <div *ngFor=" let items of associacaoDelituosa.modooperantes">
+                                        <div class="mt-1 container-min">
+                                            <div class>
+                                                {{items.codigo_sistema}}
+                                                <div>
+                                                    <h5>
+                                                        <strong>titulo:</strong>
+                                                        {{ items.titulo }}
+                                                    </h5>
+                                                    <p>
+                                                        <strong>Crime:</strong>
+                                                        {{ items.familia_crime || 'Desconhecida' }}
+                                                    </p>
+                                                    <h5>
+                                                        <strong>observacao:</strong>
+                                                        {{ items.descricao || 'Não informado' }}
+                                                    </h5>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </section>
+
+                        <section
+                            *ngIf="activeTab === 'beta'"
+                            id="beta"
+                        >
+                            <!-- Card -->
+
+                            <div class="associa">
+                                <!-- Card opened state -->
+                                <div 
+                                    *ngFor=" let items of associacaoDelituosa.delituosos">
+                                   
+                                        <!-- Verifica se a lista 'item.delituosos' está vazia -->
+                                        <div>
+                                            <div class="mt-2">
+
+                                                <div class="d-flex col-sm-12 offset-sm-12 col-md-12 offset-md-0">
+                                                    <!-- Exibição das Fotografias -->
+                                                    <div class="foto-section">
+                                                        <div class="d-flex">
+                                                            <div class="borders">
+                                                                <div class="borders-img">
+                                                                    <img
+                                                                        [src]="items.fileUrlFrontal || fotodfault"
+                                                                        alt
+                                                                    >
+                                                                </div>
+                                                            </div>
+                                                             
+
+                                                        </div>
+                                                        <!-- Placeholder para fotos ausentes -->
+                                                        <ng-template #noPhoto>
+                                                            <img
+                                                                [src]="fotodfault"
+                                                                alt="Foto não disponível"
+                                                                class="foto"
+                                                            >
+                                                        </ng-template>
+                                                    </div>
+                                                    <div class="">
+                                                        <h5>
+                                                            <strong>Nome:</strong>
+                                                            {{ items.nome }}
+                                                        </h5>
+                                                        <h5>
+                                                            <strong>Apelido:</strong>
+                                                            {{ items.alcunha || 'Não informado' }}
+                                                        </h5>
+                                                        <p>
+                                                            <strong>Idade:</strong>
+                                                            {{ items.dataNascimento || 'Desconhecida' | date: 'dd/MM/yyyy' }}
+                                                        </p>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div> 
+
+                                </div>
+                                 
+                            </div>
+
+                            <div
+                                *ngIf="isLoading"
+                                class="spinner"
+                            >
+                                <!-- Mostra um spinner enquanto os dados estão carregando -->
+                                <p>Carregando...</p>
+                            </div>
+                        </section>
+
+                        <section
+                            *ngIf="activeTab === 'gamma'"
+                            id="gamma"
+                        >
+                            <h5 class="mt-2 ml-2">Antecedentes</h5> 
+                            <!-- Card -->
+                            <div
+                                class="container"
+                                *ngFor=" let items of associacaoDelituosa.antecedentes"
+                            >
+                                <!-- Card closed state -->
+                                <div class="card--closed p-2">
+                                    <div class="fs-2 mt-0">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="30"
+                                            height="30"
+                                            fill="currentColor"
+                                            class="bi bi-person-fill"
+                                            viewBox="0 0 14 14"
+                                        >
+                                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"></path>
+                                        </svg>
+                                    </div>
+
+                                    <div class="divisor--closed"></div>
+                                    <p class="title mt-3">
+                                        &nbsp; Antecedentes - {{items.codigo_sistema}}
+                                    </p>
+                                    <div class="divisor--open"></div>
+                                </div>
+                                <!-- Card opened state -->
+                                <div class="card--open">
+                                    <fieldset>
+
+                                        <!-- Verifica se a lista 'item.delituosos' está vazia -->
+                                        <div>
+                                            <div class="mt-2">
+                                                <div class="col-sm-12 offset-sm-12 col-md-12 offset-md-0">
+
+                                                    <div class="mt-2">
+                                                        <h5>
+                                                            <strong>titulo:</strong>
+                                                            {{ items.titulo }}
+                                                        </h5>
+                                                        <h5>
+                                                            <strong>observacao:</strong>
+                                                            {{ items.observacao || 'Não informado' }}
+                                                        </h5>
+                                                        <p>
+                                                            <strong>familia crime:</strong>
+                                                            {{ items.familia_crime || 'Desconhecida' }}
+                                                        </p>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </fieldset>
+
+                                </div>
+                            </div>
+                        </section>
+
+                    </div>
+                </main>
+            </div>
+        </section>
+
+    </div>
+
+</section>

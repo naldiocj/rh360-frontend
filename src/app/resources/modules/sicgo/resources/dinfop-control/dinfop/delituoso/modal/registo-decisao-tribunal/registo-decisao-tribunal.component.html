@@ -1,0 +1,157 @@
+<div class="modal fade " id="modalRegistarOuEditarDelituosoResultado" aria-labelledby="modalRegistarOuEditarDelituosoResultado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalRegistarOuEditarDelituosoResultadoLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <form [formGroup]="Form" (ngSubmit)="onSubmit()">
+
+          <div class="cols-11 ">
+              <div class="d-flex justify-content-lg-start align-items-start align-items-lg-start">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                  <li class="nav-item" role="presentation">
+                    <a class="nav-link active nav-btn-button"  aria-current="page"  data-bs-toggle="tab" data-bs-target="#dados-primarios">Dados Primario</a>
+                  </li>
+
+
+                </ul>
+
+              </div>
+            <div class=" modal-body bg-light" >
+              <div class="modal-header bg-primary text-white">
+                <h4 class="modal-title"><b>Resultado do Processo do Delituoso</b></h4>
+                <a
+                    type="button"
+                    data-bs-dismiss="modal" aria-label="Close"
+                  >
+                  <i  class="bi bi-backspace-reverse-fill cursor-pointer rounded-lg "
+                  style="font-size: 1.2em"></i>
+                  </a>
+            </div>
+             
+
+                          <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active p-4" id="dados-primarios" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+
+                              <div >
+                                    <div class="row">
+
+                                      <div class="col-lg-6">
+
+                                        <div class="form-group">
+                                          <label><b>Situação do Condenado</b></label>
+                                          <select class="form-control" id="nose-types" formControlName="resultado_processo">
+                                            <option value="Prisão">Prisão</option>
+                                            <option value="Prisão Preventiva">Prisão Preventiva</option>
+                                            <option value="Prisão Domiciliária">Prisão Domiciliária</option>
+                                            <option value="Liberdade">Liberdade</option>
+                                            <option value="Liberdade Provisória">Liberdade Provisória</option>
+                                            <option value="Liberdade Condicional">Liberdade Condicional</option>
+                                            <option value="Caução">Caução</option>
+                                            <option value="Obrigação de Apresentação Periódica">Obrigação de Apresentação Periódica</option>
+                                            <option value="Suspensão do Exercício de Profissão">Suspensão do Exercício de Profissão</option>
+                                            <option value="Proibição e Imposição de Condutas">Proibição e Imposição de Condutas</option>
+                                            <option value="Multa">Multa</option>
+                                            <option value="Confisco de Bens">Confisco de Bens</option>
+                                            <option value="Suspensão da Execução da Pena">Suspensão da Execução da Pena</option>
+                                          </select>
+                                      </div>
+
+                                    </div>
+                                    <div class="col-lg-6">
+
+                                      <div class="form-group">
+                                          <label><b>Data</b></label>
+                                          <input type="date" class="form-control"  formControlName="data_julgamento">
+                                      </div>
+
+                                    </div>
+                                    <div class="col-lg-12">
+
+                                      <div class="form-group">
+                                          <label><b>Numero Processo</b></label>
+                                          <input type="text" class="form-control"  formControlName="numero_processo">
+                                      </div>
+
+                                    </div>
+                                     
+                                    <fieldset>
+                                      <legend>Motivo da Detenção</legend>
+                                      <div class="row">
+                                        <div class="form-group col-md-4">
+                                          <label>
+                                              <b>
+                                                  Família de crime
+                                                  <span class="text-red">*</span>
+                                              </b>
+                                          </label>
+                                          <ng-select2
+                                              class="custom-border ng-select-container"
+                                              [options]="this.options"
+                                              [data]="this.tipicidadeOcorrencias"
+                                              (valueChanged)="selecionarTipoOcorrencia($event)"
+                                              [class.is-invalid]="sicgo_tipicidade_ocorrencia_idValidate"
+                                          >
+                                          </ng-select2>
+                                      </div>
+                                      <div class="form-group col-md-4">
+                                          <label>
+                                              <b>
+                                                  Tipo de Crime
+                                                  <span class="text-red">*</span>
+                                              </b>
+                                          </label>
+                                          <ng-select2
+                                              [options]="this.options"
+                                              [data]="this.tipoOcorrencias"
+                                              (valueChanged)="selecionarCategoriaOcorrencia($event)"
+                                              [class.is-invalid]="sicgo_tipo_ocorrencia_idValidate"
+                                          >
+
+
+                                          </ng-select2>
+                                      </div>
+
+
+                                      <div class="form-group col-md-4">
+                                          <label>
+                                              <b>
+                                                  Tipicidade
+                                                  <span class="text-red">*</span>
+                                              </b>
+                                          </label>
+                                          <ng-select2
+                                              [options]="this.options"
+                                              [data]="this.tipoCategorias"
+                                              formControlName="julgado_pelo_crime"
+                                              [class.is-invalid]="sicgo_tipo_categoria_idValidate"
+                                          >
+                                          </ng-select2>
+                                      </div>
+                                    </div>
+                                      <!-- Additional form controls -->
+                                      </fieldset>
+
+                                  </div>
+
+                                </div>
+
+                               </div>
+
+                          </div>
+
+
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    Fechar
+                </button>
+                <button type="submit" type="submit" [disabled]="isLoading" class="btn btn-primary"  (ngSubmit)="onSubmit()">Salvar</button>
+            </div>
+            </div>
+          </div>
+
+        </form>
+  </div>
+</div>
+</div>
+
+
+

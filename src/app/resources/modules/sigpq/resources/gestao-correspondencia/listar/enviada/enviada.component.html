@@ -1,0 +1,238 @@
+<div class="content">
+  <div class="header-ficha">
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 d-flex justify-content-start align-items-start"
+        style="row-gap: 0.8rem;">
+        <div class="image">
+          <img src="assets/img/logopolice.png" alt="image-logo" style="width: 80px; height: 80px;" />
+        </div>
+        <div class="logos mx-2">
+          <h1>POLÍCIA NACIONAL DE ANGOLA</h1>
+          <h3 class="text-uppercase">
+            Sistema Integrado de Gestão de Pessoal e Quadros
+          </h3>
+          <h4 class="text-light">
+            <b>Correspondências | Enviadas </b>
+          </h4>
+        </div>
+      </div>
+      <!-- <div class="col-lg-12 my-1 d-flex justify-content-end align-items-center" style="gap:.4rem">
+        <span class="legend-item" *ngFor="let item of this.estados">
+          <div class="legend-color" [style.backgroundColor]="item.cor"></div>
+          <span class="legend-text">{{item.texto}}</span>
+        </span>
+      </div> -->
+    </div>
+    <div class="row my-6">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="row mt-4">
+          <div class="col-xl-10 col-lg-10 col-md-12 col-sm-12 d-flex align-item-center justify-content-end">
+            <div class="d-flex justify-content-end align-items-center" style="gap:.4rem">
+              <span class="legend-item" *ngFor="let item of this.estados">
+                <div class="legend-color" [style.backgroundColor]="item.cor"></div>
+                <span class="legend-text">{{item.texto}}</span>
+              </span>
+            </div>
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 d-flex align-item-center justify-content-end">
+            <div class="d-flex justify-content-end align-items-center w-100">
+              <a href="javascript:void(0)" data-toggle="modal" data-target="#modalEnviarCorrrespondencia"
+                class="btn-piips btn-piips-secondary border py-2 m-0">
+                <i class="fa fa-send"></i> Enviar </a>&nbsp;
+
+              <!-- <a href="javascript:void(0)" data-toggle="modal" data-target="#"
+                class="btn-piips btn-piips-secondary border py-2 m-0"><i class="fa fa-list-alt"></i> Exportar</a> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <nav class="navbar navbar-light bg-light w-100">
+        <form class="form-inline">
+          <select class="form-control mr-sm-1" (change)="filtrarPagina('perPage', $event)">
+            <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">
+              {{ item }}
+            </option>
+          </select>
+          <input class="form-control mr-sm-1" type="text" [ngModel]="filtro.search"
+            (ngModelChange)="filtrarPagina('search', $event)" placeholder="Pesquisa ..." />
+          <button (click)="this.recarregarPagina()" class="btn-piips btn-piips-secondary py-2 m-0" type="submit">
+            <i style="font-size: 14px" class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+            Recarregar
+          </button>
+        </form>
+      </nav>
+    </div>
+
+    <div class="col-lg-12">
+      <div class="table-responsive overflow-auto">
+        <table class="table table-border table-striped custom-table datatable ">
+          <thead>
+            <th>#</th>
+            <th>ID</th>
+            <th>Código</th>
+            <th>Natureza</th>
+            <th>Importância</th>
+            <th>Tipo</th>
+            <th>Procedência</th>
+            <th>Número de Ofício</th>
+            <th>Destinário</th>
+            <!-- <th>Estado</th> -->
+            <th>Data de Envio</th>
+            <th class="text-right">Operação</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="
+              let item of this.correspondencias
+                | paginate
+                  : {
+                      id: 'idCorrespondencia',
+                      itemsPerPage: this.pagination.per_page,
+                      currentPage: this.pagination.current_page,
+                      totalItems: this.pagination.total
+                    };
+              index as i
+            ">
+              <th [style.backgroundColor]="item?.tratamento?.cor"></th>
+              <td>{{ this.totalBase + i }}</td>
+              <td>
+                <a ariaCurrentWhenActive="page"
+                  [routerLink]="['/piips/sigpg/gestao-correspondencia/ver-um','enviada', item.id]">
+                  {{ item.codigo_sistema }}
+                </a>
+              </td>
+              <td>{{ item.natureza }}</td>
+              <td>{{ item.importancia }}</td>
+              <td>{{ item.tipo_correspondencia }}</td>
+              <td>{{ item.procedencia_correspondencia }}</td>
+              <td>{{ item.numero_oficio }}</td>
+              <td>{{ item.orgao_sigla }} - {{item.orgao}} </td>
+              <!-- <td [style.backgroundColor]="item?.tratamento?.cor" class="text-center" style="color: var(--white)">{{
+                item.status }}
+              </td> -->
+              <td>{{ item.created_at }}</td>
+
+              <td class="text-right">
+                <div class="dropdown dropdown-action mr-4">
+                  <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
+                      class="fa fa-ellipsis-v"></i></a>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#" data-toggle="modal"
+                      data-target="#modalsigpqprovimentopromocaoemtempo">
+                      <i class="fa fa-refresh m-r-5"></i>
+                      Cancelar</a>
+                    <a href="#" class="dropdown-item" data-toggle="modal" (click)="setId(item?.id)"
+                      data-target="#ver-correspoondencia" href="javascript:void(0)">
+                      <i class="fa fa-eye m-r-5"></i>
+                      Ver
+                    </a>
+                    <a class="dropdown-item" data-toggle="modal" data-target="#ver-documento-correspondencia-enviada"
+                      (click)="visualizar(item)"><i class="fa fa-pencil m-r-5"></i>
+                      Ver documento
+                    </a>
+                    <a class="dropdown-item" href="#" (click)="this.construcao()" data-toggle="modal"
+                      data-target="#delete_patient"><i class="fa fa-trash-o m-r-5"></i> Apagar</a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-sm-6">
+          Mostrando de {{ this.pagination.current_page }} á
+          {{ this.pagination.per_page }} de {{ this.pagination.total }} Registo
+        </div>
+        <div class="col-sm-6">
+          <div class="float-right">
+            <pagination-controls id="idCorrespondencia" (pageChange)="this.filtrarPagina('page', $event)"
+              [directionLinks]="true" [autoHide]="true" previousLabel="Anterior" nextLabel="Próximo" [maxSize]="4"
+              [responsive]="true"></pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-sigpq-ocorrencia-modal (onEnviarOcorrencia)="this.recarregarPagina()"></app-sigpq-ocorrencia-modal>
+<!-- <app-sigpq-provimento-promocao-em-tempo-registar-ou-editar-modal
+    [emTempo]="this.emTempo"></app-sigpq-provimento-promocao-em-tempo-registar-ou-editar-modal> -->
+
+<!-- <sigpq-ver-correspondencia [correspondenciaId]="this.correspondenciaId" (onSair)="setId(null)"></sigpq-ver-correspondencia> -->
+
+
+<div class="modal fade" id="ver-documento-correspondencia-enviada" aria-labelledby="modalVisualizarIndividual"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document" style="overflow-y: hidden;min-width: 70%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>
+          <i class="fa fa-user"></i>
+          Visualizar documento
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="content">
+        <div class="modal-body">
+          <div class="row">
+
+            <div class="col-sm-12">
+              <nav class="navbar navbar-light bg-light">
+                <h3>{{this.documento?.sigpq_tipo_documento_nome}}</h3>
+                <aside *ngIf="this.documento">
+                  <span *ngIf="this.documento.activo" class="custom-badge status-green">Activo</span>
+                  <span *ngIf="!this.documento.activo" class="custom-badge status-orange">Inactivo</span>
+                </aside>
+              </nav>
+              <div class="col-sm-12">
+                <aside *ngIf="carregarDocumento;else carregarDocumentoVerMensagem">
+                  <div class="container">
+                    <div class="row justify-content-center">
+                      Carregando documento ...
+                      <div class="col-sm-12 text-center">
+                        <div class="spinner-border text-primary" style="width: 2rem; height: 2rem;" role="status">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </aside>
+                <ng-template #carregarDocumentoVerMensagem>
+                  <aside *ngIf="fileUrl; else verMensagem">
+                    <iframe [src]="fileUrl" width="100%" height="700px"></iframe>
+                  </aside>
+                  <ng-template #verMensagem>
+                    <div class="container">
+                      <div class="row justify-content-center">
+                        <div class="col-sm-12 text-center">
+                          Sem documento adicionado
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                </ng-template>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            <span class="fa fa-close m-r-2"></span>Fechar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

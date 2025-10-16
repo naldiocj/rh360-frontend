@@ -1,0 +1,286 @@
+<main class="container-fluid">
+  <div class="row justify-content-center">
+    <!-- Form Section -->
+    <div class="col-lg-7 col-md-12 mb-4 outside-liquid-elements">
+      <form [formGroup]="informanteForm" (ngSubmit)="onSubmit()" class="form-container p-4 rounded">
+        <h2 class="mb-4 text-center">Registro de Informante</h2>
+        
+        <!-- Informant Type -->
+        <div class="form-group mb-3">
+          <label class="form-label fw-bold">Tipo de Informante <span class="text-danger">*</span></label>
+          <select formControlName="tipo" class="form-select" [class.is-invalid]="isFieldInvalid('tipo')">
+            <option value="">Selecione...</option>
+            <option *ngFor="let tipo of tiposInformante" [value]="tipo">{{ tipo }}</option>
+          </select>
+          <div class="invalid-feedback" *ngIf="isFieldInvalid('tipo')">
+            Por favor, selecione o tipo de informante
+          </div>
+        </div>
+        <!-- Campo de Upload de Foto -->
+<div class="form-group mb-3">
+  <label class="form-label fw-bold">Fotografia</label>
+  <div class="d-flex align-items-center">
+    <input 
+      type="file" 
+      class="form-control" 
+      (change)="onFileSelected($event)" 
+      accept="image/*"
+      style="display: none;"
+      #fileInput
+    >
+    <button 
+      type="button" 
+      class="btn btn-outline-secondary me-2" 
+      (click)="fileInput.click()"
+    >
+      <i class="bi bi-camera"></i> Selecionar Foto
+    </button>
+    <span *ngIf="selectedFile">{{ selectedFile.name }}</span>
+    <span *ngIf="!selectedFile && informanteForm.get('fotoUrl')?.value">Foto já carregada</span>
+  </div>
+  
+  <!-- Pré-visualização da imagem -->
+  <div class="mt-2" *ngIf="previewUrl || informanteForm.get('fotoUrl')?.value">
+    <img 
+      [src]="previewUrl || informanteForm.get('fotoUrl')?.value" 
+      alt="Pré-visualização" 
+      class="img-thumbnail" 
+      style="max-height: 150px;"
+    >
+    <button 
+      *ngIf="previewUrl || informanteForm.get('fotoUrl')?.value"
+      type="button" 
+      class="btn btn-sm btn-danger ms-2" 
+      (click)="removeFoto()"
+    >
+      <i class="bi bi-trash"></i> Remover
+    </button>
+  </div>
+</div>
+        <!-- Name Fields -->
+        <div class="row mb-3">
+          <div class="col-md-8">
+            <div class="form-group">
+              <label class="form-label fw-bold">Nome ou Identificação</label>
+              <input 
+                type="text" 
+                formControlName="nome" 
+                class="form-control"
+                [placeholder]="informanteForm.get('tipo')?.value === 'Anônimo' ? 'Anônimo' : 'Nome completo'" 
+                [disabled]="informanteForm.get('tipo')?.value === 'Anônimo'"
+              >
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label class="form-label fw-bold">Apelido</label>
+              <input 
+                type="text" 
+                formControlName="apelido" 
+                class="form-control"
+                [placeholder]="informanteForm.get('tipo')?.value === 'Anônimo' ? 'Anônimo' : 'Apelido'" 
+                [disabled]="informanteForm.get('tipo')?.value === 'Anônimo'"
+              >
+            </div>
+          </div>
+        </div>
+        
+        <!-- Contact -->
+        <div class="form-group mb-3">
+          <label class="form-label fw-bold">Contato <span class="text-danger">*</span></label>
+          <input 
+            type="text" 
+            formControlName="contato" 
+            class="form-control" 
+            [class.is-invalid]="isFieldInvalid('contato')"
+            [placeholder]="informanteForm.get('tipo')?.value === 'Anônimo' ? '' : 'Telefone/Email'"
+          >
+          <div class="invalid-feedback" *ngIf="isFieldInvalid('contato')">
+            Por favor, forneça um contato válido
+          </div>
+        </div>
+        
+        <!-- Registration Date -->
+        <div class="form-group mb-3">
+          <label class="form-label fw-bold">Data do Registro <span class="text-danger">*</span></label>
+          <input 
+            type="date" 
+            formControlName="dataRegistro" 
+            class="form-control" 
+            [class.is-invalid]="isFieldInvalid('dataRegistro')"
+          >
+          <div class="invalid-feedback" *ngIf="isFieldInvalid('dataRegistro')">
+            Por favor, selecione a data de registro
+          </div>
+        </div>
+        
+        <!-- Details -->
+        <div class="form-group mb-3">
+          <label class="form-label fw-bold">Detalhes do Relato <span class="text-danger">*</span></label>
+          <textarea 
+            formControlName="detalhes" 
+            rows="4" 
+            class="form-control" 
+            [class.is-invalid]="isFieldInvalid('detalhes')"
+            placeholder="Descreva os detalhes do relato..."
+          ></textarea>
+          <div class="invalid-feedback" *ngIf="isFieldInvalid('detalhes')">
+            Por favor, forneça detalhes do relato
+          </div>
+        </div>
+        
+        <!-- Dynamic Fields -->
+        <div *ngIf="informanteForm.get('tipo')?.value === 'Cooptado'" class="dynamic-section mb-3 p-3 bg-light rounded">
+          <div class="form-group mb-3">
+            <label class="form-label fw-bold">Benefício Oferecido <span class="text-danger">*</span></label>
+            <input 
+              type="text" 
+              formControlName="beneficio" 
+              class="form-control" 
+              [class.is-invalid]="isFieldInvalid('beneficio')"
+            >
+            <div class="invalid-feedback" *ngIf="isFieldInvalid('beneficio')">
+              Por favor, informe o benefício oferecido
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label fw-bold">Número do Acordo Legal</label>
+            <input type="text" formControlName="acordoLegal" class="form-control">
+          </div>
+        </div>
+        
+        <div *ngIf="informanteForm.get('tipo')?.value === 'Arrependido'" class="dynamic-section mb-3 p-3 bg-light rounded">
+          <div class="form-group">
+            <label class="form-label fw-bold">Vínculo com o Crime <span class="text-danger">*</span></label>
+            <textarea 
+              formControlName="vinculoCrime" 
+              class="form-control" 
+              [class.is-invalid]="isFieldInvalid('vinculoCrime')"
+              placeholder="Descreva o vínculo com o crime..."
+            ></textarea>
+            <div class="invalid-feedback" *ngIf="isFieldInvalid('vinculoCrime')">
+              Por favor, descreva o vínculo com o crime
+            </div>
+          </div>
+        </div>
+        
+        <div *ngIf="informanteForm.get('tipo')?.value === 'Técnico'" class="dynamic-section mb-3 p-3 bg-light rounded">
+          <div class="form-group">
+            <label class="form-label fw-bold">Área de Expertise <span class="text-danger">*</span></label>
+            <input 
+              type="text" 
+              formControlName="expertise" 
+              class="form-control" 
+              [class.is-invalid]="isFieldInvalid('expertise')"
+            >
+            <div class="invalid-feedback" *ngIf="isFieldInvalid('expertise')">
+              Por favor, informe a área de expertise
+            </div>
+          </div>
+        </div>
+        
+        <!-- Reliability -->
+        <div class="form-group mb-4">
+          <label class="form-label fw-bold">Confiabilidade (1 a 5)</label>
+          <div class="d-flex align-items-center">
+            <input 
+              type="range" 
+              formControlName="confiabilidade" 
+              min="1" 
+              max="5" 
+              class="form-range me-3"
+              style="flex-grow: 1;"
+            >
+            <span class="badge bg-primary fs-6">{{ informanteForm.get('confiabilidade')?.value }}</span>
+          </div>
+        </div>
+        
+        <!-- Submit Button -->
+        <div class="d-grid">
+          <button 
+            type="submit" 
+            class="btn btn-primary btn-lg" 
+            [disabled]="!informanteForm.valid"
+          >
+            <i class="bi bi-person-plus me-2"></i>Registrar Informante
+          </button>
+        </div>
+      </form>
+    </div>
+    
+        <!-- Card Section -->
+        <div class="col-lg-4 col-md-6">
+          <div class="person-card shadow-sm rounded overflow-hidden">
+            <div class="person-card__image">
+              <img 
+                [src]="informanteForm.get('fotoUrl')?.value || 
+                       (informanteForm.get('tipo')?.value === 'Anônimo' ? 
+                        'https://cdn-icons-png.flaticon.com/512/149/149071.png' : 
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlRjMtOgdWL7YnOyd1TqIUTXRvUKZp4Nl8Kk1CTZ_85oEC8nfK')" 
+                alt="Profile" 
+                class="img-fluid w-100 h-100 object-fit-cover"
+              >
+            </div>
+            <div class="p-3">
+              <p class="person-card__chapter text-muted mb-1">Tipo:</p>
+              <p class="person-card__name fs-5 fw-bold mb-3">
+                {{ informanteForm.get('tipo')?.value || 'Não especificado' }}
+              </p>
+              
+              <p class="person-card__chapter text-muted mb-1">Nome:</p>
+              <p class="person-card__name fs-5 fw-bold mb-3">
+                {{ informanteForm.get('nome')?.value || 'Não informado' }}
+                <span *ngIf="informanteForm.get('apelido')?.value">
+                  ({{ informanteForm.get('apelido')?.value }})
+                </span>
+              </p>
+              
+             <!-- ... (previous code remains the same until the contact section) ... -->
+
+<!-- Contact Section -->
+<p class="person-card__chapter text-muted mb-1">Contato:</p>
+<div *ngIf="isEmail(informanteForm.get('contato')?.value)">
+  <a class="person-card__email d-block mb-3" 
+     [href]="'mailto:' + informanteForm.get('contato')?.value">
+    <i class="bi bi-envelope me-2"></i>
+    {{ informanteForm.get('contato')?.value || 'Não informado' }}
+  </a>
+</div>
+<div *ngIf="isPhone(informanteForm.get('contato')?.value)">
+  <a class="person-card__phone d-block mb-3" 
+     [href]="'tel:' + getCleanPhone(informanteForm.get('contato')?.value)">
+    <i class="bi bi-telephone me-2"></i>
+    {{ informanteForm.get('contato')?.value || 'Não informado' }}
+  </a>
+</div>
+<div *ngIf="!isEmail(informanteForm.get('contato')?.value) && !isPhone(informanteForm.get('contato')?.value)">
+  <p class="mb-3">
+    {{ informanteForm.get('contato')?.value || 'Não informado' }}
+  </p>
+</div>
+     
+              <p class="person-card__chapter text-muted mb-1">Data de Registro:</p>
+              <p class="mb-3">
+                {{ informanteForm.get('dataRegistro')?.value || 'Não informado' }}
+              </p>
+              
+              <p class="person-card__chapter text-muted mb-1">Confiabilidade:</p>
+              <div class="d-flex align-items-center mb-3">
+                <div class="rating">
+                  <span *ngFor="let star of [1,2,3,4,5]" 
+                        [class.filled]="star <= informanteForm.get('confiabilidade')?.value">
+                    ★
+                  </span>
+                </div>
+                <span class="ms-2">({{ informanteForm.get('confiabilidade')?.value }}/5)</span>
+              </div>
+              
+              <p class="person-card__chapter text-muted mb-1">Detalhes:</p>
+              <p class="person-card__description text-truncate" [title]="informanteForm.get('detalhes')?.value">
+                {{ informanteForm.get('detalhes')?.value || 'Nenhum detalhe fornecido' }}
+              </p>
+            </div>
+          </div>
+        </div>
+  </div>
+</main>

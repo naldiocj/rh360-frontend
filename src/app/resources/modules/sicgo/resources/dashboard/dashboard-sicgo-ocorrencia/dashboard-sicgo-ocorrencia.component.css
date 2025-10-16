@@ -1,0 +1,657 @@
+.the-page {
+  width: 98%;
+  z-index: 0;
+  animation: vem 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition: all 1s ease-in-out;
+  height: auto;
+  margin: 1%;
+}
+
+/* Fim, Caixa de Informações Adicionais */
+ 
+
+@media only screen and (max-width: 600px) {
+}
+@media only screen and (min-width: 600px) and (min-width: 900px) {
+}
+@media only screen and (max-width: 900px) {
+}
+
+@media only screen and (max-width: 600px) {
+}
+@media only screen and (min-width: 600px) {
+}
+.place {
+  width: 400px;
+}
+
+/* No arquivo CSS global ou no estilo do componente */
+
+.select2-results__option--highlighted[aria-selected] {
+  background-color: #afceff;
+  color: white;
+}
+
+.select2-results__option[aria-selected] {
+  padding-top: 10px;
+  padding-left: 20px;
+}
+ 
+
+/* Seta down do ng-select2 */
+
+.select2-container--default
+  .select2-selection--single
+  .select2-selection__arrow
+  b {
+  border-color: #000000 transparent transparent transparent;
+  border-style: solid;
+  border-width: 5px 4px 0 4px;
+  height: 0;
+  left: 50%;
+  margin-left: -14px;
+  margin-top: 3px;
+  position: absolute;
+  top: 50%;
+  width: 0;
+}
+
+/* placehold texto do ng-select2 */
+.select2-container--default
+  .select2-selection--single
+  .select2-selection__placeholder {
+  color: #2b2b2b;
+  font-size: 16px;
+}
+
+/* hover das options do ng-select2 */
+.select2-container--default
+  .select2-results_option--highlighted.select2-results_option--selectable {
+  background: linear-gradient(#1a47af, #0a2563);
+  color: white;
+}
+
+.select2-dropdown {
+  background-color: white;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  left: -100000px;
+  width: 100%;
+  z-index: 1051;
+  color: #000000;
+}
+
+.select2-container--default .select2-results > .select2-results__options {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.select2-search--dropdown {
+  display: block;
+  padding: 4px;
+  border-radius: 10px;
+}
+
+.select2-container--open .select2-dropdown--below {
+  border-top: 1px solid rgb(157, 157, 157);
+    border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  margin-top: 15px;
+}
+
+/* Para o select2 Multiplo */
+.select2-container .select2-selection--multiple .select2-selection__rendered {
+  display: inline;
+  list-style: none;
+  padding: 0;
+}
+
+.select2-container--default .select2-selection--multiple {
+  background-color: #ffffff;
+  border: 1px solid #f0f0f0 !important;
+  padding: 5px 20px 10px 10px;
+  color: #000000;
+}
+
+.select2-container--default
+  .select2-selection--multiple
+  .select2-selection_choice_display {
+  cursor: default;
+  padding: 15px;
+  background-color: rgb(244, 244, 244);
+}
+
+.valorcrime {
+  animation: blinker 1s linear infinite; /* Adjust duration as needed */
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0; /* Makes the text disappear */
+  }
+}
+
+.dashs {
+  display: flex;
+  justify-content: space-between;
+}
+.tools {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  margin-left: -10px;
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap; /* Permite que os elementos se movam para a próxima linha */
+  /* gap: 15px; Espaçamento entre os cards */
+  grid-gap: 2rem;
+}
+
+.card {
+  flex: 0 1 calc(22% - 3px); /* Cada card ocupa 25% da largura do contêiner, menos o espaço do gap */
+  box-sizing: border-box; /* Inclui padding e border no cálculo da largura */
+  background: #f5f5f5;
+  padding: 0px;
+  border-radius: 16px;
+  cursor: pointer;
+  width: 100%;
+  max-width: 300px;
+  filter: url("#goo");
+}
+.card-bodys {
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  padding: 1rem;
+}
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .circ {
+    margin-top: 2px;
+    margin-bottom: -5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(234, 234, 234);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: 0.2s;
+  }
+  p {
+    margin-top: -8px;
+    font-size: 8px;
+  }
+  h3 {
+    margin-top: -12px;
+    margin-bottom: -5px;
+    font-weight: bold;
+  }
+  .right {
+    .bi {
+      font-size: 42px;
+      opacity: 10%;
+    }
+  }
+}
+
+.card-header h2 {
+  color: #000000;
+  margin-top: 12px;
+  font-size: 16px;
+}
+
+.card-footer {
+  color: #000000;
+  font-weight: bold;
+  font-size: 10px;
+  background: linear-gradient(#dcdee0, #adadad);
+}
+
+.carregar {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  margin-left: 20px;
+  margin-bottom: -30px;
+  h4 {
+    font-weight: bold;
+    font-size: 16px;
+  }
+  p {
+    font-size: 10px;
+    margin-top: -10px;
+  }
+}
+
+.loading-spinner {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 50px;
+  width: 1800px;
+}
+
+/* No arquivo CSS global ou no estilo do componente */
+input,
+:host ::ng-deep .select2-container--default .select2-selection--single {
+  min-width: 165px;
+  border: 1px solid #efefef !important;
+  padding: 5px !important;
+  height: 45px !important;
+  background-color: #f1f1f1 !important;
+  box-shadow: inset 0 -5px 10px -5px #f8f8f8 !important;
+  border-radius: 13px !important;
+  /* Adicione mais estilos conforme necessário */
+
+  /* filter: url("#goo"); */
+}
+
+
+
+.select2-results__option--highlighted[aria-selected] {
+  background-color: #5897fb;
+  color: white;
+  border: 1px solid #e0e0e0 !important;
+}
+
+.select2-results__option[aria-selected] {
+  padding-left: 20px;
+  border: 1px solid #e0e0e0 !important;
+}
+
+
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 1rem;
+  }
+}
+
+.liquid-container {
+  position: fixed;
+}
+
+.dx {
+  /* position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 0.5rem;
+    background-color: #EEE;
+    box-sizing: border-box;
+    box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06); */
+  padding: 0.25rem;
+  height: 90px;
+  font-size: 14px;
+}
+
+#kivova {
+  height: auto;
+  width: 85%;
+  min-width: 570px;
+  border-radius: 20px;
+}
+#kivova1 {
+  height: auto;
+  width: 85%;
+  min-width: 890px;
+  border-radius: 20px;
+}
+
+@media (max-width: 1700px) {
+  #kivova {
+    height: auto;
+    width: 80%; /* Ajusta dinamicamente conforme o tamanho da tela */
+    max-width: 250px; /* Mantém um limite máximo */
+    border-radius: 15px;
+  }
+
+  #kivova1 {
+    height: auto;
+    width: 80%; /* Ajusta dinamicamente conforme o tamanho da tela */
+    max-width: 250px; /* Mantém um limite máximo */
+    border-radius: 15px;
+  }
+}
+
+.dashboard-container {
+  margin: auto;
+  position: relative;
+  width: 100%;
+  min-height: 500px;
+}
+
+.filtros-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 2px;
+  margin-top: 0%;
+  margin-bottom: 20px;
+  justify-content: space-between;
+}
+
+.filtro-item {
+  background: #f5f5f5;
+  padding: 10px;
+  border-radius: 16px;
+  width: 200px;
+  filter: url("#goo");
+}
+
+.chart-controls {
+  margin: 20px 0;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.chart-controls button {
+  padding: 15px 16px;
+  border: none;
+  background-color: #f1f1f1;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.chart-controls button:hover {
+  background: #051a49;
+  color: white;
+  transition: all 0.3s;
+}
+
+.chart-controls button.active {
+  background: #051a49;
+  color: white;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+  display: flex;
+}
+
+.charts-container {
+  position: relative;
+  margin-top: 0px;
+  min-height: 65vh;
+  width: 100%;
+  background: #f5f5f5;
+  border-radius: 13px;
+  padding: 10px;
+  filter: url(#goo);
+}
+
+.chart-container {
+  position: relative;
+  height: 74vh;
+  width: 100%;
+}
+
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 100;
+}
+
+.spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.btn-reset {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  align-self: flex-end;
+}
+
+.data-type-selector {
+  display: flex;
+  gap: 5px;
+  margin-left: auto;
+
+  flex-wrap: wrap; 
+  margin-bottom: 1rem;
+  justify-content: flex-end;
+}
+ 
+ 
+
+ 
+@media (max-width: 768px) {
+  .chart-container {
+    height: 50vh;
+    padding: 10px;
+  }
+
+  .filtros-section {
+    grid-template-columns: -1fr;
+  }
+}
+
+.export-buttons {
+  margin: 20px 0;
+  display: flex;
+  gap: 10px;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.fas {
+  margin-right: 5px;
+}
+
+.bg-light {
+  background-color: #ffffff !important;
+  border-radius: 12px;
+}
+
+/* --- Responsividade Geral --- */
+.chart-controls button,
+.data-type-selector button {
+  white-space: nowrap;
+  padding: 12px;
+  font-size: 0.9rem;
+}
+
+.card {
+  transition: all 0.3s ease-in-out;
+}
+
+.chart-container canvas {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+/* --- Quebra de layout em dispositivos menores --- */
+@media (max-width: 768px) {
+  .chart-controls,
+  .data-type-selector {
+    flex-direction: column !important;
+    align-items: stretch !important;
+ 
+  margin-left: 0; 
+}
+  .chart-controls button,
+  .data-type-selector button {
+    width: 100%;
+  }
+
+  .card-bodys {
+    text-align: center;
+  }
+
+  .card-bodys .text-end {
+    text-align: center !important;
+  }
+}
+
+/* --- Modo escuro automático --- */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #121212;
+    color: #f0f0f0;
+  }
+
+  .card,
+  .bg-light,
+  .brd {
+    background-color: #1e1e1e !important;
+    border-color: #333 !important;
+    color: #f0f0f0;
+  }
+
+  .chart-controls button,
+  .data-type-selector button,
+  .btn {
+    background-color: #333;
+    color: #f0f0f0;
+    border: 1px solid #444;
+  }
+
+  .chart-controls button.active,
+  .data-type-selector button.active {
+    background-color: #0062cc;
+    color: white;
+  }
+
+  .form-control,
+  .ng-select2,
+  select {
+    background-color: #2a2a2a;
+    color: #f0f0f0;
+    border-color: #444;
+  }
+
+  .loading-overlay {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+  }
+}
+/* --- Fim do Modo escuro automático --- */
+
+/* === RESPONSIVIDADE === */
+
+/* Telas pequenas: celulares */
+@media (max-width: 600px) {
+  .card {
+    flex: 0 1 100%;
+    max-width: 100%;
+  }
+
+  .place {
+    width: 100%;
+  }
+
+  .tools,
+  .dashs {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #kivova,
+  #kivova1 {
+    width: 95%;
+    min-width: auto;
+  }
+
+  .select2s {
+    width: 100%;
+  }
+
+  .loading-spinner {
+    width: 100%;
+    font-size: 16px;
+  }
+}
+
+/* Tablets: médio porte */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .card {
+    flex: 0 1 calc(48% - 1rem);
+    max-width: 100%;
+  }
+
+  .tools,
+  .dashs {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  #kivova {
+    width: 90%;
+    min-width: auto;
+  }
+
+  #kivova1 {
+    width: 90%;
+    min-width: auto;
+  }
+
+  .select2s {
+    width: 100%;
+  }
+
+  .place {
+    width: 100%;
+  }
+}
+
+/* Telas grandes: desktop */
+@media (min-width: 1025px) {
+  .card {
+    flex: 0 1 calc(22% - 3px);
+  }
+
+  #kivova {
+    width: 85%;
+    min-width: 570px;
+  }
+
+  #kivova1 {
+    width: 85%;
+    min-width: 890px;
+  }
+}

@@ -1,0 +1,25 @@
+export interface Queixa{
+    id?: number;
+    nome_completo: string;
+    apelido: string;
+    data_nascimento: string;
+    genero: string;
+    estado_civil: string;
+    naturalidade: string;
+    residencia_bi: string;
+    bi_ou_cedula: string;
+    validade_bi: string;
+    nome_pai: string;
+    nome_mae: string;
+    ocupacao: string;
+    residencia_atual: string;
+    contactos: string;
+    obs: string;
+    natureza_infrancao: string;
+    foto: string;
+    tipo: string;
+    id_acusado: string;
+    updated_at?: Date;
+    created_at?: Date;
+    cadastrado_por: string;
+}

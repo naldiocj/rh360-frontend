@@ -1,0 +1,72 @@
+<div class="header-left">
+  <a href="" class="logo">
+    <span></span>
+    <h2>SIGIO</h2>
+    <!-- <img
+      class="imgp"
+      src="../../../../../../assets/sigio/navbar/logo.png"
+      alt="SIGT"
+    /> -->
+  </a>
+</div>
+<a style="padding-left: 60px" id="toggle_btn">
+  <i id="home" class="fa fa-bars"></i>
+</a>
+<a
+  style="color: black"
+  id="mobile_btn"
+  class="mobile_btn float-left"
+  href="#sidebar"
+>
+  <i class="fa fa-bars"></i>
+</a>
+<ul class="nav user-menu float-right">
+  <li class="nav-item dropdown has-arrow">
+    <a
+      href="#"
+      class="dropdown-toggle nav-link user-link"
+      data-toggle="dropdown"
+    >
+      <span class="user-img">
+        <span><img src="assets//sigio/navbar/notifications.png" alt="" /></span>
+      </span>
+      <span id="ad"></span>
+    </a>
+    <div class="dropdown-menu drop-scroll" style="width: 300px">
+      <a class="dropdown-item" href="#">Definições</a>
+      <a class="dropdown-item" (click)="this.verNotificacoes()"> Ver mais </a>
+    </div>
+  </li>
+  <li class="nav-item dropdown has-arrow">
+    <a
+      href="#"
+      class="dropdown-toggle nav-link user-link"
+      data-toggle="dropdown"
+    >
+      <span class="user-img">
+        <img
+          class="rounded-circle"
+          src="assets//sigio/navbar/user.png"
+          width="40"
+          alt="Admin"
+        />
+        <span class="status online"></span>
+      </span>
+      <span id="ad"> {{ this.nomeUtilizador }}</span>
+    </a>
+    <div class="dropdown-menu">
+      <a id="menu_text" class="dropdown-item" [routerLink]="['/piips']"><i class="bi bi-arrow-90deg-left"><span></span>Ir em Piips</i></a>
+      <a id="menu_text" class="dropdown-item" href="#"><i class="bi bi-gear"><span></span>Definições</i></a>
+      <a id="menu_text" class="dropdown-item" (click)="this.sair()"><i class="bi bi-box-arrow-in-left"> <span></span>Terminar Sessão</i></a>
+    </div>
+  </li>
+</ul>
+<div class="dropdown mobile-user-menu float-right">
+  <div class="dropdown-menu notifications">
+    <div class="topnav-dropdown-header">
+      <span>Notificações</span>
+    </div>
+  </div>
+
+
+</div>

@@ -1,0 +1,75 @@
+<div class="ml-4 pl-1 pt-2 pr-2 pb-2 mr-4 sigv-breadCrumb mt-4">
+    <ul type="none" class="d-flex align-items-center m-0 pl-0">
+        <li>
+            <a [routerLink]="['/piips/sigvest/dashboard']">
+                <i class="bi bi-house-door-fill"></i> <i class="bi bi-chevron-right"></i>
+            </a>
+        </li>
+        <li routerLinkActive="efeito-breadcrumb">
+            <a [routerLink]="['/piips/sigvest/abastecimento']">
+                <span>Abastecimento</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<h3 class="ml-3 pl-3 mb-4 mt-3 titulo">
+    <img src="../../../../../../assets/assets_sigv/img/img1/document.gif" alt="">
+    <!-- <i class="bi bi-tools ii"></i> -->
+    <span>
+        Abastecimento
+        <div>Gestão de todo o abastecimento dos Vestuários</div>
+    </span>
+</h3>
+
+<section>
+    <div class="container-fluid">
+        <div class="row px-3 opcoes-container">
+            <div class="col-12" [routerLink]="['/piips/sigvest/abastecimento/fornecimento-minint']">
+                <a [routerLink]="['/piips/sigvest/abastecimento/fornecimento-minint']"
+                    class="d-flex justify-content-between align-items-center">
+                    <span class="d-flex align-items-center">
+                        <i class="bi bi-house-down-fill iii"></i>
+                        <span>
+                            Fornecimento - Minint
+                            <aside>registe todos os abastecimentos na logística dos Vestuários.</aside>
+                        </span>
+                    </span>
+
+                    <span><i class="bi bi-chevron-right"></i></span>
+                </a>
+            </div>
+
+            <div class="col-12" [routerLink]="['/piips/sigvest/abastecimento/fornecimento-minint']">
+                <a [routerLink]="['/piips/sigvest/abastecimento/fornecimento-minint']"
+                    class="d-flex justify-content-between align-items-center">
+                    <span class="d-flex align-items-center">
+                        <i class="bi bi-house-up-fill iii"></i>
+                        <span>
+                            Abastecimento - PNA
+                            <aside>Listar todas as distribuições e meios relacionados...</aside>
+                        </span>
+                    </span>
+
+                    <span><i class="bi bi-chevron-right"></i></span>
+                </a>
+            </div>
+
+            <!-- <div class="col-12" [routerLink]="['/piips/sigvest/dashboard']">
+                <a [routerLink]="['/piips/sigvest/dashboard']"
+                    class="d-flex justify-content-between align-items-center">
+                    <span class="d-flex align-items-center">
+                        <i class="bi bi-house-lock-fill iii"></i>
+                        <span>
+                            Reserva
+                            <aside>Listar todos os meios em reserva...</aside>
+                        </span>
+                    </span>
+
+                    <span><i class="bi bi-chevron-right"></i></span>
+                </a>
+            </div> -->
+
+        </div>
+    </div>
+</section>

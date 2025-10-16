@@ -1,0 +1,179 @@
+<!-- <aside id="asidebar" class="asidebar">
+
+  <ul class="asidebar-nav" id="sidebar-nav">
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/piips/sigiac/dashboard']" routerLinkActive="active">
+        <i class="bi bi-graph-up" id="cor_icone"></i>
+        <span>Painel de Controlo</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link collapsed d-flex justify-content-center" data-target="#ask-menu" data-toggle="collapse"
+        href="#" routerLinkActive="active">
+        <i class="bi bi-journal-text" id="cor_icone"></i>
+        <span>CAC</span>
+        <i class="bi bi-chevron-down flex-fill " style="text-align:right"></i>
+      </a>
+      <ul id="ask-menu" class="nav-content collapse bg-light rounded-bottom py-0" data-parent="#sidebar-nav">
+        <li><a class="d-flex justify-content-between align-items-center pr-2"
+          [routerLink]="['/piips/sigiac/queixa/registar-ou-editar']">Registrar<i class="bi bi-list-ul"
+              style="font-size: 1.2rem"></i></a></li>
+        <li><a class="d-flex justify-content-between align-items-center pr-2"
+          [routerLink]="['/piips/sigiac/queixa/listagem']">Listar<i class="bi bi-list-ul"
+              style="font-size: 1.2rem"></i></a></li>
+      </ul>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed d-flex justify-content-center" data-target="#insp-menu" data-toggle="collapse"
+        href="#" routerLinkActive="active">
+        <i class="bi bi-puzzle-fill" id="cor_icone"></i>
+        <span>Inspecção</span>
+        <i class="bi bi-chevron-down flex-fill " style="text-align:right"></i>
+      </a>
+      <ul id="insp-menu" class="nav-content collapse bg-light rounded-bottom py-0" data-parent="#sidebar-nav">
+        <li><a class="d-flex justify-content-between align-items-center pr-2"
+          [routerLink]="['/piips/sigiac/inspeccao/averiguacao/listagem']">Averiguação<i class="bi bi-list-ul"
+              style="font-size: 1.2rem"></i></a></li>
+        <li><a class="d-flex justify-content-between align-items-center pr-2"
+          [routerLink]="['/piips/sigiac/inspeccao/auditoria/listagem']">Auditorias<i class="bi bi-list-ul"
+              style="font-size: 1.2rem"></i></a></li>
+      </ul>
+    </li> 
+
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/piips/sigiac/instrucao/listagem']" routerLinkActive="active">
+        <i class="bi bi-stickies-fill" id="cor_icone"></i><span>Instrução</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed d-flex justify-content-center" data-target="#fisc-menu" data-toggle="collapse"
+        href="#" routerLinkActive="active">
+        <i class="bi bi-arrow-repeat" id="cor_icone"></i>
+        <span>Fiscalização</span>
+        <i class="bi bi-chevron-down flex-fill " style="text-align:right"></i>
+      </a>
+      <ul id="fisc-menu" class="nav-content collapse bg-light rounded-bottom py-0" data-parent="#sidebar-nav">
+        <li><a class="d-flex justify-content-between align-items-center pr-2"
+          [routerLink]="['/piips/sigiac/fiscalizacao/registar-ou-editar']">Registrar<i class="bi bi-list-ul"
+              style="font-size: 1.2rem"></i></a></li>
+        <li><a class="d-flex justify-content-between align-items-center pr-2"
+          [routerLink]="['/piips/sigiac/fiscalizacao/listagem']">Listar<i class="bi bi-list-ul"
+              style="font-size: 1.2rem"></i></a></li>
+      </ul>
+    </li>
+
+  </ul>
+  <div class="fixed-corner px-3">
+    <h4 style="font-size: 14px; color:white;"><b>Versão 0.1</b></h4>
+    <p style="font-size: 14px; color: white; margin-top: 5px; font-size: 8px;">DTTI/PNA Todos os direitos reservados.
+    </p>
+  </div>
+</aside> -->
+
+<div id="asidebar" class="asidebar">
+  <ul>
+      <li class="nav-item">
+          <span class="menu-p" style="font-weight: bold; font-size: 19px;"><i style="margin-right: 8px;" class="bi bi-grid-fill"></i> Menu Principal</span>
+      </li>
+      <li style="margin-top: 20px;" class="nav-item">
+          <a class="nav-link d-flex  align-items-center" [routerLink]="['/piips/sigiac/dashboard']" routerLinkActive="active">
+              <i  class="bi bi-speedometer2"></i>
+              <span>Painel de Controlo</span>
+          </a>
+      </li>
+      <li>
+          <hr class="dropdown-divider">
+      </li>
+      <li class="nav-item">
+          <a class="nav-link d-flex  align-items-center" routerLinkActive="active" href="#demo" data-toggle="collapse">
+              <i  class="bi bi-journal-text"></i>
+              <span><span></span>CAC</span><span class="menu-arrow spin"> <i class="bi bi-chevron-right flex-fill text-white rot" style="text-align:right; font-size: 12px;"></i></span>
+          </a>
+          <div id="demo" class="collapse">
+              <li style="padding-left: 25%; padding-bottom: 10px">
+                  <a class="nav-link" [routerLink]="['/piips/sigiac/queixa/registar-ou-editar']" routerLinkActive="active">
+                      <i style="font-size: 14px;"  class="bi bi-arrow-right-circle"></i>
+                      <span><span></span>Registar</span><span class="menu-arrow"></span>
+                  </a>
+              </li>
+              <li style="padding-left: 25%; padding-bottom: 10px">
+                  <a class="nav-link" [routerLink]="['/piips/sigiac/queixa/listagem']" routerLinkActive="active">
+                      <i style="font-size: 14px;"  class="bi bi-arrow-right-circle"></i>
+                      <span><span></span>Listar</span><span class="menu-arrow"></span>
+                  </a>
+              </li>
+          </div>
+      </li>
+      <li>
+          <hr class="dropdown-divider">
+      </li>
+      <li class="nav-item">
+          <a class="nav-link d-flex  align-items-center" routerLinkActive="active" href="#demoGestao" data-toggle="collapse">
+              <i  class="bi bi-puzzle-fill"></i>
+              <span><span></span>Inspecção</span><span class="menu-arrow"> <i class="bi bi-chevron-right flex-fill text-white" style="text-align:right; font-size: 12px;"></i></span>
+          </a>
+          <div id="demoGestao" class="collapse">
+              <li style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px">
+                  <a class="nav-link" [routerLink]="['/piips/sigiac/inspeccao/averiguacao/listagem']" routerLinkActive="active">
+                      <i style="font-size: 14px;"  class="bi bi-arrow-right-circle"></i>
+                      <span><span></span> Averiguação</span><span class="menu-arrow"></span>
+                  </a>
+              </li>
+              <li style="padding-left: 25%; padding-top: 1px; padding-bottom: 10px">
+                  <a class="nav-link" [routerLink]="['/piips/sigiac/inspeccao/auditoria/listagem']" routerLinkActive="active">
+                      <i style="font-size: 14px;"  class="bi bi-arrow-right-circle"></i>
+                      <span><span></span> Auditorias</span><span class="menu-arrow"></span>
+                  </a>
+              </li>
+          </div>
+      </li>
+      <li>
+          <hr class="dropdown-divider">
+      </li>
+      <li class="nav-item">
+        <a class="nav-link d-flex  align-items-center" [routerLink]="['/piips/sigiac/instrucao/listagem']" routerLinkActive="active">
+            <i  class="bi bi-clipboard-data"></i>
+            <span>Instrução</span>
+        </a>
+      </li>
+      <li>
+      <hr class="dropdown-divider">
+      </li>
+      <li class="nav-item">
+          <a class="nav-link d-flex  align-items-center" routerLinkActive="active" href="#configuracoes" data-toggle="collapse">
+              <i  class="bi bi-arrow-repeat"></i>
+              <span><span></span>Fiscalização</span><span class="menu-arrow"> <i class="bi bi-chevron-right flex-fill text-white" style="text-align:right; font-size: 12px;"></i></span>
+          </a>
+
+          <div id="configuracoes" class="collapse">
+              <li style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px">
+                  <a class="nav-link" [routerLink]="['/piips/sigiac/fiscalizacao/registar-ou-editar']" routerLinkActive="active">
+                      <i style="font-size: 14px;"  class="bi bi-arrow-right-circle"></i>
+                      <span><span></span>Registrar</span>
+                  </a>
+              </li>
+              <li style="padding-left: 25%; padding-top: -10px; padding-bottom: 10">
+                  <a class="nav-link" [routerLink]="['/piips/sigiac/fiscalizacao/listagem']" routerLinkActive="active">
+                      <i style="font-size: 14px;"  class="bi bi-arrow-right-circle"></i>
+                      <span><span></span>Listar</span>
+                  </a>
+              </li>
+          </div>
+      </li>
+        <li>
+          <hr class="dropdown-divider">
+        </li>
+       <li class="nav-item">
+          <a class="nav-link d-flex  align-items-center" [routerLink]="['#']" routerLinkActive="active">
+              <i  class="bi bi-wrench-adjustable-circle"></i>
+              <span>Configurações</span>
+          </a>
+      </li>
+  </ul>
+  <div class="infor">
+    <h5>SIGIAC V 0.1</h5>
+    <P>PIIPS - Todos os direitos reservados a PNA</P>
+  </div>
+</div>

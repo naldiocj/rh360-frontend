@@ -1,0 +1,41 @@
+<div class="the-page">
+ 
+  <div class="containers">
+ 
+    <main class="page__frame main">
+        <nav class="navigations  align-items-center justify-content-center justify-content-lg-start">
+                  
+                    <ul class="nav navigation-menu nav-tabes" id="navigationMenu">
+                       
+                      <li  class="nav-item  " *ngFor="let tab of Nav" [ngClass]="{ 'active': tab.selected }" (click)="onTabClick(tab)">
+                        <a class="nav-link active nav-tab nav-links t--tab" [ngClass]="{ 'active': tab.selected }" [routerLink]="[tab.url]" routerLinkActive="active"><i
+                          *ngIf="tab.icon"
+                          [class]="tab.icon + ' m-r-3'"
+                      ></i> {{ tab.label }}</a>
+                      </li>
+                    </ul> 
+        </nav>  
+         
+    
+        <div class="tab__content">
+          
+          <section class="tab__main">
+            <router-outlet #outlet="outlet"></router-outlet>
+          </section>
+        </div>
+    </main>
+</div>
+</div>
+
+<!-- https://css-tricks.com/gooey-effect/ -->
+<div class="liquid-container">
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+  <defs>
+    <filter id="goo">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"></feGaussianBlur>
+      <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo"></feColorMatrix>
+      <feBlend in="SourceGraphic" in2="goo" operator="atop"></feBlend>
+    </filter>
+  </defs>
+</svg>
+</div>

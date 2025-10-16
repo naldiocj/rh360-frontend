@@ -1,0 +1,157 @@
+<div class="modal fade" id="fingerprint" data-bs-backdrop="static">
+  <div class="modal-dialog modal-lg" [style]="{ minWidth: '20%!important;' }">
+    <div class="modal-content">
+      <div class="modal-header bg-prima text-white">
+        <h5 class="modal-title fs-5" id="exampleModalLabel">
+          <i class="bx bx-plus"></i>
+          Registro de Delituoso
+        </h5>
+        <button
+          type="button"
+          #closeModalBtn
+          class="d-none"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="row">
+            <ng-container class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+              <div class="fingerprint-gallery">
+                <ng-container
+                  *ngFor="let key of getRegisteredFingerKeys(); let i = index"
+                >
+                  <ng-container *ngIf="registeredFingers[key].template">
+                    <div>
+                      <span>{{ registeredFingers[key].description }}</span>
+                      <div class="fingerprint-item">
+                        <img
+                          src="data:image;base64,{{
+                            registeredFingers[key].image
+                          }}"
+                          alt="Impressão Digital {{ i + 1 }}"
+                          class="fingerprint-image"
+                        />
+                      </div>
+                    </div>
+                  </ng-container>
+                </ng-container>
+              </div>
+
+              <div class="row my-4">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 my-2">
+                  <div class="d-flex align-items-center justify-content-center">
+                    <div
+                      class="box-impression d-flex align-items-center justify-content-center py-4"
+                    >
+                      <ng-container *ngIf="this.imageThumb; else printScan">
+                        <img
+                          [src]="this.imageThumb"
+                          alt=""
+                          style="width: auto; height: auto"
+                        />
+                      </ng-container>
+                      <ng-template #printScan>
+                        <div class="thumb-container">
+                          <div class="thumb"></div>
+                          <div id="scaner" class="text d-none">
+                            Escaneando...
+                          </div>
+                        </div>
+                      </ng-template>
+                    </div>
+                  </div>
+                  <br />
+                  <div class="d-flex align-items-center justify-content-center">
+                    <button
+                      type="button"
+                      class="btn btn-primary text-center"
+                      *ngIf="
+                        !selectedFinger.template &&
+                        selectedFinger.fingerId &&
+                        !isCapturing
+                      "
+                      (click)="setCapturedFinger()"
+                    >
+                      <i class="bx bx-scan"></i>
+                      Capturar {{ selectedFinger.description }}
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-primary text-center"
+                      *ngIf="isCapturing"
+                      disabled="true"
+                    >
+                      <i class="fa fa-spinner fa-spin"></i>
+                      A capturar {{ selectedFinger.description }}
+                    </button>
+                  </div>
+                </div>
+                <div
+                  class="col-x-l-6 col-lg-6 col-md-12 col-sm-12 d-flex flex-column my-2"
+                >
+                  <div class="w-100 d-flex flex-column mt-4">
+                    <app-maos-biometrico
+                      [filtro_id]="this.delituosoId"
+                      (onSelectedFinger)="selectedFinger = $event"
+                      [registeredFingers]="registeredFingers"
+                    ></app-maos-biometrico>
+                  </div>
+                </div>
+                <div
+                  class="col-x-l-12 col-lg-12 col-md-12 col-sm-12 d-flex flex-column my-2"
+                >
+                  <div
+                    class="w-100 d-flex gap-4 flex-row flex-md-wrap aling-items-center justify-content-end"
+                  >
+                    <!-- <button [disabled]="!this.getHasPrint"
+                                                    class="pos-btn pos-btn-primary m-0 py-2 rounded border-o shadow d-flex align-items-center"
+                                                    type="submit" [style]="{ fontSize: '1rem', fontWeight: '400' }">
+                                                    <i style="font-size: 1.6rem" class="bx bx-refresh"></i>
+                                                    Verificar
+                                                </button>
+                                                <button [disabled]="!this.getHasPrint"
+                                                    class="pos-btn pos-btn-primary m-0 py-2 rounded border-o shadow d-flex align-items-center"
+                                                    type="submit" [style]="{ fontSize: '1rem', fontWeight: '400' }">
+                                                    <i style="font-size: 1.6rem" class="bx bx-info-circle"></i>
+                                                    Identificar
+                                                </button> -->
+                    <!-- <button (click)="this.ZKRestart()"
+                                                    class="pos-btn pos-btn-green m-0 py-2 rounded border-o shadow d-flex align-items-center"
+                                                    [style]="{ fontSize: '1rem', fontWeight: '400' }">
+                                                    <i style="font-size: 1.6rem" class="bx bx-clipboard"></i>
+                                                    Novo [disabled]="!simpleForm.valid"
+                                                </button> -->
+                    <div
+                      class="btn-group"
+                      role="group"
+                      aria-label="Basic example"
+                    >
+                      <button
+                        type="button"
+                        class="btn btn-primary"
+                        (click)="submitForm()"
+                      >
+                        <i class="bx bx-plus"></i>
+                        Salvar
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-primary"
+                        (click)="this.closeScanner()"
+                      >
+                        <i class="bx bx-power-off"></i>
+                        Fechar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,71 @@
+<div class="modal fade" id="listarComandosEOrgaos" data-backdrop="static" data-keyboard="false" aria-labelledby="documentoLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="min-width: 60%;">
+        <div class="modal-content">
+            <div class="modal-header align-items-center" style="background-color: #041b4e; color: white; height: 55px;">
+                <h1 class="modal-title fl-5 my-0" id="staticBackdropLabel" style="font-size: 1.1rem;">
+                    <i class="bi bi-person-fill" style="font-size: 1.3rem; margin-top: 0px; margin-right: 5px;"></i>
+                    Listar Comandos ou Órgãos
+                </h1>
+                <button type="button" class="btn ms-auto" data-dismiss="modal" aria-label="Close" style="color: white;" (click)="fecharModal()" id="btn-close-efectivos">
+                    <i class="bi bi-backspace-fill" style="font-size: 1.2rem;"></i>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <section class="row container-fluid cadastro-container pr-0 pt-0">
+                    <div class="col-12 p-0 m-0" style="width: 100%;">
+                        <form id="form" class="row  container-fluid pr-0 pl-0 pm-3" (ngSubmit)="onSubmit()" [formGroup]="planificacaoForm" #formDir="ngForm">
+                            <div class="col-6 pr-0 mb-2">
+                                <label for="fornecedor" class="form-label">Estrutura Orgânica Receptor </label>
+                                <div class=" ">
+                                    <ng-select2 [options]="options" [data]="this.tipo_estrutura_organicas" (valueChanged)="this.selecionarOrgaoOuComandoProvincial($event)" formControlName="tipo_orgao_recebe">
+                                    </ng-select2>
+                                </div>
+                                <div id="fornecedorHelp" class="form-text validation-error" *ngIf="planificacaoForm.get('id_departamento_recebe')?.hasError('required') && formDir.submitted">
+                                    <p>O nome é obrigatório</p>
+                                </div>
+                            </div>
+
+                            <div class="col-6 pr-0 mb-2">
+                                <label for="orgao" class="form-label">Órgão / Comando Receptor
+                                    <i class="bi bi-exclamation-circle-fill icone-alerta" *ngIf="!this.planificacaoForm.get('pessoajuridicas_id')?.value"></i>
+                                </label>
+                                <div class="">
+                                    <ng-select2 [options]="options" aria-describedby="orgaoHelp" [data]="this.direcao_ou_orgao" formControlName="pessoajuridicas_id">
+                                    </ng-select2>
+                                </div>
+                                <div id="orgaoHelp" class="form-text validation-error" *ngIf="planificacaoForm.get('')?.hasError('required') && formDir.submitted">
+                                    <p>O Órgão / Comando é obrigatório</p>
+                                </div>
+                            </div>
+
+                            <div class="col-12 mb-3 p-0 d-flex justify-content-end">
+                                <button type="button" class="btn mb-0 mt-3 mr-3 btn-outline-danger" style="box-shadow: 0px 5px 8px rgba(0,0,0,0.323)" [routerLink]="['/piips/sigv/planificacao/a/listar']">
+                                    <i class="bi bi-trash-fill"></i>
+                                    Descartar
+                                </button>
+
+                                <button type="button" class="btn mb-0 mt-3 mr-3" style="background-color: #f3f3f3; color: #041b4e; box-shadow: 0px 5px 8px rgba(0,0,0,0.323); font-weight: 400;" (click)="this.reiniciarFormulario()">
+                                    <i class="bi bi-x-circle-fill"></i>
+                                    Limpar Dados
+                                </button>
+
+                                <button type="submit" class="btn mb-0 mt-3" style="background-color: #041b4e; color: white; box-shadow: 0px 5px 8px rgba(0,0,0,0.323)" [disabled]="!this.planificacaoForm.get('pessoajuridicas_id')?.value" data-toggle="modal" data-target="#atribuirMeios" (click)="setItem(this.planificacaoForm.get('pessoajuridicas_id')?.value)">
+                                    <i class="bi bi-plus-circle"></i>
+                                    Atribuir meios
+                                </button>
+                            </div>
+                        </form>
+
+                    </div>
+                    <!-- <button type="button" (click)="executarAcao()">Executar Ação</button> -->
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+<sigvest-atribuir-meios-modal
+    [atribuir_meios_ao_efectivo_dados_do_agente]="this.atribuir_meios_ao_efectivo_dados_do_agente"
+    (registadoComSucesso)="produtosAtribuidosComSucesso()">
+</sigvest-atribuir-meios-modal>

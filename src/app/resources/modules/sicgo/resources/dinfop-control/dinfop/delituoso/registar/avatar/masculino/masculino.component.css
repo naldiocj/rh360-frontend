@@ -1,0 +1,313 @@
+
+
+
+.avatarkv-hair::before,
+.avatarkv-hair::after {
+  background: inherit; /* Herda a cor do elemento pai */
+}
+
+/* Estilos dinâmicos para gênero */
+.avatarkv-head[gender="feminino"] .avatarkv-hair {
+  height: 46px;
+  border-radius: 80px;
+}
+
+.avatarkv-head[gender="feminino"] .avatarkv-beard {
+  display: none;
+}
+/* Estilos femininos */
+.avatarkv-head[gender="feminino"] {
+  .avatarkv-hair {
+    height: 46px;
+    border-radius: 80px;
+    top: -15px;
+  }
+
+  .avatarkv-beard {
+    display: none;
+  }
+}
+
+/* Estilos masculinos */
+.avatarkv-head[gender="masculino"] {
+  .avatarkv-hair {
+    height: 36px;
+    border-radius: 80px 80px 0 0;
+  }
+}
+
+
+.avatarkv {
+  position: relative;
+  width: 100%;
+  height: 190px;
+  border: 0;
+  margin: auto;
+  right: 15%;
+  border-radius: 1%;
+  overflow: hidden;
+}
+.avatarkv:hover .avatarkv-head {
+  -webkit-transform: scale(1.25);
+  transform: scale(1.25);
+}
+.avatarkv-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: 5px;
+  -ms-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.avatarkv-head {
+  position: relative;
+  width: 74px;
+  height: 98px;
+  border-radius: 80px;
+  background: #7c4222;
+  -webkit-transform: scale(1.4);
+  transform: scale(1.4);
+  -webkit-transition: 0.3s cubic-bezier(0.2, 0.7, 0.2, 1.7);
+  transition: 0.3s cubic-bezier(0.2, 0.7, 0.2, 1.7);
+}
+.avatarkv-hair {
+  position: absolute;
+  top: -10px;
+  left: -1px;
+  right: -1px;
+  height: 36px;
+  background: #242424;
+  border-radius: 80px 80px 0 0;
+  box-shadow: inset 25px 2px 0 #242424;
+  box-shadow: inset 25px 2px 0 #242424;
+}
+.avatarkv-hair::before,
+.avatarkv-hair::after {
+  content: "";
+  position: absolute;
+  bottom: -21px;
+  width: 7px;
+  height: 22px;
+  background: #242424;
+}
+.avatarkv-hair::before {
+  left: 0;
+  border-radius: 0 0 5px 0;
+  background: #242424;
+}
+.avatarkv-hair::after {
+  right: 0;
+  border-radius: 0 0 0 5px;
+  background: #242424;
+}
+.avatarkv-ear {
+  position: absolute;
+  top: 49%;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+}
+.avatarkv-ear.left {
+  left: -8px;
+  background: #7c4222;
+}
+.avatarkv-ear.right {
+  right: -8px;
+  background: #7c4222;
+}
+.avatarkv-eyes {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 0;
+  -webkit-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
+}
+.avatarkv-eye {
+  position: absolute;
+  top: -3px;
+  width: 8px;
+  height: 8px;
+  background-color: rgb(245, 245, 245);
+  border-radius: 50%;
+  overflow: hidden;
+  -webkit-animation: anim_eye 10s infinite ease-in-out;
+  animation: anim_eye 10s infinite ease-in-out;
+}
+.avatarkv-eye .avatarkv-eyerol {
+  position: relative;
+  margin: 1px auto;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  -webkit-animation: anim_eye 10s infinite ease-in-out;
+  animation: anim_eye 10s infinite ease-in-out;
+}
+.avatarkv-eyerol .avatarkv-eye-eyerol-ritinha {
+  position: absolute;
+  margin-top: 1px;
+  margin-left: 1px;
+  width: 4.5px;
+  height: 4.5px;
+  background: #644040;
+  border-radius: 50%;
+  -webkit-animation: anim_eye 10s infinite ease-in-out;
+  animation: anim_eye 10s infinite ease-in-out;
+}
+.avatarkv-eyerol .avatarkv-eye-eyerol-ritinha .avatarkv-eye-ritinha {
+  position: absolute;
+  margin-top: 1.3px;
+  margin-left: 1.2px;
+  width: 1.7px;
+  height: 1.7px;
+  background: #000000;
+  border-radius: 50%;
+  animation: anim_eye 10s infiniteease-in-out;
+}
+@-webkit-keyframes anim_eye {
+  0%,
+  3%,
+  6%,
+  48%,
+  51%,
+  53%,
+  100% {
+    -webkit-transform: rotateX(0deg);
+    transform: rotateX(0deg);
+  }
+  5%,
+  50%,
+  52% {
+    -webkit-transform: rotateX(90deg);
+    transform: rotateX(90deg);
+  }
+}
+@keyframes anim_eye {
+  0%,
+  3%,
+  6%,
+  48%,
+  51%,
+  53%,
+  100% {
+    -webkit-transform: rotateX(0deg);
+    transform: rotateX(0deg);
+  }
+  5%,
+  50%,
+  52% {
+    -webkit-transform: rotateX(90deg);
+    transform: rotateX(90deg);
+  }
+}
+.avatarkv-eye.left {
+  left: 16px;
+}
+.avatarkv-eye.right {
+  right: 16px;
+}
+.avatarkv-nose {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 11px;
+  margin-left: -2px;
+  border-radius: 3px;
+  border-bottom: 1px solid #422a1e;
+}
+.avatarkv-eyebrow {
+  position: absolute;
+  top: 40%;
+  left: 20%;
+  right: 20%;
+  height: 2px;
+  background: #2222229c;
+  -webkit-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
+}
+.avatarkv-beard {
+  position: absolute;
+  bottom: 9px;
+  left: 50%;
+  width: 14px;
+  height: 2px;
+  margin-left: -6px;
+  background: #4d2711;
+  border-radius: 3px;
+}
+.avatarkv-mouth {
+  position: absolute;
+  background: #f7f7f7;
+  bottom: 17%;
+  left: 33%;
+  right: 33%;
+  height: -1px;
+  border-radius: 5px 5px 15px 15px;
+  -webkit-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.avatar-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.avatar-preview {
+  margin: 20px;
+}
+
+.avatar {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}

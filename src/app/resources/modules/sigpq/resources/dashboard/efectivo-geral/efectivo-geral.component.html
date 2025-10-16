@@ -1,0 +1,36 @@
+<section class="section dashboard">
+
+  <aside *ngIf="this.isLoading; else showDashboard">
+    <br><br><br>
+    <loading-page [texto]="'os dashboards'"></loading-page>
+  </aside>
+
+  <ng-template #showDashboard>
+    <app-voltar-na-rota-anterior></app-voltar-na-rota-anterior>
+    <div class="dash-org">
+      <div class="box p-4 mb-4 bg-light d-flex col-3" *ngFor="let dashboard of dashboards">
+        <div class="detalhes" (click)="redirect(dashboard.url)">
+            <div class="infor">
+                <i id="img" [class]="dashboard.icone"></i>
+
+                <div class="infor-wt">
+                    <h2><b>{{dashboard.nome}}</b></h2>
+                    <p>
+                        Dados Fornecidos pelo Sistema
+                    </p>
+                </div>
+            </div>
+            <div class="count d-flex">
+                <div class="rota">
+                </div>
+                <div class="dados">
+                    <h2>{{dashboard.total | spaceSeparator }}</h2>
+                    <p>Dados dinâmicos</p>
+                </div>
+
+            </div>
+        </div>
+
+      </div>
+    </div>
+</ng-template>

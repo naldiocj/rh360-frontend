@@ -1,0 +1,81 @@
+<!-- Início das tabs -->
+
+<main id="main_" class="main_">
+  <div class="pagetitle mb-4">
+    <!-- Actualização lib... -->
+
+    <!-- Guia de rotas -->
+    <div class="infor-top">
+      <h4>PIIPS <i style="margin-left: 15px; margin-right: 15px;" class="bi bi-chevron-right" aria-hidden="true"></i></h4>
+      <h4>SIGIAC <i style="margin-left: 15px; margin-right: 15px;" class="bi bi-chevron-right" aria-hidden="true"></i></h4>
+      <h4>CAC <i style="margin-left: 15px; margin-right: 15px;" class="bi bi-chevron-right" aria-hidden="true"></i></h4>
+<!--       <h4><b> <a style="color: rgb(38, 38, 38);" [routerLink]="['/piips/sigev2/piqueteo/ocorrencias']">OCORRÊNCIAS</a> <i style="margin-left: 15px; margin-right: 15px;" class="bi bi-chevron-right" aria-hidden="true"></i></b></h4> -->
+      <h4>REGISTAR</h4>
+    </div>
+
+     <!-- Fim Guia de rotas -->
+
+    <div class="org d-flex">
+      <div class="img-top">
+          <i class="bi bi-megaphone"></i>
+      </div>
+      <div>
+          <h3 class="titulo-top">Registrar Queixas </h3>
+          <h5 class="titulo-bt">Registo de Queixas no Sistema | <b>SIGIAC</b> - Sistema Integrado de Gestão de Inspecção e Atendimento ao Cidadão</h5>
+      </div> 
+    </div>
+
+    <!-- Fim Actualização lib... -->
+
+   <!--  <p>
+      Os campos com (<span id="ob"><b>*</b></span>) são de carácter obrigatório
+    </p> -->
+
+  </div>
+
+  <div class="org-other wt d-flex">
+    <div>
+        <h3 class="titulo-top-b">Dados do Acusado </h3>
+        <h5 class="titulo-bt">Listagem dos dados do acusado </h5>
+    </div> 
+  </div>
+
+  <br>
+
+  <!-- Formulário de Reg... do Queixoso -->
+
+
+
+    <form enctype="multipart/form-data">
+      <sigiac-dados-acusado  (emitAcusado)="getAcused($event)" ></sigiac-dados-acusado>
+
+      <div class="alerta">
+        <div>
+          <i class="bi bi-exclamation-triangle"></i>
+        </div>
+        <div>
+          <p class="text-dark text">Os dados que contêm a figura <i class="ico bi bi-exclamation-circle-fill"></i> <br> São de carácter obrigatório</p>
+        </div>
+      </div>
+
+      <div class="org-o-f">
+        <div class="row">
+          <sigiac-dados-queixoso [dadosForm]="dadosForm" ></sigiac-dados-queixoso>
+        </div>
+        <div class="row">
+          <sigiac-dados-queixa   [dadosForm]="dadosForm" ></sigiac-dados-queixa>
+        </div>
+      </div>
+    
+    </form>
+  
+    <div class="btn-b row d-flex">
+      <button type="submit"  (click)="registrar()"  class="btn btn btn-primary col-md-2" id="btn-enviar-formulario-queixa">
+        Registrar
+      </button>
+    </div>  
+    <script type="javascript"  >$('#btn-enviar-formulario-queixa').hide;</script>
+
+
+ 
+</main>

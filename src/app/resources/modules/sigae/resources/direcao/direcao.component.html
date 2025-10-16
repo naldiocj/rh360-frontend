@@ -1,0 +1,94 @@
+<div class="modal fade" id="delete-modal" style="border-radius: unset;">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-ms">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title w-100 d-flex justify-content-between align-items-center">
+                    Eliminação de Calibre<a data-dismiss="modal" class="bi bi-x-lg text-danger"
+                        style="cursor: pointer;"></a>
+                </div>
+            </div>
+            <div class="modal-body text-center" style="font-size:16px; color: #041b43;">
+                <span>Confirmas a eliminação ?</span>
+                <div class="btn-groups my-2">
+                    <a class="btn btn-link" style="text-decoration: none; color: #041b43;"
+                        (click)="this.delete_(this.id)">Sim</a>
+                    <div class="btn btn-link" data-dismiss="modal" style="text-decoration: none; color:  #041b43;">Não
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+  <h4 style="color: #002d59; font-weight: 500;font-family: 'poppins'; " class="page-title"><b>Entidades e Suas Armas</b></h4>
+  <br>
+<div class="content">
+
+    <div class="row">    
+       
+
+        <div class="col-md-12">
+            <table class="table table-border table-striped custom-table datatable mb-0" style="text-align: center;">
+                <thead>
+                    <tr>
+
+                        <th>Nome</th>           
+                        <th>Quantidade</th>
+                        <th>Data de Entrega</th>
+                        <th class="text-center">Operação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                        *ngFor="let item of arma | paginate: { itemsPerPage: this.pagination.per_page, currentPage: this.pagination.current_page,totalItems: this.pagination.total,id:'idAllhistoris' }; index as i">
+                        <td>{{item.nome_alocado==""? "N/S":item.nome_alocado}}</td>
+                            <td>{{item.quantidade }}</td>
+                            <td>{{item.createdAt }}</td>
+
+                        <!-- <td>
+ <ng-container *ngIf="item.estado=='N' else elseTemplate">
+                                <span class="custom-badge status-green">Activo</span>
+                            </ng-container>
+                            <ng-template #elseTemplate>
+                                <span class="custom-badge status-red">Inactivo</span>
+                            </ng-template>           </td> 
+                        -->
+                           
+             
+                        <td>{{item.createdAt}}</td>
+                        <td class="text-center">
+                            <div class="dropdown dropdown-action">
+                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
+                                    aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <!-- <a class="dropdown-item" href="profile.html"><i class="fa fa-eye m-r-5"></i>
+                                        Visualizar</a> -->
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalRegistarCalibre"
+                                        (click)="this.setId(item.id)"  *ngIf="this.is==0 || this.is==1"><i class="fa fa-pencil m-r-5"></i>
+                                        Editar</a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete-modal"
+                                        (click)="setId(item.id)"  *ngIf="this.is==0 || this.is"><i class="fa fa-trash-o m-r-5"></i> Eliminar</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-sm-6">
+                    Mostrando de {{ this.pagination.current_page }} á
+                    {{ this.pagination.per_page }} de {{ this.pagination.total }} Registo
+                </div>
+                <div class="col-sm-6">
+                    <div class="float-right">
+                        <pagination-controls (pageChange)="this.filtrarPagina('page', $event)" previousLabel="Anterior"
+                            nextLabel="Próximo"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

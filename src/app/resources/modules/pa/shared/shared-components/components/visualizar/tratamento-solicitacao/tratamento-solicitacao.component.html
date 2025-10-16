@@ -1,0 +1,196 @@
+<div class="modal fade" id="view-tratamento">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content rounded-0 p-0">
+      <div class="card rounded-0 p-0 shadow border-0">
+        <div class="card-body rounded-0 p-0 border-0">
+          <div class="row">
+            <div class="col-xl-4 col-lg-5 col-sm-12 col-sm-12">
+              <div class="content-top card-content">
+                <div class="row row-gap-4">
+                  <div
+                    class="col-xl-12 col-lg-12 col-md-12 col-sm-12 d-flex align-items-center justify-content-between">
+                    <h5 class="card-title some-info fw-bolder">
+                      Tratamento de solicitação
+                    </h5>
+                    <button data-dismiss="modal" class="bg-transparent border-0 p-2" (click)="fecharModal()"
+                      id="close-view">
+                      <i class="bi bi-x-circle-fill text-light" style="font-size: 1.6rem"></i>
+                    </button>
+                  </div>
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <div class="row row-gap-3">
+                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                        <ng-container *ngIf="this.fileUrl; else semImage">
+                          <img [src]="this.fileUrl" alt="Image-Agente" class="rounded my-2 img-fluid shadow" />
+                        </ng-container>
+                        <ng-template #semImage>
+                          <img src="assets/img/user.jpg" alt="Image-Agente" class="rounded my-2 img-fluid shadow" />
+                        </ng-template>
+                      </div>
+                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 d-flex flex-column row-gap-4 image-fundo">
+                        <div class="row">
+                          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                            <span class="content-text">
+                              {{ this.getFuncionario?.patente_nome }}
+                            </span>
+                          </div>
+                          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                            <span class="content-text">
+                              NAS
+                              {{ this.getFuncionario?.numero_agente ?? 'S/N' }} &nbsp; |
+                              &nbsp; NIP {{this.getFuncionario?.regime_quadro ??''}} {{ this.getFuncionario?.nip }}
+                            </span>
+                          </div>
+
+                          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                            <span class="content-text">
+                              {{this.utilsHelper.capitalize(this.utilsHelper.criarApelido(this.getFuncionario?.nome_completo,
+                              this.getFuncionario?.apelido, false))}}
+                              {{this.utilsHelper.capitalize(this.utilsHelper.criarApelido(this.getFuncionario?.nome_completo,
+                              this.getFuncionario?.apelido, true))}}
+
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-8 col-lg-7 col-sm-12 col-sm-12">
+              <div class="content-bottom card-content">
+                <div class="row row-gap-3">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <div class="d-flex align-items-center justify-content-between">
+                      <strong>
+                        <span class="content-text text-uppercase" style="text-align: left">
+                          Solicitação de {{
+                          this.tratamento?.evento
+                        }}</span>
+                        </strong>
+                        <span class="p-2 w-25 text-center rounded" style="color: var(--light-white)"
+                          [style.backgroundColor]="
+                          this.tratamento?.cor
+                          ">{{
+                          this.tratamento?.estado
+                          }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row row-gap-3">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <span class="content-text" style="justify-content: space-between">
+                      Enviado para: -
+                      {{ this.tratamento?.orgao | capitalize }}/PNA
+                    </span>
+                  </div>
+                </div>
+                <div class="row row-gap-3">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <span class="content-text" style="justify-content: flex-start">
+                      Data de envio : {{ this.tratamento?.createdExtensionSolicitacao?.extensao }}
+
+                    </span>
+                  </div>
+                </div>
+                <div class="row row-gap-3" *ngIf="this.tratamento?.nota">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <span class="content-text" style="justify-content: flex-start">
+                      Nota:
+                    </span>
+                    <div class="row">
+                      <div class="col-12">
+                        <div [innerHTML]="this.sanitizerText(tratamento?.nota)"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row row-gap-3">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <div class="d-flex align-items-center justify-content-between">
+                      <span class="content-text" style="justify-content: flex-start">
+                        Tratado em : &nbsp;
+                        {{ this.tratamento?.createdExtension?.extensao }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row row-gap-3 mt-5">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <div class="d-flex justify-content-end align-items-center">
+                      <ng-container *ngIf="this.tratamento?.documento!='null'; else naoPDF">
+                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                          data-target="#view-pdf-solicitacao-agente" data-dismiss="modal">
+                          <i class="fa fa-download"></i> Ver o documento
+                        </button>
+                      </ng-container>
+                      <ng-template #naoPDF>
+                        <ng-container *ngIf="this.tratamento?.conteudo=='null'">
+                          <button type="button" class="btn btn-primary" data-dismiss="modal"
+                            (click)="gerarPDF(this.tratamento?.conteudo)">
+                            <i class="fa fa-download"></i> Ver o documento
+                          </button>
+                        </ng-container>
+                      </ng-template>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="row row-gap-3 mt-5" *ngIf="this.tratamento?.arquivos">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <div class="w-100 d-flex flex-row flex-wrap" style="gap: 1rem">
+                      <ng-container *ngFor="let item of this.tratamento?.arquivos; let i=index">
+                        <button (click)="verArquivo(item)" type="button" class="btn btn-primary" data-toggle="modal"
+                          data-target="#pdf-solicitacao-agente">
+                          <i class="fa fa-file-pdf"></i> {{i+1}}º arquivo
+                        </button>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-pa-view-pdf [funcionario]="this.getFuncionario" [pessoaId]="this.getPessoaId" [tratamento]="tratamento">
+</app-pa-view-pdf>
+
+<app-pa-folha-pdf [conteudo]="this.conteudo" [imprimir]="this.podeImprimir">
+
+</app-pa-folha-pdf>
+
+
+
+
+<div class="modal fade" id="pdf-solicitacao-agente" aria-labelledby="view-pdf-solicitacao-agente"
+aria-hidden="true">
+<div class="modal-dialog modal-xl" role="document" style="overflow-y: hidden; min-width: 30%">
+  <div class="modal-content view-pdf">
+    <div class="modal-header">
+      <h5 class="title-header text-light">
+        <i class="fa fa-calendar"></i>
+        Visualização de documento na solicitação
+        <!-- {{ this.tratamento?.tipo_evento_nome }} do agente de NAS {{this.funcionario?.numero_agente}} | NIP {{this.funcionario?.nip}} -->
+      </h5>
+
+      <button type="button" class="close" id="btn-close-arquivo" data-dismiss="modal" data-target="#view-solicitacao" data-toggle="modal">
+        <i class="fa fa-close text-danger"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="content">
+        <div class="row">
+          <div class="col-12" *ngIf="this.fileUrlArquivo">
+            <iframe [src]="this.fileUrlArquivo" frameborder="0" class="w-100" [style]="{ minHeight: '80vh' }"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

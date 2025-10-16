@@ -1,0 +1,178 @@
+<div
+  class="modal-body d-flex flex-row align-items-start"
+  style="column-gap: 0.8rem"
+  id="invoice"
+  #invoice
+>
+  <ng-container *ngIf="!this.isLoading; else carregando">
+    <div class="wrapper-pdf" id="wrapper-pdf">
+      <div class="card">
+        <div class="card-header">
+          <div class="header-pdf">
+            <div class="insigina">
+              <img src="assets/img/insignia.png" alt="Insignia de Angola" />
+            </div>
+            <div class="header-angola">
+              <span class="text-header"> REPÚBLICA DE ANGOLA </span>
+              <span class="text-header"> MINISTÉRIO DO INTERIOR </span>
+              <span class="text-header"> ---«»--- </span>
+              <span class="text-header">
+                <b> {{tituloPrincipal | uppercase}} </b>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="text-center text-body">
+            <strong>
+              ORDEM
+              {{ this.getNumero }}
+              <br />
+              (Sobre Promoção)
+            </strong>
+          </div>
+          <div class="text-body my-3" style="text-align: justify">
+            Nos termos do n.º 1 do artigo 33.º do Regulamento de Carreiras
+            Profissionais da Polícia Nacional, aprovado pelo Decreto n.º 117/08,
+            de 22 de Outubro;
+          </div>
+          <div class="text-body my-3" style="text-align: justify">
+            No âmbito da competência que me é conferida pela alínea j) do artigo
+            9.º do Estatuto Orgânico da Polícia Nacional de Angola, aprovado
+            pelo Decreto Presidencial n.º 152/19, de Maio;
+          </div>
+          <ng-container *ngFor="let item of this.orgaos">
+            <div class="text-center text-body my-3" style="text-align: center">
+              <strong>DETERMINO:</strong>
+            </div>
+            <div class="text-body my-2">
+              Promover o efectivo abaixo designado, colocado na(o)
+              {{ item | capitalize }}/PNA, ao posto policial de:
+            </div>
+            <div class="text-body my-2"></div>
+
+            <ng-container *ngFor="let item of this.getPatentes(item)">
+              <div
+                class="text-center text-body my-3"
+                style="text-align: center"
+              >
+                <strong>{{ item | uppercase | shortPatente }}</strong>
+              </div>
+              <ul
+                style="
+                  list-style: decimal !important;
+                  color: black;
+                  margin-top: 0.4rem;
+                "
+              >
+                <li
+                  *ngFor="let item of this.getAgentes(item)"
+                  class="d-flex flex-row my-3"
+                  style="
+                    color: black;
+                    list-style: decimal !important;
+                    column-gap: 1rem;
+                  "
+                >
+                  <span class="w-25">{{
+                    item?.patentePassado?.patente ?? "S/N"
+                  }}</span>
+                  <div class="d-flex flex-column flex-1">
+                    <span>
+                      <strong
+                        >{{ item?.nome_completo | capitalize }}
+                        {{ item?.apelido | capitalize }}</strong
+                      >
+                    </span>
+                    <span>
+                      Função:
+                      {{
+                        item?.cargo?.nome
+                          ? item?.cargo?.nome + "/" + item?.orgao_sigla + "/PNA"
+                          : "S/N"
+                      }}
+                    </span>
+                    <span>
+                      Ordem de Promoção :
+                      <ng-container
+                        *ngIf="item?.ordem_descricao; else semOrdem"
+                      >
+                        {{ item?.ordem_descricao | shortOrdem }}
+                      </ng-container>
+                      <ng-template #semOrdem>
+                        {{ "S/N" }}
+                      </ng-template>
+                    </span>
+                    <span>
+                      Data de Nascimento : {{ item?.data_nascimento ?? "S/N" }}
+                    </span>
+                    <span>
+                      Data de Ingresso : {{ item?.data_adesao ?? "S/N" }}
+                    </span>
+                    <span> NAS : {{ item?.numero_agente ?? "S/N" }} </span>
+                  </div>
+                  <!-- <span>{{item?.patente_actual?.nome}} - {{item?.nome_completo}}, {{item?.nip ??
+                                ''}}</span> -->
+                </li>
+              </ul>
+            </ng-container>
+          </ng-container>
+        </div>
+        <div class="card-body">
+          <div class="text-center text-body mb-2">
+            <strong> CUMPRA-SE E PUBLIQUE-SE </strong>
+          </div>
+          <div class="text-center text-body" style="font-weight: 500">
+            POLÍCIA NACIONAL DE ANGOLA, em Luanda, aos
+            {{ this.ordem?.createdAt }}.
+          </div>
+          <div class="text-body text-center my-3" style="font-weight: 500">
+            O COMANDANTE GERAL,
+          </div>
+          <div
+            class="text-center"
+            style="font-weight: bolder; margin-bottom: -8px"
+          >
+            <h5 style="color: black">
+              <strong> FRANCISCO RIBAS DA SILVA </strong>
+            </h5>
+          </div>
+          <div class="text-body text-center" style="font-weight: 300">
+            <h5>****COMISSÁRIO-GERAL****</h5>
+          </div>
+        </div>
+        <!-- <div class="card-body text-center" style="margin-top:-20px">
+
+                </div> -->
+        <div class="card-footer">
+          <div class="font-diferente origin">
+            <div class="another-text">
+              <p style="font-weight: 600">
+                Av. 4 de Fevereiro, marginal de Luanda, edifício sede telef: 222
+                33 57 69/ 222 33 96 00
+              </p>
+              <p>
+                E-mail: gabcomandante.geral&#64;pn.gov.ao Facebook: Polícia
+                Nacional de Angola.
+              </p>
+            </div>
+          </div>
+          <div class="simbolos font-diferente">
+            <div class="rpa">
+              <img
+                src="assets/img/rpa_.png"
+                alt="Foto-footer-Republica-Angola"
+              />
+            </div>
+            <div class="pna">
+              <span class="pna-name"> {{tituloPrincipal}} </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #carregando>
+    <loading-page [texto]="'Carregado documento...'"></loading-page>
+  </ng-template>
+</div>

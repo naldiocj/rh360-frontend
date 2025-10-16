@@ -1,0 +1,32 @@
+.anatomy-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .anatomy-image {
+    width: 200px;
+    height: 400px;
+  }
+  
+  .controls {
+    margin-top: 20px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  .lesion {
+    fill: red !important;  /* Cor de áreas lesionadas */
+  }

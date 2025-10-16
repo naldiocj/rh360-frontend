@@ -1,0 +1,102 @@
+ 
+   <!-- registro-empresa.component.html -->
+<div class="stepper mt-3">
+    <h2>Registo e Controlo de Nova Empresa</h2>
+    <p>Preencha os dados abaixo para registar uma nova empresa.</p>
+    <div class="steps">
+        <div [class.active]="etapaAtual === 1" [class.completed]="etapaAtual > 1">1. Legalização</div>
+        <div [class.active]="etapaAtual === 2" [class.completed]="etapaAtual > 2">2. Localização</div>
+        <div [class.active]="etapaAtual === 3" [class.completed]="etapaAtual > 3">3. Fiscalização</div>
+      </div>
+    
+    <!-- Etapa 1 -->
+    <div *ngIf="etapaAtual === 1" [formGroup]="legalizacao" class="step-content">
+      <h4>1. Legalização</h4>
+      <div class="mb-3">
+        <input formControlName="nomeEmpresa" class="form-control" placeholder="Nome da Empresa"
+               [ngClass]="{'is-invalid': legalizacao.get('nomeEmpresa')?.invalid && legalizacao.get('nomeEmpresa')?.touched}" />
+        <div *ngIf="legalizacao.get('nomeEmpresa')?.invalid && legalizacao.get('nomeEmpresa')?.touched" class="invalid-feedback">
+          Nome da empresa é obrigatório.
+        </div>
+      </div>
+      <div class="mb-3">
+        <input formControlName="numeroRegisto" class="form-control" placeholder="Número de Registo"
+               [ngClass]="{'is-invalid': legalizacao.get('numeroRegisto')?.invalid && legalizacao.get('numeroRegisto')?.touched}" />
+        <div *ngIf="legalizacao.get('numeroRegisto')?.invalid && legalizacao.get('numeroRegisto')?.touched" class="invalid-feedback">
+          Número de registo é obrigatório.
+        </div>
+      </div>
+      <div class="mb-3">
+        <label>Diário da República:</label>
+        <input type="file" (change)="onFileChange($event, 'diarioRepublica', 'legalizacao')"
+               [ngClass]="{'is-invalid': legalizacao.get('diarioRepublica')?.invalid && legalizacao.get('diarioRepublica')?.touched}" />
+        <div *ngIf="legalizacao.get('diarioRepublica')?.invalid && legalizacao.get('diarioRepublica')?.touched" class="invalid-feedback">
+          Arquivo Diário da República é obrigatório.
+        </div>
+      </div>
+      <div class="mb-3">
+        <label>Despacho CGPN (se aplicável):</label>
+        <input type="file" (change)="onFileChange($event, 'despachoCGPN', 'legalizacao')" class="form-control" />
+      </div>
+      <div class="mb-3">
+        <input type="date" formControlName="dataPublicacao" class="form-control"
+               [ngClass]="{'is-invalid': legalizacao.get('dataPublicacao')?.invalid && legalizacao.get('dataPublicacao')?.touched}" />
+        <div *ngIf="legalizacao.get('dataPublicacao')?.invalid && legalizacao.get('dataPublicacao')?.touched" class="invalid-feedback">
+          Data de publicação é obrigatória.
+        </div>
+      </div>
+    </div>
+  
+    <!-- Etapa 2 -->
+    <div *ngIf="etapaAtual === 2" [formGroup]="operacional" class="step-content">
+      <h4>2. Localização</h4>
+      <div class="mb-3" *ngFor="let field of ['municipio','bairro','comuna','rua']">
+        <input [formControlName]="field" class="form-control" [placeholder]="field | titlecase"
+               [ngClass]="{'is-invalid': operacional.get(field)?.invalid && operacional.get(field)?.touched}" />
+        <div *ngIf="operacional.get(field)?.invalid && operacional.get(field)?.touched" class="invalid-feedback">
+          {{ field | titlecase }} é obrigatório.
+        </div>
+      </div>
+      <div class="mb-3">
+        <input formControlName="numeroFuncionarios" type="number" class="form-control" placeholder="Número de Funcionários"
+               [ngClass]="{'is-invalid': operacional.get('numeroFuncionarios')?.invalid && operacional.get('numeroFuncionarios')?.touched}" />
+        <div *ngIf="operacional.get('numeroFuncionarios')?.invalid && operacional.get('numeroFuncionarios')?.touched" class="invalid-feedback">
+          Informe número de funcionários (>=1).
+        </div>
+      </div>
+      <div class="mb-3">
+        <input formControlName="actividade" class="form-control" placeholder="Actividade Desenvolvida"
+               [ngClass]="{'is-invalid': operacional.get('actividade')?.invalid && operacional.get('actividade')?.touched}" />
+        <div *ngIf="operacional.get('actividade')?.invalid && operacional.get('actividade')?.touched" class="invalid-feedback">
+          Actividade é obrigatória.
+        </div>
+      </div>
+      <div class="mb-3">
+        <input formControlName="numeroArmas" class="form-control" placeholder="Número de Armas" />
+      </div>
+    </div>
+  
+    <!-- Etapa 3 -->
+    <div *ngIf="etapaAtual === 3" [formGroup]="fiscalizacao" class="step-content">
+      <h4>3. Fiscalização</h4>
+      <div class="mb-3">
+        <label>Status de Vistoria</label>
+        <input formControlName="statusVistoria" class="form-control" readonly />
+      </div>
+      <div class="mb-3">
+        <input type="date" formControlName="dataVistoria" class="form-control"
+               [ngClass]="{'is-invalid': fiscalizacao.get('dataVistoria')?.invalid && fiscalizacao.get('dataVistoria')?.touched}" />
+        <div *ngIf="fiscalizacao.get('dataVistoria')?.invalid && fiscalizacao.get('dataVistoria')?.touched" class="invalid-feedback">
+          A data da vistoria é obrigatória.
+        </div>
+      </div>
+    </div>
+  
+    <!-- Navegação -->
+    <div class="navigation mt-3 text-end">
+      <button class="btn btn-secondary me-2" (click)="etapaAnterior()" [disabled]="etapaAtual === 1">Anterior</button>
+      <button class="btn btn-primary me-2" (click)="proximaEtapa()" *ngIf="etapaAtual < 3">Próximo</button>
+      <button class="btn btn-success" (click)="submeter()" *ngIf="etapaAtual === 3">Submeter</button>
+    </div>
+  </div>
+  

@@ -1,0 +1,61 @@
+.btn {
+  border-radius: 0px !important;
+  padding: 12px 24px;
+  margin: 20px auto;
+  font-size: 16px;
+  transition: all 0.4s;
+  border: var(--border);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  font-weight: 400;
+}
+.btn.btn-primary {
+  background-color: var(--bg-color);
+  color: white;
+}
+.btn.btn-red {
+  background-color: var(--red);
+  color: white;
+}
+.text-red {
+  color: var(--red);
+}
+
+.btn.btn-primary:hover,
+.btn.btn-primary.active {
+  background-color: white;
+  color: var(--bg-color);
+  border: 1px solid var(--bg-color);
+}
+
+.btn.btn-red:hover,
+.btn.btn-red.active {
+  background-color: white;
+  color: var(--red);
+  border: 1px solid var(--red);
+}
+
+.btn.btn-secondary:hover,
+.btn.btn-secondary.active {
+  background-color: var(--bg-color);
+  color: white;
+  border: 1px solid var(--bg-color);
+}
+
+.btn.btn-secondary {
+  background-color: white;
+  color: var(--bg-color);
+  border: 1px solid var(--bg-color);
+}
+
+label {
+  color: var(--bg-color);
+  font-weight: normal;
+}
+
+textarea {
+  width: 100%;
+  resize: none;
+  max-height: 100px;
+  height: 100px;
+}

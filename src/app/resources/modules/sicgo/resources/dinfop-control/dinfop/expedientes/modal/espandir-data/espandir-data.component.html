@@ -1,0 +1,34 @@
+<!-- Modal -->
+<div class="modal fade" id="expedienteExpandModal" tabindex="-1" aria-labelledby="expedienteExpandModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-prima text-white">
+          <h2 class="modal-title fs-5" id="expedienteExpandModalLabel">Prorrogar Expediente</h2>
+          <a data-bs-dismiss="modal" aria-label="Close">
+            <i class="bi bi-backspace-reverse-fill cursor-pointer rounded-lg " style="font-size: 1.5em"></i>
+          </a>
+        </div>
+        <div class="modal-body">
+          <p><strong>Data atual de término:</strong> {{expediente?.endEditDate | date:'yyyy-MM-dd'}}</p>
+
+        <p>
+            Faltam {{ getDiasRestantes(expediente?.endEditDate) }} dias para o término. 
+        </p>
+          
+          <input 
+            type="date" 
+            id="novaData" 
+            [(ngModel)]="novaDataTermino"
+            [min]="expediente?.endEditDate | date:'yyyy-MM-dd'"
+            [max]="maxDataPermitida"
+            required
+          />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+          <button type="button" class="btn btn-primary" (click)="prorrogarExpediente()">Prorrogar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

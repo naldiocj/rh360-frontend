@@ -1,0 +1,70 @@
+<div class="content">
+  <div class="row">
+    <div class="col-sm-7">
+      <h4 style="color: #002d59" class="page-title">
+        <img src="../../../../../../../assets/sigef/Male User.png" alt="" />
+        <b>Gerar Relatório</b>
+      </h4>
+      <h4 style="font-size: 14px">
+        Os Campos com (*) são de carácter obrigatório
+      </h4>
+    </div>
+  </div>
+  <div class="row down">
+    <div class="col-md-12">
+      <table class="table table-border table-striped custom-table mb-2">
+        <div class="container">
+          <div style="height: 40px"></div>
+
+          <div class="col-lg-100">
+            <select class="form-control mr-sm-1">
+              <option>Selecione uma operação</option>
+            </select>
+          </div>
+
+          <div style="padding-top: 20px; padding-bottom: 15px" class="row">
+            <div class="col-lg-6">
+              <label for="">Data de início</label>
+              <input class="form-control" type="text" />
+            </div>
+            <div class="col-lg-6">
+              <label for="">Data de fim</label>
+              <input class="form-control" type="text" />
+            </div>
+          </div>
+
+          <div class="btn">
+            <button>
+              <i style="font-size: 19px"></i>
+              <img
+                style="width: 30px"
+                src="assets/dashboard/veiculos/Synchronize.png"
+                alt=""
+                class="fa fa-refresh fa-spin fa-3x fa-fw"
+              />
+              <b>Gerar</b>
+            </button>
+          </div>
+        </div>
+      </table>
+    </div>
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="float-right">
+            <pagination-controls
+              id="veiculos"
+              (pageChange)="this.filtrarPagina('page', $event)"
+              [directionLinks]="true"
+              [autoHide]="true"
+              previousLabel="Anterior"
+              nextLabel="Próximo"
+              [maxSize]="4"
+              [responsive]="true"
+            ></pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,128 @@
+.scanner-container {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    background-color: #f9f9f9;
+  }
+  
+  .scanner-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .scanner-body {
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+  }
+  
+  .fingerprint-preview {
+    margin: 20px auto;
+    text-align: center;
+  }
+  
+  .fingerprint-preview img {
+    max-width: 200px;
+    max-height: 200px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .scanner-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin: 20px 0;
+  }
+  
+  .search-results {
+    margin-top: 20px;
+    animation: fadeIn 0.5s;
+  }
+  
+  .loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+
+
+
+
+  .busca-biometrica-panel {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+.scanner-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-fechar {
+  background: #f44336;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+}
+
+.scanner-body {
+  display: flex;
+  margin-top: 1rem;
+}
+
+.scanner-left, .scanner-right {
+  flex: 1;
+  padding: 1rem;
+}
+
+.finger-image img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #aaa;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.btn-verificar, .btn-abrir-scanner {
+  background: #4caf50;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.spinner {
+  width: 25px;
+  height: 25px;
+  border: 4px solid #ccc;
+  border-top: 4px solid #4caf50;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-top: 0.5rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

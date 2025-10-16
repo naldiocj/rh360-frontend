@@ -1,0 +1,43 @@
+   
+  <div class="the-page">
+    <div class="page__frame">
+      <div class="page-tab-header">
+        <div class="header-set ml-4">
+            <div class="row d-flex">
+             <div class="col-md-auto">
+               <!-- Avatar -->
+               <div class="avatars avatars-xl rounded text-primary">
+                <i class="bi bi-people-fill"></i>
+               </div>
+             </div>
+             <div class="col  col-lg-5 infor-top-o">
+               <!-- Heading -->
+               <h4 class="fs-4 mb-0">Associação Criminosa</h4>
+               <!-- Breadcrumb -->
+                <span class="text-body-secondary">Direcção De Informações Policiais.</span>
+             </div>
+           </div>
+         </div>
+        <nav class="navigation ml-4" id="js--navid">
+          <ul class="navigation-menu" #navigationMenu>
+              <li class="nav-item"><a class="nav-tab t--tab" aria-current="page" routerLinkActive="active" [routerLink]="['associacao-delituoso']"  routerLink="associacao-delituoso" title="Beta"><i class="bi bi-person-fill-exclamation"></i> Delituosos</a></li>
+              <li class="nav-item"><a class="nav-tab t--tab" routerLinkActive="active" aria-current="page" [routerLink]="['associacao-grupos']" title="Gamma"><i class="bi bi-people-fill"></i> Grupos</a></li> 
+              <li class="nav-item"><a class="nav-tab t--tab" routerLinkActive="active" aria-current="page" [routerLink]="['/piips/sicgo/dinfop/processos']" title="Processos"><i class="bi bi-file-text"></i> Processos</a></li>
+              
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <section class="page__frame">
+        
+      <div class="tab__content">
+        <main class="tab__main">
+          <router-outlet #outlet="outlet"></router-outlet>
+      </main>
+      </div>
+  </section>
+
+</div>
+ 
+ 
+    

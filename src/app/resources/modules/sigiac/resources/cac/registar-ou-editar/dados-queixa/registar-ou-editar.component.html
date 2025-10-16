@@ -1,0 +1,12 @@
+ 
+
+<form [formGroup]="dadosForm"  class="col-md-12 pull-left"> 
+
+        <div   class="form-group px-md-2"  >
+            <label><b>Natureza da Inflação</b></label>
+            <textarea class="form-control" formControlName="natureza_infrancao" id="natureza_infrancao" required cols="130" rows="6"></textarea>
+            <div id="error-natureza_infrancao" style="display: none;" class="validation-error"> 
+                <p>A Natureza da Inflação e de caracter obrigatório!</p>
+            </div>
+        </div> 
+ </form>

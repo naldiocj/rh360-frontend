@@ -1,0 +1,138 @@
+<div class="modal fade" id="modalVisualizarFichaDoEfectivoComBaseALicenca" class="modal secand-modal" tabindex="-1" role="dialog" style="display:none;" aria-labelledby="modalVisualizarFichaDoEfectivoComBaseALicenca" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="overflow-y: hidden; min-width: 40%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>
+          <i class="fa fa-user"></i>
+          PASSAPORTE DE FÉRIAS
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="this.closeModal('modalVisualizarFichaDoEfectivoComBaseALicenca')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="content p-4">
+        <aside>
+          <div class="modal-body d-flex flex-row align-items-start" style="column-gap: .8rem" id="invoice" #invoice>
+            <ng-container *ngIf="!this.isLoading && quantidadeDeDiasDeFerias>0; else carregando"><!-- *ngIf="!this.isLoading; else carregando" -->
+                <div class="wrapper-pdf" id="wrapper-pdf">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="header-pdf">
+                                <div class="insigina">
+                                    <img src="assets/img/insignia.png" alt="Insignia de Angola">
+                                </div>
+                                <div class="header-angola">
+                                    <span class="text-header">
+                                        REPÚBLICA DE ANGOLA
+                                    </span>
+                                    <span class="text-header">
+                                        ---«»---
+                                    </span>
+                                    <span class="text-header">
+                                        MINISTÉRIO DO INTERIOR
+                                    </span>
+                                    <span class="text-header">
+                                        POLÍCIA NACIONAL DE ANGOLA
+                                    </span>
+                                    <span class="text-header">
+                                        <u><b>{{this.agenteSelecionado?.orgao?.nome | uppercase}} </b></u>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <ng-container>
+                          <div class="container">
+                            <div class="linha centralizada titulo-numero">LICENÇA DISCIPLINAR</div>
+                            <div class="linha justificada">
+                              <div class="efectivo">
+                                Tem dispensa por {{quantidadeDeDiasDeFerias}} dias , com inicio do dia {{diaInicioDeFerias}}, o {{ agenteSelecionado.patente_nome }} <b>{{agenteSelecionado.nome_completo}} {{agenteSelecionado.apelido??''}}</b>
+                              , a qual lhe foi concedida para gozar em terrirório nacional, devendo apresentar-se na {{agenteSelecionado.orgao.sigla}} , até as 08H00 do dia {{diaFimDeFerias}}.
+                               </div>
+
+
+                               <p class="aviso" style="margin-top: 6px;">
+                                Devendo comparecer nos tribunais, sempre que seja {{agenteSelecionado.genero=='M'?'intimado ou requisitado.':'intimada ou requisitada.'}}
+                               </p>
+
+                               <!-- <p class="impedimento" style="font-weight: bold;">
+                                Por imperativo de serviço, não foi possível gozar 30 dias de férias na data planificada.
+                               </p> -->
+
+                              <ng-container *ngIf="converterParaNumber(this.getYear(agenteSelecionado.data_adesao,'TOTAL_ANO'))>9">
+                                <div class="temMaisdeDezAnosDeServico">
+                                  <p>
+                                    <b>OBS: Tem {{getYear(agenteSelecionado.data_adesao,'TOTALDIAS_ADICIONAIS')}} dias úteis</b>, três por cada 10 anos de serviço efectivamente prestado desde
+                                {{getYear(agenteSelecionado.data_adesao)}}, nos termos do número 2) do artigo 79º do Decreto Lei n.º 26/2022, de 22 de Agosto.
+
+                                  </p>
+                                </div>
+                              </ng-container>
+                            </div>
+                            <div class="linha justificada">Luanda, aos ___{{day}}___ {{year}}</div>
+                            <ng-container *ngIf="comandante; else semRepresentante">
+                              <div class="linha centralizada">
+                                <p>{{this.comandante.cargo_nome||''}}</p>
+                              <p>{{this.comandante.nome_completo||''}} {{this.comandante.apelido||''}}</p>
+                              <p style="margin-top: -10px;"><b>**{{this.comandante.patente_nome||''}}**</b></p>
+                            </div>
+                            </ng-container>
+
+                            <ng-template #semRepresentante>
+                              <p>Para este órgão, não está vinculado um chefe máximo.</p>
+                              <p>Passos para solucionar isso:</p>
+                              <ul>
+                                <li>1-- Pesquise o comandante máximo do {{agenteSelecionado.orgao.sigla}}</li>
+                                <li>2-- Em Cargos selecione a colocação e adicione {{agenteSelecionado.orgao.sigla}}</li>
+                              </ul>
+                          </ng-template>
+
+
+                        </div>
+                            <!-- <div class="card-body text-poppins">
+                                <div class="text-body" style="margin-bottom: 1.4rem;">
+                                  <p>{{ agenteSelecionado | json }}</p>
+                                </div>
+                            </div> -->
+                        </ng-container>
+
+                        <div class="footer">
+                          <div class="coluna esquerda">
+                            <p>
+                              Av. 4 de Fevereiro, n.º 206 Marginal de Luanda 1.º andar, edifício sede da PNA
+                            </p>
+                            <p style="margin-top: -10px;">
+                              Telef: +(244) 222 339 962 Email: {{email_instituicao}}
+                            </p>
+                          </div>
+                          <div class="coluna direita">
+                            <div class="imagem">
+                              <img src="assets/img/rpa_.png" style="width: 120px;" alt="Foto-footer-Republica-Angola">
+                            </div>
+                          <div class="dizeres-footer">
+                            <span class="esquerda">
+                                Policia Nacional de Angola
+                            </span>
+                        </div>
+                          </div>
+                      </div>
+
+                    </div>
+                </div>
+            </ng-container>
+            <ng-template #carregando>
+                <p *ngIf="quantidadeDeDiasDeFerias<0">Carregando os dados da licença disciplinar....</p>
+                <p *ngIf="quantidadeDeDiasDeFerias==0">Nenhum dia foi aprovado para gerar o passaporte de férias</p>
+            </ng-template>
+
+          </div>
+        </aside>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary">Imprimir</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

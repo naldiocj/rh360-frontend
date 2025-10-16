@@ -1,0 +1,66 @@
+<div class="modal fade" id="modalRegistar" aria-labelledby="modalRegistarUtilizador" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="overflow-y: hidden;min-width: 30%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>
+          <i class="fa fa-cogs"></i>
+          {{this.buscarId ? 'Editar': 'Registar' }} Funcão
+        </h5>
+        <button type="button" id="btn-close-registar" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="content">
+        <form [formGroup]="this.simpleForm">
+          <div class="modal-body">
+            <div class="row">
+              <div class="form-group col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <label><b>Modulo</b><span class="text-danger"> *</span></label>
+                <ng-select2 [options]="options" [data]="this.modulos" formControlName="modulo_id">
+                </ng-select2>
+              </div>
+              <div class="form-group col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <label id="name"><b>Nome</b><span class="text-danger"> *</span></label>
+                <input id="name" type="text" class="form-control" formControlName="nome" />
+              </div>
+              <div class="form-group col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <label for="key"><b>Sigla</b><span class="text-danger"> *</span></label>
+                <input id="key" type="text" class="form-control" formControlName="name" />
+              </div>
+              <div class="form-group col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <label for="description"><b>Descricão</b><span class="text-danger"></span></label>
+                <textarea class="form-control" formControlName="descricao" id="description"></textarea>
+              </div>
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-danger btn-square" type="reset" (click)="this.reiniciarFormulario()" disabled="true">
+              <span class="fa fa-refresh"></span> Limpar
+            </button>
+            <ng-container *ngIf="this.simpleForm.valid; else ocultarBotao">
+              <aside *ngIf="this.isLoading; else regista">
+                <button id="bookreset" disabled="true" class="btn btn-primary btnRegistar">
+                  <div class="spinner-border spinner-border-sm m-1"></div>
+                  <a style="text-decoration: none;color: white;"> A
+                    Carregando ...</a>
+                </button>
+              </aside>
+              <ng-template #regista>
+                <button id="bookreset" (click)="onSubmit()" class="btn btn-primary btnRegistar">
+                  <i class="fa fa-plus-circle"></i>
+                  {{this.buscarId ? 'Salvar' : 'Registar'}}
+                </button>
+              </ng-template>
+            </ng-container>
+            <ng-template #ocultarBotao>
+              <button id="bookreset" disabled="true" class="btn btn-primary btnRegistar">
+                <i class="fa fa-plus-circle"></i>
+                {{this.buscarId ? 'Salvar' : 'Registar'}}
+              </button>
+            </ng-template>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

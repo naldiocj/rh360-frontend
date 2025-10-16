@@ -1,0 +1,160 @@
+<div class="modal fade" id="modalDefinicoes" aria-labelledby="modalDefinicoes" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="overflow-y: hidden; overflow-x:hidden; min-width: 25%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>
+                    <i class="fa fa-cogs"></i>
+                    Definições
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="content">
+                <div class="modal-body">
+                    <div class="row">
+
+                        <div class="content-header row">
+                            <div class="content-header-left col-md-10 col-12 mb-2">
+                                <!-- <div class="row breadcrumbs-top">
+                                    <div class="col-12">
+                                        <h2 class="content-header-title float-start mb-0">Conta</h2>
+                                        <div class="breadcrumb-wrapper">
+                                            <ol class="breadcrumb">
+                                                <li class="breadcrumb-item"><a href="#">Inicio</a>
+                                                </li>
+                                                <li class="breadcrumb-item"><a href="#">Configurar conta </a>
+                                                </li>
+                                                <li class="breadcrumb-item active"> Conta
+                                                </li>
+                                            </ol>
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </div>
+                            <!-- <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
+                                <div class="mb-1 breadcrumb-right">
+                                    <div class="dropdown">
+                                        <button class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle"
+                                            type="button" data-bs-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false"><i data-feather="grid"></i></button>
+                                        <div class="dropdown-menu dropdown-menu-end"><a class="dropdown-item"
+                                                href="app-todo"><i class="me-1"
+                                                    data-feather="check-square"></i><span
+                                                    class="align-middle">Todo</span></a><a class="dropdown-item"
+                                                href="app-chat"><i class="me-1"
+                                                    data-feather="message-square"></i><span
+                                                    class="align-middle">Chat</span></a><a class="dropdown-item"
+                                                href="app-email"><i class="me-1" data-feather="mail"></i><span
+                                                    class="align-middle">Email</span></a><a class="dropdown-item"
+                                                href="app-calendar"><i class="me-1"
+                                                    data-feather="calendar"></i><span
+                                                    class="align-middle">Calendar</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+
+                        <div class="content-body">
+                            <div class="row">
+                                <div class="col-12">
+
+                                    <!-- profile -->
+                                    <div class="card">
+                                        <div class="card-header border-bottom">
+                                            <h4 class="card-title">Área de configurações</h4>
+                                        </div>
+                                        <div class="card-body py-2 my-25">
+                                            <!-- header section -->
+                                            <div class="d-flex mb-4">
+                                                <a href="#" class="me-25 mr-2">
+                                                    <img src="assets/img/user.jpg" id="account-upload-img"
+                                                        class="uploadedAvatar rounded me-50" alt="profile image"
+                                                        height="100" width="100" />
+                                                </a>
+                                                <!-- upload and reset button -->
+                                                <div class="d-flex align-items-end mt-75 ms-1">
+                                                    <div>
+                                                        <!-- <label for="account-upload"
+                                                        class="btn btn-sm btn-primary mb-75 me-75 mr-2">Carregar</label> -->
+                                                        <!-- <input type="file" id="account-upload" hidden accept="image/*" /> -->
+                                                        <!-- <button type="button" id="account-reset"
+                                                        class="btn btn-sm btn-primary mb-75 mr-1">Carregar</button>
+                                                    <button type="button" id="account-reset"
+                                                        class="btn btn-sm btn-outline-secondary mb-75">Reiniciar</button> -->
+                                                        <!-- <p class="mb-0">Permite ficheiros: png, jpg, jpeg.</p> -->
+                                                        <aside>Visualizar Foto civíl</aside>
+                                                    </div>
+                                                </div>
+                                                <!--/ upload and reset button -->
+                                            </div>
+                                            <!--/ header section -->
+
+                                            <!-- form -->
+                                            <!-- <form class=""> -->
+                                            <form [formGroup]="loginForm" class="mt-2 pt-50">
+                                                <div class="row">
+                                                    <div class="col-12 col-sm-6 mb-1">
+                                                        <label class="form-label">Nome de
+                                                            utilizador</label>
+                                                        <input type="text" class="form-control"
+                                                            [value]="this.utilizador.username || ''" disabled="true" />
+                                                    </div>
+                                                    <div class="col-12 col-sm-6 mb-1">
+                                                        <label class="form-label">Email
+                                                            institucional</label>
+                                                        <input type="text" class="form-control" disabled="true"
+                                                            [value]="this.utilizador.email || ''" />
+                                                    </div>
+                                                    <div class="col-12 col-sm-6 mb-1">
+                                                        <label class="form-label" for="accountEmail">Senha
+                                                            antiga</label>
+                                                        <input type="password" class="form-control"
+                                                            formControlName="password" placeholder="Senha" />
+                                                    </div>
+                                                    <div class="col-12 col-sm-6 mb-1">
+                                                        <label class="form-label" for="">Nova
+                                                            senha</label>
+                                                        <input type="password" class="form-control"
+                                                            formControlName="novaPassword" placeholder="Senha" />
+                                                    </div>
+                                                    <div class="col-12 col-sm-6 mb-1">
+                                                        <label class="form-label" for="">Confirmar
+                                                            senha</label>
+                                                        <input type="password" class="form-control"
+                                                            formControlName="confirmarPassword" placeholder="Senha" />
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <!--/ form -->
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-12">
+                                        <a id="closed" data-dismiss="modal" type="hidden"></a>
+                                        <button (click)="onSubmit()" class="btn btn-primary mt-1 me-1 mr-1"
+                                            [disabled]="false">
+                                            <div class="d-flex justify-content-center">
+                                                <div class="spinner-border spinner-border-sm m-1"
+                                                    *ngIf="this.isLoading"></div>
+                                                <b *ngIf="this.isLoading"> Salvando ã senha ...</b>
+                                                <b *ngIf="!this.isLoading"> Salvar configurações</b>
+                                            </div>
+                                        </button>
+                                        <button type="reset" class="btn btn-outline-secondary mt-1">Disfazer
+                                            configurações</button>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+
+#main_ {
+    margin-top: 60px;
+    padding: 20px 30px;
+    transition: all 0.3s;
+  }
+  
+  @media (max-width: 1199px) {
+    #main_ {
+      padding: 20px;
+    }
+  }
+  
+  /*--------------------------------------------------------------
+  # Page Title
+  --------------------------------------------------------------*/
+  .pagetitle {
+    margin-bottom: 10px;
+    padding: 0px;
+  }
+  
+  .pagetitle h1 {
+    font-size: 24px;
+    font-weight: normal;
+    color: #041b43!important;
+  }
+  
+@media (min-width: 1200px) {
+
+    #main_,
+    #footer {
+      margin-left: 300px;
+    }
+  }
+
+
+  .list-group-item .n_lido{
+    background: #e0dede7e;
+  }

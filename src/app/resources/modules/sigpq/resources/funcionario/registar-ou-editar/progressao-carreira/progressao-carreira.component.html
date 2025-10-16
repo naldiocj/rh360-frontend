@@ -1,0 +1,415 @@
+<div class="row">
+  <div class="container-fluid">
+    <div id="progressao-carreira" class="w-100">
+      <div class="row">
+        <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12 ms-auto">
+          <form class="m-0 w-100" [formGroup]="this.simpleForm">
+            <div class="card mt-0 py-0" style="border-radius:0px">
+
+              <div class="row p-2" style="row-gap: 1.2rem">
+
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                  <label for="tipo_acto"><b>Tipo de acto<span class="text-red">*</span></b></label>
+                  <ng-select2 id="tipo_acto" [options]="options" formControlName="sigpq_acto_progressao_id"
+                    [data]="this.actoProgressaos">
+                  </ng-select2>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                  <label for=""><b>{{ regime_do_agente == '2' ? 'Carreira' : 'Classe' }}</b></label>
+                  <ng-select2 [options]="options" formControlName="sigpq_tipo_categoria_id"
+                    [data]="this.tipoCarreiraOuCategorias" (valueChanged)="this.validarClasse($event)">
+                  </ng-select2>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                  <label for=""><b>{{ regime_do_agente == '2' ? 'Categoria' : 'Posto' }}<span class="text-red">*</span></b></label>
+                  <ng-select2 [options]="options" [data]="this.patentes" formControlName="patente_id">
+                  </ng-select2>
+                </div>
+                <!-- <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                  <label for="tipo_acto"><b>Tipo de acto<span class="text-red">*</span></b></label>
+                  <ng-select2 id="tipo_acto" [options]="options" formControlName="sigpq_acto_progressao_id"
+                    [data]="this.actoProgressaos">
+                  </ng-select2>
+                </div> -->
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 d-flex align-item-center">
+                  <div class="d-flex flex-column w-50">
+                    <label for=""><b>Ordem n.º<span class="text-red">*</span></b></label>
+                    <input class="form-control" type="text" formControlName="numero_ordem" [ngClass]="{
+                    'is-invalid':
+                      this.simpleForm.controls?.numero_ordem.dirty &&
+                      this.simpleForm.controls?.numero_ordem.errors,
+                    'is-valid':
+                      this.simpleForm.controls?.numero_ordem.dirty &&
+                      !this.simpleForm.controls?.numero_ordem.errors
+                  }" />
+                    <div *ngIf="this.simpleForm.controls?.numero_ordem?.dirty &&
+                            this.simpleForm.controls?.numero_ordem?.errors" class="invalid-feedback">
+                      <div *ngIf="this.simpleForm.controls?.numero_ordem?.errors?.required">
+                        Este campo é obrigatório
+                      </div>
+                      <div
+                        *ngIf="this.simpleForm.controls?.numero_ordem?.dirty && this.simpleForm.controls?.numero_ordem?.errors">
+                        <div *ngIf="this.simpleForm.controls?.numero_ordem?.errors?.pattern" style="color: #dc3545;">
+                          Digite um N.º válido
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-column flex-grow-1 ">
+                    <label for=""><b>Data<span class="text-red">*</span></b></label>
+                    <input id="data_acto" type="date" formControlName="data_ordem" class="form-control"
+                      [max]="this.validarDataAdesao">
+                  </div>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 d-flex align-item-center">
+                  <div class="d-flex flex-column w-50">
+                    <label for=""><b>Despacho n.º<span class="text-red">*</span></b></label>
+                    <input class="form-control" type="text" formControlName="numero_despacho" [ngClass]="{
+                    'is-invalid':
+                      this.simpleForm.controls?.numero_despacho.dirty &&
+                      this.simpleForm.controls?.numero_despacho.errors,
+                    'is-valid':
+                      this.simpleForm.controls?.numero_despacho.dirty &&
+                      !this.simpleForm.controls?.numero_despacho.errors
+                  }" />
+                    <div *ngIf="this.simpleForm.controls?.numero_despacho?.dirty &&
+                            this.simpleForm.controls?.numero_despacho?.errors" class="invalid-feedback">
+                      <div *ngIf="this.simpleForm.controls?.numero_despacho?.errors?.required">
+                        Este campo é obrigatório
+                      </div>
+                      <div
+                        *ngIf="this.simpleForm.controls?.numero_despacho?.dirty && this.simpleForm.controls?.numero_despacho?.errors">
+                        <div *ngIf="this.simpleForm.controls?.numero_despacho?.errors?.pattern" style="color: #dc3545;">
+                          Digite um N.º válido
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="d-flex flex-column flex-grow-1 ">
+                    <label for=""><b>Data<span class="text-red">*</span></b></label>
+                    <input id="data_aco" type="date" formControlName="data_despacho" class="form-control"
+                      [max]="this.validarDataAdesao">
+                  </div>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                  <label for=""><b>Anexo de ordem de serviço. (formato pdf)<span class="text-red">*</span></b></label>
+                  <div class="upload-img">
+                    <div id="input-Img" class="upload-input">
+                      <input type="file" class="form-control" accept="application/pdf"
+                        (change)="this.uploadFile($event, 'anexo')" id="anexo" />
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="col-lg-4 col-md-4 col-sm-12" id="data-inicio">
+                  <label for="input-data-inicio"><b>Data de ingresso<span class="text-red">*</span></b></label>
+                  <input id="input-data-inicio" class="form-control" type="date" formControlName="data_provimento"
+                    [max]="this.validarDataInicial" />
+                </div> -->
+                <!-- <div class="col-lg-3 col-md-4 col-sm-12 d-none" id="data-fim">
+                  <label for="input-data-fim"><b>Data da troca de patente<span class="text-red">*</span></b></label>
+                  <input id="input-data-fim" class="form-control" type="date" formControlName="data_panteamento_fim"
+                    [min]="this.validarDataInicial" />
+                </div> -->
+
+
+
+                <!-- <div class="col-lg-4">
+                    <label for=""
+                      ><b>Data<span class="text-red">*</span></b></label
+                    >
+                    <input class="form-control" type="text" />
+                  </div> -->
+
+
+                <!-- <div class="col-xl-12 col-md-12 col-sm-12">
+                  <label for=""><b>Descricao</b></label>
+                  <textarea formControlName="descricao" id=""
+                    style="width:100%; height:100px; resize:none;"></textarea>
+                </div> -->
+              </div>
+
+              <div class="row p-2" style="row-gap: 1.2rem">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 d-flex justify-content-end align-items-center my-2">
+                  <button class="btn-piips btn-piips-red m-0 py-1" (click)="this.reiniciarFormulario()">
+                    Cancelar
+                  </button>
+                  <button [disabled]="this.carregando || this.submitted || !this.simpleForm.valid" type="button"
+                    (click)="onSubmit()" class="btn-piips btn-piips-primary m-0 py-1" style="border-radius: 0px">
+                    <ng-container *ngIf="this.carregando || this.submitted; else naoRegistar">
+                      <div class="spinner-border spinner-border-sm"></div>
+                      Carregando...
+                    </ng-container>
+                    <ng-template #naoRegistar>
+
+                      {{this.getId ? 'Editar': 'Registar'}}
+
+                    </ng-template>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row my-4">
+        <div class="col-md-12">
+          <nav class="navbar navbar-light bg-light w-100">
+            <div class="form-inline align-items-center d-flex justify-content-between w-100">
+              <div class="d-flex justify-content-start">
+                <select class="form-control mr-sm-1" (change)="filtrarPagina('perPage',$event)">
+                  <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">
+                    {{ item }}
+                  </option>
+                </select>
+                <input class="form-control mr-sm-1" type="text" [ngModel]="filtro.search" name="search"
+                  placeholder="Pesquisa ..." (ngModelChange)="filtrarPagina('search',$event)" />
+                <button class="btn-piips btn-piips-primary py-2 m-0" (click)="this.recarregarPagina()">
+                  <i style="font-size: 14px" class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+                  <b>Recarregar</b>
+                </button>
+              </div>
+              <div class="d-flex justify-content-end">
+                <!-- <button disabled class="btn-piips btn-piips-primary py-2 m-0 " type="button">
+                  <i style="font-size: 14px" class="fa fa-download  fa-3x fa-fw"></i>
+                  <b>Exportar</b>
+                </button> -->
+              </div>
+            </div>
+          </nav>
+        </div>
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="table-responsive">
+            <table class="table table-border table-striped custom-table datatable mb-0 text-center">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Posto/Categoria</th>
+                  <th>Acto</th>
+                  <th>Ordem n.º / Despacho n.º</th>
+
+                  <th>Estado</th>
+                  <th>Data de registo</th>
+                  <th colspan="4">Operação</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr
+                  *ngFor="let item of this.provimentos | paginate: { id: 'provimentoId', itemsPerPage: this.pagination.per_page, currentPage: this.pagination.current_page,totalItems: this.pagination.total }; index as i">
+                  <td> {{i+1}}</td>
+                  <td> {{ item?.patente_nome ?? 'S/N'}}</td>
+                  <td> {{ item?.sigpq_acto_progressaos_nome ?? 'S/N'}}</td>
+                  <td> {{ item?.ordem_descricao ?? item?.despacho_descricao ?? 'S/N'}}</td>
+
+                  <!-- <td> {{ this.formatDate(item?.data_provimento)}}</td> -->
+                  <td>
+                    <span *ngIf="item?.situacao=='actual'" class="custom-badge status-green">Actual</span>
+                    <span *ngIf="item?.situacao=='anterior'" class="custom-badge status-orange">Anterior</span>
+                  </td>
+                  <td> {{ item?.created_at}}</td>
+                  <!-- <td> {{ item?.updated_at}}</td> -->
+                  <td class="text-right">
+                    <div class="dropdown dropdown-action position-static">
+                      <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
+                          class="fa fa-ellipsis-v"></i></a>
+                      <div class="dropdown-menu">
+                        <!-- <a *ngIf="!item.activo" class="dropdown-item" (click)="construcao()" href="javascript:void(0)">
+                          <i class="fa fa-thumbs-o-up m-r-5"></i>
+                          Activar
+                        </a>
+                        <a *ngIf="item.activo" class="dropdown-item" (click)="construcao()" href="javascript:void(0)">
+                          <i class="fa fa-thumbs-o-down m-r-5"></i>
+                          Desactivar
+                        </a> -->
+                        <a class="dropdown-item" href="javascript:void(0)"
+                          data-toggle="modal" data-target="#modalEditarData" (click)="provimentoSelecionado(item)">
+                          <i class="fa fa-eye m-r-5"></i>
+                          Editar Data
+                        </a>
+                        <a class="dropdown-item" href="javascript:void(0)" (click)="visualizar(item)"
+                          data-toggle="modal" data-target="#modalVisualizar">
+                          <i class="fa fa-eye m-r-5"></i>
+                          Visualizar Documento
+                        </a>
+                        <!-- <a class="dropdown-item" href="#" (click)="construcao()" data-toggle="modal"
+                          data-target="#delete_patient">
+                          <i class="fa fa-trash-o m-r-5"></i> Eliminar</a> -->
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-sm-6">
+                Mostrando de {{ this.pagination.current_page }} á
+                {{ this.pagination.per_page }} de {{ this.pagination.total }} Registo
+              </div>
+              <div class="col-sm-6">
+                <div class="float-right">
+                  <pagination-controls id="provimentoId" (pageChange)="this.filtrarPagina('page', $event)"
+                    [directionLinks]="true" [autoHide]="false" previousLabel="Anterior" nextLabel="Próximo"
+                    [maxSize]="4" [responsive]="true"></pagination-controls>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modalEditarData" aria-labelledby="modalEditarData" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="overflow-y: hidden;min-width: 40%;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5>
+            <i class="fa fa-user"></i>
+            Atualização de Data de Provimento
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" (click)="zerarFormularioAtualziacao()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="content">
+          <form [formGroup]="updateDataForm" (ngSubmit)="atualizarDados()">
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="col-12 d-flex align-item-center">
+                    <div class="d-flex flex-column w-50 pr-2">
+                      <label for=""><b>Ordem n.º<span class="text-red">*</span></b></label>
+                      <input class="form-control" type="text" formControlName="numero_ordem" [ngClass]="{
+                        'is-invalid': updateDataForm.controls?.numero_ordem.dirty &&
+                                      updateDataForm.controls?.numero_ordem.errors,
+                        'is-valid': updateDataForm.controls?.numero_ordem.dirty &&
+                                    !updateDataForm.controls?.numero_ordem.errors
+                      }" />
+                      <div *ngIf="updateDataForm.controls?.numero_ordem?.dirty &&
+                                  updateDataForm.controls?.numero_ordem?.errors" class="invalid-feedback">
+                        <div *ngIf="updateDataForm.controls?.numero_ordem?.errors?.required">
+                          Este campo é obrigatório
+                        </div>
+                        <div *ngIf="updateDataForm.controls?.numero_ordem?.errors?.pattern" style="color: #dc3545;">
+                          Digite um N.º válido
+                        </div>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-column flex-grow-1">
+                      <label for=""><b>Data<span class="text-red">*</span></b></label>
+                      <input id="data_acto" type="date" formControlName="ordem_data" class="form-control"
+                        [max]="validarDataAdesao">
+                    </div>
+                  </div>
+                  <div class="col-12 d-flex align-item-center">
+                    <div class="d-flex flex-column w-50 pr-2">
+                      <label for=""><b>Despacho n.º<span class="text-red">*</span></b></label>
+                      <input class="form-control" type="text" formControlName="numero_despacho" [ngClass]="{
+                        'is-invalid': updateDataForm.controls?.numero_despacho.dirty &&
+                                      updateDataForm.controls?.numero_despacho.errors,
+                        'is-valid': updateDataForm.controls?.numero_despacho.dirty &&
+                                    !updateDataForm.controls?.numero_despacho.errors
+                      }" />
+                      <div *ngIf="updateDataForm.controls?.numero_despacho?.dirty &&
+                                  updateDataForm.controls?.numero_despacho?.errors" class="invalid-feedback">
+                        <div *ngIf="updateDataForm.controls?.numero_despacho?.errors?.required">
+                          Este campo é obrigatório
+                        </div>
+                        <div *ngIf="updateDataForm.controls?.numero_despacho?.errors?.pattern" style="color: #dc3545;">
+                          Digite um N.º válido
+                        </div>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-column flex-grow-1">
+                      <label for=""><b>Data<span class="text-red">*</span></b></label>
+                      <input id="data_aco" type="date" formControlName="despacho_data" class="form-control"
+                        [max]="validarDataAdesao">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="zerarFormularioAtualziacao()" data-dismiss="modal">
+                <span class="fa fa-close m-r-2"></span>Fechar
+              </button>
+              <button type="submit" class="btn btn-primary" (click)="atualizarDados()">
+                <span class="fa fa-save m-r-2"></span>Atualizar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="modalVisualizar" aria-labelledby="modalVisualizar" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="overflow-y: hidden;min-width: 70%;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5>
+            <i class="fa fa-user"></i>
+            Visualizar documento
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="content">
+          <div class="modal-body">
+            <div class="row">
+
+              <div class="col-sm-12">
+                <nav class="navbar navbar-light bg-light">
+                  <h5>Ordem de serviço - {{this.documento?.numero_ordem}}</h5>
+                  <aside *ngIf="this.documento">
+                    <span *ngIf="this.documento.situacao=='actual'" class="custom-badge status-green">Actual</span>
+                    <span *ngIf="this.documento.situacao=='anterior'" class="custom-badge status-orange">Anterior</span>
+                  </aside>
+                </nav>
+                <div class="col-sm-12">
+                  <aside *ngIf="carregarDocumento;else carregarDocumentoVerMensagem">
+                    <div class="container">
+                      <div class="row justify-content-center">
+                        Carregando documento ...
+                        <div class="col-sm-12 text-center">
+                          <div class="spinner-border text-primary" style="width: 2rem; height: 2rem;" role="status">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </aside>
+                  <ng-template #carregarDocumentoVerMensagem>
+                    <aside *ngIf="fileUrl; else verMensagem">
+                      <iframe [src]="fileUrl" width="100%" height="700px"></iframe>
+                    </aside>
+                    <ng-template #verMensagem>
+                      <div class="container">
+                        <div class="row justify-content-center">
+                          <div class="col-sm-12 text-center">
+                            Sem documento adicionado
+                          </div>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </ng-template>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              <span class="fa fa-close m-r-2"></span>Fechar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

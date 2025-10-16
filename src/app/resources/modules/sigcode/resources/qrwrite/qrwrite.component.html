@@ -1,0 +1,40 @@
+<div class="row section_main" style="width:100%;margin-left:0%">
+    <br>
+    <div class="d-xl-flex d-sm-grid w-100 justify-content-center shadow " style="margin-top: 20px;">
+
+        <div class="d-grid w-50  col-sm-6" style="height:100%;margin-left:20px;">
+            <div class="w-100 " style="color:var(--primary-color);height:100px;text-align:center;padding-top: 30px;">
+                <h4 style="font-size: 30px;font-style:bold;font-weight: 600;text-align:left;margin-left:20px;">Gerador
+                    de codigo Qr
+                </h4>
+                <div class="form-group w-75 border-0 border-transparent ml-3" style="margin-top: 5%;">
+                    <label for="Agente" style="margin-left:20px;" class="text-left">Texto:</label> <br>
+                    <textarea name="qrnome" id="" [(ngModel)]="valor" style="height:200px;width: 100%;"></textarea>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="d-grid w-50 col-xl col-sm-12 justify-content-center col-sm-6"
+            style="display:grid;justify-content:center;height:100%;margin-top:2%;margin-bottom:0%;">
+            <div class="d-grid w-100" style="height:80%;">
+                <div class="qrcodeImage">
+                    <qrcode [qrdata]="valor==null?'sem texto na area':valor" [allowEmptyString]="true" formControlName="qr_codes"
+                        [ariaLabel]="'Neste momento estou a pensar em dormir um pouco'" [cssClass]="'center'"
+                        [colorDark]="'#041b43'" [colorLight]="'#fff'" [elementType]="'canvas'"
+                        [errorCorrectionLevel]="'M'" [imageHeight]="75" [imageWidth]="75" [margin]="4" [scale]="1"
+                        [title]="'qrcode'" (qrCodeURL)="getQr($event)" [width]="400"></qrcode>
+                </div>
+                <div class="d-flex w-100" style="margin-top:-15%;">
+                    <button class="bt_layout w-75 col-sm-12 col-xl" >
+                        &nbsp;
+                        <a [href]="link" [class]="valor==null?'disabled':'w-100 col-sm-12 col-xl h-100'" download="qrcode.png" style="text-decoration: none; color: white;" >Baixar Qr</a>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+</div>

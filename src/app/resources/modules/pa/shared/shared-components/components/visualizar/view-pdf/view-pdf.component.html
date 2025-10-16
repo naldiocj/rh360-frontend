@@ -1,0 +1,47 @@
+<div
+  class="modal fade"
+  id="view-pdf-solicitacao-agente"
+  aria-labelledby="view-pdf-solicitacao-agente"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog modal-xl"
+    role="document"
+    style="overflow-y: hidden; min-width: 30%"
+  >
+    <div class="modal-content view-pdf">
+      <div class="modal-header">
+        <h5 class="title-header text-light">
+          <i class="fa fa-calendar"></i>
+          Visualização de documento da solicitação de
+          {{ this.tratamento?.tipo_evento_nome }} do agente de NAS {{this.funcionario?.numero_agente}} | NIP {{this.funcionario?.nip}}
+        </h5>
+
+        <button
+          type="button"
+          class="close"
+          id="btn-close-modal"
+          data-dismiss="modal"
+
+        >
+          <i class="fa fa-close text-danger"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="content">
+          <div class="row">
+            <div class="col-12" *ngIf="this.fileUrl">
+              <iframe
+                [src]="this.fileUrl"
+                frameborder="0" 
+                class="w-100"
+                [style]="{ minHeight: '80vh' }"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,125 @@
+import { Deserializable } from './deserializable.model';
+
+export interface User {
+    id: number;
+    nome_completo: string;
+    email: string;
+    username?: string;
+    pessoas_id?: number;
+    activo?: number;
+    aceder_todos_agentes?: boolean;
+    aceder_painel_piips?: boolean;
+    [key: string]: any;
+}
+
+export interface Orgao {
+    id: number;
+    nome: string;
+    sigla: string;
+    [key: string]: any;
+}
+
+export interface Role {
+    id: number;
+    name: string;
+    [key: string]: any;
+}
+
+export interface ModuleConfig {
+    sigla?: string;
+    [key: string]: any;
+}
+
+export interface TokenData {
+    user: User;
+    role: Role;
+    permissions: string[];
+    modules: ModuleConfig;
+    pessoa: {
+        id: number;
+        [key: string]: any;
+    };
+    orgao: Orgao;
+}
+
+export class Token implements Deserializable {
+    type: string;
+    token: string;
+    refreshToken?: string;
+    data: TokenData;
+    user: User;
+    orgao: Orgao;
+
+    constructor() {
+        this.type = '';
+        this.token = '';
+        this.data = {
+            user: { id: 0, nome_completo: '', email: '' },
+            orgao: { id: 0, nome: '', sigla: '' },
+            role: { id: 0, name: '' },
+            permissions: [],
+            modules: {},
+            pessoa: { id: 0 }
+        };
+        this.user = this.data.user;
+        this.orgao = this.data.orgao;
+    }
+
+    private ensureUserFields(user: any): User {
+        return {
+            id: user?.id || 0,
+            nome_completo: user?.nome_completo || '',
+            email: user?.email || '',
+            username: user?.username,
+            pessoas_id: user?.pessoas_id,
+            activo: user?.activo || 0,
+            aceder_todos_agentes: !!user?.aceder_todos_agentes,
+            aceder_painel_piips: !!user?.aceder_painel_piips,
+            ...user
+        };
+    }
+
+    private ensureOrgaoFields(orgao: any): Orgao {
+        return {
+            id: orgao?.id || 0,
+            nome: orgao?.nome || '',
+            sigla: orgao?.sigla || '',
+            ...orgao
+        };
+    }
+
+    deserialize(input: any): this {
+        if (!input) {
+            throw new Error('Input cannot be null or undefined');
+        }
+
+        if (!input.token || typeof input.token !== 'string') {
+            throw new Error('Token must be a valid string');
+        }
+
+        if (!input.type || typeof input.type !== 'string') {
+            throw new Error('Type must be a valid string');
+        }
+
+        this.type = input.type;
+        this.token = input.token;
+        this.refreshToken = input.refreshToken;
+
+        const userData = input.user || input.data?.user || {};
+        const orgaoData = input.orgao || input.data?.orgao || {};
+
+        this.user = this.ensureUserFields(userData);
+        this.orgao = this.ensureOrgaoFields(orgaoData);
+        
+        this.data = {
+            user: this.user,
+            orgao: this.orgao,
+            role: input.role || input.data?.role || { id: 0, name: '' },
+            permissions: input.permissions || input.data?.permissions || [],
+            modules: input.modules || input.data?.modules || {},
+            pessoa: input.pessoa || input.data?.pessoa || { id: 0 }
+        };
+
+        return this;
+    }
+}

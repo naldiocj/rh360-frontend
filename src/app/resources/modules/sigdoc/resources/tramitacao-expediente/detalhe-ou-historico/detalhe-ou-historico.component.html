@@ -1,0 +1,51 @@
+                    <!-- Modal de Detalhe do Documento -->
+                    <div class="modal fade" id="ver-detalhe-documento" tabindex="-1" role="dialog" aria-labelledby="detalheModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header bg-primary text-white">
+                            <h5 class="modal-title" id="detalheModalLabel">Detalhe do Documento</h5>
+                            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <div *ngIf="detalhedocumento; else loadingTemplate">
+                              <h4 class="text-center"><strong>Nº do {{ detalhedocumento.tipo_correspondencia }}: </strong>{{ detalhedocumento.numeroOficio || 'Documento Sem Número' }}</h4>
+                              <hr>
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <p><strong>Nº Referência:</strong> {{ detalhedocumento.referenciaDoc }}</p>
+                                  <p><strong>Natureza:</strong> {{ detalhedocumento.tipo_natureza }}</p>
+                                  <p><strong>Data da Elaboração:</strong> {{ detalhedocumento.data }}</p>
+                                  <p><strong>Nome do Remitente:</strong> {{ detalhedocumento.nomeRemetente }}</p>
+                                </div>
+                                <div class="col-md-6">
+                                  <p><strong>Tipo Proveniência:</strong> {{ detalhedocumento.tipo_proveniencia }}</p>
+                                  <p><strong>Tipo Documento:</strong> {{ detalhedocumento.tipo_correspondencia }}</p>
+                                  <p><strong>Data da Entrada:</strong> {{ detalhedocumento.created_at }}</p>
+                                  <p><strong>Contacto do Remitente:</strong> {{ detalhedocumento.contactoRemetente }}</p>
+                                </div>
+                              </div>
+                              <hr>
+                              <p><strong>Proveniência:</strong>  {{ detalhedocumento.orgao_id ? detalhedocumento.orgao_id : detalhedocumento.provenienciaDoc | uppercase }} - {{detalhedocumento.proveniencia}}</p>
+                              <hr>
+                              <p><strong>Assunto:</strong></p>
+                              <p>{{ detalhedocumento.assunto || 'Descrição não disponível.' }}</p>
+                              <hr>
+                              <p><strong>Acusar a Recepção:</strong> {{ detalhedocumento.nome_usuario }}</p>
+                            </div>                            
+                            <ng-template #loadingTemplate>
+                              <div class="text-center">
+                                <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status"></div>
+                                <p>Carregando detalhes do documento...</p>
+                              </div>
+                            </ng-template>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            <!--button type="button" class="btn btn-primary" (click)="downloadDocumento(detalhedocumento)">Baixar Documento</button-->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Fim da Modal de Detalhe do Documento -->

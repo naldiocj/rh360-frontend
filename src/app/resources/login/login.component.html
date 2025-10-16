@@ -1,0 +1,77 @@
+<body class="base" [ngStyle]="{'background-color':useColor}">
+  <section class="container mx-auto" [ngStyle]="{'background-color':useColor}">
+    <div class="back" [style]="this.alterarSenha ? 'height:700px' : ''">
+      <div class="itens">
+        <img class="bg_img" style="width: 550px;" [src]="logoBack" alt="Logo" />
+        <p><b [ngStyle]="{'color':useColor}">{{siglaPrincipal}}</b></p>
+      </div>
+    </div>
+    <div class="form login">
+      <div class="form-content">
+        <header>
+          <img style="width: 100px; margin-bottom: 20px;" [src]="logoPath" alt="Logo" />
+        </header>
+        <p class="title-bellow-img" style="text-align: center; font-weight: bold; font-size: 14px;">
+          {{introApp}}
+        </p>
+        <br />
+        <p class="center-title">{{siglaPrincipal}}</p>
+        <form [formGroup]="loginForm">
+          <div class="field input-field d-flex align-items-center" [ngStyle]="{'background-color':useColor}">
+            <input type="email" formControlName="email" placeholder="E-mail" style="padding-right: 35px;" />
+            <i class="bi bi-envelope-at" style="width: 20px; margin-left: -30px; font-size: 18px;"></i>
+          </div>
+
+          <div class="field input-field" *ngIf="this.inserirSenha" [ngStyle]="{'background-color':useColor}">
+            <input formControlName="password" [placeholder]="this.inserirSenha ? 'Senha' : 'Senha antiga'"
+              type="password" id="password" style="padding-right: 35px;" />
+            <i class="bi bi-eye-fill" style="width: 20px; margin-left: -30px; font-size: 18px;"
+              (click)="mostrarSenha('password', $event)"></i>
+          </div>
+
+          <div class="field input-field" *ngIf="this.alterarSenha" [ngStyle]="{'background-color':useColor}">
+            <input formControlName="novaPassword" placeholder="Nova senha" type="password" id="novaPassword"
+              style="padding-right: 35px;" />
+            <i class="bi bi-eye-fill" style="width: 20px; margin-left: -30px; font-size: 18px;"
+              (click)="mostrarSenha('novaPassword', $event)"></i>
+          </div>
+          <div class="field input-field" *ngIf="this.alterarSenha" [ngStyle]="{'background-color':useColor}">
+            <input formControlName="confirmarPassword" placeholder="Confirmar senha" type="password" id="novaPassword_"
+              style="padding-right: 35px;" />
+            <i class="bi bi-eye-fill" style="width: 20px; margin-left: -30px; font-size: 18px;"
+              (click)="mostrarSenha('novaPassword_', $event)"></i>
+          </div>
+
+          <aside *ngIf="this.inserirSenha; else naoForcarAlterarSenhaDoUtilizador">
+            <div class="field button-field" [ngStyle]="{'background-color':useColor}">
+              <button (click)="onSubmit()" [disabled]="this.isLoading">
+                <div class="d-flex justify-content-center">
+                  <div class="spinner-border spinner-border-sm m-1" *ngIf="this.isLoading"></div>
+                  <b *ngIf="this.isLoading">Carregando ...</b>
+                  <b *ngIf="!this.isLoading">
+                    <aside *ngIf="this.alterarSenha; else ifalterarSenha">
+                      Alterar
+                    </aside>
+                    <ng-template #ifalterarSenha>Entrar</ng-template>
+                  </b>
+                </div>
+              </button>
+            </div>
+          </aside>
+          <ng-template #naoForcarAlterarSenhaDoUtilizador>
+            <div class="field button-field" [ngStyle]="{'background-color':useColor}">
+              <button (click)="buscarUtilizador()" [disabled]="this.isLoading">
+                <div class="d-flex justify-content-center">
+                  <div class="spinner-border spinner-border-sm m-1" *ngIf="this.isLoading"></div>
+                  <b *ngIf="this.isLoading">Carregando ...</b>
+                  <b *ngIf="!this.isLoading">Buscar</b>
+                </div>
+              </button>
+            </div>
+        
+          </ng-template>
+        </form>
+      </div>
+    </div>
+  </section>
+</body>

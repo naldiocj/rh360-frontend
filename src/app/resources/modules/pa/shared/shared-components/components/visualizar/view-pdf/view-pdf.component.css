@@ -1,0 +1,5 @@
+.view-pdf{
+  border: none;
+  border-radius: 0px;
+  background-color: var(--bg-color);
+}

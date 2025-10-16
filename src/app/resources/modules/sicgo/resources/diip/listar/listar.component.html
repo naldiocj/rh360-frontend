@@ -1,0 +1,365 @@
+
+
+
+<section class="d-flex">
+  <div class="col-112">
+    <div class="row">
+  <div class="row col-lgkv-1 ml-5 col-md-10 col-sm-10 mb-10">
+    <div class="bg-light row">
+      <div class="col-xl-3 col-sm-3 col-lg-3 col-md-12">
+        <div class="p-1 rounded">
+          <h1>Diip</h1>
+          <p class="lead" style="font-size:small">Direcção De Informações Policiais.</p>
+        </div>
+      </div>
+      <div class="col-xl-9 col-sm-9 col-lg-9 col-md-12 col-sm-12">
+        <div class="row">
+          <div class="col1">
+            <div class="row">
+              <div class="col-xl-5 col-lg-12 col-md-12 col-sm-12">
+
+                <button type="button"  flow="down" class="btn btn-primary" data-target="#modalRegistarOuEditar"  data-bs-toggle="modal" data-bs-target="#modalRegistarOuEditar"  >&nbsp;&nbsp;<i class="fa fa-plus"></i> &nbsp; Novo</button>
+                     
+              <!-- Example single danger button -->
+                <div class="btn-group">
+                  <button type="button" data-toggle="dropdown" class="dropdown dropdown-toggle btn btn-piips btn-primary m-0 py-2 ml-3 rounded">
+                    <i class="bi bi-printer-fill"></i>
+                    &nbsp; Relatorios &nbsp;
+                  </button>
+                  <ul class="dropdown-menu  dropdown-menu-arrow ">
+                    <li class="dropdown-header text-center">
+                      <h6>Relatorios Operacionais</h6>
+                    </li>
+                    <li>
+                      <hr class="dropdown-divider" />
+                    </li>
+
+                    <li class="dropdown-item mt-1">
+
+                      <a
+                        class="dropdown-item btn btn-piips btn-primary m-0 py-2 rounded d-flex align-items-center text-white"
+                        style="cursor: pointer" [routerLink]="['/piips/sicgo/piquete/relatorio']"
+                        routerLinkActive="active" aria-current="page">
+                        <i class="bi bi-person-fill"></i>
+                        <span>Relatório Geral</span>
+                      </a>
+                    </li>
+                    <li class="dropdown-item mt-1">
+
+                      <a
+                        class="dropdown-item btn btn-piips btn-primary m-0 py-2 rounded d-flex align-items-center text-white"
+                        style="cursor: pointer" data-toggle="modal" data-target="#modalRegistarOuEditar"
+                      >
+                        <i class="bi bi-person-fill"></i>
+                        <span>Relatório Geral</span>
+                      </a>
+                    </li>
+
+                    <li class="dropdown-item mt-1">
+                       <a
+                       style="cursor: pointer" class="dropdown-item d-flex align-items-center  text-white">
+                        <i class="bi fa-birthday-cake"></i>
+                        <span>Relatorios Mensal</span>
+                      </a>
+                      </li>
+                      <li class="dropdown-item mt-1">
+                      <a
+                        class="dropdown-item d-flex align-items-center text-white"
+                        href="#"
+                        ><span>Relatorios Semanal</span></a
+                      >
+                    </li>
+                      <li class="dropdown-item mt-1">
+                      <a
+                        class="dropdown-item d-flex align-items-center text-white"
+
+                        ><span>Relatorios Trimestral</span></a
+                      >
+                    </li>
+
+                    <li>
+                      <hr class="dropdown-divider" />
+                    </li>
+
+                    <li class="dropdown-item mt-1">
+                      <a
+                        class="dropdown-item d-flex align-items-center"
+
+                        style="cursor: pointer"
+                      >
+                        <i class="bi bi-power"></i>
+                        <span>Relatorio</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-xl-7 col-lg-12 col-md-12 col-sm-12">
+                <div class="d-flex justify-content-between align-items-center">
+                  <select title="kivova" class="form-control input-piips-search btn-piips-select w-25 custom-selec"
+                    (change)="filtrarPagina($event,'perPage')">
+                    <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">
+                      {{ item }}
+                    </option>
+                  </select>
+                  <input class="form-control mr-sm-1 input-piips-search" type="text" [ngModel]="filtro.search"
+                    (ngModelChange)="filtrarPagina($event,'search')" placeholder="Pesquisa ..." />
+                  <button data-bs-target="#ToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                    aria-expanded="false" aria-label="Toggle navigation"
+                    class="input-piips-search btn-piips-button w-50 " type="button" data-bs-toggle="collapse">
+
+                    <i class="bi bi-filter toggle-sidebar-btn"></i>
+                    Filtros
+                  </button>
+                  <button (click)="this.recarregarPagina()" class="btn w-50 navbar-toggler btn-piips-filter"
+                    type="submit">
+                    <i style="font-size: 14px" class="fa fa-refresh fa-spin fa-3x fa-fw"></i> Limpar Filtro
+                  </button>
+                </div>
+              </div>
+              </div>
+          </div>
+
+          <div class="col2">
+          <div class="col-xl-11 col-lg-12 col-md-12 col-sm-12">
+            <div class="legend">
+              <span class="legend-item" *ngFor="let item of this.estados">
+                <div class="legend-color btn" [style.backgroundColor]="item.cor"></div>
+                <span class="legend-text">{{ item.texto }}</span>
+              </span>
+            </div>
+          </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+    </div>
+
+    <h2>Lista de Expedientes / Processos Crime</h2>
+ 
+    <h2>Expedientes para o Ministério Público</h2>
+  
+    <section class="">
+      <div class="  col-lg-12 col-md-12 col-sm-12 mb-12" *ngIf="this.ocorrencias.length == 0">
+        <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+          <div class="container-fluid py-2">
+            <h1 class="display-5 fw-bold">SICGO</h1>
+            <p class="col-md-8 fs-1">Bem Vindo.</p>
+            <span class="col-lg-7 col-md-7 col-sm-7">
+              Vamos procesar os dados.. Faça o registo da ocorrencia.
+            </span>
+           </div>
+        </div>
+
+    </div>
+    <div *ngIf="resultado">
+      <h3>Expediente Criado:</h3>
+      <pre>{{ resultado | json }}</pre>
+    </div>
+    <div *ngIf="this.ocorrencias.length > 0">
+      <table class="table table-striped "  #tableToPrint>
+        <thead class="table-thead">
+          <tr>
+            <th scope="col">
+              <div class="checkboxes__items">
+                <label class="checkbox style-c">
+                  <input title="f" type="checkbox" type="checkbox"  
+                     />
+                  <div class="checkbox__checkmark hover:bg-muted-100 dark:hover:bg-muted-700/70"></div>
+                </label>
+              </div>
+            </th>
+            <th scope="col"  class="text-justify">#</th> 
+            <th scope="col" class="text-justify">Cód. do sistema</th>
+            <th scope="col" class="text-justify">Familia de Crime</th>
+            <th scope="col" class="text-justify">Tipo de Crime</th>
+            <th scope="col" class="text-justify">Tipicidade</th>
+            <th scope="col" class="text-justify">Importancia</th>
+            <th scope="col" class="text-justify">Tipo de Local</th>
+            <th scope="col" class="text-justify">Local Ocorrido</th>
+            <th scope="col" class="text-justify">Provincia</th>
+            <th scope="col" class="text-justify">Municipio</th>
+            <th scope="col" class="text-justify">Data</th>
+            <th>Status</th>
+            <th>NUP</th>
+            <th scope="col" class="text-right">Opçõens</th>
+          </tr>
+        </thead>
+
+        <tbody class="table-tbody">
+          <tr *ngFor="
+            let item of this.ocorrencias
+              | paginate
+                : {
+                    id: 'idOcorrencia',
+                    itemsPerPage: this.pagination.per_page,
+                    currentPage: this.pagination.current_page,
+                    totalItems: this.pagination.total
+                  };
+            index as i
+          ">
+
+            <td>
+               
+              <!-- Toggle Button Style 7 -->
+              <div class="checkboxes__item">
+                <label class="checkbox style-c">
+                  <input title="f" type="checkbox" [id]="item.id"   
+                  [(ngModel)]="item.selected" 
+                   
+                    />
+                  <div class="checkbox__checkmark hover:bg-muted-100 dark:hover:bg-muted-700/70"></div>
+                </label>
+              </div>
+            </td>
+
+            <td>
+              <span class="legend-item align-items-center">
+                <ng-container *ngIf="item.estado == 'P'; else elseTemplate">
+                   <div class="table-legend-color btn alerta-piscante align-items-center" [style.backgroundColor]="item.cor"><i class="bi bi-info-lg me5"></i></div>
+                </ng-container>
+                <ng-template #elseTemplate>
+                  <div class="table-legend-color btn align-items-center" [style.backgroundColor]="item.cor"><i class="bi bi-info-lg me5"></i></div>
+                </ng-template>
+
+              </span>
+            </td> 
+
+            <td class="text-left" (click)="toggle(item)">
+              {{ item.codigo_sistema }}
+            </td>
+
+            <td (click)="toggle(item)">
+              {{ item.tipicidade_ocorrencia | slice : 0 : 20 }}..
+            </td>
+            <td (click)="toggle(item)">
+              {{ item.tipo_ocorrencia | slice : 0 : 20 }}..
+            </td>
+            <td (click)="toggle(item)">
+              {{ item.categoria | slice : 0 : 20 }}..
+            </td>
+            <td class="text-center" (click)="toggle(item)"> 
+                {{ item.importancia ?? "S/N" }}
+            </td>
+            <td  class="text-center" (click)="toggle(item)">
+                {{ item.tipo_local ?? "S/N" }}
+            </td>
+
+            <td  class="text-center" (click)="toggle(item)"> 
+                {{ item.local ?? "S/N" }} 
+            </td>
+
+            <td (click)="toggle(item)">
+                {{ item.provincia ?? "S/N" | slice : 0 : 10 }}
+            </td>
+            <td (click)="toggle(item)">
+                {{ item.municipio ?? "S/N" | slice : 0 : 10 }}  
+            </td>
+
+            <td (click)="toggle(item)">
+              
+                {{ item.data_ocorrido ?? "S/N" }}
+              
+            </td>
+            <td>{{ item.status }}</td>
+          <td>{{ item.nup || '-' }}</td>
+          
+          <td class="text-right">
+            <!-- Botão para Remeter Ministério aparece apenas se o expediente estiver no status adequado -->
+              <!-- Botões aparecem conforme o status atual -->
+              <button (click)="transformar(item)">Transformar em Expediente</button>
+              <button (click)="remeterMinisterio(item.id)" *ngIf="item.status === 'Despacho Secretaria'">Remeter Ministério</button>
+              <button (click)="receberOpcs(item.id)" *ngIf="item.status === 'Remetido Ministério Público'">Receber OPCs</button>
+              <button (click)="distribuirChefia(item.id)" *ngIf="item.status === 'Recebido OPCS'">Distribuir Chefia</button>
+              <button (click)="distribuirDepartamento(item.id)" *ngIf="item.status === 'Distribuído à Chefia'">Distribuir Departamento</button>
+              <button (click)="iniciarInstrucao(item.id)" *ngIf="item.status === 'Distribuído ao Departamento'">Iniciar Instrução</button>
+              <button (click)="concluir(item.id)" *ngIf="item.status === 'Em Instrução'">Concluir</button>
+              <button (click)="remeterMinisterio(item.id)" *ngIf="item.status === 'Despacho Secretaria'">
+                Remeter Ministério
+              </button>
+              <div class="dropdown dropdown-action">
+                <a href="#"   class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                  <i class="fa fa-ellipsis-v"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right  dropdown-menu-arrow">
+                  
+
+                   
+                  
+                  <hr>
+                  <a data-toggle="modal" class="dropdown-item" data-target="#modalRegistarOuEditarLinkar"
+                    (click)="KV(item.id)">
+                    <i class="fa fa-link m-r-5"></i>
+                     Associar Suspeito
+                  </a> 
+                  
+                </div>
+              </div>
+            </td>
+            
+
+          </tr>
+
+          <tr>
+            
+            <td colspan="9">
+              Mostrando de {{ this.pagination.current_page }} a
+              {{ this.pagination.per_page }} de {{ this.pagination.total }}
+              <aside *ngIf="this.pagination.total < 2; else outrosRegistos">
+                  registos
+              </aside>
+              <ng-template #outrosRegistos>registos</ng-template>
+            </td>
+            <td colspan="5">
+              <div class="float-right">
+                <pagination-controls id="idOcorrencia" (pageChange)="this.filtrarPagina('page', $event, false)"
+                [directionLinks]="true" [autoHide]="false" previousLabel="Anterior" nextLabel="Próximo" [maxSize]="4"
+                [responsive]="true"></pagination-controls>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+     
+    </div>
+    </section>
+</div>
+<div>
+  <diip-view [expediente]="'expedienteSecretaria'" (eventRegistarOuEditar)="buscarOcorrencias()"></diip-view>
+</div>
+</section>
+
+
+ 
+
+<app-sicgo-diip-registar-ou-editar></app-sicgo-diip-registar-ou-editar>
+
+
+
+
+
+
+
+
+
+
+
+<!-- <td class="text-right">
+  <div class="dropdown dropdown-action">
+    <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
+        class="fs-2 bi bi-three-dots-vertical"></i>
+    </a>
+    <div class="dropdown-menu dropdown-menu-right  dropdown-menu-arrow">
+
+
+      <a class="dropdown-item" (click)="setmodal(item.id)" href="#" data-toggle="modal" data-target="#entidadeIdentificadora">
+        <i class="bi bi-"></i>
+        Indedade
+      </a>
+    </div>
+  </div>
+</td> -->

@@ -1,0 +1,82 @@
+fieldset {
+    background-color: #eeeeee;
+}
+
+legend {
+    background-color: var(--use-color);
+    color: white;
+    padding: 5px 10px;
+}
+
+
+.header-ficha {
+    width: 100%;
+    background-color: var(--use-color);
+    margin: 0 auto;
+    padding: .8rem;
+    color: var(--light-white);
+}
+
+.header-ficha h1 {
+    font-size: 1.5vw;
+}
+
+.header-ficha h3 {
+    font-size: 1vw;
+}
+
+.legend-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+  
+  .legend-color {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+  }
+
+  .header-ficha {
+    width: 100%;
+    background-color: var(--use-color);
+    margin: 0 auto;
+    padding: .8rem;
+    color: var(--light-white);
+}
+
+.header-ficha h1 {
+    font-size: 1.5vw;
+}
+
+.header-ficha h3 {
+    font-size: 1vw;
+}
+
+.titulo {
+    font-size: 1rem!important;
+    font-weight: normal;
+}
+
+th{
+    background: var(--use-color);
+    color: white;
+    
+}
+
+fieldset {
+    background-color: #eeeeee;
+}
+
+legend {
+    background-color: var(--use-color);
+    color: white;
+    padding: 5px 10px;
+}
+
+    
+    
+    
+    

@@ -1,0 +1,78 @@
+import { Injectable } from "@angular/core";
+import { ApiService } from "@core/providers/http/api.service";
+import { debounceTime, map, Observable } from 'rxjs';
+import  { HttpHeaders } from "@angular/common/http" 
+
+
+@Injectable({
+    providedIn: 'root',
+})
+
+ 
+export class UtilizadorService {
+
+    public api: string = '/api/v1';
+    public base: string = this.api + '/sigpj/utilizador';
+
+    constructor(private httpApi: ApiService) { }
+
+    listar(options: any): Observable<any> {
+     
+        return this.httpApi
+            .get(`${this.base}`, options)
+            .pipe(
+                debounceTime(500),
+                map((response: Object): any => {
+                    return Object(response).object;
+                })
+            )
+             
+    } 
+
+    registar(item: any): Observable<any> {
+        console.log(item);
+
+        return this.httpApi
+            .post(`${this.base}`, item)
+            .pipe(
+                debounceTime(500),
+                map((response: Object): any => {
+                    return Object(response).object;
+                })
+            )
+    }
+    
+    editar( item: any, id: number ): Observable<any> {
+        return this.httpApi
+            .put(`${this.base}/${id}`, item)
+            .pipe(
+                debounceTime(500),
+                map((response: Object): any => {
+                    return Object(response).object;
+                })
+            )
+    }
+    eliminar( item:any ,id: number ): Observable<any> {
+        return this.httpApi
+            .put(`${this.base}/eliminar/${id}`, item)
+            .pipe(
+                debounceTime(500),
+                map((response: Object): any => {
+                    return Object(response).object;
+                })
+            )
+    }
+
+    verUm(id:any): Observable<any> {
+        return this.httpApi
+            .get(`${this.base}/${id}`)
+            .pipe(
+                debounceTime(500),
+                map((response: Object): any => {
+                    return Object(response).object;
+                })
+            )
+    }
+
+
+}

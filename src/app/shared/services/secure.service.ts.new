@@ -1,0 +1,117 @@
+import { Injectable } from '@angular/core';
+import { Token, TokenData } from '../models/token.model';
+
+@Injectable({
+    providedIn: 'root'
+})
+export class SecureService {
+    private readonly TOKEN_KEY = 'token';
+    private tokenInstance: Token | null = null;
+
+    constructor() {
+        this.loadToken();
+    }
+
+    private loadToken(): void {
+        try {
+            const storedToken = localStorage.getItem(this.TOKEN_KEY);
+            if (storedToken) {
+                this.tokenInstance = new Token().deserialize(JSON.parse(storedToken));
+            }
+        } catch (error) {
+            console.error('Error loading token:', error);
+            this.clearToken();
+        }
+    }
+
+    getToken(): Token | null {
+        return this.tokenInstance;
+    }
+
+    setToken(token: Token | null): void {
+        this.tokenInstance = token;
+        if (token) {
+            localStorage.setItem(this.TOKEN_KEY, JSON.stringify(token));
+        } else {
+            this.clearToken();
+        }
+    }
+
+    clearToken(): void {
+        this.tokenInstance = null;
+        localStorage.removeItem(this.TOKEN_KEY);
+    }
+
+    getTokenValue(): string {
+        return this.tokenInstance?.token || '';
+    }
+
+    getTokenValueDecode(): TokenData | null {
+        try {
+            if (!this.tokenInstance?.token) {
+                return null;
+            }
+
+            const base64Url = this.tokenInstance.token.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+
+            return JSON.parse(jsonPayload) as TokenData;
+        } catch (error) {
+            console.error('Error decoding token:', error);
+            return null;
+        }
+    }
+
+    getUser() {
+        return this.tokenInstance?.user || null;
+    }
+
+    getUserId(): number {
+        return this.tokenInstance?.user?.id || 0;
+    }
+
+    getOrgao() {
+        return this.tokenInstance?.orgao || null;
+    }
+
+    getOrgaoId(): number {
+        return this.tokenInstance?.orgao?.id || 0;
+    }
+
+    isAuthenticated(): boolean {
+        return !!this.tokenInstance?.token;
+    }
+
+    hasPermission(permission: string): boolean {
+        const decodedToken = this.getTokenValueDecode();
+        return decodedToken?.permissions?.includes(permission) || false;
+    }
+
+    hasAnyPermission(permissions: string[]): boolean {
+        const decodedToken = this.getTokenValueDecode();
+        return permissions.some(permission => 
+            decodedToken?.permissions?.includes(permission)
+        ) || false;
+    }
+
+    hasModule(moduleId: string): boolean {
+        const decodedToken = this.getTokenValueDecode();
+        return !!decodedToken?.modules?.[moduleId];
+    }
+
+    getModuleConfig(moduleId: string): any {
+        const decodedToken = this.getTokenValueDecode();
+        return decodedToken?.modules?.[moduleId] || null;
+    }
+
+    canAccessAllAgents(): boolean {
+        return !!this.tokenInstance?.user?.aceder_todos_agentes;
+    }
+
+    canAccessPiipsPanel(): boolean {
+        return !!this.tokenInstance?.user?.aceder_painel_piips;
+    }
+}

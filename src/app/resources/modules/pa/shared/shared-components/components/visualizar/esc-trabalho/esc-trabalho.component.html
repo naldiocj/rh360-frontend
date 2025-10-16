@@ -1,0 +1,224 @@
+<div class="modal fade" id="view-escala-trabalho">
+  <div
+    class="modal-dialog modal-xl modal-dialog-scrollable"
+  >
+    <div class="modal-content rounded-0 p-0 ">
+      <div class="card rounded-0 p-0 shadow border-0">
+        <div class="card-body rounded-0 p-0 border-0">
+          <div class="row">
+            <div class="col-xl-4 col-lg-5 col-sm-12 col-sm-12">
+              <div class="content-top card-content">
+                <div class="row row-gap-4">
+                  <div
+                    class="col-xl-12 col-lg-12 col-md-12 col-sm-12 d-flex align-items-center justify-content-between"
+                  >
+                    <h5 class="card-title some-info fw-bolder">
+                      Escala de Trabalho enviado
+                    </h5>
+                    <button
+                      data-dismiss="modal"
+                      class="bg-transparent border-0 p-2"
+                      (click)="fecharModal()"
+                      id="close-view"
+                    >
+                      <i
+                        class="bi bi-x-circle-fill text-light"
+                        style="font-size: 1.6rem"
+                      ></i>
+                    </button>
+                  </div>
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <div class="row row-gap-3">
+                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                        <ng-container *ngIf="this.fileUrl; else semImage">
+                          <img
+                            [src]="this.fileUrl"
+                            alt="Image-Agente"
+                            class="rounded my-2 img-fluid shadow"
+                          />
+                        </ng-container>
+                        <ng-template #semImage>
+                          <img
+                            src="assets/img/user.jpg"
+                            alt="Image-Agente"
+                            class="rounded my-2 img-fluid shadow"
+                          />
+                        </ng-template>
+                      </div>
+                      <div
+                        class="col-xl-12 col-lg-12 col-md-12 col-sm-12 d-flex flex-column row-gap-4 image-fundo"
+                      >
+                        <div class="row">
+                          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                            <span class="content-text">
+                              {{ this.getFuncionario?.patente_nome }}
+                            </span>
+                          </div>
+                          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                            <span class="content-text">
+                             NAS {{ this.getFuncionario?.numero_agente }} &nbsp; |
+                              &nbsp; NIP {{ this.getFuncionario?.nip }}
+                            </span>
+                          </div>
+
+                          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                            <span class="content-text">
+                              {{ this.getFuncionario?.nome_completo }}
+                              {{ this.getFuncionario?.apelido }}
+                            </span>
+                          </div>
+                          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 d-flex justify-content-end" *ngIf="this.escala_trabalho?.estado!='E' && !this.isAgente">
+                                <button type="button" class="btn btn-primary shadow" (click)="imprimir($event,'view-escala-trabalho')">
+                                    <i class="fa fa-download"></i> Imprimir
+                                </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-8 col-lg-7 col-sm-12 col-sm-12">
+              <div class="content-bottom card-content">
+                <div class="row row-gap-3">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <div
+                      class="d-flex align-items-center justify-content-center"
+                    >
+                      <span class="content-text"> Escala de trabalho - {{this.escala_trabalho?.direcao_sigla}}</span>
+                      <span
+                        class="p-2 w-25 text-center rounded"
+                        style="color: var(--light-white)"
+                        [style.backgroundColor]="
+                          this.getEstado(this.escala_trabalho?.estado)?.cor
+                        "
+                        >{{
+                          this.getEstado(this.escala_trabalho?.estado)?.nome
+                        }}</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="row row-gap-3">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <span
+                      class="content-text"
+                      style="justify-content: flex-start"
+                    >
+                      Secção : {{ this.escala_trabalho?.seccao }}
+                    </span>
+                  </div>
+                </div>
+                <div class="row row-gap-3">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <span
+                      class="content-text"
+                      style="justify-content: flex-start"
+                    >
+                      Departamento :
+                      {{ this.escala_trabalho?.departamento_sigla }} -
+                      {{ this.escala_trabalho?.departamento }}
+                    </span>
+                  </div>
+                </div>
+                <div class="row row-gap-3">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <span
+                      class="content-text"
+                      style="justify-content: flex-start"
+                    >
+                      Calendário :
+                      {{ this.getData(this.escala_trabalho?.date) }}
+                    </span>
+                  </div>
+                </div>
+                <div class="row row-gap-3">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <span
+                      class="content-text"
+                      style="justify-content: flex-start"
+                    >
+                      Turno :
+                      {{ this.getTurno(this.escala_trabalho?.turno)?.nome }}
+                    </span>
+                  </div>
+                </div>
+                <div class="row row-gap-3">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <span
+                      class="content-text"
+                      style="justify-content: flex-start"
+                    >
+                      Data : &nbsp;
+                      {{ this.escala_trabalho?.data }}
+                    </span>
+                  </div>
+                </div>
+
+                <div
+                  class="row row-gap-3"
+                  *ngIf="this.escala_trabalho?.descricao"
+                >
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <span
+                      class="content-text"
+                      style="justify-content: flex-start"
+                    >
+                      Observação : &nbsp;
+                      {{ this.escala_trabalho?.descricao }}
+                    </span>
+                  </div>
+                </div>
+                <div class="row row-gap-3">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <div
+                      class="d-flex align-items-center justify-content-between"
+                    >
+                      <span
+                        class="content-text"
+                        style="justify-content: flex-start"
+                      >
+                        Enviado por : &nbsp;
+                        {{ this.escala_trabalho?.direcao_sigla }}
+                      </span>
+                      <span
+                        class="content-text"
+                        style="justify-content: flex-start; font-size: 0.8rem;"
+                      >
+                        Enviado : &nbsp;
+                        {{ this.escala_trabalho?.created_at }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row row-gap-3 mt-5" *ngIf="this.isAgente && this.escala_trabalho?.estado=='E'">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <div class="btn-groups d-flex justify-content-end">
+                      <button
+                        class="btn btn-primary"
+                        (click)="setCumprido(this.escala_trabalho?.id)"
+                        data-toggle="modal"
+                        style="border-radius: 5px 0px 0px 5px"
+                      >
+                        Cumprido
+                      </button>
+                      <button
+                        class="btn btn-danger"
+                        data-toggle="modal"
+                        (click)="setNaoCumprido(this.escala_trabalho?.id)"
+                        style="border-radius: 0px 5px 5px 0px"
+                      >
+                        Não Cumprido
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

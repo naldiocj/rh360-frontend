@@ -1,0 +1,129 @@
+<div class="modal fade" id="modalsigpqprovimentopromocaoemtempo" aria-labelledby="modalsigpqprovimentopromocaoemtempo"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document" style="overflow-y: hidden;min-width: 50%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>
+          <i class="fa fa-car"></i>
+          Registar Provimento
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="content">
+
+        <form [formGroup]="this.simpleForm">
+          <div class="col-md-12">
+            <h4 style="color: var(--use-color);" class="page-title"> <b>Formulário de Graduação</b>
+            </h4>
+            <p>
+              <span style="color: var(--use-color);"><b>Att:</b></span> Antes de Prosseguir, visualize se o Funcionário atende
+              com
+              os requisitos da Graduação
+            </p>
+          </div>
+
+          <div class="col-md-12">
+            <div class="row">
+
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label><b>Funcionário</b></label>
+                  <select required class="form-control select" [disabled]="true">
+                    <option value="0">{{this.emTempo?.nome_completo}}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label><b>Patente</b></label>
+                  <select required class="form-control select" [disabled]="true">
+                    <option value="0">{{this.emTempo?.patente_nome}}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label><b>Patente Promovida</b></label>
+                  <ng-select2 [options]="options" formControlName="patente_id" [data]="this.patentes">
+                  </ng-select2>
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label><b>Número do Despacho</b><span class="text-danger"></span></label>
+                  <input type="text" formControlName="numero_despacho" required class="form-control ">
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label><b>Anexo do Despacho</b></label>
+                  <div class="profile-upload">
+                    <div class="upload-img">
+                      <img alt="" src="assets/img/user.jpg">
+                    </div>
+                    <div class="upload-input">
+                      <input type="file" formControlName="anexo" class="form-control">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label><b>Data do Patenteamento</b></label>
+                  <input type="date" formControlName="data_provimento" class="form-control">
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label><b>Acto de Progressão</b></label>
+                  <ng-select2 [options]="options" formControlName="sigpq_acto_progressao_id" [data]="this.actoProgressaos">
+                  </ng-select2>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="modal-footer">
+              <button class="btn btn-danger btn-square" type="reset" (click)="this.reiniciarFormulario()"
+                disabled="true">
+                <span class="fa fa-refresh"></span> Limpar
+              </button>
+              <ng-container *ngIf="this.simpleForm.valid; else ocultarBotao">
+                <aside *ngIf="this.isLoading; else regista">
+                  <button id="bookreset" disabled="true" class="btn btn-primary btnRegistar">
+                    <div class="spinner-border spinner-border-sm m-1"></div>
+                    <a style="text-decoration: none;color: white;"> A
+                      {{ this.buscarId() ? 'Actualizar':'Registar'}} ...</a>
+                  </button>
+                </aside>
+                <ng-template #regista>
+                  <button id="bookreset" (click)="onSubmit()" class="btn btn-primary btnRegistar">
+                    <i class="fa fa-plus-circle"></i>
+                    {{ this.buscarId() ? 'Actualizar':'Registar'}}
+                  </button>
+                </ng-template>
+              </ng-container>
+              <ng-template #ocultarBotao>
+                <button id="bookreset" disabled="true" class="btn btn-primary btnRegistar">
+                  <i class="fa fa-plus-circle"></i>
+                  {{ this.buscarId() ? 'Actualizar':'Registar'}}
+                </button>
+              </ng-template>
+
+            </div>
+
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>

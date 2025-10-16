@@ -1,0 +1,309 @@
+ 
+  
+  <!-- Modal -->
+  <div class="modal fade" id="fichaDelituosoBackdrop" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" #navigationMenu>
+          
+        <div class="modal-bod p-1" *ngIf="this.delituoso" #fichaDelituoso>
+          
+          <div class="ficha-delituoso" *ngFor=" let item of this.delituoso" id="ficha-delituoso" >
+            <header class="col-12 header-ficha">
+                <div class="container text-center">
+                    <div class="rowkv">
+                      <div class="col-8">
+                        <div
+                        class="mt-3 col-xl-12 col-lg-12 col-md-12 col-sm-12 text-center justify-content-center align-items-center column-gap-4">
+                        <div class="image">
+                          <img src="assets/img/insignia.png" alt="image-logo" style="width:70px; height: 70px;">
+                        </div>
+                        <div class="logos mt-3 text-md-center">
+                          <span>REPÚBLICA DE ANGOLA</span> 
+                          <span>
+                            MINISTÉRIO DO INTERIOR
+                          </span>
+                          <span>
+                            POLÍCIA NACIONAL
+                          </span>  
+                        </div>
+                        <div class="logo1s text-md-center"> 
+                          <span  class="bold1">
+                            DIRECÇÃO DE INFORMAÇÕES POLICIAIS<!-- {{this.orgao_nome}} -->
+                          </span>
+                          <label class="bold">
+                           BOLENTIM DE REGISTO POLICIAL
+                          </label>
+                        </div>
+                      </div>
+                      </div> 
+                      <div class="bg-absolute-foto">
+                        <img 
+                            [src]="item.fileUrlFrontal || fotodfault"
+                            alt
+                        > 
+                      </div>
+                    </div>
+                  </div> 
+                  </header> 
+                <section class="the-form">
+                <ul class="grid">
+                  <div class="row dv1">
+                    <div class="col">
+                      <div class="">
+                          <label class="form__label t--label1" for="input1">Numero de Registo: {{item.codigo_sistema}}</label>
+                      </div>
+                    </div>
+                    <div class="col dv">
+                        <div class="">
+                        <label class="form__label t--label1" for="input2">Cadastro nº: {{item.id}}/{{item.created_at}}</label> 
+                        </div>
+                    </div>
+                  </div>
+                
+                <li class="grid__segment w--100">
+                    <div class="form__item">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label class="form__label t--label" for="input3">Nome: {{item.nome| uppercase }}...</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="form__label t--label" for="input3">Alcunha: {{item.alcunha| uppercase }}...</label>
+                        </div>
+                      </div> 
+
+                      <div class="row">
+                        <div class="col-sm-12">
+                            <label class="form__label t--label" for="input3">Filho de...&nbsp;&nbsp;&nbsp;&nbsp;{{item.nome}}&nbsp;&nbsp;&nbsp;...e de&nbsp;&nbsp;&nbsp;{{item.alcunha}}</label>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-sm-12">
+                            <label class="form__label t--label" for="input3">Natural ou Lugar de:&nbsp;{{item.natural}}....&nbsp;&nbsp;Municipio:&nbsp;{{item.municipio}}....&nbsp;&nbsp;Provincia:&nbsp;{{item.provincia}}....&nbsp;&nbsp;De&nbsp;&nbsp;{{item.idade}}&nbsp;&nbsp;Anos de idade...</label>
+                        </div>
+                        <div class="col-sm-12">
+                          <label class="form__label t--label" for="input3">Nascido(a):&nbsp;&nbsp;{{item.dataNascimento | date:'dd/MM/yyyy' }}...&nbsp;&nbsp;&nbsp;Estado Civil:&nbsp;&nbsp;{{item.estado_civil}}...&nbsp;&nbsp;Profissão:&nbsp;&nbsp;{{item.profissao}}...&nbsp;&nbsp;&nbsp;Hab. Literária:&nbsp;&nbsp;{{item.habilitacaoL}}...</label>
+                      </div>
+                       
+                        <div class="col-sm-12">
+                          <label class="form__label t--label" for="input3">Residencia:&nbsp;&nbsp;{{item.residencia}}...&nbsp;&nbsp;NACIONALIDADE:&nbsp;&nbsp;{{item.pais}}....&nbsp;&nbsp;&nbsp;Bilhete de Identidade nº:&nbsp;&nbsp;&nbsp;{{item.numero_identidade}}....&nbsp;&nbsp;</label>
+                         </div>
+                         <div class="col-sm-12">
+                          <label class="form__label t--label" for="input3">Data de Emissão:&nbsp;{{item.dataEmissao}}...&nbsp;&nbsp;Arquivo de Identificação:&nbsp;&nbsp;{{item.tipo_identificao}}...&nbsp;Passaporte nº:&nbsp;{{item.numero_identidade}}...&nbsp;Data Emissão:&nbsp;&nbsp;&nbsp;{{item.dataEmissao}}.... </label>
+                        </div>
+                      </div>
+                    </div>
+                </li>
+                
+                   
+                
+                
+                </ul>
+                
+                <div class="t--div text-justify">
+                  <div class="row">
+                    <div class="col">
+                        <label class="form__label t--xl ml-2 mt-2" for="input4">Data de Entrada em Angola: {{item.dataentrada_angola}}</label>
+                        <label class="form__label t--xl ml-2" for="input4">Fronteira Utilizada: {{item.fronteira}}</label>
+                      
+                    </div>
+                    <div class="col direita ">
+                      
+                        <h2 class="t--labelKV mt-2">Origem</h2>
+                      
+                       
+                    </div>
+                  </div>
+                   
+                </div>
+
+                <!-- ABCD -->
+
+                <div class="t--div text-justify">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="form__label t--labelmo ml-1 p-1 ">Sinais Caracteristicos</h5> 
+                      <div class="t-- ml-2"  *ngFor="let cara of item.caracteristicas">
+                        <label class="form__label t--xl">Altura: {{cara.altura}}</label>
+                        <label class="form__label t--xl">Raça: {{cara.raca}}</label>
+                        <label class="form__label t--xl">Cor dos Olhos: {{cara.cor_olhos}}</label>
+                        <label class="form__label t--xl">Nariz: {{cara.nariz}}</label>
+                        <label class="form__label t--xl">cabelo: {{cara.cabelo}}</label>
+                        <label class="form__label t--xl">Genero: {{cara.genero}}</label>
+                        <label class="form__label t--xl">
+                          Sinais particulare, amputações: 
+                          {{cara.caracteristicas}}
+                        </label>
+                        
+
+                        <div>
+                          
+                        </div>
+                      </div>
+                       
+                      <div class="t--dive text-justify " >
+                           <h5 class="form__label t--labelmo ml-1 p-1 ">Antecedentes Policiais e/ ou Criminais</h5> 
+                        <div class="t-- ml-2 "  *ngFor="let cara of item.antecedentes">
+                          <label class="form__label t--xl" for="input4">crime: {{cara.tipicidade_ocorrencia}}..{{cara.categoria}}</label>
+                          <label class="form__label t--xl" for="input4">descricao: {{cara.descricao}}</label>
+                           
+                          </div>
+                          </div>
+
+
+                        <div class="t--"  *ngFor="let cara of item.ocorrencias">
+                          <label class="form__label t--xl" for="input4">crime: {{cara.tipicidade_ocorrencia}}..{{cara.categoria}}</label>
+                          <label class="form__label t--xl" for="input4">descricao: {{cara.descricao}}</label>
+                           
+                          </div>
+                      
+
+                    </div>
+
+                    
+                    <div class="col direita">
+                      <div class="t-- mt-1" *ngFor=" let origem of item.origem">
+                        <h3 class="form__label t--labelmo" for="select1">Entidade Identificadora: {{origem.entidade_ordem}}</h3>
+                        <label class="form__label t--xl" for="select1">Numero do Processo: {{origem.numero_processo}}</label>
+                        <label class="form__label t--xl" for="select1">Data Detencao: {{origem.data_detencao}}</label>
+                        <label class="form__label t--label" for="select1">Motivo da Detenção: {{origem.tipicidade_crime}}</label> 
+                        <label class="form__label t--label" for="select1">Entidade a ordem:..{{origem.entidade_ordem}}</label> 
+                        <label class="form__label t--label" for="select1">Destino do Detido:..{{origem.destino_detido}}</label>
+                        <hr>
+                        <div class="mt-3" *ngFor=" let resultado of origem.resultado_processo">
+                          <h3 class="form__label t--labelmo" for="select1">Resultado do Processo:..{{resultado.resultado_processo}}</h3>
+                          <label class="form__label t--label" for="select1">Julgado Pelo Crime de:..{{resultado.julgado_pelo_crime}}</label>
+                          <label class="form__label t--label" for="select1">Data do Julgamento:..{{resultado.data_detencao}}</label>
+                          <label class="form__label t--label" for="select1">Extrato da Setença do Tribunal: {{resultado.extrato}}</label> 
+                          </div>
+
+                          <div class="mt-3"  *ngFor=" let situacao of origem.situacao_condenado">
+                             <h3 class="form__label t--labelmo" for="select1">Estabelecimento Prisional...{{situacao.estabelecimento_prisional}}</h3>
+                             <label class="form__label t--label" for="select1">{{situacao.situacao}}...</label>
+                             <label class="form__label t--label" for="select1">Desde..{{situacao.data}}...</label>  
+ 
+                         </div>
+
+                      </div>
+
+                      
+                         
+
+                       
+                    </div>
+                  </div>
+                   
+                </div>
+
+                <div class="t--div text-justify">
+                  <div class="row">
+                    <div class="col">
+                        <label class="form__label t--xl p-1" for="input4">Observações:</label>
+                         
+                    </div>
+                    <div class="col direita">
+                      
+                        <h4 class="t--label1 p-1">Assinatura do Identificador</h4>
+                      
+                       
+                    </div>
+                  </div>
+                   
+                </div>
+                <br>
+                <div class="t--div text-justify">
+                  <h2 class="t--labelmo p-1">CADASTRO Nº:</h2>
+                <h2 class="t--labelmo p-1">FORMULARIO DATILOSCÓPIA........</h2>
+                 
+                </div>     
+                <div class="t--div text-justify">
+                  <div class="row">
+                    <div class="col">
+                      <label class="form__label t--xl p-1" for="input4">1 Polegar</label>
+                       
+                  </div>
+                    <div class="col direita">
+                      
+                      <h4 class="t--label1 p-1">1º Indicador</h4>
+                    
+                     
+                  </div>
+                  <div class="col direita">
+                      
+                    <h4 class="t--label1 p-1">3º MÉDIO</h4>
+                  
+                   
+                  </div>
+                  <div class="col direita">
+                      
+                  <h4 class="t--label1 p-1">4º ANELAR</h4>
+                
+                 
+                  </div>
+                  <div class="col direita">
+                      
+                    <h4 class="t--label1 p-1">5º MENDINHO</h4>
+                  
+                   
+                </div>
+                </div>
+                   
+                </div>
+                <br>
+                <div class="t--div text-justify">
+                  <div class="row">
+                    <div class="col">
+                      <label class="form__label t--xl p-1" for="input4">1 Polegar</label>
+                       
+                  </div>
+                    <div class="col direita">
+                      
+                      <h4 class="t--label1 p-1">1º Indicador</h4>
+                    
+                     
+                  </div>
+                  <div class="col direita">
+                      
+                    <h4 class="t--label1 p-1">3º MÉDIO</h4>
+                  
+                   
+                  </div>
+                  <div class="col direita">
+                      
+                  <h4 class="t--label1 p-1">4º ANELAR</h4>
+                
+                 
+                  </div>
+                  <div class="col direita">
+                      
+                    <h4 class="t--label1 p-1">5º MENDINHO</h4>
+                  
+                   
+                </div>
+                </div>
+                   
+                </div>
+            </section>
+            <footer>
+
+                <div style='text-align: left;' class="texto-esquerda">Av. 4 de Fevereiro <br>
+                DIRECÇÃO DE INFORMAÇÕES POLICIAIS -R/C <br>
+                Telef: 222 33 94 61/ 222 33 54 20 <br>
+                Email:dinfop.dinfop@pn.gov.ao <br>
+                Facebook: Policia Nacional de Angola</div>
+                <div  class="texto-direita"><img src="assets/img/logopolice.png" style="text-align: right;" alt="Imagem do cabeçalho" width="100px" height="100px"></div>
+                  
+             
+            </footer>
+         </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-piips btn-piips-primary m-0" data-dismiss="modal"
+          (click)="imprimir('ficha-delituoso')">
+          <i class="fa fa-print"></i> Imprimir
+        </button>
+        </div>
+      </div>
+    </div>
+  </div>

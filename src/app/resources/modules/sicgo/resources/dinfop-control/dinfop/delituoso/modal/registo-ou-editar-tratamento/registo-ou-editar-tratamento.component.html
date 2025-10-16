@@ -1,0 +1,76 @@
+<div class="modal fade" id="tratamentoModal" tabindex="-1" aria-labelledby="tratamentoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-prima text-white">
+          <h4 class="modal-title fs-5" id="exampleModalLabel">
+            Estatus do Delituoso
+          </h4>
+          <a type="button" data-bs-dismiss="modal" aria-label="Close">
+            <i class="bi bi-backspace-reverse-fill cursor-pointer rounded-lg" style="font-size: 1.4em"></i>
+          </a>
+        </div>
+        <div class="modal-body">
+          <!-- Visualizar dados completos para depuração -->
+           
+  
+          <form>
+            <!-- Dados do Delituoso -->
+            <div class="mb-3" *ngIf="delituosoId">
+               
+                  <a><strong>Nome:</strong> {{ delituosoId.nome }}</a>
+                  <p><strong>Status:</strong> {{ delituosoId.stado?.status }}</p> 
+               
+  
+              <!-- Radio Buttons para Alterar Status -->
+              <label for="status" class="col-form-label">Status:</label>
+              <div>
+                <label>
+                  <input
+                    type="radio"
+                    name="status"
+                    value="Ativo"
+                    [(ngModel)]="delituosoId.stado.status"
+                    [checked]="delituosoId.stado?.status === 'Ativo'"
+                  />
+                  <span>Ativo</span>
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="status"
+                    value="Passivo"
+                    [(ngModel)]="delituosoId.stado.status"
+                    [checked]="delituosoId.stado?.status === 'Passivo'"
+                  />
+                  <span>Passivo</span>
+                </label>
+              </div>
+            </div>
+  
+            <!-- Descrição -->
+            <div class="mb-3">
+              <label for="message-text" class="col-form-label">Descrição:</label>
+              <textarea
+                class="form-control"
+                [(ngModel)]="descricao"
+                name="descricao"
+                id="message-text"
+              ></textarea>
+            </div>
+          </form>
+        </div>
+  
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="Status(delituosoId, delituosoId.id, descricao)"
+          >
+            Enviar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

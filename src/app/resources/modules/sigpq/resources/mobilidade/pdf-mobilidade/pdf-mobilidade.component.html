@@ -1,0 +1,158 @@
+ 
+<div class="modal-body d-flex flex-row align-items-start" style="column-gap: .8rem" id="invoice" #invoice>
+    <ng-container *ngIf="!this.isLoading; else carregando">
+        <div class="wrapper-pdf" id="wrapper-pdf">
+            <div class="card">
+                <div class="card-header">
+                    <div class="header-pdf">
+                        <div class="insigina">
+                            <img src="assets/img/insignia.png" alt="Insignia de Angola">
+                        </div>
+                        <div class="header-angola">
+                            <span class="text-header">
+                                REPÚBLICA DE ANGOLA
+                            </span>
+                            <span class="text-header">
+                                ---«»---
+                            </span>
+                            <span class="text-header">
+                                MINISTÉRIO DO INTERIOR
+                            </span>
+                            <span class="text-header">
+                                POLÍCIA NACIONAL DE ANGOLA
+                            </span>
+                            <span class="text-header">
+                                <u><b>{{this.listarPDF?.pessoajuridica_passado?.nome_completo | uppercase}} </b></u>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <ng-container *ngIf="this.getSomenteUm; else temMais">
+                    <div class="card-body">
+                        <span class="text-header titulo-numero">GUIA DE MARCHA Nº <u>{{this.listarPDF?.numero_guia}}</u>
+                        </span>
+                        <div class="text-body">
+                            Faz-se constar as autoridades a quem o conhecimento desta competir, que segue deste,
+                            para <b>
+                                {{this.listarPDF?.pessoajuridica_actual?.nome_completo | uppercase}}/PNA</b>, onde foi
+                            <b>Transferido</b>, por <b>Despacho n.º
+                                {{this.listarPDF?.despacho}} </b>, de Sua Excelência Comandante Geral da PNA, contido na
+                            <b>Ordem de
+                                Serviço {{this.listarPDF?.numero_ordem}}</b>, {{this.funcionarios[0].patente_nome}}
+                            {{this.funcionarios[0]?.nip ? 'NIP': '' }} <b>{{this.funcionarios[0]?.nip}}</b>
+                            {{this.funcionarios[0]?.numero_agente ? 'NAS': '' }}
+                            <b>{{this.funcionarios[0]?.numero_agente}}</b>
+                            <b>{{this.funcionarios[0]?.nome_completo}}</b>
+                        </div>
+                    </div>
+
+                    <div class="card-body text-poppins">
+                        <div class="text-body" style="margin-bottom: 1.4rem;">
+                            Segue fardado ou a civil
+                        </div>
+                        <div class="text-body ">
+                            <i>E para que lhe não ponha impedimento, passou-se a presente <b>GUIA</b> que vai
+                                assinado.</i>
+                        </div>
+                        <div class="text-body">
+                            <b class="orgao">{{this.listarPDF?.pessoajuridica_passado?.nome_completo | uppercase}},
+                                {{this.listarPDF?.data_ingresso}}</b>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-template #temMais>
+                    <div class="card-body">
+                        <span class="text-header titulo-numero">GUIA DE MARCHA Nº <u>{{this.listarPDF?.numero_guia}}</u>
+                        </span>
+                        <div class="text-body">
+                            Faz-se constar as autoridades a quem o conhecimento desta competir, que segue deste,
+                            para <b>
+                                {{this.listarPDF?.pessoajuridica_actual?.nome_completo | uppercase}}/PNA</b>, onde foram
+                            <b>Transferidos</b>, por <b>Despacho
+                                {{this.listarPDF?.despacho_descricao}} </b>, de Sua Excelência Comandante Geral da PNA,
+                            contido na
+                            <b>Ordem {{this.listarPDF?.ordem_descricao}}</b>.
+                        </div>
+
+                        <ul style="list-style: decimal; color: black;">
+                            <li *ngFor="let item of this.funcionarios" class="d-flex flex-column row-gap-3 my-4"
+                                style="color: black;">
+                                <span> Patente: {{item?.patente_nome}}</span>
+                                <span> NIP: {{item?.nip}} </span>
+                                <!-- <span> NAS: {{item?.numero_agente}} </span> -->
+                                <span> Nome completo: {{item?.nome_completo}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body text-poppins">
+                        <div class="text-body" style="margin-bottom: 1.4rem;">
+                            Seguem fardados ou a civil
+                        </div>
+                        <div class="text-body ">
+                            <i>E para que lhe não ponha impedimento, passou-se a presente <b>GUIA</b> que vai
+                                assinado.</i>
+                        </div>
+                        <div class="text-body">
+                            <b class="orgao">{{this.listarPDF?.pessoajuridica_passado?.nome_completo | uppercase}},
+                                {{this.listarPDF?.data_ingresso}}</b>
+                        </div>
+                    </div>
+                </ng-template>
+
+                <div class="card-body ordenante">
+                    <div class="text-body" style="font-weight:  500;">
+                        O DIRECTOR NACIONAL
+                    </div>
+                    <div class="text-body" style="font-weight: bolder;">
+                        <h5>Gil Famoso Sebastião Da Silva</h5>
+                    </div>
+                    <div class="text-body" style="font-family: 300;">
+                        <h5>**COMISSÁRIO**</h5>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="font-diferente origin">
+                        <p class="only-p">Elabkv: {{this.listarPDF?.agente_responsavel?.nome_completo}}</p>
+                        <div class="another-text">
+                            <p>Av. 4 de Fevereiro, n.º 206</p>
+                            <p>Marginal de Luanda</p>
+                            <p>1.º andar, edifício sede da PNA</p>
+                            <p>Telef: +(244) 222 339 962</p>
+                            <p>Email: dpq@pn.gov.ao</p>
+                            <p>Facebook: Policia Nacional de Angola</p>
+                        </div>
+                    </div>
+                    <div class="simbolos font-diferente">
+                        <div class="rpa">
+                            <img src="assets/img/rpa_.png" alt="Foto-footer-Republica-Angola">
+                        </div>
+                        <div class="pna">
+                            <span class="pna-site">
+                                <a href="https://pna.gov.ao/">pna.gov.ao</a>
+                            </span>
+                            <span class="pna-name">
+                                Policia Nacional de Angola
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <ng-template #carregando>
+        <p>Carregando....</p>
+    </ng-template>
+
+</div>
+<!-- <div class="modal-footer">
+    <button (click)="this.download('wrapper-pdf')" type="button" class="btn-piips btn-piips-primary m-0 py-2"
+        data-dismiss="modal">
+        <i class="fa fa-save"></i> Descarregar
+    </button>
+    <button (click)="this.imprimir('wrapper-pdf')" type="button" class="btn-piips btn-piips-primary m-0 py-2"
+        data-dismiss="modal">
+        <i class="fa fa-print"></i> Imprimir
+    </button>
+</div> -->
+<!-- </div>
+    </div> -->

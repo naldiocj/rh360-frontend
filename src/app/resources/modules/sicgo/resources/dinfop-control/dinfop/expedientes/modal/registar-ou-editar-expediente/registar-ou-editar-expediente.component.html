@@ -1,0 +1,301 @@
+<div
+    class="modal fade"
+    id="modalRegistarOuEditarExpediente"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="modalRegistarOuEditarExpedienteLabel" aria-hidden="true"
+>
+    <div
+        class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <!-- Cabeçalho do Modal -->
+            <div class="modal-header bg-prima text-white">
+                <h4 class="modal-title">
+                    <b>
+                        {{ buscarId() ? 'Atualizar Registo' : 'Abertura' }} de Expediente
+                    </b>
+                </h4>
+                <a
+                    type="button"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                >
+                    <i
+                        class="bi bi-backspace-reverse-fill cursor-pointer rounded-lg"
+                        style="font-size: 1.2em"
+                    ></i>
+                </a>
+            </div>
+
+            <!-- Corpo do Modal -->
+            <div class="modal-body">
+
+                <!-- Aviso sobre os campos obrigatórios -->
+                <p class="ml-0 pl-4">
+                    <i class="bi bi-exclamation-triangle-fill text-warning"></i>
+                    Os campos marcados com (
+                    <strong class="asterisco">*</strong>
+                    ) são de carácter
+                    <strong>obrigatório</strong>
+                    .
+                </p>
+
+                <!-- Etapa 0: Seleção de Expediente -->
+                <main *ngIf="currentStep === 0">
+                    <div
+                        class="tags"
+                        #tagsContainer
+                    >
+                        
+                        <div
+                            class="buttons"
+                            *ngFor="let tag of tags; let i = index"
+                            (click)="moveToSearch(tag, i)"
+                            [class.selected]="tag === searchTag"
+                    >
+                        <div class="button-outer">
+                            <div class="button-inner">
+                                <span>{{ tag }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <small *ngIf="selectedAgentIds.length === 0 && submitted" class="text-danger">
+                      Selecione pelo menos 1 agente!
+                    </small>
+                    <div
+                        #searchContainer
+                        [ngClass]="{'show': searchTag}"
+                        *ngIf="searchTag"
+                    >
+                        <div
+                            class="search"
+                            #searchContainer
+                        >
+                            <button
+                                *ngIf="searchTag"
+                                (click)="removeTag()"
+                            >
+                                {{ searchTag }}
+                            </button>
+                        </div>
+                    </div>
+                </main>
+
+                <!-- Formulário de Registro/Edição -->
+                <form
+                    *ngIf="activeForm"
+                    [formGroup]="activeForm"
+                    (ngSubmit)="onSubmit()"
+                >
+                    <div class>
+
+                        <!-- Verifica se existe um expediente selecionado -->
+                        <div *ngIf="searchTag && EXPEDIENTE_FIELDS[searchTag!]">
+                            <div>
+
+                                <!-- Etapa 1: Campos de Entrada -->
+                                <div *ngIf="currentStep === 1">
+                                    <div class="card-body">
+
+                                        <div
+                                            *ngIf="response"
+                                            class="agentes-flex"
+                                        >
+                                            <div
+                                                class="buttons"
+                                                *ngFor="let agent of response.object"
+                                            >
+                                                <div class="button-outer">
+                                                    <div class="button-inner">
+                                                        <span>
+                                                           {{ agent.tipo_perfil_nome }}  - {{ agent.codinome }}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div
+                                            class="btn-group custom-radius"
+                                            role="group"
+                                            aria-label="Basic example"
+                                        >
+                                            <span class="btns input-group-text">
+                                                <i class="bi bi-journal-plus"></i>
+                                            </span>
+                                            <button
+                                                type="button"
+                                                class="btn btn-primary"
+                                                (click)="openOccurrenceModal()"
+                                            >
+                                            Adicionar Oficias Operativos
+                                            </button>
+                                            <button
+                                                type="button"
+                                                class="btn btn-warning w-100"
+                                                *ngIf="selectedOfficialOp"
+                                            >
+                                                {{ selectedOfficialOp.numeroExpediente }}/ {{ selectedOfficialOp.tipoExpediente }}
+                                            </button>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="d-flex flex-wrap gap-3">
+                                        <ng-container *ngIf="searchTag && EXPEDIENTE_FIELDS[searchTag!]">
+                                            <ng-container *ngFor="let field of EXPEDIENTE_FIELDS[searchTag!]">
+
+                                                <!-- Campos de Texto e Número -->
+                                                <div
+                                                    *ngIf="field.type !== 'editor'"
+                                                    class="p-2 flex-grow-1"
+                                                    style="min-width: 25%; max-width: 28%;"
+                                                >
+                                                    <div class="form-group">
+                                                        <label>{{ field.label }}</label>
+
+                                                        <!-- Campo de Texto -->
+                                                        <input
+                                                            *ngIf="field.type === 'text'"
+                                                            formControlName="{{ field.name }}"
+                                                            class="form-control"
+                                                            [placeholder]="field.label"
+                                                        >
+
+                                                        <!-- Campo Numérico -->
+                                                        <input
+                                                            *ngIf="field.type === 'number'"
+                                                            formControlName="{{ field.name }}"
+                                                            class="form-control"
+                                                            [placeholder]="field.label"
+                                                        >
+
+                                                        <!-- Mensagem de erro -->
+                                                        <small
+                                                            *ngIf="activeForm?.get(field.name)?.invalid && activeForm?.get(field.name)?.touched"
+                                                            class="error"
+                                                        >
+                                                            Este campo é obrigatório
+                                                        </small>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Editor TinyMCE para Observação (Ocupando 100% da largura) -->
+                                                <div
+                                                    *ngIf="field.type === 'editor' && field.name === 'observacao'"
+                                                    class="w-100"
+                                                >
+                                                    <div class="form-group">
+                                                        <label>{{ field.label }}</label>
+                                                        <editor [disabled]="false" class="editor-full-width" [formControlName]="field.name">
+                                                        </editor>
+                                                    </div>
+                                                </div>
+
+                                            </ng-container>
+                                        </ng-container>
+                                    </div>
+                                </div>
+
+                                <!-- Etapa 2: Editor TinyMCE para ExpedienteP -->
+                                <div *ngIf="currentStep === 2">
+                                    <ng-container *ngFor="let field of EXPEDIENTE_FIELDS[searchTag!]">
+                                        <div
+                                            *ngIf="field.type === 'editor' && field.name === 'expedienteP'"
+                                            class="col-12"
+                                        >
+                                            <div class="form-group">
+                                                <!-- <label>{{ field.label }}</label> -->
+                                                <editor
+                                                    [disabled]="false"
+                                                    [init]="editorConfig"
+                                                    class="editor-full-width"
+                                                    [formControlName]="field.name"
+                                                >
+                                                </editor>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Rodapé do Modal -->
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            (click)="prevStep()"
+                            *ngIf="currentStep > 0"
+                        >
+                            Anterior
+                        </button>
+                        <button
+                            type="button"
+                            (click)="nextStep()"
+                            *ngIf="currentStep < totalSteps"
+                        >
+                            Próximo
+                        </button>
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-dismiss="modal"
+                        >
+                            Fechar
+                        </button>
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                            *ngIf="currentStep === totalSteps"
+                            [disabled]="isLoading"
+                        >
+                            <span
+                                *ngIf="isLoading"
+                                class="spinner-border spinner-border-sm"
+                            ></span>
+                            {{ buscarId() ? 'Atualizar Registo' : 'Registar' }}
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div
+    class="modal modales"
+    id="modalEventoProcessos"
+>
+    <div class="modal-dialog modal-xl ">
+        <div class="modal-content">
+
+            <div class="modal-body p-2">
+                <div
+                    *ngIf="response"
+                    
+                >
+                    <button
+                        class="button"
+                        
+                    >
+                        
+                                <span>{{ selectedAgentIds.length }}</span>
+                             
+                    </button>
+                </div>
+                <app-sicgo-perfis-listar-utilizador [isDisabled]="true"></app-sicgo-perfis-listar-utilizador>
+
+            </div>
+
+        </div>
+    </div>
+</div>

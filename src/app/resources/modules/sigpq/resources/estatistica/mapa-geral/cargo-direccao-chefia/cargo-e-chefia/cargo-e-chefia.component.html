@@ -1,0 +1,70 @@
+<div style="height: 16px; margin-top: 23px; opacity: 0%;"></div>
+    <div class="col-md-12">
+        <div id="cor_dashboard" class="card-header"  style="cursor: pointer;" (click)="togglecargoDirecao()">
+            <h4 style="color: white;" class="card-title d-inline-block"><b>
+              CARGOS DE DIREÇÃO E CHEFIA
+            </b></h4>
+        </div>
+        <div class="table-responsive">
+            <table class="table  table-striped  datatable mb-0" *ngIf="cargoDirecao">
+                <thead class="sutotal">
+                        <tr>
+                          <th>Função</th>
+                          <th>M</th>
+                          <th>F</th>
+                          <th>Subtotal</th>
+                        </tr>
+
+                </thead>
+                <tbody>
+                  <ng-container *ngFor="let item of dadosCargoEChefia">
+                    <tr>
+                      <td>{{ item.funcao.toUpperCase() }}</td>
+                      <td style="text-align: center;">{{item.M?item.M:0}}</td>
+                      <td style="text-align: center;">{{item.F?item.F:0}}</td>
+                      <td style="text-align: center;">{{(item.M?item.M:0)+ (item.F?item.F:0)}}</td>
+                    </tr>
+                  </ng-container>
+                </tbody>
+                <!-- <tbody>
+
+                      <tr>
+                        <td>Comando-Geral</td>
+                        <td style="text-align: center;">1</td>
+                        <td style="text-align: center;">0</td>
+                        <td style="text-align: center;">1</td>
+                      </tr>
+
+                      <tr>
+                        <td>2.º Comandante Geral</td>
+                        <td style="text-align: center;">11</td>
+                        <td style="text-align: center;">0</td>
+                        <td style="text-align: center;">1</td>
+                      </tr>
+
+                      <tr>
+                        <td>Director Nacional</td>
+                        <td style="text-align: center;">13</td>
+                        <td style="text-align: center;">0</td>
+                        <td style="text-align: center;">1</td>
+                      </tr>
+
+                      <tr>
+                        <td>Comandante Provincial</td>
+                        <td style="text-align: center;">14</td>
+                        <td style="text-align: center;">0</td>
+                        <td style="text-align: center;">1</td>
+                      </tr>
+
+                      <tr>
+                        <td>Director Nacional Adjunto</td>
+                        <td style="text-align: center;">17</td>
+                        <td style="text-align: center;">0</td>
+                        <td style="text-align: center;">1</td>
+                      </tr>
+
+
+                </tbody> -->
+            </table>
+        </div>
+    </div>

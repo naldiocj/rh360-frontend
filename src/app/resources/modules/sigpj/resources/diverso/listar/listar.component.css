@@ -1,0 +1,743 @@
+
+ 
+#main_ {
+    margin-top: 60px;
+    padding: 20px 30px;
+    transition: all 0.3s;
+  }
+  
+  @media (max-width: 1199px) {
+    #main_ {
+      padding: 20px;
+    }
+  }
+  
+  /*--------------------------------------------------------------
+  # Page Title
+  --------------------------------------------------------------*/
+  .pagetitle {
+    margin-bottom: 10px;
+    padding: 0px;
+  }
+  
+  .pagetitle h1 {
+    font-size: 24px;
+    font-weight: normal;
+    color: #041b43!important;
+  }
+  
+@media (min-width: 1200px) {
+
+    #main_,
+    #footer {
+      margin-left: 300px;
+    }
+  }
+
+
+  .list-group-item .n_lido{
+    background: #e0dede7e;
+  }
+  .pagetitle .btn.btn-outline-primary, 
+.modal .btn.btn-outline-primary,
+.card-body-header .btn.btn-outline-primary{
+  border-color: #041b43!important;
+  color: #041b43;
+  transition: all .6s;
+  border-radius: 5px!important;
+  padding: 10px 15px!important;
+}
+
+.btn.btn-outline-primary{
+  border-color: #041b43!important;
+  color: #041b43;
+  transition: all .6s;
+  border-radius: 5px!important;
+  padding: 10px 15px!important;
+}
+.btn.btn-outline-primary.active{
+  background: #041b43!important;
+  color: #fff!important;
+}
+.btn.btn-outline-primary:hover{
+  background: #041b43;
+  color: #fff;
+}
+.error-404 .btn:hover {
+  background: #3e4f6f;
+}
+
+
+/** Testing the header style in the list of disciplinar page 
+
+:: the style start from here
+*/
+
+.pointer{
+  cursor: pointer;
+}
+
+ 
+  
+.header-nav_ ul {
+  list-style: none;
+  margin-left: auto!important;
+}
+
+.header-nav_>ul {
+  margin: 0;
+  padding: 0;
+}
+ 
+.dropdown-menu-arrow{
+position: absolute;
+inset: 0px auto auto 0px;
+left: -20px;
+margin: 0px;
+transform: translate(-440px, 51px);
+}
+.dropdown-menu.show {
+display: block;
+}
+.header-nav_ ul {
+list-style: none;
+}
+
+.dropdown-menu {
+position: absolute;
+z-index: 1000;
+display: none;
+min-width: 10rem;
+padding: 0.5rem 0;
+margin: 0;
+font-size: 1rem;
+color: #212529;
+text-align: left;
+list-style: none;
+background-color: #fff;
+background-clip: padding-box;
+border-radius: 0.25rem;
+}
+
+.dropdown-menu {
+border-radius: 4px;
+padding: 10px 0;
+animation-name: dropdown-animate;
+animation-duration: 0.2s;
+animation-fill-mode: both;
+border: 0;
+box-shadow: 0 5px 30px 0 rgba(82, 63, 105, 0.2);
+} 
+
+.header-nav_ .profile {
+  min-width: 240px;
+  padding-bottom: 0;
+  top: 8px !important;
+}
+
+.header-nav_ .profile .dropdown-header h6 {
+  font-size: 18px;
+  margin-bottom: 0;
+  font-weight: 600;
+  color: #444444;
+}
+
+.header-nav_ .profile .dropdown-header span {
+  font-size: 14px;
+}
+
+.header-nav_ .profile .dropdown-item {
+  font-size: 14px;
+  padding: 10px 15px;
+  transition: 0.3s;
+}
+
+.header-nav_ .profile .dropdown-item i {
+  margin-right: 10px;
+  font-size: 18px;
+  line-height: 0;
+}
+
+.header-nav_ .profile .dropdown-item:hover {
+  background-color: #f6f9ff;
+}
+
+
+@media (min-width: 768px){
+  .dropdown-menu-arrow::before {
+      content: "";
+      width: 13px;
+      height: 13px;
+      background: #f6f9ff!important;
+      position: absolute;
+      top: -7px; 
+      transform: rotate(45deg);
+      border-top: 1px solid #eaedf1;
+      border-left: 1px solid #eaedf1;
+  }
+}
+
+.dropdown-menu .dropdown-divider {
+  color: #a5c5fe;
+  margin: 0;
+}
+hr:not([size]) {
+  height: 1px;
+}
+.dropdown-divider {
+  height: 0;
+  margin: 0.5rem 0;
+  overflow: hidden;
+  border-top: 1px solid rgba(0,0,0,.15);
+}
+hr {
+  margin: 1rem 0;
+  color: inherit;
+  background-color: currentColor;
+  border: 0;
+  opacity: .25;
+}
+*, ::after, ::before {
+  box-sizing: border-box;
+}
+
+@-webkit-keyframes dropdown-animate {
+0% {
+  opacity: 0;
+}
+
+100% {
+  opacity: 1;
+}
+
+0% {
+  opacity: 0;
+}
+}
+
+@keyframes dropdown-animate {
+0% {
+  opacity: 0;
+}
+
+100% {
+  opacity: 1;
+}
+
+0% {
+  opacity: 0;
+}
+}
+
+ 
+*{
+
+  font-family: 'Poppins';
+
+}
+
+#main_ {
+    margin-top: 60px;
+    padding: 20px 30px;
+    transition: all 0.3s;
+  }
+  
+  @media (max-width: 1199px) {
+    #main_ {
+      padding: 20px;
+    }
+  }
+  
+  /*--------------------------------------------------------------
+  # Page Title
+  --------------------------------------------------------------*/
+  .pagetitle {
+    margin-bottom: 10px;
+    padding: 0px;
+  }
+  
+  .pagetitle h1 {
+    font-size: 24px;
+    font-weight: normal;
+    color: #041b43!important;
+  }
+  
+@media (min-width: 1200px) {
+
+    #main_,
+    #footer {
+      margin-left: 300px;
+    }
+  }
+
+
+  .list-group-item .n_lido{
+    background: #e0dede7e;
+  }
+  .pagetitle .btn.btn-outline-primary, 
+.modal .btn.btn-outline-primary,
+.card-body-header .btn.btn-outline-primary{
+  border-color: #041b43!important;
+  color: #041b43;
+  transition: all .6s;
+  border-radius: 5px!important;
+  padding: 10px 15px!important;
+}
+
+.btn.btn-outline-primary{
+  border-color: #041b43!important;
+  color: #041b43;
+  transition: all .6s;
+  border-radius: 5px!important;
+  padding: 10px 15px!important;
+}
+.btn.btn-outline-primary.active{
+  background: #041b43!important;
+  color: #fff!important;
+}
+.btn.btn-outline-primary:hover{
+  background: #041b43;
+  color: #fff;
+}
+.error-404 .btn:hover {
+  background: #3e4f6f;
+}
+
+
+/** Testing the header style in the list of disciplinar page 
+
+:: the style start from here
+*/
+
+.pointer{
+  cursor: pointer;
+}
+
+ 
+  
+.header-nav_ ul {
+  list-style: none;
+  margin-left: auto!important;
+}
+
+.header-nav_>ul {
+  margin: 0;
+  padding: 0;
+}
+ 
+.dropdown-menu-arrow{
+position: absolute;
+inset: 0px auto auto 0px;
+left: -20px;
+margin: 0px;
+transform: translate(-440px, 51px);
+}
+.dropdown-menu.show {
+display: block;
+}
+.header-nav_ ul {
+list-style: none;
+}
+
+.dropdown-menu {
+position: absolute;
+z-index: 1000;
+display: none;
+min-width: 10rem;
+padding: 0.5rem 0;
+margin: 0;
+font-size: 1rem;
+color: #212529;
+text-align: left;
+list-style: none;
+background-color: #fff;
+background-clip: padding-box;
+border-radius: 0.25rem;
+}
+
+.dropdown-menu {
+border-radius: 4px;
+padding: 10px 0;
+animation-name: dropdown-animate;
+animation-duration: 0.2s;
+animation-fill-mode: both;
+border: 0;
+box-shadow: 0 5px 30px 0 rgba(82, 63, 105, 0.2);
+} 
+
+.header-nav_ .profile {
+  min-width: 240px;
+  padding-bottom: 0;
+  top: 8px !important;
+}
+
+.header-nav_ .profile .dropdown-header h6 {
+  font-size: 18px;
+  margin-bottom: 0;
+  font-weight: 600;
+  color: #444444;
+}
+
+.header-nav_ .profile .dropdown-header span {
+  font-size: 14px;
+}
+
+.header-nav_ .profile .dropdown-item {
+  font-size: 14px;
+  padding: 10px 15px;
+  transition: 0.3s;
+}
+
+.header-nav_ .profile .dropdown-item i {
+  margin-right: 10px;
+  font-size: 18px;
+  line-height: 0;
+}
+
+.header-nav_ .profile .dropdown-item:hover {
+  background-color: #f6f9ff;
+}
+
+
+@media (min-width: 768px){
+  .dropdown-menu-arrow::before {
+      content: "";
+      width: 13px;
+      height: 13px;
+      background: #f6f9ff!important;
+      position: absolute;
+      top: -7px; 
+      transform: rotate(45deg);
+      border-top: 1px solid #eaedf1;
+      border-left: 1px solid #eaedf1;
+  }
+}
+
+.dropdown-menu .dropdown-divider {
+  color: #a5c5fe;
+  margin: 0;
+}
+hr:not([size]) {
+  height: 1px;
+}
+.dropdown-divider {
+  height: 0;
+  margin: 0.5rem 0;
+  overflow: hidden;
+  border-top: 1px solid rgba(0,0,0,.15);
+}
+hr {
+  margin: 1rem 0;
+  color: inherit;
+  background-color: currentColor;
+  border: 0;
+  opacity: .25;
+}
+*, ::after, ::before {
+  box-sizing: border-box;
+}
+
+@-webkit-keyframes dropdown-animate {
+0% {
+  opacity: 0;
+}
+
+100% {
+  opacity: 1;
+}
+
+0% {
+  opacity: 0;
+}
+}
+
+@keyframes dropdown-animate {
+0% {
+  opacity: 0;
+}
+
+100% {
+  opacity: 1;
+}
+
+0% {
+  opacity: 0;
+}
+}
+
+.down {
+  border-radius: 8px;
+  background: #FCFCFC;
+  border: 4px solid rgb(240, 240, 240);
+}
+
+.btn.btn-outline-success.my-2.my-sm-0 {
+  width: 150px;
+  height: 42px;
+  flex-shrink: 0;
+}
+
+
+/*Botão Registrar lib..*/
+
+.btn.btnRegistar {
+  height: 40px;
+  flex-shrink: 0;
+  background-color: #041B4E;
+  color: whitesmoke;
+  margin-left: 4px;
+  transition: 0.5s;
+  border-radius: 8px;
+  font-weight: bold;
+}
+.btn.btnRegistar:hover {
+  background: linear-gradient(#010a1e,#041B4E);
+  color: whitesmoke;
+  border: 2px solid #808080;
+}
+
+
+
+/* Botão atribuir*/
+
+.btn.btn-primary.btnExportar {
+  width: 104px;
+  height: 38px;
+  flex-shrink: 0;
+  padding: 10px;
+}
+
+.btn.btn-primary.btnExportar img {
+  width: 20px;
+  height: 20px;
+}
+
+
+/*botão recarregar*/
+
+.fa.fa-refresh.fa-spin.fa-3x.fa-fw {
+  font-size: 14px;
+}
+
+th {
+  background-color: #E9E9E9;
+  color: rgb(33, 33, 33);
+  text-align: left;
+}
+
+td {
+  text-align: left;
+}
+
+.estado {
+  height: 31px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  background: #90EE90;
+}
+
+.estado p {
+  text-align: center;
+  padding-top: 5px;
+}
+.fa{
+  margin-right: 7px;
+}
+#btpe1{
+  background-color: #041B4E;
+  transition: 0.4s;
+  border-radius: 8px;
+}
+#btpe1:hover{
+  background-color: #06266c;
+  border: 2px solid #808080;
+  color: whitesmoke;
+}
+.space-radio{
+  .cc{
+      width: 20px;
+      height: 20px;
+  }
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+.ball-red{
+  .bi{
+      font-size: 14px;;
+      color: white;
+  }
+  width: 20px;
+  height: 20px;
+  background-color: #dc3545;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ball-orange{
+  .bi{
+      font-size: 14px;;
+      color: white;
+  }
+  width: 20px;
+  height: 20px;
+  background-color: rgb(255, 146, 3);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ball-green{
+  .bi{
+      font-size: 14px;;
+      color: white;
+  }
+  width: 20px;
+  height: 20px;
+  background-color: green;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dropdown-menu{
+  .dropdown-item{
+     font-size: 18px;
+     cursor: pointer;
+  }
+  .dropdown-item:last-child {
+      border-radius:0px 0px 10px 10px;
+  }
+  .dropdown-item:first-child{
+      border-radius:10px 10px 0px 0px;
+  }
+
+  .dropdown-item:hover{
+      color: #041B4E;
+   }
+  
+  background-color: #041B4E;
+  border-radius: 12px;
+  padding: 0px;
+  border: 5px solid #1a3570;
+  z-index: 3;
+}
+.content{
+  margin: 20px;
+}
+
+.section{
+  margin: 0px;
+  padding: 8px;
+  background-color: #f8f8f8;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.form-control{
+  border-radius: 6px;
+}
+
+.form-inline{
+  margin-bottom: 6px;
+  .btn-op{
+    height: 41px;
+    border-radius: 6px;
+    font-weight: lighter;
+    cursor: pointer;
+  }
+}
+
+
+  /** Actualizações lib... */
+  
+  .titulo-top{
+    font-size: 20px;
+    margin-left: 12px;
+    font-weight: bold;
+    margin-bottom: -30px;
+    color: rgb(52, 52, 52);
+  }
+  .titulo-bt{
+    margin-left: 12px;
+    margin-top: 30px;
+    margin-bottom: -30px;
+    font-size: 12px;
+    color: rgb(178, 178, 178);
+  }
+  
+  .titulo-top-b{
+    font-size: 16px;
+    margin-left: 12px;
+    font-weight: bold;
+    margin-bottom: -30px;
+    color: #041A4C;
+  }
+  .org{
+    margin-bottom: 10px;
+    margin: 8px;
+  }
+  .org-o{
+    margin-left: 13px;
+    margin-top: 10px;
+  }
+  
+  .img-top{
+    background-color: rgb(52, 52, 52);
+    padding: 7px;
+    border-radius: 6px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    .bi{
+      font-size: 28px;
+      color: white;
+    }
+  }
+  
+  .fa{
+    margin-right: 8px;
+  }
+  .org-other{
+    margin-top: 10px;
+    margin-bottom: 18px;
+  }
+  
+  .infor-top{
+    background-color: #041B4C;
+    height: 40px;
+    padding: 16px;
+    margin: 8px;
+     border-radius: 6px;
+    border: none;
+    color: rgb(255, 255, 255);
+    box-shadow: 4px 4px 4px -3px rgb(231, 231, 231);
+    font-size: 10px;
+    font-weight: bold;
+    margin-bottom: 35px;
+    display: flex;
+    font-weight: bold;
+    text-align: left;
+    flex-wrap: wrap;
+    h4{
+      margin-top: -4px;
+      font-size: 15px;
+    }
+  }
+  
+    
+  .refr{
+    width: 130px;
+    height: 43px;
+    border-radius: 6px;
+    padding-top: 8px;
+  }

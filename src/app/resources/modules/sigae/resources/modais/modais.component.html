@@ -1,0 +1,477 @@
+
+
+<div class="modal fade" id="editar" aria-labelledby="classes" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="overflow-y: hidden; min-width: 70%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>
+                    <i class="fa fa-gun "></i> Registro de Arma de Crime
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" (click)="this.resetForm()">&times;</span>
+                </button>
+            </div>
+
+            <div class="content">
+                <form [formGroup]="this.form" (submit)="editar()">
+                    <div class="modal-body">
+                        <div class="row">
+
+
+                            <div class="form-group col-md-4">
+                                <label>
+                                    <b>
+                                        Marca da arma:
+                                        <span class="text-danger"> *</span>
+                                    </b>
+                                </label>
+
+                                <ng-select2 [options]="options" formControlName="marca_arma_id" [data]="this.marcas">
+                                </ng-select2>
+                            </div>
+
+
+
+                            <div class="form-group col-md-4">
+                                <label>
+                                    <b>
+                                        Tipo de armas:
+                                        <span class="text-danger"> *</span>
+                                    </b>
+                                </label>
+                                <ng-select2 [options]="options" formControlName="modelo_id" [data]="this.tipos">
+                                </ng-select2>
+                            </div>
+
+
+                            <div class="form-group col-md-4">
+                                <label>
+                                    <b>
+                                        Calibre da arma:
+                                        <span class="text-danger"> *</span>
+                                    </b>
+                                </label>
+                                <ng-select2 [options]="options" formControlName="calibre_arma_id" [data]="this.calibres">
+
+                                </ng-select2>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>
+                                    <b>
+                                        País de origem:
+                                        <span class="text-danger"> *</span>
+                                    </b>
+                                </label>
+                                <ng-select2 [options]="options" formControlName="pai_id" [data]="this.pais">
+
+                                </ng-select2>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label>
+                                    <b>
+                                        Ano de Fabrico:
+                                        <span class="text-danger"> *</span>
+                                    </b>
+                                </label>
+                                <input formControlName="ano_fabrico" type="date" class="form-control" onfocus="(this.type='date')">
+
+
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>
+                                    <b>
+                                        Categoria da arma de Crime:
+                                        <span class="text-danger"> *</span>
+                                    </b>
+                                </label>
+                                <select class="form-control" formControlName="categoria">
+                                    <option readonly>Selecione Uma Opção</option>
+                                    <option value="FAA">Forças Armadas Angolanas</option>
+                                    <option value="ES">Empresa de Segurança</option>
+                                    <option value="PNA">Polícia Nacional de Angola</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label>
+                                    <b>
+                                        Número de série:
+
+                                    </b>
+                                </label>
+                                <input formControlName="serie" type="serie" class="form-control">
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label>
+                                    <b>
+                                        Número de Processo:
+
+                                    </b>
+                                </label>
+                                <input formControlName="serie" type="processo" class="form-control">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>
+                                    <b>
+                                        Descrição da acção:
+                                        <span class="text-danger"> *</span>
+                                    </b>
+                                </label>
+                                <input formControlName="descricao" type="descricao" class="form-control">
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger btn-square" type="reset">
+                            <span class="fa fa-refresh"></span> Limpar
+                        </button>
+                        <button class="btn btn-dark btn-square" type="submit">
+                            <span class="fa fa-refresh"></span> actualizar
+                        </button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="reparacao" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog -dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="font-family: 'poppins'; font-size: 20px;">Manutenção de Armas</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+
+                <form [formGroup]="formRepair" class="col-12 d-grid justify-content-center w-100 h-100" (submit)="reparacao()">
+
+
+                    <div class="form-group ">
+                        <label><b>Tipo Orgão</b><span class="text-danger"> *</span></label>
+                        <ng-select2 [options]="options" [data]="this.orgaoOuComandoProvincial" (valueChanged)="selecionarOrgaoOuComandoProvincial($event)" autorequired>
+                        </ng-select2>
+                    </div>
+                    
+
+                    <div class="form-group ">
+                        <label><b>Orgão</b><span class="text-danger"> *</span></label>
+                        <ng-select2 [options]="options" formControlName="orgao_id" [data]="this.direcaoOuOrgao" (valueChanged)="this.selecionarAgente($event)">
+                        </ng-select2>
+                    </div>
+
+                    <div class="form-group ">
+                        <label><b>Agente pedente</b><span class="text-danger"> *</span></label>
+                        <ng-select2 [options]="options" formControlName="pessoa_id" [data]="this.func">
+                        </ng-select2>
+                    </div>
+
+                    <div class="form-group ">
+                        <label>
+                            <b>
+                             Arma a Ser Reparada:
+                                <span class="text-danger"> *</span>
+                            </b>
+                        </label>
+
+                        <ng-select2 (valueChanged)="destructuraObject($event)" [options]="options" formControlName="arma_id" [data]="armass" style="height:40px;border-radius: 1px; width: 100%;">
+                        </ng-select2>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <b>
+                    Descrição:
+                                <span class="text-danger" > *</span>
+                            </b>
+                        </label>
+
+                        <textarea type="text" placeholder="Qual é o nome do orgão?" formControlName="descricao" style="height:100px;border-radius: 1px; width: 100%;"></textarea>
+
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="reset" class="btn btn-danger w-25" data-dismiss="modal">Fechar</button>
+                <button type="submit" class="btn btn-primary w-25" (click)="reparacao()">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="atribuicao" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog -dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="font-family: 'poppins'; font-size: 20px;">Atribuicao de arma</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+
+                <form [formGroup]="formAtribuir" class="col-12 d-grid justify-content-center w-100 h-100" (submit)="atribuicao()">
+
+
+                    <div class="form-group ">
+                        <label><b>Tipo Orgão</b><span class="text-danger"> *</span></label>
+                        <ng-select2 [options]="options" [data]="this.orgaoOuComandoProvincial" (valueChanged)="selecionarOrgaoOuComandoProvincial($event)" autorequired>
+                        </ng-select2>
+                    </div>
+
+                    <div class="form-group ">
+                        <label><b>Orgão</b><span class="text-danger"> *</span></label>
+                        <ng-select2 [options]="options" formControlName="orgao_id" [data]="this.direcaoOuOrgao" (valueChanged)="this.selecionarOrgao($event)">
+                        </ng-select2>
+                    </div>
+
+                    <div class="form-group ">
+                        <label><b>Agente a ser Atribuido</b><span class="text-danger"> *</span></label>
+                        <ng-select2 [options]="options" formControlName="pessoa_id" [data]="this.func">
+                        </ng-select2>
+                    </div>
+
+
+
+                    <div class="form-group ">
+                        <label>
+                            <b>
+                             Arma:
+                                <span class="text-danger"> *</span>
+                            </b>
+                        </label>
+
+                        <ng-select2 [options]="options" formControlName="arma_id" [data]="armass" style="height:40px;border-radius: 1px; width: 100%;">
+                        </ng-select2>
+                    </div>
+
+                    <div class="form-group ">
+                        <label>
+                            <b>
+                    Qual é o problema :
+                                <span class="text-danger" > *</span>
+                            </b>
+                        </label>
+
+                        <textarea type="text" placeholder="Qual é o motivo da acção?" formControlName="descricao" style="height:100px;border-radius: 1px; width: 100%;" required></textarea>
+
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="reset" class="btn btn-danger w-25" data-dismiss="modal">Fechar</button>
+                <button type="submit" class="btn btn-primary w-25">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="entregar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog -dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="font-family: 'poppins'; font-size: 20px;">Entrega de arma de crime</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+
+                <form [formGroup]="formEntregar" class="col-12 d-grid justify-content-center w-100 h-100">
+
+
+
+                    <div class="form-group ">
+                        <label><b>Tipo Orgão</b><span class="text-danger"> *</span></label>
+                        <ng-select2 [options]="options" [data]="this.orgaoOuComandoProvincial" (valueChanged)="selecionarOrgaoOuComandoProvincial($event)" autorequired>
+                        </ng-select2>
+                    </div>
+
+                    <div class="form-group ">
+                        <label><b>Orgão</b><span class="text-danger"> *</span></label>
+                        <ng-select2 [options]="options" formControlName="orgao_id" [data]="this.direcaoOuOrgao" (valueChanged)="this.selecionarOrgao1($event)">
+                        </ng-select2>
+                    </div>
+
+                    <div class="form-group ">
+                        <label>
+                            <b>
+                             Arma:
+                                <span class="text-danger"> *</span>
+                            </b>
+                        </label>
+
+                        <ng-select2 [options]="options" formControlName="arma_id" [data]="armass2" style="height:40px;border-radius: 1px; width: 100%;">
+                        </ng-select2>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>
+                            <b>
+                                Descrição da Arma de Crime :
+                                <span class="text-danger" > *</span>
+                            </b>
+                        </label>
+
+                        <textarea type="text" placeholder="Qual é o nome do orgão?" formControlName="descricao" style="height:100px;border-radius: 1px; width: 100%;" required> </textarea>
+
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger w-25" data-dismiss="modal">Fechar</button>
+                <button type="submit" class="btn btn-primary w-25" (click)="entregar()">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="reparaca-direcao" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog -dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="font-family: 'poppins'; font-size: 20px;">Manutenção de arma</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+
+                <form [formGroup]="formRepairDir" class="col-12 d-grid justify-content-center w-100 h-100">
+
+
+                    <div class="form-group ">
+                        <label><b>Tipo Orgão</b><span class="text-danger"> *</span></label>
+                        <ng-select2 [options]="options" [data]="this.orgaoOuComandoProvincial" (valueChanged)="selecionarOrgaoOuComandoProvincial($event)">
+                        </ng-select2>
+                    </div>
+
+                    <div class="form-group ">
+                        <label><b>Orgão</b><span class="text-danger"> *</span></label>
+                        <ng-select2 [options]="options" formControlName="orgao_id" [data]="this.direcaoOuOrgao" (valueChanged)="this.selecionarOrgao($event)">
+                        </ng-select2>
+                    </div>
+
+                    <div class="form-group ">
+                        <label>
+                            <b>
+                             Arma:
+                                <span class="text-danger"> *</span>
+                            </b>
+                        </label>
+
+                        <ng-select2 [options]="options" formControlName="arma_id" [data]="armass" style="height:40px;border-radius: 1px; width: 100%;">
+                        </ng-select2>
+                    </div>
+
+                    <div class="form-group ">
+                        <label>
+                            <b>
+                    Qual é o problema :
+                                <span class="text-danger" > *</span>
+                            </b>
+                        </label>
+
+                        <textarea type="text" placeholder="Qual é o motivo da acção?" formControlName="descricao" style="height:100px;border-radius: 1px; width: 100%;"></textarea>
+
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="reset" class="btn btn-danger w-25" data-dismiss="modal">Fechar</button>
+                <button type="submit" class="btn btn-primary w-25" (click)="atribuicaoDir()">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="entregar-direcao" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog -dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="font-family: 'poppins'; font-size: 20px;">Entrega de arma de crime</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+
+                <form [formGroup]="formEntregarDir" class="col-12 d-grid justify-content-center w-100 h-100">
+
+
+
+                    <div class="form-group ">
+                        <label><b>Tipo Orgão</b><span class="text-danger"> *</span></label>
+                        <ng-select2 [options]="options" [data]="this.orgaoOuComandoProvincial" (valueChanged)="selecionarOrgaoOuComandoProvincial($event)" autorequired>
+                        </ng-select2>
+                    </div>
+
+                    <div class="form-group ">
+                        <label><b>Orgão</b><span class="text-danger"> *</span></label>
+                        <ng-select2 [options]="options" formControlName="orgao_id" [data]="this.direcaoOuOrgao" (valueChanged)="this.selecionarOrgao1($event)">
+                        </ng-select2>
+                    </div>
+
+                    <div class="form-group ">
+                        <label>
+                            <b>
+                             Arma:
+                                <span class="text-danger"> *</span>
+                            </b>
+                        </label>
+
+                        <ng-select2 [options]="options" formControlName="arma_id" [data]="armass2" style="height:40px;border-radius: 1px; width: 100%;">
+                        </ng-select2>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>
+                            <b>
+                Descrição da Arma de Crime :
+                                <span class="text-danger" > *</span>
+                            </b>
+                        </label>
+
+                        <textarea type="text" placeholder="Qual é o nome do orgão?" formControlName="descricao" style="height:100px;border-radius: 1px; width: 100%;" required> </textarea>
+
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger w-25" data-dismiss="modal">Fechar</button>
+                <button type="submit" class="btn btn-primary w-25" (click)="entregarDir()">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!---codigo acima era para solicitacoes mas as solictacoes foi desabilitada por mim -->

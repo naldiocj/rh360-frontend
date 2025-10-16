@@ -1,0 +1,95 @@
+<div class="modal fade" id="modalRegistarOuEditarDiverso" aria-labelledby="modalRegistarOuEditarDiverso"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document"
+        style="overflow-y: hidden; overflow-x: hidden; min-width: 80%; min-height: 80%">
+        <div class="modal-content" style="padding-top: 4em;">
+            <div class="modal-header">
+                <div class="col-lg-8 offset-lg-2">
+                    <h4 class="page-title"> <b>Registrar Documentos Diversos</b></h4>
+                    <p>Os campos com (<span id="ob"><b>*</b></span>) são de carácter obrigatório </p>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="content " style="padding-top: 10px;">
+                <div class="col-lg-8 offset-lg-2">
+                    <form [formGroup]="diversoForm">
+                        <div class="row">
+                            <div style="top: 25px;  margin-right: 1.8em;">
+                                <div class="form-group">
+                                    <label><b>Nº do Ofício </b><span class="text-danger">*</span></label>
+                                    <input style="width: 172px;" type="text" id="name" class="form-control" required
+                                        formControlName="oficio">
+
+                                </div>
+
+                            </div>
+
+                            <div style="top: 25px;">
+                                <div class="form-group">
+                                    <label><b>Orgão de Proveniência </b><span class="text-danger">*</span></label>
+                                    <ng-select2 [options]="options" formControlName="orgao_id" [data]="this.orgaos">
+                                    </ng-select2>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="all">
+                            <div style="top: 25px;">
+                                <div class="form-group">
+                                    <label><b>Assunto</b></label>
+                                    <input style="width: 565px;" type="text" id="name" class="form-control" required
+                                        formControlName="assunto">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="all">
+                            <div style="top: 25px;">
+                                <div class="form-group">
+                                    <label><b>Observação</b></label>
+                                    <input style="width: 565px;" type="text" id="name" class="form-control" required
+                                        formControlName="observacao">
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div style="top: 25px;" class="row">
+
+
+                            <div class="form-group">
+                                <label><b>Carregar peças do processo</b></label>
+                                <div class="profile-upload">
+                                    <div class="upload-img">
+                                        <img alt="" src="assets/img/user.jpg">
+                                    </div>
+                                    <div class="upload-input">
+                                        <input type="file" id="fileupload" class="form-control" name="file"
+                                            (change)="onFileSelected($event)" multiple>
+                                        <label for="fileupload" class="styled">Carregar</label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <button type="submit" (click)="registrar()"
+                                style="background-color: #FFA500; color: black; width: 230px; margin-left:10px; height: 3.2em; margin-top: 25px;"
+                                id="book"><b>Salvar</b>
+                            </button>
+
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

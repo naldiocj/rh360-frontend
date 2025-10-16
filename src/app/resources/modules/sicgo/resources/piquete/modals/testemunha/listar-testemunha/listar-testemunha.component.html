@@ -1,0 +1,57 @@
+<details>
+  <summary class="d-flex align-items-center">
+    <div class="mr-2">
+      <i class="bi"
+         [ngClass]="{
+           'bi-arrow-repeat spinner': testemunhas === undefined,
+           'bi-plus-lg': testemunhas !== undefined && testemunhas.length > 0,
+           'bi-x-lg': testemunhas !== undefined && testemunhas.length === 0
+         }">
+      </i>
+    </div>
+    INTERVENIENTES
+  </summary>
+
+  <div class="bg-lightt p-1">
+    <table class="table table-striped" #tableToPrint>
+      <ng-container *ngIf="!testemunhas?.length; else intervenientesTemplate">
+        <tbody>
+          <tr>
+            <td colspan="3" class="text-center">SEM INTERVENIENTES</td>
+          </tr>
+        </tbody>
+      </ng-container>
+
+      <ng-template #intervenientesTemplate>
+        <thead class="table-thead">
+          <tr>
+            <th>Nome</th>
+            <th>Contacto</th>
+            <th class="text-right">Opções</th>
+          </tr>
+        </thead>
+        <tbody class="table-tbody">
+          <tr *ngFor="let item of testemunhas; index as i">
+            <td>{{ item.nome | slice:0:10 }}{{ item.nome.length > 10 ? '..' : '' }}</td>
+            <td>{{ item.tel | slice:0:13 }}{{ item.tel.length > 13 ? '..' : '' }}</td>
+            <td class="text-right">
+              <div class="dropdown dropdown-action">
+                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                  <i class="fs-2 bi bi-three-dots-vertical"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalRegistarOuEditarInterveniente">
+                    <i class="fas fa-edit mr-2"></i>Editar
+                  </a>
+                  <a class="dropdown-item" target="_blank" href="#">
+                    <i class="fa fa-file-archive-o mr-2"></i>Gerar PDF
+                  </a>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </ng-template>
+    </table>
+  </div>
+</details>

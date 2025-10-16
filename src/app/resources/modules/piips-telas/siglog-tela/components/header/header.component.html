@@ -1,0 +1,24 @@
+<header class="header-pipna">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid d-flex justify-content-between" style="align-items: center">
+
+            <a routerLink="/" class="navbar-brand d-flex logo_ d-flex align-items-center" href="#">
+                
+                <strong class="d-xl-block d-lg-block d-md-block d-none mx-1 my-1 text-uppercase"
+                    style="color: white;font-size: 20px!important; line-height: 30px; font-weight: 500; text-align: center;">
+                  Sistema  Integrado de Gestão de Logística</strong>
+                <strong class="d-lg-none d-md-none mx-1 my-1">SIGLOG</strong>
+            </a>
+
+            <div class="d-flex justify-content-end align-item-center btn-options">
+
+                <a *ngIf="this.aceder_painel_piips" [routerLink]="['/piips']"><i class="fa fa-home"></i> <strong
+                        class="d-xl-block d-lg-block d-md-block d-none mx-1 my-1">Ir em PIIPS</strong> </a>
+
+                <a href="javascript:void(0)" (click)="sair()"><i class="fa fa-power-off"></i><strong
+                        class="d-xl-block d-lg-block d-md-block d-none mx-1 my-1">Sair</strong> </a>
+            </div>
+
+        </div>
+    </nav>
+</header>

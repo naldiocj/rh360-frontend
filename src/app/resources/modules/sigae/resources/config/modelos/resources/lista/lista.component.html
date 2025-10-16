@@ -1,0 +1,114 @@
+<div class="modal fade" id="delete-modal" style="border-radius: unset;">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-ms">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title w-100 d-flex justify-content-between align-items-center">
+                    Eliminação de Modelos
+                    <a data-dismiss="modal" class="bi bi-x-lg text-danger" style="cursor: pointer;"></a>
+                </div>
+            </div>
+            <div class="modal-body text-center" style="font-size:16px; color: #041b43;">
+                <span>Confirmas a eliminação ?</span>
+                <div class="btn-groups my-2">
+                    <a class="btn btn-link" style="text-decoration: none; color: #041b43;" (click)="this.delete_(this.id)">Sim</a>
+                    <div class="btn btn-link" data-dismiss="modal" style="text-decoration: none; color:  #041b43;">Não</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="content">
+    <div class="row">
+        <div class="col-sm-7">
+            <h4 style="color: #002d59;" class="page-title"><b>Listagem das Modelos</b></h4>
+                      <h4 style="font-size: 14px;">Sistema de Gestão de <b> armamento</b></h4>
+
+        </div>
+        <div class="col-sm-5 text-right m-b-20">
+
+           
+
+        </div>
+    </div>
+    <div class="row">
+        <nav class="navbar navbar-light bg-light">
+            <form class="form-inline">
+                <select class="form-control mr-sm-1" (change)="filtrarPagina('perPage',$event)">
+                    <option *ngFor="let item of [10,20,50,100]" [value]="item">{{item}}</option>
+                </select>
+                <input class="form-control mr-sm-1" type="search" placeholder="Pesquisa ..." [ngModel]="filtro.search" (ngModelChange)="filtrarPagina('search',$event)" />
+
+                <button id="btpe1" class="btn btn-outline-success my-2 my-sm-0" type="submit"><i
+                        style="font-size: 14px;" class="fa fa-refresh fa-spin fa-3x fa-fw"></i><b>
+                        Recarregar</b>
+                </button>
+
+                <a id="btpe1" class="btn btn-primary text-light my-2 my-sm-0 btnRegistar" type="submit" style="background-color: var(--primary-color)" data-toggle="modal" data-target="#modalRegistarModelo">
+                    <i style="font-size: 14px;" class="fa fa-plus-circle"></i><b>
+                        Registar</b>
+                </a>
+            </form>
+        </nav>
+
+        <div class="col-md-12">
+            <table class="table table-border table-striped custom-table datatable mb-0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Sigla</th>
+                        <th>Data de Registado </th>
+                        <th>Ultima actualização</th>
+                        <th class="text-center">Operação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of modelos | paginate: { itemsPerPage: this.pagination.per_page, currentPage: this.pagination.current_page,totalItems: this.pagination.total }; index as i">
+                        <td>{{i+1}}</td>
+                        <td>{{item.nome}}</td>
+                        <td>{{item.sigla}}</td>
+                        <!-- <td>
+                            <ng-container *ngIf="item.activo; else elseTemplate">
+                                <span class="custom-badge status-green">Activo</span>
+                            </ng-container>
+                            <ng-template #elseTemplate>
+                                <span class="custom-badge status-red">Inactivo</span>
+                            </ng-template>
+                        </td> -->
+                        <td>{{item.createdAt}}</td>
+                        <td>{{item.updatedAt}}</td>
+                        <td class="text-center">
+                            <div class="dropdown dropdown-action">
+                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <!-- <a class="dropdown-item" href="profile.html"><i class="fa fa-eye m-r-5"></i>
+                                        Visualizar</a> -->
+                                    <a class="dropdown-item" data-toggle="modal" data-target="#modalRegistarModelo" (click)="this.setId(item.id)"><i class="fa fa-pencil m-r-5"></i>
+                                        Editar</a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete-modal" (click)="setId(item.id)"><i class="fa fa-trash-o m-r-5" ></i> Eliminar</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-sm-6">
+                    Mostrando de {{ this.pagination.current_page }} á {{ this.pagination.per_page }} de {{ this.pagination.total }} Registo
+                </div>
+                <div class="col-sm-6">
+                    <div class="float-right">
+                        <pagination-controls (pageChange)="this.filtrarPagina('page', $event)" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-editar-ou-registar-modelo (onSucess)="this.recarregarPagina()" [id]="this.id"></app-editar-ou-registar-modelo>

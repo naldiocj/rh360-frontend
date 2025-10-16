@@ -1,0 +1,223 @@
+<div class="modal fade" id="modalEntradaDocumento" aria-labelledby="modalsigpqprovimentopromocaoemtempo"
+  aria-hidden="true">.
+  <div class="modal-dialog" role="document" style="min-width: 55%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>
+          <h3>
+            Entrada de Documentos
+          </h3>
+          {{
+          this.buscarId()
+          ? "Editar Documento"
+          : "Registar Documento"
+          }}
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="content p-2">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="row">
+              <div class="col-lg-12">
+                <form [formGroup]="this.simpleForm">
+                  <div class="modal-body">
+                    <div class="row">
+
+                      <div class="form-group col-md-12">
+                        <h4 style="color: #041B4E;" class="font-weight-normal">Informações do Documento</h4>
+                        <p>Os campos com (<span class="text-danger">*</span>) são de caracter obrigatório</p>
+                      </div>
+
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label style="color: #002d54"><b>Tipo de Entrada<span class="text-red">*</span></b></label>
+                          <ng-select2 [options]="options" [data]="tipoProveniencia"
+                            formControlName="tipo_proveniencia_id">
+                          </ng-select2>
+                        </div>
+                      </div>
+
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label style="color: #002d54"><b>Tipo de Documento <span class="text-red">*</span></b></label>
+                          <ng-select2 [options]="options" [data]="tipoCorrespondencia"
+                            formControlName="tipo_correspondencia_id">
+                          </ng-select2>
+                        </div>
+                      </div>
+
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label style="color: #002d54"><b>Natureza<span class="text-red">*</span></b></label>
+                          <ng-select2 [options]="options" [data]="tipoNatureza" formControlName="tipo_natureza_id">
+                          </ng-select2>
+                        </div>
+                      </div>
+
+                      <div class="col-md-12" *ngIf="showAssuntoField">
+                        <div class="form-group">
+                          <label style="color: #002d54"><b>Assunto<span class="text-red">*</span></b></label>
+                          <input name="assunto" type="text" class="form-control" formControlName="assunto">
+                        </div>
+                      </div>
+
+                      <div class="col-md-6" [ngClass]="{'col-md-12': simpleForm.get('tipo_correspondencia_id')?.value == 6}" *ngIf="showDAtaField">
+                        <div class="form-group">
+                          <label style="color: #002d54"><b>Data da Elaboração do Documento</b> <span class="text-red">*</span></label>
+                          <input name="data_documento" type="date" class="form-control"
+                            formControlName="data_documento">
+                        </div>
+                      </div>
+
+                      <div [ngClass]="{'col-md-12': simpleForm.get('tipo_natureza_id')?.value == 2 || simpleForm.get('tipo_natureza_id')?.value == 3 || simpleForm.get('tipo_natureza_id')?.value == 4, 'col-md-6': simpleForm.get('tipo_natureza_id')?.value != 2}" *ngIf="showNumberDocField">
+                        <div class="form-group">
+                          <label style="color: #002d54"><b>Nº de Documento<span class="text-red">*</span></b></label>
+                          <input type="text" class="form-control" formControlName="numeroOficio">
+                        </div>
+                      </div>
+                      
+                      <ng-container *ngIf="selectedTipoProveniencia == 1">
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label style="color: #002d54"><b>Proveniência <span class="text-red">*</span></b></label>
+                            <ng-select2 [options]="this.options" [data]="procedenciaCorrespondencia"
+                              (valueChanged)="this.selecionarProcedencia($event)"
+                              formControlName="procedencia_correspondencia_id"></ng-select2>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label style="color: #002d54"><b>Direcção/Orgão</b></label>
+                            <ng-select2 [options]="this.options" [data]="tipoEstruturaOrganicas"
+                              (valueChanged)="this.selecionarOrgaoOuComandoProvincial($event)"
+                              formControlName="tipo_orgao"></ng-select2>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label style="color: #002d54"><b>Comandos Provinciais/Orgão</b></label>
+                            <ng-select2 [options]="this.options" [data]="pessoaJuridicas"
+                              (valueChanged)="this.handlerDirecaoOrgao($event)"
+                              formControlName="proveniencia_id"></ng-select2>
+                          </div>
+                        </div>
+                      </ng-container>
+
+                      <!-- Elemento que aparece quando o segundo item é selecionado -->
+                      <ng-container *ngIf="selectedTipoProveniencia == 2">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label style="color: #002d54"><b>Proveniência</b></label>
+                            <input type="text" class="form-control" formControlName="provenienciaDoc">
+                          </div>
+                        </div>
+                      </ng-container>
+
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="switch switch-blue">
+                            <input type="checkbox" class="switch-input" (change)="toggleAnexo($event)" [checked]="isAnexo">
+                            <span class="switch-label" data-off="Upload" data-on="Scanner"></span>
+                            <span class="switch-handle"></span>
+                          </label>
+                        </div>
+                      </div>
+                      
+                      <div class="col-md-12" *ngIf="!isAnexo">
+                        <div class="form-group">
+                          <label style="color: #002d54"><b>Escanear Documento</b></label>
+                          <button type="button" class="btn btn-primary" (click)="scanWithoutAspriseDialog()">
+                            <i class="fa fa-scanner"></i> Escanear
+                          </button>
+                          <div id="images" class="image-container"></div>
+                        </div>
+                      </div>
+                      
+                      <div class="col-md-12" *ngIf="isAnexo">
+                        <div class="form-group">
+                          <label style="color: #002d54"><b>Anexo</b> <span class="text-red">*</span></label>
+                          <div class="profile-upload b">
+                            <div class="upload-input">
+                              <input
+                                type="file"
+                                (change)="upload($event, 'anexo')"
+                                id="file-anexo"
+                                class="form-control"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                                   
+                    </div>
+                  </div>
+
+                  <div
+                    style="border-radius: 5px; background-color: #FFFFFF; border:2px solid rgb(236, 224, 224); margin-left: 15px; margin-right: 15px;">
+                    <div class="modal-header">
+                      <div class="modal-body">
+                        <div class="row">
+
+                          <div class="form-group col-md-12">
+                            <h4 style="color: #041B4E;" class="font-weight-normal">Informações do Remetente</h4>
+                          </div>
+
+                          <div class="col-md-7">
+                            <div class="form-group">
+                              <label style="color: #002d54"><b>Nome do Remetente<span class="text-red">*</span></b></label>
+                              <input type="text" class="form-control" formControlName="nomeRemetente">
+                            </div>
+                          </div>
+
+                          <div class="col-md-5">
+                            <div class="form-group">
+                              <label style="color: #002d54"><b>Contacto do Remetente<span class="text-red">*</span></b></label>
+                              <div class="input-group">
+                                <span class="input-group-text" style="background-color: #dcdddf;">+244</span>
+                                <input 
+                                  type="text" 
+                                  class="form-control" 
+                                  formControlName="contactoRemetente" 
+                                  (input)="onInputChange($event)">
+                              </div>
+                            </div>
+                          </div>
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+
+                  <div class="row">
+                    <div class="col-md-12 d-flex justify-content-end">
+                      <button class="btn-piips btn-piips-red py-2 m-0" (click)="this.reiniciarFormulario()">
+                        <span class="fa fa-refresh"></span> Limpar
+                      </button>
+
+                      <button [disabled]="this.carregando|| this.submitted || !this.simpleForm.valid" type="button"
+                        (click)="onSubmit()" class="btn-piips btn-piips-primary m-0 py-2" style="border-radius: 0px">
+                        <ng-container *ngIf="this.carregando || this.submitted; else naoRegistar">
+                          <div class="spinner-border spinner-border-sm m-1"></div>
+                          Carregando...
+                        </ng-container>
+                        <ng-template #naoRegistar>
+
+                          {{this.buscarId() ? 'Gravar': 'Gravar'}}
+
+                        </ng-template>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

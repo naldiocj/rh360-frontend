@@ -1,0 +1,195 @@
+<main id="main_" class="main_">
+  <div class="pagetitle mb-4">
+    <h1> <i class="bi bi-journal-text"></i><span class="mx-2">Queixa - detalhes - Acusado {{this.dadosQueixa?.id_acusado}} </span></h1>
+  </div>
+
+  <div class="content">
+
+
+    <div class="row">
+
+      <div class="col-md-10">
+        <div class="tab-vertical">
+          <ul class="nav nav-tabs nav-tabs-solid nav-justified">
+            <li class="nav-item">
+              <a class="nav-link show active" id="dados-acusado-tab" data-toggle="tab" href="#dados-acusado" role="tab"
+                aria-controls="contact" aria-selected="true">
+                Dados do acusado  
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" id="dados-queixoso-tab" data-toggle="tab" href="#dados-queixoso" role="tab"
+                aria-selected="false">
+                Dados do queixoso 
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="dados-queixa-tab" data-toggle="tab" href="#dados-queixa" role="tab"
+                aria-controls="contact" aria-selected="false">
+                Natureza da inflação
+              </a>
+            </li>
+
+
+          </ul>
+          <div class="tab-content" id="tabContent1">
+            <div    class="tab-pane fade show active" id="dados-acusado" role="tabpanel"
+              aria-labelledby="dados-acusado-tab">
+
+              <nav class="navbar navbar-light bg-light">
+              
+              </nav>
+
+              <div class="col-md-12">
+                <table *ngIf="dadosAcusados.length > 0; else semAcusados"  class="table table-border table-striped custom-table datatable mb-0">
+                  <thead>
+                    <tr>
+                      <th>Nome</th>
+                      <th>Apelido</th>
+                      <th>Genero</th>
+                      <th>NIP</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr  *ngFor="let acusado of dadosAcusados" >
+                      <td> {{ acusado.acusado_nome }}</td>  
+                      <td>{{ acusado.acusado_apelido }}</td>
+                      <td>{{ acusado.acusado_genero }}</td>
+                      <td>{{ acusado.acusado_nip }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <ng-template #semAcusados>
+                  <p>Nenhum acusado encontrado.</p>
+                </ng-template>
+                <div class="col-md-12">
+                  <div class="row">
+                   
+                    <div class="col-sm-6">
+                      <div class="float-right">
+                        <pagination-controls id="funcionarioEspecial"
+                          (pageChange)="this.filtrarAcusados('page', $event)" [directionLinks]="true"
+                          [autoHide]="true" previousLabel="Anterior" nextLabel="Próximo" [maxSize]="4"
+                          [responsive]="true"></pagination-controls>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-pane fade" id="dados-queixoso" role="tabpanel" aria-labelledby="dados-queixoso-tab">
+              <div class="row">
+                <div class="col-md-6 col-6 col-lg-4">
+                  <p><b>Nome Completo</b></p>
+                  {{ this.dadosQueixoso?.nome_completo }}
+                </div>
+
+                <div class="col-md-6 col-6 col-lg-4">
+                  <p><b>Apelido</b></p>
+                  {{ this.dadosQueixoso?.apelido }}
+                </div>
+
+
+                <div class="col-md-6 col-6 col-lg-4">
+                  <p><b>Nascimento</b></p>
+                  {{ this.dadosQueixoso?.data_nascimento }}
+                </div>
+
+                <div class="col-md-6 col-6 col-lg-4">
+                  <p><b>Genero</b></p>
+                  {{ this.dadosQueixoso?.genero }}
+                </div>
+
+                <div class="col-md-6 col-6 col-lg-4">
+                  <p><b>Estado civil</b></p>
+                  {{ this.dadosQueixoso?.estado_civil }}
+                </div>
+
+                <div class="col-md-6 col-6 col-lg-4">
+                  <p><b>Naturalidade</b></p>
+                  {{ this.dadosQueixoso?.naturalidade }}
+                </div>
+
+                <div class="col-md-6 col-6 col-lg-4">
+                  <p><b>Residência BI</b></p>
+                  {{ this.dadosQueixoso?.residencia_bi }}
+                </div>
+
+                <div class="col-md-6 col-6 col-lg-4">
+                  <p><b>Residência actual</b></p>
+                  {{ this.dadosQueixoso?.residencia_atual }}
+                </div>
+
+                <div class="col-md-6 col-6 col-lg-4">
+                  <p><b>Nº BI</b></p>
+                  {{ this.dadosQueixoso?.bi_ou_cedula }}
+                </div>
+
+                <div class="col-md-6 col-6 col-lg-4">
+                  <p><b>Nome do Pai</b></p>
+                  {{ this.dadosQueixoso?.nome_pai }}
+                </div>
+
+                <div class="col-md-6 col-6 col-lg-4">
+                  <p><b>Nome Mãe</b></p>
+                  {{ this.dadosQueixoso?.nome_mae }}
+                </div>
+
+                <div class="col-md-6 col-6 col-lg-4">
+                  <p><b>Ocupação</b></p>
+                  {{ this.dadosQueixoso?.ocupacao }}
+                </div>
+
+                <div class="col-md-6 col-6 col-lg-4">
+                  <p><b>Contactos</b></p>
+                  {{ this.dadosQueixoso?.contactos }}
+                </div>
+
+
+              </div>
+            </div>
+            <div class="tab-pane fade" id="dados-queixa" aria-labelledby="dados-queixa-tab">
+              <div class="row">
+                <div class="col-md-6 col-6 col-lg-4">
+                  <p><b>Data</b></p>
+                  {{ this.dadosQueixa?.data }}
+                  {{ this.dadosQueixa?.createdAt }}
+                </div>
+  
+                <div class="col-md-6 col-6 col-lg-4">
+                  <p><b>Hora</b></p>
+                  {{ this.dadosQueixa?.hora }}
+                  {{ this.dadosQueixa?.createdAt }}
+                </div>
+
+                <div class="col-md-6 col-6 col-lg-4">
+                  <p><b>Observação</b></p>
+                  <div *ngIf="this.dadosQueixa?.obs; else without" >
+                      {{ this.dadosQueixa?.obs  }}
+                  </div>
+                  <ng-template #without>
+                    <p class="text-warning"  >
+                      Este processo não possui observação!
+                    </p>
+                  </ng-template>
+
+                </div>
+
+                <div class="col-md-6 col-6 col-lg-4 my-4" style="text-align: justify;">
+                  <p><b>Inflação</b></p>
+                  <span >{{ this.dadosQueixa?.natureza_infrancao }}</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>

@@ -1,0 +1,114 @@
+<main id="main_" class="main_">
+  <div class="pagetitle my-4">
+    <h1><i class="bi bi bi-receipt"></i> <span class="mx-2">Solicitações Pendentes</span></h1>
+  </div>
+
+
+  <section class="section">
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
+        <div class="card recent-sales overflow-auto shadow" style="border: none !important">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="card-body-header d-flex justify-content-between align-items-center my-2">
+                  <div class="row w-100">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <form class="row">
+                        <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12">
+                          <select id="perPageSelector" class="form-control mr-sm-1"
+                            (change)="filtrarPagina('perPage', $event)">
+                            <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">
+                              {{ item }}
+                            </option>
+                          </select>
+                        </div>
+                        <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12">
+                          <input class="form-control mr-sm-1" type="text" [ngModel]="filtro.search" name="search"
+                            (ngModelChange)="filtrarPagina('search', $event)" placeholder="Pesquisa ..." autofocus />
+                        </div>
+                        <div
+                          class="col-xl-2 col-lg-2 col-md-12 col-sm-12 d-flex align-items-center justify-content-end p-0">
+                          <button (click)="this.recarregarPagina()" class="btn-piips btn-piips-primary m-0"
+                            type="submit">
+                            <i style="font-size: 14px" class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+                            Recarregar
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-12 col-lg-12 col-md-12 col-md-12">
+                <div class="table-responsive">
+                  <table class="table text-center ms-auto">
+                    <thead class="text-center">
+                      <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Descricão</th>
+                        <th scope="col">Enviado para</th>
+                        <th scope="col">Estado da solicitação</th>
+                        <th scope="col">Data da solicitação</th>
+                        <th scope="col">Data do tratamento</th>
+                        <!-- <th scope="col" colspan="3">Operação</th> -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr (click)="this.setTratamento(item)" data-target="#view-tratamento" data-toggle="modal" *ngFor="
+                      let item of this.tratamentos
+                        | paginate
+                          : {
+                              id: 'tratamentosId',
+                              itemsPerPage: this.pagination.per_page,
+                              currentPage: this.pagination.current_page,
+                              totalItems: this.pagination.total
+                            };
+                      index as i
+                    ">
+                        <td class="text-center">{{ i + 1 }}</td>
+                        <td>Solicitação de {{ item.evento }}</td>
+                        <td [title]="item?.orgao">{{ item.orgao_sigla | uppercase }}</td>
+
+                        <td class="badge w-100 p-2 text-light" [style.backgroundColor]="
+                        item?.cor
+                      " style="border-radius: unset">
+                          {{ item?.estado ?? 'S/N' }}
+                        </td>
+                        <td>{{ item?.createdExtensionSolicitacao?.extensao ?? 'S/N'}}</td>
+                        <td>{{ item?.createdExtension?.extensao ?? 'S/N' }}</td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="row">
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                    Mostrando de {{ this.pagination.current_page }} a
+                    {{ this.pagination.per_page }} de {{ this.pagination.total }}
+                    <aside *ngIf="this.pagination.total < 2; else outrosRegistos">
+                      registos
+                    </aside>
+                    <ng-template #outrosRegistos>registos</ng-template>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                    <div class="float-right">
+                      <pagination-controls id="funcionarioEspecial" (pageChange)="this.filtrarPagina('page', $event)"
+                        [directionLinks]="true" [autoHide]="false" previousLabel="Anterior" nextLabel="Próximo"
+                        [maxSize]="4" [responsive]="true"></pagination-controls>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<app-pa-tratamento-solicitacao [funcionario]="this.funcionario" [tratamento]="this.tratamento"
+  [pessoaId]="this.getPessoaId">
+</app-pa-tratamento-solicitacao>

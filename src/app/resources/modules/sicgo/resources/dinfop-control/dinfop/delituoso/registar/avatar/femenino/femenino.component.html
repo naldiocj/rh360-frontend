@@ -1,0 +1,13 @@
+<div id="container" (mousemove)="onMouseMove($event)">
+    <div class="hair"></div>
+    <div class="ear" [ngStyle]="getLayerStyle(0.3)"></div>
+    <div class="ear right" [ngStyle]="getLayerStyle(0.3)"></div>
+    <div class="layer fringe" [ngStyle]="getLayerStyle(0.2)"></div>
+    <div class="layer eye" [ngStyle]="getLayerStyle(0.4)"></div>
+    <div class="layer head" [ngStyle]="getLayerStyle(0.2)">
+        <div class="nose"></div>
+        <div class="mouth">
+            <div class="tongue"></div>
+        </div>
+    </div>
+</div>

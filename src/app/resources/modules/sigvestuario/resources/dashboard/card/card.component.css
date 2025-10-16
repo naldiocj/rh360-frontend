@@ -1,0 +1,415 @@
+@charset "utf-8";
+
+.loading-nmg {
+    width: 100%;
+    height: 517px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    img {
+        width: 90px;
+    }
+
+    p {
+        animation: piscar 2s linear infinite;
+    }
+}
+
+@keyframes piscar {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.box {
+    margin-top: 0px;
+    margin-right: 16px;
+    width: 330px;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -5px,
+        rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+    border-radius: 6px !important;
+    background-image: url('../../../../../../../assets/assets_sigv/img/img1/fundo1-sigv.jpg');
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.box:hover {
+    transform: translateY(-5px);
+    transition: all .1s linear;
+    box-shadow: 4px 4px 4px -3px gray;
+}
+
+.infor {
+    p {
+        font-size: 8px;
+        margin-top: -10px;
+        color: grey;
+    }
+}
+
+.fa {
+    font-size: 70px;
+    margin-top: 30%;
+    font-family: Font Awesome 5 Free;
+}
+
+.bi {
+    font-size: 70px;
+    margin-top: 50%;
+}
+
+.detalhes {
+    margin-left: 22px;
+
+    h4 {
+        font-size: 14px;
+        color: #041B4E;
+        font-weight: bold;
+    }
+}
+
+/* .detalhes h4 {
+    font-size: 12px;
+    color: #041B4E;
+    font-weight: bold;
+} */
+
+.count {
+    font-size: 24px;
+    color: #041B4E;
+    padding: 15px;
+    border: none;
+    background-color: #ffffff;
+    border-radius: 6px;
+    height: 72px;
+    cursor: pointer;
+    justify-content: space-around;
+}
+
+.count p {
+    font-size: 8px;
+    margin-top: -8px;
+    color: #041B4E;
+}
+
+.cam {
+    color: #586174;
+    transition: 0.2s;
+}
+
+.cam:hover {
+    color: #041B4E;
+}
+
+@media screen and (min-width: 0px) {
+
+    /* Estilos para smartphones pequenos */
+    .box {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .fa {
+        font-size: 50px;
+        margin-top: 30%;
+        font-family: Font Awesome 5 Free;
+    }
+
+    .bi {
+        font-size: 50px;
+        margin-top: 50%;
+    }
+
+    .detalhes {
+        margin-left: 10px;
+
+        .infor {
+            h4 {
+                font-size: 10px;
+                font-weight: bold;
+            }
+
+            p {
+                font-size: 7px;
+                margin-top: -10px;
+                color: grey;
+            }
+        }
+
+    }
+}
+
+@media (min-width: 400px) {
+    /* Estilos para smartphones maiores e dispositivos móveis médios */
+
+    .box {
+        width: 44%;
+        flex-direction: column;
+    }
+
+    .fa {
+        font-size: 50px;
+        margin-top: 30%;
+        font-family: Font Awesome 5 Free;
+    }
+
+    .bi {
+        font-size: 50px;
+        margin-top: 50%;
+    }
+
+    .detalhes {
+        margin-left: 10px;
+
+        .infor {
+            h4 {
+                font-size: 10px;
+                font-weight: bold;
+            }
+
+            p {
+                font-size: 7px;
+                margin-top: -10px;
+                color: grey;
+            }
+        }
+
+    }
+}
+
+@media (min-width: 444px) {
+    /* Estilos para smartphones maiores e dispositivos móveis médios */
+
+    .box {
+        width: 46%;
+        flex-direction: column;
+    }
+
+    .fa {
+        font-size: 50px;
+        margin-top: 30%;
+        font-family: Font Awesome 5 Free;
+    }
+
+    .bi {
+        font-size: 50px;
+        margin-top: 50%;
+    }
+
+    .detalhes {
+        margin-left: 10px;
+
+        .infor {
+            h4 {
+                font-size: 10px;
+                font-weight: bold;
+            }
+
+            p {
+                font-size: 7px;
+                margin-top: -10px;
+                color: grey;
+            }
+        }
+
+    }
+}
+
+@media (min-width: 700px) {
+    /* Estilos para smartphones maiores e dispositivos móveis médios */
+
+    .box {
+        width: 30%;
+        flex-direction: column;
+    }
+
+    .fa {
+        font-size: 50px;
+        margin-top: 30%;
+        font-family: Font Awesome 5 Free;
+    }
+
+    .bi {
+        font-size: 50px;
+        margin-top: 50%;
+    }
+
+    .detalhes {
+        margin-left: 10px;
+
+        .infor {
+            h4 {
+                font-size: 10px;
+                font-weight: bold;
+            }
+
+            p {
+                font-size: 7px;
+                margin-top: -10px;
+                color: grey;
+            }
+        }
+
+    }
+}
+
+@media (min-width: 729px) {
+    /* Estilos para smartphones maiores e dispositivos móveis médios */
+
+    .box {
+        width: 31%;
+        flex-direction: column;
+    }
+
+    .fa {
+        font-size: 50px;
+        margin-top: 30%;
+        font-family: Font Awesome 5 Free;
+    }
+
+    .bi {
+        font-size: 50px;
+        margin-top: 50%;
+    }
+
+    .detalhes {
+        margin-left: 10px;
+
+        .infor {
+            h4 {
+                font-size: 10px;
+                font-weight: bold;
+            }
+
+            p {
+                font-size: 7px;
+                margin-top: -10px;
+                color: grey;
+            }
+        }
+
+    }
+}
+
+@media (min-width: 1018px) {
+    /* Estilos para tablets em modo retrato e paisagem 1024*/
+
+    .box {
+        width: 46%;
+        flex-direction: column;
+    }
+
+    .fa {
+        font-size: 50px;
+        margin-top: 30%;
+        font-family: Font Awesome 5 Free;
+    }
+
+    .bi {
+        font-size: 50px;
+        margin-top: 50%;
+    }
+
+    .detalhes {
+        margin-left: 10px;
+
+        .infor {
+            h4 {
+                font-size: 10px;
+                font-weight: bold;
+            }
+
+            p {
+                font-size: 7px;
+                margin-top: -10px;
+                color: grey;
+            }
+        }
+
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .box {
+        width: 30%;
+        justify-content: space-around;
+        flex-direction: row;
+    }
+
+    .fa {
+        font-size: 55px;
+    }
+
+    .bi {
+        font-size: 55px;
+    }
+
+}
+
+@media screen and (min-width: 1530px) {
+    .box {
+        width: 30%;
+        justify-content: space-around;
+        flex-direction: row;
+    }
+
+    .fa {
+        font-size: 60px;
+    }
+
+    .bi {
+        font-size: 60px;
+    }
+
+    .detalhes {
+        margin-left: 10px;
+
+        .infor {
+            h4 {
+                font-size: .7rem;
+                font-weight: bold;
+            }
+
+            p {
+                font-size: 9px;
+                margin-top: -10px;
+                color: grey;
+            }
+        }
+
+    }
+}
+
+@media screen and (min-width: 2300px) {
+    .box {
+        width: 23%;
+        justify-content: space-around;
+        flex-direction: row;
+    }
+
+    .detalhes {
+        margin-left: 10px;
+
+        .infor {
+            h4 {
+                font-size: 16px;
+                font-weight: bold;
+            }
+
+            p {
+                font-size: 7px;
+                margin-top: -10px;
+                color: grey;
+            }
+        }
+
+    }
+}

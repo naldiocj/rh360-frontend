@@ -1,0 +1,134 @@
+.btn {
+  border-radius: 0px!important;
+  padding: 12px 24px;
+  margin: 20px auto;
+  font-size: 16px;
+  transition: all 0.4s;
+  border: var(--border);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  font-weight: 400;
+}
+.btn.btn-primary {
+  background-color: var(--bg-color);
+  color: white;
+}
+.btn.btn-red {
+  background-color: var(--red);
+  color: white;
+}
+.text-red {
+  color: var(--red);
+}
+
+.btn.btn-primary:hover,
+.btn.btn-primary.active {
+  background-color: white;
+  color: var(--bg-color);
+  border: 1px solid var(--bg-color);
+}
+
+.btn.btn-red:hover,
+.btn.btn-red.active {
+  background-color: white;
+  color: var(--red);
+  border: 1px solid var(--red);
+}
+
+.btn.btn-secondary:hover,
+.btn.btn-secondary.active {
+  background-color: var(--bg-color);
+  color: white;
+  border: 1px solid var(--bg-color);
+}
+
+.btn.btn-secondary {
+  background-color: white;
+  color: var(--bg-color);
+  border: 1px solid var(--bg-color);
+}
+
+/* .btn:active{
+    transform: scale(.88);
+} */
+
+.link {
+  text-decoration: none;
+  cursor: pointer;
+}
+.link.link-secondary {
+  color: white !important;
+  transition: all 0.4s;
+}
+.link.link-secondary:hover {
+  border-bottom: 1px solid white !important;
+}
+.link.link-primary {
+  color: var(--bg-color) !important;
+  transition: all 0.4s;
+}
+.link.link-primary:hover {
+  border-bottom: 1px solid var(--bg-color) !important;
+}
+
+
+select, ng-select, input{
+  border: 1px solid var(--bg-color);
+}
+
+
+.recent-sales {
+  font-size: 14px;
+
+}
+
+  .recent-sales .table{
+    border-radius: 1px!important;
+    overflow: hidden;
+    padding:0px!important;
+  }
+ .recent-sales .table thead {
+  color: white;
+  background:  #041b43!important;
+  border-radius: 5px;
+
+}
+.recent-sales .table thead th{
+  padding: 10px;
+  border: 2px solid white;
+}
+.recent-sales .table tbody tr{
+  transition: all .4s;
+}
+.recent-sales .table tbody tr:hover{
+  background: #86abec3d;
+  cursor: pointer;
+  font-weight: 600;
+  transform: scale(1.004);
+
+}
+.recent-sales .table tbody tr td{
+  border: unset;
+  padding: 5px;
+  font-size: 1.1rem;
+}
+.recent-sales .table tbody tr{
+  border-bottom: 1px solid rgba(128, 128, 128, 0.106);
+}
+.recent-sales .table tbody tr td a{
+  border: unset!important;
+  border-radius: unset;
+  color:  #041b43!important;
+  padding: 0px;
+  font-size: 20px;
+  background: inherit;
+  transition: all .4s;
+}
+.recent-sales .table tbody tr td a:hover{
+
+  font-weight: bold;
+  transform: scale(1.5);
+}
+.recent-sales .table tbody tr td a:active{
+  box-shadow: unset;
+}

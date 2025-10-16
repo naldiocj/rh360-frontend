@@ -1,0 +1,152 @@
+<div class="content">
+    <div class="row">
+        <div class="col-sm-7">
+            <h4 style="font-size: 14px;">Sistema Integrado de Gestão de Pessoal e Quadros</h4>
+            <h4 style="color: var(--use-color);" class="page-title"><b>Listagem dos Agentes</b></h4>
+        </div>
+        <div class="col-sm-5 text-right m-b-20">
+            <a id="book" routerLink="/" ariaCurrentWhenActive="page"
+                [routerLink]="['/piips/sigpg/funcionario/registar-ou-editar']"
+                class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-plus-circle"></i> <b> Registrar</b>
+            </a>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <nav class="navbar navbar-light bg-light">
+            <form class="form-inline">
+                <select id="perPageSelector" class="form-control mr-sm-1" (change)="filtrarPagina('perPage',$event)">
+                    <option *ngFor="let item of [5,10,20,50]" [value]="item">{{item}}</option>
+                </select>
+                <select id="regimeSelector" class="form-control mr-sm-1" (change)="filtrarPagina('regime',$event)">
+                    <option *ngFor="let item of this.regimes" [value]="item.id">{{item.sigla}}</option>
+                </select>
+                <select id="vinculoSelector" class="form-control mr-sm-1" (change)="filtrarPagina('vinculo',$event)">
+                    <option *ngFor="let item of this.tipoVinculos" [value]="item?.id">{{item.text}}</option>
+                </select>
+                <input class="form-control mr-sm-1" type="text" [ngModel]="filtro.search"
+                    (ngModelChange)="filtrarPagina('search',$event)" placeholder="Pesquisa ...">
+                <button (click)="this.recarregarPagina()" id="btpe1" class="btn btn-outline-success my-2 my-sm-0"
+                    type="submit">
+                    <i style="font-size: 14px;" class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+                    <b>Recarregar</b>
+                </button>
+            </form>
+        </nav>
+        <div class="col-md-12">
+            <table class="table table-border table-striped custom-table datatable mb-0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Patente</th>
+                        <th>Nome Completo</th>
+                        <th>NIP</th>
+                        <th>Nº Agente</th>
+                        <th class="text-center">Colocação</th>
+                        <th>Cargo</th>
+                        <th>Data de Registo</th>
+                        <th>Data de Actualização</th>
+                        <th>Notificações</th>
+                        <th class="text-right">Operação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                        *ngFor="let item of this.funcionarios | paginate: { id: 'funcionarioEspecial', itemsPerPage: this.pagination.per_page, currentPage: this.pagination.current_page,totalItems: this.pagination.total }; index as i">
+                        <td>{{this.totalBase + i}}</td>
+                        <td>
+                            <ng-container *ngIf="item.patente_nome; else elseTemplate">
+                                {{item.patente_nome}}
+                            </ng-container>
+                            <ng-template #elseTemplate>
+                                S/N
+                            </ng-template>
+                        </td>
+                        <td>
+                            <strong>
+                                <a routerLink="/" ariaCurrentWhenActive="page"
+                                    [routerLink]="['/piips/sigpg/perfil/',item.id]" style="font-size: 15px;">
+                                    {{item.nome_completo | uppercase}} {{item.apelido | uppercase}}
+                                </a>
+                            </strong>
+                        </td>
+                        <td class="text-center">
+                            <ng-container *ngIf="item.nip; else elseTemplate">
+                                {{item.nip}}
+                            </ng-container>
+                            <ng-template #elseTemplate>
+                                S/N
+                            </ng-template>
+                        </td>
+                        <td class="text-center">
+                            <ng-container *ngIf="item.numero_agente; else elseTemplate">
+                                {{item.numero_agente}}
+                            </ng-container>
+                            <ng-template #elseTemplate>
+                                S/N
+                            </ng-template>
+                        </td>
+                        <td class="text-center">
+                            <ng-container *ngIf="item.orgao?.nome; else elseOrgao">
+                                {{item?.orgao?.nome}}
+                            </ng-container>
+                            <ng-template #elseOrgao>
+                                S/N
+                            </ng-template>
+                        </td>
+                        <td class="text-center">
+                            <!-- <ng-container *ngIf="item.nip; else elseTemplate"> -->
+                            <!-- {{item.nip}} -->
+                            <!-- </ng-container> -->
+                            <!-- <ng-template #elseTemplate> -->
+                            S/N
+                            <!-- </ng-template> -->
+                        </td>
+                        <td>{{item.created_at}}</td>
+                        <td>{{item.updated_at}}</td>
+                        <td class="text-center">0</td>
+                        <td class="text-right">
+                            <div class="dropdown dropdown-action">
+                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
+                                    aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a href="javascript:void(0)" class="dropdown-item" (click)="this.construcao()">
+                                        <i class="fa fa-file-pdf-o m-r-5"></i> Ficha de antecedentes
+                                    </a>
+                                    <a href="#" class="dropdown-item" routerLink="/" ariaCurrentWhenActive="page"
+                                        [routerLink]="['/piips/sigpg/perfil/',item.id]">
+                                        <i class="fa fa-eye m-r-5"></i>
+                                        Visualizar</a>
+                                    <a href="javascript:void(0)" class="dropdown-item" (click)="this.construcao()"
+                                        data-toggle="modal" data-target="#delete_patient"> <i
+                                            class="fa fa-pencil m-r-5"></i> Editar
+                                    </a>
+                                    <a href="javascript:void(0)" class="dropdown-item" (click)="this.construcao()"
+                                        data-toggle="modal" data-target="#delete_patient"><i
+                                            class="fa fa-trash-o m-r-5"></i> Apagar
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-sm-6">
+                    Mostrando de {{ this.pagination.current_page }} á
+                    {{ this.pagination.per_page }} de {{ this.pagination.total }} Registo
+                </div>
+                <div class="col-sm-6">
+                    <div class="float-right">
+                        <pagination-controls id="funcionarioEspecial" (pageChange)="this.filtrarPagina('page', $event)"
+                            [directionLinks]="true" [autoHide]="true" previousLabel="Anterior" nextLabel="Próximo"
+                            [maxSize]="4" [responsive]="true"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

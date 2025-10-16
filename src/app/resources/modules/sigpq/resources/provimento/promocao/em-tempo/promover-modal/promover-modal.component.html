@@ -1,0 +1,369 @@
+<div
+  class="modal fade"
+  id="modalRegistarProvimento"
+  aria-labelledby="modalsigpqprovimentopromocaoemtempo"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog"
+    role="document"
+    style="overflow-y: hidden; min-width: 60%"
+  >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>
+          <i class="fa fa-plus"></i>
+          Registar Provimento
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="content mt-4">
+        <form [formGroup]="this.simpleForm">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <aside
+                  *ngIf="
+                    this.emTempos?.length == 0;
+                    else temAgentesSelecionados
+                  "
+                >
+                  <h5 style="color: var(--red); font-weight: normal !important">
+                    Nenhum agente selecionado <i class="fa fa-times"></i>
+                  </h5>
+                </aside>
+                <ng-template #temAgentesSelecionados>
+                  <h5
+                    style="
+                      color: var(--use-color);
+                      font-weight: normal !important;
+                    "
+                  >
+                    {{ this.emTempos?.length }}
+                    {{
+                      this.emTempos?.length == 1
+                        ? "Agente Selecionado"
+                        : "Agentes Selecionados"
+                    }}
+                    <i class="fa fa-check"></i>
+                  </h5>
+                </ng-template>
+              </div>
+
+              <!-- <div class="col-xl-6 col-lg-6 col-m-12 col-sm-12">
+                <div class="form-group">
+                  <label for=""><b>Nome completo</b></label>
+                  <select required class="form-control select" [disabled]="true">
+                    <option value="0">{{this.emTempo?.nome_completo}}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-xl-3 col-lg-3 col-md-12 col-ms-12">
+                <div class="form-group">
+                  <label for=""><b>Posto actual</b></label>
+                  <select required class="form-control select" [disabled]="true">
+                    <option value="0">{{this.emTempo?.patente_nome}}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-xl-3 col-lg-3 col-md-12 col-ms-12">
+                <div class="form-group">
+                  <label><b>NIP</b></label>
+                  <input type="text" class="form-control" value="{{this.emTempo?.nip}}" [disabled]="true">
+                </div>
+              </div> -->
+              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                <div class="form-group">
+                  <label for=""><b>Tipo do acto</b></label>
+                  <ng-select2
+                    [options]="options"
+                    formControlName="sigpq_acto_progressao_id"
+                    [data]="this.actoProgressaos"
+                    (valueChanged)="this.handlerTipoPatente($event)"
+                  >
+                  </ng-select2>
+                </div>
+              </div>
+              <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                <div class="form-group">
+                  <label for=""
+                    ><b>{{ this.tituloPatente }}</b></label
+                  >
+                  <ng-select2
+                    [options]="options"
+                    formControlName="patente_id"
+                    [data]="this._patentes"
+                  >
+                  </ng-select2>
+                </div>
+              </div>
+              <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                <div class="form-group">
+                  <label for=""
+                    ><b>{{ this.tituloClasse }}</b></label
+                  >
+                  <ng-select2
+                    [options]="options"
+                    formControlName="sigpq_tipo_carreira_id"
+                    [data]="this.classes"
+                  >
+                  </ng-select2>
+                </div>
+              </div>
+
+              <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 d-flex align-item-center">
+                <div class="d-flex flex-column w-50">
+                  <label for=""><b>Despacho n.º<span class="text-red">*</span></b></label>
+                  <input class="form-control" type="text" formControlName="numero_despacho" [ngClass]="{
+                  'is-invalid':
+                    this.simpleForm.controls?.numero_despacho.dirty &&
+                    this.simpleForm.controls?.numero_despacho.errors,
+                  'is-valid':
+                    this.simpleForm.controls?.numero_despacho.dirty &&
+                    !this.simpleForm.controls?.numero_despacho.errors
+                }" />
+                  <div *ngIf="this.simpleForm.controls?.numero_despacho?.dirty &&
+                          this.simpleForm.controls?.numero_despacho?.errors" class="invalid-feedback">
+                    <div *ngIf="this.simpleForm.controls?.numero_despacho?.errors?.required">
+                      Este campo é obrigatório
+                    </div>
+                    <div
+                      *ngIf="this.simpleForm.controls?.numero_despacho?.dirty && this.simpleForm.controls?.numero_despacho?.errors">
+                      <div *ngIf="this.simpleForm.controls?.numero_despacho?.errors?.pattern" style="color: #dc3545;">
+                        Digite um N.º válido
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="d-flex flex-column flex-grow-1 ">
+                  <label for=""><b>Data<span class="text-red">*</span></b></label>
+                  <input id="data_aco" type="date" formControlName="data_despacho" class="form-control"
+                    [max]="this.validarDataAdesao">
+                </div>
+              </div> -->
+              <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 my-2">
+                <label for=""
+                  ><b
+                    >Anexo de ordem de serviço<span class="text-red">*</span></b
+                  ></label
+                >
+                <div class="upload-img">
+                  <div id="input-Img" class="upload-input">
+                    <input
+                      type="file"
+                      class="form-control"
+                      accept="application/pdf"
+                      (change)="this.uploadFilePDF($event, 'anexo')"
+                      id="anexo"
+                    />
+                  </div>
+                </div>
+              </div> -->
+              <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12"></div> -->
+              <div
+                class="col-xl-6 col-lg-6 col-md-12 col-sm-12 d-flex align-item-center"
+              >
+                <div class="d-flex flex-column w-50">
+                  <label for=""
+                    ><b>Despacho n.º<span class="text-red"></span></b
+                  ></label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    formControlName="numero_despacho_nomeacao"
+                    [ngClass]="{
+                      'is-invalid':
+                        this.simpleForm.controls?.numero_despacho_nomeacao
+                          .dirty &&
+                        this.simpleForm.controls?.numero_despacho_nomeacao
+                          .errors,
+                      'is-valid':
+                        this.simpleForm.controls?.numero_despacho_nomeacao
+                          .dirty &&
+                        !this.simpleForm.controls?.numero_despacho_nomeacao
+                          .errors
+                    }"
+                  />
+                  <div
+                    *ngIf="
+                      this.simpleForm.controls?.numero_despacho_nomeacao
+                        ?.dirty &&
+                      this.simpleForm.controls?.numero_despacho_nomeacao?.errors
+                    "
+                    class="invalid-feedback"
+                  >
+                    <div
+                      *ngIf="
+                        this.simpleForm.controls?.numero_despacho_nomeacao
+                          ?.errors?.required
+                      "
+                    >
+                      Este campo é obrigatório
+                    </div>
+                    <div
+                      *ngIf="
+                        this.simpleForm.controls?.numero_despacho_nomeacao
+                          ?.dirty &&
+                        this.simpleForm.controls?.numero_despacho_nomeacao
+                          ?.errors
+                      "
+                    >
+                      <div
+                        *ngIf="
+                          this.simpleForm.controls?.numero_despacho_nomeacao
+                            ?.errors?.pattern
+                        "
+                        style="color: #dc3545"
+                      >
+                        Digite um N.º válido
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex flex-column flex-grow-1">
+                  <label for=""
+                    ><b>Data<span class="text-red"></span></b
+                  ></label>
+                  <input
+                    id="data_aco"
+                    type="date"
+                    formControlName="data_despacho_nomeacao"
+                    class="form-control"
+                    [max]="this.validarDataAdesao"
+                  />
+                </div>
+              </div>
+
+              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                <label for=""
+                  ><b>Anexo do despacho<span class="text-red"></span></b
+                ></label>
+                <div class="upload-img">
+                  <div id="input-Img" class="upload-input">
+                    <input
+                      type="file"
+                      class="form-control"
+                      accept="application/pdf"
+                      (change)="this.uploadFilePDF($event, 'anexo')"
+                      id="anexo"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="my-2 col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                <div class="form-group">
+                  <label for=""><b>Tipo do acto</b></label>
+                  <ng-select2
+                    [options]="options"
+                    formControlName="sigpq_acto_nomeacao_id"
+                    [data]="this.actoNomeacaos"
+                    (valueChanged)="this.handlerTipo($event)"
+                  >
+                  </ng-select2>
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 my-2">
+                <label for=""
+                  ><b>Cargo<span class="text-red"></span></b
+                ></label>
+                <ng-select2
+                  [options]="options"
+                  [data]="this.tipoCargos"
+                  formControlName="sigpq_tipo_cargo_id"
+                >
+                </ng-select2>
+              </div>
+
+              <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 my-2">
+                <label for=""><b>Função<span class="text-red"></span></b></label>
+                <ng-select2 [options]="options" [data]="tipoFuncaos" formControlName="sigpq_tipo_funcao_id">
+                </ng-select2>
+              </div> -->
+              <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 d-flex align-item-center">
+                <div class="d-flex flex-column w-50">
+                  <label for=""><b>Ordem n.º<span class="text-red">*</span></b></label>
+                  <input class="form-control" type="text" formControlName="numero_ordem_nomeacao" [ngClass]="{
+                  'is-invalid':
+                    this.simpleForm.controls?.numero_ordem_nomeacao.dirty &&
+                    this.simpleForm.controls?.numero_ordem_nomeacao.errors,
+                  'is-valid':
+                    this.simpleForm.controls?.numero_ordem_nomeacao.dirty &&
+                    !this.simpleForm.controls?.numero_ordem_nomeacao.errors
+                }" />
+                  <div *ngIf="this.simpleForm.controls?.numero_ordem_nomeacao?.dirty &&
+                          this.simpleForm.controls?.numero_ordem_nomeacao?.errors" class="invalid-feedback">
+                    <div *ngIf="this.simpleForm.controls?.numero_ordem_nomeacao?.errors?.required">
+                      Este campo é obrigatório
+                    </div>
+                    <div
+                      *ngIf="this.simpleForm.controls?.numero_ordem_nomeacao?.dirty && this.simpleForm.controls?.numero_ordem_nomeacao?.errors">
+                      <div *ngIf="this.simpleForm.controls?.numero_ordem_nomeacao?.errors?.pattern"
+                        style="color: #dc3545;">
+                        Digite um N.º válido
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex flex-column flex-grow-1 ">
+                  <label for=""><b>Data<span class="text-red">*</span></b></label>
+                  <input id="data_acto" type="date" formControlName="data_ordem_nomeacao" class="form-control"
+                    [max]="this.validarDataAdesao">
+                </div>
+              </div> -->
+            </div>
+            <div class="modal-footer">
+              <button
+                class="btn-piips btn-piips-red"
+                type="reset"
+                (click)="this.reiniciarFormulario()"
+                disabled="true"
+              >
+                <span class="fa fa-refresh"></span> Limpar
+              </button>
+              <ng-container *ngIf="this.simpleForm.valid; else ocultarBotao">
+                <aside *ngIf="this.isLoading; else regista">
+                  <button
+                    disabled="true"
+                    class="btn-piips btn-piips-primary m-0"
+                  >
+                    <div class="spinner-border spinner-border-sm m-1"></div>
+                    <a style="text-decoration: none; color: white">
+                      A {{ this.buscarId() ? "Actualizar" : "Registar" }} ...</a
+                    >
+                  </button>
+                </aside>
+                <ng-template #regista>
+                  <button
+                    (click)="onSubmit()"
+                    class="btn-piips btn-piips-primary m-0"
+                  >
+                    <i class="fa fa-plus-circle"></i>
+                    {{ this.buscarId() ? "Actualizar" : "Registar" }}
+                  </button>
+                </ng-template>
+              </ng-container>
+              <ng-template #ocultarBotao>
+                <button disabled="true" class="btn-piips btn-piips-primary m-0">
+                  <i class="fa fa-plus-circle"></i>
+                  {{ this.buscarId() ? "Actualizar" : "Registar" }}
+                </button>
+              </ng-template>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

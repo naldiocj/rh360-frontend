@@ -1,0 +1,69 @@
+<div class="row section_main" style="width:100%;margin-left:0%">
+    <br>
+    <div class="d-xl-flex d-sm-grid w-100 justify-content-center shadow " style="margin-top: 20px;">
+
+        <div class="d-grid w-50  col-sm-6" style="height:100%;margin-left:20px;">
+            <div class="w-100 " style="color:var(--primary-color);height:100px;text-align:center;padding-top: 30px;">
+                <h4 style="font-size: 30px;font-style:bold;font-weight: 600;text-align:left;margin-left:20px;">Gerador
+                    de codigo Qr
+                </h4>
+            </div>
+            <br>
+            <form class="row-12 col-sm-12 col xl" [formGroup]="formQr">
+                <div class="form-group w-75 border-0 border-transparent ml-3">
+                    <label for="Agente" style="margin-left:20px;">Direcção/Comando</label> <br>
+                    <ng-select2 [options]="options" [class]="'w-100'"
+                        (valueChanged)="selecionarOrgaoOuComandoProvincial($event)" [data]="this.direcoes">
+                    </ng-select2>
+                </div>
+                <div class="form-group w-75 border-0 border-transparent ml-3">
+                    <label for="Agente" style="margin-left:20px;">Tipo</label> <br>
+                    <ng-select2 [options]="options" formControlName="orgao_id"  (valueChanged)="selecionarAgente($event)" style="width:210px"
+                        [data]="this.direcao">
+
+                    </ng-select2>
+                </div>
+
+                <div class="form-group w-75 border-0 border-transparent ml-3">
+                    <label for="Agente" style="margin-left:20px;">Agente</label> <br>
+
+                    <ng-select2 [options]="options" formControlName="pessoa_id" (valueChanged)="evento($event)"
+                        [data]="this.orgao">
+                    </ng-select2>
+                </div>
+                <div class="form-group w-75 border-0 border-transparent ml-3">
+                    <label for="Agente" style="margin-left:20px;">Tipo de Passe</label> <br>
+                    <ng-select2 [options]="options" [class]="'w-100'" (valueChanged)="EscTipo($event)"
+                        [data]="this.typeCartao">
+                    </ng-select2>
+                </div>
+            </form>
+
+            <br>
+        </div>
+
+        <div class="d-grid w-50 col-xl col-sm-12 justify-content-center col-sm-6"
+            style="display:grid;justify-content:center;height:100%;margin-top:2%;margin-bottom:0%;">
+            <div class="d-grid w-100" style="height:80%;">
+                <div class="qrcodeImage">
+                    <qrcode [qrdata]="img" [allowEmptyString]="true" formControlName="qr_codes"
+                        [ariaLabel]="'Neste momento estou a pensar em dormir um pouco'" [cssClass]="'center'"
+                        [colorDark]="'#041b43'" [colorLight]="'#fff'" [elementType]="'canvas'"
+                        [errorCorrectionLevel]="'M'" [imageHeight]="75" [imageWidth]="75" [margin]="4" [scale]="1"
+                        [title]="'qrcode'" (qrCodeURL)="getQr($event)" [width]="400"></qrcode>
+                </div>
+                <div class="d-flex w-100" style="margin-top:-15%;">
+                    <button class="bt_layout w-75 col-sm-12 col-xl" (click)="start()" [disabled]="fotoGerada">
+                        &nbsp;
+                        Gerar Documento
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>

@@ -1,0 +1,220 @@
+<div class="modal fade" id="modalRegistarOuEditarOperadores" aria-labelledby="modalRegistarOuEditarOperadores"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h4 class="modal-title"><b>Registrar Grupo Suspeito</b></h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form >
+          <!-- Abas -->
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active" data-toggle="tab" href="#infoEvento">Info de Evento</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#lateralDireita">Acesso de Segurança</a>
+            </li>
+          </ul>
+          
+          <!-- Conteúdo das Abas -->
+          <div class="tab-content">
+            <!-- Aba - Info de Evento -->
+            <div class="tab-pane fade show active" id="infoEvento">
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label><b>Código</b></label>
+                    <input type="text" class="form-control" formControlName="codigo" readonly />
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label><b>Título</b></label>
+                    <input type="text" class="form-control" formControlName="titulo" />
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label><b>Tipicidade</b></label>
+                    <select class="form-control" formControlName="tipicidade">
+                      <option value="">Selecione uma opção</option>
+                      <option value="tipicidadeA">Tipicidade A</option>
+                      <option value="tipicidadeB">Tipicidade B</option>
+                      <option value="tipicidadeC">Tipicidade C</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label><b>Enquadramento Legal</b></label>
+                    <select class="form-control" formControlName="enquadramentoLegal">
+                      <option value="">Selecione uma opção</option>
+                      <option value="enquadramentoA">Enquadramento A</option>
+                      <option value="enquadramentoB">Enquadramento B</option>
+                      <option value="enquadramentoC">Enquadramento C</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="row">
+                
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label><b>Gravidade</b></label>
+                    <select class="form-control" formControlName="gravidade">
+                      <option value="">Selecione uma opção</option>
+                      <option value="gravidadeA">Gravidade A</option>
+                      <option value="gravidadeB">Gravidade B</option>
+                      <option value="gravidadeC">Gravidade C</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label><b>Objeto de Crime</b></label>
+                    <select class="form-control" formControlName="objetoCrime">
+                      <option value="">Selecione uma opção</option>
+                      <option value="objetoA">Objeto A</option>
+                      <option value="objetoB">Objeto B</option>
+                      <option value="objetoC">Objeto C</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label><b>Nome Querelente</b></label>
+                    <select class="form-control" formControlName="nomeQuerelente">
+                      <option value="">Selecione uma opção</option>
+                      <option value="querelenteA">Querelente A</option>
+                      <option value="querelenteB">Querelente B</option>
+                      <option value="querelenteC">Querelente C</option>
+                    </select>
+                  </div>
+                </div>
+                
+              </div>
+  
+              <div class="row">
+                
+                <div class="col-lg-4">
+                  <div class="form-group">
+                    <label><b>Data e Hora da Queixa</b></label>
+                    <input type="datetime-local" class="form-control" formControlName="dataHoraQueixa" />
+                  </div>
+                </div>
+                <div class="col-lg-5">
+                  <div class="form-group">
+                    <label><b>Num B.I</b></label>
+                    <input type="number" class="form-control" formControlName="numBI" />
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label><b>Qualidade Querelente</b></label>
+                    <select class="form-control" formControlName="qualidadeQuerelente">
+                      <option value="">Selecione uma opção</option>
+                      <option value="qualidadeA">Qualidade A</option>
+                      <option value="qualidadeB">Qualidade B</option>
+                      <option value="qualidadeC">Qualidade C</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+  
+              
+  
+              <div class="form-group">
+                <label><b>Zona de Localidade</b></label>
+                <input type="text" class="form-control" formControlName="zonaLocalidade" />
+              </div>
+            </div>
+
+            
+            
+            <!-- Aba - Lateral Direita -->
+            <div class="tab-pane fade" id="lateralDireita">
+              <!-- Campos da aba lateral direita -->
+            </div>
+          
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label><b>Controlo Pretendido</b></label>
+                  <input type="file" class="form-control-file" formControlName="controloPretendido" />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label><b>Endereço</b></label>
+                  <input type="text" class="form-control" formControlName="endereco" />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label><b>Responsável</b></label>
+                  <input type="file" class="form-control-file" formControlName="responsavel" />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label><b>Nível de Segurança</b></label>
+                  <select class="form-control" formControlName="nivelSeguranca">
+                    <option value="">Selecione uma opção</option>
+                    <option value="baixo">Baixo</option>
+                    <option value="medio">Médio</option>
+                    <option value="alto">Alto</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <label><b>Formulários Relacionados</b></label>
+                  
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Título</th>
+                        <th>Código</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let formulario of formulariosRelacionadosArray; let i = index">
+                        <td>{{ formulario.titulo }}</td>
+                        <td>{{ formulario.codigo }}</td>
+                        <td>
+                          <button type="button" class="btn btn-danger btn-sm" (click)="removerFormularioRelacionado(i)">Remover</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <button type="button" class="btn btn-secondary mt-2" (click)="adicionarFormularioRelacionado()">Adicionar Mais Formulários</button>
+                </div>
+              </div>
+            </div>
+            
+           
+          </div>
+          
+          <!-- Botões de salvar e fechar -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              Fechar
+            </button>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

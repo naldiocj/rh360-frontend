@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+    <div class="card p-4 border">
+      <div class="row" *ngIf="this.isLoading">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <span>Carregar...</span>
+        </div>
+      </div>
+      <div class="row" *ngIf="!this.isLoading && this.fileUrl">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 my-2">
+          <span style="color: var(--bg-color);">
+            <b>Nº de Referência: {{ this.documento?.referenciaDoc }}</b>
+          </span>
+        </div>
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 my-2">
+          <span style="color: var(--bg-color);">
+            <b>Tipo de Documento: {{ this.documento?.tipo_correspondencia }}</b>
+          </span>
+        </div>
+        <div class="col-sm-12">
+          <div class="alert alert-primary" role="alert">
+            <h4 class="alert-heading">Assunto:</h4>
+            <p>{{this.documento?.assunto}}.</p>
+          </div>
+        </div>    
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <object
+            [data]="this.fileUrl"
+            type="application/json"
+            style="width: 100%; min-height: 750px;"
+          ></object>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

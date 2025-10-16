@@ -1,0 +1,62 @@
+<main id="main_" class="base main_">
+
+  <div class="system">
+    <div class="org d-flex">
+      <div class="img-top">
+        <img src="../../../../../../assets/deskapp.gif" alt=""
+          style="width: 50px; margin-top: -6px; margin-left: 12px; border-radius: 16px;">
+      </div>
+      <div>
+        <h3 class="titulo-top">Painel de Controlo</h3>
+        <h5 class="titulo-bt">Conteúdo incial da aplicação | <b>SIGPJ</b> - Sistema Integrado de Gestão de Processos
+          Jurídicos</h5>
+      </div>
+    </div>
+  </div>
+  <br>
+
+  <section class="section dashboard">
+
+    <aside *ngIf="this.isLoading;else showDashboard">
+      <br><br><br>
+      <loading-page [texto]="'os dashboards'"></loading-page>
+    </aside>
+
+    <ng-template #showDashboard>
+      <div class="dash-org d-flex">
+        <div class="row">
+          <div class="box p-3 mb-3 bg-light d-flex" *ngFor="let dashboard of dashboards">
+            <div class="figura">
+              <i id="img" class="{{ dashboard.icone }}"></i>
+            </div>
+            <div class="detalhes">
+              <div class="infor">
+                <h4>{{dashboard.nome}}</h4>
+                <p>
+                  Dados Fornecidos pelo Sistema
+                </p>
+              </div>
+              <div class="count d-flex">
+                <div class="dados">
+                  <h2>{{dashboard.total}}</h2>
+                  <p>Dados dinâmicos</p>
+                </div>
+                <div class="rota">
+                  <a routerLink="" class=""><i class="cam bi-arrow-right-circle-fill"></i></a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="">
+          <app-estatistica></app-estatistica>
+        </div>
+
+      </div>
+
+    </ng-template>
+
+  </section>
+
+</main>

@@ -1,0 +1,78 @@
+.title{
+    font-family: 'Poppins', sans-serif;
+    font-size: 30px
+}
+
+
+.see {
+    background-color: #041B4E;
+    color: white;
+    width: 170px;
+    height: 25px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 1s;
+}
+
+.see:hover{
+    border-radius: 0;
+    transition: 1s;
+}
+
+.container_main{
+    padding-left: 190px;
+}
+#top_content{
+    background-color: #041B4E;
+    border-radius: none;
+}
+
+.user_img{
+    display: flex;
+    justify-content: space-between;
+}
+
+.user_img img{
+    border-radius: 10px;
+}
+
+.content_img{
+    width: 200px;
+    height: 200px;
+}
+
+#btn_upload{
+    width: 150px;
+    border-radius: 5px;
+}
+
+
+.btn-registar{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+}
+
+
+.btn-registar #cancelar{
+    background-color: red;
+    border-radius: 3px;
+    color: white;
+    width: 130px;
+    height: 32px;
+    border: none;
+}
+
+.btn-registar #registrar{
+    background-color:  #041b4e;
+    border-radius: 3px;
+    color: white;
+    width: 130px;
+    height: 32px;
+    border: none;
+}
+
+

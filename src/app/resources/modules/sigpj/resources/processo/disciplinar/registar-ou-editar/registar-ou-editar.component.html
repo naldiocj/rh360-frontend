@@ -1,0 +1,311 @@
+<div class="modal fade" id="modalRegistarOuEditarDisciplinar" aria-labelledby="modalRegistarOuEditarDisciplinar"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document" style="overflow-y: hidden; min-width: 60%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 style="color: #002d54" class="page-title">
+          <b>Registar Processo Disciplinar</b>
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="content">
+        <div class="offset-lg-0">
+          <div class="col-md-12 mb-2">
+            <form class="form-inline">
+              <select class="form-control mr-sm-1" (change)="filtrarPagina('perPage', $event)">
+                <option *ngFor="let item of [5, 10]" [value]="item">
+                  {{ item }}
+                </option>
+              </select>
+              <input class="form-control mr-sm-1" type="text" [ngModel]="filtro.search"
+                (ngModelChange)="filtrarPagina('search', $event)" placeholder="Pesquisa ..." />
+              <button (click)="this.recarregarPagina()" id="btpe1" class="btn btn-outline-success my-2 my-sm-0"
+                type="submit">
+                <i style="font-size: 14px" class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+                <b>Pesquisar</b>
+              </button>
+              <!-- ---------------------------------------------------------------------------- -->
+              <!-- <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12"> -->
+              <!-- <aside class="row collapse" id="pesquisa-avancada"> -->
+              <!-- <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+                    <label for=""><b>Regime de Carreira</b></label>
+                    <ng-select2 [data]="this.regimes" [options]="this.options" [ngModel]="this.filtro.regimeId"
+                      name="regimeId" (valueChanged)="filtrarPagina('regimeId',$event)">
+                    </ng-select2>
+                  </div> -->
+
+              <!-- <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+                    <label for=""><b>Tipo de Vínculo</b></label>
+                    <ng-select2 [data]="this.tipoVinculos" [options]="this.options" [ngModel]="this.filtro.tipoVinculoId"
+                      name="tipoVinculoId" (valueChanged)="filtrarPagina('tipoVinculoId',$event)">
+                    </ng-select2>
+                  </div> -->
+              <!-- <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4" *ngIf="this.mostrarCarreira">
+                    <label for=""><b>Classe/Carreira</b></label><br>
+                    <ng-select2 [data]="this.patenteClasses" [ngModel]="this.filtro.patenteClasse" name="patenteClasse"
+                      (valueChanged)="filtrarPagina('patenteClasse',$event)" [options]="this.options">
+                    </ng-select2>
+                  </div> -->
+
+              <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4 mt-0">
+                <label for="" class="text-left"><b>Posto</b></label>
+                <ng-select2 [data]="this.patentes" [options]="this.options" [ngModel]="this.filtro.patenteId"
+                  name="patenteId" (valueChanged)="filtrarPagina('patenteId',$event)">
+                </ng-select2>
+              </div>
+
+              <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4 mt-0">
+                <label for=""class="text-left"><b>Gênero</b></label>
+                <ng-select2 [options]="options" [ngModel]="this.filtro.genero" name="genero"
+                  (valueChanged)="filtrarPagina('genero',$event)" [data]="this.generos">
+                </ng-select2>
+              </div>
+
+              <!-- <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+                    <label for=""><b>Situação Laboral <span class="text-danger"></span></b></label>
+                    <ng-select2 [options]="options" (valueChanged)="this.filtrarPagina('situacaoId',$event)"
+                      [data]="this.situacaoEstados" [ngModel]="this.filtro.situacaoId">
+                    </ng-select2>
+                  </div> -->
+              <!-- <div class="col-xl-3 col-lg-4 col-md-6  col-sm-12 mb-4">
+                    <label for=""><b>{{this.tituloSituacao}} <span class="text-danger">&nbsp;</span></b></label>
+                    <ng-select2 [options]="options" (valueChanged)="this.filtrarPagina('estadoId',$event)"
+                      [data]="this.estado">
+                    </ng-select2>
+                  </div> -->
+
+              <!-- <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4" *ngIf="this.getAuth?.user?.aceder_todos_agentes">
+                    <label for=""><b>Tipo de Órgão</b></label>
+                    <ng-select2 [options]="options" [data]="this.tipoEstruturaOrganicas"
+                      (valueChanged)="selecionarOrgaoOuComandoProvincial($event);">
+                    </ng-select2>
+                  </div> -->
+
+              <!-- <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4" *ngIf="this.getAuth?.user?.aceder_todos_agentes">
+                    <label for=""><b>Direcção/Comando </b></label>
+                    <ng-select2 [options]="options" (valueChanged)="filtrarPagina('orgaoId',$event)" [data]="this.orgaos"
+                      [ngModel]="this.filtro.orgaoId" name="orgaoId">
+                    </ng-select2>
+                  </div> -->
+              <!-- <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+                    <label for=""><b>Faixa Etária (De-Até)</b></label>
+                    <div class="d-flex">
+                      <input [min]="this.idadeMenos" type="number" [ngModel]="this.filtro.idadeMenos" class="form-control"
+                        (change)="filtrarPagina('idadeMenos',$event)">
+
+                      <input [min]="this.filtro.idadeMenos!='null' ? this.filtro.idadeMenos : this.idadeMenos"
+                        type="number" [ngModel]="this.filtro.idadeMais" class="form-control"
+                        (change)="filtrarPagina('idadeMais',$event)">
+                    </div>
+
+                  </div> -->
+              <!-- <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+                    <label for=""><b>Tempo de Serviço (De-Até)</b></label>
+                    <div class="d-flex">
+                      <input type="number" class="form-control" [ngModel]="this.filtro.anoMenos" [min]="0"
+                        (change)="filtrarPagina('anoMenos',$event)">
+
+                      <input type="number" class="form-control" [ngModel]="this.filtro.anoMais"
+                        [min]="this.filtro.anoMenos!='null' ? this.filtro.anoMenos : 0 "
+                        (change)="filtrarPagina('anoMais',$event)">
+                    </div>
+                  </div> -->
+
+              <!-- </aside> -->
+              <!-- </div> -->
+              <!-- -------------------------------------- -->
+            </form>
+            <div class="col-md-12">
+              <table class="table table-border table-striped custom-table datatable mb-0" style="margin-left: -15px;">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Patente</th>
+                    <th>Nome</th>
+                    <th>Genero</th>
+                    <th>NIP</th>
+                    <th>Colocação</th>
+                    <th class="text-right">Operação</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngIf="this.isLoading">
+                    <td colspan="9">
+                      <loading-page [texto]="'lista de agentes'"></loading-page>
+                    </td>
+                  </tr>
+                  <tr *ngFor="
+                      let item of this.funcionarios
+                        | paginate
+                          : {
+                              id: 'processo-disciplinar-agentes',
+                              itemsPerPage: this.pagination.per_page,
+                              currentPage: this.pagination.current_page,
+                              totalItems: this.pagination.total
+                            };
+                      index as i
+                    ">
+                    <td>{{ item.id }}/DAJ</td>
+                    <td>{{ item.patente_nome }}</td>
+                    <td>
+                      <a class="dropdown-item" href="#" data-toggle="modal" (click)="selectedFuncionario(item)">
+                        {{ item.nome_completo | uppercase}}</a>
+                    </td>
+                    <td>{{ item.genero }}</td>
+                    <td>{{ item.nip}}</td>
+                    <td class="text-start" [title]="item?.orgao?.nome" style="cursor: pointer;">{{ item.orgao.sigla |
+                      uppercase }}</td>
+                    <td class="text-right">
+                      <div class="dropdown dropdown-action">
+                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
+                            class="fa fa-ellipsis-v"></i></a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                          <a class="dropdown-item" href="#" data-toggle="modal" (click)="selectedFuncionario(item)">
+                            <i class="fa fa-plus m-r-5"></i>
+                            Adicionar arguido</a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-sm-6">
+                    Mostrando de {{ this.pagination.current_page }} á
+                    {{ this.pagination.per_page }} de
+                    {{ this.pagination.total }} Registo
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="float-right">
+                      <pagination-controls id="processo-disciplinar-agentes"
+                        (pageChange)="this.filtrarPagina('page', $event)" [directionLinks]="true" [autoHide]="true"
+                        previousLabel="Anterior" nextLabel="Próximo" [maxSize]="4"
+                        [responsive]="true"></pagination-controls>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 mb-2">
+
+            <nav style="border: 0.5px solid black;">
+              <div class="card">
+                <div class="card-header">
+                  <div class="col-sm-6 pull pull-left" style="color: black; padding: 5px 5px 5px 5px">
+                    Dados do Arguido
+                  </div>
+                </div>
+                <aside *ngIf="this.funcionario; else verFuncionario">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-4 mb-1">
+                        <b>Nome</b>: {{ this.funcionario?.nome_completo }} <br />
+                      </div>
+                      <div class="col-md-4">
+                        <b>NIP</b>: {{ this.funcionario.nip? this.funcionario?.nip:'S/N' }}<br />
+                      </div>
+                      <div class="col-md-4">
+                        <b>Patente</b>: {{ this.funcionario?.patente_nome}}<br />
+                      </div>
+                      <div class="col-md-4">
+                        <b>Gênero</b>:
+                        {{this.funcionario.genero == "M"
+                        ? "Masculino"
+                        : "Feminino"
+                        }}
+                        <br />
+                      </div>
+                      <div class="col-md-4">
+                        <b>Orgão de Colocação</b>:
+                        <aside *ngIf="this.disciplinarForm.value.id; else verOrgao">
+                          ( {{this.funcionario?.sigpq_tipo_orgao?.sigla}} ) -
+                          {{this.funcionario?.sigpq_tipo_orgao?.nome_completo}}
+                        </aside>
+                        <ng-template #verOrgao>
+                          ( {{this.funcionario?.orgao?.sigla}} ) - {{this.funcionario?.orgao?.nome}}
+                        </ng-template>
+
+                        <br />
+                      </div>
+                    </div>
+                  </div>
+                </aside>
+                <ng-template #verFuncionario>
+                  <div class="card-body text-center">
+                    <aside class="mb-1">Sem Arguido</aside>
+                  </div>
+                </ng-template>
+              </div>
+            </nav>
+          </div>
+          <div class="col-md-12 mb-2">
+            <form [formGroup]="disciplinarForm" enctype="multipart/form-data" (submit)="registar()">
+              <div class="row mt-2">
+                <div class="col-lg-3 col-md-3">
+                  <label><b>Nº do processo </b><span class="text-danger">*</span></label>
+                  <input type="text" id="name" class="form-control" required formControlName="numero_processo" />
+                </div>
+
+                <div class="col-lg-3 col-md-3">
+                  <label><b>Nº do Ofício </b><span class="text-danger">*</span></label>
+                  <input type="text" id="name" class="form-control" required formControlName="numero_oficio" />
+                </div>
+
+                <div class="col-lg-3 col-md-3">
+                  <label><b>Data do ofício </b><span class="text-danger">*</span></label>
+                  <input type="date" class="form-control" [max]="this.dataActual" required
+                    formControlName="data_oficio" />
+                </div>
+
+                <div class="col-lg-3 col-md-3">
+                  <label><b>Orgão de proveniência </b><span class="text-danger">*</span></label>
+                  <ng-select2 [options]="options" formControlName="orgao_id" [data]="this.orgaos">
+                  </ng-select2>
+                </div>
+              </div>
+
+              <div class="mt-3">
+                <label><b>Infração </b><span class="text-danger">*</span></label>
+                <textarea class="form-control" required formControlName="infracao">
+                </textarea>
+              </div>
+              <div class="form-group my-2">
+                <div class="d-flex flex-row">
+                  <label class="upload-input" id="label">
+                    <i class="bi bi-file-pdf-fill mx-2 "></i>
+                    Carregar peças
+                    <input id="file" type="file" (change)="onFileSelected($event)"
+                      class="form-control btn btn btn-primary" multiple />
+                  </label>
+                  <!-- <button [disabled]="this.isLoading" type="button" class="btn btn btn-primary mx-1">
+                    <ng-container *ngIf="this.isLoading; else naoRegistar">
+                      <div class="spinner-border spinner-border-sm m-1"></div>
+                      Carregando...
+                    </ng-container>
+                    <ng-template #naoRegistar>
+                      {{this.disciplinarForm.value.id ? 'Actualizar': 'Registar'}}
+                    </ng-template>
+                  </button> -->
+                  <button [disabled]="this.isLoading" class="btn btn-primary submit-btn mx-1" type="submit">
+                    <ng-container *ngIf="this.isLoading; else naoRegistar">
+                      <div class="spinner-border spinner-border-sm m-1"></div>
+                      Carregando...
+                    </ng-container>
+                    <ng-template #naoRegistar>
+                      {{this.disciplinarForm.value.id ? 'Actualizar': 'Registar'}}
+                    </ng-template>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

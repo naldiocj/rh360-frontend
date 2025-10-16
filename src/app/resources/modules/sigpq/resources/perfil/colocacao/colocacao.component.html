@@ -1,0 +1,107 @@
+<!-- <nav class="navbar navbar-light bg-light">
+    <form class="form-inline">
+        <select class="form-control mr-sm-1" (change)="filtrarPagina('perPage',$event)">
+            <option *ngFor="let item of [5,10,20,50]" [value]="item">{{item}}</option>
+        </select>
+        <input class="form-control mr-sm-1" type="text" [ngModel]="filtro.search"
+            (ngModelChange)="filtrarPagina('search',$event)" placeholder="Pesquisa ...">
+        <button (click)="this.recarregarPagina()" id="btpe1" class="btn btn-outline-success my-2 my-sm-0"
+            type="submit">
+            <i style="font-size: 14px;" class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+            <b>Recarregar</b>
+        </button>
+    </form>
+</nav> -->
+
+
+<div class="col-md-12">
+    <table class="table table-border table-striped custom-table datatable mb-0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Colocação</th>
+                <th>Estado</th>
+                <th>Número guia</th>
+                <th>Despacho</th>
+                <th>Data Ingresso</th>
+                <th>Data Registado</th>
+                <th>Data Actualização</th>
+                <th class="text-right">Operação</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr
+                *ngFor="let item of this.colocacao | paginate: { id: 'colocacaoId', itemsPerPage: this.pagination.per_page, currentPage: this.pagination.current_page,totalItems: this.pagination.total }; index as i">
+                <td>{{i+1}}</td>
+                <td>{{item.nome_completo}}</td>
+                <!-- <td>{{item.data_provimento}}</td> -->
+                <!-- <td>{{item.sigpq_acto_progressaos_nome}}</td> -->
+                <td>
+                    <span *ngIf="item.activo" class="custom-badge status-green">Activo</span>
+                    <span *ngIf="!item.activo" class="custom-badge status-orange">Inactivo</span>
+                </td>
+                <td>
+                    <aside *ngIf="item.numero_guia; else mostrarNumeroGuia">
+                        <b>{{item.numero_guia}}</b>
+                    </aside>
+                    <ng-template #mostrarNumeroGuia>
+                        <i>S/N</i>
+                    </ng-template>
+                </td>
+                <td>
+                    <aside *ngIf="item.despacho; else mostrarDespacho">
+                        <b>{{item.despacho}}</b>
+                    </aside>
+                    <ng-template #mostrarDespacho>
+                        <i>S/N</i>
+                    </ng-template>
+                </td>
+                <td>
+                    <aside *ngIf="item.data_ingresso; else mostrarDataIngresso">
+                        <b>{{item.data_ingresso}}</b>
+                    </aside>
+                    <ng-template #mostrarDataIngresso>
+                        <i>S/N</i>
+                    </ng-template>
+                </td>
+                <td>{{item.created_at}}</td>
+                <td>{{item.updated_at}}</td>
+                <td class="text-right">
+                    <div class="dropdown dropdown-action">
+                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
+                                class="fa fa-ellipsis-v"></i></a>
+                        <div class="dropdown-menu">
+                            <a *ngIf="!item.activo" href="#" class="dropdown-item" routerLink="/"
+                                [routerLink]="['/piips/sigpg/provimento/promocao/historico/', item.id]"
+                                href="javascript:void(0)">
+                                <i class="fa fa-eye m-r-5"></i>
+                                Activar
+                            </a>
+                            <a class="dropdown-item" href="#"><i class="fa fa-pencil m-r-5"></i>
+                                Editar
+                            </a>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_patient"><i
+                                    class="fa fa-trash-o m-r-5"></i> Eliminar</a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-sm-6">
+            Mostrando de {{ this.pagination.current_page }} á
+            {{ this.pagination.per_page }} de {{ this.pagination.total }} Registo
+        </div>
+        <div class="col-sm-6">
+            <div class="float-right">
+                <pagination-controls id="provimentoId" (pageChange)="this.filtrarPagina('page', $event)"
+                    [directionLinks]="true" [autoHide]="true" previousLabel="Anterior" nextLabel="Próximo" [maxSize]="4"
+                    [responsive]="true"></pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>

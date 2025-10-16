@@ -1,0 +1,115 @@
+<!-- Feedback de progresso -->
+<p>
+  Dedos capturados: {{ currentSequenceIndex }}/{{ fingerSequence.length }}
+</p>
+
+<!-- Barra de progresso -->
+<progress value="{{ currentSequenceIndex }}" max="{{ fingerSequence.length }}"></progress>
+
+<!-- Mensagem de sucesso -->
+<p *ngIf="currentSequenceIndex === fingerSequence.length" class="success">
+  Todas as impressões digitais foram capturadas com sucesso!
+</p>
+
+<!-- Contêiner das mãos -->
+<div class="hands-container">
+  <!-- Mão esquerda -->
+  <div class="hand hand-left" data-hand="left">
+    <div 
+      class="finger thumb" 
+      data-finger="polegar" 
+      data-hand="left" 
+      role="button" 
+      aria-label="Dedo Polegar" 
+      #finger
+      [class.active]="isFingerActive('polegar-left')">
+    </div>
+    <div 
+      class="finger index" 
+      data-finger="indicador" 
+      data-hand="left" 
+      role="button" 
+      aria-label="Dedo Indicador" 
+      #finger
+      [class.active]="isFingerActive('indicador-left')">
+    </div>
+    <div 
+      class="finger middle" 
+      data-finger="medio" 
+      data-hand="left" 
+      role="button" 
+      aria-label="Dedo Médio" 
+      #finger
+      [class.active]="isFingerActive('medio-left')">
+    </div>
+    <div 
+      class="finger ring" 
+      data-finger="anelar" 
+      data-hand="left" 
+      role="button" 
+      aria-label="Dedo Anelar" 
+      #finger
+      [class.active]="isFingerActive('anelar-left')">
+    </div>
+    <div 
+      class="finger pinky" 
+      data-finger="mindinho" 
+      data-hand="left" 
+      role="button" 
+      aria-label="Dedo Mindinho" 
+      #finger
+      [class.active]="isFingerActive('mindinho-left')">
+    </div>
+    <div class="palm"></div>
+  </div>
+
+  <!-- Mão direita -->
+  <div class="hand hand-right" data-hand="right">
+    <div 
+      class="finger thumb" 
+      data-finger="polegar" 
+      data-hand="right" 
+      role="button" 
+      aria-label="Dedo Polegar" 
+      #finger
+      [class.active]="isFingerActive('polegar-right')">
+    </div>
+    <div 
+      class="finger index" 
+      data-finger="indicador" 
+      data-hand="right" 
+      role="button" 
+      aria-label="Dedo Indicador" 
+      #finger
+      [class.active]="isFingerActive('indicador-right')">
+    </div>
+    <div 
+      class="finger middle" 
+      data-finger="medio" 
+      data-hand="right" 
+      role="button" 
+      aria-label="Dedo Médio" 
+      #finger
+      [class.active]="isFingerActive('medio-right')">
+    </div>
+    <div 
+      class="finger ring" 
+      data-finger="anelar" 
+      data-hand="right" 
+      role="button" 
+      aria-label="Dedo Anelar" 
+      #finger
+      [class.active]="isFingerActive('anelar-right')">
+    </div>
+    <div 
+      class="finger pinky" 
+      data-finger="mindinho" 
+      data-hand="right" 
+      role="button" 
+      aria-label="Dedo Mindinho" 
+      #finger
+      [class.active]="isFingerActive('mindinho-right')">
+    </div>
+    <div class="palm"></div>
+  </div>
+</div>

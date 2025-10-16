@@ -1,0 +1,30 @@
+<div class="org d-flex">
+    <div class="inf d-flex">
+        <div class="img-top">
+            <img src="../../../../../../assets/deskapp.gif" alt="logo" style="width: 50px; margin-top: -6px; margin-left: 12px; border-radius: 16px;">
+       </div>
+       <div>
+           <h3 class="titulo-top">Painel de Controlo</h3>
+           <h5 class="titulo-bt">Conteúdo incial da aplicação | <b>SIGAE</b> - Sistema Integrado de Gestão de Armamento e Explosivos</h5>
+       </div>
+    </div>
+    <div class="add-inf">
+        <div class="top">
+            <div class="icone1">
+                <img src="../../../../../../../assets/dashboard/Vector 51.png" alt="icon" width="60px">
+            </div>
+            <div class="botm">
+                <h5 ><span><b>Orgão:</b> </span> {{this.getModulo}}</h5>
+                <p><span><b>Província:</b> </span>{{this.provincia?.city}}  </p>
+            </div>
+        </div>
+    </div>
+  </div>
+
+<section class="section dashboard my-2" style="width: 100%!important;">
+
+    <div class="h-100  w-100">
+    <app-card-dashboard [dashboard]="dashboard" ></app-card-dashboard>
+    </div>
+</section>
+

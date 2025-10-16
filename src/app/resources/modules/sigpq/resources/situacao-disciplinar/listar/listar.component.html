@@ -1,0 +1,126 @@
+<!-- <div class="col-sm-7" style="position:relative; right: 0px;">
+  <h4 style="font-size: 14px;">Sistema Integrado de Gestão de Pessoal e Quadro</h4>
+  <h4 style="color: #002d59;" class="page-title"><b>Situaçao Disciplinar</b></h4>
+</div> -->
+
+<div class="content">
+  <sigpq-header></sigpq-header>
+
+  <!-- <section class="section"> -->
+  <div class="col-lg-12">
+    <nav class="navbar navbar-light bg-light">
+      <form class="form-inline">
+        <select id="perPageSelector" class="form-control mr-sm-1" (change)="filtrarPagina('perPage',$event)">
+          <option *ngFor="let item of [5,10,20,50]" [value]="item">{{item}}</option>
+        </select>
+        <!-- <select class="form-control mr-sm-1" (change)="filtrarPagina('estado',$event)">
+          <option *ngFor="let item of estados" [value]="item" selected>{{buscarTexto(item)}}</option>
+        </select> -->
+        <!-- <select id="regimeSelector" class="form-control mr-sm-1" (change)="filtrarPagina('regime',$event)">
+                <option *ngFor="let item of this.regimes" [value]="item.id">{{item.sigla}}</option>
+            </select> -->
+        <!-- <select id="vinculoSelector" class="form-control mr-sm-1" (change)="filtrarPagina('vinculo',$event)">
+            <option *ngFor="let item of this.tipoVinculos" [value]="item?.id">{{item.text}}</option>
+          </select> -->
+        <!-- <input class="form-control mr-sm-1" type="text" [ngModel]="filtro.search"
+                (ngModelChange)="filtrarPagina('search',$event)" placeholder="Pesquisa ..."> -->
+        <button (click)="this.recarregarPagina()" id="btpe1" class="btn btn-outline-success my-2 my-sm-0" type="submit">
+          <i style="font-size: 14px;" class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+          <b>Recarregar</b>
+        </button>
+      </form>
+      <!-- <div>
+        <span *ngFor="let item of estados" class="btn btn-primary float-right"
+          [ngStyle]="{'background-color': buscarCor(item)}">{{buscarTexto(item)}}</span>
+      </div> -->
+    </nav>
+  </div>
+  <!-- </section> -->
+
+  <div class="col-md-12">
+    <table class="table table-border table-striped custom-table datatable mb-0">
+      <thead>
+        <tr>
+          <!-- <th>#</th> -->
+          <th>ID</th>
+          <th>Nome Completo</th>
+          <th>Sexo</th>
+          <th>NIP</th>
+          <th>Número de Agente</th>
+          <th class="text-center">Total Processos</th>
+          <th class="text-center">Operação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="this.isLoading">
+          <td colspan="9">
+            <aside *ngIf="this.isLoading">
+              <loading-page [texto]="'lista de mobilidade'"></loading-page>
+            </aside>
+          </td>
+        </tr>
+        <tr *ngFor="
+            let item of this.agentes
+              | paginate
+                : {
+                    id: 'situacao-disciplinar-agentes',
+                    itemsPerPage: this.pagination.per_page,
+                    currentPage: this.pagination.current_page,
+                    totalItems: this.pagination.total
+                  };
+            index as i
+          ">
+          <!-- <td [ngStyle]="{'background-color': buscarCor(item.estado)}"></td> -->
+          <td>{{ this.totalBase + i }}</td>
+          <td>
+            <strong>
+              <a routerLink="/" ariaCurrentWhenActive="page" [routerLink]="['/piips/sigpg/perfil/',item.id]"
+                style="font-size: 15px;">
+                {{item.nome_completo | uppercase}} {{item.apelido | uppercase}}
+              </a>
+            </strong>
+          </td>
+          <td>
+            {{item.genero == 'M'? 'Masculino':'Feminino'}}
+          </td>
+          <td>
+            {{item.nip}}
+          </td>
+          <td>
+            {{item.numero_agente}}
+          </td>
+          <td class="text-center">
+            {{item.total}}
+          </td>
+          <td class="text-right">
+            <div class="dropdown dropdown-action position-static">
+              <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
+                  class="fa fa-ellipsis-v"></i></a>
+              <div class="dropdown-menu dropdown-menu-right">
+                <a href="javascript:void(0)" class="dropdown-item">
+                  <i class="bi bi-list-ul m-r-5"></i>Visualizar
+                </a>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-6">
+        Mostrando de {{ this.pagination.current_page }} á
+        {{ this.pagination.per_page }} de {{ this.pagination.total }} {{ this.pagination.total < 2? 'Registo'
+          : 'Registos' }} </div>
+          <div class="col-md-6">
+            <div class="float-right">
+              <pagination-controls id="situacao-disciplinar-agentes"
+                (pageChange)="this.filtrarPagina('page', $event, false)" [directionLinks]="true" [autoHide]="true"
+                previousLabel="Anterior" nextLabel="Próximo" [maxSize]="4" [responsive]="true"></pagination-controls>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>

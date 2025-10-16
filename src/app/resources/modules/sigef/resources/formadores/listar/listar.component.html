@@ -1,0 +1,157 @@
+<div class="content">
+  <div class="row">
+    <div class="col-sm-7">
+      <h4 style="color: #002d59" class="page-title">
+        <img
+          src="../../../../../../../assets/sigef/Administrator Male.png"
+          alt=""
+        />
+        <b>Formadores</b>
+      </h4>
+      <h4 style="font-size: 14px">Formadores Registrados no Sistema</h4>
+    </div>
+  </div>
+  <div class="row-12 col-12">
+    <nav class="navbar navbar-light bg-light">
+        <form class="form-inline">
+            <select class="form-control mr-sm-1">
+                <option>Activos</option>
+                <option>Inativos</option>
+            </select>
+
+            <select class="form-control mr-sm-1">
+                <option *ngFor="let item of [5, 10, 20, 50]" [value]="item" [(ngModel)]="filtro.perPage">
+                    {{ item }}
+                </option>
+            </select>
+            <input class="form-control mr-sm-1" type="search" placeholder="Pesquisa ..." name="search" [(ngModel)]="filtro.search" (ngModelChange)="filtrarPagina('search',$event)" />
+
+            <button id="btpe1" class="btn btn-outline-success my-2 my-sm-0" (click)="Recarregar()">
+                <i class="fa fa-refresh "></i>
+                Recarregar
+            </button>
+
+        </form>
+        <button id="btpe1" class="btn btn-outline-primary text-white my-2 my-sm-0" style="background-color: var(--primary-color);" data-toggle="modal" data-target="#modalRegistrarOuEditarFuncao">
+            <i class="fa fa-plus "></i>
+            Registar
+        </button>
+    </nav>
+    <div class="col-md-12">
+      <table class="table table-border table-striped custom-table mb-2">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Patente</th>
+            <th>Genero</th>
+            <th>Estádo</th>
+            <th>Tipo de Formador</th>
+            <!-- <th>Proveniência</th> -->
+            <th>Curso Ministrado</th>
+            <th>Instituição Ministrada</th>
+            <th class="text-center">Selecionar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let item of formadores
+                | paginate
+                  : {
+                      id: 'veiculos',
+                      itemsPerPage: this.pagination.per_page,
+                      currentPage: this.pagination.current_page,
+                      totalItems: this.pagination.total
+                    };
+              index as i
+            "
+          >
+            <td>{{ this.totalBase + i }}</td>
+            <td>{{ item.formador_nome }}</td>
+            <td>{{ item.formador_patente }}</td>
+            <td>{{ item.formador_genero }}</td>
+            <td>
+              <div class="estado">
+                <p>Activo</p>
+              </div>
+            </td>
+            <td>{{ item.tipo_formador }}</td>
+
+            <!-- <td>EPP</td> -->
+            <td>{{ item.curso_nome }}</td>
+            <td>{{ item.intituicao_nome }}</td>
+
+            <td class="text-center">
+              <div class="dropdown dropdown-action">
+                <a
+                  href="#"
+                  class="action-icon dropdown-toggle"
+                  data-toggle="dropdown"
+                  aria-expanded="false"
+                  ><i class="fa fa-ellipsis-v"></i
+                ></a>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <a
+                    class="dropdown-item"
+                    routerLink="/"
+                    [routerLink]="[
+                      '/piips/sigef/formadores/perfil-utilizador', item.id]"
+                    href="javascript:void(0)">
+                    <i class="fa fa-eye m-r-5"></i>
+                    Visualizar
+                  </a>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                    data-toggle="modal"
+                    data-target="#modalRegistarOuEditarVeiculo"
+                  >
+                    <i class="fa fa-pencil m-r-5"></i>
+                    Editar
+                  </a>
+                  <a
+                    class="dropdown-item"
+                    target="_blank"
+                    ata-toggle="modal"
+                    data-target=""
+                    (click)="this.gerarPDF()"
+                  >
+                    <i class="fa fa-file-archive-o"></i>
+                    Gerar PDF
+                  </a>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                    data-toggle="modal"
+                    data-target="#delete_perfil"
+                  >
+                    <i class="fa fa-trash-o m-r-5"></i> Apagar
+                  </a>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+
+  </div>
+</div>
+
+<div class="col-md-12">
+  <div class="row">
+      <div class="col-sm-6">
+          Mostrando de {{ this.pagination.current_page }} á {{ this.pagination.per_page }} de {{ this.pagination.total }} Registo
+      </div>
+      <div class="col-sm-6">
+          <div class="float-right">
+              <pagination-controls (pageChange)="this.filtrarPagina('page', $event)" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
+          </div>
+      </div>
+  </div>
+</div>
+
+<app-registrar-ou-editar></app-registrar-ou-editar>

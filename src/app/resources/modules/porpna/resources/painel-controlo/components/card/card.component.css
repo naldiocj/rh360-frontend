@@ -1,0 +1,11 @@
+.card .positive{
+  color: var(--active);
+}
+.card .negative{
+  color: var(--red);
+}
+.card-title{
+  font-weight: bold;
+  color: var(--white);
+  font-size: 1.4rem;
+}

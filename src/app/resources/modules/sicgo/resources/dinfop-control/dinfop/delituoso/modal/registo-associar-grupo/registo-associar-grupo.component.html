@@ -1,0 +1,89 @@
+
+<div class="modal fade " id="modalRegistarOuEditarAssociar" aria-labelledby="modalRegistarOuEditarAssociar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalRegistarOuEditarAssociarLabel" aria-hidden="true">
+     <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h4 class="modal-title"><b>Grupos Suspeitos</b></h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form>
+          <div class=" p-3">
+
+           
+              <div class="row mb-3">
+                 
+                <div class="col-xl-9 col-md-12">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <ng-container *ngIf="gruposSelecionados?.length === 0; else temAgentesSelecionados">
+                        <h5 class="text-danger">Nenhum Grupo selecionado <i class="fa fa-times"></i></h5>
+                      </ng-container>
+                      <ng-template #temAgentesSelecionados>
+                        <h5 class="text-success">
+                          {{ gruposSelecionados?.length }} {{ gruposSelecionados?.length === 1 ? 'Grupo Selecionado' : 'Grupos Selecionados' }} <i class="fa fa-check"></i>
+                        </h5>
+                      </ng-template>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+  
+                
+              <table class="table table-striped" #tableToPrint>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Código</th>
+                    <th>Nome</th>
+                    <th>Sigla</th>
+                    <th>meios</th>
+                    <th>Data Criado</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of grupos">
+                    <td>
+                      <div class="checkboxes__item">
+                        <label class="checkbox style-c">
+                          <input type="checkbox" (change)="selecionarDelituosoParaOcorrencia(item.id)" [checked]="validarSelecionado(item?.id)" />
+                            <div class="checkbox__checkmark hover:bg-muted-100 dark:hover:bg-muted-700/70"></div>
+                        </label>
+                    </div>
+                    </td>
+                    <td>{{ item.codigo_sistema }}</td>
+                    <td>
+                      {{ item.nome | uppercase }}
+                    </td>
+                    <td>{{ item.sigla }}</td>
+                    <td>{{ item.meios }} </td>
+                    <td>{{ item.data_criado | date:'dd/MM/yyyy' }}</td>
+                    <td class="text-right">
+                      <div class="dropdown">
+                        <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="fa fa-ellipsis-v"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item" href="javascript:void(0)" (click)="removerDelituosoSelecionado(item)">
+                            <i class="fa fa-trash m-r-5"></i> Remover
+                          </a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-info" (click)="addGrupos()">Associar</button>
+            <button type="button" class="btn btn-warning" (click)="removeGrupos()">Remover Grupos</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  

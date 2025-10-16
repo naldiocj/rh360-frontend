@@ -1,0 +1,206 @@
+<div
+    class="modal fade"
+    id="modalRegistarOuEditarAssociarGrupos" aria-labelledby="modalRegistarOuEditarAssociarGrupos"
+    aria-hidden="true"
+>
+    <div
+        class="modal-dialog modal-lk"
+        role="document"
+    >
+        <div class="modal-content">
+            <div class="modal-header bg-prima text-white">
+                <h4 class="modal-title">
+                    <b>Associação de Criminosa</b>
+                </h4>
+                <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                >
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form  [formGroup]="form"
+                class="needs-validation"
+                novalidate
+            >
+                <div class="modal-body">
+                    <div class="content bg-light p-3 rounded">
+
+                        <div class="row g-6">
+                            <div class="col-md-5 col-lg-5  ">
+
+                                <div
+                                    class="scrollable">
+                                    <ul class="list-group mb-2">
+                                        <li class="list-group-item d-flex justify-content-between">
+
+                                            <ng-container *ngIf="grupoSelecionados?.length === 0; else temAgentesSelecionados">
+                                                <h5 class="text-danger">
+                                                    Nenhum grupo selecionado
+                                                    <i class="fa fa-times"></i>
+                                                </h5>
+                                            </ng-container>
+                                            <ng-template #temAgentesSelecionados>
+                                                <h5 class="text-success">
+                                                  <span class="badge bg-primary rounded-pill">{{ grupoSelecionados?.length }}</span> {{ grupoSelecionados?.length === 1 ? 'Grupo Selecionado' : 'Grupos Selecionados' }}
+                                                    <i class="fa fa-check"></i>
+                                                </h5>
+                                            </ng-template>
+                                        </li>
+                                        <li
+                                            class="list-group-item d-flex justify-content-between"
+                                            *ngFor="let item of grupos"
+                                        >
+                                            <div>
+                                                <input type="checkbox" (change)="selecionarGrupoParaGrupo(item.id)" [checked]="validarSelecionado(item?.id)" />
+                                            </div>
+
+                                             
+                                            <div>
+                                                <h6 class="my-0">{{ item.nome | uppercase }}</h6>
+                                                <small class="text-body-secondary">{{ item.codigo_sistema }}</small>
+                                            </div>
+
+                                        </li>
+
+                                        <li class="list-group-item d-flex justify-content-between">
+                                            <span>Total ( )</span>
+
+                                            <button
+                                                type="button"
+                                                class="btn btn-warning"
+                                                (click)="removeGrupos()"
+                                            >
+                                                Desfazer associação
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                            <div class="col-md-7 col-lg-7">
+           
+                                <div class="row g-3">
+                                    <div class="col-sm-6">
+                                        <label
+                                            for="local_atuacao"
+                                            class="form-label mt-2"
+                                        >
+                                            Local de Atuação
+                                        </label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="local_atuacao"
+                                            formControlName="local_atuacao"
+                                            placeholder
+                                            value
+                                            required
+                                        >
+                                        <div class="invalid-feedback" *ngIf="form.get('local_atuacao')?.invalid && form.get('local_atuacao')?.touched">
+                                         Local de atuação é obrigatorio
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <label
+                                            for="ponto_concentracao"
+                                            class="form-label mt-2"
+                                        >
+                                            Ponto de Concentração
+                                        </label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="ponto_concentracao"
+                                            formControlName="ponto_concentracao"
+                                            placeholder
+                                            value
+                                            required
+                                        >
+                                        <div class="invalid-feedback" *ngIf="form.get('ponto_concentracao')?.invalid && form.get('ponto_concentracao')?.touched">
+                                          Ponto Concentracao é obrigatorio
+                                         </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <label
+                                            for="hora_concentracao"
+                                            class="form-label mt-2"
+                                        >
+                                            Hora da Concentracao
+                                        </label>
+                                        <input
+                                            type="date"
+                                            class="form-control"
+                                            id="hora_concentracao"
+                                            placeholder="hora da concentracao"
+                                            formControlName="hora_concentracao"
+                                        >
+                                        <div class="invalid-feedback" *ngIf="form.get('hora_concentracao')?.invalid && form.get('hora_concentracao')?.touched">
+                                          hora concentracao é obrigatorio
+                                         </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <label
+                                            for="hora_atuacao"
+                                            class="form-label mt-2"
+                                        >
+                                            hora da atuacao
+                                        </label>
+                                        <input
+                                            type="date"
+                                            class="form-control"
+                                            id="hora_atuacao"
+                                            placeholder="hora da atuacao"
+                                            required
+                                            formControlName="hora_atuacao"
+                                        >
+                                        <div class="invalid-feedback">hora da atuação.</div>
+                                    </div>
+
+                                    <div class="col-12">
+                                         <label for="meios_id" class="form-label mt-2">
+                                            Objecto Crime
+                                            <span class="text-body-secondary">(*)</span>
+                                        </label>
+                                        <ng-select2
+                                            [options]="this.options"
+                                            [data]="this.objectoCrimes"
+                                            formControlName="meios_id"
+                                        >
+                                        </ng-select2>
+
+                                    </div>
+                                     
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-dismiss="modal"
+                    >
+                        Fechar
+                    </button>
+                    <button
+                        type="submit"
+                        class="w-100 btn btn-primary btn-lg"
+                        (click)="addGrupoToGrupo()"
+                    >
+                        Associar Grupos
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,197 @@
+<div class="content">
+  <div class="row" style="row-gap: 2rem;">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+      <div class="header-ficha">
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 d-flex justify-content-start align-items-start"
+            style="column-gap: 0.8rem;">
+            <div class="image">
+              <img src="assets/img/logopolice.png" alt="image-logo" style="width: 80px; height: 80px;" />
+            </div>
+            <div class="logos">
+              <h1>POLÍCIA NACIONAL DE ANGOLA</h1>
+              <h3 class="text-uppercase">
+                Sistema Integrado de Gestão de Pessoal e Quadros
+              </h3>
+              <h4 class="text-light">
+                <b>Correspondência | {{ this.capitalize(this.getTipo) }}</b>
+              </h4>
+            </div>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12  my-4 d-flex justify-content-end align-items-center"
+            style="gap:.4rem">
+            <span class="legend-item" *ngFor="let item of this.estados">
+              <div class="legend-color" [style.backgroundColor]="item.cor"></div>
+              <span class="legend-text">{{item.texto}}</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+      <div class="row" style="row-gap: 0.8rem;">
+        <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12">
+          <div class="card wrapper-foto">
+            <div class="card-body profile-card py-4 d-flex flex-column align-items-center text-center"
+              [style.backgroundColor]="this.correspondencia?.tratamento?.cor">
+              <img src="assets/img/cadastrodoc.png" width="100" height="100" alt="Profile"
+                class="rounded-circle my-2" />
+              <h4 class="text-light">
+                {{ this.correspondencia?.codigo_sistema }}
+              </h4>
+              <!-- <h4 class="text-light">
+                Estado: {{ this.correspondencia?.status }}
+              </h4> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-10 col-lg-8 col-md-12 col-s-12">
+          <ul class="nav nav-tabs d-flex justify-content-between">
+            <li class="flex-fill d-flex justify-content-between">
+              <a class="flex-fill btn-piips btn-piips-primary m-0 py-2 border show active" id="informacao-geral-tab"
+                data-toggle="tab" href="#informacao-geral" role="tab" aria-selected="true">
+                Informacão geral
+              </a>
+            </li>
+            <li class="flex-fill d-flex justify-content-between">
+              <a class="flex-fill btn-piips btn-piips-primary m-0 py-2 border" id="documento-original-tab"
+                data-toggle="tab" href="#documento-original" role="tab" aria-selected="true"
+                (click)="this.setDocumentoId(this.correspondencia?.id)">
+                Documentos original
+              </a>
+            </li>
+            <li class="flex-fill d-flex justify-content-between">
+              <a class="flex-fill btn-piips btn-piips-primary m-0 py-2 border" id="tratamento-correspondencia-tab"
+                data-toggle="tab" href="#tratamento-correspondencia" role="tab" aria-selected="false"
+                (click)="setCorrespondencia(this.correspondencia)">
+                Tratamentos
+              </a>
+            </li>
+            <li class="flex-fill d-flex justify-content-between">
+              <a class="flex-fill btn-piips btn-piips-primary m-0 py-2 border" id="historico-provimento-tab"
+                data-toggle="tab" href="#despachos" role="tab" aria-selected="false"
+                (click)="setCorrespondencia(this.correspondencia)">
+                Despachos
+              </a>
+            </li>
+            <li class="flex-fill d-flex justify-content-between">
+              <a class="flex-fill btn-piips btn-piips-primary m-0 py-2 border" id="historico-mobilidade-tab"
+                data-toggle="tab" href="#saidas" role="tab" aria-selected="false"
+                (click)="setCorrespondencia(this.correspondencia)">
+                Saidas
+              </a>
+            </li>
+            <li class="flex-fill d-flex justify-content-between">
+              <a class="flex-fill btn-piips btn-piips-primary m-0 py-2 border" id="historico-cargo-tab"
+                data-toggle="tab" href="#expedientes" role="tab" aria-selected="false"
+                (click)="setCorrespondencia(this.correspondencia)">
+                Expedientes
+              </a>
+            </li>
+          </ul>
+          <div class="tab-content p-0">
+            <div class="tab-pane fade show active" id="informacao-geral" role="tabpanel"
+              aria-labelledby="informacao-geral">
+              <div class="card p-4 border">
+                <div class="row" style="row-gap: 0.4rem;">
+                  <div class="col-md-3 label">Código do sistema</div>
+                  <div class="col-md-9">
+                    <b style="color: var(--use-color);">
+                      {{ this.correspondencia?.codigo_sistema }}
+                    </b>
+                  </div>
+                  <div class="col-md-3 label">Assunto</div>
+                  <div class="col-md-9">
+                    <b style="color: var(--use-color);">
+                      {{ this.correspondencia?.assunto }}
+                    </b>
+                  </div>
+                  <div class="col-md-3 label">Tipo de correspondência</div>
+                  <div class="col-md-9">
+                    <b style="color: var(--use-color);">
+                      {{ this.correspondencia?.tipo_correspondencia }}
+                    </b>
+                  </div>
+
+                  <div class="col-md-3 label">Importância</div>
+                  <div class="col-md-9">
+                    <b style="color: var(--use-color);">
+                      {{ this.correspondencia?.importancia }}
+                    </b>
+                  </div>
+                  <div class="col-md-3 label">Natureza</div>
+                  <div class="col-md-9">
+                    <b style="color: var(--use-color);">
+                      {{ this.correspondencia?.natureza }}
+                    </b>
+                  </div>
+
+                  <div class="col-md-3 label">Procedência</div>
+                  <div class="col-md-9">
+                    <b style="color: var(--use-color);">
+                      {{ this.correspondencia?.procedencia_correspondencia }}
+                    </b>
+                  </div>
+
+                  <div class="col-md-3 label">Remetente</div>
+                  <div class="col-md-9">
+                    <b style="color: var(--use-color);">
+                      {{ this.correspondencia?.remetente_sigla }} -
+                      {{ this.correspondencia?.remetente }}
+                    </b>
+                  </div>
+                  <div class="col-md-3 label">Destinário</div>
+                  <div class="col-md-9">
+                    <b style="color: var(--use-color);">
+                      {{ this.correspondencia?.orgao_sigla }} -
+                      {{ this.correspondencia?.orgao }}
+                    </b>
+                  </div>
+                  <div class="col-md-3 label">Data de envio:</div>
+                  <div class="col-md-9">
+                    <b style="color: var(--use-color);">
+                      {{ this.correspondencia?.created_at }}
+                    </b>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-pane fade" id="documento-original" role="tabpanel" aria-labelledby="pa-tab">
+              <p>
+                <app-sigpq-documento-original [correspondenciaId]="this.documentoId"></app-sigpq-documento-original>
+              </p>
+            </div>
+            <div class="tab-pane fade" id="tratamento-correspondencia" role="tabpanel" aria-labelledby="pa-tab">
+              <p *ngIf="this.outCorrespondencia">
+                <app-sigpq-tratamentos (onCarregar)="this.buscarCorrespondencia()"
+                  [correspondencia]="this.outCorrespondencia"></app-sigpq-tratamentos>
+              </p>
+            </div>
+            <div class="tab-pane fade" id="despachos" role="tabpanel" aria-labelledby="historico-provimento-tab">
+              <p *ngIf="this.outCorrespondencia">
+                <app-sigpq-despachos (onCarregar)="this.buscarCorrespondencia()"
+                  [correspondencia]="this.outCorrespondencia"></app-sigpq-despachos>
+              </p>
+            </div>
+            <div class="tab-pane fade" id="historico-mobilidade" role="tabpanel"
+              aria-labelledby="historico-mobilidade-tab"></div>
+            <div class="tab-pane fade" id="saidas" role="tabpanel" aria-labelledby="historico-funcoes-tab">
+              <p *ngIf="this.outCorrespondencia">
+                <app-sigpq-saidas (onCarregar)="this.buscarCorrespondencia()"
+                  [correspondencia]="this.outCorrespondencia"></app-sigpq-saidas>
+              </p>
+            </div>
+            <div class="tab-pane fade" id="expedientes" role="tabpanel" aria-labelledby="historico-cargo-tab">
+              <p *ngIf="this.outCorrespondencia">
+                <app-sigpq-expedientes (onCarregar)="this.buscarCorrespondencia()"
+                  [correspondencia]="this.outCorrespondencia"></app-sigpq-expedientes>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

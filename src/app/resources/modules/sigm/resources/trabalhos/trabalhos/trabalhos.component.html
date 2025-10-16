@@ -1,0 +1,243 @@
+<!-- <div class="main">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5
+        style="color: #fff"
+        class="modal-title"
+        id="modalRegistarOuEditarPinturaLabel"
+      >
+        Trabalho
+      </h5>
+      <button
+        type="button"
+        class="close"
+        data-dismiss="modal"
+        aria-label="Fechar"
+      >
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="profile-tabs">
+            <div class="row">
+              <ul class="nav nav-tabs nav-tabs-bottom col-sm-8">
+                <li class="nav-item">
+                  <a
+                    class="nav-link active"
+                    href="#about-cont"
+                    data-toggle="tab"
+                    ><i class="bi bi-database"></i><b>Dados</b></a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#bottom-tab2" data-toggle="tab"
+                    ><b><i class="bi bi-geo-alt"></i>Localizções</b></a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#bottom-tab2" data-toggle="tab"
+                    ><b><i class="bi bi-person-lines-fill"></i>Técnicos</b></a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#bottom-tab2" data-toggle="tab"
+                    ><b>Trabalhos Preparatorios</b></a
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <div class="tab-content">
+              <div class="tab-pane show active" id="about-cont">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="table-responsive">
+                      <table class="table table-striped custom-table mb-0">
+                        <div class="content">
+                          <form [formGroup]="simpleForm">
+                            <div class="row">
+                              <div class="col-md-4">
+                                <label>Nome</label>
+                                <input class="form-control" type="text" />
+                              </div>
+                              <div class="col-md-4">
+                                <label>Orgão/Comando</label>
+                                <input class="form-control" type="text" />
+                              </div>
+                              <div class="col-md-4">
+                                <label>Agenda</label>
+                                <input class="form-control" type="text" />
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-md-4">
+                                <label>Trabalhos Planeados</label>
+                                <input class="form-control" type="text" />
+                              </div>
+                              <div class="col-md-4">
+                                <label>Estádo</label>
+                                <input class="form-control" type="text" />
+                              </div>
+                              <div class="col-md-4">
+                                <label>Agenda</label>
+                                <input class="form-control" type="text" />
+                              </div>
+                            </div>
+
+                            <angular-editor
+                                  style="width: 100%; height: 50%;"
+                                  class="editor"
+                                  formControlName="descricao"
+                                ></angular-editor>
+
+                            <div class="row">
+                              <div class="col-md-12">
+                                
+                              </div>
+                            </div>
+
+                          </form>
+                        </div>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+
+<div class="content">
+  <div class="row">
+    <div class="col-sm-7">
+      <h4 style="color: #002d59" class="page-title">
+        <img src="../../../../../../../assets/sigef/corses.png" alt="" />
+        <b>Registo de Sertviços</b>
+      </h4>
+      <h4 style="font-size: 14px">Serviços Registrados no Sistema</h4>
+    </div>
+  </div>
+  <div class="row down">
+    <nav class="navbar navbar-light bg-light">
+      <form class="form-inline">
+        <select class="form-control mr-sm-1">
+          <option>Pendentes</option>
+          <option>Resolvidos</option>
+        </select>
+
+        <select class="form-control mr-sm-1">
+          <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">
+            {{ item }}
+          </option>
+        </select>
+        <input
+          class="form-control mr-sm-1"
+          type="text"
+          placeholder="Pesquisa ..."
+        />
+
+        <button
+          id="btpe1"
+          class="btn btn-outline-success my-2 my-sm-0"
+          type="submit"
+        >
+
+          <i style="font-size: 14px"></i>
+          <img
+            src="assets/dashboard/veiculos/Synchronize.png"
+            alt=""
+            class="fa fa-refresh fa-spin fa-3x fa-fw"
+          />
+
+          <b>Recarregar</b>
+        </button>
+
+        <a
+          href="javascript:void(0)"
+          data-toggle="modal"
+          data-target="#modalRegistarOuEditarCurso"
+          class="btn btn-primary btnRegistar">
+          
+          <img
+            class="options-img"
+            src="assets/dashboard/veiculos/Plus.png"
+            alt=""
+          />
+          Registar </a
+        >&nbsp;
+      </form>
+    </nav>
+
+    <div class="col-md-12">
+      <table class="table table-border table-striped custom-table mb-2">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Tipo de serviço</th>
+            <th>Orgão/Direcção</th>
+            <th>Estádo</th>
+            <th>Data de Registo</th>
+            <th class="text-center">Operação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Construção de piquete</td>
+            <td>DTTI</td>
+            <td>Ativo</td>
+            <td>20-02-2024</td>
+            <td class="text-center">
+              <div class="dropdown dropdown-action">
+                <a
+                  href="#"
+                  class="action-icon dropdown-toggle"
+                  data-toggle="dropdown"
+                  aria-expanded="false"
+                  ><i class="fa fa-ellipsis-v"></i
+                ></a>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <a
+                    class="dropdown-item"
+                    routerLink="/"
+                    href="javascript:void(0)"
+                  >
+                    <i class="fa fa-eye m-r-5"></i>
+                    Visualizar
+                  </a>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                    data-toggle="modal"
+                    data-target="#modalRegistarOuEditarVeiculo"
+                  >
+                    <i class="fa fa-pencil m-r-5"></i>
+                    Editar
+                  </a>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                    data-toggle="modal"
+                    data-target="#delete_perfil"
+                  >
+                    <i class="fa fa-trash-o m-r-5"></i> Apagar
+                  </a>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

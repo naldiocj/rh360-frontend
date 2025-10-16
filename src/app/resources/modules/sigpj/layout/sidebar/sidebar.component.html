@@ -1,0 +1,136 @@
+<!--  <aside id="asidebar" class="asidebar">
+
+  <ul class="asidebar-nav" id="sidebar-nav">
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/piips/sigpj/dashboard']" routerLinkActive="active">
+        <i class="bi bi-graph-up" id="cor_icone"></i>
+        <span>Painel de Controlo</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link collapsed d-flex justify-content-center" data-target="#ask-menu" data-toggle="collapse"
+        href="#" routerLinkActive="active">
+        <i class="bi bi-journal-text" id="cor_icone"></i>
+        <span>Processos</span>
+        <i class="bi bi-chevron-down flex-fill " style="text-align:right"></i>
+      </a>
+      <ul id="ask-menu" class="nav-content collapse bg-light rounded-bottom py-0" data-parent="#sidebar-nav">
+        <li><a class="d-flex justify-content-between align-items-center pr-2"
+            [routerLink]="['/piips/sigpj/processo/disciplinar/listagem']">Disciplinar<i class="bi bi-list-ul"
+              style="font-size: 1.2rem"></i></a></li>
+        <li><a class="d-flex justify-content-between align-items-center pr-2"
+            [routerLink]="['/piips/sigpj/processo/reclamacao/listagem']">Reclamação<i class="bi bi-list-ul"
+              style="font-size: 1.2rem"></i></a></li>
+      </ul>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/piips/sigpj/diverso/listagem']" routerLinkActive="active">
+        <i class="bi bi-stickies-fill" id="cor_icone"></i><span>Diversos</span>
+      </a>
+    </li>
+
+
+    <li class="nav-item">
+      <a class="nav-link collapsed d-flex justify-content-center" data-target="#reclamation-menu" data-toggle="collapse"
+        href="#" routerLinkActive="active">
+        <i class="bi bi-person-square" id="cor_icone"></i>
+        <span>Configurações</span>
+        <i class="bi bi-chevron-down flex-fill " style="text-align:right"></i>
+      </a>
+      <ul id="reclamation-menu" class="nav-content collapse bg-light rounded-bottom py-0" data-parent="#sidebar-nav">
+        <li><a class="d-flex justify-content-between align-items-center pr-2"
+            [routerLink]="['/piips/sigpj/admin/perfil/listagem']">Perfil<i class="bi bi-list-ul"
+              style="font-size: 1.2rem"></i></a></li>
+        <li><a class="d-flex justify-content-between align-items-center pr-2"
+            [routerLink]="['/piips/sigpj/admin/utilizador/listagem']">Utilizadores<i class="bi bi-list-ul"
+              style="font-size: 1.2rem"></i></a></li>
+      </ul>
+    </li>
+
+  </ul>
+  <div class="fixed-corner px-3">
+    <h4 style="font-size: 14px; color:white;"><b>Versão 0.1</b></h4>
+    <p style="font-size: 14px; color: white; margin-top: 5px; font-size: 8px;">DTTI/PNA Todos os direitos reservados.
+    </p>
+  </div>
+</aside>  -->
+
+
+<div id="asidebar" class="asidebar">
+  <ul>
+    <li class="nav-item">
+      <span class="menu-p" style="font-weight: bold; font-size: 19px;"><i style="margin-right: 8px;"
+          class="bi bi-grid-fill"></i> Menu Principal</span>
+    </li>
+    <li style="margin-top: 20px;" class="nav-item">
+      <a class="nav-link d-flex  align-items-center" [routerLink]="['/piips/sigpj/dashboard']"
+        routerLinkActive="active">
+        <i class="bi bi-speedometer2"></i>
+        <span>Painel de Controlo</span>
+      </a>
+    </li>
+    <li>
+      <hr class="dropdown-divider">
+    </li>
+    <li class="nav-item">
+      <a class="nav-link d-flex  align-items-center" routerLinkActive="active" href="#demo" data-toggle="collapse">
+        <i class="bi bi-list-ol"></i>
+        <span><span></span>Processos</span><span class="menu-arrow spin"> <i
+            class="bi bi-chevron-right flex-fill text-white rot" style="text-align:right; font-size: 12px;"></i></span>
+      </a>
+      <div id="demo" class="collapse">
+    <li style="padding-left: 25%; padding-bottom: 10px">
+      <a class="nav-link" [routerLink]="['/piips/sigpj/processo/disciplinar/listagem']" routerLinkActive="active">
+        <i style="font-size: 14px;" class="bi bi-arrow-right-circle"></i>
+        <span><span></span>Disciplinar</span><span class="menu-arrow"></span>
+      </a>
+    </li>
+    <li style="padding-left: 25%; padding-bottom: 10px">
+      <a class="nav-link" [routerLink]="['/piips/sigpj/processo/reclamacao/listagem']" routerLinkActive="active">
+        <i style="font-size: 14px;" class="bi bi-arrow-right-circle"></i>
+        <span><span></span>Reclamação</span><span class="menu-arrow"></span>
+      </a>
+    </li>
+</div>
+</li>
+<li>
+  <hr class="dropdown-divider">
+</li>
+<li class="nav-item">
+  <a class="nav-link d-flex  align-items-center" [routerLink]="['/piips/sigpj/diverso/listagem']"
+    routerLinkActive="active">
+    <i class="bi bi-nut"></i>
+    <span>Diversos</span>
+  </a>
+</li>
+<li>
+  <hr class="dropdown-divider">
+</li>
+
+<!-- <li class="nav-item">
+          <a class="nav-link d-flex  align-items-center" routerLinkActive="active" href="#demoGestao" data-toggle="collapse">
+              <i  class="bi bi-wrench-adjustable-circle"></i>
+              <span><span></span>Configurações</span><span class="menu-arrow"> <i class="bi bi-chevron-right flex-fill text-white" style="text-align:right; font-size: 12px;"></i></span>
+          </a>
+          <div id="demoGestao" class="collapse">
+              <li style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px">
+                  <a class="nav-link" [routerLink]="['/piips/sigpj/admin/perfil/listagem']" routerLinkActive="active">
+                      <i style="font-size: 14px;"  class="bi bi-arrow-right-circle"></i>
+                      <span><span></span> Perfil</span><span class="menu-arrow"></span>
+                  </a>
+              </li>
+              <li style="padding-left: 25%; padding-top: 1px; padding-bottom: 10px">
+                  <a class="nav-link" [routerLink]="['/piips/sigpj/admin/utilizador/listagem']" routerLinkActive="active">
+                      <i style="font-size: 14px;"  class="bi bi-arrow-right-circle"></i>
+                      <span><span></span> Utilizadores</span><span class="menu-arrow"></span>
+                  </a>
+              </li>
+          </div>
+      </li> -->
+</ul>
+<div class="infor">
+  <h5>SIGPJ V 0.1</h5>
+  <P>PIIPS - Todos os direitos reservados a PNA</P>
+</div>
+</div>

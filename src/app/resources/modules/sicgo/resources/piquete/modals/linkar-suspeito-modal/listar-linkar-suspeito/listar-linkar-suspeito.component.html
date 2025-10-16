@@ -1,0 +1,56 @@
+<details> 
+  <summary class="d-flex">
+    <div *ngIf="delituoso?.length; else noDelituoso" class="mr-2">
+      <i class="bi bi-plus-lg"></i>
+    </div>
+    <ng-template #noDelituoso>
+      <div class="mr-2">
+        <i class="bi bi-x-lg"></i> <!-- Ícone ou conteúdo alternativo -->
+      </div>
+    </ng-template>
+    
+     SUSPEITOS  
+  </summary>
+  
+  <div class="bg-light">
+    <ng-container *ngIf="delituoso?.length ; else elseTemplate">
+       
+    <details class="details"  *ngFor="let item of this.delituoso index as i" >
+      <summary class="summary d-flex">
+        <div class="borders">
+           <img
+                  (click)="openPhotoViewer(item.fileUrlFrontal || fotodfault, item.id)"
+                  [src]="item.fileUrlFrontal || fotodfault"
+                  alt
+              > 
+      </div>         
+          
+             
+           <div class="row">
+            <div class="col-10 sfont"> {{ item.delituoso_nome | slice : 0 : 14 }}</div> 
+            <div class="col-10 sfont">&nbsp;Idade: {{item.idade}} &nbsp;<a (click)="verificar()">{{item.genero}}</a> </div>    
+           </div>
+      
+      </summary>
+      <div class=" bg-lightt">
+        <div class="col-10"><a data-target="#modalDelituosover" (click)="enviarIds(item.id)"  data-bs-toggle="modal" data-bs-target="#modalDelituosover"  >{{item.delituoso_nome | slice : 0 : 23 }}</a>..</div> 
+        <div class="col-10"><a (click)="verificar()">{{item.genero}}</a></div>
+
+        <div class="col-10">
+         
+           {{ idade }}
+          
+        </div>
+        
+              
+      </div>
+    </details>
+  
+    </ng-container>
+    <ng-template #elseTemplate>
+        <span>
+          Nenhum suspeito associado
+        </span> 
+    </ng-template>
+  </div>
+</details>

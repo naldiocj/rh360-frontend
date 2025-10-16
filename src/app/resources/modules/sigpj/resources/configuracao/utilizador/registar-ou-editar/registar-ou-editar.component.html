@@ -1,0 +1,178 @@
+<div class="modal fade" id="modalRegistarUtilizador" aria-labelledby="modalRegistarUtilizador" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="overflow-y: hidden; min-height: 80%;  min-width:60%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>
+          <i class="fa fa-user"></i>
+          Registar Utilizador
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="content">
+        <form [formGroup]="this.simpleForm">
+          <div class="modal-body">
+            <div class="row">
+
+
+              <div class="col-md-12 col-12" style="margin-bottom: 50px;">
+                <form class="form-inline">
+                  <select class="form-control mr-sm-1" (change)="filtrarPagina('perPage', $event)">
+                    <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">
+                      {{ item }}
+                    </option>
+                  </select>
+                  <input class="form-control mr-sm-1" type="text" [ngModel]="filtro.search"
+                    (ngModelChange)="filtrarPagina('search', $event)" placeholder="Pesquisa ..." />
+                  <button (click)="this.recarregarPagina()" id="btpe1" class="btn btn-outline-success my-2 my-sm-0"
+                    type="submit">
+                    <i style="font-size: 14px" class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+                    <b>Pesquisar</b>
+                  </button>
+
+                </form>
+
+                <div class="col-md-12">
+                  <table class="table table-border table-striped custom-table datatable mb-0"
+                    style="margin-left: -15px;">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Apelido</th>
+                        <th>Genero</th>
+                        <!-- 
+                          
+                        <th>NIP</th>
+                        <th>Patente</th>
+                        -->
+                        <th class="text-right">Operação</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="
+                          let item of this.Agentes
+                            | paginate
+                              : {
+                                  itemsPerPage: this.pagination.per_page,
+                                  currentPage: this.pagination.current_page,
+                                  totalItems: this.pagination.total
+                                };
+                          index as i
+                        ">
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.nome_completo }}</td>
+                        <td>{{ item.apelido }}</td>
+                        <td>{{ item.genero == 'M'? 'Masculino':'Femenino' }}</td>
+                        <!--
+                          
+                        <td>{{ item.nip}}</td>
+                        <td>{{ item.patente_nome }}</td>
+                        -->
+                        <td class="text-right">
+                          <nav class="header-nav_ flex-fill d-flex">
+                            <ul class="d-flex align-items-center">
+                              <li class="nav-item dropdown">
+
+                                <a class="nav-link nav-profile d-flex align-items-center" href="#"
+                                  data-toggle="dropdown">
+                                  <i class="fa fa-ellipsis-v"></i>
+                                </a>
+
+
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+
+
+                                  <li style="cursor: pointer;">
+                                    <a class="dropdown-item d-flex align-items-center text-dark"
+                                        (click)="selectedAgent(item)">
+                                      <i class="bi bi-person-square"></i>
+                                      <span>Adicionar</span>
+                                    </a>
+                                  </li> 
+                                </ul>
+                              </li>
+
+                            </ul>
+                          </nav>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-sm-6">
+                        Mostrando de {{ this.pagination.current_page }} á
+                        {{ this.pagination.per_page }} de
+                        {{ this.pagination.total }} Registo
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="float-right">
+                          <pagination-controls id="funcionarioEspecial"
+                            (pageChange)="this.filtrarPagina('page', $event)" [directionLinks]="true" [autoHide]="true"
+                            previousLabel="Anterior" nextLabel="Próximo" [maxSize]="4"
+                            [responsive]="true"></pagination-controls>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="form-group col-md-6">
+                <label>Agente não existe?<span class="text-danger"> *</span></label>
+                <input formControlName="nao_existe" type="text" class="form-control" placeholder="Se não existe, escreva manualmente..." >
+              </div>
+
+              <div class="form-group col-md-6">
+                <label>Nome de usuário<span class="text-danger"> *</span></label>
+                <input formControlName="username" type="text" class="form-control">
+              </div>
+
+              <div class="form-group col-md-6">
+                <label class="placeholder">Email institucional<span class="text-danger"> *</span></label>
+                <input formControlName="email" type="email" class="form-control">
+              </div>
+
+
+
+
+
+              <div class="form-group col-md-6">
+                <label class="placeholder">Senha<span class="text-danger"> *</span></label>
+                <input formControlName="password" type="password" class="form-control">
+              </div>
+
+              <div class="form-group col-md-6">
+                <label>Perfil</label>
+                <ng-select2 [options]="options" formControlName="role_id" [data]="this.perfis">
+                </ng-select2>
+              </div>
+
+
+            </div>
+          </div>
+          <div class="modal-footer">
+
+            <button class="btn btn-danger submit-btn" (click)="this.onReset()">
+              <span class="fa fa-refresh"></span> Limpar
+            </button>
+
+            <button id="bookreset" class="btn btn-primary submit-btn" [disabled]="this.simpleForm.invalid"
+              *ngIf="!this.isLoading; else carregaSubmissao">
+              <a style="text-decoration: none;color: white;" (click)="onSubmit()">Registar</a>
+            </button>
+            <ng-template #carregaSubmissao>
+              <button id="bookreset" class="btn btn-primary submit-btn" disabled="true">
+                <div class="spinner-border spinner-border-sm m-1"></div>
+                <a style="text-decoration: none;color: white;"> A
+                  Registar ...</a>
+              </button>
+            </ng-template>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

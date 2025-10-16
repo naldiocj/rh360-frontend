@@ -1,0 +1,195 @@
+<div class="modal fade" id="modalEnviarCorrrespondencia" aria-labelledby="modalsigpqprovimentopromocaoemtempo"
+  aria-hidden="true">.
+  <div class="modal-dialog" role="document" style="min-width: 60%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>
+          <i class="fa" [class.fa-plus]="!this.getCorrespondenciaId" [class.fa-edit]="this.getCorrespondenciaId"></i>
+          Gestao de Correspondência |
+          {{
+          this.getCorrespondenciaId
+          ? "Actualizar Correspondência"
+          : "Enviar Correspondência"
+          }}
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="content p-2">
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="row">
+              <div class="col-lg-12">
+                <form [formGroup]="this.simpleForm">
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label style="color: #002d54"><b>Importancia <span class="text-red">*</span></b></label>
+                        <ng-select2 [options]="options" [data]="importancias" formControlName="importancia_id">
+                        </ng-select2>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label style="color: #002d54"><b>Natureza <span class="text-red">*</span></b></label>
+                        <ng-select2 [options]="options" [data]="tipoNatureza" formControlName="tipo_natureza_id">
+                        </ng-select2>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label style="color: #002d54"><b>Tipo <span class="text-red">*</span></b></label>
+                        <ng-select2 [options]="options" [data]="tipoCorrespondencia"
+                          formControlName="tipo_correspondencia_id">
+                        </ng-select2>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label style="color: #002d54"><b>Procedência <span class="text-red">*</span></b></label>
+                        <ng-select2 [options]="this.options" [data]="procedenciaCorrespondencia"
+                          (valueChanged)="this.selecionarProcedencia($event)"
+                          formControlName="procedencia_correspondencia_id">
+                        </ng-select2>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label style="color: #002d54"><b>Assunto</b></label>
+                        <input type="text" class="form-control" formControlName="assunto">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label style="color: #002d54"><b>Direcção/Órgao</b></label>
+                        <ng-select2 [options]="this.options" [data]="orgaoOuComandoProvincial"
+                          (valueChanged)="this.selecionarOrgaoOuComandoProvincial($event)" formControlName="tipo_orgao">
+                        </ng-select2>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label style="color: #002d54"><b>Numero de Ofício</b> <span
+                                class="text-red">*</span></label>
+                            <div class="profile-upload b">
+                              <div class="upload-input">
+                                <input type="text" class="form-control" formControlName="numero_oficio" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label style="color: #002d54"><b>Anexo</b> <span class="text-red">*</span></label>
+                            <div class="profile-upload b">
+                              <div class="upload-input">
+                                <input type="file" (change)="this.upload($event, 'anexo')" id="file-anexo"
+                                  class="form-control" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label style="color: #002d54"><b>Nota</b></label>
+                        <textarea class="form-control" style="width: 100%; height: 150px; resize:none"
+                          formControlName="nota"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <nav class="navbar navbar-light bg-light w-100">
+                        <form class="form-inline d-flex justify-content-between align-items-center w-100">
+                          <div class="d-flex justify-content-start align-items-center w-100">
+                            <input class="form-control mr-sm-1" type="text" [ngModel]="filtro.search"
+                              (ngModelChange)="filtrarPagina('search',$event)" placeholder="Pesquisa ...">
+                            <button (click)="this.recarregarPagina()" class="btn-piips btn-piips-primary p-2 m-0"
+                              type="submit">
+                              <i style="font-size: 14px;" class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+                              <b>Recarregar</b>
+                            </button>
+                          </div>
+                        </form>
+                      </nav>
+                    </div>
+                    <div class="col-lg-12">
+                      <table class="table table-border table-striped custom-table datatable mb-0">
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>ID</th>
+                            <th>Comando provincial / Orgão</th>
+                            <th>Tipo de Entidade</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr
+                            *ngFor="let item of this.pessoaJuridicas | paginate: { itemsPerPage: this.pagination.per_page, currentPage: this.pagination.current_page,totalItems: this.pagination.total,id:'idDirecaoOuOrgao' }; index as i">
+                            <td>
+                              <input type="checkbox" (change)="selecionarAgenteParaMobilidade(item?.id)"
+                                [checked]="validarSelecionado(item?.id)" />
+                            </td>
+                            <td>{{i+1}}</td>
+                            <td> {{item.sigla}} - {{item.nome_completo}}</td>
+                            <td>{{item.tipo_pessoajuridica_nome}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          Mostrando de {{ this.pagination.current_page }} á
+                          {{ this.pagination.per_page }} de {{ this.pagination.total }} Registo
+                        </div>
+                        <div class="col-sm-6">
+                          <div class="float-right">
+                            <pagination-controls id="idDirecaoOuOrgao" (pageChange)="this.filtrarPagina('page', $event)"
+                              [directionLinks]="true" [autoHide]="true" previousLabel="Anterior" nextLabel="Próximo"
+                              [maxSize]="4" [responsive]="true"></pagination-controls>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 d-flex justify-content-end">
+                      <button class="btn-piips btn-piips-red py-2 m-0" (click)="this.reiniciarFormulario()">
+                        <span class="fa fa-refresh"></span> Limpar
+                      </button>
+
+                      <button [disabled]="this.carregando|| this.submitted || !this.simpleForm.valid" type="button"
+                        (click)="onSubmit()" class="btn-piips btn-piips-primary m-0 py-2" style="border-radius: 0px">
+                        <ng-container *ngIf="this.carregando || this.submitted; else naoRegistar">
+                          <div class="spinner-border spinner-border-sm m-1"></div>
+                          Carregando...
+                        </ng-container>
+                        <ng-template #naoRegistar>
+
+                          {{this.getId ? 'Editar': 'Enviar'}}
+
+                        </ng-template>
+                      </button>
+
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

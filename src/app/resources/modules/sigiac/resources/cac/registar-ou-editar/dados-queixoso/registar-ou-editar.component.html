@@ -1,0 +1,1003 @@
+
+
+
+
+<div class="org-other d-flex">
+    <div>
+        <h3 class="titulo-top-b">Dados do Queixoso </h3>
+        <h5 class="titulo-bt">Formulário de registro dos dados do Queixoso </h5>
+    </div> 
+</div>
+
+
+
+<div class="container">
+    
+    <form [formGroup]="dadosForm"  class="col-md-12 pull-left" style="margin-top: 40px;" #formDir="ngForm">
+        <div style="display:flex; justify-content: space-evenly;">
+
+            <div class="form-group px-md-2" style="width:110%; margin-left: -15px;">
+                <label><b>Número do BI <i class="ico bi bi-exclamation-circle-fill"></i></b></label>
+                    <input style="width: 100%; height: 30px;" type="text" id="bi_ou_cedula" class="form-control" required
+                        formControlName="bi_ou_cedula">
+                        <div id="error-bi" style="display: none;" class="validation-error"> 
+                            <p>O Numero do BI e de caracter obrigatório!</p>
+                        </div>
+            </div>
+
+            <div class="form-group px-md-3" style="width:180%; margin-left: -15px;">
+                <label><b>Nome Completo <i class="ico bi bi-exclamation-circle-fill"></i></b></label>
+                <input type="text" class="form-control" id="nome_completo" required formControlName="nome_completo">
+                <div id="error-nome" style="display: none;" class="validation-error"> 
+                <p>O nome completo e de caracter obrigatório!</p>
+                </div>
+            </div>
+ 
+            <div class="row px-md-2" style="width: 100%; margin-right: 2px;">
+            
+                <div style="display: none;" hidden class="px-md-1" style="width:50%;">
+                    <label><b>Apelido <i class="ico bi bi-exclamation-circle-fill"></i></b></label>
+                    <input style="width: 100%; height: 30px; " id="apelido" type="text"  class="form-control"  
+                        formControlName="apelido">
+                        <div id="error-apelido" style="display: none;" class="validation-error"> 
+                            <p>O apelido e de caracter obrigatório!</p>
+                            </div>
+                </div>
+
+                <div   style="width:100%;">
+                    <label><b>Data de nascimento <i class="ico bi bi-exclamation-circle-fill"></i></b></label>
+                    <input style="width: 100%; height: 30px; " id="data_nascimento" type="date"  class="form-control" required
+                        formControlName="data_nascimento">
+                        <div id="error-nascimento" style="display: none;" class="validation-error"> 
+                            <p>Nascimento e de caracter obrigatório!</p>
+                        </div>
+                </div>
+
+                
+            </div>
+
+
+            <div class="row px-md-2"  style="width: 100%;">
+
+                <div class="px-md-2" style="width:100%;">
+                    <label><b>Genero <i class="ico bi bi-exclamation-circle-fill"></i></b></label>
+                <ng-select2 [options]="options" formControlName="genero" id="genero" [data]="this.generos">
+                </ng-select2>  
+                <div id="error-genero" style="display: none;" class="validation-error"> 
+                    <p>Genero e de caracter obrigatório!</p>
+                </div>
+                </div>
+               
+
+            </div> 
+
+        </div>
+
+        <div style="display: flex; flex-direction: row; justify-content: space-evenly;">
+
+            <div class="form-group px-md-2" style="width:100%; margin-left: -15px;">
+                <label><b>Naturalidade</b></label>
+                <ng-select2 [options]="options" formControlName="naturalidade" id="naturalidade" >
+                    <option value="">Selecione a Naturalidade</option>
+                    <option value="Bengo">Bengo</option>
+ <option value="Bié">Bié</option>
+ <option value="Benguela">Benguela</option>
+ <option value="Cabinda">Cabinda</option> 
+ <option value="Cunene">Cunene</option>
+ <option value="Cuanza Norte">Cuanza Norte</option>
+ <option value="Cuanza Sul">Cuanza Sul</option>
+ <option value="Cuando">Cuando</option>
+ <option value="Cubango">Cubango</option>
+ <option value="Huambo">Huambo</option> 
+ <option value="Huíla">Huíla</option> 
+ <option value="Icolo e Bengo">Icolo e Bengo</option> 
+ <option value="Luanda">Luanda</option>
+ <option value="Lunda Norte">Lunda Norte</option>
+ <option value="Lunda Sul">Lunda Sul</option>
+ <option value="Malanje">Malanje</option>
+ <option value="Moxico">Moxico</option>
+ <option value="Moxico Leste">Moxico Leste</option>
+ <option value="Namibe">Namibe</option>
+ <option value="Uíge">Uíge</option> 
+ <option value="Zaire">Zaire</option>   
+                </ng-select2>
+                <div id="error-naturalidade" style="display: none;" class="validation-error"> 
+                    <p>A Naturalidade e de caracter obrigatório!</p>
+                </div>
+            </div>
+            <div class="form-group" style="width:100%; margin-right:8px;">
+                <label><b>Residência BI </b></label>
+                <input style="width: 100%; height: 30px; " id="residencia_bi" type="text" class="form-control" required
+                    formControlName="residencia_bi">
+                    <div id="error-residencia_bi" style="display: none;" class="validation-error"> 
+                        <p>A Residência  e de caracter obrigatório!</p>
+                    </div>
+            </div> 
+
+            <div class="row px-md-1"  style="width: 100%;">
+                <div   style="width:50%;">
+                    <label><b>Estado Civil</b></label>
+                <ng-select2 [options]="options" formControlName="estado_civil" id="estado_civil" [data]="this.estadoCivil">
+                </ng-select2>
+                <div id="error-estado_civil" style="display: none;" class="validation-error"> 
+                    <p>Estado Civil e de caracter obrigatório!</p>
+                </div>
+                </div>
+                <div style="width:50%;">
+                    <label><b>Data de validade</b></label>
+                    <input style="width: 100%; height: 30px;" type="date" id="validade_bi" class="form-control" required
+                        formControlName="validade_bi">
+                        <div id="error-validade-bi" style="display: none;" class="validation-error"> 
+                            <p>A data de validade do BI e de caracter obrigatório!</p>
+                        </div>
+                </div>
+            </div>
+        
+
+        </div>
+
+    
+
+        <div style="display: flex; justify-content: space-evenly;">
+
+            <div class="form-group px-md-2" style="width: 100%; margin-left: -15px;">
+                <label><b>Nome do Pai</b></label>
+                <input style="height: 30px;  " type="text" id="nome_pai" class="form-control" required
+                    formControlName="nome_pai">
+            </div>
+
+            <div class="form-group" style="width: 100%;">
+                <label><b>Nome da Mãe</b></label>
+                <input style="width: 100%; height: 30px; " type="text" id="nome_mae" class="form-control" required
+                    formControlName="nome_mae">
+            </div>
+        
+            <div class="form-group px-md-2" style="width: 100%; margin-right: -13px;">
+                <label><b>Ocupação</b></label>
+                <ng-select2 [options]="options" formControlName="ocupacao" id="ocupacao">
+                    <option value="Sem Ocupação">Sem ocupação</option>
+
+                    <option value="Professor">Professor</option>
+ <option value="Secretario">Secretario</option>
+<option value="Programador">Programador</option>
+<option value="Diretor">Diretor</option>
+ <option value="Atendimento ao Cliente">Atendimento ao Cliente</option>
+ <option value="Medico">Medico</option>
+ <option value="Vendedor Ambulante">Vendedor Ambulante</option>
+
+<option value="Farmacêutico">Farmacêutico</option>
+ <option value="Auditoria de contas">Auditoria de contas</option>
+<option value="Agende imobiliária">Agende imobiliária</option>
+<option value="Chefe de armazém,">Chefe de armazém,</option>
+<option value="Repositor ">Repositor </option>
+<option value="Consultor">Consultor</option>
+<option value="Operador de loja">Operador de loja</option>
+<option value="Gestor de conta">Gestor de conta</option>
+<option value="Pedreiro ">Pedreiro</option>
+<option value="Carpinteiro">Carpinteiro</option>
+<option value="Padeiro">Padeiro</option>
+<option value="Fiscal de obra">Fiscal de obra</option>
+<option value="Engenheiro de construção civil">Engenheiro de construção civil</option>
+<option value="Engenheiro mecânico">Engenheiro mecânico</option>
+<option value="Engenheiro de petróleo">Engenheiro de petróleo</option>
+<option value="Engenheiro agrónomo">Engenheiro agrónomo</option>
+<option value="Engenheiro de máquinas e motores">Engenheiro de máquinas e motores</option>
+<option value="Engenheiro Informático">Engenheiro Informático</option>
+<option value="Universitário Engenharia Informática">Universitário Engenharia Informática</option>
+<option value="Médio tecnico Informático">Médio tecnico Informático</option>
+<option value="Engenheiro de eletricidade">Engenheiro de eletricidade</option>
+<option value="Engenheiro robótica">Engenheiro robótica</option>
+<option value="Advogado">Advogado</option>
+<option value=" Advogado sénior"> Advogado sénior</option>
+<option value="Advogado de elaborar">Advogado de elaborar</option>
+<option value="Fiscal de conta">Fiscal de conta</option>
+<option value="Jurista">Jurista</option>
+<option value="juiz">juiz</option>
+<option value="Psicólogo">Psicólogo</option>
+<option value="Jornalista">Jornalista</option>
+<option value="Designer gráfico">Designer gráfico</option>
+<option value="Web design">Web design</option>
+<option value="RH">RH</option>
+<option value="Contabilista analítico">Contabilista analítico</option>
+<option value="Reporte">Reporte</option>
+<option value="Estetica">Estetica</option>
+<option value="Maquilhadora">Maquilhadora</option>
+<option value="Câmara men">Câmara men</option>
+<option value="Personal trainer">Personal trainer</option>
+<option value="Governante">Governante</option>
+<option value="Tecnico médio frio  ">Tecnico médio frio</option>
+<option value="Tecnico médio eletrista">Tecnico médio eletrista</option>
+<option value="Tecnico médio macanico">Tecnico médio macanico</option>
+<option value="Tecnico médio eletrecista alto">Tecnico médio eletrecista alto</option>
+<option value="Ladrilhador">Ladrilhador</option>
+<option value="Motorista ligeiro profissional">Motorista ligeiro profissional</option>
+<option value="Motorista ligeiro pasado">Motorista ligeiro pasado</option>
+<option value="Relações públicas">Relações públicas</option>
+<option value="Designer">Designer</option>
+<option value="Médico/a">Médico/a</option>
+<option value="Educadora infantil">Educadora infantil</option>
+<option value="Segurança privado">Segurança privado</option>
+<option value="Auditoria">Auditoria</option>
+<option value="Contabilista">Contabilista</option>
+<option value="Veterinário">Veterinário</option> 
+<option value="Doméstica">Doméstica</option>
+<option value="Garson">Garson</option>
+<option value="Personal trainer">Personal trainer</option>
+<option value="Governante">Governante</option>
+
+<option value="Acompanhante de idosos">Acompanhante de idosos</option>
+<option value="Acrobata">Acrobata</option>
+<option value="Adegueiro / Técnico de Adega">Adegueiro / Técnico de Adega</option>
+<option value="Aderecista">Aderecista</option>
+ <option value="Adestrador (amestrador)">Adestrador (amestrador)</option>
+<option value="Administrador Judicial">Administrador Judicial</option>
+
+<option value="Advogado">Advogado</option>
+
+<option value="Afiador de Metais">Afiador de Metais</option>
+
+<option value="Afinador de Piano">Afinador de Piano</option>
+
+<option value="Agente Artístico">Agente Artístico</option>
+
+
+<option value="Agente da Polícia Municipal (Guarda Municipal)">Agente da Polícia Municipal (Guarda Municipal)</option>
+<option value="Agente de Polícia de Segurança Pública (PSP)">Agente de Polícia de Segurança Pública (PSP)</option>
+   <option value="Agente de Polícia Marítima">Agente de Polícia Marítima</option>
+       <option value="Agente de Seguros">Agente de Seguros</option>
+<option value="Agente Funerário">Agente Funerário</option>
+<option value="Agente Musical">Agente Musical</option>
+ <option value="Agente Oficial da Propriedade Industrial">Agente Oficial da Propriedade Industrial</option>
+ <option value="Agricultor">Agricultor</option>
+ <option value="Ajudante de Cozinha">Ajudante de Cozinha</option>
+<option value="Ajudante de lar">Ajudante de lar</option>
+
+<option value="Ajudante Familiar">Ajudante Familiar</option>
+<option value="Alergologista">Alergologista</option>
+<option value="Alfaiate">Alfaiate</option>
+<option value="Ama">Ama</option>
+<option value="Ampelógrafo">Ampelógrafo</option>
+
+<option value="Ampelólogo">Ampelólogo</option>
+
+
+<option value="Analista de Inteligência Comercial">Analista de Inteligência Comercial</option>
+<option value="Analista de Marketing Digital">Analista de Marketing Digital</option>
+<option value="Analista de Pós-Venda">Analista de Pós-Venda</option>
+<option value="Analista ESG / Sustentabilidade">Analista ESG / Sustentabilidade</option>
+<option value="Analista Financeiro">Analista Financeiro</option>
+
+<option value="Anatomopatologista">Anatomopatologista</option>
+<option value="Anestesista (Anestesiologista)">Anestesista (Anestesiologista)</option>
+<option value="Angariador de Seguros">Angariador de Seguros</option>
+<option value="Angiologista">Angiologista</option>
+<option value="Animador">Animador</option>
+<option value="Animador Cultural">Animador Cultural</option>
+
+<option value="Anotador de Cinema (Continuista)">Anotador de Cinema (Continuista)</option>
+<option value="Antipodista">Antipodista</option>
+ <option value="Antropologia">Antropologia</option>
+
+ 
+
+ 
+ 
+<option value="Apresentador">Apresentador</option>
+<option value="Aquicultor">Aquicultor</option>
+<option value="Aquaponia">Aquaponia</option>
+<option value="Acupuntura">Acupuntura</option>
+<option value="Aramista">Aramista</option>
+<option value="Argolista">Argolista</option>
+<option value="Apicultor">Apicultor</option>
+<option value="Armador de Ferro">Armador de Ferro</option>
+<option value="Armador e Montador de Cabos Metálicos">Armador e Montador de Cabos Metálicos</option>
+<option value="Arqueologia">Arqueologia</option>
+<option value="Arquiteto">Arquiteto</option>
+<option value="Apicultor">Apicultor</option>
+<option value="Arquitetura e Urbanismo">Arquitetura e Urbanismo</option>
+<option value="Arquivista (Arquivologista)">Arquivista (Arquivologista)</option>
+<option value="Arquivista de Filmes">Arquivista de Filmes</option>
+<option value="Arquivista musical">Arquivista musical</option>
+<option value="Artes Visuais">Artes Visuais</option>
+<option value="Artesão">Artesão</option>
+<option value="Artista de Circo">Artista de Circo</option>
+<option value="Artista de Foley">Artista de Foley</option>
+<option value="Artista Equestre (Circo)">Artista Equestre (Circo)</option>
+<option value="Assentador de Refratários">Assentador de Refratários</option>
+<option value="Assentador de Tacos">Assentador de Tacos</option>
+<option value="Assessor de Imprensa">Assessor de Imprensa</option>
+
+<option value="Assistente Comercial">Assistente Comercial</option>
+<option value="Assistente de Animador">Assistente de Animador</option>
+<option value="Assistente de Animação">Assistente de Animação</option>
+<option value="Assistente de Cenografia">Assistente de Cenografia</option>
+<option value="Assistente de Creators">Assistente de Creators</option>
+<option value="Assistente de Câmara de Cinema">Assistente de Câmara de Cinema</option>
+<option value="Assistente de Produção Cultural">Assistente de Produção Cultural</option>
+<option value="Assistente de realização (cinema)">Assistente de realização (cinema)</option>
+<option value="Assistente de Som">Assistente de Som</option>
+<option value="Assistente Social">Assistente Social</option>
+<option value="Assistente Virtual">Assistente Virtual</option>
+<option value="Astrofísico / Astrofísica">Astrofísico / Astrofísica</option>
+<option value="Astronauta">Astronauta</option>
+<option value="Astrólogo">Astrólogo</option>
+<option value="Astrónomo">Astrónomo</option>
+<option value="Atirador de Facas">Atirador de Facas</option>
+<option value="Ator">Ator</option>
+<option value="Atuário">Atuário</option>
+<option value="Auditor">Auditor</option>
+<option value="Autor de Joias">Autor de Joias</option>
+<option value="Auxiliar de Apoio Administrativo">Auxiliar de Apoio Administrativo</option>
+<option value="Auxiliar de Apoio Domiciliário a Idosos">Auxiliar de Apoio Domiciliário a Idosos</option>
+<option value="Auxiliar de Creche">Auxiliar de Creche</option>
+<option value="Auxiliar de Educação Infantil">Auxiliar de Educação Infantil</option>
+<option value="Auxiliar de Geriatria">Auxiliar de Geriatria</option>
+<option value="Auxiliar de Professor">Auxiliar de Professor</option>
+<option value="Auxiliar de Saúde">Auxiliar de Saúde</option>
+<option value="Auxiliar de Vendas">Auxiliar de Vendas</option>
+<option value="Auxiliar de Veterinária">Auxiliar de Veterinária</option>
+<option value="Avaliador Olfativo">Avaliador Olfativo</option>
+<option value="Azeitólogo / Oleólogo">Azeitólogo / Oleólogo</option>
+<option value="Baby-Sitter">Baby-Sitter</option>
+<option value="Bagageiro">Bagageiro</option>
+<option value="Bailarino">Bailarino</option>
+<option value="Banhos de Floresta – Forest Bathing">Banhos de Floresta – Forest Bathing</option>
+<option value="Barbeiro / a">Barbeiro / a</option>
+<option value="Barreira (Circo)">Barreira (Circo)</option>
+<option value="Bate-chapa de Veículos Automóveis (Funileiro)">Bate-chapa de Veículos Automóveis (Funileiro)</option>
+<option value="Biblioteconomia">Biblioteconomia</option>
+<option value="Bibliotecário">Bibliotecário</option>
+<option value="Biblioterapeuta">Biblioterapeuta</option>
+<option value="Biotecnologista / Biotecnologia">Biotecnologista / Biotecnologia</option>
+<option value="Biólogo">Biólogo</option>
+<option value="Blogger (Blogueiro)">Blogger (Blogueiro)</option>
+<option value="Bombeiro">Bombeiro</option>
+<option value="Booker / Agente de Modelo">Booker / Agente de Modelo</option>
+<option value="Botânico">Botânico</option>
+<option value="Cabaretier">Cabaretier</option>
+<option value="Cabeleireiro">Cabeleireiro</option>
+<option value="Cabeleireiro de Espetáculos">Cabeleireiro de Espetáculos</option>
+<option value="Cake Design">Cake Design</option>
+<option value="Calceteiro">Calceteiro</option>
+<option value="Caldeireiro">Caldeireiro</option>
+<option value="Calista">Calista</option>
+<option value="Camarada (Circo)">Camarada (Circo)</option>
+<option value="Camareira">Camareira</option>
+<option value="Canalizador (Encanador)">Canalizador (Encanador)</option>
+<option value="Canteiro">Canteiro</option>
+<option value="Cantoneiro de Limpeza">Cantoneiro de Limpeza</option>
+<option value="Cantor">Cantor</option>
+<option value="Capataz (Circo)">Capataz (Circo)</option>
+<option value="Capataz de fazenda">Capataz de fazenda</option>
+<option value="Capitão de Navio">Capitão de Navio</option>
+<option value="Capitão Porteiro">Capitão Porteiro</option>
+<option value="Caracterizador">Caracterizador</option>
+<option value="Cardiologista">Cardiologista</option>
+<option value="Cardiologista de Intervenção">Cardiologista de Intervenção</option>
+<option value="Cardiologista Pediátrico">Cardiologista Pediátrico</option>
+<option value="Caricaturista">Caricaturista</option>
+<option value="Carpinteiro">Carpinteiro</option>
+<option value="Carpinteiro de Limpos">Carpinteiro de Limpos</option>
+<option value="Carpinteiro Naval">Carpinteiro Naval</option>
+<option value="Carteiro">Carteiro</option>
+<option value="Cartomante">Cartomante</option>
+<option value="Cartomágico">Cartomágico</option>
+<option value="Cartógrafo">Cartógrafo</option>
+<option value="Cavaleiro / Amazona (Hipismo)">Cavaleiro / Amazona (Hipismo)</option>
+<option value="Caçador">Caçador</option>
+<option value="Caçador de Bolas de Golfe">Caçador de Bolas de Golfe</option>
+<option value="Cenotécnico">Cenotécnico</option>
+<option value="Ceramista">Ceramista</option>
+<option value="Chapeleiro">Chapeleiro</option>
+<option value="Chefe de Cozinha">Chefe de Cozinha</option>
+<option value="Chefe de Recepção / Gerente de Recepção">Chefe de Recepção / Gerente de Recepção</option>
+<option value="Ciclista Acrobático">Ciclista Acrobático</option>
+<option value="Cineterapeuta – Cineterapia">Cineterapeuta – Cineterapia</option>
+<option value="Cirurgião Cardiotorácico">Cirurgião Cardiotorácico</option>
+<option value="Cirurgião Cardiovascular">Cirurgião Cardiovascular</option>
+<option value="Cirurgião Geral">Cirurgião Geral</option>
+<option value="Cirurgião Maxilofacial">Cirurgião Maxilofacial</option>
+<option value="Cirurgião Pediátrico">Cirurgião Pediátrico</option>
+<option value="Cirurgião Plástico (Cirurgia Estética e Reconstrutiva)">Cirurgião Plástico (Cirurgia Estética e Reconstrutiva)</option>
+<option value="Cirurgião Torácico">Cirurgião Torácico</option>
+<option value="Cirurgião Vascular">Cirurgião Vascular</option>
+<option value="Ciência Política">Ciência Política</option>
+<option value="Co-piloto">Co-piloto</option>
+<option value="Coaching">Coaching</option>
+<option value="Colador-Marcador de Sincronismo">Colador-Marcador de Sincronismo</option>
+<option value="Coletor de Dinheiro">Coletor de Dinheiro</option>
+<option value="Colocador de Anúncios (Montador de Anúncios)">Colocador de Anúncios (Montador de Anúncios)</option>
+<option value="Colocador de Papel de Parede">Colocador de Papel de Parede</option>
+<option value="Colocador de Telhados e Coberturas (Telhadista)">Colocador de Telhados e Coberturas (Telhadista)</option>
+<option value="Colorista de Animação">Colorista de Animação</option>
+<option value="">Comentarista Esportivo / Comentador Desportivo</option>
+<option value="Comissário de Bordo">Comissário de Bordo</option>
+<option value="Community Manager">Community Manager</option>
+<option value="Compositor">Compositor</option>
+<option value="Comunicação organizacional">Comunicação organizacional</option>
+<option value="Concierge de Hotel">Concierge de Hotel</option>
+<option value="Condutor de Ambulâncias">Condutor de Ambulâncias</option>
+<option value="Condutor Manobrador">Condutor Manobrador</option>
+<option value="Conferente de Animação">Conferente de Animação</option>
+<option value="Conselheiro Familiar">Conselheiro Familiar</option>
+<option value="Conselheiro Matrimonial">Conselheiro Matrimonial</option>
+<option value="Conservador de Registos">Conservador de Registos</option>
+<option value="Construção Naval">Construção Naval</option>
+<option value="Consultor de e-business">Consultor de e-business</option>
+<option value="Consultor de Imagem">Consultor de Imagem</option>
+<option value="Consultor de Vendas Externo">Consultor de Vendas Externo</option>
+<option value="Consultor Financeiro">Consultor Financeiro</option>
+<option value="Contabilista">Contabilista</option>
+<option value="Contorcionista">Contorcionista</option>
+<option value="Contra-regra">Contra-regra</option>
+<option value="Controlador de Tráfego Aéreo">Controlador de Tráfego Aéreo</option>
+<option value="Copywriter">Copywriter</option>
+<option value="Coreógrafo">Coreógrafo</option>
+<option value="Corretor de Imóveis">Corretor de Imóveis</option>
+<option value="Corretor de Seguros">Corretor de Seguros</option>
+<option value="Cortador de Carnes (Talhante)">Cortador de Carnes (Talhante)</option>
+<option value="Cortador de vidro">Cortador de vidro</option>
+<option value="Cortador-Colador de Anéis">Cortador-Colador de Anéis</option>
+<option value="Cortineiro">Cortineiro</option>
+<option value="Cosmetologista">Cosmetologista</option>
+<option value="Cosmólogo / Cosmologia">Cosmólogo / Cosmologia</option>
+<option value="Costureira de Espetáculos">Costureira de Espetáculos</option>
+<option value="Coveiro">Coveiro</option>
+<option value="Cozinheiro">Cozinheiro</option>
+<option value="Cravador de Joias">Cravador de Joias</option>
+<option value="Creators">Creators</option>
+<option value="Criador de Animais">Criador de Animais</option>
+<option value="Crítico de Vinhos">Crítico de Vinhos</option>
+<option value="Cuidador de Idosos">Cuidador de Idosos</option>
+<option value="Curador de museus">Curador de museus</option>
+<option value="Cuspidor de Fogo">Cuspidor de Fogo</option>
+<option value="Cómico">Cómico</option>
+<option value="Debuxador Têxtil / Designer Têxtil">Debuxador Têxtil / Designer Têxtil</option>
+<option value="Decoração (Decorador)">Decoração (Decorador)</option>
+<option value="Decoração de Interiores">Decoração de Interiores</option>
+<option value="Delegado de Informação Médica">Delegado de Informação Médica</option>
+<option value="Demógrafo">Demógrafo</option>
+<option value="Dermatologista">Dermatologista</option>
+<option value="Dermatopatologista">Dermatopatologista</option>
+<option value="Desenhador Audiovisual">Desenhador Audiovisual</option>
+<option value="Desenhador da Construção Civil">Desenhador da Construção Civil</option>
+<option value="Desenhador de Luz">Desenhador de Luz</option>
+<option value="Desenvolvedores de software">Desenvolvedores de software</option>
+<option value="Design de Ambientes">Design de Ambientes</option>
+<option value="Design de Jogos">Design de Jogos</option>
+<option value="Designer de Comunicação">Designer de Comunicação</option>
+<option value="Designer de Iluminação">Designer de Iluminação</option>
+<option value="Designer de Joias">Designer de Joias</option>
+<option value="Designer de Mobilidade">Designer de Mobilidade</option>
+<option value="Designer de Mobiliário / Design de Móveis">Designer de Mobiliário / Design de Móveis</option>
+<option value="Designer de Moda">Designer de Moda</option>
+<option value="Designer de Produto">Designer de Produto</option>
+<option value="Designer de Unhas / Nail Designer">Designer de Unhas / Nail Designer</option>
+<option value="Designer Gráfico">Designer Gráfico</option>
+<option value="Designer Multimédia / Designer Multimídia">Designer Multimédia / Designer Multimídia</option>
+<option value="Digital Marketer">Digital Marketer</option>
+<option value="Diretor Artístico">Diretor Artístico</option>
+<option value="Diretor Circense">Diretor Circense</option>
+<option value="Diretor Comercial">Diretor Comercial</option>
+<option value="Diretor de Arte">Diretor de Arte</option>
+<option value="Diretor de Atores / Diretor de Elenco">Diretor de Atores / Diretor de Elenco</option>
+<option value="Diretor de cena">Diretor de cena</option>
+<option value="Diretor de Fiscalização da Obra (Fiscal de Obras)">Diretor de Fiscalização da Obra (Fiscal de Obras)</option>
+<option value="Diretor de Fotografia">Diretor de Fotografia</option>
+<option value="Diretor de Obra">Diretor de Obra</option>
+<option value="Diretor de Produção (Audiovisual)">Diretor de Produção (Audiovisual)</option>
+<option value="Diretor de Recursos Humanos (RH)">Diretor de Recursos Humanos (RH)</option>
+<option value="Diretor de Som">Diretor de Som</option>
+<option value="Diretor Esportivo / Dirigente Desportivo">Diretor Esportivo / Dirigente Desportivo</option>
+<option value="Diretor Técnico (Espetáculos)">Diretor Técnico (Espetáculos)</option>
+<option value="Distribuidor de Jornais Gratuitos">Distribuidor de Jornais Gratuitos</option>
+<option value="Distribuidor de Mercadorias">Distribuidor de Mercadorias</option>
+<option value="Dog Walker">Dog Walker</option>
+<option value="Dramaturgista">Dramaturgista</option>
+<option value="Dramaturgo">Dramaturgo</option>
+<option value="Ecologia">Ecologia</option>
+<option value="Economista">Economista</option>
+<option value="Editor de Livros">Editor de Livros</option>
+<option value="Editor de som">Editor de som</option>
+<option value="Educador de Infância (Educação Infantil)">Educador de Infância (Educação Infantil)</option>
+<option value="Eletricista">Eletricista</option>
+<option value="Eletricista de Circo">Eletricista de Circo</option>
+<option value="Eletricista‌ ‌de‌ ‌Espetáculos‌">Eletricista‌ ‌de‌ ‌Espetáculos‌</option>
+<option value="Eletrofisiologia Cardíaca">Eletrofisiologia Cardíaca</option>
+<option value="Embalsamador">Embalsamador</option>
+<option value="Empregado de Bar (Barman/Barmaid)">Empregado de Bar (Barman/Barmaid)</option>
+<option value="Empregado de Mesa">Empregado de Mesa</option>
+<option value="Empresário de Futebol / Agente de Jogadores">Empresário de Futebol / Agente de Jogadores</option>
+<option value="Encantador de Serpentes">Encantador de Serpentes</option>
+<option value="Encarregado de Loja">Encarregado de Loja</option>
+<option value="Encenador">Encenador</option>
+<option value="Endocrinologista">Endocrinologista</option>
+<option value="Enfermagem">Enfermagem</option>
+<option value="Engenharia Acústica">Engenharia Acústica</option>
+<option value="Engenharia Agrícola">Engenharia Agrícola</option>
+<option value="Engenharia Ambiental">Engenharia Ambiental</option>
+<option value="Engenharia Biomédica">Engenharia Biomédica</option>
+<option value="Engenharia Bioquímica">Engenharia Bioquímica</option>
+<option value="Engenharia Civil">Engenharia Civil</option>
+<option value="Engenharia de Produção">Engenharia de Produção</option>
+<option value="Engenharia de Software">Engenharia de Software</option>
+<option value="Engenharia Eletrotécnica">Engenharia Eletrotécnica</option>
+<option value="Engenharia Eletrónica">Engenharia Eletrónica</option>
+<option value="Engenharia Informática">Engenharia Informática</option>
+<option value="Engenharia Mecatrónica">Engenharia Mecatrónica</option>
+<option value="Engenharia Sanitária">Engenharia Sanitária</option>
+<option value="Engenharia Topográfica (Topografia)">Engenharia Topográfica (Topografia)</option>
+<option value="Engenharia Têxtil">Engenharia Têxtil</option>
+<option value="Engenheiro Aeroespacial">Engenheiro Aeroespacial</option>
+<option value="Engenheiro Aeronáutico">Engenheiro Aeronáutico</option>
+<option value="Engenheiro Biológico / Bioengenharia">Engenheiro Biológico / Bioengenharia</option>
+<option value="Engenheiro de Petróleo e Gás">Engenheiro de Petróleo e Gás</option>
+<option value="Engenheiro de Segurança do Trabalho">Engenheiro de Segurança do Trabalho</option>
+<option value="Engenheiro de Telecomunicações">Engenheiro de Telecomunicações</option>
+<option value="Engenheiro de Transportes e da Mobilidade">Engenheiro de Transportes e da Mobilidade</option>
+<option value="Engenheiro Florestal">Engenheiro Florestal</option>
+<option value="Engenheiro Hospitalar">Engenheiro Hospitalar</option>
+<option value="Engenheiro Mecânico">Engenheiro Mecânico</option>
+<option value="Engenheiro Nuclear">Engenheiro Nuclear</option>
+<option value="Engenheiro Químico">Engenheiro Químico</option>
+<option value="Engraxador">Engraxador</option>
+<option value="Ensaiador Circense">Ensaiador Circense</option>
+<option value="Ensaiador-Fundidor">Ensaiador-Fundidor</option>
+<option value="Envernizador">Envernizador</option>
+<option value="Enólogo">Enólogo</option>
+<option value="Equilibrista">Equilibrista</option>
+<option value="Equoterapia / Hipoterapia">Equoterapia / Hipoterapia</option>
+<option value="Escritor">Escritor</option>
+<option value="Escrivão de Direito">Escrivão de Direito</option>
+<option value="Escultor">Escultor</option>
+<option value="Espalhador de Betuminosos (Asfaltador)">Espalhador de Betuminosos (Asfaltador)</option>
+<option value="Especialista de SIG (Sistemas de Informação Geográfica)">Especialista de SIG (Sistemas de Informação Geográfica)</option>
+<option value="Especialista em e-Commerce">Especialista em e-Commerce</option>
+<option value="Especialista em Energias Renováveis">Especialista em Energias Renováveis</option>
+<option value="Especialista em SEO">Especialista em SEO</option>
+<option value="Estafeta">Estafeta</option>
+<option value="Estampador de Metal">Estampador de Metal</option>
+<option value="Estampador Têxtil">Estampador Têxtil</option>
+<option value="Estatística">Estatística</option>
+<option value="Esteticista">Esteticista</option>
+<option value="Estilista">Estilista</option>
+<option value="Estilista de Unhas de Gel">Estilista de Unhas de Gel</option>
+<option value="Estofador de automóveis / Capoteiro">Estofador de automóveis / Capoteiro</option>
+<option value="Estofador de móveis">Estofador de móveis</option>
+<option value="Estomatologista">Estomatologista</option>
+<option value="Estucador">Estucador</option>
+<option value="Etólogo Animal / Etologia">Etólogo Animal / Etologia</option>
+<option value="Excêntrico Musical">Excêntrico Musical</option>
+<option value="Faquir">Faquir</option>
+<option value="Farmacologista Clínico">Farmacologista Clínico</option>
+<option value="Farmacêutico">Farmacêutico</option>
+<option value="Figurante">Figurante</option>
+<option value="Figurinista">Figurinista</option>
+<option value="Filigranista">Filigranista</option>
+<option value="Filosofia">Filosofia</option>
+<option value="Filólogo">Filólogo</option>
+<option value="Fiscal de Transportes Públicos">Fiscal de Transportes Públicos</option>
+<option value="Fisioterapeuta">Fisioterapeuta</option>
+<option value="Floricultura">Floricultura</option>
+<option value="Florista">Florista</option>
+<option value="Forjador">Forjador</option>
+<option value="Fotógrafo (a)">Fotógrafo (a)</option>
+<option value="Front-End Developer">Front-End Developer</option>
+<option value="Fruticultor">Fruticultor</option>
+<option value="Fundidor Moldador">Fundidor Moldador</option>
+<option value="Físico">Físico</option>
+<option value="Game Tester / Testador de Jogos">Game Tester / Testador de Jogos</option>
+<option value="Gamer">Gamer</option>
+<option value="Gastroenterologista">Gastroenterologista</option>
+<option value="Gastroenterologista Pediátrico">Gastroenterologista Pediátrico</option>
+<option value="Gastronomia">Gastronomia</option>
+<option value="Gemólogo">Gemólogo</option>
+<option value="Geofísica">Geneticista</option>
+<option value="Gerente Comercial">Gerente Comercial</option>
+<option value="Gerente de Cave / Cavista">Gerente de Cave / Cavista</option>
+<option value="Gerente de Hotel / Gestor Hoteleiro">Gerente de Hotel / Gestor Hoteleiro</option>
+<option value="Gerente de Restaurante">Gerente de Restaurante</option>
+<option value="Gestor Cultural">Gestor Cultural</option>
+<option value="Gestor de Campos de Golfe">Gestor de Campos de Golfe</option>
+<option value="Gestor de Inovação">Gestor de Inovação</option>
+<option value="Gestor de Resíduos">Gestor de Resíduos</option>
+<option value="Gestor de Talentos">Gestor de Talentos</option>
+<option value="Gestor de Tráfego Pago">Gestor de Tráfego Pago</option>
+<option value="Gestor de Turismo Rural">Gestor de Turismo Rural</option>
+<option value="Gestor Esportivo / Gestor Desportivo">Gestor Esportivo / Gestor Desportivo</option>
+<option value="Gestão Ambiental">Gestão Ambiental</option>
+<option value="Gestão de Turismo">Gestão de Turismo</option>
+<option value="Gestão Equina / Equinocultura">Gestão Equina / Equinocultura</option>
+<option value="Geógrafo">Geógrafo</option>
+<option value="Geólogo">Geólogo</option>
+<option value="Ghost Writer">Ghost Writer</option>
+<option value="Ginecologista">Ginecologista</option>
+<option value="Ginecologista Oncológico">Ginecologista Oncológico</option>
+<option value="Governanta de Hotel">Governanta de Hotel</option>
+<option value="Gravador de Joias">Gravador de Joias</option>
+<option value="Greenkeeper">Greenkeeper</option>
+<option value="Guarda da GNR">Guarda da GNR</option>
+<option value="Guarda Florestal">Guarda Florestal</option>
+<option value="Guarda Prisional (Agente Penitenciário)">Guarda Prisional (Agente Penitenciário)</option>
+<option value="Guia de Astroturismo">Guia de Astroturismo</option>
+<option value="Guia de Ecoturismo">Guia de Ecoturismo</option>
+<option value="Guia de Enoturismo">Guia de Enoturismo</option>
+<option value="Guia de Olivoturismo">Guia de Olivoturismo</option>
+<option value="Guia de Turismo Equestre">Guia de Turismo Equestre</option>
+<option value="Guia Intérprete">Guia Intérprete</option>
+<option value="Hair Stylist">Hair Stylist</option>
+<option value="Hematologista">Hematologista </option>
+<option value="Hepatologista">Hepatologista</option>
+<option value="Hidroponia">Hidroponia</option>
+<option value="Historiador">Historiador</option>
+<option value="Homem do Globo da Morte">Homem do Globo da Morte</option>
+<option value="Homem-Canhão (Homem-Bala)">Homem-Canhão (Homem-Bala)</option>
+<option value="Homeopata">Homeopata</option>
+<option value="Horticultor">Horticultor</option>
+<option value="Icarista">Icarista</option>
+<option value="Ilusionista">Ilusionista</option>
+<option value="Ilustrador / Desenhador">Ilustrador / Desenhador</option>
+<option value="Influencer de apostas desportivas">Influencer de apostas desportivas</option>
+<option value="Influenciador Digital">Influenciador Digital</option>
+<option value="Instalador de Ar-Condicionado">Instalador de Ar-Condicionado</option>
+<option value="Instrutor de Condução">Instrutor de Condução</option>
+<option value="Intensivista Pediátrico">Intensivista Pediátrico</option>
+<option value="Intérprete de Língua Gestual (Libras)">Intérprete de Língua Gestual (Libras)</option>
+<option value="Jardineiro">Jardineiro</option>
+<option value="Joalheiro">Joalheiro</option>
+<option value="Jogador de Futebol">Jogador de Futebol</option>
+<option value="Jornalismo">Jornalismo</option>
+<option value="Jornalista Digital">Jornalista Digital</option>
+<option value="Jornalista Esportivo / Jornalista Desportivo">Jornalista Esportivo / Jornalista Desportivo</option>
+<option value="Juiz">Juiz</option>
+<option value="Jurista (Jurisconsulto)">Jurista (Jurisconsulto)</option>
+<option value="Jóquei (Corridas de Cavalos)">Jóquei (Corridas de Cavalos)</option>
+<option value="Ladrilhador (Azulejador)">Ladrilhador (Azulejador)</option>
+<option value="Lapidador de joias">Lapidador de joias</option>
+<option value="Lapidador de Vidro ou Cristais">Lapidador de Vidro ou Cristais</option>
+<option value="Leitor de Contadores">Leitor de Contadores</option>
+<option value="Limpador de Chaminés">Limpador de Chaminés</option>
+<option value="Limpador de Fachadas">Limpador de Fachadas</option>
+<option value="Locutor">Locutor</option>
+<option value="Logger">Logger</option>
+<option value="Maestro (Regente)">Maestro (Regente)</option>
+<option value="Malabarismo">Malabarismo</option>
+<option value="Manager Musical">Manager Musical</option>
+<option value="Manicure / Pedicure">Manicure / Pedicure</option>
+<option value="Maquilhador de Espetáculo">Maquilhador de Espetáculo</option>
+<option value="Maquilhadora Profissional (Maquiadora)">Maquilhadora Profissional (Maquiadora)</option>
+<option value="Maquinista">Maquinista</option>
+<option value="Maquinista Auxiliar (Espetáculo)">Maquinista Auxiliar (Espetáculo)</option>
+<option value="Maquinista de Espetáculo">Maquinista de Espetáculo</option>
+<option value="Marceneiro">Marceneiro</option>
+<option value="Marinheiro Pescador">Marinheiro Pescador</option>
+<option value="Marionetista">Marionetista</option>
+<option value="Marketing">Marketing</option>
+<option value="Massagista de estética">Massagista de estética</option>
+<option value="Matemático">Matemático</option>
+<option value="Maître de Restaurante / Chefe de Sala">Maître de Restaurante / Chefe de Sala</option>
+<option value="Mecânico">Mecânico</option>
+<option value="Mecânico de Máquinas Agrícolas e Industriais">Mecânico de Máquinas Agrícolas e Industriais</option>
+<option value="Mediador">Mediador</option>
+<option value="Medicina da Reprodução">Medicina da Reprodução</option>
+<option value="Medicina Materno-Fetal">Medicina Materno-Fetal</option>
+<option value="Medidor Orçamentista">Medidor Orçamentista</option>
+<option value="Mensageiro de Hotel">Mensageiro de Hotel</option>
+<option value="Mergulhador">Mergulhador</option>
+<option value="Mestre Cervejeiro">Mestre Cervejeiro</option>
+<option value="Mestre Costeiro Pescador">Mestre Costeiro Pescador</option>
+<option value="Mestre de Bailado">Mestre de Bailado</option>
+<option value="Mestre de Pista">Mestre de Pista</option>
+<option value="Mestre do Largo Pescador">Mestre do Largo Pescador</option>
+<option value="Mestre do Tráfego Local">Mestre do Tráfego Local</option>
+<option value="Meteorologista">Meteorologista</option>
+<option value="Microbiologia Médica">Microbiologia Médica</option>
+<option value="Modelista em Cera">Modelista em Cera</option>
+<option value="Modelo">Modelo</option>
+<option value="Modista / Costureira (o)">Modista / Costureira (o)</option>
+<option value="Montador (Editor)">Montador (Editor)</option>
+<option value="Montador de Alvenarias e de Pré-Estofados">Montador de Alvenarias e de Pré-Estofados</option>
+<option value="Montador de Andaimes">Montador de Andaimes</option>
+<option value="Montador de Tubagens">Montador de Tubagens</option>
+<option value="Mordomo de Hotel">Mordomo de Hotel</option>
+<option value="Motorista de Passageiros (Motorista de Ônibus)">Motorista de Passageiros (Motorista de Ônibus)</option>
+<option value="Motorista de Pesados / Caminhoneiro">Motorista de Pesados / Caminhoneiro</option>
+<option value="Motorista de Transporte de Crianças / Motorista de Transporte Escolar">Motorista de Transporte de Crianças / Motorista de Transporte Escolar</option>
+<option value="Motorista de táxi">Motorista de táxi</option>
+<option value="Motosserrista">Motosserrista</option>
+<option value="Musicoterapeuta – Musicoterapia">Musicoterapeuta – Musicoterapia</option>
+<option value="Mágico">Mágico</option>
+<option value="Médico de Clínica Geral (Clínico Geral)">Médico de Clínica Geral (Clínico Geral)</option>
+<option value="Médico de Medicina Desportiva">Médico de Medicina Desportiva</option>
+<option value="Médico de Medicina Nuclear">Médico de Medicina Nuclear</option>
+<option value="Médico de Saúde Ocupacional">Médico de Saúde Ocupacional</option>
+<option value="Médico de Medicina Tropical">Médico de Medicina Tropical</option>
+<option value="Médico de Saúde Pública">Médico de Saúde Pública</option>
+<option value="Médico do Trabalho">Médico do Trabalho</option>
+<option value="Médico Fisiatra">Médico Fisiatra</option>
+<option value="Médico Geneticista">Médico Geneticista</option>
+<option value="Médico Infectologista">Médico Infectologista</option>
+<option value="Médico Intensivista (Medicina Intensiva)">Médico Intensivista (Medicina Intensiva)</option>
+<option value="Médico Internista (Medicina Interna)">Médico Internista (Medicina Interna)</option>
+<option value="Médico Legista">Médico Legista</option>
+<option value="Médico Nefrologista">Médico Nefrologista</option>
+<option value="Médico Radiologista">Médico Radiologista</option>
+<option value="Médico Radioncologista (Radioterapeuta)">Médico Radioncologista (Radioterapeuta)</option>
+<option value="Mímico">Mímico</option>
+<option value="Músico">Músico</option>
+<option value="Músico de sessão">Músico de sessão</option>
+<option value="Nanny">Nanny</option>
+<option value="Nefrologista Pediátrico">Nefrologista Pediátrico</option>
+<option value="Neonatologista">Neonatologista</option>
+<option value="Neurocirurgião">Neurocirurgião</option>
+<option value="Neurocirurgião Pediátrico">Neurocirurgião Pediátrico</option>
+<option value="Neurofisiologista">Neurofisiologista</option>
+<option value="Neurologista">Neurologista</option>
+<option value="Neuropatologista">Neuropatologista</option>
+<option value="Neuropediatra">Neuropediatra</option>
+<option value="Neurorradiologista">Neurorradiologista</option>
+<option value="Notário">Notário</option>
+<option value="Numerólogo / Numerologia">Numerólogo / Numerologia</option>
+<option value="Nutrição">Nutrição</option>
+<option value="Obstetra">Obstetra</option>
+<option value="Obstetrícia">Obstetrícia</option>
+<option value="Oceanografia">Oceanografia</option>
+<option value="Odontologia (Medicina Dentária)">Odontologia (Medicina Dentária)</option>
+<option value="Oficial de Justiça">Oficial de Justiça</option>
+<option value="Oficial de Marinha">Oficial de Marinha</option>
+<option value="Oficial de Registos">Oficial de Registos</option>
+<option value="Oficial de Registos Especialista">Oficial de Registos Especialista</option>
+<option value="Oftalmologista">Oftalmologista</option>
+<option value="Oleiro">Oleiro</option>
+<option value="Olivicultor">Olivicultor</option>
+<option value="Oncologista">Oncologista</option>
+<option value="Oncologista Pediátrico">Oncologista Pediátrico</option>
+<option value="Operador de Caixa">Operador de Caixa</option>
+<option value="Operador de Câmara">Operador de Câmara</option>
+<option value="Operador de empilhadeira">Operador de empilhadeira</option>
+<option value="Operador de Fundição">Operador de Fundição</option>
+<option value="Operador de grua e guindastes">Operador de grua e guindastes</option>
+<option value="Operador de máquinas">Operador de máquinas</option>
+<option value="Operador de máquinas de escavação">Operador de máquinas de escavação</option>
+<option value="Operador de Prensa de Forjar">Operador de Prensa de Forjar</option>
+<option value="Operador de Som">Operador de Som</option>
+<option value="Operador de Telemarketing">Operador de Telemarketing</option>
+<option value="Optometrista">Optometrista</option>
+<option value="Ortodontia">Ortodontia</option>
+<option value="Ortopedista">Ortopedista</option>
+<option value="Ortopedista Infantil">Ortopedista Infantil</option>
+<option value="Otorrinolaringologista">Otorrinolaringologista</option>
+<option value="Ourives">Ourives</option>
+<option value="Padeiro">Padeiro</option>
+<option value="Padre">Padre</option>
+<option value="Palhaço">Palhaço</option>
+<option value="Paramédico">Paramédico</option>
+<option value="Partner">Partner</option>
+<option value="Pasteleiro / Confeiteiro">Pasteleiro / Confeiteiro</option>
+<option value="Pastor">Pastor</option>
+<option value="Patologista Clínico">Patologista Clínico</option>
+<option value="Pediatra">Pediatra</option>
+<option value="Pedopsiquiatra">Pedopsiquiatra</option>
+<option value="Pedreiro">Pedreiro</option>
+<option value="Perfumista">Perfumista</option>
+<option value="Personal Stylist / Fashion Stylist">Personal Stylist / Fashion Stylist</option>
+<option value="Personal Trainer">Personal Trainer</option>
+<option value="Pescador">Pescador</option>
+<option value="Pet-Sitter">Pet-Sitter</option>
+<option value="Pet-Táxi">Pet-Táxi</option>
+<option value="Pianista">Pianista</option>
+<option value="Pintor (Construção Civil)">Pintor (Construção Civil)</option>
+<option value="Pintor de Arte">Pintor de Arte</option>
+<option value="Pintor à Pistola de Superfícies">Pintor à Pistola de Superfícies</option>
+<option value="Pizzaiolo">Pizzaiolo</option>
+<option value="Pneumologista">Pneumologista</option>
+<option value="Podologista">Podologista</option>
+<option value="Polidor">Polidor</option>
+<option value="Polidor de Pedra">Polidor de Pedra</option>
+<option value="Polidor de Vidro">Polidor de Vidro</option>
+<option value="Ponto">Ponto</option>
+<option value="Porteiro">Porteiro</option>
+<option value="Preparador de Refeições Rápidas">Preparador de Refeições Rápidas</option>
+<option value="Prestador de Cuidados a Animais">Prestador de Cuidados a Animais</option>
+<option value="Produtor Audiovisual">Produtor Audiovisual</option>
+<option value="Produtor de Casting / Produtor de Elenco">Produtor de Casting / Produtor de Elenco</option>
+<option value="Produtor de Eventos">Produtor de Eventos</option>
+<option value="Produtor de Moda">Produtor de Moda</option>
+<option value="Produtor Executivo (Audiovisual)">Produtor Executivo (Audiovisual)</option>
+<option value="Produtor Musical">Produtor Musical</option>
+<option value="Produtor Publicitário">Produtor Publicitário</option>
+<option value="Professor de Alemão">Professor de Alemão</option>
+<option value="Professor de Antropologia">Professor de Antropologia</option>
+<option value="Professor de Aplicações Informáticas">Professor de Aplicações Informáticas</option>
+<option value="Professor de Bailado">Professor de Bailado</option>
+<option value="Professor de Biologia">Professor de Biologia</option>
+<option value="Professor de Biologia e Geologia">Professor de Biologia e Geologia</option>
+<option value="Professor de Ciência Política">Professor de Ciência Política</option>
+<option value="Professor de Ciências Naturais">Professor de Ciências Naturais</option>
+<option value="Professor de Clássicos da Literatura">Professor de Clássicos da Literatura</option>
+<option value="Professor de Desenho">Professor de Desenho</option>
+<option value="Professor de Direito">Professor de Direito</option>
+<option value="Professor de Economia">Professor de Economia</option>
+<option value="Professor de Educação Física">Professor de Educação Física</option>
+<option value="Professor de Educação Moral e Religiosa Católica">Professor de Educação Moral e Religiosa Católica</option>
+<option value="Professor de Educação Visual (EVT)">Professor de Educação Visual (EVT)</option>
+<option value="Professor de Espanhol">Professor de Espanhol</option>
+<option value="Professor de Filosofia">Professor de Filosofia</option>
+<option value="Professor de Francês">Professor de Francês</option>
+<option value="Professor de Física">Professor de Física</option>
+<option value="Professor de Físico-Química">Professor de Físico-Química</option>
+<option value="Professor de Geografia">Professor de Geografia</option>
+<option value="Professor de Geometria Descritiva">Professor de Geometria Descritiva</option>
+<option value="Professor de Geologia">Professor de Geologia</option>
+<option value="Professor de Grego">Professor de Grego</option>
+<option value="Professor de História">Professor de História</option>
+<option value="Professor de História da Cultura e das Artes">Professor de História da Cultura e das Artes</option>
+<option value="Professor de Inglês">Professor de Inglês</option>
+<option value="Professor de Latim">Professor de Latim</option>
+<option value="Professor de Literatura Portuguesa">Professor de Literatura Portuguesa</option>
+<option value="Professor de Matemática">Professor de Matemática</option>
+<option value="Professor de Matemática Aplicada às Ciências Sociais (MACS)">Professor de Matemática Aplicada às Ciências Sociais (MACS)</option>
+<option value="Professor de Materiais e Tecnologias">Professor de Materiais e Tecnologias</option>
+<option value="Professor de Música">Professor de Música</option>
+<option value="Professor de Oficina das Artes">Professor de Oficina das Artes</option>
+<option value="Professor de Oficina Multimédia">Professor de Oficina Multimédia</option>
+<option value="Professor de Português">Professor de Português</option>
+<option value="Professor de Português Adaptado a Alunos com Deficiência Auditiva">Professor de Português Adaptado a Alunos com Deficiência Auditiva</option>
+<option value="Professor de Português L2 para Surdos">Professor de Português L2 para Surdos</option>
+<option value="Professor de Português Língua Não Materna (PLNM)">Professor de Português Língua Não Materna (PLNM)</option>
+<option value="Professor de Psicologia">Professor de Psicologia</option>
+<option value="Professor de Química">Professor de Química</option>
+<option value="Professor de Sociologia">Professor de Sociologia</option>
+<option value="Professor de TIC">Professor de TIC</option>
+<option value="Professor do Ensino Especial (Educação Especial e Inclusiva)">Professor do Ensino Especial (Educação Especial e Inclusiva)</option>
+<option value="Professor Online">Professor Online</option>
+<option value="Profissional de Marketing Digital">Profissional de Marketing Digital</option>
+<option value="Profissional LEED">Profissional LEED</option>
+<option value="Programador Cultural">Programador Cultural</option>
+<option value="Promotor de Vendas">Promotor de Vendas</option>
+<option value="Promotor Musical">Promotor Musical</option>
+<option value="Psicologia">Psicologia</option>
+<option value="Psicólogo Infantojuvenil">Psicólogo Infantojuvenil</option>
+<option value="Psiquiatra">Psiquiatra</option>
+<option value="Psiquiatra Forense">Psiquiatra Forense</option>
+<option value="Queijeiro / Queijeira">Queijeiro / Queijeira</option>
+<option value="Quiromante / Quiromancia">Quiromante / Quiromancia</option>
+<option value="Quiropraxia (Quiroprática)">Quiropraxia (Quiroprática)</option>
+<option value="Quirólogo / Quirologia">Quirólogo / Quirologia</option>
+<option value="Químico">Químico</option>
+<option value="Rabolista (Artista Substituto)">Rabolista (Artista Substituto)</option>
+<option value="Radiologista">Radiologista</option>
+<option value="Ranicultura (Criação de Rãs)">Ranicultura (Criação de Rãs)</option>
+<option value="Realizador (Diretor de Cinema)">Realizador (Diretor de Cinema)</option>
+<option value="Recepcionista de Hotel">Recepcionista de Hotel</option>
+<option value="Relações Internacionais">Relações Internacionais</option>
+<option value="Reparador de Bicicletas">Reparador de Bicicletas</option>
+<option value="Repositor">Repositor</option>
+<option value="Representante de Vendas Internas">Representante de Vendas Internas</option>
+<option value="Responsável de Reinserção">Responsável de Reinserção</option>
+<option value="Restaurador">Restaurador</option>
+<option value="Reumatologista">Reumatologista</option>
+<option value="Reumatologista Pediátrico">Reumatologista Pediátrico</option>
+<option value="Road Manager">Road Manager</option>
+<option value="Roadie">Roadie</option>
+<option value="Sales Development Representative">Sales Development Representative</option>
+<option value="Salva-Vidas">Salva-Vidas</option>
+<option value="Sapador Florestal (Brigadista de Prevenção)">Sapador Florestal (Brigadista de Prevenção)</option>
+<option value="Sapateiro">Sapateiro</option>
+<option value="Serígrafo">Serígrafo</option>
+<option value="Sargento da GNR">Sargento da GNR</option>
+<option value="Scout / Olheiro de Futebol">Scout / Olheiro de Futebol</option>
+<option value="Scouter de Moda">Scouter de Moda</option>
+<option value="Secretário de Frente (Circo)">Secretário de Frente (Circo)</option>
+<option value="Secretário de Justiça">Secretário de Justiça</option>
+<option value="Secretário de Orquestra">Secretário de Orquestra</option>
+<option value="Secretário Teatral">Secretário Teatral</option>
+<option value="Segurança">Segurança</option>
+<option value="Segurança da Informação">Segurança da Informação</option>
+<option value="Sericicultura (Criação de Bichos-da-Seda)">Sericicultura (Criação de Bichos-da-Seda)</option>
+<option value="Serralheiro">Serralheiro</option>
+<option value="Serralheiro Civil">Serralheiro Civil</option>
+<option value="Serralheiro de Moldes, Cunhos e Cortantes">Serralheiro de Moldes, Cunhos e Cortantes</option>
+<option value="Social Media Manager">Social Media Manager</option>
+<option value="Sociólogo">Sociólogo</option>
+<option value="Soldador">Soldador</option>
+<option value="Sommelier de Azeites">Sommelier de Azeites</option>
+<option value="Solicitador">Solicitador</option>
+<option value="Sommelier de Cervejas">Sommelier de Cervejas</option>
+<option value="Sommelier ou Escanção">Sommelier ou Escanção</option>
+<option value="Sonoplasta">Sonoplasta</option>
+<option value="Soprador de Vidro">Soprador de Vidro</option>
+<option value="Sound Designer">Sound Designer</option>
+<option value="Stage Hand">Stage Hand</option>
+<option value="Stage Manager">Stage Manager</option>
+<option value="Tanoeiro">Tanoeiro</option>
+<option value="Tarólogo / Tarotista">Tarólogo / Tarotista</option>
+<option value="Terapeuta Capilar">Terapeuta Capilar</option>
+<option value="Terapeuta da Fala">Terapeuta da Fala</option>
+<option value="Terapeuta Ocupacional">Terapeuta Ocupacional</option>
+<option value="Trabalhador da Triagem de Resíduos">Trabalhador da Triagem de Resíduos</option>
+<option value="Trabalhador de Corte a Oxi-gás">Trabalhador de Corte a Oxi-gás</option>
+<option value="Trader Esportivo / Trader Desportivo">Trader Esportivo / Trader Desportivo</option>
+<option value="Tradutor">Tradutor</option>
+<option value="Trapezista">Trapezista</option>
+<option value="Tratador de Cavalos">Tratador de Cavalos</option>
+<option value="Treinador de animais">Treinador de animais</option>
+<option value="Treinador de Equitação / Treinador de Cavalos">Treinador de Equitação / Treinador de Cavalos</option>
+<option value="Treinador de Futebol (Técnico de Futebol)">Treinador de Futebol (Técnico de Futebol)</option>
+<option value="Treinador de Golfe">Treinador de Golfe</option>
+<option value="Tutor de Cursos à Distância">Tutor de Cursos à Distância</option>
+<option value="Técnico de Aeroponia">Técnico de Aeroponia</option>
+<option value="Técnico de Atendimento Público">Técnico de Atendimento Público</option>
+<option value="Técnico de Audiovisuais">Técnico de Audiovisuais</option>
+<option value="Técnico de Caprinocultura / Caprinicultura">Técnico de Caprinocultura / Caprinicultura</option>
+<option value="Técnico de Comunicação e Marketing">Técnico de Comunicação e Marketing</option>
+<option value="Técnico de Cunicultura / Criação de Coelhos">Técnico de Cunicultura / Criação de Coelhos</option>
+<option value="Técnico de equipamento de espetáculo">Técnico de equipamento de espetáculo</option>
+<option value="Técnico de Iluminação">Técnico de Iluminação</option>
+<option value="Técnico de Mecatrónica Automóvel">Técnico de Mecatrónica Automóvel</option>
+<option value="Técnico de Obra (Técnico em Edificações)">Técnico de Obra (Técnico em Edificações)</option>
+<option value="Técnico de Ovinocultura / Ovinicultura">Técnico de Ovinocultura / Ovinicultura</option>
+<option value="Técnico de Rega / Técnico de Irrigação e Drenagem">Técnico de Rega / Técnico de Irrigação e Drenagem</option>
+<option value="Técnico de Serviços Educativos">Técnico de Serviços Educativos</option>
+<option value="Técnico de Som">Técnico de Som</option>
+<option value="Técnico de Tomada de Som">Técnico de Tomada de Som</option>
+<option value="Técnico em Galvanoplastia">Técnico em Galvanoplastia</option>
+<option value="Técnico em Transferência Sonora">Técnico em Transferência Sonora</option>
+<option value="Urbanista">Urbanista</option>
+<option value="UX & UI Designers">UX & UI Designers</option>
+<option value="Vendedor">Vendedor</option>
+<option value="Vendedor Ambulante">Vendedor Ambulante</option>
+<option value="Vendedor Ambulante de Produtos Alimentares">Vendedor Ambulante de Produtos Alimentares</option>
+<option value="Vendedor de Loja">Vendedor de Loja</option>
+<option value="Vendedor de Quiosque">Vendedor de Quiosque</option>
+<option value="Ventríloquo">Ventríloquo</option>
+<option value="Veterinário">Veterinário</option>
+<option value="Videomaker">Videomaker</option>
+<option value="Vidraceiro | Vidreiro">Vidraceiro | Vidreiro</option>
+<option value="Vigilante da Natureza / Guarda-Parques">Vigilante da Natureza / Guarda-Parques</option>
+<option value="Vigilante de crianças">Vigilante de crianças</option>
+<option value="Vinicultor">Vinicultor</option>
+<option value="Violinista">Violinista</option>
+<option value="Visagista">Visagista</option>
+<option value="Viticultor">Viticultor</option>
+<option value="Viveirista">Viveirista</option>
+<option value="Walker Talker">Walker Talker</option>
+<option value="Web Designer">Web Designer</option>
+<option value="Wine Hunter / Caçador de Vinhos">Wine Hunter / Caçador de Vinhos</option>
+<option value="Youtuber">Youtuber</option>
+<option value="Zelador de Guarda-Roupa">Zelador de Guarda-Roupa</option>
+<option value="Zootécnica">Zootécnica</option>
+<option value="Biscateiro">Biscateiro</option>
+<option value="Outros trabalhos">Outros trabalhos</option> 
+                </ng-select2>
+            </div>
+
+        </div> 
+
+        <div style="display: flex; flex-direction: row; justify-content: space-evenly; width:100%;" >
+
+            <div class="form-group px-md-2 " style="width:100%; margin-left: -15px;">
+                <label><b>Residência Actual</b></label>
+                <input style="width: 100%; height: 30px; " type="text" id="residencia_atual" class="form-control" required
+                formControlName="residencia_atual">
+                <div id="error-residencia_atual" style="display: none;" class="validation-error"> 
+                    <p>A Residência Actual e de caracter obrigatório!</p>
+                </div>
+            </div>
+            <div class="form-group" style="width:100%; margin-right:8px;">
+                <label><b>Contactos <i class="ico bi bi-exclamation-circle-fill"></i></b></label>
+                <input style="width: 100%; height: 30px; " type="text" id="contactos" class="form-control" required
+                    formControlName="contactos">
+                    <div id="error-contactos" style="display: none;" class="validation-error"> 
+                        <p>O campo de contacto e de caracter obrigatório!</p>
+                    </div>
+            </div>  
+
+            <div class="form-group" style="width:100%; margin-right: -3px;">
+                <label><b>Observação(opcional)</b></label>
+                <input style="width: 100%; height: 30px;" placeholder="Detalhes do acusado, caso não exista!"  type="text" class="form-control" id="obs" formControlName="obs">
+            </div> 
+        </div>
+    </form>
+
+</div>

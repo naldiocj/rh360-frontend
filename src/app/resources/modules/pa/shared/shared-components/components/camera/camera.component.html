@@ -1,0 +1,41 @@
+<div class="modal" id="camera-foto">
+    <div class="modal-dialog modal-dialog-centered" style="min-width:15%;">
+        <div class="modal-content p-0 overflow-hidden rounded-0">
+            <div class="card my-0 p-0 border-0 overflow-hidden rounded-0">
+                <div class="card-header d-flex justify-content-between align-items-center border-0 overflow-hidden rounded-0"
+                    [style]="{backgroundColor: 'var(--bg-color)'} ">
+                    <h5 class="text-uppercase text-light">Tirar fotografia - WebCam</h5>
+                    <a href="javascript:void(0)" (click)="this.fecharCamera()" class="text-red" data-dismiss="modal">
+                        <i class="fa fa-close"></i>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div class="video-options my-2" [class.d-none]="this.fotoTirada">
+                        <label for="" class="text-uppercase"><b>Escolha a câmera</b></label>
+                        <select class="custom-select rounded-0" (change)="this.handlerDevices($event)">
+                        </select>
+                    </div>
+                    <div class="card-camera-image d-flex justify-content-center align-items-center">
+                        <canvas id="canvas" class="{{this.fotoTirada==true ? 'd-block': 'd-none'}}"></canvas>
+                        <video class="{{this.fotoTirada!=true ? 'd-block': 'd-none'}}" autoplay id="camera"
+                            style="width:100%; height:100%;"></video>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent my-1 py-0 border-0 overflow-hidden rounded-0">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <button class="btn-piips btn-piips-red m-0 px-x py-2" data-dismiss="modal"
+                            (click)="this.fecharCamera()"><i class="fa fa-close"></i></button>
+                        <button *ngIf="!this.fotoTirada" (click)="tirarFoto()"
+                            class="btn-piips btn-piips-primary m-0 px-3 py-2"><i class="fa fa-camera"></i></button>
+                        <button data-dismiss="modal" (click)="this.onGuardar()" *ngIf="this.fotoTirada"
+                          class="btn-piips btn-piips-primary m-0 px-3 py-2"><i
+                                class="fa fa-save"></i></button>
+                        <button *ngIf="this.fotoTirada" (click)="tirarFoto()"
+                            class="btn-piips btn-piips-secondary m-0 px-3 py-2"><i class="fa fa-refresh"
+                                (click)="this.configuracaoInitial()"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

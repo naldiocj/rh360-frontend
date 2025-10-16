@@ -1,0 +1,10 @@
+<p>opcs-expedientes works!</p>
+<h3>Expedientes  </h3>
+
+<div *ngFor="let expediente of expedientes">
+  <p>ID: {{ expediente.id }} | Denunciante: {{ expediente.denunciante }} | Status: {{ expediente.status }}</p>
+  
+  <label for="responsavel">Atribuir Responsável:</label>
+  <input type="text" placeholder="Nome do responsável" />
+  <button (click)="atribuirResponsavel(expediente.id)">Atribuir</button>
+</div>

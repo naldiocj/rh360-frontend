@@ -1,0 +1,573 @@
+.bg-light {
+  --bs-bg-opacity: 0;
+  border-radius: 0px !important;
+  background-color: rgba(232, 236, 236, 0.101) !important;
+  padding: 5px;
+  width: 100%;
+  margin: auto;
+}
+
+.col1 {
+  width: 100%;
+  padding: 8px;
+  background-color: #f6f6f6;
+  border-top-left-radius: 12px !important;
+  border-top-right-radius: 12px !important;
+  border-bottom-left-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+}
+.col2 {
+  width: 100%;
+  padding: 10px;
+  border-top: 1px solid #33333317;
+  background-color: #f6f6f6;
+  border-top-left-radius: 0px !important;
+  border-top-right-radius: 0px !important;
+  border-bottom-left-radius: 13px !important;
+  border-bottom-right-radius: 13px !important;
+}
+
+
+/* Estilos para as tabelas rend */
+ /* modal */
+ .modal-header{
+  background: #041b4e;
+  color: white;
+  width:100%;
+}
+.modal-content{
+  --bs-bg-opacity: 0;
+  border-top-left-radius: 11px !important;
+  border-top-right-radius: 11px !important;
+  border-bottom-left-radius: 12px !important;
+  border-bottom-right-radius: 12px !important;
+  overflow-y: hidden;
+  width: 79%;
+  margin: auto;
+}
+input[type="radio"]{
+  opacity: 0;
+
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+
+/* Estilos para as cores dos estados do processo */
+.processo_em_andamento {
+  background-color: #ffc107; /* Amarelo */
+}
+
+.processo_concluido {
+  background-color: #28a745; /* Verde */
+}
+
+.processo_pendente {
+  background-color: #dc3545; /* Vermelho */
+}
+
+.filters-toggle-btn.filters-active svg {
+  display: none;
+  fill: #0d0c22;
+}
+/* Estilos para as cores dos estados do processo */
+
+.legend {
+  display: flex;
+  flex-direction: row;
+  margin-top: 9px;
+  margin-bottom: 5px;
+  padding: 2px;
+  background: #e9e9e900 !important;
+  border-radius: 12px;
+  color: rgb(44, 44, 44);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-right: 15px;
+}
+
+.legend-color {
+  width: 20px;
+  height: 20%;
+  margin-right: 10px;
+  border-radius: 15px;
+  box-shadow: inset rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
+    rgba(9, 30, 66, 0.08) 0px 0px 0px 1px !important;
+}
+.table-legend-color {
+  width: 20px;
+  height: 25px;
+  border-radius: 15px;
+}
+.legend-text {
+  margin-right: 5px;
+  font-size: 2%;
+}
+
+.em_andamento {
+  background-color: #ffcc00;
+}
+
+.concluido {
+  background-color: #00cc00;
+}
+
+.pendente {
+  background-color: #cc0000;
+}
+
+.legend-text {
+  font-size: 14px;
+}
+
+/* styles.css ou componente específico
+ background-color: #f5f8fa;
+  border-color: #f5f8fa;
+  color: #5e6278;
+  transition: color 0.2s ease;
+  */
+
+.bg-select{
+  border-radius: 12px !important;
+  background-color: #f3f3f3!important;
+  box-shadow:none;
+  padding: 12px;
+  width: 90%;
+  color: #000;
+  border: 1px solid #e8ecec !important;
+}
+
+.col-lgkv-3 {
+  flex: 0 0 auto;
+  width: 10%;
+}
+.col-lgkv-2 {
+  flex: 0 0 auto;
+  width: 25%;
+}
+.col-lgkv-1 {
+  flex: 0 0 auto;
+  width: 60.2%;
+}
+
+.hidden-banner {
+  display: none;
+}
+.nav-btn-button {
+  border:none;
+  border-top-right-radius: 10px !important;
+  border-top-left-radius: 10px !important;
+  border-bottom-right-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+  background-color: #e8ecec;
+  border: 1px solid #e8ecec !important;
+  min-height: 40px;
+  max-height: 50px;
+  margin-right: 2px;
+}
+
+.btn-piips-button-all0 {
+  border-top-right-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
+  color: white;
+}
+.btn-piips-button-all1 {
+  border-top-left-radius: 10px !important;
+  border-bottom-left-radius: 10px !important;
+  color: white;
+}
+.btn-piips-filter {
+  border-radius: 10px !important;
+  background-color: #cfcfcf;
+  margin-left: 0.5rem;
+  height: 40px;
+}
+.btn-piips-filter {
+  border-radius: 10px !important;
+  background-color: #cfcfcf;
+  margin-left: 0.5rem;
+  height: 40px;
+}
+.input-piips-search.btn-piips-select {
+  border-top-left-radius: 10px !important;
+  border-bottom-left-radius: 10px !important;
+  color: black;
+  border-right: none !important;
+  border: 1px solid var(--bg-color);
+}
+
+
+.piips-select-all span {
+  border-radius: 10px;
+  color: black;
+  border: 0px solid #ccc !important;
+  background-color: #dc3545 !important;
+}
+
+.rounded{
+    border-radius: 12px !important;
+    border: none !important;
+}
+input,
+select,
+textarea {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -5px,
+    rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+    border: 1px solid #dbdbdb !important;
+
+}
+
+/* seu-componente.component.scss */
+
+
+/* styles.css ou componente específico */
+.hidden-banner {
+  display: none;
+}
+
+
+.checkboxes__item {
+  max-width: 20px;
+  margin-top: 0;
+  margin-bottom: -12px;
+}
+
+
+/* STYLE C */
+.checkbox.style-c {
+  display: inline-block;
+  position: relative;
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.checkbox.style-c input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+.checkbox.style-c input:checked ~ .checkbox__checkmark {
+  background-color: #e2e2e2;
+}
+.checkbox.style-c input:checked ~ .checkbox__checkmark:after {
+  opacity: 1;
+}
+.checkbox.style-c:hover input ~ .checkbox__checkmark {
+  background-color: #eee;
+}
+.checkbox.style-c:hover input:checked ~ .checkbox__checkmark {
+  background-color: #1c92f3;
+}
+.checkbox.style-c .checkbox__checkmark {
+  position: relative;
+  top: 2px;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #eee;
+  transition: background-color 0.25s ease;
+  border-radius: 4px;
+}
+.checkbox.style-c .checkbox__checkmark:after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 4px;
+  width: 5px;
+  height: 10px;
+  border: solid #333;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.checkbox.style-c .checkbox__body {
+  color: #ffffff;
+  line-height: 1.4;
+  font-size: 16px;
+}
+
+/* Aplicando border-radius ao cabeçalho da tabela */
+.col-112 {
+  flex: 0 0 auto;
+  width: 100%;
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+/*-----------------
+	2. Table
+-----------------------*/
+
+.table {
+	color: #000;
+	border: 1px solid #f0f0f0;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 9px;
+}
+
+
+.table>tbody>tr>td {
+	font-weight: 300;
+}
+
+table.table td .avatar {
+	margin: 0 5px 0 0;
+}
+
+table.table td h2 {
+	display: inline-block;
+	font-size: inherit;
+	font-weight: 400;
+	margin: 0;
+	padding: 0;
+	vertical-align: middle;
+}
+
+table.table td h2 a {
+	color: #757575;
+}
+
+table.table td h2 a:hover {
+	color: #002d54;
+}
+
+table.table td h2 span {
+	color: #9e9e9e;
+	display: block;
+	font-size: 12px;
+	margin-top: 3px;
+}
+
+
+.table .table-thead {
+  font-size: small;
+  text-align: justify;
+  background-color: #f9fdff;
+}
+.table-tbody {
+  background-color: #ffffff;
+}
+
+.table-tbody tr:hover {
+  background-color: #041b4e;
+  color: #ffffff;
+}
+thead tr:first-child th:first-child {
+  border-top-left-radius: 10px; /* Raio da borda superior esquerda */
+}
+thead tr:first-child th:last-child {
+  border-top-right-radius: 10px; /* Raio da borda superior direita */
+
+}
+.table-thead thead{
+ margin-bottom:10rem; /* Raio da borda superior direita */
+}
+
+td {
+  padding: 7px;
+}
+
+tr:last-child td:first-child {
+  border-bottom-left-radius: 10px;
+}
+tr:last-child td:last-child {
+  border-bottom-right-radius: 10px;
+}
+
+/*--------------------------------------------------------------
+# Page Title
+--------------------------------------------------------------*/
+
+@media (min-width: 1200px) {
+
+  #main,
+  #footer {
+    margin-right: 300px;
+  }
+}
+
+@media (max-width: 1199px) {
+  .toggle-sidebar .asidebar {
+    left: 0;
+  }
+}
+
+
+
+
+
+
+/* No arquivo CSS global ou no estilo do componente */
+.select2-container--default .select2-selection--single {
+  /* Seus estilos personalizados aqui */
+  background-color: #f2f2f3;
+  border: 1px solid #f0f0f0 !important;
+}
+.select2-results__option--highlighted[aria-selected] {
+  background-color: #5897fb;
+  color: white;
+}
+
+.select2-results__option[aria-selected] {
+  padding-left: 20px;
+}
+/* No arquivo do componente, por exemplo, seu-componente.component.css */
+:host ::ng-deep .select2-container--default .select2-selection--single {
+  background-color: #ffffff;
+  border: 1px solid #dbdbdb !important;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -5px,
+  rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+  border-radius:6px!important;
+  /* Adicione mais estilos conforme necessário */
+}
+
+@keyframes piscar {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.alerta-piscante {
+  animation: piscar 1s steps(1, end) infinite;
+}
+
+
+
+.dropdown-menu{
+  background-color: #0c1b5c !important;
+ border-radius: 12px;
+ padding-left: 2px !important;
+ border: 1px solid #071246;
+}
+.dropdown-menu .dropdown-item i {
+  margin-right: 10px;
+  font-size: 18px;
+  line-height: 0;
+}
+
+
+.dropdown-menu .dropdown-item{
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.dropdown-menu .dropdown-item:hover{
+  box-shadow:inset 0 0 5px, rgba(9, 30, 66, 0.08)!important;
+	background: #010236d5;
+  color: #ffffff;
+  border-radius: 10px !important;
+  padding-left: 10px;
+  padding-top: 7px;
+}
+
+
+@media (min-width: 768px){
+  .dropdown-menu-arrow::before {
+      content: "";
+      width: 13px;
+      height: 13px;
+      background: #0c1b5c!important;
+      position: absolute;
+      top: -7px;
+      right: 20px;
+      transform: rotate(45deg);
+      border-top: 1px solid #071246;
+      border-left: 1px solid #071246;
+  }
+}
+
+.dropdown-menu .dropdown-divider {
+  color: #a5c5fe;
+  margin: 0;
+}
+hr:not([size]) {
+  height: 1px;
+}
+.dropdown-divider {
+  height: 0;
+  margin: 0.5rem 0;
+  overflow: hidden;
+  border-top: 1px solid rgba(0,0,0,.15);
+}
+hr {
+  margin: 0;
+  color: inherit;
+  background-color: rgb(0, 0, 0);
+  border: 0;
+  opacity: .25;
+}
+*, ::after, ::before {
+  box-sizing: border-box;
+}
+
+@-webkit-keyframes dropdown-animate {
+0% {
+  opacity: 0;
+}
+
+100% {
+  opacity: 1;
+}
+
+0% {
+  opacity: 0;
+}
+}
+
+@keyframes dropdown-animate {
+0% {
+  opacity: 0;
+}
+
+100% {
+  opacity: 1;
+}
+
+0% {
+  opacity: 0;
+}
+}
+
+
+
+#main_ {
+  transition: all 0.3s cubic-bezier(.175, .885, .32, 1.275);
+
+}
+#asidebar {
+  right: 100dvh;
+  transition: all 0.3s cubic-bezier(.175, .885, .32, 1.275);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

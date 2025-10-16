@@ -1,0 +1,19 @@
+<ng-container *ngIf="link; else notLink">
+    <a
+      [routerLink]="'/admin-system/' + link"
+      class="nav-link"
+      routerLinkActive="active"
+    >
+      <i [class]="icon"></i>
+      <span>{{ content }}</span>
+      <span class="badge rounded-pill" *ngIf="count">{{ count }}</span>
+    </a>
+  </ng-container>
+  <ng-template #notLink>
+    <a class="nav-link">
+      <i [class]="icon"></i>
+      <span>{{ content }}</span>
+      <span class="badge rounded-pill" *ngIf="count">{{ count }}</span>
+    </a>
+  </ng-template>
+  

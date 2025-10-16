@@ -1,0 +1,748 @@
+<div class="modal fade" id="view-ocorrencias-completa" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="view-ocorrencias-completaLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" style="width: 850px">
+      <div class="modal-content">
+        <div class="modal-header bg-prima text-white d-flex justifty-content-between "
+          style="background-color: var(--bg-color)">
+          <div class="controller d-block" style="width: 45px; height: 50;">
+            <div class="dropdown w-50">
+              <button type="button"  class="btn-info btn-piips-primary bt-radius"
+                data-toggle="dropdown">
+                Exportar
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item input-form" href="javascript:void"
+                  style="display: flex; align-items: baseline; justify-content: space-between">
+                  <label for="ocorrencia" style="font-size: 1rem; margin: 0px 10px;">Visualizar Ocorrencia</label>
+                  <div class="checkboxes__item">
+                    <label class="checkbox style-c">
+                      <input title="f" type="checkbox"  id="ocorrencia" (change)="onCheck($event)"/>
+                      <div class="checkbox__checkmark hover:bg-muted-100 dark:hover:bg-muted-700/70"></div>
+                    </label>
+                  </div>
+                </a>
+                <a class="dropdown-item input-form" href="javascript:void"
+                  style="display: flex; align-items: baseline; justify-content: space-between">
+                  <label for="interveninte" style="font-size: 1rem; margin: 0px 10px;">Intervenientes</label>
+                  <div class="checkboxes__item">
+                    <label class="checkbox style-c">
+                      <input title="f" type="checkbox" id="interveninte" (change)="onCheck($event)"/>
+                      <div class="checkbox__checkmark hover:bg-muted-100 dark:hover:bg-muted-700/70"></div>
+                    </label>
+                  </div>
+                </a>
+                <a class="dropdown-item input-form" href="javascript:void"
+                  style="display: flex; align-items: baseline; justify-content: space-between">
+                  <label for="veiculo" style="font-size: 1rem; margin: 0px 10px;">Veiculos</label>
+                  <div class="checkboxes__item">
+                    <label class="checkbox style-c">
+                      <input title="f" type="checkbox" id="veiculo" (change)="onCheck($event)"/>
+                      <div class="checkbox__checkmark hover:bg-muted-100 dark:hover:bg-muted-700/70"></div>
+                    </label>
+                  </div>
+                </a>
+                <a class="dropdown-item input-form" href="javascript:void"
+                  style="display: flex; align-items: baseline; justify-content: space-between">
+                  <label for="tipobens" style="font-size: 1rem; margin: 0px 10px;">Bens Associados</label>
+                  <div class="checkboxes__item">
+                    <label class="checkbox style-c">
+                      <input title="f" type="checkbox" id="tipobens" (change)="onCheck($event)"/>
+                      <div class="checkbox__checkmark hover:bg-muted-100 dark:hover:bg-muted-700/70"></div>
+                    </label>
+                  </div>
+                </a>
+                <a class="dropdown-item" href="javascript:void">
+                  Sair
+                </a>
+  
+              </div>
+            </div>
+  
+          </div>
+          <h5 class="text-uppercase" style="color: var(--white)">Ficha de Ocorrencias</h5>
+          <a type="button" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
+            <i class="bi bi-backspace-reverse-fill cursor-pointer rounded-lg " style="font-size: 1.5em"></i>
+          </a>
+        </div>
+        <div class="modal-body d-block align-items-start border" style="column-gap: .8rem">
+          
+          <div class="ficha-completa" id="ficha-agente">
+            <div class="container-fluid p-0 ficha-ficha" style="overflow: hidden;">
+              
+              <div class="col-12 header-ficha">
+                <div class="row">
+                  <div
+                    class="col-xl-12 col-lg-12 col-md-12 col-sm-12 text-center justify-content-center align-items-center column-gap-4">
+                    <div class="image">
+                      <img src="assets/img/insigniadarepublica.jpg" alt="image-logo" style="width:70px; height: 70px;">
+                    </div>
+                    <div class="logos mx-2 text-md-center">
+                      <h6>REPÚBLICA DE ANGOLA</h6>
+                      <h6>
+                       ----------x----------
+                      </h6>
+                      <h6>
+                        MINISTÉRIO DO INTERIOR
+                      </h6>
+                      <h6>
+                        POLÍCIA NACIONAL DE ANGOLA
+                      </h6>
+                      <h6>
+                        COMANDO PROVINCIAL DE LUANDA
+                      </h6>
+                      <h6>
+                        {{this.orgao_nome}}
+                      </h6>
+                      <h6>
+                        SISTEMA INTEGRADO DE CONTROLO E GESTÃO DE OCORRÊNCIAS
+                      </h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="main-ficha"  >
+                <div class="content-ficha" *ngIf="this.optionsExportar.ocorrencia" #fichaOcorrencia>
+                  <div class="row justify-content-center">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <div class="header-content-ficha-c">
+                        <h5>Ocorrencia: {{this.ocorrencias.codigo_sistema}}</h5>
+                      </div>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <div class="row border-dados">
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                          <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                              <b> Familia de Crime :</b>
+                            </div>
+  
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                              {{this.ocorrencias.tipicidade_ocorrencia ?? 'S/N' }}
+  
+                            </div>
+                          </div>
+                          <div class="row my-1">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                              <b>Importancia :</b>
+                            </div>
+  
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                              {{this.ocorrencias.importancia ?? 'S/N' }}
+  
+                            </div>
+                          </div>
+                          <div class="row my-1">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                              <b>Provincia :</b>
+                            </div>
+  
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                              {{this.ocorrencias.provincia ?? 'S/N' }}
+  
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                          <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" *ngIf="this.ocorrencias?.tipo_ocorrencia">
+                              <b>Tipo Crime :</b>
+                            </div>
+  
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                              {{this.ocorrencias?.tipo_ocorrencia ?? 'S/N' }}
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" *ngIf="this.ocorrencias?.tipo_local">
+                              <b>Tipo de Local :</b>
+                            </div>
+  
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                              {{this.ocorrencias?.tipo_local ?? 'S/N' }}
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" *ngIf="this.ocorrencias?.municipio">
+                              <b>Municipio :</b>
+                            </div>
+  
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                              {{this.ocorrencias?.municipio ?? 'S/N' }}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                          <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                              <b>Tipificação :</b>
+                            </div>
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                              {{this.ocorrencias.categoria ?? 'S/N' }}
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                              <b>Local :</b>
+                            </div>
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                              {{this.ocorrencias.local ?? 'S/N' }}
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                              <b>Data da ocorrência :</b>
+                            </div>
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                              {{this.ocorrencias.data_ocorrido ?? 'S/N' }}
+                            </div>
+                          </div>
+  
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mais-dados">
+                      <div class="row row-gap-2">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <p><b>Descrição: </b></p>
+                          {{this.ocorrencias.descricao  }}
+  
+                        </div>
+  
+  
+                      </div>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="content-ficha" *ngIf="this.optionsExportar.interveninte" #fichaInterveninte>
+                  <div class="row justify-content-center">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <div class="header-content-ficha">
+                        <h5>Intervenintes</h5>
+                      </div>
+                    </div>
+                    <div *ngFor="let item of this.testemunhas; let i=index">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <div class="row border-dados my-1">
+                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                            <div class="row my-1">
+                              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                <b>Interveniente :</b>
+                                {{this.item.sicgo_denucia ?? 'S/N' }}
+  
+                              </div>
+                              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                <b>titulo :</b>
+                                {{this.item.titulo ?? 'S/N' }}
+  
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2">
+                            <div class="image-civil">
+                              <ng-container *ngIf="this.isLoadingCivil || !this.fileUrlCivil; else temFotoCivil">
+                                <img src="assets/img/img-civil.png" alt="image-preview">
+                              </ng-container>
+                              <ng-template #temFotoCivil>
+                                <img [src]="this.fileUrlCivil" alt="image-preview">
+                              </ng-template>
+                            </div>
+                          </div>
+                          <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10">
+                            <div class="row my-1">
+                              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                <b>Nome :</b>
+                                {{this.item.nome ?? 'S/N' }}
+  
+                              </div>
+                              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6" *ngIf="this.funcionario?.nome_pai">
+                                <b>Filiação (Pai) :</b>
+                                {{this.item.nacionalidade ?? 'S/N' }}
+  
+                              </div>
+                            </div>
+                            <div class="row my-1">
+                              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6" *ngIf="this.funcionario?.nome_mae">
+                                <b>(Mãe):</b>
+                                {{this.funcionario?.nome_mae ?? 'S/N' }}
+  
+                              </div>
+                              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                <b>B.I N.º:</b>
+                                {{this.item.bi_n ?? 'S/N' }}
+  
+                              </div>
+                            </div>
+  
+                            <div class="row my-1">
+                              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                <b>Nacionalidade :</b>
+                                {{this.item.nacionalidade ?? 'S/N'}}
+  
+                              </div>
+                              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6" *ngIf="this.funcionario?.nome_mae">
+                                <b>Gênero :</b>
+                                {{this.getGenero(this.funcionario?.genero) ?? 'S/N'}}
+  
+                              </div>
+                            </div>
+                            <div class="row my-1">
+                              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                <b>Tel :</b>
+                                {{this.item.tel ?? 'S/N' }}
+  
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="content-ficha" *ngIf="this.optionsExportar.profissional" #fichaProfissional>
+                  <div class="row justify-content-center">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <div class="header-content-ficha">
+                        <h5>Ocorrencias Municipal</h5>
+                      </div>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <div class="row border-dados py-1">
+                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2">
+                          <div class="image-civil mx-2">
+                            <ng-container *ngIf="this.isLoadingEfectivo || !this.fileUrl; else temFotoEfectivo">
+                              <img src="assets/img/user.jpg" alt="image-preview">
+                            </ng-container>
+                            <ng-template #temFotoEfectivo>
+                              <img [src]="this.fileUrl" alt="image-preview">
+                            </ng-template>
+                          </div>
+                        </div>
+                        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+                          <div class="row my-1">
+                            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                              <b>Nome:</b>
+                              <ng-container *ngIf="this.funcionario?.nome_completo; else semNome">
+                                {{this.funcionario?.nome_completo }} {{this.funcionario?.apelido ?
+                                this.funcionario?.apelido : ''}}
+                              </ng-container>
+                              <ng-template #semNome>
+                                <i>S/N</i>
+                              </ng-template>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                              <b>NIP :</b> <ng-container *ngIf="this.funcionario?.nip; else semNIP">
+  
+                                {{this.funcionario?.nip }}
+                              </ng-container>
+                              <ng-template #semNIP>
+                                <i>S/N</i>
+                              </ng-template>
+                            </div>
+                          </div>
+                          <div class="row my-1">
+                            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                              <b>Número de Agente :</b> <ng-container
+                                *ngIf="this.funcionario?.numero_agente; else semNAS">
+                                {{this.funcionario?.numero_agente }}
+                              </ng-container>
+                              <ng-template #semNAS>
+                                <i> S/N</i>
+                              </ng-template>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                              <b>Vínculo :</b> <ng-container
+                                *ngIf="this.funcionario?.sigpq_tipo_vinculo_nome; else semVinculo">
+  
+                                {{this.funcionario?.sigpq_tipo_vinculo_nome }}
+                              </ng-container>
+                              <ng-template #semVinculo>
+                                <i> S/N</i>
+                              </ng-template>
+                            </div>
+                          </div>
+                          <div class="row my-1">
+                            <!-- <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                              <b>Nº de processo :</b> <ng-container
+                                *ngIf="this.funcionario?.numero_processo; else semNumeroProcesso">
+  
+                                {{this.funcionario?.numero_processo }}
+                              </ng-container>
+                              <ng-template #semNumeroProcesso>
+                                <i> Sem nenhum número de processo encontrado</i>
+                              </ng-template>
+                            </div> -->
+                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                              <b>Regime de Carreiras :</b> <ng-container
+                                *ngIf="this.funcionario?.regime_nome; else semRegime">
+  
+                                {{this.funcionario?.regime_nome }}
+                              </ng-container>
+                              <ng-template #semRegime>
+                                <i> S/N</i>
+                              </ng-template>
+                            </div>
+                            <!-- </div> -->
+                            <!-- <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                            <b>Classe/Carreira :</b> <ng-container *ngIf="this.funcionario?.regime_nome; else semRegime">
+  
+                              {{this.funcionario?.patente_classe }}
+                            </ng-container>
+                            <ng-template #semRegime>
+                              <i> S/N</i>
+                            </ng-template>
+                          </div> -->
+                          </div>
+                          <div class="row my-1">
+                            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                              <b>Posto/Categoria :</b> <ng-container
+                                *ngIf="this.funcionario?.patente_nome; else semPatente">
+  
+                                {{this.funcionario?.patente_nome }}
+                              </ng-container>
+                              <ng-template #semPatente>
+                                <i>S/N </i>
+                              </ng-template>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                              <b>Situação em Relação do Serviço :</b> <ng-container
+                                *ngIf="this.funcionario?.estado; else semEstado">
+  
+                                {{this.funcionario?.estado }}
+                              </ng-container>
+                              <ng-template #semEstado>
+                                <i>S/N </i>
+                              </ng-template>
+                            </div>
+                          </div>
+                          <div class="row my-1">
+                            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                              <b>Pseudônimo :</b>
+                              <ng-container *ngIf="this.funcionario?.pseudonimo; else semPseudonomio">
+                                {{this.funcionario?.pseudonimo }}
+                              </ng-container>
+                              <ng-template #semPseudonomio>
+                                <i>S/N</i>
+                              </ng-template>
+                            </div>
+                          </div>
+                          <div class="row my-1">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                              <b>Colocação :</b> <ng-container *ngIf="this.funcionario?.sigpq_tipo_orgao; else semOrgao">
+                                {{this.funcionario?.sigpq_tipo_orgao?.sigla }} -
+                                {{this.funcionario?.sigpq_tipo_orgao?.nome_completo }}
+                              </ng-container>
+                              <ng-template #semOrgao>
+                                <i>S/N</i>
+                              </ng-template>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mais-dados">
+                      <div class="row row-gap-2">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <b>Classe/Carreira: </b> <ng-container
+                            *ngIf="this.funcionario?.sigpq_categoria?.nome; else semCategoria">
+  
+                            {{this.funcionario?.sigpq_categoria?.nome }}
+  
+                          </ng-container>
+                          <ng-template #semCategoria>
+                            <i>S/N</i>
+                          </ng-template>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <b>Cargo: </b> <ng-container *ngIf="this.funcionario?.sigpq_cargo?.nome; else semCargo">
+  
+                            {{this.funcionario?.sigpq_cargo?.nome }}
+  
+                          </ng-container>
+                          <ng-template #semCargo>
+                            <i>S/N</i>
+                          </ng-template>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <b>Função: </b> <ng-container *ngIf="this.funcionario?.sigpq_funcao?.nome; else semFuncao">
+  
+                            {{this.funcionario?.sigpq_funcao?.nome }}
+  
+                          </ng-container>
+                          <ng-template #semFuncao>
+                            <i>S/N</i>
+                          </ng-template>
+                        </div>
+                        <!-- <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <b>Divisão: </b> Engenheiro Engenheiro
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <b>Esquadra: </b> Esquadras de Estados
+                        </div> -->
+                        <!-- <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <b>Proveniência: </b> Engenheiro Engenheiro
+                        </div> -->
+  
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <b>E-mail profissional: </b> <ng-container
+                            *ngIf="this.funcionario?.utilizador?.email; else semEmailProfissional">
+  
+                            {{this.funcionario?.utilizador?.email }}
+  
+                          </ng-container>
+                          <ng-template #semEmailProfissional>
+                            <i>S/N</i>
+                          </ng-template>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <b>Contacto profissional: </b> <ng-container
+                            *ngIf="this.funcionario?.sigpq_contacto_profissional?.contacto; else semContactoProfissional">
+  
+                            {{this.funcionario?.sigpq_contacto_profissional?.contacto }}
+  
+                          </ng-container>
+                          <ng-template #semContactoProfissional>
+                            <i>S/N</i>
+                          </ng-template>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <b>Data de ingresso: </b> <ng-container
+                            *ngIf="this.funcionario?.data_adesao; else semDataIngresso">
+  
+                            {{this.funcionario?.data_adesao }}
+  
+                          </ng-container>
+                          <ng-template #semDataIngresso>
+                            <i>S/N</i>
+                          </ng-template>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="content-ficha" *ngIf="this.optionsExportar.veiculo" #fichaVeiculo>
+                  <div class="row justify-content-center">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <div class="header-content-ficha">
+                        <h5>Veiculos</h5>
+                      </div>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                        <table class="table table-striped">
+                          <thead>
+                            <tr>
+  
+                              <th>Matricula</th>
+                              <th>Marca</th>
+                              <th>Modelo</th>
+                              <th>Cor</th>
+                              <th>Data de registo</th>
+  
+                            </tr>
+                          </thead>
+  
+  
+                          <tbody>
+                            <tr *ngFor="let item of this.veiculos; let i=index">
+                              <td>{{ item.matricula ?? 'S/N' }}</td>
+                              <td>{{ item.marca ?? 'S/N' }}</td>
+                              <td>{{ item.modelo ?? 'S/N' }}</td>
+                              <td>{{ item.cor ?? 'S/N' }}</td>
+                              <td>{{ item.created_at ?? 'S/N' }}</td>
+                              <!-- <td>
+                                <ng-container *ngIf="this.eData(item?.data_ingresso); else semData">
+                                  {{ this.getDataExtensao(item?.data_ingresso) }}
+                                </ng-container>
+                                <ng-template #semData> S/D </ng-template>
+                              </td> -->
+                            </tr>
+  
+                          </tbody>
+                        </table>
+                    </div>
+                  </div>
+                </div>
+                <div class="content-ficha" *ngIf="this.optionsExportar.tipobens" #fichaTipoBens>
+                  <div class="row justify-content-center">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <div class="header-content-ficha">
+                        <h5>Bens associados</h5>
+                      </div>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+  
+                            <th>Nome</th>
+                            <th>Estado</th>
+                            <th>Data de registo</th>
+  
+                          </tr>
+                        </thead>
+  
+  
+                        <tbody>
+                          <tr *ngFor="let item of this.tipobens; let i=index">
+                            <td>{{ item.nome?? 'S/N' }}</td>
+                            <td>{{ item?.estado ?? 'S/N' }}</td>
+                            <td>{{ item.created_at ?? 'S/N' }}</td>
+                            <!-- <td>
+                              <ng-container *ngIf="this.eData(item?.data_ingresso); else semData">
+                                {{ this.getDataExtensao(item?.data_ingresso) }}
+                              </ng-container>
+                              <ng-template #semData> S/D </ng-template>
+                            </td> -->
+                          </tr>
+  
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div class="content-ficha" *ngIf="this.optionsExportar.provimento || this.optionsExportar.cargo || this.optionsExportar.funcao">
+                  <div class="row justify-content-center">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <div class="header-content-ficha">
+                        <h5>Ocorrencias comunais ou bairros</h5>
+                      </div>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" *ngIf="this.optionsExportar.provimento"
+                      #fichaProvimento>
+                      <table class="table table-border table-striped custom-table datatable mb-0">
+                        <thead>
+                          <tr>
+                            <th>Tipo de Acto</th>
+                            <th>Posto/Categoria</th>
+                            <th>Despacho n.º/Ordem n.º </th>
+                            <!-- <th>Ordem</th> -->
+                            <th>Data de patenteamento</th>
+  
+                          </tr>
+                        </thead>
+                        <tbody>
+  
+                          <tr *ngFor=" let item of this.provimentos; let i=index ">
+                            <td>{{ item.sigpq_acto_progressaos_nome?.toString()?.toUpperCase() ?? 'S/N' }}</td>
+                            <td>{{ item.patente_nome?.toString().toUpperCase() ?? 'S/N' }}</td>
+  
+  
+                            <td> <ng-container *ngIf="item?.numero_ordem!=null; else ordem">
+                                {{ item?.ordem_descricao ?? 'S/N' }}
+                              </ng-container>
+                              <ng-template #ordem>
+                                {{ item?.despacho_descricao ?? 'S/N' }}
+                              </ng-template>
+                            </td>
+  
+                            <td>
+                              <ng-container *ngIf="this.eData(item?.data_provimento); else semData">
+                                {{ this.getDataExtensao(item?.data_provimento) }}
+                              </ng-container>
+                              <ng-template #semData> S/D </ng-template>
+                            </td>
+  
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" *ngIf="this.optionsExportar.cargo" #fichaCargos>
+                      <table class="table table-border table-striped custom-table datatable mb-0">
+                        <thead>
+                          <tr>
+                            <!-- <th>Posto/Classe</th> -->
+                            <th>Tipo de Acto</th>
+                            <th>Cargo</th>
+                            <th>Despacho n.º</th>
+                            <th>Colocação</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of this.cargos; let i=index">
+  
+                            <td> {{ item?.acto_nomeacao?.toString().toUpperCase() ?? 'S/N' }}</td>
+                            <!-- <td> {{ item?.patente?.toString().toUpperCase() ?? 'S/N' }}</td> -->
+                            <td> {{ item?.nome?.toString().toUpperCase() ?? 'S/N'}}</td>
+                            <td> {{ item?.numero_despacho.toString().toUpperCase() ?? 'S/N' }}</td>
+                            <!-- <td> {{ item?.numero_ordem ?? 'S/N' }}</td> -->
+                            <td> {{ item?.direcao?.toString().toUpperCase() }}</td>
+  
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" *ngIf="this.optionsExportar.funcao" #fichaFuncao>
+                      <table class="table table-border table-striped custom-table datatable mb-0">
+                        <thead>
+                          <tr>
+  
+                            <!-- <th>Posto/Classe</th> -->
+                            <th>Tipo de Acto</th>
+                            <th>Função</th>
+                            <th>Despacho n.º</th>
+                            <th>Colocação</th>
+  
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of this.funcaos; let i=index">
+                            <!-- <td> {{ item?.patente?.toString().toUpperCase() ?? 'S/N' }}</td> -->
+  
+                            <td> {{ item?.acto_nomeacao?.toString()?.toUpperCase() ?? 'S/N' }}</td>
+                            <!-- <td> {{ item?.patente?.toString().toUpperCase() ?? 'S/N' }}</td> -->
+                            <td> {{ item?.nome?.toString().toUpperCase() ?? 'S/N'}}</td>
+                            <td> {{ item?.numero_despacho?.toString().toUpperCase() ?? 'S/N' }}</td>
+                            <!-- <td> {{ item?.numero_ordem ?? 'S/N' }}</td> -->
+                            <td> {{ item?.direcao?.toString().toUpperCase() }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-5">
+  
+                  <div class="d-flex flex-column font-diferente">
+                    <div class="another-text">
+                      <p>Av. 4 de Fevereiro</p>
+                      <p>Marginal Edifício Sede-R/C</p>
+                      <p>Telef: 222 33 34 44</p>
+                      <p>Email: dpq.cgpna"@"pn.gov.ao</p>
+                      <p>Facebook: Policia Nacional de Angola</p>
+                    </div>
+                  </div>
+                  <div class="simbolos font-diferente d-flex align-items-center">
+                    <div class="rpa">
+                      <img width="150" src="../../../../../../../assets/img/rpa_.png" alt="">
+                    </div>
+                    <div class="pna">
+                      <span class="pna-site">
+                        pna.gov.ao
+                      </span>
+                      <span class="pna-name">
+                        Policia Nacional de Angola
+                      </span>
+                    </div>
+                  </div>
+                </div>
+  
+              </div>
+  
+            </div>
+  
+  
+          </div>
+  
+        </div>
+        <div class="modal-footer" *ngIf="this.optionsExportar.ocorrencia">
+          <!-- <button type="button" class="btn-piips btn-piips-primary m-0" data-dismiss="modal"
+            (click)="imprimir('ficha-agente')">
+            <i class="fa fa-save"></i> Descarregar
+          </button> -->
+          <button type="button" class="btn-piips btn-piips-primary m-0" data-dismiss="modal"
+            (click)="imprimir('ficha-agente')">
+            <i class="fa fa-print"></i> Imprimir
+          </button>
+        </div>
+  
+      </div>
+  

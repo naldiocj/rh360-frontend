@@ -1,0 +1,173 @@
+<!-- <section>
+    <div class="swiper">
+        <div class="my-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide" *ngFor="let card of [1, 2, 3, 4, 5, 6, 7, 8, 9]">
+                <div class="card" style="width: 100%; height: 200px;">
+                    <div class="card-body">
+                        <h5 class="card-title">Card {{ card }}</h5>
+                        <p class="card-text">Descrição do card {{ card }}.</p>
+                    </div>
+                </div>
+            </div>
+    
+    
+          </div>
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+</section> -->
+
+
+<div class="" style="background-color: #f3f3f3;">
+  <swiper [config]="config">
+    <ng-container *ngFor="let card of images">
+      <ng-template swiperSlide>
+        <div class="card" style="width: 100%; height: 200px; border-radius: 8px; background-color: #fbfbfb; padding: 5px">
+          <div class="card-body"
+            style="background-image: url({{card.foto}}); background-size: cover; background-position: center; background-repeat: no-repeat; border-radius: 8px;">
+            <!-- <img [src]="card.foto" alt="" class="img-responsive" height="200"> -->
+            <!-- <p class="card-text">Descrição do card {{ card }}.</p> -->
+          </div>
+        </div>
+      </ng-template>
+    </ng-container>
+  </swiper>
+</div>
+
+
+<div class="mt-4 pr-4 row container-fluid align-items-center d-flex justify-content-between">
+  <h3 class="mt-0 titulo col-4">
+    <!-- <img src="../../../../../../assets/assets_sigv/img/img1/pc1.png" alt=""><br> -->
+    <img src="../../../../../../assets/assets_sigv/img/img1/iconepc.gif" alt=""><br>
+    Painel Controlo
+    <div>Dados estatísticos sobre os Vestuários</div>
+  </h3>
+
+  <aside class="">
+    <div style="background-color: #F2F2F2; border-radius: 8px; color: #000;" class="m-0 p-2">
+      <p style="margin: 0; font-size: 1.2rem;"><img src="../../../../../../assets/dashboard/Vector 51.png"
+          alt="Imagem da policia nacional" width="40"> Órgão:&nbsp; <span style="font-weight: 600;"> {{this.nomeOrgao}}
+        </span></p>
+      <!-- <p style="margin-bottom: 8px;"> Proveniente:&nbsp; <span style="font-weight: 600;">Luanda</span></p>
+        <p style="margin-bottom: 8px;"> User Logado:&nbsp; <span style="font-weight: 600;">Admin</span></p> -->
+      <!-- <p style="margin-bottom: 8px;"> Actividade:&nbsp; <span style="font-weight: 600;">{{ this.data }}</span></p> -->
+    </div>
+  </aside>
+</div>
+
+
+
+
+<div class="row d-flex container-fluid m-0 mt-4  align-items-start" id="caixas-container"
+  [style.width]="1==1? '': '100%'">
+  <!-- cards / caixas -->
+  <div class="p-0 pl-2 m-0 caixas-nmg" [style.width]="1==1? '': '100%'">
+    <sigvest-card class="row pr-0" [estatistica]="estatistica"> </sigvest-card>
+  </div>
+
+  <!-- <div class="col-4"></div> -->
+
+  <!-- <div class="row container-fluid m-0 p-0 align-content-center justify-content-between">
+    <div class="container-fluid" style="width: 80%;">
+      <app-grafico1 style="width: 80%;"> </app-grafico1>
+    </div>
+    <div class="container-fluid" style="width: 20%;">
+      <app-grafico2> </app-grafico2>
+    </div>
+  </div> -->
+  <!-- graficos container -->
+
+  <div class="itens-right" [style.display]="1==1? 'block': 'none'">
+    <div class="selector">
+      <h3>Análise Semanal</h3>
+      <marquee behavior="" direction="">
+        <p>
+          Visualização e Comparação da Análise Semanal registada no Sistema:
+          <b>Abastecimento</b>,
+          <b>Distribuições</b>,
+          <b>Dotações</b>,
+          <b>Planificações</b>,
+          <b>Solicitações</b>,
+          <b>Reservas</b>,
+          <b>Descartados</b>
+        </p>
+      </marquee>
+      <div class="row">
+        <div class="col-12">
+          <label for="orgao" style="cursor: pointer;">
+            <strong>
+              Selecionar Órgãos
+              <button style="border: none; border-radius: 4px; cursor: pointer; margin-left: 8px;">
+                <img src="../../../../../../assets/assets_sigv/img/img1/loading-loop.svg" alt="">
+              </button>
+              <!-- <i class="bi bi-arrow-clockwise"></i> -->
+            </strong>
+          </label>
+          <ng-select2 [disabled]="!(1==1)" class="" [options]="options" [data]="this.departamento" id="orgao"
+            style="border-radius: 10px; ">
+            <option [value]="" [selected]="true">Meu órgão</option>
+          </ng-select2>
+        </div>
+
+        <div class="col-12">
+          <label class="mt-2"><strong>Selecionar Categoria</strong></label>
+          <select [disabled]="!(1==1)" class="form-selects form-select-lg mb-3 m-0 sombra"> <!-- -->
+            <option selected [value]="">--------</option>
+            <option value="abastecimento"> Abastecimentos </option>
+            <option value="distribuicao"> Distribuições </option>
+            <option value="dotacao"> Dotações </option>
+            <option value="planificacao"> Planificações </option>
+            <option value="reforco"> Pedidos de Reforço </option>
+            <option value="reserva"> Produtos Reservados </option>
+            <option value=""> Produtos Abastecidos </option>
+            <option value=""> Produtos Distribuidos </option>
+            <option value=""> Produtos Descartados </option>
+          </select>
+        </div>
+      </div>
+
+      <!-- <h5 style="margin-left: 5px; margin-top: -18x; margin-bottom: -5px;"><b>Categoria a filtrar</b></h5>
+      <div class="d-flex">
+        <select class="form-selects form-select-lg mb-3" aria-label=".form-select-lg example" (change)="this.pegarIdDepartamento($event)">
+          <option selected [value]="this.orgao_id">--------</option>
+          <option *ngFor="let departamento of this.departamentos" [value]="departamento.id"> {{departamento.nome_completo}} </option>
+        </select>
+
+      </div> -->
+    </div>
+
+    <div class="selector datas-nmg">
+      <div class="data-inicio-nmg">
+        <h5> <strong>Data Inicial</strong> </h5>
+        <input type="date" [max]="this.validarDataConsulta" class="form-select form-select-lg mb-3 sombra">
+      </div>
+      <div class="data-fim-nmg">
+        <h5> <strong>Data Final</strong> </h5>
+        <input type="date" [max]="this.validarDataConsulta" class="form-select form-select-lg mb-3 sombra">
+      </div>
+    </div>
+
+    <div class="infor-total">
+      <div class="result-nmg">
+        <p>
+          <b>Status:</b> Resultado <br>
+          <b>Data:</b> 17 - 06 - 2024
+        </p>
+        <h1>{{300}}</h1>
+      </div>
+      <div class="result-nmg">
+        <p>
+          <b>Status:</b> Actual <br>
+          <b>Data:</b> 16 - 06 - 2024
+        </p>
+        <h1>{{450}}</h1>
+      </div>
+    </div>
+    <!-- <h5 style="margin-top: 8px; color: #020d27;"><b>Referência:</b></h5>
+  <p style="color: #020d27;">Dados fornecidos pelo <strong style="color: #020d27; font-weight: bold;">SIGV</strong></p> -->
+  </div>
+
+</div>

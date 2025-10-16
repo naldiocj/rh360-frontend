@@ -1,0 +1,102 @@
+<div class="modal fade" id="exportar-modal">
+  <div class="modal-dialog modal-dialog-ms modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-primary-color">Exportar meus dados</h5>
+        <a data-dismiss="modal" class="bi bi-x-lg text-danger"></a>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex">
+          <i class="bi bi-info-circle-fill text-red-color mx-2" style=" font-size: 18px"></i>
+          <p class="text-primary-color text-center">
+            As tuas informações são exportado no formato PDF, esteja ciente que
+            poderá por em riso as tuas informações!
+          </p>
+        </div>
+        <div class="btn-groups text-center my-2">
+          <button type="button" class="btn btn-outline-primary mx-2" (click)="imprimir('cv')">
+            <i class="bi bi-download mx-2"></i>Exportar
+          </button>
+          <button type="button" class="btn btn-outline-danger mx-2" data-dismiss="modal">
+            <i class="bi bi-x-lg mx-2"></i>Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="main_" id="main_">
+  <div class="pagetitle d-flex justify-content-between align-items-center">
+    <h1><i class="bi bi-server"></i> <span class="mx-2">Meus dados</span></h1>
+
+    <div class="btn-group">
+
+      <button disabled="false" class="btn btn-outline-primary d-flex justify-content-center align-items-center"
+        style="border-radius: 5px!important; box-shadow: unset !important"
+        *ngIf="!this.person && !this.profissional; else can">
+        <i class="bi bi-file-pdf mx-1"></i>
+        <span class="d-none d-lg-block">Exportar ficha</span>
+      </button>
+      <ng-template #can>
+        <a data-toggle="modal" href="#" data-target="#exportar-modal"
+          class="btn btn-outline-primary d-flex justify-content-center align-items-center"
+          style="border-radius: 5px!important; box-shadow: unset !important"><i class="bi bi-file-pdf mx-1"></i>
+          <span class="d-none d-lg-block">Exportar ficha</span></a>
+      </ng-template>
+    </div>
+  </div>
+  <section class="" id="print-section">
+    <div class="container-cv border p-2" id="cv">
+      <div class="aside">
+        <div class="aside-info">
+          <div class="foto">
+            <ng-container *ngIf="this.fileUrl; else semFoto">
+              <img [src]="this.fileUrl" alt="" class="foto-cv" (click)="this.setPerson(this.pp)" />
+            </ng-container>
+            <ng-template #semFoto> </ng-template>
+            <img src="assets/img/user.jpg" alt="" class="foto-cv" />
+          </div>
+        </div>
+        <div class="aside-info">
+          <div class="info contacto">
+            <p class="title">Contacto</p>
+            <ul>
+              <li>{{this.utilsHelper.add244(this.profissional?.sigpq_contacto_profissional?.contacto)}}</li>
+              <li>{{this.utilsHelper.add244(this.profissional?.sigpq_contacto_pessoal?.contacto)}}</li>
+              <li>{{ this.person?.email_pessoal }}</li>
+              <li>{{ this.getEmail }}</li>
+            </ul>
+          </div>
+        </div>
+        <div class="aside-info symbols">
+          <div class="symbol">
+            <img src="assets/img/plc_cv.png" alt="" class="img-symbol mr-2 w-25" />
+            <img src="assets/img/rpa.png" alt="" class="img-symbol" />
+          </div>
+        </div>
+      </div>
+      <div class="main">
+        <div class="main-info dado mt-2">
+          <p class="title">Dados Pessoais</p>
+          <ul class="dados">
+            <app-pessoal [person]="this.profissional"></app-pessoal>
+          </ul>
+        </div>
+        <div class="main-info dado">
+          <p class="title">Dados Profissionais</p>
+          <ul class="dados">
+            <app-sipa-dados-profissionais [dadosProfissionais]="this.profissional"></app-sipa-dados-profissionais>
+          </ul>
+        </div>
+        <!-- <div class="main-info dado">
+          <app-pa-historico-provimento></app-pa-historico-provimento>
+        </div>
+        <div class="main-info dado">
+          <app-sipa-meios-distribuidos></app-sipa-meios-distribuidos>
+        </div> -->
+      </div>
+    </div>
+  </section>
+</main>
+
+<pa-zoom-foto [isEfectivo]="true" [pessoa]="p" (onSair)="this.setNullPerson()"></pa-zoom-foto>

@@ -1,0 +1,79 @@
+fieldset {
+  background-color: #eeeeee;
+}
+
+legend {
+  background-color: var(--use-color);
+  color: white;
+  padding: 5px 10px;
+}
+
+  
+
+.header-ficha {
+width: 100%;
+background-color: var(--use-color);
+margin: 0 auto;
+padding: .8rem;
+color: var(--light-white);
+}
+
+.header-ficha h1 {
+font-size: 1.7vw;
+}
+
+.header-ficha h3 {
+font-size: 1.2vw;
+}
+th{
+background: var(--use-color);
+color: white;
+
+}
+
+
+td{
+text-align: left;
+}
+
+th{
+text-align: left;
+}
+
+
+/* Tornar o modal responsivo e cobrir partes superiores */
+.modal-dialog {
+  max-width: 90%; /* Define a largura máxima para telas menores */
+  width: 100%; /* Faz o modal ocupar toda a largura disponível */
+  margin: 0 auto; /* Centraliza horizontalmente */
+  height: 60%; /* Faz o modal ocupar a altura total */
+}
+
+.modal-content {
+  height: 100%; /* Garante que o conteúdo ocupe a altura total */
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-body {
+  overflow-y: auto; /* Adiciona scroll se o conteúdo exceder a altura */
+  flex: 1;
+}
+
+.modal-header,
+.modal-footer {
+  flex-shrink: 0; /* Garante que o cabeçalho e o rodapé não sejam comprimidos */
+}
+
+@media (max-width: 768px) {
+  .modal-dialog {
+    max-width: 100%; /* Ocupa 100% da largura em telas menores */
+    margin: 0; /* Remove margem lateral */
+  }
+
+  .modal-content {
+    border-radius: 0; /* Remove bordas arredondadas para parecer mais fluido */
+  }
+}
+
+

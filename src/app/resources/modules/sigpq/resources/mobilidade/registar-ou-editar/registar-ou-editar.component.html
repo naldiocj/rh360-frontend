@@ -1,0 +1,156 @@
+<div class="modal fade" id="modalRegistarAlocacao" aria-labelledby="modalRegistarAlocacao" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="overflow-y: hidden;min-width: 60%;margin-top: 10%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 style="color: var(--use-color)">
+          <i class="fa fa-resistance"></i>
+          Mover o agente
+        </h4>
+        <button style="border:none; outline:none;" type="button" class="close text-red" data-dismiss="modal"
+          aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="content">
+        <form [formGroup]="this.simpleForm">
+          <div class="modal-body">
+            <aside *ngIf="this.agentesId?.length == 0; else temAgentesSelecionados">
+              <h5 style="color: var(--red);font-weight:normal!important;"> Nenhum agente selecionado <i
+                  class="fa fa-times"></i></h5>
+            </aside>
+            <ng-template #temAgentesSelecionados>
+              <h5 style="color: var(--use-color); font-weight:normal!important;">{{this.agentesId?.length}}
+                {{this.agentesId?.length == 1? 'Agente Selecionado':'Agentes Selecionados'}} <i class="fa fa-check"></i>
+              </h5>
+            </ng-template>
+
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label style="color:var(--use-color)"><b>Tipo de Orgão <span class="text-red">*</span></b></label>
+
+                <ng-select2 [options]="options" [data]="this.tipoEstruturaOrganicas"
+                  (valueChanged)="selecionarOrgaoOuComandoProvincial($event);">
+                </ng-select2>
+              </div>
+              <div class="form-group col-md-6">
+                <label style="color:var(--use-color)"><b>Direcções/Comandos <span class="text-red">*</span></b></label>
+                <ng-select2 [options]="options" [data]="this.orgaos" (valueChanged)="buscarDepartamento($event)"
+                  formControlName="orgao_destino_id">
+                </ng-select2>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="" style="color:var(--use-color)"><b>Departamento/Comando Munícipal/Unidade</b></label>
+                <ng-select2 [options]="options" (valueChanged)="selecionarDepartamento($event)"
+                  [data]="this.departamentos" formControlName="departamento_id">
+                </ng-select2>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="" style="color:var(--use-color)"><b>Secção/Esquadra/Subunidade</b></label>
+                <ng-select2 [options]="options" [data]="this.seccoes" formControlName="seccao_id"
+                  (valueChanged)="buscarBrigada($event)">
+                </ng-select2>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="" style="color:var(--use-color)"><b>Brigada</b></label>
+                <ng-select2 [options]="options" [data]="this.brigadas" formControlName="brigada_id" (valueChanged)="buscarBrigada($event)">
+                </ng-select2>
+              </div>
+              <div class="form-group col-md-6 d-flex align-items-center justify-content-center">
+                <div class="d-flex flex-column flex-grow-1">
+                  <label style="color:var(--use-color)" for=""><b>Despacho n.º<span class="text-red">*</span></b></label>
+                  <input class="form-control" type="text" formControlName="numero_despacho" [ngClass]="{
+                                  'is-invalid':
+                                    this.simpleForm.controls?.numero_despacho.dirty &&
+                                    this.simpleForm.controls?.numero_despacho.errors,
+                                  'is-valid':
+                                    this.simpleForm.controls?.numero_despacho.dirty &&
+                                    !this.simpleForm.controls?.numero_despacho.errors
+                                }" />
+                  <div *ngIf="this.simpleForm.controls?.numero_despacho?.dirty &&
+                                          this.simpleForm.controls?.numero_despacho?.errors" class="invalid-feedback">
+                    <div *ngIf="this.simpleForm.controls?.numero_despacho?.errors?.required">
+                      Este campo é obrigatório
+                    </div>
+                    <div
+                      *ngIf="this.simpleForm.controls?.numero_despacho?.dirty && this.simpleForm.controls?.numero_despacho?.errors">
+                      <div *ngIf="this.simpleForm.controls?.numero_despacho?.errors?.pattern" style="color: #dc3545;">
+                        Digite um n.º válido
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex flex-column flex-grow-1 flex-grow-1 ">
+                  <label for=""><b>Data<span class="text-red">*</span></b></label>
+                  <input id="data_aco" type="date" formControlName="data_despacho" class="form-control"
+                    [max]="this.validarDataAdesao">
+                </div>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label style="color: var(--use-color)"><b>Ordenante<span class="text-red">*</span></b></label>
+                <input class="form-control" type="text" formControlName="ordenante" [ngClass]="{
+                                  'is-invalid':
+                                    this.simpleForm.controls?.ordenante.dirty &&
+                                    this.simpleForm.controls?.ordenante.errors,
+                                  'is-valid':
+                                    this.simpleForm.controls?.ordenante.dirty &&
+                                    !this.simpleForm.controls?.ordenante.errors
+                                }" />
+                <div *ngIf="this.simpleForm.controls?.ordenante?.dirty &&
+                                          this.simpleForm.controls?.ordenante?.errors" class="invalid-feedback">
+                  <div *ngIf="this.simpleForm.controls?.ordenante?.errors?.required">
+                    Este campo é obrigatório
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <label style="color: var(--use-color)"><b>Anexo de ordem de serviço <span
+                      class="text-red">*</span></b></label>
+                <div class="upload-img">
+                  <div id="input-Img" class="upload-input">
+                    <input id="anexo-ordem" type="file" class="form-control" accept="application/pdf"
+                      (change)="this.uploadFile($event, 'anexo')" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label style="color:var(--use-color)"><b>Data da emissão da guia</b><span class="text-danger">
+                    *</span></label>
+                <input type="date" class="form-control" formControlName="data_ingresso"
+                  [max]="this.validarDataNascimento">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn-piips btn-piips-red py-2 m-0" type="reset" disabled="true">
+              <span class="fa fa-refresh"></span> Limpar
+            </button>
+            <ng-container *ngIf="this.simpleForm.valid && this.agentesId?.length; else ocultarBotao">
+              <aside *ngIf="this.isLoading; else regista">
+                <button disabled="true" class="btn-piips btn-piips-primary py-2 m-0">
+                  <div class="spinner-border spinner-border-sm m-1"></div>
+                  <a style="text-decoration: none;color: white;"> A
+                    Carregando ...</a>
+                </button>
+              </aside>
+              <ng-template #regista>
+                <button (click)="onSubmit()" class="btn-piips btn-piips-primary py-2 m-0">
+                  <i class="fa fa-plus-circle"></i>
+                  Mover
+                </button>
+              </ng-template>
+            </ng-container>
+            <ng-template #ocultarBotao>
+              <button disabled="true" class="btn-piips btn-piips-primary py-2 m-0">
+                <i class="fa fa-plus-circle"></i>
+                Mover
+              </button>
+            </ng-template>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

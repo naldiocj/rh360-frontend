@@ -1,0 +1,110 @@
+<section class="section-pna-container-nmg">
+    <div class="banner-nmg">
+        <h3>Estoque dos Vestuários</h3>
+        <p>Dados estatísticos de todos os meios que entraram e sairam dentro da aplicação como: <strong>BOTAS</strong>, <strong>FARDAS</strong> etc...</p>
+        <div>
+            <i class="bi bi-chevron-down"></i>
+        </div>
+        <a [routerLink]="['/piips/sigvest/estatistica']">
+            <button>
+                <i class="bi bi-chevron-left"></i>
+                Voltar
+            </button>
+        </a>
+    </div>
+
+    <div class="cards-nmg">
+        <div>
+            <span (click)="this.mudarEstadoDosCards('lista')">
+                <i class="bi bi-list"></i>
+                Lista
+            </span>
+            <span (click)="this.mudarEstadoDosCards('grid')">
+                <i class="bi bi-grid"></i>
+                Grid
+            </span>
+        </div>
+        <sigvest-cards class="row" *ngIf="!this.flag_mudar_grid_lista_card"></sigvest-cards>
+
+        <ng-container *ngIf="this.flag_mudar_grid_lista_card"> <!-- *ngIf="this.pesquisaAvancada" -->
+            <div class=" p-0 pr-3 mb-4 row filtro" style="border-radius: 5px; background-color: transparent;">
+    
+              <div class="col-12 pr-0 pb-2">
+                <!-- <label for="">Escolha uma opção</label> -->
+                <ng-select2 class="" [options]="options" [data]="this.dados_de_filtro" id="plano_minit_id" style="border-radius: 10px; "></ng-select2>
+              </div>
+
+            </div>
+    
+          </ng-container>
+    </div>
+
+    <div class="filtro-container-nmg">
+        <ng-container> <!-- *ngIf="this.pesquisaAvancada" -->
+            <div class=" p-3 mb-4 row filtro" style="border-radius: 5px; background-color: #f6f6f6;">
+    
+              <div class="col-3 pr-2 pb-2">
+                <label for="">Posto</label>
+                <ng-select2 class="" [options]="options" [data]="this.dados_de_filtro" id="plano_minit_id" style="border-radius: 10px; "></ng-select2>
+              </div>
+    
+              <div class="col-3 pr-2">
+                <label for="">Tipo de Meio</label>
+                <ng-select2 class="" [options]="options" [data]="this.dados_de_filtro" id="plano_minit_id" style="border-radius: 10px; "> </ng-select2>
+              </div>
+    
+              <div class="col-3 pr-2">
+                <label for="">Tamanho</label>
+                <select class="alone-nmg" style="padding: 5px 10px; border-radius: 8px; background-color: #f5f5f5;font-size: .9rem; box-shadow: 0px 3px 5px #cccccc71;">
+                  <option *ngFor="let item of ['TODOS', '30', '31', '33', '34', '35', '36', '37', '38', '39', 
+                  '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', 
+                  '60', '61', '62', '63', '64', '65', '66', '67', '68', '69', '70'
+                  ]" [value]="item"> {{item}} </option>
+                </select>
+              </div>
+    
+              <div class="col-3">
+                <label for="">Ano</label>
+                <select class="alone-nmg">
+                  <option *ngFor="let item of ['2000', '2001', '2002', '2003', '2004', '2005', '2006', '2007', '2008', '2009', 
+                  '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', 
+                  '2020', '2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029', 
+                  '2030'
+                  ]" [value]="item"> {{item}} </option>
+                </select>
+              </div>
+            </div>
+    
+          </ng-container>
+    
+    </div>
+
+    <div class="tabela-nmg">
+        <table class="table table-custom table-striped">
+            <thead>
+                <caption>
+                    Fardas
+                </caption>
+                <tr>
+                    <th>N/O</th>
+                    <th>Designação do Meio</th>
+                    <th>Quant. Entrada</th>
+                    <th>Quant. Saída</th>
+                    <th>Quant. Reserva</th>
+                    <th>Data entrada</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let item of this.DADOS_EFECTIVOS; index as i">
+                    <td>{{(i+1) <= 9 ? '0' + (i+1) : i+1}}</td>
+                    <td>{{item.design_meio}}</td>
+                    <td>{{item.numero_efect}}</td>
+                    <td>{{item.numero_efect}}</td>
+                    <td>{{item.numero_efect}}</td>
+                    <td>{{item.tam}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>

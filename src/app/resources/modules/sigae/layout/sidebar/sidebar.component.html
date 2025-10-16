@@ -1,0 +1,211 @@
+<aside id="asidebar" class="asidebar trns">
+    <ul class="asidebar-nav" id="sidebar-nav">
+      <li class="nav-item">
+        <span class="menu-p" style="font-weight: bold; font-size: 14px;"><i style="margin-right: 8px;"
+            class="bi bi-grid-fill"></i> Menu Principal</span>
+      </li>
+      <li style="margin-top: 20px;" class="nav-item">
+        <a class="nav-link d-flex  align-items-center" [routerLink]="['/piips/sigae/dashboard']"
+          routerLinkActive="active">
+          <i class="bi bi-speedometer2"></i>
+          <span>Painel de Controlo</span>
+        </a>
+      </li>
+      <li style="margin-top: 20px;" class="nav-item">
+        <a class="nav-link d-flex  align-items-center" [routerLink]="['/piips/sigae/dashboard-material']"
+          routerLinkActive="active">
+          <i class="bi bi-speedometer2"></i>
+          <span>Painel de Controlo de Material de Aquartelamento</span>
+        </a>
+      </li>
+
+      <li>
+        <hr class="dropdown-divider">
+      </li>
+
+      <li class="nav-item" *ngIf="!hasPermission('Director') && !hasPermission('Chefe Departamento')">
+        <a class="nav-link d-flex  align-items-center" href="javascript:void(0)"
+        [routerLink]="['/piips/sigae/armas']" routerLinkActive="active">
+        <i style="font-size: 14px;" class="fa-solid fa-gun"></i> 
+          <span>Registar Armamentos</span>
+        </a>
+      </li>
+
+      <li>
+        <hr class="dropdown-divider">
+      </li>
+
+      <li class="nav-item" *ngIf="!hasPermission('Operador') && !hasPermission('Director') && !hasPermission('Chefe Departamento')">
+        <a class="nav-link d-flex  align-items-center" routerLinkActive="active" href="#controlo"
+          data-toggle="collapse">
+          <i style="font-size: 14px;" class="bi bi-ui-checks-grid"></i>
+          <span><span></span>Gestão de Controlo</span><span class="menu-arrow">
+             <i
+              class="bi bi-chevron-right flex-fill text-white" style="text-align:right; font-size: 12px;"></i>
+            </span>
+        </a>
+        <ul id="controlo" class="collapse transition-fade">
+          <li style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px">
+            <a class="nav-link" [routerLink]="['/piips/sigae/alocada']" routerLinkActive="active">
+              <i style="font-size: 14px;" class="bi bi-arrow-right-circle"></i>
+              <span><span></span> Atribuidos</span><span class="menu-arrow"></span>
+            </a>
+          </li>
+          <li style="padding-left: 25%; padding-top: 1px; padding-bottom: 10px">
+            <a class="nav-link" [routerLink]="['/piips/sigae/distribuicao']"
+               routerLinkActive="active">
+              <i style="font-size: 14px;" class="bi bi-arrow-right-circle"></i>
+              <span><span></span> Distribuidos</span><span class="menu-arrow"></span>
+            </a>
+          </li>
+    
+          <li  style="padding-left:8%; padding-top: 1px; padding-bottom: 10px" class="nav-item" *ngIf="!hasPermission('Operador') && !hasPermission('Director') && !hasPermission('Chefe Departamento')">
+            <a class="nav-link d-flex  align-items-center" routerLinkActive="active" href="#lotes"
+              data-toggle="collapse">
+              <i style="font-size: 14px;" class="bi bi-arrow-right-circle"></i>
+              <span><span></span>Lotes</span><span class="menu-arrow">
+                 <i
+                  class="bi bi-chevron-right flex-fill text-white" style="text-align:right; font-size: 12px;"></i>
+                </span>
+            </a>
+            <ul id="lotes" class="collapse transition-fade">
+              <li style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px">
+                <a class="nav-link" [routerLink]="['/piips/sigae/lotes-armas']" routerLinkActive="active">
+                  <i style="font-size: 14px;" class="bi bi-arrow-right-circle"></i>
+                  <span><span></span> Lote de Armas</span><span class="menu-arrow"></span>
+                </a>
+              </li>
+              <li style="padding-left: 25%; padding-top: 1px; padding-bottom: 10px">
+                <a class="nav-link" [routerLink]="['/piips/sigae/municoes-lote']"
+                   routerLinkActive="active">
+                  <i style="font-size: 14px;" class="bi bi-arrow-right-circle"></i>
+                  <span><span></span> Lote de Munições</span><span class="menu-arrow"></span>
+                </a>
+              </li>
+
+              <li style="padding-left: 25%; padding-top: 1px; padding-bottom: 10px">
+                <a class="nav-link" [routerLink]="['/piips/sigae/listagem-explosivos']"
+                   routerLinkActive="active">
+                  <i style="font-size: 14px;" class="bi bi-arrow-right-circle"></i>
+                  <span><span></span> Lote de Explosivos</span><span class="menu-arrow"></span>
+                </a>
+              </li>        
+            </ul>
+          </li>
+          <li style="margin-top: 20px;padding-left: 8%;" class="nav-item">
+            <a class="nav-link d-flex  align-items-center" [routerLink]="['/piips/sigae/gerar']"
+              routerLinkActive="active">
+              <i class="bi bi-file-bar-graph"></i>
+              <span>Relatorio</span>
+            </a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+        </ul>
+      </li>
+  
+
+      <li class="nav-item" *ngIf="!hasPermission('Operador') && !hasPermission('Director') && !hasPermission('Chefe Departamento')">
+        <a class="nav-link d-flex  align-items-center" routerLinkActive="active" href="#material"
+          data-toggle="collapse">
+          <i style="font-size: 14px;" class="bi bi-cart"></i>
+          <span><span></span>Material de Aquartelamento</span><span class="menu-arrow">
+             <i
+              class="bi bi-chevron-right flex-fill text-white" style="text-align:right; font-size: 12px;"></i>
+            </span>
+        </a>
+        <ul id="material" class="collapse transition-fade">
+          <li style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px">
+            <a class="nav-link" [routerLink]="['/piips/sigae/aquartelamento-atribuidos']" routerLinkActive="active">
+              <i style="font-size: 14px;" class="bi bi-arrow-right-circle"></i>
+              <span><span></span> Atribuidos</span><span class="menu-arrow"></span>
+            </a>
+          </li>
+          <li style="padding-left: 25%; padding-top: 1px; padding-bottom: 10px">
+            <a class="nav-link" [routerLink]="['/piips/sigae/aquartelamento-listar']"
+               routerLinkActive="active">
+              <i style="font-size: 14px;" class="bi bi-arrow-right-circle"></i>
+              <span><span></span> Listar</span><span class="menu-arrow"></span>
+            </a>
+          </li>
+    
+        </ul>
+      </li>
+      <li>
+        <hr class="dropdown-divider">
+      </li>
+
+      <li class="nav-item" *ngIf="!hasPermission('Operador') && !hasPermission('Director')  && !hasPermission('Chefe Departamento')">
+        <a class="nav-link d-flex  align-items-center" routerLinkActive="active" href="#configuracao"
+          data-toggle="collapse">
+          <i class="bi bi-sliders"></i>
+          <span><span></span>Configurações</span><span class="menu-arrow"> <i
+              class="bi bi-chevron-right flex-fill text-white" style="text-align:right; font-size: 12px;"></i></span>
+        </a>
+        <ul id="configuracao" class="collapse transition-fade">
+          <li style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px">
+            <a class="nav-link" [routerLink]="['/piips/sigae/classificacao']" routerLinkActive="active">
+              <i style="font-size: 14px;" class="bi bi-arrow-right-circle"></i>
+              <span><span></span>Classificação</span><span class="menu-arrow"></span>
+            </a>
+          </li>
+        </ul>
+        <ul id="configuracao" class="collapse transition-fade">
+          <li style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px">
+            <a class="nav-link" [routerLink]="['/piips/sigae/tipos']" routerLinkActive="active">
+              <i style="font-size: 14px;" class="bi bi-arrow-right-circle"></i>
+              <span><span></span> Tipos</span><span class="menu-arrow"></span>
+            </a>
+          </li>
+        </ul>
+        <ul id="configuracao" class="collapse transition-fade">
+            <li style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px">
+              <a class="nav-link" [routerLink]="['/piips/sigae/marcas']" routerLinkActive="active">
+                <i style="font-size: 14px;" class="bi bi-arrow-right-circle"></i>
+                <span><span></span> Marcas</span><span class="menu-arrow"></span>
+              </a>
+            </li>
+          </ul>      <ul id="configuracao" class="collapse transition-fade">
+            <li style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px">
+              <a class="nav-link" [routerLink]="['/piips/sigae/modelo']" routerLinkActive="active">
+                <i style="font-size: 14px;" class="bi bi-arrow-right-circle"></i>
+                <span><span></span>Modelos</span><span class="menu-arrow"></span>
+              </a>
+            </li>
+          </ul>     <ul id="configuracao" class="collapse transition-fade">
+            <li style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px">
+              <a class="nav-link" [routerLink]="['/piips/sigae/calibres']" routerLinkActive="active">
+                <i style="font-size: 14px;" class="bi bi-arrow-right-circle"></i>
+                <span><span></span> Calibres</span><span class="menu-arrow"></span>
+              </a>
+            </li>
+          </ul>     <ul id="configuracao" class="collapse transition-fade">
+            <li style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px">
+              <a class="nav-link" [routerLink]="['/piips/sigae/entidades']" routerLinkActive="active">
+                <i style="font-size: 14px;" class="bi bi-arrow-right-circle"></i>
+                <span><span></span> Entidades</span><span class="menu-arrow"></span>
+              </a>
+            </li>
+          </ul>
+          <ul id="configuracao" class="collapse transition-fade">
+            <li style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px">
+              <a class="nav-link" [routerLink]="['/piips/sigae/material']" routerLinkActive="active">
+                <i style="font-size: 14px;" class="bi bi-arrow-right-circle"></i>
+                <span><span></span>Material de aquartelamento</span><span class="menu-arrow"></span>
+              </a>
+            </li>
+          </ul> 
+      </li>
+
+      <li>
+        <hr class="dropdown-divider">
+      </li>
+        
+      <div class="infor">
+        <h5>SIGAE V 1.0 - <span style="font-weight: lighter; color: orange;">Profissional</span></h5>
+        <P>PIIPS - Todos os direitos reservados a PNA</P>
+      </div>    
+
+      </ul>
+    </aside>

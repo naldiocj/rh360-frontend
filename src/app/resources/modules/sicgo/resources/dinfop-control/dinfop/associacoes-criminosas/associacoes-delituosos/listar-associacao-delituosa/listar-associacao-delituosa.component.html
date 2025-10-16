@@ -1,0 +1,173 @@
+<div class="row d-flex mt-4 ml-3">
+    
+    <div class="col  col-lg-5 infor-top-o">
+      <!-- Heading -->
+      <h4 class="fs-4 mb-0">Associação Delituosa</h4>
+      <!-- Breadcrumb -->
+       <span class="text-body-secondary">Listagem.</span>
+    </div>
+  </div>
+  
+  
+  <ul class="nav nav-pills p-2">
+                        <li class="nav-item">
+                            <div
+                                class="custom-radius btn-group"
+                                role="group"
+                                aria-label="Basic example"
+                            >
+                                <button
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modalRegistarOuEditarDelituoso"
+                                    ariaCurrentWhenActive="page"
+                                    type="button"
+                                    class="btn btn-primary"
+                                >
+                                    <i class="fa fa-plus"></i>
+                                    Registrar
+                                </button>
+
+                                <input
+                                    type="Bucar asssociação"
+                                    class="btn input-search"
+                                    placeholder="360% Pesquisa ..."
+                                    id="searchTextPastas"
+                                    [(ngModel)]="searchDelituoso"
+                                >
+
+                            </div>
+
+                        </li>
+                    </ul>
+<div class="table-container">
+    <table
+        class="table table-striped"
+        #tableToPrint
+    >
+        <thead class="table-thead">
+            <tr>
+                <th>Código</th>
+                <th>Local atuacao</th>
+                <th>Ponto concentracao</th>
+                <th>Hora concentracao</th>
+                <th>Hora_atuacao</th>
+                <th>Meios</th>
+                <th>Delituosos</th>
+                <th class="text-right">Operação</th>
+            </tr>
+        </thead>
+        <div *ngIf="isLoading" class="text-center">
+            <p>Carregando...</p>
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="4em"
+                height="4em"
+                viewBox="0 0 24 24"
+            >
+                <path
+                    fill="#021888"
+                    d="M10.14,1.16a11,11,0,0,0-9,8.92A1.59,1.59,0,0,0,2.46,12,1.52,1.52,0,0,0,4.11,10.7a8,8,0,0,1,6.66-6.61A1.42,1.42,0,0,0,12,2.69h0A1.57,1.57,0,0,0,10.14,1.16Z"
+                >
+                    <animateTransform
+                        attributeName="transform"
+                        dur="0.825s"
+                        repeatCount="indefinite"
+                        type="rotate"
+                        values="0 12 12;360 12 12"
+                    ></animateTransform>
+                </path>
+            </svg>
+        </div>
+        <tbody
+            class="table-tbody"
+            *ngIf="!isLoading && associacaoDelituosos.length > 0"
+        >
+            <tr *ngFor="let item of this.associacaoDelituosos | busca: searchDelituoso; let i = index">
+                <td (click)="toggle(item.id)">
+                    <span class="ml-4">{{item.codigo_sistema}}</span>
+                </td>
+
+                <td (click)="toggle(item.id)">
+                    {{item.local_atuacao | slice : 0 : 14 }}..
+                </td>
+                <td (click)="toggle(item.id)">
+                    {{item.ponto_concentracao | slice : 0 : 14 }}..
+                </td>
+                <td (click)="toggle(item.id)">
+                    {{item.hora_concentracao | slice : 0 : 14 }}..
+                </td>
+                <td (click)="toggle(item.id)">{{item.hora_atuacao}}</td>
+                <td (click)="toggle(item.id)">{{item.meios  }}</td>
+                <td (click)="toggle(item.id)">{{item.delituosos.length}}</td>
+
+                <td class="text-right">
+                    <div class="dropdown dropdown-action">
+                        <a
+                            href="#"
+                            class="action-icon dropdown-toggle"
+                            data-toggle="dropdown"
+                            aria-expanded="false"
+                        >
+                            <i class="bi bi-three-dots-vertical"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right bg-main">
+                            <a
+                                class="dropdown-item"
+                                href="visualisarm.html"
+                            >
+                                <i class="fas fa-edit m-r-5"></i>
+                                <b>Editar</b>
+                            </a>
+                            <!-- Button trigger modal -->
+
+                            <a
+                                data-toggle="modal"
+                                class="dropdown-item"
+                                (click)="KV(item.id)"
+                                data-bs-toggle="modal"
+                                data-bs-target="#associacaoDelituosa"
+                            >
+                                <i class="bi bi-people-fill"></i>
+                                Antecedentes
+                            </a>
+                            <a
+                                data-toggle="modal"
+                                class="dropdown-item"
+                                data-bs-toggle="modal"
+                                data-bs-target="#ModoOperante"
+                                (click)="KV(item.id)"
+                            >
+                                <i class="bi bi-person-lock"></i>
+                                Modo Operante
+                            </a>
+                        </div>
+                    </div>
+                </td>
+
+            </tr>
+        </tbody>
+        <tbody *ngIf="!isLoading && associacaoDelituosos.length === 0">
+            <div class="bg-body-tertiary p-5 rounded mt-3">
+                <h4>Nenhuma Associação encontrado.</h4>
+                 
+
+            </div>
+        </tbody>
+    </table>
+</div>
+
+<div
+    id="asidebar"
+    class="parallax-element"
+>
+    <sicgo-dinfop-associacoes-delituosos-view [associacaoId]="this.isOffcanvasVisible"></sicgo-dinfop-associacoes-delituosos-view>
+</div>
+
+<sicgo-dinfop-antecedente-associacao-delituosa
+    [associacaoId]="this.isOffVisible"
+    (eventRegistarOuEditar)="buscarAssociacao()"
+></sicgo-dinfop-antecedente-associacao-delituosa>
+<sicgo-dinfop-modo-operante-associacao-delituosa
+    [associacaoId]="this.isOffVisible"
+    (eventRegistarOuEditar)="buscarAssociacao()"
+></sicgo-dinfop-modo-operante-associacao-delituosa>

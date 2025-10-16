@@ -1,0 +1,23 @@
+#btn{
+    justify-content: end;
+    display: flex;   
+}
+
+
+button{
+    border: none;
+    width: 120px;
+    height: 40px;
+    border-radius: 5px;
+
+}
+
+button.cancelar{
+    background-color: red;
+    color: white;
+}
+
+button.registrar{
+    background-color: #041B4E;
+    color: white;
+}

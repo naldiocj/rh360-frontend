@@ -1,0 +1,196 @@
+<app-registar-ou-editar
+  [funcionario]="this.getFuncionario"
+  [pessoadID]="this.pessoaId"
+  [escalaTrabalho]="this.escala"
+  (eventRegistarOuEditModel)="this.recarregarPagina()"
+></app-registar-ou-editar>
+
+<app-pa-esc-trabalho
+  (onFecharModal)="this.modalFechado()"
+  [escala_trabalho]="this.escala"
+  [funcionario]="this.funcionario"
+  [isAgente]="true"
+></app-pa-esc-trabalho>
+
+<div class="row">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+    <div class="d-flex justify-content-between align-item-cente">
+      <form class="form-inline">
+        <select
+          class="form-control mr-sm-1"
+          (change)="filtrarPagina('perPage', $event)"
+        >
+          <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">
+            {{ item }}
+          </option>
+        </select>
+        <input
+          class="form-control mr-sm-1"
+          type="text"
+          [ngModel]="filtro.search"
+          name="search"
+          (ngModelChange)="filtrarPagina('search', $event)"
+          placeholder="Pesquisa ..."
+        />
+        <button
+          (click)="this.recarregarPagina()"
+          class="btn-piips btn-piips-secondary m-0 py-2"
+          
+        >
+          <i style="font-size: 14px" class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+          <b>Recarregar</b>
+        </button>
+      </form>
+      <button
+        data-toggle="modal"
+        data-target="#modalRegistar"
+        class="btn-piips btn-piips-primary m-0 py-2"
+       
+        
+      >
+        <i style="font-size: 14px" class="fa fa-paper-plane mx-2"></i>
+        <b>Envir escala de trabalho</b>
+      </button>
+    </div>
+  </div>
+  <div class="col-xl-12 col-lg-12 col-md-12 col-ms-12">
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="table-responsive">
+          <table
+          class="table table-border table-striped custom-table datatable mb-0 text-center"
+        >
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Secção</th>
+              <th>Departamento</th>
+              <th>Turno</th>
+              <th>Escalado para</th>
+              <th>Estado</th>
+              <th>Data</th>
+              <th>Enviado</th>
+              <th colspan="4">Operação</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="
+                let item of this.escalas
+                  | paginate
+                    : {
+                        id: 'reclamacaoId',
+                        itemsPerPage: this.pagination.per_page,
+                        currentPage: this.pagination.current_page,
+                        totalItems: this.pagination.total
+                      };
+                index as i
+              "
+            >
+              <td>{{ i + 1 }}</td>
+              <td>{{ item?.seccao }}</td>
+              <td>{{ item?.departamento_sigla }}</td>
+              <td>{{ this.getTurno(item?.turno) }}</td>
+              <td>
+                {{ this.getData(item?.date) }}
+              </td>
+      
+              <td
+                class="badge w-100 p-2 text-light"
+                [style.margin]="'.4rem auto'"
+                [style.backgroundColor]="this.getEstado(item.estado)?.cor"
+                style="border-radius: unset"
+              >
+                {{ this.getEstado(item.estado)?.nome }}
+              </td>
+              <td>{{ item.data }}</td>
+      
+              <td>{{ item.created_at }}</td>
+              <td class="text-right">
+                <div class="dropdown dropdown-action py-0">
+                  <a
+                    href="#"
+                    class="action-icon dropdown-toggle"
+                    data-toggle="dropdown"
+                    aria-expanded="false"
+                    ><i class="fa fa-ellipsis-v"></i
+                  ></a>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <a
+                      href="#"
+                      class="dropdown-item"
+                      data-toggle="modal"
+                      [style.cursor]="'pointer'"
+                      (click)="this.setEscalaTrabalho(item)"
+                      data-target="#view-escala-trabalho"
+                      ariaCurrentWhenActive="page"
+                    >
+                      <i class="fa fa-eye m-r-5"></i>
+                      Visualizar</a
+                    >
+                    <!-- <a
+                      href="#"
+                      class="dropdown-item"
+                      data-toggle="modal"
+                      [style.cursor]="'pointer'"
+                      data-target="#modalRegistarEditar"
+                      ariaCurrentWhenActive="page"
+                      *ngIf="item.estado == 'E'"
+                      (click)="this.setEscalaTrabalho(item)"
+                    >
+                      <i class="fa fa-edit m-r-5"></i>
+                      Editar</a
+                    > -->
+                    <a
+                      class="dropdown-item"
+                      [style.cursor]="'pointer'"
+                      ariaCurrentWhenActive="page"
+                      *ngIf="item.estado == 'E'"
+                      (click)="this.cancelarEscala(item?.id)"
+                    >
+                      <i class="fa fa-trash m-r-5"></i>
+                      Cancelar</a
+                    >
+                    <!-- <a
+                      href="#"
+                      class="dropdown-item"
+                      [style.cursor]="'pointer'"
+                      ariaCurrentWhenActive="page"
+                    >
+                      <i class="fa fa-trash m-r-5"></i>
+                      Eliminar</a
+                    > -->
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="row">
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+            Mostrando de {{ this.pagination.current_page }} á
+            {{ this.pagination.per_page }} de {{ this.pagination.total }} Registo
+          </div>
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+            <div class="float-right">
+              <pagination-controls
+                id="provimentoId"
+                (pageChange)="this.filtrarPagina('page', $event)"
+                [directionLinks]="true"
+                [autoHide]="true"
+                previousLabel="Anterior"
+                nextLabel="Próximo"
+                [maxSize]="4"
+                [responsive]="true"
+              ></pagination-controls>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+  </div>
+</div>

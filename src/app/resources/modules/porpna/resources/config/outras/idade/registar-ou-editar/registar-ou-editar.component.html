@@ -1,0 +1,120 @@
+<div
+  class="modal fade"
+  id="registar-ou-editar-idade"
+  aria-labelledby="modalRegistarOuEditarPosto"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog"
+    role="document"
+    style="overflow-y: hidden; min-width: 30%"
+  >
+    <div class="modal-content shadow border" style="border-radius: 0px">
+      <div class="modal-header">
+        <h5 style="color: var(--bg-color)">
+          <i
+            class="fa"
+            [class.fa-plus]="!this.getIdadeId"
+            [class.fa-edit]="this.getIdadeId"
+          ></i>
+          {{
+            this.getIdadeId
+              ? "Editar idade mínima e máxima para gênero   - " +
+                this.getGenero(this.idade?.genero)
+              : "Adicionar idade mínima e máxima"
+          }}
+        </h5>
+        <button
+          type="button"
+          class="close"
+          id="btn-close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="content">
+        <form [formGroup]="this.simpleForm" >
+          <div class="modal-body">
+            <div class="row">
+              <div class="form-group col-md-12">
+                <label>
+                  Gênero
+                  <span class="text-danger"> *</span>
+                </label>
+                <ng-select2
+                  [options]="this.options"
+                  [data]="this.genero"
+                  formControlName="genero"
+                ></ng-select2>
+              </div>
+              <div class="form-group col-md-6">
+                <label>
+                  Idade máxima (m)
+                  <span class="text-danger"> *</span>
+                </label>
+                <input
+                  formControlName="idade_max"
+                  type="number"
+                  [min]="18"
+                  class="form-control"
+                />
+              </div>
+              <div class="form-group col-md-6">
+                <label>
+                  Idade mínima (m)
+                  <span class="text-danger"> *</span>
+                </label>
+                <input
+                  formControlName="idade_min"
+                  type="number"
+                  class="form-control"
+                  [min]="18"
+                  [max]="this.simpleForm.get('idade_max')?.value - 1"
+                />
+              </div>
+
+              <!-- <div class="form-group col-md-12">
+                <label>
+                  Obervação
+                  <span class="text-danger"> *</span>
+                </label>
+                <textarea
+                  formControlName="descricao"
+                  type="text"
+                  class="form-control"
+                ></textarea>
+              </div> -->
+            </div>
+          </div>
+          <div class="modal-footer d-flex justify-content-end">
+            <button type="button" class="btn btn-red m-0 p-1 px-2" (click)="this.resetForm()">
+              <span class="fa fa-refresh"></span> Limpar
+            </button>
+            <button
+              type="submit"
+              class="btn m-0 p-1 btn-primary px-2"
+              [disabled]="!this.simpleForm.valid || isLoading"
+              (click)="this.onSubmit()"
+            >
+              <ng-container *ngIf="!this.isLoading; else loading">
+                <ng-container *ngIf="this.getIdadeId; else adicionarAltura">
+                  <i class="fa fa-edit"></i> Editar
+                </ng-container>
+                <ng-template #adicionarAltura>
+                  <i class="fa fa-plus-circle"></i> Adicionar
+                </ng-template>
+              </ng-container>
+              <ng-template #loading>
+                <i class="spinner-border spinner-border-sm m-1"></i>
+                Carregando...
+              </ng-template>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,235 @@
+<section
+    id="asidebar"
+    class=" offcanvas-container offcanvas parallax-element"
+    tabindex="-1"
+    aria-labelledby="offcanvasExampleLabel"
+    *ngIf="showBannerup"
+>
+
+    <div class="the-page">
+        <div class="page__frame">
+            <div class="page-tab-header">
+
+                <nav
+                    class="navigation"
+                    id="js--navid"
+                >
+                    <ul
+                        class="navigation-menu"
+                        #navigationMenu
+                    >
+                    <li
+                    class="nav-item active"
+                    [class.active]="activeTab === 'grupo'"
+                >
+                    <a
+                        class="nav-tab t--tab"
+                        (click)="openTab('grupo')"
+                        title="grupo"
+                    >
+                    <i class="bi bi-people-fill"></i>
+                    Grupo
+                    </a>
+                </li>
+                        <li
+                            class="nav-item"
+                            [class.active]="activeTab === 'alpha'"
+                        >
+                            <a
+                                class="nav-tab t--tab"
+                                (click)="openTab('alpha')"
+                                title="Beta"
+                            >
+                                Modo Operante
+                            </a>
+                        </li>
+                        <li
+                            class="nav-item"
+                            [class.active]="activeTab === 'beta'"
+                        >
+                            <a
+                                class="nav-tab t--tab"
+                                (click)="openTab('beta')"
+                                title="Gamma"
+                            >
+                                <i class="bi bi-people-fill"></i>
+                                Antecedente
+                            </a>
+                        </li>
+                        <li
+                            class="nav-item"
+                            [class.active]="activeTab === 'gamma'"
+                        >
+                            <a
+                                class="nav-tab t--tab"
+                                (click)="openTab('gamma')"
+                                title="Delta"
+                            >
+                                <i class="bi bi-bank2"></i>
+                                Tribunal
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <section class="page__frame">
+            <div class="tab__content">
+                <main class="tab__main">
+
+                    <div *ngFor=" let item of this.grupos">
+                        
+                        <section
+                            *ngIf="activeTab === 'grupo'"
+                            id="delituoso"
+                        >
+                        <div class="col-12 d-flex mt-3">
+                          <div class="col-11">
+                              <h4 class="head-title">Grupo</h4>
+                          </div>
+                           
+                      </div>
+
+                            <!-- Card -->
+                              <div class="p-2"> 
+                                  <div class="grid text-start">
+                                    <div class="g-col-6 ml-2">Codigo Sistema: {{item.codigo_sistema}}</div>
+                                    <div class="g-col-6 ml-2">Nome: {{item.grupo_nome}}</div>
+                                    <div class="g-col-6 ml-2">Sigla: {{item.sigla}}</div>
+                                  </div>
+
+                                  <fieldset class="mt-3">
+                                      <legend> 
+                                          Delituosos Associados
+                                      </legend>
+                                      <!-- Verifica se a lista 'item.delituosos' está vazia -->
+                                      <div *ngIf="item.delituosos && item.delituosos.length > 0; else vazioTemplate">
+                                          <div *ngFor="let delito of item.delituosos">
+                                              <div class="row mt-2">
+                                                  <div class="col-sm-3 col-md-3">
+                                                      <div class="bor">
+                                                          <img
+                                                              [src]="delito.fileUrlFrontal || fotodfault"
+                                                              alt
+                                                          >
+                                                      </div>
+                                                  </div>
+                                                  <div class="col-sm-9 offset-sm-2 col-md-9 offset-md-0">
+                                                      <div class="">
+                                                          {{delito.delituoso_nome}}
+                                                          <div class="g-col-6">Apelido: {{delito.alcunha}}</div>
+                                                          <div>
+                                                            Idade: {{calculateAge(delito.dataNascimento)}}
+                                                          <span *ngIf="idade !== null">{{ idade }}</span>
+                                                          </div>
+                                                      </div> 
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+
+                                      <!-- Template a ser exibido se a lista de delituosos estiver vazia -->
+                                      <ng-template #vazioTemplate>
+                                          <p class="text-center">Não há delituosos para exibir.</p>
+                                      </ng-template>
+
+                                  </fieldset>
+
+                              </div>
+                             
+                        </section>
+
+                        <section
+                            *ngIf="activeTab === 'alpha'"
+                            id="alpha"
+                        >
+                            <div class="d-flex">
+                                <div class="col-10">
+                                    <h5 class="head-title mt-3">Modo Operante</h5>
+                                </div>
+
+                            </div>
+
+                            <!-- Modo Operante -->
+                            <div *ngIf="item.modooperante && item.modooperante.length > 0; else vazioATemplate" class="p-2">
+                                <div *ngFor="let delito of item.modooperante">
+                                    <div class="row mt-2"> 
+                                        <div class="col-sm-9 offset-sm-2 col-md-9 offset-md-0">
+                                            <div class="">
+                                                {{delito.codigo_sistema}}
+                                                <div class="g-col-6">titulo: {{delito.titulo}}</div>
+                                                <div>
+                                                  
+                                                <span>{{ delito.meios }}</span>
+                                                </div>
+                                                <div class="g-col-6">Crime: {{delito.tipicidade_crime}}</div>
+                                                <div class="g-col-6">descricao: {{delito.descricao}}</div>
+                                                
+                                            </div> 
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>
+                               <!-- Template a ser exibido se a lista de delituosos estiver vazia -->
+                               <ng-template #vazioATemplate>
+                                <p class="text-center">Não há antecedentes para exibir.</p>
+                            </ng-template>
+                        </section>
+
+                        <section
+                            *ngIf="activeTab === 'beta'"
+                            id="beta"
+                        >
+                        <div class="col-12 d-flex mt-3">
+                          <div class="col-11">
+                              <h3 class="head-title">Antecedentes</h3>
+                          </div>
+                           
+                      </div>
+
+                            <!-- Antecedentes -->
+                         
+                        <div *ngIf="item.antecedentes && item.antecedentes.length > 0; else vazioATemplate" class="p-2">
+                          <div *ngFor="let delito of item.antecedentes">
+                              <div class="row mt-2"> 
+                                  <div class="col-sm-9 offset-sm-2 col-md-9 offset-md-0">
+                                      <div class="">
+                                          {{delito.codigo_sistema}}
+                                          <div class="g-col-6">titulo: {{delito.titulo}}</div>
+                                          <div>
+                                            Data: {{delito.data}} á {{calculateAge(delito.data)}}
+                                          <span *ngIf="idade !== null">{{ idade }}</span>
+                                          </div>
+                                          <div class="g-col-6">Crime: {{delito.tipicidade_crime}}</div>
+                                          <div class="g-col-6">Observacao: {{delito.observacao}}</div>
+                                          
+                                      </div> 
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                         <!-- Template a ser exibido se a lista de delituosos estiver vazia -->
+                         <ng-template #vazioATemplate>
+                          <p class="text-center">Não há antecedentes para exibir.</p>
+                      </ng-template>
+
+                        </section>
+
+                        <section
+                            *ngIf="activeTab === 'gamma'"
+                            id="gamma"
+                        >
+                            
+                            <!-- Origem -->
+
+                        </section>
+
+                    </div>
+                </main>
+            </div>
+        </section>
+
+    </div>
+
+</section>

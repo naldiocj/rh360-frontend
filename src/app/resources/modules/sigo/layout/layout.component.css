@@ -1,0 +1,826 @@
+@import "../../../../../../node_modules/boxicons/css/boxicons.min.css";
+@import "../../../../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
+:root{
+
+}
+
+button{
+  border: none;
+  background: unset;
+}
+
+
+.main-dashboard{
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
+
+}
+
+.main-dashboard .asidebar,
+.main-dashboard .main{
+  transition: all .4s;
+}
+
+
+.main-dashboard .asidebar{
+  width: 300px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+
+}
+
+
+.main-dashboard .asidebar.hidden{
+  width: 60px;
+  /* left: -240px; */
+}
+
+.main-dashboard .main.larger{
+  margin-left: 60px;
+  width: 100%;
+}
+
+
+.main-dashboard .main{
+  width: calc(100% - 300px);
+  margin-left: 300px;
+  display: flex;
+  flex-flow: column;
+  row-gap: .4rem;
+}
+
+.main-dashboard .main header{
+  box-sizing: border-box;
+  box-shadow: var(--shadow);
+  width: 100%;
+}
+
+.main .toggle-btn{
+  color: var(--bg-color);
+  padding: 0;
+  background-color: unset;
+  border: none;
+  font-size: 2.4rem;
+
+}
+.main .toggle-btn:hover{
+  color: var(--auxBgColor);
+}
+
+
+
+.search #search::placeholder{
+  color: var(--white);
+  font-weight: 400;
+
+}
+.search #search{
+  font-size: 1.1rem;
+  border: none;
+  width: 0;
+  border-radius: 50px;
+  margin-right: -50px;
+
+
+}
+.search #search:focus{
+  padding: .8rem .8rem;
+  padding-right: 50px;
+  outline: none;
+  width: 90%;
+  transition: all .4s;
+  border: 1px solid var(--white);
+
+}
+.search label{
+  display: flex;
+  margin-left: .4rem;
+  color: var(--white);
+  font-size: 1.6rem;
+}
+
+.main .main-content{
+  height: 100px;
+  width: 100%;
+  padding: 2rem;
+  height: calc(100vh - 4.7rem);
+  overflow: scroll;
+  background-color: var(--lightWhite);
+  display: flex;
+  flex-direction: column;
+}
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  scroll-behavior: smooth;
+}
+form-control:focus {
+  /* color: var(--bs-body-color);
+  background-color: var(--bs-body-bg);
+  border-color: #86b7fe;
+  outline: 0; */
+  /* box-shadow: 0 0 0 0.25rem rgba(13,110,253,.25); */
+  box-shadow: none !important;
+}
+input:focus {
+  box-shadow: none !important;
+}
+
+::-webkit-scrollbar {
+  background-color: transparent !important;
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--bgColor);
+  border-radius: 5px;
+}
+a,
+a:link,
+a:active {
+  text-decoration: none !important;
+}
+
+.btn,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+div {
+  font-weight: 500;
+}
+.main_title_auth {
+  font-size: 30px;
+  letter-spacing: 1px;
+}
+
+::placeholder {
+  color: var(--auxBlack);
+  font-weight: 500;
+}
+
+.video-player {
+  background-color: black;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Custem CheckBox */
+
+.container-check {
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container-check input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  height: 25px;
+  width: 25px;
+}
+
+.checkmark.checkmark-primary {
+  background-color: var(--bgColor);
+  border: var(--border);
+}
+.checkmark.checkmark-secondary {
+  background-color: white;
+  border: 1px solid var(--txtColor);
+}
+
+/* On mouse-over, add a grey background color */
+.container-check:hover input ~ .checkmark.checkmark-primary {
+  background-color: white;
+  border: 1px solid var(--txtColor);
+}
+.container-check:hover input ~ .checkmark.checkmark-secondary {
+  background-color: var(--bgColor);
+  border: var(--border);
+}
+
+/* When the checkbox is checked, add a blue background */
+.container-check input:checked ~ .checkmark.checkmark-primary {
+  background-color: white;
+  border: 1px solid var(--txtColor);
+}
+.container-check input:checked ~ .checkmark.checkmark-secondary {
+  background-color: var(--bgColor);
+  border: var(--border);
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark.checkmark-primary::after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+.checkmark.checkmark-secondary::after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container-check input:checked ~ .checkmark.checkmark-primary::after {
+  display: block;
+}
+.container-check input:checked ~ .checkmark.checkmark-secondary::after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container-check .checkmark.checkmark-primary::after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid var(--bgColor);
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.container-check .checkmark.checkmark-secondary::after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.btn {
+  border-radius: unset;
+  padding: 12px 24px;
+  margin: 20px auto;
+  font-size: 20px;
+  transition: all 0.4s;
+  border: var(--border);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  font-weight: 500;
+}
+.btn.btn-primary {
+  background-color: var(--bgColor);
+  color: white;
+}
+.btn.btn-red {
+  background-color: var(--red);
+  color: white;
+}
+.text-red {
+  color: var(--red);
+}
+
+.btn.btn-primary:hover,
+.btn.btn-primary.active {
+  background-color: white;
+  color: var(--bgColor);
+  border: 1px solid var(--bgColor);
+}
+
+.btn.btn-red:hover,
+.btn.btn-red.active {
+  background-color: white;
+  color: var(--red);
+  border: 1px solid var(--red);
+}
+
+.btn.btn-secondary:hover,
+.btn.btn-secondary.active {
+  background-color: var(--bgColor);
+  color: white;
+  border: 1px solid var(--bgColor);
+}
+
+.btn.btn-secondary {
+  background-color: white;
+  color: var(--bgColor);
+  border: 1px solid var(--bgColor);
+}
+
+/* .btn:active{
+    transform: scale(.88);
+} */
+
+.link {
+  text-decoration: none;
+  cursor: pointer;
+}
+.link.link-secondary {
+  color: white !important;
+  transition: all 0.4s;
+}
+.link.link-secondary:hover {
+  border-bottom: 1px solid white !important;
+}
+.link.link-primary {
+  color: var(--bgColor) !important;
+  transition: all 0.4s;
+}
+.link.link-primary:hover {
+  border-bottom: 1px solid var(--bgColor) !important;
+}
+
+/* input:focus {
+    box-shadow: unset !important;
+    color: var(--bgColor);
+    border: unset;
+  } */
+
+.input-group {
+  border-radius: 20px;
+  background: #fcfcfc;
+  box-shadow: 0px 8px 4px 0px rgba(0, 0, 0, 0.25) inset;
+  border: 1px solid var(--opacity) !important;
+}
+.input-group input {
+  font-size: 1rem;
+  padding: 0.9rem 0.4rem;
+}
+.input-group input,
+.input-group .input-group-text {
+  border: unset;
+  background-color: unset;
+}
+
+.input-group {
+  border: var(--mainBorder);
+  overflow: hidden;
+}
+.input-group .input-group-text i.bx {
+  font-size: 1.6rem;
+  color: #999;
+}
+
+.btn.recording,
+.btn-controllers.recording {
+  background-color: var(--red);
+  animation: recording 1s infinite linear alternate;
+}
+.btn.btn-dropdown {
+  color: white;
+}
+.btn.btn-dropdown:hover {
+  background: white;
+  color: var(--black);
+}
+
+.btn.btn-dropdawn:active {
+  transform: scale(1);
+}
+
+.btn-controllers.red {
+  background-color: var(--red) !important;
+}
+
+.header {
+  border-bottom: 2px solid var(--auxBlack);
+  padding: 0.2rem 0 !important;
+}
+
+.section-container {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-flow: column;
+  row-gap: 0.8rem;
+  height: calc(100% - 2rem);
+  overflow: hidden;
+}
+.section-container .section-main-content {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  gap: 0.8rem;
+  padding-top: 0.7rem;
+  overflow: hidden;
+}
+
+.title-resources h2 {
+  font-size: 1.6rem;
+  display: flex;
+  align-items: center;
+}
+.title-resources h2 .bx {
+  margin-right: 0.8rem;
+}
+.title-resources h2 span {
+  font-weight: normal;
+}
+
+.card-body .table {
+  vertical-align: middle;
+}
+
+.card-body .table thead th {
+  color: var(--lightWhite);
+  font-weight: 400;
+  padding: 0.4rem;
+  font-size: 1rem;
+  background: var(--bgColor);
+}
+
+.card-body .table-container thead th {
+  font-weight: 500;
+  padding: 0.8rem 0.4rem;
+  font-size: 1.1rem;
+}
+
+.card-body .table tbody tr {
+  border-bottom: 1px solid #efefef;
+  padding: 0.8rem;
+  font-weight: normal;
+  color: var(--bgColor);
+  justify-items: center;
+  cursor: pointer;
+  transition: all 0.4s;
+  font-size: 0.9rem;
+}
+
+.card-body .table-container tbody tr {
+  font-weight: 400;
+  font-size: 1.1rem;
+}
+.table img {
+  width: 45px;
+  height: 45px;
+  object-fit: cover;
+  border-radius: 50px;
+}
+.card-body .table tbody td .plus {
+  font-size: 0.8rem;
+  border-radius: 50%;
+  color: var(--bgColor);
+  padding: 0.2rem 0.4rem;
+  box-shadow: var(--shadow);
+  background-color: white;
+  transition: all 0.4s;
+}
+.card-body .table tbody td .plus:hover {
+  background-color: var(--bgColor);
+  color: white;
+}
+
+.card-body .table tbody td .user {
+  font-size: 1.2rem;
+
+  padding: 0.6rem;
+  border-radius: 50%;
+  color: white;
+  background-color: var(--bgColor);
+}
+/* Aminations for the Systems */
+
+@keyframes recording {
+  from {
+    background-color: var(--bgColor);
+  }
+  to {
+    background-color: var(--red);
+  }
+}
+@keyframes recording_color {
+  from {
+    background-color: unset;
+  }
+  to {
+    background-color: var(--red);
+  }
+}
+
+.container-controllers {
+  background-color: var(--lateralColor);
+  display: flex;
+  padding: 0.4rem 0.8rem;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  border-top: 1px solid var(--black);
+}
+
+.videoplay {
+  background-color: var(--black);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.container-camera.grid-full {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, auto));
+  grid-template-rows: repeat(auto-fit, minmax(200px, auto));
+}
+
+.content-redirect .container-camera {
+  width: 100%;
+  height: calc(100vh - 10rem);
+  overflow: scroll;
+  /* display: flex;
+    flex-flow: row wrap;
+    justify-content: stretch;
+    align-items: stretch; */
+
+  gap: 0.2rem;
+}
+.container-camera.grid-1 {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+}
+.container-camera.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+}
+
+.container-camera.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.container-camera.grid-6 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+.container-camera.grid-8 {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+.container-camera.grid-9 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+.container-camera.grid-10 {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+.container-camera.grid-11 {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+.container-camera.grid-13 {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+.container-camera.grid-15 {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+.container-camera.grid-17 {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.container-camera .camera {
+  position: relative;
+  overflow: hidden;
+  border-radius: 5px;
+}
+.container-camera.grid-2 .camera {
+  height: 82vh;
+}
+.container-camera.grid-4 .camera {
+  height: 40.33vh;
+}
+.container-camera.grid-6 .camera {
+  height: 40.33vh;
+}
+.container-camera.grid-8 .camera {
+  height: 41vh;
+}
+.container-camera.grid-9 .camera {
+  height: 27vh;
+}
+.container-camera.grid-10 .camera {
+  height: 27vh;
+}
+.container-camera.grid-11 .camera {
+  height: 27vh;
+}
+.container-camera.grid-13 .camera {
+  height: 27vh;
+}
+.container-camera.grid-15 .camera {
+  height: 27vh;
+}
+.container-camera.grid-17 .camera {
+  height: 27vh;
+}
+
+.container-camera .camera.focusable-camera {
+  border: 3px solid tomato;
+  box-shadow: var(--secondShadow);
+}
+.container-camera.grid-17 .camera.focusable-camera {
+  grid-row: 1 /3;
+  grid-column: 3/6;
+  height: auto;
+}
+.container-camera.grid-15 .camera.focusable-camera {
+  grid-row: 1 /3;
+  grid-column: 3/6;
+  height: auto;
+}
+.container-camera.grid-13 .camera.focusable-camera {
+  grid-row: 1 /3;
+  grid-column: 2/5;
+  height: auto;
+}
+.container-camera.grid-11 .camera.focusable-camera {
+  grid-row: 1 /3;
+  grid-column: 2/4;
+  height: auto;
+}
+.container-camera.grid-10 .camera.focusable-camera {
+  grid-row: 1 /3;
+  grid-column: 2/5;
+  height: auto;
+}
+.container-camera.grid-9 .camera.focusable-camera {
+  grid-row: 1 /3;
+  grid-column: 2/4;
+  height: auto;
+}
+.container-camera.grid-8 .camera.focusable-camera {
+  grid-row: 1 /2;
+  grid-column: 2/5;
+}
+
+.container-camera.grid-full .camera {
+  height: 200px;
+  width: 200px;
+
+  /* max-height: 200px; */
+}
+
+.container-camera.grid-full .camera.focusable-camera {
+  grid-row: 1 / 4;
+  grid-column: 4/7;
+  height: auto;
+  width: auto;
+}
+
+.camera .name {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 0.8rem;
+  color: white;
+  width: 100%;
+}
+
+.camera-partilha {
+  width: 100%;
+  height: calc(100vh - 10rem);
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+}
+.camera-partilha .camera-Quadros {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+}
+.camera-partilha .camera-partilhador {
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+  overflow: hidden;
+}
+.camera-partilha i.bx {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: white;
+  cursor: pointer;
+  z-index: 100;
+  font-size: 1.5rem;
+}
+
+input {
+  background-color: unset;
+  /* border-radius: unset; */
+}
+
+input:focus,
+select:focus,
+.select-form:focus {
+  background-color: unset;
+  /* border-radius: unset; */
+
+  box-shadow: unset;
+}
+.btn-back {
+  transition: all 0.4s;
+  color: var(--auxBgColor);
+  font-weight: 500;
+  font-size: 1.6rem;
+
+  margin-right: 0.4rem;
+}
+.btn-back:hover {
+  margin-right: -0.4rem;
+  color: var(--bgColor);
+}
+
+.btn {
+  border-radius: 20px;
+}
+
+.fundo {
+  background-color: var(--bgColor);
+  background-image: url("../../../../../assets/img/logopolice.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
+}
+.fundo-2 {
+  background-color: #041b4ea5;
+}
+
+.row-status {
+  color: white !important;
+  font-weight: bold;
+  margin: 0.8rem 0.4rem;
+  border-radius: 10px;
+  height: 10px !important;
+  font-size: 1rem;
+}
+
+td.normalize p,
+td.normalize h1,
+td.normalize h2,
+td.normalize h3,
+td.normalize h4,
+td.normalize h5,
+td.normalize h6,
+td.normalize span,
+td.normalize strong,
+td.normalize b,
+td.normalize italic,
+td.normalize i,
+td.normalize div {
+  font-size: inherit;
+  font-weight: normal;
+  font-style: normal;
+}
+
+.modal[id^="view"] .card
+{
+  overflow-y:scroll;
+}
+
+.modal[id^="view"] .card::-webkit-scrollbar {
+ width: 0px;
+
+}
+

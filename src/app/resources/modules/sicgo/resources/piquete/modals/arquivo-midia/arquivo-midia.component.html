@@ -1,0 +1,103 @@
+<div class="modal fade" id="modalRegistarOuEditarMidia" aria-labelledby="modalRegistarOuEditarMidia" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h4 class="modal-title"><b>Arquivo de Mídia</b></h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label><b>Tipo de Mídia</b></label>
+                <select class="form-control">
+                  <option value="">Selecione o tipo de mídia</option>
+                  <option value="foto">Foto</option>
+                  <option value="video">Vídeo</option>
+                  <option value="audio">Áudio</option>
+
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label><b>Descrição</b></label>
+                <textarea class="form-control" rows="4"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label><b>Data e Hora de Captura</b></label>
+                <input type="datetime-local" class="form-control" />
+              </div>
+
+              <div class="form-group">
+                <label><b>Local da Captura</b></label>
+                <input type="text" class="form-control" />
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label><b>Autor ou Responsável</b></label>
+                <input type="text" class="form-control" />
+              </div>
+
+              <div class="form-group">
+                <label><b>Cadeia de Custódia</b></label>
+                <textarea class="form-control" rows="4"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label><b>Anotações</b></label>
+                <textarea class="form-control" rows="4"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label><b>Status</b></label>
+                <select class="form-control">
+                  <option value="analisePendente">Análise Pendente</option>
+                  <option value="emAnalise">Em Análise</option>
+                  <option value="evidencia">Considerada como Evidência</option>
+
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label><b>Visualização ou Reprodução</b></label>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label><b>Metadados</b></label>
+                <textarea class="form-control" rows="4"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label><b>Categorias</b></label>
+            <select class="form-control">
+              <option value="">Selecione a categoria</option>
+              <option value="categoria1">Categoria 1</option>
+              <option value="categoria2">Categoria 2</option>
+              <option value="categoria3">Categoria 3</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Fechar
+        </button>
+        <button type="submit" class="btn btn-primary">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div> 

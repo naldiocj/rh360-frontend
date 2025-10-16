@@ -1,0 +1,30 @@
+.box{
+/*   border-radius: 10px; */
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0px 0px 15px 2px #F5F5F5;
+  cursor: pointer;
+  height: 300px;
+}
+
+p{
+  color: var(--use-color);
+  font-size: 18px;
+  font-weight: bold;
+  font-style: bold;
+}
+
+.count{
+    font-size: 16px;
+    color: var(--use-color);
+    padding: 15px;
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    justify-content: space-between;
+}
+
+.dados{
+  margin-left: 10px;
+  color: black;
+}

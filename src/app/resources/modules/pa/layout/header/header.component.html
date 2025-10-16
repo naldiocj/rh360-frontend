@@ -1,0 +1,160 @@
+<header id="header_" class="header_ fixed-top d-flex align-items-center">
+  <div class="d-flex align-items-center justify-content-between">
+    <a href="index.html" class="logo_ d-flex align-items-center">
+      <h1><span class="d-none d-lg-block">Portal do Agente</span></h1>
+    </a>
+    <i class="bi bi-list toggle-sidebar-btn" (click)="toggle()"></i>
+  </div>
+
+  <nav class="header-nav_ flex-fill d-flex">
+    <ul class="d-flex align-items-center">
+      <li class="nav-item dropdown">
+        <ng-container *ngIf="this.temAlertas; else semAlert">
+
+          <a class="nav-link nav-icon" href="#" data-toggle="dropdown">
+            <i class="bi bi-bell-fill"></i>
+          <span
+            class="badge badge-number text-light"
+            style="background-color: #041b43a9"
+            >{{ this.maior(this.alertas) }}</span
+            >
+          </a>
+        </ng-container>
+        <ng-template #semAlert>
+          <a class="nav-link nav-icon" routerLink="push">
+            <i class="bi bi-bell"></i>
+          </a>
+        </ng-template>
+        <ul
+          class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications"
+        >
+          <li class="dropdown-header">
+            Há {{ this.maior(this.alertas) }} notíficações novas
+            <a routerLink="push"
+              ><span
+                class="badge rounded-pill p-2 ms-2"
+                style="background-color: #041b43"
+                >Ver todas</span
+              ></a
+            >
+          </li>
+          <li>
+            <hr class="dropdown-divider" />
+          </li>
+
+          <li>
+            <hr class="dropdown-divider" />
+          </li>
+
+          <li class="notification-item" *ngFor="let item of this.poucaNotificacoes">
+            <a class="d-flex bg-muted align-items-start">
+              <i
+                [id]="'icon' + item.id"
+              >
+                {{ this.estilizaIcon("icon" + item.id, item.estado) }}
+                </i
+              >
+              <div>
+                <h4 style="color: #041b43a9">{{ item.titulo }}</h4>
+                <p [id]="'text' + item.id">{{ item.texto }}</p>
+                {{ this.estilizaTexto("text" + item.id, item.estado) }}
+                <p>{{ item.createdAt }}</p>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-item dropdown"></li>
+      <li class="nav-item dropdown">
+        <a
+          class="nav-link nav-profile d-flex align-items-center"
+          href="#"
+          data-toggle="dropdown"
+        >
+          <div class="foto r">
+            <ng-container *ngIf="this.fileUrl; else semFoto">
+              <img
+              [src]="this.fileUrl"
+              alt="Profile"
+              style="width: 40px; height: 60px; border-radius: 50%"
+              (click)="setFile(this.perfil)"
+            />
+            </ng-container>
+            <ng-template #semFoto>
+              <img
+              src="assets/img/user.jpg"
+              alt="Profile"
+              style="width: 40px; height: 60px; border-radius: 50%"
+            />
+            </ng-template>
+
+            <span class="dot"></span>
+          </div>
+          <span class="d-none d-md-block dropdown-toggle pl-2">{{
+            nomeUtilizador
+          }}</span>
+        </a>
+
+        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+          <li class="dropdown-header text-center">
+            <h6>{{ this.nomeUtilizador }}</h6>
+            <span *ngIf="this.perfil != undefined && this.perfil != null">{{
+              this.perfil.patente_nome
+            }}</span>
+          </li>
+          <li>
+            <hr class="dropdown-divider" />
+          </li>
+
+          <li>
+            <a
+              class="dropdown-item d-flex align-items-center text-dark"
+              routerLink="perfil"
+            >
+              <i class="bi bi-person-fill"></i>
+              <span>Meu Perfil</span>
+            </a>
+          </li>
+
+          <li>
+            <!-- <a class="dropdown-item" [routerLink]="['/piips']">Ir em Piips</a> -->
+            <a
+              class="dropdown-item d-flex align-items-center text-dark"
+              [routerLink]="['/piips']"
+            >
+              <i class="bi fa-birthday-cake"></i>
+              <span>Ir em Piips</span>
+            </a>
+          </li>
+          <li>
+            <hr class="dropdown-divider" />
+          </li>
+
+          <li>
+            <hr class="dropdown-divider" />
+          </li>
+
+          <li>
+            <a
+              class="dropdown-item d-flex align-items-center"
+              data-toggle="modal"
+              data-target="#logout-modal"
+              style="cursor: pointer"
+            >
+              <i class="bi bi-power"></i>
+              <span>Terminar sessão</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+
+<pa-zoom-foto
+  [isEfectivo]="true"
+  [pessoa]="this.pessoa"
+  (onSair)="this.setNullFile()"
+></pa-zoom-foto>

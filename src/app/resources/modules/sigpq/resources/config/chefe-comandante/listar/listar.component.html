@@ -1,0 +1,318 @@
+<div class="content">
+    <sigpq-header></sigpq-header>
+    <div class="header-ficha mt-1">
+        <div class="row my-6">
+            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12">
+                <h4 class="text-light">
+                    <b>Listagem de chefias e comandos</b>
+                </h4>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                <div class="d-flex justify-content-end align-items-center w-100">
+                    <button class="btn-piips btn-piips-secondary m-0 py-2 border" data-toggle="collapse"
+                        href="#pesquisa-avancada" role="button" aria-expanded="false" aria-controls="pesquisa-avancada"
+                        style="cursor: pointer;"> <i class="fa fa-search mx-2"></i>Pesquisa avançada</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <fieldset class="w-100 p-1">
+                <div class="row py-2">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
+                        <aside class="row" style="align-items: center; row-gap: .4rem;">
+                            <div class="col-xl-1 col-lg-1 col-md-4 col-sm-12">
+                                <select class="form-control w-100" (change)="filtrarPagina('perPage',$event)">
+                                    <option *ngFor="let item of [5,10,20,50]" [value]="item">{{item}}</option>
+                                </select>
+                            </div>
+
+                            <div class="col-xl-9 col-lg-9 col-md-8 col-sm-12">
+                                <input class="form-control w-100" type="text" [ngModel]="filtro.search"
+                                    (ngModelChange)="filtrarPagina('search',$event)"
+                                    placeholder="Pesquisar nome completo, nip, nas, ...">
+                            </div>
+                            <div
+                                class="col-xl-2 col-lg-2 col-md-12 col-sm-12 d-flex justify-content-end align-item-center">
+                                <button type="button" (click)="this.recarregarPagina()"
+                                    class="btn-piips btn-piips-secondary m-0 py-2 w-100" type="submit">
+                                    <i style="font-size: 14px;" class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+                                    <b>Recarregar</b>
+                                </button>
+                            </div>
+                        </aside>
+                    </div>
+                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                        <aside class="row collapse" id="pesquisa-avancada">
+              <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+                <label for=""><b>Regime de Carreira</b></label>
+                <ng-select2
+                  [data]="this.regimes"
+                  [options]="this.options"
+                  [ngModel]="this.filtro.regimeId"
+                  name="regimeId"
+                  (valueChanged)="filtrarPagina('regimeId', $event)"
+                >
+                </ng-select2>
+              </div>
+
+              <!-- <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+                <label for=""><b>Tipo de Vínculo</b></label>
+                <ng-select2
+                  [data]="this.tipoVinculos"
+                  [options]="this.options"
+                  [ngModel]="this.filtro.tipoVinculoId"
+                  name="tipoVinculoId"
+                  (valueChanged)="filtrarPagina('tipoVinculoId', $event)"
+                >
+                </ng-select2>
+              </div> -->
+              <div
+                class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4"
+
+              > <!-- *ngIf="this.mostrarCarreira" -->
+                <label for=""><b>{{ filtro.regimeId === '2' ? 'Carreira' : 'Classe' }}</b></label
+                ><br />
+                <ng-select2
+                  [data]="this.patenteClasses"
+                  [ngModel]="this.filtro.patenteClasse"
+                  name="patenteClasse"
+                  (valueChanged)="filtrarPagina('patenteClasse', $event)"
+                  [options]="this.options"
+                >
+                </ng-select2>
+              </div>
+
+              <div
+                class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4"
+
+              >
+                <label for=""><b>{{ filtro.regimeId === '2' ? 'Categoria' : 'Posto' }}</b></label
+                ><br />
+                <ng-select2
+                  [data]="this.patentes"
+                  [options]="this.options"
+                  [ngModel]="this.filtro.patenteId"
+                  name="patenteId"
+                  (valueChanged)="filtrarPagina('patenteId', $event)"
+                >
+                </ng-select2>
+              </div>
+
+              <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+                <label for=""><b>Sexo</b></label>
+                <ng-select2
+                  [options]="options"
+                  [ngModel]="this.filtro.genero"
+                  name="genero"
+                  (valueChanged)="filtrarPagina('genero', $event)"
+                  [data]="this.generos"
+                >
+                </ng-select2>
+              </div>
+
+              <div
+                class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4"
+                *ngIf="this.getAuth?.user?.aceder_todos_agentes"
+              >
+                <label for=""><b>Tipo de Órgão</b></label>
+                <ng-select2
+                  [options]="options"
+                  [data]="this.tipoEstruturaOrganicas"
+                  (valueChanged)="selecionarOrgaoOuComandoProvincial($event)"
+                >
+                </ng-select2>
+              </div>
+
+              <div
+                class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4"
+                *ngIf="this.getAuth?.user?.aceder_todos_agentes"
+              >
+                <label for=""><b>Direcção/Comando </b></label>
+                <ng-select2
+                  [options]="options"
+                  (valueChanged)="filtrarPagina('orgaoId', $event)"
+                  [data]="this.orgaos"
+                  [ngModel]="this.filtro.orgaoId"
+                  name="orgaoId"
+                >
+                </ng-select2>
+              </div>
+             
+              
+              <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+                <label for=""><b>Cargo</b></label>
+                <ng-select2
+                  [options]="options"
+                  [ngModel]="this.filtro.funcao_id"
+                  name="genero"
+                  (valueChanged)="filtrarPagina('funcao', $event)"
+                  [data]="this.tipoCargos"
+                >
+                </ng-select2>
+              </div>
+
+              <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+                <label for=""><b>Ordenar Por</b></label>
+                <ng-select2
+                  (valueChanged)="filtrarPagina('orderby', $event)"
+                    [options]="options"
+                    [ngModel]="this.filtro.orderby"
+                    [data]="this.tipoOrdenacao"
+                    name="order"
+                  >
+                  </ng-select2>
+              </div>
+
+            </aside>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div class="table-responsive">
+                <table class="table table-border table-striped custom-table datatable mb-0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Posto</th>
+                            <th>Nome Completo</th>
+                            <th>NIP</th>
+                            <th>NAS</th>
+                            <!-- <th>B.I N.º</th> -->
+                            <th>Colocação</th>
+                            <th>Chefia </th>
+                            <th>Data de Actualização</th>
+                            <th>Data de Registo</th>
+                            <th class="text-right">Operação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngIf="this.carregando">
+                            <td colspan="9">
+                                <aside *ngIf="this.carregando">
+                                    <loading-page [texto]="'lista de agentes'"></loading-page>
+                                </aside>
+                            </td>
+                        </tr>
+                        <tr
+                            *ngFor="let item of this.chefias | paginate: { id: 'funcionarioEspecial', itemsPerPage: this.pagination.per_page, currentPage: this.pagination.current_page,totalItems: this.pagination.total }; index as i">
+                            <td>{{this.totalBase + i}}</td>
+                            <td>
+                                <ng-container *ngIf="item.patente_nome; else elseTemplate">
+                                    {{item.patente_nome}}
+                                </ng-container>
+                                <ng-template #elseTemplate>
+                                    S/N
+                                </ng-template>
+                            </td>
+                            <td>
+                                <strong>
+                                    <!-- <a routerLink="/" ariaCurrentWhenActive="page"
+                                        [routerLink]="['/piips/sigpg/config/chefia-comando/',item?.funcionario_id,'agente']"
+                                        style="font-size: 15px;">
+                                        {{item.nome_completo | uppercase}} {{item.apelido | uppercase}}
+                                    </a> -->
+                                    <a routerLink="/" ariaCurrentWhenActive="page"
+                                        [routerLink]="['/piips/sigpg/perfil/', item?.funcionario_id]"
+                                        style="font-size: 15px;">
+                                        {{item.nome_completo | uppercase}} {{item.apelido | uppercase}}
+                                    </a>
+                                </strong>
+                            </td>
+
+                            <td class="text-start">
+                                <ng-container *ngIf="item.nip; else elseTemplate">
+                                    {{item.quadro}} {{item.nip}}
+                                </ng-container>
+                                <ng-template #elseTemplate>
+                                    S/N
+                                </ng-template>
+                            </td>
+                            <td class="text-start">
+                                <ng-container *ngIf="item.numero_agente; else elseTemplate">
+                                    {{item.numero_agente}}
+                                </ng-container>
+                                <ng-template #elseTemplate>
+                                    S/N
+                                </ng-template>
+                            </td>
+                            <!-- <td class="text-start">
+                                <ng-container *ngIf="item.documento?.nid; else elseTemplate">
+                                    {{item?.documento?.nid}}
+                                </ng-container>
+                                <ng-template #elseTemplate>
+                                    S/N
+                                </ng-template>
+                            </td> -->
+                            <td
+                                class="text-start"
+                                [title]="item?.orgao_detalhe?.nome"
+                                style="cursor: pointer"
+                            >
+                                <ng-container *ngIf="item.orgao_detalhe?.nome; else elseOrgao">
+                                {{ item?.orgao_detalhe?.sigla }}
+                                </ng-container>
+                                <ng-template #elseOrgao> S/N </ng-template>
+                            </td>
+                            <td [title]="item?.orgao">{{item?.chefia ?? 'S/N'}} - {{item?.sigla}}</td>
+                            <td>{{item?.created_at}}</td>
+                            <td>{{item?.updated_at}}</td>
+                            <td class="text-right">
+                                <div class="dropdown dropdown-action position-static">
+                                    <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
+                                        aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <!-- <a href="javascript:void(0)" class="dropdown-item" (click)="this.construcao()">
+                                            <i class="fa fa-file-pdf-o m-r-5"></i> Ficha de antecedentes
+                                        </a> -->
+                                        <!-- <a href="#" class="dropdown-item" routerLink="/" ariaCurrentWhenActive="page"
+                                            [routerLink]="['/piips/sigpg/chefe-comando/',item.id]">
+                                            <i class="fa fa-eye m-r-5"></i> Visualizar
+                                        </a> -->
+                                        <!-- <a data-toggle="modal" data-target="#modalRegistarChefia"
+                                            href="javascript:void(0)" class="dropdown-item">
+                                            <i class="fa fa-cog m-r-5"></i> Atribuir
+                                        </a> -->
+                                        <!-- <a href="javascript:void(0)" class="dropdown-item" data-toggle="modal">
+                                            <i class="fa fa-edit m-r-5"></i> Editar
+                                        </a> -->
+                                        <!-- <a href="javascript:void(0)" class="dropdown-item"
+                                            [routerLink]="['/piips/sigpg/funcionario/registar-ou-editar', item.id]"> <i
+                                                class="fa fa-pencil m-r-5"></i> Editar
+                                        </a> -->
+                                        <a href="javascript:void(0)" class="dropdown-item"
+                                            (click)="this.validarEliminar(item)" data-toggle="modal"
+                                            data-target="#delete_patient"><i class="fa fa-trash-o m-r-5"></i> Eliminar
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                    Mostrando de {{ this.pagination.current_page }} a {{ this.pagination.per_page }} de {{
+                    this.pagination.total}}
+                    <aside *ngIf="this.pagination.total < 2; else outrosRegistos">registos</aside>
+                    <ng-template #outrosRegistos>registos</ng-template>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                    <div class="float-right">
+                        <pagination-controls id="funcionarioEspecial"
+                            (pageChange)="this.filtrarPagina('page', $event, false)" [directionLinks]="true"
+                            [autoHide]="true" previousLabel="Anterior" nextLabel="Próximo" [maxSize]="4"
+                            [responsive]="true"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <app-registar-ou-editar [pessoaId]="this.pessoaId"></app-registar-ou-editar> -->

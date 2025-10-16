@@ -1,0 +1,77 @@
+<div class="modal fade" id="exportar-profissional-modal">
+    <div class="modal-dialog modal-dialog-ms modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Exportar meus dados profissional</h5>
+            </div>
+            <div class="modal-body">
+                <p class="text-muted" style="font-weight: bold;">
+                    <i class="bi bi-info-circle-fill" style="color:  #012970; font-size: 18px;" ></i>
+                    As tuas informações são exportado no formato PDF, esteja ciente que poderá por em riso as tuas informações!
+                </p>
+                <div class="btn-groups text-center my-2">
+                    <a  class="btn btn-outline-primary mx-2"><i class="bi bi-download mx-2"></i>Exportar</a>
+                    <a class="btn btn-outline-danger mx-2"  data-dismiss="modal"><i class="bi bi-x-lg mx-2"></i>Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>
+ 
+ 
+ 
+ 
+ <div class="col-12">
+     <div class="card recent-sales " style="box-shadow:unset">
+       <!-- <div class="pagetitle d-flex justify-content-end">
+          <a data-toggle="modal" data-target="#exportar-profissional-modal" class="btn btn-outline-primary py-0 d-flex px-1 " style="border-radius:2px;">
+              <i class="bi bi-file-pdf mx-2"></i>
+              Exportar ficha
+          </a>
+      </div> -->
+      <div class="tab-content pt-2">
+        <div class="tab-pane fade show active profile-overview" id="profissional-1">
+            <div class="card-body" style="box-shadow:unset">
+                <div class="card-body-header d-flex justify-content-between align-items-center">
+                    <h5 class="card-title">Dados profissional enviado por PDQ</h5>
+                    <span class="text-muted" style="font-weight:bolder;">Última actualização : {{this.funcionario?.updated_at}}</span>
+                </div>
+                <div class="row" style="row-gap: .5rem;">
+                        <div class="col-lg-4 py-2" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); border-radius: 5px;">
+                            <span class="text-dark">Pseudonomia: </span> <span style="font-size:1.1rem; font-weight: bolder;">{{this.funcionario?.pseudonimo }}</span>   
+                        </div>
+                        <div class="col-lg-4 py-2" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); border-radius: 5px;">
+                            <span class="text-dark">Regime: </span> <span style="font-size:1.1rem; font-weight: bolder;">{{this.funcionario?.regime_nome }}</span>   
+                        </div>
+                        <div class="col-lg-4 py-2" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); border-radius: 5px;">
+                            <span class="text-dark">Posto ou Patente: </span> <span style="font-size:1.1rem; font-weight: bolder;">{{this.funcionario?.patente_nome }}</span>   
+                        </div>
+                        <div class="col-lg-4 py-2" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); border-radius: 5px;">
+                            <span class="text-dark">NIP: </span> <span style="font-size:1.1rem; font-weight: bolder;">{{this.funcionario?.nip }}</span>   
+                        </div>
+                        <div class="col-lg-4 py-2" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); border-radius: 5px;">
+                            <span class="text-dark">Nº do Agente: </span> <span style="font-size:1.1rem; font-weight: bolder;">{{this.funcionario?.numero_agente }}</span>   
+                        </div>
+                        <div class="col-lg-4 py-2" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); border-radius: 5px;">
+                            <span class="text-dark">Nº do processo: </span> <span style="font-size:1.1rem; font-weight: bolder;">{{this.funcionario?.numero_processo}}</span>   
+                        </div>
+                        <!-- <div class="col-lg-4 py-2" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); border-radius: 5px;">
+                            <span class="text-dark">Anexo do processo: </span> <span style="font-size:1.1rem; font-weight: bolder;">Doc.pdf</span>   
+                        </div> -->
+                        <div class="col-lg-4 py-2" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); border-radius: 5px;">
+                            <span class="text-dark">Tipo de vínculo: </span> <span style="font-size:1.1rem; font-weight: bolder;">Por definir</span>   
+                        </div>
+                        <div class="col-lg-4 py-2" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); border-radius: 5px;">
+                            <span class="text-dark">Carreira: </span> <span style="font-size:1.1rem; font-weight: bolder;">Por definir</span>   
+                        </div>
+                        <div class="col-lg-4 py-2" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); border-radius: 5px;">
+                            <span class="text-dark">Cargo: </span> <span style="font-size:1.1rem; font-weight: bolder;">Por definir</span>   
+                        </div>
+                        <div class="col-lg-4 py-2" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); border-radius: 5px;">
+                            <span class="text-dark">Data de Ingresso: </span> <span style="font-size:1.1rem; font-weight: bolder;">{{this.funcionario?.data_adesao }}</span>   
+                        </div>
+                </div>
+            </div>
+        </div> 
+    </div> 
+</div>

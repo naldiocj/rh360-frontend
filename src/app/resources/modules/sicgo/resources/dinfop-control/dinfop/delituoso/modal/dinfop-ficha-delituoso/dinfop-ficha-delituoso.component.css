@@ -1,0 +1,341 @@
+/* modal */
+ 
+
+.modal-content {
+  border-radius: 0px;
+}
+
+.modal-lk {
+  max-width: 64%;
+  height: auto;
+  margin: 3% auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.bg-absolute-foto {
+  position: absolute;
+  right: 0;
+  bottom: 7px;
+  border: 2px solid #939393;
+  min-width: 120px;
+  height: 120px;
+  overflow: hidden;
+}
+
+.bg-absolute-foto img {
+  width: 100%;
+  height: 100%;
+}
+
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
+ul {
+  list-style: none;
+}
+.rowkv {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap; 
+  margin: auto;
+  justify-content: center;
+}
+/* Typography */
+.bold1 {
+  font: normal normal 500 21px/1 "Times New Roman", sans-serif;
+  color: #000;  
+}
+.bold {
+  font: normal normal 500 20px/1 "Times New Roman", sans-serif;
+  color: #000; 
+  font-weight: bold;
+}
+ 
+.t-- {
+  font: normal normal 500 24px/1 "Roboto", sans-serif;
+  color: #000;
+  font-family: 'Times New Roman', Arial, Helvetica, sans-serif;
+}
+.t--title {
+  font: normal normal 500 24px/1 "Roboto", sans-serif;
+  color: #000;
+  font-family: 'Times New Roman', Arial, Helvetica, sans-serif;
+}
+.t--labelmo {
+  font: normal normal 550 13px/1 "Roboto", sans-serif;
+  color: #000000;
+  text-align: justify;
+}
+.t--label1 {
+  font: normal normal 500 14px/3 "Roboto", sans-serif;
+  color: #000000;
+  text-align: justify;
+  font-family: 'Times New Roman', Times, serif;}
+.t--label2 {
+  font: normal normal 550 12px/3 "Roboto", sans-serif;
+  color: #000000;
+  text-align: justify;
+  font-family: 'Times New Roman', Times, serif;}
+.t--labelKV {
+  font: normal normal 550 15px / 2 "Roboto", sans-serif;
+  color: #000000;
+  text-align: center;
+  font-family: 'Times New Roman', Times, serif;
+}
+.t--div{
+  font: normal normal 550 12px/3 "Roboto", sans-serif;
+  color: #000000;
+  text-align: justify;
+  border-top: 1px solid #000000 !important;
+  border-bottom: 1px solid #000000 !important;
+  border-left: 1px solid #dddddd00 !important;
+  border-right: 1px solid #dddddd !important;
+  font-family: 'Times New Roman', Times, serif;
+}
+.t--dive{
+  font: normal normal 550 12px/3 "Roboto", sans-serif;
+  color: #000000;
+  text-align: justify;
+  border-top: 2px solid #000000 !important;
+  border-bottom: 0px solid #000000 !important;
+  border-left: 1px solid #dddddd00 !important;
+  border-right: 1px solid #dddddd !important;
+  font-family: 'Times New Roman', Times, serif;
+  width: 104%;
+}
+.direita{
+  color: #000000;
+  border-left: 1px solid #000000 !important;
+  border-bottom: 0px solid #000000 !important;
+  width: 100%;
+  text-align: center;
+  font-size: 12pt;
+}
+.direita1{
+  color: #000000;
+  border-bottom: 2px solid #000000 !important;
+  width: 100%; 
+  text-align: justify;
+  font-family: 'Times New Roman', Times, serif;}
+.dv{
+  color: #000000;
+  border-left: 1px solid #000000 !important;
+  width: 100%; 
+  text-align: center;
+}
+.logos{
+  color: #000000;
+    text-align: center;
+    font: normal normal 500 15px /1 "Times New Roman", sans-serif;
+    flex-wrap: wrap;
+    word-break: break-all;
+    display: flex;
+    margin: auto;
+    width: 64%;
+    justify-content: center;
+    font-family: 'Times New Roman', sans-serif;
+}
+.logo1s{
+  color: #000000;
+    text-align: center;
+    font-family: 'Times New Roman', Arial, Helvetica, sans-serif;
+    flex-wrap: wrap;
+    word-break: break-all;
+    display: flex;
+    margin: auto;
+    width: 100%;
+    justify-content: center;
+    font-size: 12pt;
+}
+.logos1{
+  text-align: center;
+  font-family: 'Times New Roman', Times, serif;
+}
+.dv1{
+  color: #000000;
+  border-bottom: 2px solid #000000 !important;
+  width: 100%; 
+  margin: auto;
+  text-align: center;
+  font-family: 'Times New Roman', Times, serif;}
+.t--xl {
+  font: normal normal 500 13px/1 "Roboto", sans-serif;
+  color: #000;
+  text-align: justify; 
+}
+.t--label {
+  font: normal normal 500 13px/1 "Roboto", sans-serif;
+  color: #000;
+  text-align: justify; 
+}
+.t--input {
+  font: normal normal 500 18px/1 "Roboto", sans-serif;
+  color: #000; 
+}
+.t--button { 
+  color: #000;
+}
+::-webkit-input-placeholder {
+  color: #000;
+}
+::-moz-placeholder {
+  color: #000;
+}
+:-ms-input-placeholder {
+  color: #000;
+}
+/* Form inputs */
+.the-form .form__item {
+  padding: 5px 10px;
+  transition: background-color 0.25s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+.the-form .form__label {
+  display: block;
+}
+.the-form .form__input {
+  display: block;
+  width: 100%;
+  height: 32px;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  text-indent: 0;
+  background-color: transparent;
+}
+.the-form select.form__input {
+  margin: 0 -5px;
+}
+.the-form textarea.form__input {
+  margin-top: 5px;
+  height: auto;
+  resize: vertical;
+}
+/* Form borders */
+.the-form {
+  border: 1px solid #000000;
+}
+.the-form .form__item {
+  width: 100%;
+  border-bottom: 2px solid #000000;
+}
+.the-form .grid__segment:last-of-type .form__item {
+  border-bottom: 0;
+}
+@media only screen and (min-width: 600px) {
+  .the-form .grid__segment:nth-of-type(1) .form__item,
+  .the-form .grid__segment:nth-of-type(4) .form__item {
+    border-right: 1px solid #ccc;
+  }
+}
+@media only screen and (min-width: 1280px) {
+  .the-form .grid__segment:nth-of-type(1) .form__item,
+  .the-form .grid__segment:nth-of-type(4) .form__item,
+  .the-form .grid__segment:nth-of-type(5) .form__item {
+    border-right: 1px solid #ccc;
+  }
+}
+/* Grid */
+.grid {
+  display: block;
+  font-size: 0;
+}
+.grid .grid__segment {
+  display: inline-block;
+  vertical-align: top;
+}
+.grid .grid__segment.w--33,
+.grid .grid__segment.w--50,
+.grid .grid__segment.w--100 {
+  width: 100%;
+}
+@media only screen and (min-width: 600px) {
+  .grid .grid__segment.w--33,
+  .grid .grid__segment.w--50 {
+    width: 50%;
+  }
+  .grid .grid__segment.w--33.w--100 {
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 1280px) {
+  .grid .grid__segment.w--33,
+  .grid .grid__segment.w--33.w--100 {
+    width: 33.33333333%;
+  }
+}
+ 
+/* Note: This example only works with Windows Insider Preview Builds 16237+ or the Fall Creators Update. */
+
+.ficha-delituoso {
+  font-family: 'Times New Roman', Times, serif;
+  display: grid;
+  grid-template-areas:
+    "header header header"
+    "section section section"
+    "footer footer footer";
+  grid-template-rows: 236px 1fr 150px;
+  grid-template-columns: 15% 1fr 18%;
+  grid-gap: 5px;
+  height: 100vh;
+  margin: 0px;
+  position: relative;
+  align-items: center;
+}
+
+header {
+  background: #ffffff;
+  grid-area: header;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+nav {
+  background: #ffffff;
+  grid-area: nav;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+section {
+  background: #ffffff;
+  grid-area: section;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+aside {
+  background: #ffffff;
+  grid-area: aside;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+footer { 
+  grid-area: footer;   
+  border: 1px solid #ddd;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  background-color: #eee;
+  align-items: center;
+  padding: 3px;
+}
+
+header,
+nav,
+section,
+aside,
+footer {
+  padding: 0px;
+}
+
+
+
+.ficha-delituoso{  
+  width: 100%;
+  height: auto;
+  background-color: #ffffff;
+}

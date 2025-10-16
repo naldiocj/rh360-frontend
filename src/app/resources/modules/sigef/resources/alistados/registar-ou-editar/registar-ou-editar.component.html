@@ -1,0 +1,353 @@
+<div
+  class="modal fade"
+  id="modalRegistrarOuEditarAlistados"
+  aria-labelledby="modalRegistrarOuEditarAlistados"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog"
+    role="document"
+    style="overflow-y: hidden; min-width: 70%"
+  >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5
+          style="
+            color: #041b48;
+            font-size: 20px;
+            font-style: normal;
+            line-height: normal;
+            font-weight: bold;
+            font-family: Poppins;
+          "
+        >
+          <img src="../../../../../../../assets/sigef/Parchment.png" alt="" />
+          Formulário De Registo de Formando | Alistados
+        </h5>
+
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="content">
+        <div class="main-img"></div>
+        <form [formGroup]="this.simpleForm">
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-sm-12" style="width: 100%">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="profile-tabs">
+                      <div class="row">
+                        <ul class="nav nav-tabs nav-tabs-bottom col-sm-8">
+                          <li class="nav-item">
+                            <a
+                              class="nav-link active"
+                              href="#about-cont"
+                              data-toggle="tab"
+                              ><b>FORMAÇÃO DE IDENTIFICAÇÃO</b></a
+                            >
+                          </li>
+                          <li class="nav-item">
+                            <a
+                              class="nav-link"
+                              href="#bottom-tab2"
+                              data-toggle="tab"
+                              ><b>FORMAÇÃO PROFISSIONAIS</b></a
+                            >
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div class="tab-content">
+                        <div class="tab-pane show active" id="about-cont">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="table-responsive">
+                                <table
+                                  class="table table-striped custom-table mb-0"
+                                >
+                                  <div class="col-md-12">
+                                    <img
+                                      style="border-radius: 5px; width: 40px"
+                                      src="../../../../../../../assets//sigef//sidebar/user-documento.png"
+                                      alt=""
+                                    />
+                                    <input type="file" /><br />
+                                  </div>
+                                  <hr />
+
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      <label>Número de Guia*</label>
+                                      <input
+                                        formControlName="numero_guia"
+                                        class="form-control"
+                                        type="number"
+                                      />
+                                    </div>
+
+                                    <div class="col-md-6">
+                                      <label>Nome Completo*</label>
+                                      <input
+                                        [disabled]="true"
+                                        formControlName="nome_completo"
+                                        class="form-control"
+                                        type="text"
+                                      />
+                                    </div>
+                                  </div>
+
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      <label>Nome do Pai*</label>
+                                      <input
+                                        formControlName="nome_pai"
+                                        class="form-control"
+                                        type="text"
+                                      />
+                                    </div>
+
+                                    <div class="col-md-6">
+                                      <label>Nome da Mãe*</label>
+                                      <input
+                                        formControlName="nome_mae"
+                                        class="form-control"
+                                        type="text"
+                                      />
+                                    </div>
+                                  </div>
+
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      <label>Número do B.I*</label>
+                                      <input
+                                        formControlName="numero_bi"
+                                        class="form-control"
+                                        type="text"
+                                      />
+                                    </div>
+
+                                    <div class="col-md-6">
+                                      <label>Emitido em*</label>
+                                      <input
+                                        formControlName="emitido_em"
+                                        class="form-control"
+                                        type="date"
+                                      />
+                                    </div>
+                                  </div>
+
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      <label
+                                        >Arquivo de Identificação de*</label
+                                      >
+                                      <input
+                                        formControlName="local_da_emissao"
+                                        class="form-control"
+                                        type="text"
+                                      />
+                                    </div>
+                                    <div class="col-md-6">
+                                      <label
+                                        >Genero*</label
+                                      >
+                                      <ng-select2
+                                        formControlName="genero"
+                                        class="form-control"
+                                        type="text"
+                                      >
+                                      <option>Masculino</option>
+                                      <option>Femenino</option>
+                                      </ng-select2>
+                                    </div>
+                                  </div>
+
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      <label>Data de Nascimento*</label>
+                                      <input
+                                        formControlName="data_nascimento"
+                                        class="form-control"
+                                        type="date"
+                                      />
+                                    </div>
+
+                                    <div class="col-md-6">
+                                      <label>Estado Civíl*</label>
+                                      <ng-select2
+                                      formControlName="estado_civil_id"
+                                      [data]="estadocivil"
+                                      [options]="options"
+                                      >
+
+                                      </ng-select2>
+                                    </div>
+                                  </div>
+
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      <label>Nacionalidade*</label>
+                                      <input
+                                        formControlName="nacionalidade"
+                                        class="form-control"
+                                        type="text"
+                                      />
+                                    </div>
+
+                                    <div class="col-md-6">
+                                      <label>Província*</label>
+                                      <ng-select2
+                                        [options]="options"
+                                        formControlName="provincia_id"
+                                        [data]="provincias"
+                                      >
+                                      </ng-select2>
+                                    </div>
+                                  </div>
+
+                                  <!-- <div class="row">
+                                    <div class="col-md-6">
+                                      <label>Orgão/Direcção*</label>
+                                      <ng-select2
+                                        [options]="options"
+                                        [data]="this.orgaoOuComandoProvincial"
+                                        (valueChanged)="
+                                          selecionarOrgaoOuComandoProvincial(
+                                            $event
+                                          )
+                                        "
+                                      >
+                                      </ng-select2>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                      <label>Orgão Central de Origem*</label>
+                                      <ng-select2
+                                        [options]="options"
+                                        formControlName="patente"
+                                        [data]="this.direcaoOuOrgao"
+                                        formControlName="pessoajuridica_id"
+                                      >
+                                      </ng-select2>
+                                    </div>
+                                  </div> -->
+
+                                  
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      <label
+                                        >Morada(Rua, Nº. Comuna,
+                                        Município)*</label
+                                      >
+                                      <input 
+                                      formControlName="morada"
+                                      class="form-control" type="text" />
+                                    </div>
+
+                                    <div class="col-md-6">
+                                      <label>Telefone</label>
+                                      <input
+                                      formControlName="contacto"
+                                       class="form-control" type="text" />
+                                    </div>
+                                  </div>
+                                </table>
+                                <div class="button-submit"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="tab-pane" id="bottom-tab2">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="table-responsive">
+                                <table
+                                  class="table table-striped custom-table mb-0"
+                                >
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      <label>Habilitações Literarias*</label>
+                                      <ng-select2
+                                      formControlName="habilitacoes_id"
+                                      [options]="options"
+                                      [data]="habilitacoesLiterarias"
+                                      >
+                                      </ng-select2>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                      <label
+                                        >Anexar Documento Antecedente</label
+                                      >
+                                      <input class="form-control" type="file" />
+                                    </div>
+                                  </div>
+
+                                  <div class="row">
+                                    <!-- <div class="col-md-6">
+                                      <label>Habilitações Profissionais*</label>
+                                      <ng-select2
+                                      formControlName="habilitacoes_profissionais_id"
+                                      [data]="habilitacoesProfissionais"
+                                      [options]="options"
+                                      >
+
+                                      </ng-select2>
+                                    </div> -->
+
+                                    <div class="col-md-6">
+                                      <label
+                                        >Anexar Documento Antecedente</label
+                                      >
+                                      <input class="form-control" type="file" />
+                                    </div>
+
+
+
+                                    <div id="btn_div" class="col-md-6">
+                                      <div></div>
+                                      <div>
+                                        <button
+                                          style="background-color: #e31212"
+                                        >
+                                          Cancelar
+                                        </button>
+                                        &nbsp;
+                                        <button
+                                          (click)="onSubmit()"
+                                          style="background-color: #041b4e"
+                                        >
+                                          Registar
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <ng-template #ocultarBotao> </ng-template>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

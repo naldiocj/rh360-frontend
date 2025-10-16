@@ -1,0 +1,72 @@
+.content{
+    padding-left: 180px;
+}
+
+.down{
+    border-radius: 8px;
+    background: #FCFCFC;
+    box-shadow: 30px 20px 40px 0px rgba(32, 32, 32, 0.25);
+}
+
+.btn.btn-outline-success.my-2.my-sm-0{
+    width: 150px;
+    height: 42px;
+    flex-shrink: 0;
+}
+
+/*Botão Registrar*/
+.btn.btn-primary.btnRegistar{
+    width: 104px;
+    height: 38px;
+    flex-shrink: 0;
+}
+
+/* Botão atribuir*/
+
+.btn.btn-primary.btnExportar{
+    width: 104px;
+    height: 38px;
+    flex-shrink: 0;
+    padding: 10px;
+}
+
+.btn.btn-primary.btnExportar img{
+    width: 20px;
+    height: 20px;
+}
+
+/*botão recarregar*/
+
+.fa.fa-refresh.fa-spin.fa-3x.fa-fw{
+    width: 20px;
+    height: 20px;
+}
+
+
+
+th{
+    background: #041B4E;
+    color: white;
+
+}
+
+
+
+.estado_activo{
+    height: 31px;
+    flex-shrink: 0;
+    border-radius: 4px;
+    background: #90EE90;
+}
+
+.estado_activo p{
+    text-align: center;
+    padding-top: 5px;
+}
+
+
+.estado_pendente p{
+    text-align: center;
+    padding-top: 5px;
+}
+

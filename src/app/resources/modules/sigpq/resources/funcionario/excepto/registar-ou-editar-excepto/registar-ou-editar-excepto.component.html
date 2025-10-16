@@ -1,0 +1,126 @@
+<div
+  class="modal fade"
+  id="modalRegistarExcepto"
+  aria-labelledby="modalRegistarExcepto"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog"
+    role="document"
+    style="overflow-y: hidden; min-width: 60%; margin-top: 10%"
+  >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 style="color: var(--use-color)" class="text-uppercase">
+          <i class="fa fa-passport "></i>
+          Agente em excepção para progressão de carreira
+        </h4>
+        <button
+          id="btn-close-modal"
+          style="border: none; outline: none"
+          type="button"
+          class="close text-red"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="content">
+        <form [formGroup]="this.simpleForm">
+          <div class="modal-body d-flex justify-content-center">
+            <p class="text-black fs-5 text-uppercase">
+              O agente
+              {{
+                this.capitalize(
+                  this.utilsHelper.criarApelido(
+                    this.funcionarioEmTempo?.nome_completo,
+                    this.funcionarioEmTempo?.apelido,
+                    false
+                  )
+                )
+              }}
+              {{
+                this.capitalize(
+                  this.utilsHelper.criarApelido(
+                    this.funcionarioEmTempo?.nome_completo,
+                    this.funcionarioEmTempo?.apelido,
+                    true
+                  )
+                )
+              }}, de nip
+              <span class="bold">
+                <ng-container
+                  *ngIf="
+                    this.funcionarioEmTempo?.nip &&
+                      this.utilsHelper.temQuadro(
+                        this.funcionarioEmTempo?.quadro
+                      );
+                    else semQuadro
+                  "
+                >
+                  {{ this.funcionarioEmTempo?.quadro }}
+                  {{ this.funcionarioEmTempo.nip }}
+                </ng-container>
+                <ng-template #semQuadro> s/n </ng-template>
+              </span>
+              <span class="bold">
+                tem de diuturnidade de
+                {{
+                  this.funcionarioEmTempo?.duracao > 1
+                    ? this.funcionarioEmTempo?.duracao + " anos "
+                    : this.funcionarioEmTempo?.duracao + " ano "
+                }}, com posto de {{ this.funcionarioEmTempo?.patente_nome }},
+                será transitado à excepção dos agentes para progressão de
+                carreira
+              </span>
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              class="btn-piips btn-piips-red py-2 m-0"
+              type="reset"
+              (click)="this.fecharTodos()"
+            >
+              <span class="fa fa-refresh"></span> Cancelar
+            </button>
+            <ng-container
+              *ngIf="this.simpleForm.valid && this.pessoaId; else ocultarBotao"
+            >
+              <aside *ngIf="this.isLoading; else regista">
+                <button
+                  disabled="true"
+                  class="btn-piips btn-piips-primary py-2 m-0"
+                >
+                  <div class="spinner-border spinner-border-sm m-1"></div>
+                  <a style="text-decoration: none; color: white">
+                    Carregando ...</a
+                  >
+                </button>
+              </aside>
+              <ng-template #regista>
+                <button
+                  (click)="onSubmit()"
+                  class="btn-piips btn-piips-primary py-2 m-0"
+                >
+                  <i class="fa fa-plus-circle"></i>
+                  Continuar
+                </button>
+              </ng-template>
+            </ng-container>
+            <ng-template #ocultarBotao>
+              <button
+                disabled="true"
+                class="btn-piips btn-piips-primary py-2 m-0"
+                (click)="this.fecharTodos()"
+              >
+                <i class="fa fa-plus-circle"></i>
+                Cancelar
+              </button>
+            </ng-template>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

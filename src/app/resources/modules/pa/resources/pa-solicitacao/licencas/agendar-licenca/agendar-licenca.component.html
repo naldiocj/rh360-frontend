@@ -1,0 +1,453 @@
+ <div class="modal-container" id="modalAdicionarLicenca" tabindex="-1" role="dialog" aria-labelledby="modalAdicionarLicencaLabel" aria-hidden="false">
+  <div class="modal-dialog modal-fullscreen" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalAdicionarLicencaLabel">{{ informacao === 'planificar' ? 'Planificação' :
+   informacao === 'analisar' ? 'Análise' :
+   informacao === 'visualizar' ? 'Visualização' :
+   'Rejeição' }}
+   de {{local=='licenca'?'Licenças':'Férias'}} do Agente Abaixo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="this.zerarDados()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body d-flex flex-column align-items-center justify-content-center">
+        <ng-container *ngIf="agenteSelecionado;else templateNameSemAgente">
+          <div class="row w-100">
+            <table class="table table-border table-striped custom-table datatable mb-0">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Posto</th>
+                  <th>Nome Completo</th>
+                  <th>NIP</th>
+                  <!-- <th>NAS</th> -->
+                  <th>Data de Adesão</th>
+                  <th>Tempo de Serviço</th>
+                  <th>Dias Adicionais</th>
+                  <th class="text-center">Colocação actual</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>{{ agenteSelecionado.patente_nome || 'S/N' }}</td>
+                  <td>
+                    <strong>
+                      <a style="font-size: 15px;">
+                        {{ agenteSelecionado.nome_completo | uppercase }} {{ agenteSelecionado.apelido | uppercase }}
+                      </a>
+                    </strong>
+                  </td>
+                  <td class="text-center">{{ agenteSelecionado.nip || 'S/N' }}</td>
+                  <!-- <td class="text-center">{{ agenteSelecionado.numero_agente || 'S/N' }}</td> -->
+                  <td>{{ agenteSelecionado.data_adesao }}</td>
+                  <td>{{ calcularTempoDeServico(agenteSelecionado.data_adesao) }}</td>
+                  <td>{{ diasAdicionais }} dias</td>
+                  <td class="text-center">{{ agenteSelecionado.sigpq_tipo_orgao?.sigla || '0' }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ng-container>
+
+        <ng-template #templateNameSemAgente>
+         <p>Por favor selecione um Agente para {{ informacao === 'planificar' ? 'Planificação' :
+   informacao === 'analisar' ? 'Análise' :
+   informacao === 'visualizar' ? 'Visualização' :
+   'Rejeição' }}
+ de {{local=='licenca'?'Licenças':'Férias'}}</p>
+        </ng-template>
+
+        <form class="w-100">
+          <div class="form-group d-flex" style="margin-top: 20px;">
+            <div class="mr-2" style="flex: 2;">
+              <label><b>Tipo de {{local=='licenca'?'Licenças':'Férias'}}</b></label>
+              <ng-select2
+                [data]="licencasSelect2"
+                [options]="options"
+                [(ngModel)]="licencaSelecionada"
+                (valueChanged)="onLicencaSelecionada($event)">
+              </ng-select2>
+            </div>
+            <div class="mr-2" style="flex: 1;">
+              <label>Ano</label>
+              <ng-select2 [data]="anosDisponiveis"
+                           [options]="options"
+                           [ngModel]="anoAtual"
+                           (valueChanged)="onMesOuAnoSelecionado($event,'year')"
+                           name="ano">
+              </ng-select2>
+            </div>
+            <div class="mr-2" style="flex: 1;">
+              <label>Mês</label>
+              <ng-select2 [data]="mesesDisponiveis"
+                           [options]="options"
+                           [ngModel]="mesAtual"
+                           (valueChanged)="onMesOuAnoSelecionado($event,'month')"
+                           name="mes">
+              </ng-select2>
+            </div>
+           <ng-container *ngIf="!this.verificarSeEaLicenca('DISPENSA') && agenteSelecionado">
+            <div style="flex: 1; display: flex; flex-direction: column;">
+              <label>VISUALIZAR</label>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalGerarRelarorio" (click)="visualizarDocumento('DISCIPLINAR')">PASSAPORTE</button>
+            </div>
+           </ng-container>
+
+          </div>
+        </form>
+
+
+
+        <ng-container *ngIf="licencaSelecionada;else templateNameSemLicenca">
+          <div class="licenca-selecionada">
+            Trabalhando em {{local=='licenca'?'Licença':''}} {{this.buscarNomeDaLicenca()}}
+          </div>
+          <div class="container mt-1">
+            <div class="card p-3 shadow-sm rounded">
+              <p class="text-primary mb-2 custom-link bi bi-chat-dots" style="font-size: 18px;"  data-bs-toggle="modal" data-bs-target="#modalMaisDetalhes"></p>
+              <p class="text-secondary mb-2 custom-link bi bi-chat-text" style="color:#32CD32;font-size: 18px;" data-bs-toggle="modal" data-bs-target="#modalResposta"></p>
+            </div>
+          </div>
+
+          <div class="d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+            <div class="row w-100">
+              <div class="col-sm-8 col-md-6 col-lg-3 d-flex justify-content-start">
+                <div class="row">
+                  <div class="d-flex flex-column align-items-start justify-content-start">
+                    <div class="info-panel mt-4">
+                      <hr>
+                      <p><b>Total de dias selecionados:</b> {{ this.pegarDiferencaEventos() }}</p>
+                      <p *ngIf="this.verificarSeEaLicenca('Disciplinar')"><b>Dias restantes:</b> {{ (dias_maximosLicenca+diasAdicionais) - (this.pegarDiferencaEventos()+this.dispensas_gastas) }}</p>
+                      <p *ngIf="!this.verificarSeEaLicenca('Disciplinar')"><b>Dias restantes:</b> {{ dias_maximosLicenca - this.pegarDiferencaEventos() }}</p>
+                      <p *ngIf="this.verificarSeEaLicenca('Disciplinar')"><b>Dias adicionais por tempo de serviço:</b> {{ diasAdicionais }}</p>
+                      <p><b>Total de dias de {{local=='licenca'?'Licença':'Férias'}} disponíveis para {{this.anoAtual}}:</b> {{ dias_maximosLicenca-this.dispensas_gastas }}</p>
+                      <p *ngIf="this.verificarSeEaLicenca('Disciplinar')"><b>Total de dias de licença acumulados:</b> {{ (dias_maximosLicenca + diasAdicionais)-this.dispensas_gastas }}</p>
+                      <p *ngIf="dias_maximosLicenca == infinity" style="color: green;">
+                        Esta licença não tem período definido e depende da documentação.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-6 col-lg-9 d-flex justify-content-center align-items-center">
+                <full-calendar #fullCalendar [options]="calendarOptions"></full-calendar>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-template #templateNameSemLicenca>
+          <p>Porfavor selecione  {{local=='licenca'?'O Tipo de Licença':' a Féria'}}</p>
+        </ng-template>
+      </div>
+      <div class="modal-footer">
+        <ng-container *ngIf="informacao=='planificar';else OutroNivel">
+          <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="this.zerarDados()">Fechar Formulário</button> -->
+        <ng-container *ngIf="!possuiErroNumaAtualizacaoDaBd">
+          <button type="button" class="btn btn-primary" (click)="this.planejarLicenca()">Solicitar  {{local=='licenca'?'Licença':'Féria'}}</button>
+        </ng-container>
+        </ng-container>
+
+        <ng-template #OutroNivel>
+          <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="this.zerarDados()">Fechar Formulário</button> -->
+        </ng-template>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="eventModal" class="modal secand-modal" tabindex="-1" role="dialog" style="display:none;" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Adicionar Descrição do Evento</h5>
+        <button type="button" class="close" (click)="closeModal('eventModal')" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+         <ng-container *ngIf="eventDescription">
+          <label for="eventDescription">Descrição:</label>
+         <p>{{eventDescription}}</p>
+
+         </ng-container>
+      <div class="options mt-3">
+        <h5>Opções:</h5>
+        <div class="d-flex flex-column">
+          <button (click)="saveEvent()" class="btn btn-primary mb-2" *ngIf="!inicioAtivado && !selecionouDiaQueJaExisteNoCalendario">Selecionar este dia</button>
+          <button (click)="setInicio()" class="btn btn-primary mb-2" *ngIf="!inicioAtivado && !selecionouDiaQueJaExisteNoCalendario">Início do Intervalo</button>
+          <button (click)="setFim()" class="btn btn-secondary mb-2" *ngIf="inicioAtivado">Fim do Intervalo</button>
+          <button (click)="deleteEvent()" class="btn btn-danger mb-2" *ngIf="eventDescription">Cancelar Este Dia</button>
+          <button (click)="editarDescricao()" class="btn btn-warning">Editar Titulo</button>
+        </div>
+      </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal('eventModal')">FECHAR</button>
+        <button type="button" class="btn btn-primary" (click)="updateDescription()" *ngIf="editarDescricaoAtivado">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div id="eventModalPendente" class="modal secand-modal" tabindex="-1" role="dialog" style="display:none;" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Atualizar O estado do Evento</h5>
+        <button type="button" class="close" (click)="closeModal('eventModalPendente')" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Voçê selecionou o dia {{this.selectedDate | date}}
+      <div class="options mt-3">
+        <ng-container *ngIf="eventDescription!='Dia selecionado'">
+          <label for="eventDescription">Descrição:</label>
+         <p>{{eventDescription}}</p>
+         </ng-container>
+        <h5>Opções:</h5>
+        <div class="d-flex flex-column">
+          <button (click)="aproveEvent()" class="btn btn-primary mb-2">Aprovar este dia</button>
+          <button (click)="regetEvent()" class="btn btn-danger mb-2">Regeitar este Dia</button>
+        </div>
+      </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal('eventModalPendente')">FECHAR FORMULARIO</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="eventModalPendenteMany" class="modal secand-modal" tabindex="-1" role="dialog" style="display:none;" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Atualizar O estado dos Eventos</h5>
+        <button type="button" class="close" (click)="closeModal('eventModalPendenteMany')" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          Você selecionou os dias de {{selectedStartDate | date}} até {{selectedEndDate-1 | date}}.
+      <div class="options mt-3">
+        <h5>Opções:</h5>
+        <div class="d-flex flex-column">
+          <button (click)="aproveEventMany()" class="btn btn-primary mb-2" *ngIf="pretendoAbrirEsteModalPara=='aprovar'">Aprovar estes dias</button>
+          <button (click)="regetEventMany()" class="btn btn-danger mb-2">Regeitar estes Dias</button>
+        </div>
+      </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal('eventModalPendenteMany')">FECHAR</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal para Confirmar Inserção de Dias Sequenciais -->
+
+<div id="confirmModal" class="modal secand-modal" tabindex="-1" role="dialog" style="display:none;" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmModalLabel">Confirmação de Seleção</h5>
+        <button type="button" class="close" (click)="this.resetarDiasSelecionados();" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Você selecionou os dias de {{selectedStartDate | date}} até {{selectedEndDate-1 | date}}.
+        Deseja {{selecionouDiasQueJaExisteNoCalendario?'Remover':'Inserir'}} estes eventos no calendário?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="this.closeModal('confirmModal')">FECHAR</button>
+        <button type="button" class="btn btn-primary" (click)="confirmSelection()" *ngIf="!selecionouDiasQueJaExisteNoCalendario">Inserir Seleção</button>
+        <button type="button" class="btn btn-primary" (click)="deleteSelection()" *ngIf="selecionouDiasQueJaExisteNoCalendario">Remover Seleção</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal para Confirmar Inserção de Dias Sequenciais -->
+
+<div id="esgotadoDiasModal" class="modal secand-modal" tabindex="-1" role="dialog" style="display:none;" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmModalLabel">Esgotado os dias Disponíveis</h5>
+        <button type="button" class="close" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p *ngIf="this.verificarSeEaLicenca('Disciplinar')"><b>Dias restantes:</b> {{ (dias_maximosLicenca+diasAdicionais) - this.pegarDiferencaEventos() }}</p>
+        <p *ngIf="!this.verificarSeEaLicenca('Disciplinar')"><b>Dias restantes:</b> {{ dias_maximosLicenca - this.pegarDiferencaEventos() }}</p>
+        <p>{{mensagem_caso_atinja_limite}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="this.closeModal('esgotadoDiasModal')">Entendi</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Notificar quando algo for realizado na base de dados -->
+<div id="confirmModalUpdateDB" class="modal secand-modal" tabindex="-1" role="dialog" style="display:none;" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmModalLabel">Necessidade de Fechar e Abrir novamente o formulário</h5>
+        <button type="button" class="close" (click)="this.closeModal('confirmModalUpdateDB')" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Foram realizadas alterações em algumas datas, e para obter a atualização ou realizar algo, porfavor feche e abra novamente o Planificar Férias.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="this.closeModal('confirmModalUpdateDB')">Entendi</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Notificar quando for para Eliminar algo que está regeitado -->
+<div id="confirmModalRegeted" class="modal secand-modal" tabindex="-1" role="dialog" style="display:none;" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmModalLabel">Estás prestes a Eliminar a data {{selectedStartDate | date}}</h5>
+        <button type="button" class="close" (click)="this.closeModal('confirmModalRegeted')" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Essa data será eliminada dos registros relativamente a esta  {{local=='licenca'?'Licença':'Féria'}} selecionada. Tens a certeza?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="this.closeModal('confirmModalRegeted')">NAO</button>
+        <button type="button" class="btn btn-secondary" (click)="this.confirmToDeleteDataFromDB()">Sim</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="eventModalRegeitarUmDia" class="modal secand-modal" tabindex="-1" role="dialog" style="display:none;" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Atualizar O estado do Evento</h5>
+        <button type="button" class="close" (click)="closeModal('eventModalRegeitarUmDia')" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Voçê selecionou o dia {{this.selectedDate | date}}
+      <div class="options mt-3">
+        <h5>Opções:</h5>
+        <div class="d-flex flex-column">
+          <button (click)="regetEvent()" class="btn btn-danger mb-2">Regeitar este Dia</button>
+        </div>
+      </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal('eventModalRegeitarUmDia')">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modalGerarRelarorio" aria-labelledby="modalGerarRelarorio" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="overflow-y: hidden;min-width: 70%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>
+          <i class="fa fa-user"></i>
+          Passaporte
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="content">
+        <div class="modal-body">
+          <aside *ngIf="this.fileUrl; else showLoadingRelatorio">
+            <iframe [src]="fileUrl" width="100%" frameborder="0" style="min-height: 700px;"></iframe>
+            <!-- <img [src]="this.fileUrl" width="100" height="100" alt="Profile" class="rounded-circle my-2"> -->
+          </aside>
+          <ng-template #showLoadingRelatorio>
+            <div class="container">
+              <div class="row justify-content-center">
+                Carregando passaporte ...
+                <div class="col-sm-12 text-center">
+                  <div class="spinner-border text-primary" style="width: 2rem; height: 2rem;" role="status">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="fecharModalRelatorio()">
+            <span class="fa fa-close m-r-2"> </span> Fechar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal - Mais Detalhes -->
+<div class="modal fade" id="modalMaisDetalhes" tabindex="-1" aria-labelledby="modalMaisDetalhesLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalMaisDetalhesLabel">Mais Informações</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <textarea class="textarea-modal" placeholder="Digite mais detalhes aqui..." [(ngModel)]="mais_informacoes" [disabled]="informacao != 'planificar'"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary" *ngIf="mais_informacoes && informacao=='planificar'" (click)="enviarMaisInformacoes('motivo')" data-bs-dismiss="modal">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal - Resposta -->
+<div class="modal fade" id="modalResposta" tabindex="-1" aria-labelledby="modalRespostaLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalRespostaLabel">Resposta</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <textarea class="textarea-modal"
+        placeholder="Digite sua resposta aqui..."
+        [(ngModel)]="resposta_supervisor"
+        [disabled]="informacao == 'planificar'">
+</textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary" *ngIf="resposta_supervisor && informacao!='planificar'" (click)="enviarMaisInformacoes('resposta')" data-bs-dismiss="modal">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>

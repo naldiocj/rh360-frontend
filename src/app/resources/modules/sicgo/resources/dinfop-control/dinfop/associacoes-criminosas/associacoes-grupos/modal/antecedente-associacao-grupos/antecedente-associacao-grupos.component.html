@@ -1,0 +1,148 @@
+
+
+<!-- Modal -->
+<div class="modal fade" id="associacaoGrupos" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="associacaoGruposLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title fs-5" id="associacaoGruposLabel">Antecedente da Associação de Grupos</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="p-3">
+         <div class="modal-body">
+         <div class="form-group">
+            <label for="titulo">Titulo {{associacaoId}}</label>
+            <input id="titulo" type="text" class="form-control" formControlName="titulo">
+            <div *ngIf="registrationForm.get('titulo')?.touched && registrationForm.get('titulo')?.invalid" class="text-danger">
+              <div *ngIf="registrationForm.get('titulo')?.hasError('required')">Title is required</div>
+              <div *ngIf="registrationForm.get('titulo')?.hasError('minlength')">Title must be at least 3 characters long</div>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="data">Data</label>
+                <input type="date" id="data" formControlName="data" class="form-control" />
+                <div *ngIf="registrationForm.get('data')?.invalid && registrationForm.get('data')?.touched" class="text-danger">
+                  <div *ngIf="registrationForm.get('data')?.hasError('required')">Data é obrigatória.</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label><b>Provincia</b><span class="text-danger">*</span></label>
+                <ng-select2
+                class="custom-border ng-select-container"
+                [options]="this.options"
+                [data]="this.provincia"
+                formControlName="sicgo_provincia_id" (valueChanged)="this.handlerProvincias($event)"></ng-select2>
+                <div *ngIf="registrationForm.get('sicgo_provincia_id')?.invalid && registrationForm.get('sicgo_provincia_id')?.touched">
+                <small class="error">Nome é obrigatório</small>
+              </div>
+              </div>
+            </div>
+
+            </div>
+
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label><b>Municipio</b></label>
+                  <ng-select2 [options]="options" formControlName="sicgo_municipio_id"
+                        [data]="this.municipio" (valueChanged)="selecionarMunicipio($event)">
+                      </ng-select2>
+                      <div *ngIf="registrationForm.get('sicgo_municipio_id')?.invalid && registrationForm.get('sicgo_municipio_id')?.touched">
+                      <small class="error">Nome é obrigatório</small>
+                    </div>
+                </div>
+              </div>
+              <div  class="col-lg-6">
+                <div class="form-group">
+                  <label>
+                      <b>
+                          Família de crime
+                          <span class="text-red">*</span>
+                      </b>
+                  </label>
+                  <ng-select2
+                      class="custom-border ng-select-container"
+                      [options]="this.options"
+                      [data]="this.tipicidadeOcorrencias"
+                      formControlName="familia_crime_id"
+                      (valueChanged)="selecionarTipoOcorrencia($event)"
+                  >
+                  </ng-select2>
+                  <div *ngIf="registrationForm.get('familia_crime_id')?.invalid && registrationForm.get('familia_crime_id')?.touched" class="text-danger">
+                    <div *ngIf="registrationForm.get('familia_crime_id')?.hasError('required')">Família do crime é obrigatória.</div>
+                  </div>
+              </div>
+              </div>
+
+
+
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>
+                      <b>
+                          Tipo de Crime
+                          <span class="text-red">*</span>
+                      </b>
+                  </label>
+                  <ng-select2
+                      [options]="this.options"
+                      [data]="this.tipoOcorrencias"
+                      formControlName="tipo_crime_id"
+                      (valueChanged)="selecionarCategoriaOcorrencia($event)"
+                  >
+                  </ng-select2>
+
+                  <div *ngIf="registrationForm.get('tipo_crime_id')?.invalid && registrationForm.get('tipo_crime_id')?.touched" class="text-danger">
+                    <div *ngIf="registrationForm.get('tipo_crime_id')?.hasError('required')">Tipo de Crime é obrigatória.</div>
+                  </div>
+              </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="form-group col-md-12">
+                  <label>
+                      <b>
+                          Tipicidade
+                          <span class="text-red">*</span>
+                      </b>
+                  </label>
+                  <ng-select2
+                      [options]="this.options"
+                      [data]="this.tipoCategorias"
+                      formControlName="tipicidade_crime_id"
+                  >
+                  </ng-select2>
+                  <div *ngIf="registrationForm.get('tipicidade_crime_id')?.invalid && registrationForm.get('tipicidade_crime_id')?.touched" class="text-danger">
+                    <div *ngIf="registrationForm.get('tipicidade_crime_id')?.hasError('required')">Tipicidade é obrigatória.</div>
+                  </div>
+              </div>
+              </div>
+            </div>
+
+          <div class="form-group">
+            <label for="observacao">Observação</label>
+            <textarea id="observacao" class="form-control" formControlName="observacao"></textarea>
+            <div *ngIf="registrationForm.get('observacao')?.touched && registrationForm.get('observacao')?.invalid" class="text-danger">
+              <div *ngIf="registrationForm.get('observacao')?.hasError('required')">Observação is required</div>
+              <div *ngIf="registrationForm.get('observacao')?.hasError('maxlength')">Observação must be no more than 255 characters long</div>
+            </div>
+          </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Understood</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>

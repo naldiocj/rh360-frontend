@@ -1,0 +1,337 @@
+<div class="col-sm-7" style="position:relative; right: 0px;">
+  <h4 style="font-size: 14px;">Sistema Integrado de Gestão de Recursos Humanos</h4>
+  <h4 style="color: var(--use-color);" class="page-title"><b>Gerar Relatórios</b></h4>
+</div>
+
+<div class="col-lg-12 col-md-12 col-sm-12 mb-4">
+  <div>
+
+   <div class="row">
+  <div class="col-sm-12 alert alert-info mb-3">
+    <h6 class="font-weight-bold text-danger mb-2">Instruções importantes:</h6>
+    <ul class="mb-1 pl-3">
+      <li>
+        <strong>Seleção de colunas:</strong> Escolha e ordene as colunas que deseja no relatório<br>
+        <small class="text-muted">(Mínimo 2 colunas necessárias)</small>
+      </li>
+      <li>
+        <strong>Quantidade de Efetivos:</strong>
+        <ul class="pl-3 mt-1">
+          <li><span class="badge badge-dark">-1</span> = Todos os registos.</li>
+          <li><span class="badge badge-dark">Sem número</span> = Quantidade padrão 10.</li>
+          <li><span class="badge badge-dark">Número positivo</span> = Quantidade exata.</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+
+    <aside class="row">
+
+          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+                <label for=""><b>Quantidade De Efectivos</b></label>
+                <div class="d-flex">
+                  <input
+                    type="number"
+                    [ngModel]="this.filtro.perPage"
+                    class="form-control"
+                    (change)="filtrarPagina('perPage', $event)"
+                  />
+                </div>
+                <small class="text-muted">(-1 todos registos)</small>
+              </div>
+
+              <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+                <label for=""><b>Regime de Carreira</b></label>
+                <ng-select2
+                  [data]="this.regimes"
+                  [options]="this.options"
+                  [ngModel]="this.filtro.regimeId"
+                  name="regimeId"
+                  (valueChanged)="filtrarPagina('regimeId', $event)"
+                >
+                </ng-select2>
+              </div>
+
+
+
+              <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+                <label for=""><b>Tipo de Vínculo</b></label>
+                <ng-select2
+                  [data]="this.tipoVinculos"
+                  [options]="this.options"
+                  [ngModel]="this.filtro.tipoVinculoId"
+                  name="tipoVinculoId"
+                  (valueChanged)="filtrarPagina('tipoVinculoId', $event)"
+                >
+                </ng-select2>
+              </div>
+              <div
+                class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4"
+
+              > <!-- *ngIf="this.mostrarCarreira" -->
+                <label for=""><b>{{ filtro.regimeId === '2' ? 'Carreira' : 'Classe' }}</b></label
+                ><br />
+                <ng-select2
+                  [data]="this.patenteClasses"
+                  [ngModel]="this.filtro.patenteClasse"
+                  name="patenteClasse"
+                  (valueChanged)="filtrarPagina('patenteClasse', $event)"
+                  [options]="this.options"
+                >
+                </ng-select2>
+              </div>
+
+              <div
+                class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4"
+
+              >
+                <label for=""><b>{{ filtro.regimeId === '2' ? 'Categoria' : 'Posto' }}</b></label
+                ><br />
+                <ng-select2
+                  [data]="this.patentes"
+                  [options]="this.options"
+                  [ngModel]="this.filtro.patenteId"
+                  name="patenteId"
+                  (valueChanged)="filtrarPagina('patenteId', $event)"
+                >
+                </ng-select2>
+              </div>
+
+              <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+                <label for=""><b>Sexo</b></label>
+                <ng-select2
+                  [options]="options"
+                  [ngModel]="this.filtro.genero"
+                  name="genero"
+                  (valueChanged)="filtrarPagina('genero', $event)"
+                  [data]="this.generos"
+                >
+                </ng-select2>
+              </div>
+
+              <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+                <label for=""><b>Situação Laboral <span class="text-danger"></span></b></label>
+                <ng-select2 [options]="options" (valueChanged)="this.filtrarPagina('situacaoId',$event)"
+                  [data]="this.situacaoEstados" [ngModel]="this.filtro.situacaoId">
+                </ng-select2>
+              </div>
+              <div class="col-xl-3 col-lg-4 col-md-6  col-sm-12 mb-4">
+                <label for=""><b>{{this.tituloSituacao}} <span class="text-danger">&nbsp;</span></b></label>
+                <ng-select2 [options]="options" (valueChanged)="this.filtrarPagina('estadoId',$event)"
+                  [data]="this.estado">
+                </ng-select2>
+              </div>
+
+              <div
+                class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4"
+                *ngIf="this.getAuth?.user?.aceder_todos_agentes"
+              >
+                <label for=""><b>Tipo de Órgão</b></label>
+                <ng-select2
+                  [options]="options"
+                  [data]="this.tipoEstruturaOrganicas"
+                  (valueChanged)="selecionarOrgaoOuComandoProvincial($event)"
+                >
+                </ng-select2>
+              </div>
+
+              <div
+                class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4"
+                *ngIf="this.getAuth?.user?.aceder_todos_agentes"
+              >
+                <label for=""><b>Direcção/Comando </b></label>
+                <ng-select2
+                  [options]="options"
+                  (valueChanged)="filtrarPagina('orgaoId', $event)"
+                  [data]="this.orgaos"
+                  [ngModel]="this.filtro.orgaoId"
+                  name="orgaoId"
+                >
+                </ng-select2>
+              </div>
+              <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+                <label for=""><b>Faixa Etária (De-Até)</b></label>
+                <div class="d-flex">
+                  <input
+                    [min]="this.idadeMenos"
+                    type="number"
+                    [ngModel]="this.filtro.idadeMenos"
+                    class="form-control"
+                    (change)="filtrarPagina('idadeMenos', $event)"
+                  />
+
+                  <input
+                    [min]="
+                      this.filtro.idadeMenos != 'null'
+                        ? this.filtro.idadeMenos
+                        : this.idadeMenos
+                    "
+                    type="number"
+                    [ngModel]="this.filtro.idadeMais"
+                    class="form-control"
+                    (change)="filtrarPagina('idadeMais', $event)"
+                  />
+                </div>
+              </div>
+              <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+                <label for=""><b>Tempo de Serviço (De-Até)</b></label>
+                <div class="d-flex">
+                  <input
+                    type="number"
+                    class="form-control"
+                    [ngModel]="this.filtro.anoMenos"
+                    [min]="0"
+                    (change)="filtrarPagina('anoMenos', $event)"
+                  />
+
+                  <input
+                    type="number"
+                    class="form-control"
+                    [ngModel]="this.filtro.anoMais"
+                    [min]="
+                      this.filtro.anoMenos != 'null' ? this.filtro.anoMenos : 0
+                    "
+                    (change)="filtrarPagina('anoMais', $event)"
+                  />
+                </div>
+              </div>
+
+              <!-- <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+                <label for=""><b>Cargo</b></label>
+                <ng-select2
+                  [options]="options"
+                  [ngModel]="this.filtro.funcao_id"
+                  name="genero"
+                  (valueChanged)="filtrarPagina('funcao', $event)"
+                  [data]="this.tipoCargos"
+                >
+                </ng-select2>
+              </div> -->
+
+              <!-- <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+                <label for=""><b>Ordenar Por</b></label>
+                <ng-select2
+                  (valueChanged)="filtrarPagina('orderby', $event)"
+                    [options]="options"
+                    [ngModel]="this.filtro.orderby"
+                    [data]="this.tipoOrdenacao"
+                    name="order"
+                  >
+                  </ng-select2>
+              </div> -->
+
+            </aside>
+
+
+  </div>
+  <div>
+    <!-- <label>
+      Selecione as colunas que desejas conter no relatório <br>
+      <b> <span class="text-danger">! Importante:</span> </b>
+      A ordem de seleção indica a ordem em que na qual as colunas estarão organizadas no documento
+    </label> -->
+    <ng-select2 [data]="this.opcoesDoSelector" [(ngModel)]="this.valoresSelecionados"
+      [options]="optionsMultiplo"></ng-select2>
+  </div>
+
+  <div class="m-t-10">
+
+    <aside *ngIf="this.carregando; else showLoading">
+      <button id="bookreset" class="btn btn-primary submit-btn" disabled="true">
+        <div class="d-flex justify-content-center">
+          <div class="spinner-border spinner-border-sm m-1"></div>
+          <a style="text-decoration: none;color: white;">
+            Gerando relatório ...
+          </a>
+        </div>
+      </button>
+    </aside>
+    <ng-template #showLoading>
+      <button id="bookreset" class="btn btn-primary submit-btn" [disabled]="this.validarSelecionados()"
+        > <!-- (click)="onSubmit()" -->
+        <div class="d-flex justify-content-center">
+          <a href="javascript:void(0)" data-toggle="modal" data-target="#modalGerarRelarorio"
+            style="text-decoration: none;color: white;">
+            Gerar relatório
+          </a>
+        </div>
+      </button>
+    </ng-template>
+  </div>
+
+</div>
+
+<div class="modal fade" id="modalGerarRelarorio" aria-labelledby="modalGerarRelarorio" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="overflow-y: hidden;min-width: 70%;">
+    <div class="modal-content">
+      <div class="modal-header bg-light">
+  <!-- Título à esquerda -->
+  <div class="d-flex align-items-center">
+    <i class="fa fa-user text-primary me-2"></i>
+    <h5 class="modal-title mb-0">Relatório</h5>
+  </div>
+
+  <!-- Conteúdo central (input + botão) -->
+  <div class="flex-grow-1 mx-4">
+    <div class="row g-2 align-items-center">
+      <!-- Input grande -->
+      <div class="col-md-9 col-lg-10">
+        <input
+          id="relatorioInput"
+          class="form-control form-control-lg"
+          type="text"
+          [(ngModel)]="tipoDeDeclaracao"
+          (ngModelChange)="carregando = false"
+          placeholder="Escreva o nome do relatório que deseja gerar"
+        />
+      </div>
+
+      <!-- Botão com hover -->
+      <div class="col-md-3 col-lg-2" *ngIf="tipoDeDeclaracao!=''">
+        <button
+          (click)="gerarDeclaracao();"
+          class="btn btn-primary w-100 py-2 btn-generate"
+        >
+          <i class="fa fa-file me-2"></i>
+          Gerar
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+      <div class="content">
+        <div class="modal-body">
+
+          <aside *ngIf="!carregando_declaracao; else showLoadingRelatorio">
+
+              <iframe [src]="fileUrl" width="100%" frameborder="0" style="min-height: 700px;" *ngIf="fileUrl"></iframe>
+              <!-- <img [src]="this.fileUrl" width="100" height="100" alt="Profile" class="rounded-circle my-2"> -->
+            </aside>
+
+
+          <ng-template #showLoadingRelatorio>
+            <div class="container">
+              <div class="row justify-content-center">
+                Carregando relatório ...
+                <div class="col-sm-12 text-center">
+                  <div class="spinner-border text-primary" style="width: 2rem; height: 2rem;" role="status">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="fecharModalRelatorio()">
+            <span class="fa fa-close m-r-2"> </span> Fechar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

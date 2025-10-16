@@ -1,0 +1,259 @@
+<div class="content">
+    <sigpq-header></sigpq-header>
+    <div class="header-ficha mt-1">
+        <div class="row" style="align-items: center;">
+            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 d-flex justify-content-start align-items-start">
+                <div class="mais-info d-flex justify-content-center align-items">
+                    <h4 class="text-white"><b>Listagem de Ordens de Serviço</b></h4>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 d-flex justify-content-end align-items-start">
+          <a href="javascript:void(0)" href="javascript:void(0)" data-toggle="modal" data-target="#"
+            class="btn-piips btn-piips-secondary border m-0 py-2 px-4"><i class="fa fa-list-alt"></i>
+            Exportar</a>
+        </div>
+      </div> -->
+    </div>
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <legend class="border-top d-flex justify-content-end align-item-center"> <button
+                    class="btn-piips btn-piips-secondary m-0 py-2 border" data-toggle="collapse"
+                    href="#pesquisa-avancada" role="button" aria-expanded="false" aria-controls="pesquisa-avancada"
+                    style="cursor: pointer;"> <i class="fa fa-search mx-2"></i>Pesquisa avançada</button></legend>
+        </div>
+    </div>
+    <fieldset class="p-2">
+        <aside class="row gap-2">
+            <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12">
+                <select class="form-control" (change)="filtrarPagina('perPage', $event)">
+                    <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">
+                        {{ item }}
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-xl-8 col-lg-8 col-md-6 col-sm-12">
+                <input class="form-control mr-sm-1" type="text" [ngModel]="filtro.search" name="search"
+                    (ngModelChange)="filtrarPagina('search', $event)"
+                    placeholder="Pesquisar nome completo, nip, nas, ..." />
+            </div>
+
+            <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 d-flex justify-content-end align-items-center">
+                <button type="button" data-toggle="modal" data-target="#ver-guia-marcha"
+                    (click)="this.recarregarPagina()" class="btn-piips btn-piips-secondary m-0 py-2">
+                    <i style="font-size: 14px;" class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+                    <b>Recarregar</b>
+                </button>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <aside class="row collapse" id="pesquisa-avancada">
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mt-2 mb-4">
+                        <label for=""><b>Acto</b></label>
+                        <ng-select2 [data]="this.actoProgressaos" [options]="this.options"
+                            [ngModel]="this.filtro.sigpq_acto_progressao_id" name="sigpq_acto_progressao_id"
+                            (valueChanged)="filtrarPagina('tipoActo',$event)">
+                        </ng-select2>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mt-2 mb-4">
+                        <label for=""><b>Classe/Carreira</b></label><br>
+                        <ng-select2 [data]="this.patenteClasses" [ngModel]="this.filtro.patenteClasse"
+                            name="patenteClasse" (valueChanged)="filtrarPagina('patenteClasse',$event)"
+                            [options]="this.options">
+
+                        </ng-select2>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mt-2 mb-4">
+                        <label for=""><b>Posto/Categoria</b></label><br>
+                        <ng-select2 [data]="this.patentes" [options]="this.options" [ngModel]="this.filtro.patenteId"
+                            name="patenteId" (valueChanged)="filtrarPagina('patenteId',$event)">
+
+                        </ng-select2>
+                    </div>
+
+
+
+
+                    <!-- <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+                        <label for=""><b>Situação Laboral <span class="text-danger"></span></b></label>
+                        <ng-select2 [options]="options" (valueChanged)="this.filtrarPagina('situacaoId',$event)"
+                            [data]="this.situacaoEstados">
+                        </ng-select2>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-md-6  col-sm-12 mb-4">
+                        <label for=""><b>{{this.tituloSituacao}} <span
+                                    class="text-danger">&nbsp;</span></b></label>
+                        <ng-select2 [options]="options" (valueChanged)="this.filtrarPagina('estadoId',$event)"
+                            [data]="this.estado">
+                        </ng-select2>
+                    </div> -->
+                </aside>
+            </div>
+        </aside>
+
+
+
+    </fieldset>
+
+
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-m-d12 col-sm-12">
+            <div class="table-responsive">
+                <table class="table table-border table-striped custom-table datatable mb-0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Ordem n.º</th>
+                            <th>Total de efectivos</th>
+                            <th>Data de registo</th>
+                            <th class="text-right">Operação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngIf="this.isLoading">
+                            <td colspan="5">
+                                <aside *ngIf="this.isLoading">
+                                    <loading-page [texto]="'lista de ordem de serviço'"></loading-page>
+                                </aside>
+                            </td>
+                        </tr>
+                        <tr *ngFor="
+              let item of this.provimentos
+                | paginate
+                  : {
+                      id: 'provimentoLista',
+                      itemsPerPage: this.pagination.per_page,
+                      currentPage: this.pagination.current_page,
+                      totalItems: this.pagination.total
+                    };
+              index as i
+            ">
+                            <td>{{ this.totalBase + i }}</td>
+                            <td>
+                                <a ariaCurrentWhenActive="page"
+                                    [routerLink]="['/piips/sigpg/provimento/',this.formatarGuia(item?.ordem_descricao)]">
+                                    {{ item.ordem_descricao | uppercase }}
+                                </a>
+                            </td>
+                            <!-- <td>
+                <strong>
+                  {{ item.data_ingresso }}
+                </strong>
+              </td> -->
+                            <td class="text-start">
+                                <strong class="fw-bold">
+                                    {{ item.total | zeroFrente }}
+                                </strong>
+                            </td>
+
+                            <td>{{ item.created_at }}</td>
+                            <td class="text-right">
+                                <div class="dropdown dropdown-action position-static">
+                                    <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
+                                        aria-expanded="false">
+                                        <i class="fa fa-ellipsis-v"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="javascript:void(0)" (click)="visualizar(item)"
+                                            data-toggle="modal" data-target="#create-or-editar-ordem">
+                                            <i class="fa fa-eye m-r-5"></i>
+                                            Ver o documento
+                                        </a>
+
+                                        <!-- <a href="javascript:void(0)" target="_blank" class="dropdown-item"
+                                        (click)="urlPdfMobilidade(item.numero_guia)"> <i
+                                            class="fa fa-eye m-r-5"></i> documento
+                                    </a> -->
+                                        <!-- <a href="javascript:void(0)" class="dropdown-item">
+                                            <i class="fa fa-pencil m-r-5"></i>
+                                            Editar
+                                        </a> -->
+                                        <!-- <a (click)="setMobilidade(item?.numero_guia)" data-toggle="modal"
+                      data-target="#modalRegistarAlocacao" href="javascript:void(0)" class="dropdown-item">
+                      <i class="fa fa-pencil m-r-5"></i>
+                      Editar
+                    </a> -->
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-sm-6">
+                    Mostrando de {{ this.pagination.current_page }} a
+                    {{ this.pagination.per_page }} de {{ this.pagination.total }}
+                    <aside *ngIf="this.pagination.total < 2; else outrosRegistos">
+                        registos
+                    </aside>
+                    <ng-template #outrosRegistos>registos</ng-template>
+                </div>
+                <div class="col-sm-6">
+                    <div class="float-right">
+                        <pagination-controls id="provimentoLista" (pageChange)="this.filtrarPagina('page', $event)"
+                            [directionLinks]="true" [autoHide]="true" previousLabel="Anterior" nextLabel="Próximo"
+                            [maxSize]="4" [responsive]="true"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <app-sigpq-mobilidade-registar-ou-editar [agentesId]="this.agentesSelecionados"
+    (eventRegistarOuEditModel)="this.buscarFuncionario();this.limparVariaveis()"></app-sigpq-mobilidade-registar-ou-editar>
+<app-sigpq-mobilidade-ver-selecionados
+    [agentesSelecionados]="agentesSelecionados"></app-sigpq-mobilidade-ver-selecionados>
+
+    <sigpq-marcha-guia></sigpq-marcha-guia>
+    [agentesSelecionados]="agentesSelecionados"></app-sigpq-mobilidade-ver-selecionados> -->
+<!-- 
+<div class="modal fade" id="modalVisualizarFicha" aria-labelledby="modalVisualizarFicha" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="overflow-y: hidden; min-width: 40%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>
+                    <i class="fa fa-user"></i>
+                    Mobilidade
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="content p-4">
+                <aside *ngFor="let item of this.listarPDF">
+                    <app-sigpq-mobilidade-pdf [listarPDF]="item"></app-sigpq-mobilidade-pdf>
+                </aside>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+<div class="modal fade" id="create-or-editar-ordem" aria-labelledby="modalVisualizarFicha" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="overflow-y: hidden; min-width: 45%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>
+                    <i class="fa fa-star"></i>
+                    Ordem de Serviço
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="content p-4">
+                <app-ordem-servico [ordem]="this.numero"></app-ordem-servico>
+            </div>
+
+        </div>
+    </div>
+</div>

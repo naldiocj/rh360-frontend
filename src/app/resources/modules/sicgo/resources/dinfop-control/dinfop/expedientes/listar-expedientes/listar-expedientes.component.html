@@ -1,0 +1,457 @@
+<main>
+    <div>
+        <div class="col-lgkv-1 mt-3">
+
+            <div class="d-flex">
+                <div class="col-auto ml-1">
+                    <!-- Avatar -->
+                    <div class="avatars avatars-xl text-primary">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="35"
+                            height="35"
+                            viewBox="0 0 24 24"
+                        >
+                            <rect
+                                width="24"
+                                height="24"
+                                fill="none"
+                            ></rect>
+                            <path
+                                fill="#c8c7c6"
+                                fill-rule="evenodd"
+                                d="M14 22h-4c-3.771 0-5.657 0-6.828-1.172S2 17.771 2 14v-4c0-3.771 0-5.657 1.172-6.828S6.239 2 10.03 2c.606 0 1.091 0 1.5.017q-.02.12-.02.244l-.01 2.834c0 1.097 0 2.067.105 2.848c.114.847.375 1.694 1.067 2.386c.69.69 1.538.952 2.385 1.066c.781.105 1.751.105 2.848.105h4.052c.043.534.043 1.19.043 2.063V14c0 3.771 0 5.657-1.172 6.828S17.771 22 14 22"
+                                clip-rule="evenodd"
+                                opacity="0.7"
+                                stroke-width="0.1"
+                                stroke="#f7f7f7"
+                            ></path>
+                            <path
+                                fill="#c8c7c6"
+                                d="M6 13.75a.75.75 0 0 0 0 1.5h8a.75.75 0 0 0 0-1.5zm0 3.5a.75.75 0 0 0 0 1.5h5.5a.75.75 0 0 0 0-1.5zm5.51-14.99l-.01 2.835c0 1.097 0 2.066.105 2.848c.114.847.375 1.694 1.067 2.385c.69.691 1.538.953 2.385 1.067c.781.105 1.751.105 2.848.105h4.052q.02.232.028.5H22c0-.268 0-.402-.01-.56a5.3 5.3 0 0 0-.958-2.641c-.094-.128-.158-.204-.285-.357C19.954 7.494 18.91 6.312 18 5.5c-.81-.724-1.921-1.515-2.89-2.161c-.832-.556-1.248-.834-1.819-1.04a6 6 0 0 0-.506-.154c-.384-.095-.758-.128-1.285-.14z"
+                                stroke-width="0.1"
+                                stroke="#f7f7f7"
+                            ></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 infor-top-o mt-2">
+                    <h3 class="fs-4 mb-0">Expedientes</h3>
+                    <!-- Breadcrumb -->
+                    <span class="text-body-secondary">Listagem de Expedientes</span>
+                </div>
+
+            </div>
+
+            <div class="weister ml-3">
+                <div
+                    class="alerta"
+                    *ngFor="let item of this.estados"
+                >
+                    <span
+                        class="legend-color cod_"
+                        [style.backgroundColor]="item.cor"
+                    >
+                        <i class="bi bi-info-lg"></i>
+                    </span>
+                    <div class="textos legend-text">
+                        <h4>{{ item.texto }}</h4>
+                        <p>Estatus de Expedientes</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class=" col-xl-12 col-sm-12 col-lg-12 col-md-12 mt-1">
+
+            <div class="d-flex justify-content-between ml-1">
+                
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <div
+                            class="custom-radius btn-group"
+                            role="group"
+                            aria-label="Basic example"
+                        >
+                            <button
+                                class="button-27"
+                                role="button"
+                                data-toggle="modal"
+                                data-target="#modalRegistarOuEditarExpediente"
+                                ariaCurrentWhenActive="page"
+                                type="button"
+                            >
+                                <span class="text">
+                                    <i class="bi bi-plus-circle-fill"></i>
+                                    Novo Expedinte
+                                </span>
+                            </button>
+
+                        </div>
+                    </li>
+                    <li class="nav-item ml-3">
+                        <div
+                            class="custom-radius btn-group"
+                            role="group"
+                            aria-label="Basic example"
+                        >
+
+                            <select
+                                class="btn input-select"
+                                (change)="filtrarPagina('search', $event)"
+                            >
+                                <option
+                                    *ngFor="let item of [5, 10, 20, 50]"
+                                    [value]="item"
+                                >
+                                    {{ item }}
+                                </option>
+                            </select>
+                            <button
+                                (click)="this.recarregarPagina()"
+                                class="btn input-filtro btn-primary p-3"
+                                type="button"
+                            >
+                                <i
+                                    style="font-size: 12px"
+                                    class="fa fa-refresh fa-spin fa-3x fa-fw mr-2"
+                                ></i>
+                            </button>
+                            <input
+                                class="btn input-search"
+                                type="search"
+                                [ngModel]="filtro.search"
+                                name="search"
+                                (ngModelChange)="filtrarPagina('search', $event)"
+                                placeholder="Pesquisar nome completo, bi, 360% Pesquisa ..."
+                            >
+                            <button
+                                data-bs-target="#ToggleExternalContent"
+                                aria-controls="navbarToggleExternalContent"
+                                aria-expanded="false"
+                                aria-label="Toggle navigation"
+                                class="btn  input-filtro w-30s"
+                                type="button"
+                                data-bs-toggle="collapse"
+                            >
+
+                                <i class="bi bi-filter toggle-sidebar-btn"></i>
+
+                            </button>
+
+                        </div>
+
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <br>
+    <!-- expediente-list.component.html -->
+
+    <!-- Templates para dados vazios -->
+
+     
+        <div class="div">
+
+         
+            <!-- Lista Dentro do Prazo -->
+               
+            <table
+            class="table "
+            #tableToPrint *ngIf="expediente.length > 0; else noExpediente"
+        >
+            <thead class="table-thead">
+                <tr> 
+                    <th colspan="1">
+                        <div class="checkboxes__ite">
+                            <label class="checkbox style-c">
+                                <input
+                                    title="f"
+                                    type="checkbox"
+                                    type="checkbox" 
+                                >
+                                <div class="checkbox__checkmark hover:bg-muted-100 dark:hover:bg-muted-700/70"></div>
+                            </label>
+                        </div>
+                    </th>
+                    <th colspan="15">
+                        <div class="col-12 d-flex justify-content-between">
+                                    <div class="col-5 mll mt-1 btn-group">
+                                        
+                                        <button class="button">
+                                            <i
+                                            style="font-size: 12px"
+                                            class="fa fa-refresh fa-spin fa-3x fa-fw mr-2"
+                                        ></i>
+                                        </button>
+                                     
+                                        <button class="button">
+                                            <i class="bi bi-filter toggle-sidebar-btn"></i>
+                                        </button>
+                                     
+                                        <button class="button" (click)="this.recarregarPagina()"
+                                        >
+                                            <i
+                                            style="font-size: 12px"
+                                            class="fa fa-refresh fa-spin fa-3x fa-fw mr-2"
+                                        ></i>
+                                        </button>
+                                    </div>
+
+                                    <div
+                                        class="custom-radius btn-group"
+                                        role="group"
+                                        aria-label="Basic example"
+                                    >
+            
+                                        
+                                    <input
+                                    class="input-search-f"
+                                    type="search"
+                                    [ngModel]="filtro.search"
+                                    name="search"
+                                    (ngModelChange)="filtrarPagina('search', $event)"
+                                    placeholder="Pesquisar nome completo, bi, 360% Pesquisa ..."
+                                >
+                                         
+            
+                                    </div>
+             
+            
+                        </div>
+                    </th> 
+                          
+                </tr>
+            </thead>
+    
+    
+            <tbody class="table-tbody">
+                 <tr *ngFor=" let items of this.expediente | paginate : { id: 'idOcorrencia',  itemsPerPage: this.pagination.per_page,  currentPage: this.pagination.current_page, totalItems: this.pagination.total }; index as i "   (click)="selectOccurrence(items)">
+                   
+                    <td class="text-right" colspan="15">
+                        <details class="custom-details p-2">
+                            <summary class="d-block">
+                                <div class="d-flexdk">
+                                     
+                                    <div class="   d-flexdk">
+                                        <div class="checkboxes__item ml-2">
+                                            <label class="checkbox style-c">
+                                                <input
+                                                    title="f"
+                                                    type="checkbox"
+                                                    
+                                                    (change)="onSelectItem(items)"
+                                                    [checked]="validarSelecionado(items?.id)"
+                                                >
+                                                <div class="checkbox__checkmark hover:bg-muted-100 dark:hover:bg-muted-700/70"></div>
+                                            </label>
+                                        </div>
+                                        <div class="col-1">
+                                            <span class="status" [style.backgroundColor]="items.cor">
+                                                {{ items.status }}
+                                            </span>
+                                        </div> 
+                                         <div class="text-justify">
+                                                <span class="text-justify">{{ items.numeroExpediente }}</span>
+                                            </div>
+                                            <div class="col-5 text-justify">
+                                                <a>{{ items.tipoExpediente }}</a>
+                                            </div> 
+
+                                        <div class="col-5 d-flexd  justify-content-end">
+                                            <div class="d-flexdk justify-content-end py-1">
+                                                <span
+                                                    *ngIf="!canEdit(items)"
+                                                    class="badge bg-warning-subtle border border-warning-subtle text-warning-emphasis rounded-pill text-danger">🔴
+                                                >
+                                                    Prazo expirado!
+                                                </span>
+        
+                                                <span
+                                                    *ngIf="canEdit(items)"
+                                                    class="badge bg-warning-subtle border border-warning-subtle text-warning-emphasis rounded-pill text-success ">🟢 
+                                                    Faltam {{ calculateDaysRemaining(items.endEditDate) }} dias para o término da edição.
+                                                </span>
+                                            </div>
+                                            <div
+                                                class="progress mb-2"
+                                                style="height: 5px;"
+                                            >
+                                                <div
+                                                    class="progress-bar"
+                                                    role="progressbar"
+                                                    [style.width.%]="(calcularDiasRestantes(items.endEditDate) / 30 * 100)"
+                                                    [ngClass]="{
+                                   'bg-danger': calcularDiasRestantes(items.endEditDate) <= 7,
+                                   'bg-success': calcularDiasRestantes(items.endEditDate) > 7
+                                 }"
+                                                >
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="dropdown dropdown-action  justify-content-end"
+                                                *ngIf="canEdit(items)"
+                                            >
+                                                <a
+                                                    href="#"
+                                                    class="action-icon dropdown-toggle"
+                                                    data-toggle="dropdown"
+                                                    aria-expanded="false"
+                                                >
+                                                    <i class="bi bi-three-dots-vertical"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right bg-main">
+                                                    <a
+                                                        *ngFor="let option of filteredMenuOptions"
+                                                        class="dropdown-item"
+                                                        [attr.data-toggle]="option.modal ? 'modal' : null"
+                                                        [attr.data-target]="option.modal"
+                                                        (click)="option.action ? option.action(items) : null"
+                                                    >
+                                                        <i
+                                                            *ngIf="option.icon"
+                                                            [class]="option.icon + ' m-r-5'"
+                                                        ></i>
+                                                        {{ option.label }}
+                                                    </a>
+                                                </div>
+        
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+        
+                            </summary>
+                            <div class="details-suspeito">
+                                <table
+                                    *ngIf="items.delituosos.length > 0; else noExpedienteDelituoso"
+                                    class="table table-striped"
+                                    #tableToPrint
+                                >
+        
+                                    <thead class="table-thead">
+                                        <tr>
+                                            <th class="text-justify">Código</th>
+                                            <th class="text-justify">Nome</th>
+                                            <th class="text-justify">Apelido</th>
+                                            <th class="text-justify">Alcunha</th>
+                                            <th class="text-justify">Gênero</th>
+        
+                                        </tr>
+                                    </thead>
+        
+                                    <tbody class="table-tbody">
+                                        <tr *ngIf="this.isLoading">
+                                            <td colspan="13">
+                                                <loading-page [texto]="'lista de delituosos'"></loading-page>
+        
+                                            </td>
+                                        </tr>
+                                        <tr *ngFor="
+                        let item of items.delituosos
+                            | paginate
+                            : {
+                                id: 'idDelituoso',
+                                itemsPerPage: this.pagination.per_page,
+                                currentPage: this.pagination.current_page,
+                                totalItems: this.pagination.total
+                                };
+                        index as i">
+        
+                                            <td class="text-justify">
+                                                <span class="ml-3">{{item.codigo_sistema}}</span>
+                                            </td>
+        
+                                            <td class="text-justify">
+                                                {{item.nome  | uppercase | slice : 0 : 28 }}..
+                                            </td>
+                                            <td class="text-justify">
+                                                {{item.apelido | uppercase | slice : 0 : 14 }}..
+                                            </td>
+                                            <td class="text-justify">
+                                                {{item.alcunha | uppercase | slice : 0 : 14 }}..
+                                            </td>
+                                            <td class="text-justify">{{item.genero | uppercase}}</td>
+                                        </tr>
+        
+                                    </tbody>
+        
+                                </table>
+        
+                                <ng-template #noExpedienteDelituoso>
+                                    <span class="text-center ml-4">Nenhum suspeito associado</span>
+                                    <ul class="lists">
+                                        <li class="list-items">
+                                            <span class="circle"></span>
+                                            <span class="line"></span>
+                                        </li>
+                                    </ul>
+                                </ng-template>
+                            </div>
+                        </details>
+                    </td>
+                    
+                </tr>
+              
+                <tr>
+    
+    
+                    <td colspan="9">
+                        
+                        Mostrando de {{ this.pagination.current_page }} a
+          {{ this.pagination.per_page }} de {{ this.pagination.total }}
+                        <aside *ngIf="this.pagination.total < 2; else outrosRegistos">registos</aside>
+                        <ng-template #outrosRegistos>registos</ng-template>
+                    </td>
+                    <td colspan="5">
+                        <div class="float-right">
+                            <pagination-controls
+                                id="idOcorrencia"
+                                (pageChange)="this.filtrarPagina('page', $event, false)"
+                                [directionLinks]="true"
+                                [autoHide]="false"
+                                previousLabel="Anterior"
+                                nextLabel="Próximo"
+                                [maxSize]="4"
+                                [responsive]="true"
+                            ></pagination-controls>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+          
+            <section *ngIf="expediente.length > 0; else noExpediente">
+                
+            </section>
+
+            <ng-template #noExpediente>
+                <ul class="lists alert alert-warning">
+                    <li class="list-items">
+                        <span class="circle"></span>
+                        <span class="line"></span>
+                    </li>
+                </ul>
+            </ng-template>
+            <ng-template #semDentro>
+                <div class="alert alert-warning">
+                    Nenhum expediente dentro do prazo encontrado
+                </div>
+            </ng-template>
+
+        </div>
+ 
+</main>
+
+<app-sicgo-registar-ou-editar-expediente [expediente]="this.expedientes" (eventRegistarOuEditar)="this.buscarExpediente()"></app-sicgo-registar-ou-editar-expediente>
+<app-expediente-visualisar-ou-imprimir [selectedExpediente]="this.selectedExpediente"></app-expediente-visualisar-ou-imprimir>
+<app-expediente-espandir-data [expediente]="this.expedientes"></app-expediente-espandir-data>
+<app-sicgo-dinfop-expediente-associar-suspeitos
+    [expedienteId]="this.isOffVisible"
+    (eventRegistarOuEditar)="buscarExpediente()"
+></app-sicgo-dinfop-expediente-associar-suspeitos>

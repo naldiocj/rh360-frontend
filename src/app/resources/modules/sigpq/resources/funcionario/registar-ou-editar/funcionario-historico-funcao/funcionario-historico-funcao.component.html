@@ -1,0 +1,238 @@
+<div class="row">
+  <div class="container-fluid">
+    <div id="historico-cargo" class=" w-100">
+      <div class="row">
+        <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12 ms-auto">
+          <form class="m-0 w-100" [formGroup]="this.simpleForm">
+            <div class="card mt-0 py-0" style="border-radius: 0px">
+
+              <div class="row p-2 my-1" style="row-gap: 1.2rem">
+
+                <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12">
+                  <label for=""><b>Funcão<span class="text-red">*</span></b></label>
+                  <ng-select2 [options]="options" [data]="this.tipoFuncaos" formControlName="sigpq_tipo_funcao_id">
+                  </ng-select2>
+                </div>
+
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                  <label for=""><b>{{ regime_do_agente == '2' ? 'Carreira' : 'Classe' }} <span class="text-red">*</span></b></label>
+                  <ng-select2 [options]="options" formControlName="sigpq_tipo_categoria_id"
+                    [data]="this.tipoCarreiraOuCategorias" (valueChanged)="this.validarClasse($event)">
+                  </ng-select2>
+                </div>
+
+                <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12">
+                  <label for=""><b>{{ regime_do_agente == '2' ? 'Categoria' : 'Posto' }}<span class="text-red">*</span></b></label>
+                  <ng-select2 [options]="options" [data]="this.patentes" formControlName="patente_id">
+                  </ng-select2>
+                </div>
+
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                  <label for=""><b>Tipo de Órgão<span class="text-red">*</span></b></label>
+                  <ng-select2 [options]="options" [data]="this.tipoEstruturaOrganicas"
+                     formControlName="tipo_orgao">
+                  </ng-select2>
+                  <!-- (valueChanged)="this.selecionarOrgaoOuComandoProvincial($event)" -->
+                </div>
+
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                  <label for=""><b>Direcção<span class="text-red">*</span></b></label>
+                  <ng-select2 [options]="options" [data]="this.direcaoOuOrgao" formControlName="pessoajuridica_id">
+                  </ng-select2>
+                </div>
+              </div>
+              <div class="row p-2 my-1" style="row-gap: 1.2rem">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 d-flex justify-content-end align-items-center my-2">
+                  <button class="btn-piips btn-piips-red m-0 py-1" (click)="this.reiniciarFormulario()">
+                    Cancelar
+                  </button>
+                  <button [disabled]="this.carregando || this.submitted || !this.simpleForm.valid" type="button"
+                    (click)="onSubmit()" class="btn-piips btn-piips-primary m-0 py-1" style="border-radius: 0px">
+                    <ng-container *ngIf="this.carregando || this.submitted; else naoRegistar">
+                      <div class="spinner-border spinner-border-sm"></div>
+                      Carregando...
+                    </ng-container>
+                    <ng-template #naoRegistar>
+                      {{this.getId ? 'Salvar': 'Registar'}}
+                    </ng-template>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row my-4">
+        <div class="col-md-12">
+          <nav class="navbar navbar-light bg-light w-100">
+            <div class="form-inline align-items-center d-flex justify-content-between w-100">
+              <div class="d-flex justify-content-start">
+                <select class="form-control mr-sm-1" (change)="filtrarPagina('perPage',$event)">
+                  <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">
+                    {{ item }}
+                  </option>
+                </select>
+                <input class="form-control mr-sm-1" type="text" [ngModel]="filtro.search" name="search"
+                  placeholder="Pesquisa ..." (ngModelChange)="filtrarPagina('search',$event)" />
+                <button class="btn-piips btn-piips-primary py-2 m-0" (click)="this.recarregarPagina()">
+                  <i style="font-size: 14px" class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+                  <b>Recarregar</b>
+                </button>
+              </div>
+              <!-- <div class="d-flex justify-content-end">
+                <button disabled class="btn-piips btn-piips-primary py-2 m-0 " type="button">
+                  <i style="font-size: 14px" class="fa fa-download  fa-3x fa-fw"></i>
+                  <b>Exportar</b>
+                </button>
+              </div> -->
+            </div>
+          </nav>
+        </div>
+
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="table-responsive">
+
+
+            <table class="table table-border table-striped custom-table datatable mb-0">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th class="text-left">Posto/Classe</th>
+                  <th class="text-left">Funcão</th>
+                  <th class="text-left">Colocacação</th>
+                  <th class="text-left">Estado</th>
+                  <th class="text-left">Data de Registo</th>
+                  <th class="text-left">Data de Actualização</th>
+                  <th class="text-right">Operação</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="let item of this.funcaos | paginate: { id: 'cargoId', itemsPerPage: this.pagination.per_page, currentPage: this.pagination.current_page,totalItems: this.pagination.total }; index as i">
+                  <td class="text-left"> {{i+1}}</td>
+                  <td class="text-left"> {{ item?.patente?.toString()?.toUpperCase() ?? 'S/N'}}</td>
+                  <td class="text-left"> {{ item?.nome?.toString().toUpperCase() ?? 'S/N'}}</td>
+
+                  <td> {{ item?.direcao ?? 'S/N'}}</td>
+                  <td class="text-left">
+                    <span *ngIf="item.situacao=='actual'" class="custom-badge status-green">Actual</span>
+                    <span *ngIf="item.situacao=='exercída'" class="custom-badge status-orange">Exercída</span>
+                  </td>
+                  <td class="text-left"> {{ item?.createdAt}}</td>
+                  <td> {{ item?.updated_at}}</td>
+                  <td class="text-right">
+                    <div class="dropdown dropdown-action position-static">
+                      <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
+                          class="fa fa-ellipsis-v"></i></a>
+                      <div class="dropdown-menu">
+                        <!-- <a *ngIf="!item.activo" class="dropdown-item" (click)="construcao()" href="javascript:void(0)">
+                        <i class="fa fa-thumbs-o-up m-r-5"></i>
+                        Activar
+                      </a>
+                      -->
+                        <a class="dropdown-item" (click)="setItem(item)" href="javascript:void(0)">
+                          <i class="fa fa-edit m-r-5"></i>
+                          Editar
+                        </a>
+
+                        <a class="dropdown-item" href="javascript:void(0)" (click)="construcao()">
+                          <i class="fa fa-eye m-r-5"></i>
+                          VIsualizar
+                        </a>
+                        <!-- <a class="dropdown-item" href="#" (click)="construcao()" data-toggle="modal"
+                          data-target="#delete_patient">
+                          <i class="fa fa-trash-o m-r-5"></i> Eliminar</a> -->
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-sm-6">
+              Mostrando de {{ this.pagination.current_page }} á
+              {{ this.pagination.per_page }} de {{ this.pagination.total }} Registo
+            </div>
+            <div class="col-sm-6">
+              <div class="float-right">
+                <pagination-controls id="cargoId" (pageChange)="this.filtrarPagina('page', $event)"
+                  [directionLinks]="true" [autoHide]="false" previousLabel="Anterior" nextLabel="Próximo" [maxSize]="4"
+                  [responsive]="true"></pagination-controls>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalCargoVisual" aria-labelledby="modalCargoVisual" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="overflow-y: hidden;min-width: 70%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>
+          <i class="fa fa-user"></i>
+          Visualizar guia de Serviço
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="content">
+        <div class="modal-body">
+          <div class="row">
+
+            <div class="col-sm-12">
+              <nav class="navbar navbar-light bg-light">
+                <h5>Ordem n.º - {{this.documento?.numero_ordem}}</h5>
+                <aside *ngIf="this.documento">
+                  <span *ngIf="this.documento?.situacao=='actual'" class="custom-badge status-green">Actual</span>
+                  <span *ngIf="this.documento?.activo=='exercída'" class="custom-badge status-orange">Exercída</span>
+                </aside>
+              </nav>
+              <div class="col-sm-12">
+                <aside *ngIf="carregarDocumento;else carregarDocumentoVerMensagem">
+                  <div class="container">
+                    <div class="row justify-content-center">
+                      Carregando documento ...
+                      <div class="col-sm-12 text-center">
+                        <div class="spinner-border text-primary" style="width: 2rem; height: 2rem;" role="status">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </aside>
+                <ng-template #carregarDocumentoVerMensagem>
+                  <aside *ngIf="fileUrl; else verMensagem">
+                    <iframe [src]="fileUrl" width="100%" height="700px"></iframe>
+                  </aside>
+                  <ng-template #verMensagem>
+                    <div class="container">
+                      <div class="row justify-content-center">
+                        <div class="col-sm-12 text-center">
+                          Sem documento adicionado
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                </ng-template>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            <span class="fa fa-close m-r-2"></span>Fechar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

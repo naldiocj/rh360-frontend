@@ -1,0 +1,861 @@
+<div
+    class="modal fade "
+    id="modalRegistarOuEditarDelituoso"
+    aria-labelledby="modalRegistarOuEditarDelituoso"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="modalRegistarOuEditarDelituosoLabel"
+    aria-hidden="true"
+>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content outside-liquid-elements ">
+            <div class="modal-header bg-prima text-white">
+                <h4
+                    class="modal-title fs-5"
+                    id="exampleModalLabel"
+                >
+                {{ delitouso ? "Editar" : "Registar" }} Delituoso
+                </h4>
+                <a
+                    type="button"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                >
+                    <i
+                        class="bi bi-backspace-reverse-fill cursor-pointer rounded-lg "
+                        style="font-size: 1.4em"
+                    ></i>
+                </a>
+            </div>
+            <form
+                [formGroup]="Form"
+                (ngSubmit)="onSubmit()"
+            >
+            
+                <div class="p-2">
+                    <div class="page__content">
+                        <div class="page__frame">
+                            <div class="page-tab-header">
+                              <p class="ml-0 pl-4"><i class="bi bi-exclamation-triangle-fill text-warning"></i>  Os campos marcados com ( <strong class="asterisco">*</strong> ) são de carácter <strong>obrigatório</strong>. </p>
+                                 
+                                <nav
+                                    class="navigation"
+                                    id="js--navid"
+                                >
+                                    <ul class="navigation-menu">
+                                        
+                                        <li
+                                            class="nav-item"
+                                            [class.active]="currentStep === 1"
+                                        >
+                                            <a
+                                                class="nav-tab t--tab"
+                                                (click)="goToStep(1)"
+                                                title="Alpha"
+                                            >
+                                                Dados Primario
+                                            </a>
+                                        </li>
+                                        <li
+                                            class="nav-item"
+                                            [class.active]="currentStep === 2"
+                                        >
+                                            <a
+                                                class="nav-tab t--tab"
+                                                (click)="goToStep(2)"
+                                                title="Beta"
+                                            >
+                                                Dados Secundarios
+                                            </a>
+                                        </li>
+                                        <li
+                                            class="nav-item"
+                                            [class.active]="currentStep === 3"
+                                        >
+                                            <a
+                                                class="nav-tab t--tab"
+                                                (click)="goToStep(3)"
+                                                title="Gamma"
+                                            >
+                                                Caracteristicas
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <!-- Button trigger modal -->
+                                            <a class="nav-tab t--tab"  data-bs-target="#ToggleExternalContentBI" aria-controls="ToggleExternalContentBI"
+                                            aria-expanded="false" aria-label="Toggle navigation"
+                                              data-bs-toggle="collapse">
+                                                !
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+ 
+                        <section class="page__segment">
+                            <div class="page__frame">
+                                <div class="tab__content">
+                                   
+
+                                    
+                                    <div
+                                        *ngIf="currentStep === 1"
+                                        class="p-4"
+                                    >
+
+
+                                        <div>
+                                            <div class="row">
+                                 
+                                                <div class="col-lg-6">
+
+
+                                                    <div class="form-group">
+                                                        <label for="nome" class="form-label"><b>Nome Completo</b> <strong class="asterisco">*</strong></label>
+                                                        <input
+                                                            id="nome"
+                                                            type="text"
+                                                            class="form-control"
+                                                            formControlName="nome"
+                                                            placeholder="Nome completo"
+                                                        >
+                                                        <div class="notificaValidoB" *ngIf="Form?.get('nome')?.invalid && Form?.get('nome')?.touched"><small class="error">Nome Completo é obrigatorio.</small></div>
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="col-lg-3">
+
+
+                                                    <div class="form-group">
+                                                        <label>
+                                                            <b>Apelido</b>
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            formControlName="apelido"
+                                                            placeholder="Apelido familiar"
+                                                        >
+                                                        <div class="notificaValidoB" *ngIf="Form.get('apelido')?.invalid && Form.get('apelido')?.touched">
+                                                            <small class="error">Apelido é obrigatório</small>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+
+                                                <div class="col-lg-3">
+
+
+                                                    <div class="form-group">
+                                                        <label>
+                                                            <b>Alcunha</b>
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            formControlName="alcunha"
+                                                            placeholder="Alcunha, nome vulgar ou informal"
+                                                        >
+                                                        <div class="notificaValidoB" *ngIf="Form.get('alcunha')?.invalid && Form.get('alcunha')?.touched">
+                                                            <small class="error">alcunha é obrigatório</small>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+
+
+                                                    <div class="form-group">
+                                                        <label>
+                                                            <b>Nome do Pai</b>
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            formControlName="nomePai"
+                                                            placeholder="Nome completo do pai"
+                                                        >
+                                                        <!-- <div class="notificaValidoB" *ngIf="Form.get('nomePai')?.invalid && Form.get('nomePai')?.touched">
+                                                            <small class="error">Nome do Pai é obrigatório</small>
+                                                        </div> -->
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="col-lg-6">
+
+
+                                                    <div class="form-group">
+                                                        <label>
+                                                            <b>Nome da Mãe</b>
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            formControlName="nomeMae"
+                                                            placeholder="Nome completo da mãe"
+                                                        >
+                                                        <!-- <div class="notificaValidoB" *ngIf="Form.get('nomeMae')?.invalid && Form.get('nomeMae')?.touched">
+                                                            <small class="error">Nome da Mãe é obrigatório</small>
+                                                        </div> -->
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-4">
+
+
+                                                    <div class="form-group">
+                                                        <label>
+                                                            <b>Natural</b>
+                                                        </label>
+                                                        <ng-select2
+                                                            formControlName="sicgo_naturalidade_id"
+                                                            [options]="this.options"
+                                                            [data]="this.provincia"
+                                                        ></ng-select2>
+                                                        <div class="notificaValidoB" *ngIf="Form.get('sicgo_naturalidade_id')?.invalid && Form.get('sicgo_naturalidade_id')?.touched">
+                                                            <small class="error">Naturalidade é obrigatório</small>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label>
+                                                            <b>Provincia</b>
+                                                            <span class="text-danger">*</span>
+                                                        </label>
+                                                        <ng-select2
+                                                            class="custom-border ng-select-container"
+                                                            [options]="this.options"
+                                                            [data]="this.provincia"
+                                                            formControlName="sicgo_provincia_id"
+                                                            (valueChanged)="this.handlerProvincias($event)"
+                                                        ></ng-select2>
+                                                        <div class="notificaValidoB" *ngIf="Form.get('sicgo_provincia_id')?.invalid && Form.get('sicgo_provincia_id')?.touched">
+                                                            <small class="error">Provincia é obrigatório</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label>
+                                                            <b>Municipio</b>
+                                                        </label>
+                                                        <ng-select2
+                                                            [options]="options"
+                                                            formControlName="sicgo_municipio_id"
+                                                            [data]="this.municipio"
+                                                            (valueChanged)="selecionarMunicipio($event)"
+                                                        >
+                                                        </ng-select2>
+                                                        <div class="notificaValidoB" *ngIf="Form.get('sicgo_municipio_id')?.invalid && Form.get('sicgo_municipio_id')?.touched">
+                                                            <small class="error">Municipio é obrigatório</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-4">
+
+
+                                                    <div class="form-group">
+                                                        <label>
+                                                            <b>Data de Nascimento</b>
+                                                        </label>
+                                                        <input
+                                                            type="date"
+                                                            class="form-control"
+                                                            formControlName="dataNascimento"
+                                                            [min]="getBirthdateValidation().min"
+                                                            [max]="getBirthdateValidation().max"
+                                                        >
+                                                        <div class="notificaValidoB" *ngIf="Form.get('dataNascimento')?.invalid && Form.get('dataNascimento')?.touched">
+                                                            <small class="error">Data de Nascimento é obrigatório</small>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="col-lg-4">
+
+
+                                                    <div class="form-group">
+                                                        <label>
+                                                            <b>Estado Civil</b>
+                                                        </label>
+                                                        <ng-select2
+                                                            formControlName="sicgo_estadocivil_id"
+                                                            [options]="this.options"
+                                                            [data]="this.estadocivil"
+                                                        ></ng-select2>
+                                                        <div class="notificaValidoB" *ngIf="Form.get('sicgo_estadocivil_id')?.invalid && Form.get('sicgo_estadocivil_id')?.touched">
+                                                            <small class="error">Estado Civil é obrigatório</small>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="col-lg-4">
+
+
+                                                    <div class="form-group">
+                                                        <label>
+                                                            <b>Nacionalidade</b>
+                                                        </label>
+                                                        <ng-select2
+                                                            class="custom-border ng-select-container"
+                                                            [options]="this.options"
+                                                            [data]="this.pais"
+                                                            formControlName="sicgo_nacionalidade_id"
+                                                        ></ng-select2>
+                                                        <div class="notificaValidoB" *ngIf="Form.get('sicgo_nacionalidade_id')?.invalid && Form.get('sicgo_nacionalidade_id')?.touched">
+                                                            <small class="error">Nacionalidade é obrigatório</small>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+
+
+                                            </div>
+
+
+
+
+
+                                        </div>
+                                    </div>
+                                    <div
+                                        *ngIf="currentStep === 2"
+                                        class=" -pane   p-4"
+                                    >
+                                        <div class="row">
+                                            <div class="col-lg-4">
+
+
+                                                <div class="form-group">
+                                                    <label>
+                                                        <b>Residencia Actual</b>
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        formControlName="residencia"
+                                                        placeholder="Onde vive"
+                                                    >
+                                                    <div  class="notificaValidoB" *ngIf="Form.get('residencia')?.invalid && Form.get('residencia')?.touched">
+                                                        <small class="error">Residencia é obrigatório</small>
+                                                    </div>
+                                                   
+                                                </div>
+
+
+                                            </div>
+                                            <div class="col-lg-4">
+
+                                                <div class="form-group">
+                                                    <label>
+                                                        <b>Residencia BI</b>
+                                                    </label>
+                                                   <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        formControlName="residencia_profissional"
+                                                        placeholder="Residencia Profissional"
+                                                    >
+                                                    <div  class="notificaValidoB" *ngIf="Form.get('residencia_profissional')?.invalid && Form.get('residencia_profissional')?.touched">
+                                                        <small class="error">Residencia Profissional é obrigatório</small>
+                                                    </div> 
+                                                   
+                                                </div>
+
+
+                                            </div>
+                                            <div class="col-lg-4">
+
+
+                                                <div class="form-group">
+                                                    <label>
+                                                        <b>Profissão</b>
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        formControlName="profissao"
+                                                    >
+                                                    <div class="notificaValidoB"  *ngIf="Form.get('profissao')?.invalid && Form.get('profissao')?.touched">
+                                                        <small class="error">Profissao é obrigatório</small>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="col-lg-4">
+
+
+                                                <div class="form-group">
+                                                    <label>
+                                                        <b>Habilitações literárias</b>
+                                                    </label>
+                                                    <ng-select2
+                                                        class="custom-border ng-select-container"
+                                                        [options]="this.options"
+                                                        [data]="this.tipoHabilitacaoLiterarias"
+                                                        formControlName="habilitacaoL"
+                                                    ></ng-select2>
+                                                    <div class="notificaValidoB"  *ngIf="Form.get('habilitacaoL')?.invalid && Form.get('habilitacaoL')?.touched">
+                                                        <small class="error">habilitação é obrigatório</small>
+                                                    </div>
+                                                </div>
+                                                
+
+
+                                            </div>
+                                            <div class="col-lg-4">
+
+
+                                                <!-- <div class="form-group">
+                                                    <label>
+                                                        <b>Tipo De Documento </b>
+                                                    </label>
+                                                     
+                                                    <ng-select2
+                                                        class="custom-border ng-select-container"
+                                                        [options]="options"
+                                                        [data]="tipoIdentidade"
+                                                        formControlName="tipo_identidade_id"
+                                                        [(ngModel)]="selectedTipoIdentidade"
+                                                        (change)="onTipoIdentidadeChange($event)"
+                                                    ></ng-select2>
+
+                                                    <div  class="notificaValidoB" *ngIf="Form.get('tipo_identidade_id')?.invalid && Form.get('tipo_identidade_id')?.touched">
+                                                        <small class="error">Tipo de identidade é obrigatório</small>
+                                                    </div>
+                                                </div> -->
+                                                <div class="form-group">
+                                                    <label>
+                                                        <b>Tipo De Documento</b>
+                                                    </label>
+                                                    <select
+                                                        formControlName="tipo_identidade_id"
+                                                        class="form-control" 
+                                                        [(ngModel)]="model"
+                                                        (change)="onDocumentTypeChange($event)"
+                                                    >
+                                                     <option value=1 >Bilhete de Identidade</option>
+                                                        <option value=2 >Carta de Condução</option>
+                                                        <option value=3 >Cartão de Municipe</option>
+                                                        <option value=4 >Passa-porte</option>
+                                                    </select>
+                                                    <div *ngIf="Form.get('tipo_identidade_id')?.invalid && Form.get('tipo_identidade_id')?.touched">
+                                                        <small class="error">Tipo de identidade é obrigatório</small>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="col-lg-4">
+
+
+                                                <div class="form-group">
+                                                    <label>
+                                                        <b>Identificação nº</b>
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        formControlName="numero_identidade"
+                                                        class="form-control"
+                                                        
+                                                    >
+                                                    <div  class="notificaValidoB" *ngIf="Form.get('numero_identidade')?.invalid && Form.get('numero_identidade')?.touched">
+                                                        <small class="error">Numero de documento é obrigatório</small>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="col-lg-4">
+
+                                                <div class="form-group">
+                                                    <label>
+                                                        <b>Data de Emissão</b>
+                                                    </label>
+                                                    <input
+                                                        type="date"
+                                                        formControlName="dataEmissao"
+                                                        class="form-control"
+                                                        [max]="getDateValidation().max"
+                                                    >
+                                                    <div  class="notificaValidoB" *ngIf="Form.get('dataEmissao')?.invalid && Form.get('dataEmissao')?.touched">
+                                                        <small class="error">habilitação é obrigatório</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+
+                                                <div class="form-group">
+                                                    <label>
+                                                        <b>Local de Emissão</b>
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        formControlName="localEmissao"
+                                                        class="form-control"
+                                                    >
+                                                    <div  class="notificaValidoB" *ngIf="Form.get('localEmissao')?.invalid && Form.get('localEmissao')?.touched">
+                                                        <small class="error">local da Emissao é obrigatório</small>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group" >
+                                                    <label>
+                                                        <b>Data de entrada em Angola</b>
+                                                    </label>
+                                                    <input
+                                                        type="date"
+                                                        class="form-control"
+                                                        formControlName="dataentrada_angola"
+                                                        [max]="getDateValidation().max"
+                                                    >
+
+
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                         
+
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label for="fronteira">
+                                                        <b>Fronteira Utilizada</b>
+                                                    </label>
+
+                                                    <ng-select2 id="fronteira"
+                                                            class="custom-border ng-select-container"
+                                                            [options]="options"
+                                                            [data]="fronteira"  
+                                                            formControlName="fronteira_id"
+                                                        ></ng-select2>
+                                                    <div class="notificaValidoB"  *ngIf="Form.get('fronteira_id')?.invalid && Form.get('fronteira_id')?.touched">
+                                                        <small class="error">Fronteira é obrigatória</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+
+
+                                        </div>
+
+
+                                    </div>
+                                    <div
+                                        *ngIf="currentStep === 3"
+                                        class="tab-    p-4"
+                                    >
+                                        <div class="row">
+                                            <div class="row col-9">
+                                                <div class="row col-12">
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label>
+                                                                <b>Raça  {{mode}}</b>
+                                                            </label>
+                                                            <select
+                                                                class="form-control"
+                                                                id="raceSelector"
+                                                                formControlName="raca"
+                                                                [(ngModel)]="mode"
+                                                            >
+                                                                <option>Selecione a raça</option>
+                                                                <option
+                                                                    *ngFor="let item of it"
+                                                                    [value]="item.name"
+                                                                >
+                                                                    {{item.name}}
+                                                                </option>
+                                                            </select>
+                                                            <div class="notificaValidoB"  *ngIf="Form.get('raca')?.invalid && Form.get('raca')?.touched">
+                                                                <small class="error">Raca é obrigatório</small>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label>
+                                                                <b>Cor dos Olhos</b>
+                                                                {{olhocor}}
+                                                            </label>
+                                                            <select
+                                                                class="form-control"
+                                                                id="olhosSelector"
+                                                                name="cor_olhos"
+                                                                formControlName="cor_olhos"
+                                                                [(ngModel)]="olhocor"
+                                                            >
+                                                                <option>Selecione a cor</option>
+                                                                <option
+                                                                    *ngFor="let item of olhos"
+                                                                    [value]="item.name"
+                                                                >
+                                                                    {{item.name}}
+                                                                </option>
+                                                            </select>
+                                                            <div class="notificaValidoB"  *ngIf="Form.get('cor_olhos')?.invalid && Form.get('cor_olhos')?.touched">
+                                                                <small class="error">Cor Olhos é obrigatório</small>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="row  col-12">
+                                                    <div class="col-lg-6">
+
+
+                                                        <div class="form-group">
+                                                            <label>
+                                                                <b>Tipo de Nariz</b>
+                                                            </label>
+                                                            <select
+                                                                class="form-control"
+                                                                name="nariz"
+                                                                id="nose-types"
+                                                                formControlName="nariz"
+                                                            >
+                                                                <option value="arredondado">Arredondado</option>
+                                                                <option value="fino">Fino</option>
+                                                                <option value="grande">Grande</option>
+                                                                <option value="pequeno">Pequeno</option>
+                                                                <option value="aquilino">Aquilino</option>
+                                                                <option value="reto">Reto</option>
+                                                                <option value="romano">Romano</option>
+                                                                <option value="nubiano">Nubiano</option>
+                                                                <option value="adunco">Adunco</option>
+                                                                <option value="largo">Largo</option>
+                                                            </select>
+                                                            <div class="notificaValidoB"  *ngIf="Form.get('nariz')?.invalid && Form.get('nariz')?.touched">
+                                                                <small class="error">Nariz é obrigatório</small>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <div class="col-lg-6">
+
+
+                                                        <div class="form-group">
+                                                            <label>
+                                                                <b>Gênero</b>
+                                                            </label>
+                                                            <select
+                                                                class="form-control"
+                                                                name="genero"
+                                                                id="genero"
+                                                                formControlName="genero"
+                                                                (change)="onGeneroChange($event)"
+                                                            >
+                                                                <option value="masculino">Masculino</option>
+                                                                <option value="femenino">Feminino</option>
+                                                            </select>
+                                                            <div
+                                                                class="notificaValidoB"
+                                                                *ngIf="Form.get('genero')?.invalid && Form.get('genero')?.touched"
+                                                            >
+                                                                <small class="error">Gênero é obrigatório</small>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="row  col-12">
+                                                    <div class="col-lg-6">
+
+
+                                                        <div class="form-group">
+                                                            <label>
+                                                                <b>Cor do Cabelo</b>
+                                                            </label>
+                                                            <input
+                                                                class="form-control"
+                                                                type="text"
+                                                                formControlName="cabelo"
+                                                            > 
+                                                            <div class="notificaValidoB"  *ngIf="Form.get('cabelo')?.invalid && Form.get('cabelo')?.touched">
+                                                                <small class="error">Cabelo é obrigatório</small>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <label for="altura">Altura: {{ altura }} cm</label>
+                                                            <input
+                                                                type="number"
+                                                                id="altura"
+                                                                class="form-control"
+                                                                formControlName="altura"
+                                                                min="100"
+                                                                max="200"
+                                                                [(ngModel)]="altura"
+                                                                (input)="atualizarAltura($event)"
+                                                            >
+                                                            <div class="notificaValidoB"  *ngIf="Form.get('altura')?.invalid && Form.get('altura')?.touched">
+                                                                <small class="error">Altura é obrigatório</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-3">
+
+
+                                            <!-- avatar.component.html -->
+                                            <!-- Componente para Masculino -->
+                                            <div *ngIf="generoSelecionado === 'masculino'">
+                                                <app-masculino></app-masculino>
+                                            </div>
+
+                                            <!-- Componente para Feminino -->
+                                            <div *ngIf="generoSelecionado === 'femenino'">
+                                                <app-femenino></app-femenino>
+                                            </div>
+ 
+
+
+
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+
+
+                                                <div class="form-group">
+                                                    <label>
+                                                        <b>
+                                                            Sinais particulares,e outras deformidades
+                                                        </b>
+                                                    </label>
+                                                     
+                                                    <editor [disabled]="false"  formControlName="caracteristicas"></editor>
+                                                    <div class="notificaValidoB" *ngIf="Form.get('caracteristicas')?.invalid && Form.get('caracteristicas')?.touched">
+                                                      <small class="error">Caracteristicas é obrigatório</small>
+                                                  </div>
+
+                                                </div>
+
+
+                                            </div>
+
+
+                                        </div>
+
+
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+
+                    <div
+                        class="btn-group"
+                        role="group"
+                        aria-label="Basic example"
+                    >
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            (click)="prevStep()"
+                            *ngIf="currentStep === 2" 
+                        >
+                            Anterior
+                        </button>
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            (click)="nextStep()"
+                            [disabled]="!canSubmit()"
+                            [disabled]="currentStep === 2"
+                        >
+                            Próximo
+                        </button>
+                    </div>
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        
+                        (click)="reiniciarFormulario()"
+                    >
+                        Limpar
+                    </button>
+                    <!-- Botão "Registar" que aparece apenas na última etapa e se todos os campos estiverem válidos -->
+                    <button
+                        type="submit"
+                        *ngIf="currentStep === 3 && canSubmit()"
+                        [disabled]="isLoading || submitted"
+                        class="btn btn-primary"
+                    >
+                    {{ delitouso ? "Editar" : "Registar" }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+ <!-- Modal -->
+<div
+class="modales"
+id="modalEventoProcessos"
+>
+<div class="modal-dialog modal-xl ">
+    <div class="modales-content">
+
+
+        <div class="modales-body p-2">
+             
+
+                        <app-sicgo-dinfop-listar-expedientes (expedienteSelected)="onOccurrenceSelected($event)"></app-sicgo-dinfop-listar-expedientes>
+                  
+
+
+        </div>
+
+
+    </div>
+</div>
+</div>

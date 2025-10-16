@@ -1,0 +1,84 @@
+
+<div style="height: 16px; margin-top: 23px; opacity: 0%;"></div>
+<div class="col-md-12">
+    <div id="cor_dashboard" class="card-header"  style="cursor: pointer;" (click)="toggleformacaoAcademica()">
+        <h4 style="color: white;" class="card-title d-inline-block"><b>
+          FORMAÇÃO ACADÉMICA
+        </b></h4>
+    </div>
+    <div class="table-responsive">
+        <table class="table  table-striped  datatable mb-0" *ngIf="formacaoAcademica">
+            <thead class="sutotal">
+                    <tr>
+                      <th>Designação</th>
+                      <th>PhD</th>
+                      <th>Mestre</th>
+                      <th>Pós-Grad</th>
+                      <th>Licenciatura</th>
+                      <th>Total</th>
+                    </tr>
+
+            </thead>
+            <tbody>
+
+              <ng-container *ngIf="composicaosFormacao.length>0;else templateName">
+
+                <ng-container *ngFor="let item of composicaosFormacao">
+                  <tr>
+                    <td>{{item.patente}}</td>
+                    <td style="text-align: center;">{{hasValue(item.phd,'phd')}}</td>
+                    <td style="text-align: center;">{{hasValue(item.mestrado,'mest')}}</td>
+                    <td style="text-align: center;">{{hasValue(item.pos_graduacao,'doutor')}}</td>
+                    <td style="text-align: center;">{{hasValue(item.licenciatura,'lice')}}</td>
+                    <td style="text-align: center;">{{hasValue(item.phd)+hasValue(item.mestrado)+hasValue(item.pos_graduacao)+hasValue(item.licenciatura)}}</td>
+                  </tr>
+                </ng-container>
+
+                <!-- <tr>
+                  <td></td>
+                  <td style="text-align: center;">{{dados.phd}}</td>
+                  <td style="text-align: center;">{{dados.mest}}</td>
+                  <td style="text-align: center;">{{dados.doutor}}</td>
+                  <td style="text-align: center;">{{dados.lice}}</td>
+                  <td style="text-align: center;">{{dados.phd+dados.mest+dados.doutor+dados.lice}}</td>
+                </tr> -->
+
+              </ng-container>
+
+              <ng-template #templateName>
+                        <tr>
+                          <p>Sem nenhuma informação</p>
+                        </tr>
+              </ng-template>
+                  <!-- <tr>
+                    <td>Oficial Superior</td>
+                    <td style="text-align: center;">1</td>
+                    <td style="text-align: center;">3</td>
+                    <td style="text-align: center;">1</td>
+                    <td style="text-align: center;">1</td>
+                    <td style="text-align: center;">1</td>
+                  </tr>
+
+                  <tr>
+                    <td>Oficial Subalterno</td>
+                    <td style="text-align: center;">1</td>
+                    <td style="text-align: center;">0</td>
+                    <td style="text-align: center;">1</td>
+                    <td style="text-align: center;">1</td>
+                    <td style="text-align: center;">1</td>
+                  </tr>
+
+                  <tr>
+                    <td>Subchefe</td>
+                    <td style="text-align: center;">1</td>
+                    <td style="text-align: center;">0</td>
+                    <td style="text-align: center;">1</td>
+                    <td style="text-align: center;">1</td>
+                    <td style="text-align: center;">3</td>
+                  </tr> -->
+
+
+            </tbody>
+        </table>
+    </div>
+</div>

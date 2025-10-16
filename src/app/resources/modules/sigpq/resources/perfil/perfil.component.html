@@ -1,0 +1,522 @@
+<div class="content">
+  <div class="row" style="row-gap: 2rem;">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+      <div class="header-ficha">
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 d-flex justify-content-between align-items-start" style="column-gap: 0.8rem;">
+            <div class="d-flex align-items-center">
+              <div class="image me-3"> <!-- 'me-3' adiciona margem à direita -->
+                  <img [src]="logoPath" alt="image-logo" style="width: 100px; height: 80px;" />
+              </div>
+              <div class="logos" style="margin-left: 20px;">
+                  <h1>{{tituloPrincipal}}</h1>
+                  <h3 class="text-uppercase">
+                      Sistema Integrado de Gestão de Pessoal e Quadros
+                  </h3>
+                  <ng-container *ngIf="this.ePerfil; else naoPerfil">
+                      <h4 class="text-light">
+                          <b>Perfil do Agente - {{siglaPrincipal}}</b>
+                      </h4>
+                  </ng-container>
+                  <ng-template #naoPerfil>
+                      <b>{{ this.capitalize(this.getTipo) }} o Agente - {{siglaPrincipal}}</b>
+                  </ng-template>
+              </div>
+          </div>
+            <div class="voltar my-6" (click)="voltar()" style="color: white; text-decoration: underline; cursor:pointer; margin-top:30px; font-size: 20px;">
+                <p>Voltar</p>
+            </div>
+        </div>
+
+        </div>
+        <div class="row my-6">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div class="d-flex justify-content-end align-items-center w-100">
+              <a *ngIf="this.ePerfil" [routerLink]="[
+                  '/piips/sigpg/funcionario/registar-ou-editar/mais-informacao',
+                  this.funcionario?.id
+                ]" class="btn-piips btn-piips-secondary py-2 border m-0">
+                <i class="fa fa-plus"></i>
+                Mais informação
+              </a>
+
+              <button data-toggle="modal" data-target="#view-agente-completa-extra"
+                class="btn-piips btn-piips-secondary py-2 border m-0">
+                <i class="fa fa-file"></i>
+                Exportar Extrato
+              </button>
+
+              <!-- <button data-toggle="modal" data-target="#view-agente-completa"
+              class="btn-piips btn-piips-secondary py-2 border m-0">
+              <i class="fa fa-file"></i>
+              Exportar extrato
+              </button>
+
+              <button data-toggle="modal" data-target="#view-agente-extrato"
+                class="btn-piips btn-piips-secondary py-2 border m-0">
+                <i class="fa fa-file"></i>
+                Exportar síntese
+              </button> -->
+              <!-- <button data-toggle="modal" data-target="#view-agente-completa"
+                class="btn-piips btn-piips-secondary  py-2 border m-0">
+                <i class="fa fa-file">
+                </i> Exportar CV</button> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+      <div class="row" style="row-gap: 0.8rem;">
+        <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12">
+          <div class="card wrapper-foto">
+            <div class="card-body profile-card pt-4 d-flex flex-column align-items-center text-center">
+              <aside *ngIf="this.fileUrl; else outraImg">
+                <img id="foto-para-zoom" [src]="this.fileUrl" width="100" height="100" alt="Profile"
+                  class="rounded-circle my-2" (click)="setFotoFuncionario(this.funcionario, 'preview-foto')" />
+              </aside>
+              <ng-template #outraImg>
+                <img [src]="imgUser" width="100" height="100" alt="Profile" class="rounded-circle my-2" />
+              </ng-template>
+              <h5 class="my-1" style="color: var(--use-color);">
+                {{ this.funcionario?.nome_completo | uppercase }}
+                {{ this.funcionario?.apelido | uppercase }}
+              </h5>
+              <h6 style="color: var(--use-color);">
+                {{ this.funcionario?.patente_nome }}
+              </h6>
+
+              <a href="javascript:void(0)" data-toggle="modal" data-target="#modalEditarFoto"
+                class="btn-piips btn-piips-primary m-0 py-2">
+                <i class="fa fa-edit"></i>
+                Alterar foto
+              </a>
+            </div>
+            <div id="preview-foto" class="d-none preview-foto" (click)="setDisplayNone('preview-foto')">
+              <img [src]="this.fileUrl" id="preview-file" />
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-10 col-lg-8 col-md-12 col-s-12">
+          <ul class="nav nav-tabs d-flex justify-content-between">
+            <li class="flex-fill d-flex justify-content-between">
+              <a class="flex-fill btn-piips btn-piips-primary m-0 py-2 border show active" id="dados-proficionais-tab"
+                data-toggle="tab" href="#dados-proficionais" role="tab" aria-selected="true"
+                (click)="verFoto(this.funcionario?.foto_efectivo)">
+                Profissional
+              </a>
+            </li>
+            <li class="flex-fill d-flex justify-content-between">
+              <a class="flex-fill btn-piips btn-piips-primary m-0 py-2 border" id="dados-pessoais-tab" data-toggle="tab"
+                href="#dados-pessoais" role="tab" aria-selected="false" (click)="verFoto(this.funcionario?.foto_civil)">
+                Pessoal
+              </a>
+            </li>
+            <li *ngIf="this.mostraProvimento" class="flex-fill d-flex justify-content-between">
+              <a class="flex-fill btn-piips btn-piips-primary m-0 py-2 border" id="historico-provimento-tab"
+                data-toggle="tab" href="#historico-provimento" role="tab" aria-selected="false"
+                (click)="verFoto(this.funcionario?.foto_efectivo)">
+                Provimento
+              </a>
+            </li>
+            <li *ngIf="this.mostraMobilidade" class="flex-fill d-flex justify-content-between">
+              <a class="flex-fill btn-piips btn-piips-primary m-0 py-2 border" id="historico-mobilidade-tab"
+                data-toggle="tab" href="#historico-mobilidade" role="tab" aria-selected="false"
+                (click)="verFoto(this.funcionario?.foto_efectivo)">
+                Mobilidade
+              </a>
+            </li>
+            <li *ngIf="this.mostraProvimento" class="flex-fill d-flex justify-content-between">
+              <a class="flex-fill btn-piips btn-piips-primary m-0 py-2 border" id="historico-cargo-tab"
+                data-toggle="tab" href="#historico-cargo" role="tab" aria-selected="false"
+                (click)="verFoto(this.funcionario?.foto_efectivo)">
+                Cargos
+              </a>
+            </li>
+            <li *ngIf="this.mostraProvimento" class="flex-fill d-flex justify-content-between">
+              <a class="flex-fill btn-piips btn-piips-primary m-0 py-2 border" id="historico-funcoes-tab"
+                data-toggle="tab" href="#historico-funcoes" role="tab" aria-selected="false"
+                (click)="verFoto(this.funcionario?.foto_efectivo)">
+                Funções
+              </a>
+            </li>
+            <li *ngIf="this.mostraProvimento" class="flex-fill d-flex justify-content-between">
+              <a class="flex-fill btn-piips btn-piips-primary m-0 py-2 border" id="historico-empregos-tab"
+                data-toggle="tab" href="#historico-empregos" role="tab" aria-selected="false"
+                (click)="verFoto(this.funcionario?.foto_efectivo)">
+                Empregos
+              </a>
+            </li>
+            <li *ngIf="this.ePerfil" class="flex-fill d-flex justify-content-between">
+              <a class="flex-fill btn-piips btn-piips-primary m-0 py-2 border" id="historico-clinico-tab"
+                data-toggle="tab" href="#historico-clinico" role="tab" aria-selected="false"
+                (click)="verFoto(this.funcionario?.foto_efectivo)">
+                Clínico
+              </a>
+            </li>
+            <li *ngIf="this.ePerfil" class="flex-fill d-flex justify-content-between">
+              <a class="flex-fill btn-piips btn-piips-primary m-0 py-2 border" id="meios-policiais-atribuido-tab"
+                data-toggle="tab" href="#meios-policiais-atribuido" role="tab" aria-selected="false"
+                (click)="verFoto(this.funcionario?.foto_efectivo)">
+                Meios Atribuídos
+              </a>
+            </li>
+            <li *ngIf="this.ePerfil" class="flex-fill d-flex justify-content-between">
+              <a class="flex-fill btn-piips btn-piips-primary m-0 py-2 border" id="processo-individual-tab"
+                data-toggle="tab" href="#processo-individual" role="tab" aria-selected="false"
+                (click)="verFoto(this.funcionario?.foto_efectivo)">
+                Processo individual
+                <!-- ( {{totalEventoPendente}} ) -->
+              </a>
+            </li>
+            <li *ngIf="this.ePerfil" class="flex-fill d-flex justify-content-between">
+              <a class="flex-fill btn-piips btn-piips-primary m-0 py-2 border" id="solicitacao-tab" data-toggle="tab"
+                href="#agente-solicitacao" role="tab" aria-selected="false">
+                Solicitações
+                <!-- ( {{totalEventoPendente}} ) -->
+              </a>
+            </li>
+            <!-- <li *ngIf="this.ePerfil" class="flex-fill d-flex justify-content-between">
+              <a class="flex-fill btn-piips btn-piips-primary m-0 py-2 border" id="pa-tab" data-toggle="tab"
+                href="#pa" role="tab" aria-selected="false">
+                PA
+                ( {{totalEventoPendente}} )
+              </a>
+            </li> -->
+           <!--  <li class="flex-fill d-flex justify-content-between">
+                          <a cl flex-fill ass="btn-piips btn-piips-primary" id="solicitacao-tab" data-toggle="tab" href="#agente-eventos" role="tab" (click)="this.resize()"
+                            aria-selected="false" >
+                           Eventos
+
+            ( {{totalEventoPendente}} )
+            </a>
+                        </li> -->
+            <li *ngIf="this.ePerfil" class="flex-fill d-flex justify-content-between">
+              <a class="flex-fill btn-piips btn-piips-primary m-0 py-2 border" id="arquivos-tab" data-toggle="tab"
+                href="#agente-arquivos" role="tab" aria-selected="false">
+                Arquivos
+                <!-- ( {{totalEventoPendente}} ) -->
+              </a>
+            </li>
+            <li *ngIf="this.ePerfil" class="flex-fill d-flex justify-content-between">
+              <a class="flex-fill btn-piips btn-piips-primary m-0 py-2 border" id="arquivos-tab" data-toggle="tab"
+                href="#agente-reclamacoes" role="tab" aria-selected="false">
+                Reclamacões
+                <!-- ( {{totalEventoPendente}} ) -->
+              </a>
+            </li>
+            <!-- <li *ngIf="this.ePerfil" class="flex-fill d-flex justify-content-between">
+              <a class="flex-fill btn-piips btn-piips-primary m-0 py-2 border" id="arquivos-tab" data-toggle="tab"
+                href="#agente-tratamento" role="tab" aria-selected="false">
+                Tratamento das solicitações
+              </a>
+            </li> -->
+            <!-- <li *ngIf="this.ePerfil" class="flex-fill d-flex justify-content-between">
+              <a class="flex-fill btn-piips btn-piips-primary m-0 py-2 border" id="arquivos-tab" data-toggle="tab"
+                href="#agente-tratamento" role="tab" aria-selected="false">
+                Tratamento das solicitações
+              </a>
+            </li> -->
+            <li *ngIf="this.ePerfil" class="flex-fill d-flex justify-content-between">
+              <a class="flex-fill btn-piips btn-piips-primary m-0 py-2 border" id="arquivos-tab" data-toggle="tab"
+                href="#acessar-licencas" role="tab" aria-selected="false">
+                Licenças
+              </a>
+            </li>
+            <!-- <li *ngIf="this.ePerfil" class="flex-fill d-flex justify-content-between">
+              <a class="flex-fill btn-piips btn-piips-primary m-0 py-2 border" id="arquivos-tab" data-toggle="tab"
+                href="#acessar-faltas" role="tab" aria-selected="false">
+                Faltas
+              </a>
+            </li> -->
+            <!--<li class="flex-fill d-flex justify-content-between">
+              <a class="flex-fill btn-piips btn-piips-primary m-0 py-2 border" id="pa-tab" data-toggle="tab"
+                href="#agente-escola-trabalho" role="tab" aria-selected="false">
+                PA
+              </a>
+            </li>--->
+          </ul>
+          <div class="tab-content p-0">
+            <div class="tab-pane fade show active" id="dados-proficionais" role="tabpanel"
+              aria-labelledby="dados-proficionais-tab">
+              <app-sigpq-dados-profissionais [pessoaId]="this.getId"></app-sigpq-dados-profissionais>
+            </div>
+            <div class="tab-pane fade" id="dados-pessoais" role="tabpanel" aria-labelledby="dados-pessoais-tab">
+              <div class="card p-2 py-4 border">
+                <div class="row">
+                  <div class="col-md-3 label" *ngIf="this.funcionario?.apelido ">Apelido</div>
+                  <div class="col-md-9" *ngIf="this.funcionario?.apelido ">
+                    <b style="color: var(--use-color);">
+                      {{ this.funcionario?.apelido }}
+                    </b>
+                  </div>
+                  <div class="col-md-3 label">Nascimento</div>
+                  <div class="col-md-9">
+                    <b style="color: var(--use-color);">
+                      {{ this.funcionario?.data_nascimento }}
+                    </b>
+                  </div>
+                  <div class="col-md-3 label">Estado civil</div>
+                  <div class="col-md-9">
+                    <b *ngIf="funcionario?.estado_civil_nome; else noEstadoCivil" style="color: var(--use-color);">
+                      {{ funcionario?.estado_civil_nome }}
+                    </b>
+                    <ng-template #noEstadoCivil>
+                      <b><i>sem estado civil adicionado</i></b>
+                    </ng-template>
+                  </div>
+
+                  <div class="col-md-3 label" *ngIf="this.funcionario?.nacionalidade">Nacionalidade</div>
+                  <div class="col-md-9" *ngIf="this.funcionario?.nacionalidade">
+                    <b style="color: var(--use-color);">
+                      {{ this.funcionario?.nacionalidade }}
+                    </b>
+                  </div>
+                  <div class="col-md-3 label" *ngIf="this.funcionario?.naturalidade">Província</div>
+                  <div class="col-md-9" *ngIf="this.funcionario?.naturalidade">
+                    <b style="color: var(--use-color);">
+                      {{ this.funcionario?.naturalidade }}
+                    </b>
+                  </div>
+                  <div class="col-md-3 label" *ngIf="this.funcionario?.municipio">Munícipio</div>
+                  <div class="col-md-9" *ngIf="this.funcionario?.municipio">
+                    <b style="color: var(--use-color);">
+                      {{ this.funcionario?.municipio }}
+                    </b>
+                  </div>
+                  <div class="col-md-3 label" *ngIf="this.funcionario?.distrito">Distrito</div>
+                  <div class="col-md-9" *ngIf="this.funcionario?.distrito">
+                    <b style="color: var(--use-color);">
+                      {{ this.funcionario?.distrito }}
+                    </b>
+                  </div>
+
+                  <div class="col-md-3 label" *ngIf="this.funcionario?.local_nascimento">Local de nascimento</div>
+                  <div class="col-md-9" *ngIf="this.funcionario?.local_nascimento">
+                    <b style="color: var(--use-color);">
+                      {{ this.funcionario?.local_nascimento }}
+                    </b>
+                  </div>
+
+                  <div class="col-md-3 label">Identificação</div>
+                  <div class="col-md-9">
+                    <aside *ngIf="
+                        this.funcionario?.documento?.nid;
+                        else mostrarOutro
+                      ">
+                      <b style="color: var(--use-color);">
+                        {{ this.funcionario?.documento?.nid }}
+                      </b>
+                    </aside>
+                    <ng-template #mostrarOutro>
+                      <i>Sem número de identificação adicionado</i>
+                    </ng-template>
+                  </div>
+
+                  <div class="col-md-3 label">Nome do pai</div>
+                  <div class="col-md-9">
+                    <b>
+                      <aside *ngIf="this.funcionario?.nome_pai; else mostrarMae">
+                        <b style="color: var(--use-color);">
+                          {{ this.funcionario?.nome_pai }}
+                        </b>
+                      </aside>
+                      <ng-template #mostrarMae>
+                        <i>sem nome adicionado</i>
+                      </ng-template>
+                    </b>
+                  </div>
+
+                  <div class="col-md-3 label">Nome da mãe</div>
+                  <div class="col-md-9">
+                    <b>
+                      <aside *ngIf="this.funcionario?.nome_mae; else mostrarMae">
+                        <b style="color: var(--use-color);">
+                          {{ this.funcionario?.nome_mae }}
+                        </b>
+                      </aside>
+                      <ng-template #mostrarMae>
+                        <i>sem nome adicionado</i>
+                      </ng-template>
+                    </b>
+                  </div>
+
+                  <div class="col-md-3 label">IBAN</div>
+                  <div class="col-md-9">
+                    <aside *ngIf="this.funcionario?.iban; else mostrarOutroIban">
+                      <b style="color: var(--use-color);">
+                        {{ this.funcionario?.iban }}
+                      </b>
+                    </aside>
+                    <ng-template #mostrarOutroIban>
+                      <i>sem iban adicionado</i>
+                    </ng-template>
+                  </div>
+
+                  <div class="col-md-3 label">E-mail Pessoal</div>
+                  <div class="col-md-9">
+                    <aside *ngIf="
+                        this.funcionario?.email_pessoal;
+                        else mostrarOutroEmail
+                      ">
+                      <b style="color: var(--use-color);">
+                        {{ this.funcionario?.email_pessoal }}
+                      </b>
+                    </aside>
+                    <ng-template #mostrarOutroEmail>
+                      <i>sem email adicionado</i>
+                    </ng-template>
+                  </div>
+
+                  <div class="col-md-3 label">Telefone</div>
+                  <div class="col-md-9">
+                    <aside *ngIf="
+                        this.funcionario?.sigpq_contacto_pessoal?.contacto;
+                        else mostrarOutroEmail
+                      ">
+                      <b style="color: var(--use-color);">
+                        {{ this.funcionario?.sigpq_contacto_pessoal?.contacto }}
+                      </b>
+                    </aside>
+                    <ng-template #mostrarOutroEmail>
+                      <i>sem telefone adicionado</i>
+                    </ng-template>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="agente-tratamento" role="tabpanel" aria-labelledby="pa-tab">
+              <p>
+                <app-sigpq-tratamento-pdf [pessoaId]="this.getId"
+                  [funcionario]="this.funcionario"></app-sigpq-tratamento-pdf>
+              </p>
+            </div>
+            <div class="tab-pane fade" id="agente-escola-trabalho" role="tabpanel" aria-labelledby="pa-tab">
+              <p>
+                <app-sigpq-escala-trabalhos [pessoaId]="this.getId"
+                  [funcionario]="this.funcionario"></app-sigpq-escala-trabalhos>
+              </p>
+            </div>
+            <div class="tab-pane fade" id="historico-provimento" role="tabpanel"
+              aria-labelledby="historico-provimento-tab">
+              <!-- <h3>Tab Heading</h3> -->
+              <p>
+                <app-sigpq-historico-provimento [pessoaId]="this.getId"></app-sigpq-historico-provimento>
+              </p>
+            </div>
+            <div class="tab-pane fade" id="historico-mobilidade" role="tabpanel"
+              aria-labelledby="historico-mobilidade-tab">
+              <!-- <h3>Tab Heading</h3> -->
+              <p>
+                <app-sigpq-historico-mobilidade [pessoaId]="this.getId"></app-sigpq-historico-mobilidade>
+              </p>
+            </div>
+            <div class="tab-pane fade" id="historico-funcoes" role="tabpanel" aria-labelledby="historico-funcoes-tab">
+              <p>
+                <app-sigpq-historico-funcao [pessoaId]="this.getId"></app-sigpq-historico-funcao>
+              </p>
+            </div>
+            <div class="tab-pane fade" id="historico-empregos" role="tabpanel" aria-labelledby="historico-empregos-tab">
+              <p>
+                <app-sigpq-historico-empregos [pessoaId]="this.getId"></app-sigpq-historico-empregos>
+              </p>
+            </div>
+            <div class="tab-pane fade" id="historico-cargo" role="tabpanel" aria-labelledby="historico-cargo-tab">
+              <p>
+                <app-sigpq-historico-cargo [pessoaId]="this.getId"></app-sigpq-historico-cargo>
+              </p>
+            </div>
+            <div class="tab-pane fade" id="historico-clinico" role="tabpanel" aria-labelledby="historico-clinico-tab">
+              <!-- <h3>historico-Clinico</h3> -->
+              <p>
+                <app-dados-clinicos [pessoaId]="this.getId"></app-dados-clinicos>
+              </p>
+            </div>
+            <div class="tab-pane fade" id="meios-policiais-atribuido" role="tabpanel"
+              aria-labelledby="meios-policiais-atribuido-tab">
+              <!-- <h3>historico-Outros meis</h3> -->
+              <p>
+                <app-sigpq-meios-distribuidos [pessoaId]="this.getId"></app-sigpq-meios-distribuidos>
+              </p>
+            </div>
+            <!-- <div class="tab-pane fade" id="pa" role="tabpanel" aria-labelledby="pa-tab">
+              <p>
+                <app-sigpq-portal-agente [pessoaId]="this.getId"></app-sigpq-portal-agente>
+              </p>
+            </div> -->
+            <div class="tab-pane fade" id="processo-individual" role="tabpanel" aria-labelledby="pa-tab">
+              <p>
+                <app-sigpq-processo-individual [pessoaId]="this.getId"></app-sigpq-processo-individual>
+              </p>
+            </div>
+            <div class="tab-pane fade" id="agente-solicitacao" role="tabpanel" aria-labelledby="pa-tab">
+              <p>
+                <app-sigpq-solicitacao [pessoaId]="this.getId" [funcionario]="this.funcionario"></app-sigpq-solicitacao>
+              </p>
+            </div>
+            <div class="tab-pane fade" id="agente-arquivos" role="tabpanel" aria-labelledby="pa-tab">
+              <p>
+                <app-sigpq-arquivos [pessoaId]="this.getId" [funcionario]="this.funcionario"></app-sigpq-arquivos>
+              </p>
+            </div>
+            <div class="tab-pane fade" id="agente-reclamacoes" role="tabpanel" aria-labelledby="pa-tab">
+              <p>
+                <app-sigpq-reclamacao [pessoaId]="this.getId" [funcionario]="this.funcionario"></app-sigpq-reclamacao>
+              </p>
+            </div>
+            <!-- <div class="tab-pane fade" id="agente-eventos" role="tabpanel" aria-labelledby="pa-tab">
+              <p>
+                <app-sigpq-perfil-evento [pessoaId]="this.getId" [abrir]="this.abrir"
+                  (onFalse)="this.changeAbrir($event)"></app-sigpq-perfil-evento>
+              </p>
+            </div> -->
+            <div class="tab-pane fade" id="agente-tratamento" role="tabpanel" aria-labelledby="pa-tab">
+              <p>
+                <app-sigpq-tratamento-pdf [pessoaId]="this.getId"
+                  [funcionario]="this.funcionario"></app-sigpq-tratamento-pdf>
+              </p>
+            </div>
+            <div class="tab-pane fade" id="agente-escola-trabalho" role="tabpanel" aria-labelledby="pa-tab">
+              <p>
+                <app-sigpq-escala-trabalhos [pessoaId]="this.getId"
+                  [funcionario]="this.funcionario"></app-sigpq-escala-trabalhos>
+              </p>
+            </div>
+
+            <div class="tab-pane fade" id="acessar-faltas" role="tabpanel" aria-labelledby="pa-tab">
+              <p>
+                <app-sigpq-faltas [pessoaId]="this.getId"
+                  [funcionario]="this.funcionario"></app-sigpq-faltas>
+              </p>
+            </div>
+
+            <div class="tab-pane fade" id="acessar-licencas" role="tabpanel" aria-labelledby="pa-tab">
+              <p>
+                <app-sigpq-licencas [pessoaId]="this.getId"
+                  [funcionario]="this.funcionario"></app-sigpq-licencas>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <hr /> -->
+
+<!-- <div class="col-sm-12 col-md-12 col-lg-12">
+            <app-sigpq-perfil-evento></app-sigpq-perfil-evento>
+        </div> -->
+
+<app-sigpq-perfil-modal-editar-foto (eventEditFotoModel)="this.buscarFuncionario()" [pessoaId]="this.getId"
+  [foto_efectivo]="this.funcionario?.foto_efectivo"
+  [foto_civil]="this.funcionario?.foto_civil"></app-sigpq-perfil-modal-editar-foto>
+
+<!-- <app-ficha-agente [pessoaId]="this.funcionario?.id" [options]="this.optionsExportar"></app-ficha-agente>
+
+<app-extrato-agente [pessoaId]="this.funcionario?.id" [options]="this.optionsExportar"></app-extrato-agente> -->
+<app-extrato-agente-novo [pessoaId]="this.funcionario?.id" [options]="this.optionsExportar"></app-extrato-agente-novo>
+<!-- <app-cv [agenteId]="this.getId"></app-cv> -->
+

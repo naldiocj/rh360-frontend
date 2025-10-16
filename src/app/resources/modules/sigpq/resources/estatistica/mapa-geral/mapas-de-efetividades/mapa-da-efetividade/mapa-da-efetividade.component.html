@@ -1,0 +1,133 @@
+
+
+<div style="height: 16px; margin-top: 23px; opacity: 0%;"></div>
+<div class="col-md-12">
+
+    <div id="cor_dashboard" class="card-header"  style="cursor:pointer;" >
+
+      <h4 style="color: white; cursor:pointer;" class="card-title d-inline-block" (click)="toggleefetividade()"><b>
+        MAPA DE EFECTIVIDADE<!--DE REFERENTE AO MÊS DE {{mes}}-->
+       </b></h4>
+
+        <article class="opcoes">
+          <!-- <div>
+            <label><b>Dados</b></label>
+            <button (click)="toggleefetividade()">
+              <p *ngIf="!efetividade">Visualizar</p>
+              <p *ngIf="efetividade">Ocultar</p>
+            </button>
+        </div> -->
+
+          <!-- <div>
+            <label><b>Tipo Orgão</b></label>
+            <ng-select2 [options]="options" [data]="this.orgaoOuComandoProvincial"
+            (valueChanged)="selecionarOrgaoOuComandoProvincial($event)">
+        </ng-select2>
+        </div>
+
+          <div>
+            <label><b>Orgão</b></label>
+            <ng-select2 [options]="optionsOrgao" [data]="this.direcaoOuOrgao" (valueChanged)="searchByOrgao($event)">
+            </ng-select2>
+        </div> -->
+
+        <div>
+          <label><b>Patente</b></label>
+          <ng-select2 [options]="options" [data]="this.patenteEspecial" (valueChanged)="searchBypatente($event)">
+          </ng-select2>
+      </div>
+
+      <div>
+        <label><b>Função</b></label>
+        <ng-select2 [options]="options" [data]="this.tipoFuncaos" (valueChanged)="searchByFuncao($event)">
+        </ng-select2>
+     </div>
+
+      <div>
+        <label><b>Habilitação Literária</b></label>
+        <ng-select2 [options]="options" [data]="this.tipoHabilitacaoLiterarias" (valueChanged)="searchByHabilitacao($event)">
+        </ng-select2>
+     </div>
+        </article>
+
+
+
+
+    </div>
+    <div class="table-responsive" *ngIf="efetividade">
+        <table class="table  table-striped  datatable mb-0">
+            <thead class="sutotal">
+                     <tr>
+                     <th rowspan="3"  >Nº/0</th>
+                     <th rowspan="3"  >PATENTE</th>
+                     <th rowspan="3" >NOME</th>
+                     <th rowspan="3" style="position: relative; bottom: 4px;" class="inverter">GENERO</th>
+                     <th rowspan="3" >FUNÇÃO</th>
+                     <th rowspan="3"  >NIP</th>
+
+                     </tr>
+
+                     <tr>
+                       <th colspan="1">NASCIMENTO</th>
+                       <th colspan="1">INGRESSO/PNA</th>
+                       <th  colspan="1">DESPACHO PROMOÇÃO</th>
+                       <th  rowspan="2"  >HABILITAÇÃO LITERÁRIA</th>
+                       <th rowspan="2"  >ESPECIALIDADE</th>
+                       <th rowspan="2"  >Nº DE AGENTE</th>
+                       <th  rowspan="2">IBAN</th>
+                     </tr>
+
+                     <tr>
+                       <!--- NASCIMENTO------>
+                       <th >dd/mm/aaa</th>
+                       <!-----!-------INGRESSO/PNA-->
+                       <th >dd/mm/aaa</th>
+                       <!-----!-------DESPACHO PROMOÇÃO-->
+                       <th >Nº /ano</th>
+
+                     </tr>
+
+
+
+            </thead>
+            <tbody>
+
+             <!--<tr>
+                <ng-container *ngFor="let item of [1,2,3,4,5,6,7,8,9,10,11,12,13]">
+                   <td style="text-align: center; border: 1px solid #041B4E;">{{item}}</td>
+                </ng-container>
+
+             </tr>-->
+
+             <tr>
+                <td colspan="13" style="text-align: center; text-transform: uppercase;"> Orgão de Colocação <strong> <b>{{this.filtro.orgao?orgaoSelecionado[0].text:'Todos'}}</b></strong></td>
+             </tr>
+
+              <ng-container *ngFor="let item of efetividades">
+                                 <tr>
+                                  <td>{{item.id}}</td>
+                                  <td>{{item.patente}}</td>
+                                  <td>{{item.nome_completo +" " + item.pseudonimo}}</td>
+                                  <td>{{item.genero}}</td>
+                                  <td>{{item.funcao}}</td>
+                                  <td>{{item.nip}}</td>
+                                  <td>{{item.data_nascimento}}</td>
+                                  <td>{{item.data_adesao}}</td>
+                                  <td>{{item.data_provimento}}</td>
+                                  <td>{{item.habilitacao_literaria}}</td>
+                                  <td>...........</td>
+                                  <td>{{item.numero_agente}}</td>
+                                  <td>{{item.iban}}</td>
+                                 </tr>
+              </ng-container>
+
+              <tr>
+                <td colspan="13" style="text-align: center;"  *ngIf="lastpage!=filtro.page"> <p>Mostrando {{this.estatistica.page*this.estatistica.perPage}} de {{estatistica.total}} Registos</p> <p style="cursor: pointer;" (click)="nextData()">carregar mais dados</p></td>
+                <td colspan="13" style="text-align: center; cursor: pointer;" *ngIf="efetividades.length==0"> De momento não há efectivos com o critério de pesquisa</td>
+              </tr>
+
+
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,212 @@
+<section class="section">
+  <div class="porpna-title">
+    <h1>
+      <i class="bi bi-gear-fill"></i
+      ><span class="mx-2">Lista dos Ramos das FAA</span>
+    </h1>
+  </div>
+  <div class="col-lg-12 p-0">
+    <div class="card recent-sales overflow-auto">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 my-2">
+            <form class="w-100">
+              <div class="row" style="row-gap: 0.8rem">
+                <div class="col-xl-1 col-lg-1 col-md-4 col-sm-12">
+                  <select
+                    id="perPageSelector"
+                    class="form-control mr-sm-1"
+                    (change)="filtrarPagina('perPage', $event)"
+                  >
+                    <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">
+                      {{ item }}
+                    </option>
+                  </select>
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-8 col-sm-12">
+                  <input
+                    class="form-control mr-sm-1"
+                    type="text"
+                    [ngModel]="filtro.search"
+                    name="search"
+                    (ngModelChange)="filtrarPagina('search', $event)"
+                    placeholder="Pesquisa ..."
+                  />
+                </div>
+
+                <div
+                  class="col-xl-7 col-lg-7 col-md-12 col-sm-12 d-flex justify-content-between"
+                >
+                  <button
+                    (click)="this.recarregarPagina()"
+                    class="btn btn-secondary m-0 py-2 px-3"
+                    type="submit"
+                  >
+                    <i
+                      style="font-size: 14px"
+                      class="fa fa-refresh fa-spin fa-3x fa-fw mx-1"
+                    ></i>
+                    Recarregar
+                  </button>
+                  <button
+                    data-target="#registar-ou-editar"
+                    data-toggle="modal"
+                    class="btn btn-primary m-0 py-2 px-3"
+                    type="submit"
+                  >
+                    <i style="font-size: 14px" class="fa fa-plus"></i>
+                    Registar
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table text-center ms-auto">
+            <thead class="text-center">
+              <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Sigla</th>
+                <th>Estado</th>
+                <th>Data Registado</th>
+                <th>Data Actualização</th>
+                <th colspan="4">Operação</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="
+                  let item of this.ramos
+                    | paginate
+                      : {
+                          id: 'ramoId',
+                          itemsPerPage: this.pagination.per_page,
+                          currentPage: this.pagination.current_page,
+                          totalItems: this.pagination.total
+                        };
+                  index as i
+                "
+              >
+                <td>{{ i + 1 }}</td>
+
+                <td>{{ item.nome }}</td>
+                <td>{{ item.sigla }}</td>
+                <td>
+                  <span *ngIf="item.activo" class="custom-badge status-green"
+                    >Activo</span
+                  >
+                  <span *ngIf="!item.activo" class="custom-badge status-orange"
+                    >Inactivo</span
+                  >
+                </td>
+                <td>{{ item.created_at }}</td>
+                <td>{{ item.updated_at }}</td>
+                <td>
+                  <a
+                    (click)="this.setRamo(item)"
+                    class="btn m-0 bi bi-pencil-fill bg-transparent shadow-none"
+                    data-target="#registar-ou-editar"
+                    title="Editar"
+                    data-toggle="modal"
+                  >
+                  </a>
+                </td>
+                <td>
+                  <a
+                    (click)="this.setId(item?.id)"
+                    class="btn m-0 bi bi-trash-fill bg-transparent shadow-none"
+                    data-target="#delete-ramo-modal"
+                    title="Eliminar"
+                    style="color: var(--red) !important"
+                    data-toggle="modal"
+                  >
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-sm-6">
+              Mostrando de {{ this.pagination.current_page }} a
+              {{ this.pagination.per_page }} de {{ this.pagination.total }}
+              <aside *ngIf="this.pagination.total < 2; else outrosRegistos">
+                registos
+              </aside>
+              <ng-template #outrosRegistos>registos</ng-template>
+            </div>
+            <div class="col-sm-6">
+              <div class="float-right">
+                <pagination-controls
+                  id="ramoId"
+                  (pageChange)="this.filtrarPagina('page', $event)"
+                  [directionLinks]="true"
+                  [autoHide]="false"
+                  previousLabel="Anterior"
+                  nextLabel="Próximo"
+                  [maxSize]="4"
+                  [responsive]="true"
+                ></pagination-controls>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<porpna-registar-ou-editar
+  (onSucesso)="this.recarregarPagina()"
+  [ramo]="this.ramo"
+>
+</porpna-registar-ou-editar>
+
+<div class="modal fade" id="delete-ramo-modal" style="border-radius: unset">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-ms">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div
+          class="modal-title w-100 d-flex justify-content-between align-items-center"
+        >
+          Eliminar ramos das FAA
+          <a
+            data-dismiss="modal"
+            class="bi bi-x-lg text-danger"
+            style="cursor: pointer"
+            (click)="setNullId()"
+            id="btn-clone-eliminar"
+          ></a>
+        </div>
+      </div>
+      <div
+        class="modal-body text-center"
+        style="font-size: 16px; color: #041b43"
+      >
+        <span
+          >Deseja eliminar este ramo das FAA?. Atencção: Ao eliminar este item
+          já não terá mais volta.</span
+        >
+        <div class="btn-groups my-2">
+          <a
+            class="btn btn-link shadow-none"
+            style="text-decoration: none; color: #041b43"
+            (click)="eliminarItem(this.id)"
+            >Sim</a
+          >
+          <div
+            class="btn btn-link shadow-none"
+            data-dismiss="modal"
+            style="text-decoration: none; color: #041b43"
+          >
+            Não
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+th{
+    background: var(--use-color);
+    color: white;
+    text-align: center;
+}
+
+td{
+    text-align: center;
+}
+
+.secand-modal {
+    z-index: 1050; /* Certifique-se de que o z-index é alto o suficiente */
+  }
+
+  
+.modal-content {
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  
+  
+  .modal-footer {
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background-color: #f8f9fa;
+  }
+  
+  .modal-body {
+    font-size: 12px;
+  }
+  
+  .textarea-modal {
+    width: 100%;
+    min-height: 150px;
+    border-radius: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    resize: vertical;
+  }
+  
+  
+  
+  .btn-outline-secondary {
+    border-radius: 20px;
+  }
+  
+  .modal-dialog {
+    max-width: 800px;
+    margin: 30px auto;
+  }
+  

@@ -1,0 +1,69 @@
+<details class="custom-details" *ngFor="let items of modooperante">
+  <summary class="d-flex">
+    <div *ngIf="modooperante.length > 0; else noVeiculos" class="mr-2">
+      <i class="bi bi-plus-lg"></i>
+    </div>
+    <ng-template #noVeiculos>
+      <div class="mr-2">
+        <i class="bi bi-x-lg"></i> <!-- Ícone ou conteúdo alternativo -->
+      </div>
+    </ng-template>
+    <div class="row col-12">
+      <div class="col-11">
+          <a>Título: {{ items.titulo }}</a>
+       </div>
+       <div class="col-1 p-1">
+          <div class="dropdown dropdown-action">
+              <a
+                  href="#"
+                  class="action-icon dropdown-toggle"
+                  data-toggle="dropdown"
+                  aria-expanded="false"
+              >
+                  <i class="bi bi-three-dots-vertical"></i>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right bg-main">
+                  <a
+                      class="dropdown-item"
+                      data-bs-toggle="modal"
+                      (click)="enviarIds(items)" 
+                      data-bs-target="#ModoOperante"
+                       
+                  >
+                      <i class="fas fa-edit m-r-5"></i>
+                      <b>Editar</b>
+                  </a>
+                   
+              </div>
+          </div>
+       </div>
+   </div>
+  </summary>
+  <div class="bg-lightt">
+    <ng-container *ngIf="modooperante.length > 0; else elseTemplate">
+      <div class="row mt-1">
+        <div class="col-12">
+          <div class="col"> 
+            <p>Crime: {{ items.tipicidade_crime }}</p>
+            <div class="decricao">
+               
+              <div class="formatted-content" [innerHTML]="items.descricao | slice: 0:limiteTexto "></div>
+              <span *ngIf="!mostrarTudo && items.descricao.length > limiteTexto">...</span>
+
+
+            </div>
+             
+            <p *ngIf="items.descricao.length > limiteTexto" (click)="toggleTexto(items.descricao)">
+              {{ mostrarTudo ? 'Ver Menos' : 'Ver Mais' }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #elseTemplate>
+      <span>
+        Nenhum modo operante registado
+      </span>
+    </ng-template>
+  </div>
+</details>

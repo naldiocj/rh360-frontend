@@ -1,0 +1,21 @@
+  let file: any = event.target.files[0];
+    console.log(file)
+    let type: any = file.type;
+    let nameFile: any = file.name;
+    let size: any = file.size;
+    let reader: FileReader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = async (): Promise<void> => {
+        let data: any = {
+            //  base64: String(reader.result).split(',')[1],
+            base64: String(reader.result),
+            size: size,
+            name: nameFile,
+            type: type,
+            field: "foto_efectivo"
+        }
+        
+    this.simpleForm.get('foto_efectivo').value = data;
+    
+
+    };

@@ -1,0 +1,231 @@
+@charset "utf-8";
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap'); */
+/* reset */
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: poppins, sans-serif;
+    font-size: 100%;
+    border: 0;
+    outline: 0;
+}
+a {text-decoration: none;}
+.li-menu {padding-bottom: 10px;}
+li a {padding: 10px; margin-right: 5px; font-size: 1.1rem;}
+
+.titulo {
+    font-size: 1.5rem; color: #041B4E; font-weight: 450;
+    display: flex; justify-content: space-between; align-items: center;
+  
+    div:last-child{
+      padding: 5px;
+      span {
+        margin-right: 5px;
+      }
+      span:last-child{
+        margin-right: 0px;
+      }
+    }
+}
+
+/*.caixas-container {position: absolute;}*/
+.sigv-breadCrumb{
+    background-color: #E5E7ED;
+    border-radius: 8px; 
+    margin-bottom: 32px;
+    ul>li {
+            font-weight: 400;
+            a {
+                font-weight: 600;
+                color: #666;
+                font-size: 1rem;
+                text-decoration: none;
+                padding: 10px;
+                i{margin-left: 5px;}
+            }
+        }
+}
+
+.sigv-breadCrumb ul li:hover {
+    a{
+        color: #041B4E;
+    }
+}
+.efeito-breadcrumb {
+    /* background-color: #041B4E; */
+    color: #041B4E;
+    a{
+        span{
+            color: #041B4E;
+            font-weight: 700;
+        }
+    }
+}
+
+table {
+    border-top: none;
+    thead {border: none;}
+    thead > tr {border: none;}
+    thead > tr > th {/*background-color: #f5f5f5c0;*/ background-color: #364871; /*color: #696969;*/ color: #fff; font-weight: 500; font-size: 0.9rem; padding: 0.4rem 0.2rem; border: none;}
+    thead > tr > th:first-child { border-radius: 24px 0px 0px 0px;}
+    thead > tr > th:last-child { border-radius: 0px 24px 0px 0px;}
+}
+
+/*Animação do meu botão actualizar*/
+#gira{
+    animation: agora 1s linear infinite;
+}
+
+.conteudo-container{
+    animation: vem .5s linear;
+    transition: all .5s linear;
+}
+.loading{
+    font-size: .8rem;
+    margin-top: 5rem;
+
+    strong{
+        font-size: .9rem;
+        color: #041b4e;
+        animation: load 1.5s linear infinite;
+        transition: all .5s ease-in-out;
+        opacity: 0;
+    }
+
+    li{
+       color:#e31212;
+    }
+}
+.caixa-load {
+    width: 100%;
+    margin-top: 3rem;
+}
+
+.txt {
+    width: 50px;
+    height: 50px;
+    border: 5px dotted black;
+    border-radius: 50%;
+    animation: txt 4s linear infinite;
+    margin: auto;
+}
+
+@keyframes txt {
+    0%{transform: rotate(0deg); ;}
+    100%{transform: rotate(360deg) scale(2)}
+}
+
+
+@keyframes agora {
+    0%{transform: rotate(0deg)}
+    100%{transform: rotate(+360deg)}
+}
+
+@keyframes vem {
+    from {transform: translateY(10px)}
+    to {transform: translateY(0)}
+}
+
+@keyframes load {
+    to {opacity: 1;}
+}
+
+
+.filtro {
+    transition: all .5s linear;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.122);
+    label{
+      color: #041B4E;
+      padding-left: 2px;
+      margin-bottom: 5px;
+      font-weight: 500;
+    }
+}
+
+/* lista de options na tabela */
+.lista-option {
+    padding: 10px;
+    border-radius: 5px;
+    
+    i {
+      margin-right: 5px;
+    }
+  
+    a:hover {
+      padding: 10px;
+      border-radius: 5px;
+    }
+}
+
+#icon-verificacao {
+    /* display: inline-block; */
+    animation: mexer 3s linear infinite;
+    transition: all 3s linear;
+}
+
+.piscar-linha-vazia {
+    color: #f62d51; font-weight: 500;
+    animation: blink-line 5s ease-in-out infinite;
+}
+
+@keyframes blink-line {
+    from {
+        opacity: 0.5;
+    } to {
+        opacity: 1;
+    }
+}
+
+.alone-nmg {
+    width: 100%;
+    height: 46px;
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -5px,
+    rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+    padding-left: 10px;
+}
+
+.coluna-selecionada:hover {
+    background-color: #66666655;
+    color: #212121;
+    border-radius: 4px;
+    transition: all .1s linear;
+    cursor: pointer;
+    /* padding-left: 5px; */
+}
+
+@keyframes mexer {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* No arquivo CSS global ou no estilo do componente */
+.select2-container--default .select2-selection--single {
+    /* Seus estilos personalizados aqui */
+    background-color: #f2f2f3;
+    border: 1px solid #f0f0f0 !important;
+  }
+  .select2-results__option--highlighted[aria-selected] {
+    background-color: #5897fb;
+    color: white;
+  }
+  
+  .select2-results__option[aria-selected] {
+    padding-top: 10px;
+    padding-left: 20px;
+  }
+  /* No arquivo do componente, por exemplo, seu-componente.component.css */
+  :host ::ng-deep .select2-container--default .select2-selection--single {
+    background-color: #ffffff;
+    height: 46px;
+    border: 1px solid #dbdbdb !important;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -5px,
+    rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+    border-radius:6px!important;
+    /* Adicione mais estilos conforme necessário */
+  }

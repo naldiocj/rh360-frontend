@@ -1,0 +1,175 @@
+<div class="col-sm-7" style="position:relative; right: 0px;">
+  <h4 style="font-size: 14px;">Sistema Integrado de Gestão de Recursos Humanos</h4>
+  <h4 style="color: var(--use-color);" class="page-title"><b>Gerar Relatórios do pessoal em Licença</b></h4>
+</div>
+
+<div class="row">
+  <div class="col-sm-12 alert alert-info mb-3">
+    <h6 class="font-weight-bold text-danger mb-2">Instruções importantes:</h6>
+    <ul class="mb-1 pl-3">
+      <li>
+        <strong>Para gerar a lista:</strong> É necessário selecionar Pelo menos a licença.<br>
+        <small class="text-muted">(Ano e mes: são opcionais)</small>
+      </li>
+      <li>
+        <strong>Quantidade de Efetivos:</strong>
+        <ul class="pl-3 mt-1">
+          <li><span class="badge badge-dark">-1</span> = Todos os registos.</li>
+          <li><span class="badge badge-dark">Sem número</span> = Quantidade padrão 10.</li>
+          <li><span class="badge badge-dark">Número positivo</span> = Quantidade exata.</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="col-lg-12 col-md-12 col-sm-12 mb-4">
+  <div>
+
+
+   <aside class="row">
+  <!-- Primeira Linha -->
+  <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-4">
+    <label><b>Quantidade De Efectivos</b></label>
+    <input type="number" [(ngModel)]="filtro.perPage" class="form-control" />
+    <small class="text-muted">(-1 todos registos)</small>
+  </div>
+
+  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 mb-4">
+    <label><b>Licença</b></label>
+    <ng-select2 [data]="_tipolicencas" [options]="options" [(ngModel)]="filtro.tipo_licenca_id"></ng-select2>
+  </div>
+
+  <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 mb-4">
+    <label><b>Ano</b></label>
+    <ng-select2 [data]="anos" [options]="options" [(ngModel)]="filtro.ano"></ng-select2>
+  </div>
+
+  <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 mb-4">
+    <label><b>Mês</b></label>
+    <ng-select2 [data]="meses" [options]="options" [(ngModel)]="filtro.mes"></ng-select2>
+  </div>
+
+  <!-- Segunda Linha -->
+
+  <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 mb-4">
+    <label><b>Sexo</b></label>
+    <select class="form-control" [(ngModel)]="filtro.genero">
+      <option *ngFor="let item of generos" [value]="item.id">{{ item.text }}</option>
+    </select>
+  </div>
+
+<div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 mb-4">
+    <label><b>Regime de Carreira</b></label>
+    <select class="form-control" [(ngModel)]="filtro.regimeId" (ngModelChange)="validarRegime($event)">
+      <option *ngFor="let item of regimes" [value]="item.id">{{ item.text }}</option>
+    </select>
+  </div>
+
+  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 mb-4">
+    <label><b>{{ regimeQuadro === 'II' ? 'Carreira' : 'Classe' }}</b></label>
+    <ng-select2 [data]="tipoCarreiraOuCategorias" [options]="options"
+               [(ngModel)]="filtro.patenteClasse" (ngModelChange)="buscarPatentes($event)"></ng-select2>
+  </div>
+
+  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 mb-4">
+    <label><b>Posto</b></label>
+    <ng-select2 [data]="patentes" [options]="options" [(ngModel)]="filtro.patenteId"></ng-select2>
+  </div>
+
+
+
+
+
+  <!-- Terceira Linha (Condicional) -->
+  <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4" *ngIf="getAuth?.user?.aceder_todos_agentes">
+    <label><b>Tipo de Órgão</b></label>
+    <ng-select2 [options]="options" [data]="tipoEstruturaOrganicas"
+               [(ngModel)]="filtro.tipoOrgaoId" (valueChanged)="selecionarOrgaoOuComandoProvincial($event)"></ng-select2>
+  </div>
+
+  <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4" *ngIf="getAuth?.user?.aceder_todos_agentes">
+    <label><b>Direcção/Comando</b></label>
+    <ng-select2 [options]="options" [data]="orgaos" [(ngModel)]="filtro.orgaoId"></ng-select2>
+  </div>
+</aside>
+
+
+
+  </div>
+  <div>
+    <!-- <label>
+      Selecione as colunas que desejas conter no relatório <br>
+      <b> <span class="text-danger">! Importante:</span> </b>
+      A ordem de seleção indica a ordem em que na qual as colunas estarão organizadas no documento
+    </label> -->
+    <!-- <ng-select2 [data]="this.opcoesDoSelector" [(ngModel)]="this.valoresSelecionados"
+      [options]="optionsMultiplo"></ng-select2> -->
+  </div>
+
+  <div class="m-t-10">
+
+    <aside *ngIf="this.carregando; else showLoading">
+      <button id="bookreset" class="btn btn-primary submit-btn" disabled="true">
+        <div class="d-flex justify-content-center">
+          <div class="spinner-border spinner-border-sm m-1"></div>
+          <a style="text-decoration: none;color: white;">
+            Gerando relatório ...
+          </a>
+        </div>
+      </button>
+    </aside>
+    <ng-template #showLoading><!-- [disabled]="this.validarSelecionados() -->
+      <button id="bookreset" class="btn btn-primary submit-btn" [disabled]="this.validarSelecionados()"
+        (click)="onSubmit()">
+        <div class="d-flex justify-content-center">
+          <a href="javascript:void(0)" data-toggle="modal" data-target="#modalGerarRelarorio"
+            style="text-decoration: none;color: white;">
+            Gerar relatório
+          </a>
+        </div>
+      </button>
+    </ng-template>
+  </div>
+
+</div>
+
+<div class="modal fade" id="modalGerarRelarorio" aria-labelledby="modalGerarRelarorio" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="overflow-y: hidden;min-width: 70%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>
+          <i class="fa fa-user"></i>
+          Relatório do pessoal em Licença
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="content">
+        <div class="modal-body">
+          <aside *ngIf="this.fileUrl; else showLoadingRelatorio">
+            <iframe [src]="fileUrl" width="100%" frameborder="0" style="min-height: 700px;"></iframe>
+            <!-- <img [src]="this.fileUrl" width="100" height="100" alt="Profile" class="rounded-circle my-2"> -->
+          </aside>
+          <ng-template #showLoadingRelatorio>
+            <div class="container">
+              <div class="row justify-content-center">
+                Carregando relatório ...
+                <div class="col-sm-12 text-center">
+                  <div class="spinner-border text-primary" style="width: 2rem; height: 2rem;" role="status">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="fecharModalRelatorio()">
+            <span class="fa fa-close m-r-2"> </span> Fechar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

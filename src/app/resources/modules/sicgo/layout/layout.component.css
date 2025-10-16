@@ -1,0 +1,227 @@
+/* styles.scss */
+:root {
+  --orgao-color: #0d6efd;
+}
+
+.text-orgao {
+  color: var(--orgao-color) !important;
+}
+
+.bg-orgao {
+  background-color: var(--orgao-color) !important;
+}
+
+.border-orgao {
+  border-color: var(--orgao-color) !important;
+}
+
+@media (max-width: 1199px) {
+  #sidebar {
+    left: -300px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .toggle-sidebar #content,
+  .toggle-sidebar #footer {
+    margin-left: 0;
+  }
+}
+
+:root {
+  --light: #041b4e;
+  --blue: #3c91e6;
+  --light-blue: #cfe8ff;
+  --grey: #eee;
+  --dark-grey: #aaaaaa;
+  --dark: #342e37;
+  --red: #db504a;
+  --yellow: #ffce26;
+  --light-yellow: #fff2c6;
+  --orange: #fd7238;
+  --light-orange: #ffe0d3;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+/* SIDEBAR */
+
+body,
+#main_ {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, #041b4e, #040c1e);
+  transition: all 0.3s ease;
+}
+/* CONTENT */
+#content {
+  position: relative;
+  height: 100%;
+  margin-left: 67px;
+  width: calc(100% - 67px);
+  background: linear-gradient(#04163f, #04163d,   #ffffff, #ffffff);
+
+  transition: all 0.3s ease;
+
+  &.content-collapsed {
+    margin-left: 67px;
+    width: calc(100% - 67px);
+  }
+}
+
+#content.blurred {
+  margin-left: 230px;
+  position: relative;
+  transition: margin 0.3s ease;
+}
+#content.blurred::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  backdrop-filter: blur(3px);
+  background-color: rgba(6, 2, 42, 0.737);
+  pointer-events: none; /* Permite interação com elementos abaixo */
+  z-index: 999; /* Abaixo da sidebar mas acima do conteúdo */
+}
+#content.blurre {
+  position: relative;
+  transition: margin 0.3s ease;
+}
+#content.blurre::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  backdrop-filter: blur(3px);
+  background-color: rgba(6, 2, 42, 0.737);
+  pointer-events: none; /* Permite interação com elementos abaixo */
+  z-index: 9; /* Abaixo da sidebar mas acima do conteúdo */
+}
+
+/* #content.blurred::after { */
+/* Fallback para Firefox */
+/* background: linear-gradient(to bottom, rgba(8, 3, 58, 0.737), #040c1e8e);
+  }
+  
+  @supports (backdrop-filter: blur(4px)) or (-webkit-backdrop-filter: blur(4px)) {
+	#content.blurred::after {
+	  -webkit-backdrop-filter: blur(4px);
+	  backdrop-filter: blur(4px);
+	  background: linear-gradient(to bottom, #0a1a3fa9, rgba(8, 5, 68, 0.784));
+	}
+  } */
+
+#content > .headerkv {
+  position: relative !important;
+  width: 100% !important;
+  height: auto !important;
+  transition: 0.2s ease;
+  background: linear-gradient(#04163f, #04163d, #04163d);
+
+  left: 0;
+  right: 0;
+  top: 0;
+  color: #002d54;
+}
+#content > .page-wrapperkv {
+  width: 100%;
+  transition: 0.2s ease;
+  background: #fff;
+  border-top-right-radius: 14px;
+  border-top-left-radius: 14px;
+  padding-top: 15px !important;
+}
+
+#sidebar.hide ~ #content {
+  width: calc(100% - 60px);
+  left: 60px;
+}
+
+/* Variáveis de cores e estilos base mantidos */
+
+/* Quando o sidebar estiver oculto (para telas pequenas) */
+@media (max-width: 1199px) {
+  #sidebar {
+    left: -230px; /* Oculto */
+  }
+
+  /* Quando sidebar está aberto (exemplo: adicionar uma classe .show-sidebar no body ou container) */
+  body.show-sidebar #sidebar {
+    left: 0;
+  }
+
+  /* Ajusta o conteúdo quando sidebar está oculto */
+  #content {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+}
+
+/* Para telas maiores (>=1200px) */
+@media (min-width: 1200px) {
+  #sidebar {
+    left: 0;
+  }
+
+  /* Conteúdo padrão com sidebar aberto */
+  #content {
+    margin-left: 230px;
+    width: calc(100% - 230px);
+    transition: margin-left 0.3s ease, width 0.3s ease;
+  }
+
+  /* Conteúdo quando sidebar recolhido */
+  #content.content-collapsed {
+    margin-left: 67px;
+    width: calc(100% - 67px);
+  }
+}
+
+/* Caso tenha toggle para esconder sidebar no body */
+body.toggle-sidebar #content {
+  margin-left: 67px !important;
+  width: calc(100% - 67px) !important;
+}
+
+/* Blur overlay quando ativo */
+#content.blurred::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(3px);
+  background-color: rgba(6, 2, 42, 0.737);
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* Header e page wrapper dentro do content */
+#content > .headerkv {
+  width: 100%;
+  background: linear-gradient(#04163f, #04163d, #04163d);
+  color: #002d54;
+  transition: 0.2s ease;
+}
+
+#content > .page-wrapperkv {
+  width: 100%;
+  background: #fff;
+  border-top-right-radius: 14px;
+  border-top-left-radius: 14px;
+  padding-top: 15px !important;
+  transition: 0.2s ease;
+}
+
+

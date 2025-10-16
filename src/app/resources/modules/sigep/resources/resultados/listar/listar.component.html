@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resultado das Eleições</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Adicione seus links para os estilos e scripts aqui -->
+  <style>
+    /* Estilos personalizados */
+    body {
+      background-color: #f8f9fa;
+    }
+    .results-container {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-top: 20px;
+    }
+    .results-header {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    .candidate-result {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #dee2e6;
+    }
+    .candidate-info {
+      display: flex;
+      align-items: center;
+    }
+    .candidate-image {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 10px;
+    }
+    .candidate-name {
+      font-weight: bold;
+      font-size: 18px;
+    }
+    .vote-count {
+      font-size: 16px;
+      color: #007bff;
+    }
+    .winner-card {
+      position: fixed;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: 300px;
+      text-align: center;
+    }
+    .winner-image {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 10px;
+      display: block;
+    }
+    .winner-name {
+      font-weight: bold;
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+    .winner-subtitle {
+      font-size: 16px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <!-- Seção de resultados -->
+        <div class="results-container">
+          <h2 class="results-header">Resultado das Eleições</h2>
+          <div class="candidate-result">
+            <div class="candidate-info">
+              <img class="candidate-image" src="../assets/img/user-luciano1.png" alt="Luciano Ferreira">
+              <span class="candidate-name">Luciano Ferreira</span>
+            </div>
+            <span class="vote-count">1250 votos</span>
+          </div>
+          <div class="candidate-result">
+            <div class="candidate-info">
+              <img class="candidate-image" src="../assets/img/user-luciano1.png" alt="Luciano Ferreira">
+              <span class="candidate-name">Luciano Ferreira</span>
+            </div>
+            <span class="vote-count">1250 votos</span>
+          </div>
+          <div class="candidate-result">
+            <div class="candidate-info">
+              <img class="candidate-image" src="../assets/img/user-luciano1.png" alt="Luciano Ferreira">
+              <span class="candidate-name">Luciano Ferreira</span>
+            </div>
+            <span class="vote-count">1250 votos</span>
+          </div>
+          <div class="candidate-result">
+            <div class="candidate-info">
+              <img class="candidate-image" src="../assets/img/user-luciano1.png" alt="Luciano Ferreira">
+              <span class="candidate-name">Luciano Ferreira</span>
+            </div>
+            <span class="vote-count">1250 votos</span>
+          </div>
+          <div class="candidate-result">
+            <div class="candidate-info">
+              <img class="candidate-image" src="../assets/img/user-luciano1.png" alt="Luciano Ferreira">
+              <span class="candidate-name">Luciano Ferreira</span>
+            </div>
+            <span class="vote-count">1250 votos</span>
+          </div>
+          <div class="candidate-result">
+            <div class="candidate-info">
+              <img class="candidate-image" src="../assets/img/user-luciano1.png" alt="Luciano Ferreira">
+              <span class="candidate-name">Luciano Ferreira</span>
+            </div>
+            <span class="vote-count">1250 votos</span>
+          </div>
+          <!-- Repita para os outros candidatos -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card do Vencedor na lateral -->
+  <div class="winner-card">
+    <img class="winner-image" src="../assets/img/user-luciano1.png" alt="Vencedor">
+    <div class="winner-name">Luciano Ferreira</div>
+    <div class="winner-subtitle">Vencedor</div>
+    <div class="winner-subtitle">Inspector-Chefe / DTTI</div>
+  </div>
+
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+.modal1{
+
+    max-width: 50%;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+
+    height: 100vh;
+    display: flex;
+  }
+
+
+
+  .danger-sigae{
+    width: 200px;
+    height:40px;
+    
+    
+    }
+    
+    /*cor do botao de registar do sigae*/
+    
+    .primary-sigae{
+    width: 200px;
+    height:40px;
+    background-color: #041b4e;
+    
+    }

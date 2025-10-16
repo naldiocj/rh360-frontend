@@ -1,0 +1,23 @@
+<details class="custom-details">
+    <summary class="d-flex">
+        <div 
+            class="mr-2">
+            <i class="bi bi-plus-lg"></i>
+        </div>
+        <ng-template #nogrupoDelituoso>
+            <div class="mr-2">
+                <i class="bi bi-x-lg"></i>
+                <!-- Ícone ou conteúdo alternativo -->
+            </div>
+        </ng-template>
+        Arma usada
+    </summary>
+    <div class="bg-lightt">
+        <ng-container *ngIf="0; else elseTemplate">
+             
+        </ng-container>
+        <ng-template #elseTemplate>
+            <span>Nenhum Grupo associado</span>
+        </ng-template>
+    </div>
+</details>

@@ -1,0 +1,203 @@
+.bg-prima{
+    background-color: #041b4e;
+  }
+  
+  .modal-content{
+    border-radius: 15px;
+  }
+   
+  
+    .cols-1 {
+      flex: 0 0 auto;
+      width: 3.5%;
+    }
+    .cols-11 {
+      flex: 0 0 auto;
+      width: 88.66666667%;
+    }
+  
+    canvas {
+      display: none;
+    }
+  
+  
+  
+    input,
+    select,
+    textarea {
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -5px,
+        rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+        border-radius:7px;
+        border: 1px solid #dbdbdb !important;
+      padding: 10px;
+    }
+  
+  .all{
+      display: flex;
+      justify-content: start;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      padding-top: 2em;
+  }
+  
+  
+  .styled{
+      width: 250px;
+      height: 2em;
+      background-color: rgb(198, 198, 198);
+      color: black;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+  
+  #fileupload{
+      display: none;
+  
+    }
+    .bg-light {
+      --bs-bg-opacity: 0;
+      border-top-left-radius: 0px !important;
+      border-top-right-radius: 11px !important;
+      border-bottom-left-radius: 11px !important;
+      border-bottom-right-radius: 11px !important;
+      background-color: rgb(255, 255, 255) !important;
+      padding: 10px;
+  
+    }
+  
+    .bg-light-fotos {
+      --bs-bg-opacity: 0;
+      border-radius: 1px !important;
+      background-color: rgb(255, 255, 255) !important;
+      padding: 2px;
+      border: 2px solid #dbdbdb;
+      height: 380px;
+      margin-bottom: 7px;
+    }
+  
+  
+  
+  
+  
+input,
+select,
+textarea {
+  /* box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -5px,
+      rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+       */
+  border-radius: 13px!important;
+  border: 1px solid #e0e0e0 !important;
+  padding: 10px !important;
+  height: 45px !important;
+  background-color: #ffffff !important;
+  box-shadow: inset 0 -5px 10px -5px #f8f8f8 !important;
+}
+ 
+
+/* No arquivo CSS global ou no estilo do componente */
+.select2-container--default .select2-selection--single {
+  /* Seus estilos personalizados aqui */
+  border: 1px solid #e0e0e0 !important;
+  padding: 5px !important; 
+  height: 45px !important;
+  background-color: #ffffff !important;
+  box-shadow: inset 0 -5px 10px -5px #f8f8f8 !important;
+  border-radius: 13px !important;
+}
+.select2-results__option--highlighted[aria-selected] {
+  background-color: #5897fb;
+  color: white;
+  border: 1px solid #e0e0e0 !important;
+}
+
+.select2-results__option[aria-selected] {
+  padding-left: 20px;
+  border: 1px solid #e0e0e0 !important;
+}
+/* No arquivo do componente, por exemplo, seu-componente.component.css */
+:host ::ng-deep .select2-container--default .select2-selection--single {
+  border: 1px solid #e0e0e0 !important;
+  padding: 5px !important;
+  height: 45px !important;
+  background-color: #ffffff !important;
+  box-shadow: inset 0 -5px 10px -5px #f8f8f8 !important;
+  border-radius: 13px !important;
+  /* Adicione mais estilos conforme necessário */
+}
+
+  
+  
+  
+  
+  
+  
+  
+    input[type="radio"] {
+        visibility: hidden;
+        position: absolute;
+      }
+      
+      input[type="radio"] + span {
+        min-width: 10em;
+        border-radius: 4em;
+        padding: 0.5em;
+        line-height: 1;
+        display: block;
+        position: relative;
+        cursor: pointer;
+      }
+      
+      input[type="radio"] + span:before {
+        content: "";
+        width: var(--w);
+        height: var(--w);
+        --bs: 0.25em;
+        --w: 1em;
+        border: solid var(--bs);
+        vertical-align: middle;
+        background: none;
+        border-radius: 50%;
+        margin-inline-end: 0.5em;
+        display: inline-block;
+      }
+      
+      input[type="radio"] + span:hover {
+        background: #fff2;
+      }
+      
+      input[type="radio"]:checked + span {
+        background-color: var(--accent);
+        color: #fff;
+        background-image: linear-gradient(to top, #0004, #00000012);
+      }
+      
+      input[type="radio"]:checked + span:before {
+        --bs: 0px;
+        background: currentColor;
+      }
+      
+      input[type="radio"] + span:after {
+        content: "";
+        width: 0.5em;
+        height: 0.75em;
+        border: 2px solid;
+        border-width: 0 var(--bs) var(--bs) 0;
+        --bs: 0.25em;
+        color: var(--accent);
+        margin-top: 0.1em;
+        display: inline-block;
+        position: absolute;
+        inset-inline-start: 0.75em;
+        transform: rotate(90deg) scale(0);
+        transition: 250ms ease;
+      }
+      
+      input[type="radio"]:checked + span:after {
+        transform: rotate(45deg);
+      }
+      
+    
+      

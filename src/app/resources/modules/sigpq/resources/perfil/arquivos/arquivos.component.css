@@ -1,0 +1,19 @@
+.iframe {
+  width: 100%;
+  height: 750px;
+  overflow: hidden;
+  border: none !important;
+
+}
+
+
+
+th {
+  background: var(--use-color);
+  color: white;
+  text-align: center;
+}
+
+td {
+  text-align: center;
+}

@@ -1,0 +1,128 @@
+<!-- Feedback de progresso -->
+<p>
+  Dedos capturados: {{ getCapturedFingersCount() }}/{{ fingerSequence.length }}
+</p>
+
+<!-- Barra de progresso -->
+<progress
+  value="{{ getCapturedFingersCount() }}"
+  max="{{ fingerSequence.length }}"
+></progress>
+
+<!-- Mensagem de sucesso -->
+<p *ngIf="currentSequenceIndex === fingerSequence.length" class="success">
+  Todas as impressões digitais foram capturadas com sucesso!
+</p>
+
+<!-- Contêiner das mãos -->
+<div class="hands-container">
+  <!-- Mão esquerda -->
+  <div class="hand hand-left" data-hand="left">
+    <div
+      class="finger thumb"
+      data-finger="polegar"
+      data-hand="left"
+      role="button"
+      aria-label="Dedo Polegar"
+      #finger
+      [class.active]="registeredFingers.leftThumb.template"
+      (click)="setCapturedFinger(registeredFingers.leftThumb)"
+    ></div>
+    <div
+      class="finger index"
+      data-finger="indicador"
+      data-hand="left"
+      role="button"
+      aria-label="Dedo Indicador"
+      #finger
+      [class.active]="registeredFingers.leftIndex.template"
+      (click)="setCapturedFinger(registeredFingers.leftIndex)"
+    ></div>
+    <div
+      class="finger middle"
+      data-finger="medio"
+      data-hand="left"
+      role="button"
+      aria-label="Dedo Médio"
+      #finger
+      [class.active]="registeredFingers.leftMiddle.template"
+      (click)="setCapturedFinger(registeredFingers.leftMiddle)"
+    ></div>
+    <div
+      class="finger ring"
+      data-finger="anelar"
+      data-hand="left"
+      role="button"
+      aria-label="Dedo Anelar"
+      #finger
+      [class.active]="registeredFingers.leftRing.template"
+      (click)="setCapturedFinger(registeredFingers.leftRing)"
+    ></div>
+    <div
+      class="finger pinky"
+      data-finger="mindinho"
+      data-hand="left"
+      role="button"
+      aria-label="Dedo Mindinho"
+      #finger
+      [class.active]="registeredFingers.leftLittle.template"
+      (click)="setCapturedFinger(registeredFingers.leftLittle)"
+    ></div>
+    <div class="palm"></div>
+  </div>
+
+  <!-- Mão direita -->
+  <div class="hand hand-right" data-hand="right">
+    <div
+      class="finger thumb"
+      data-finger="polegar"
+      data-hand="right"
+      role="button"
+      aria-label="Dedo Polegar"
+      #finger
+      [class.active]="registeredFingers.rightThumb.template"
+      (click)="setCapturedFinger(registeredFingers.rightThumb)"
+    ></div>
+    <div
+      class="finger index"
+      data-finger="indicador"
+      data-hand="right"
+      role="button"
+      aria-label="Dedo Indicador"
+      #finger
+      [class.active]="registeredFingers.rightIndex.template"
+      (click)="setCapturedFinger(registeredFingers.rightIndex)"
+    ></div>
+    <div
+      class="finger middle"
+      data-finger="medio"
+      data-hand="right"
+      role="button"
+      aria-label="Dedo Médio"
+      #finger
+      [class.active]="registeredFingers.rightMiddle.template"
+      (click)="setCapturedFinger(registeredFingers.rightMiddle)"
+    ></div>
+    <div
+      class="finger ring"
+      data-finger="anelar"
+      data-hand="right"
+      role="button"
+      aria-label="Dedo Anelar"
+      #finger
+      [class.active]="registeredFingers.rightRing.template"
+      (click)="setCapturedFinger(registeredFingers.rightRing)"
+    ></div>
+    <div
+      class="finger pinky"
+      data-finger="mindinho"
+      data-hand="right"
+      role="button"
+      aria-label="Dedo Mindinho"
+      #finger
+      [class.active]="registeredFingers.rightLittle.template"
+      (click)="setCapturedFinger(registeredFingers.rightLittle)"
+    ></div>
+    <div class="palm"></div>
+  </div>
+</div>

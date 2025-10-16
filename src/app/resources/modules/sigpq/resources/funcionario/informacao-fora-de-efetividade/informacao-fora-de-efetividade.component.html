@@ -1,0 +1,102 @@
+<div class="modal fade" id="modalInformacaoForaDeAtividade" tabindex="-1" aria-labelledby="modalInformacaoForaDeAtividade" aria-hidden="true">
+  <div class="modal-dialog modal-lg"> <!-- Use modal-lg ou modal-xl para ajustar -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalInformacaoForaDeAtividadeLabel">Informações do Agente Fora de Atividade</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="resetForm()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Verificação de agente selecionado -->
+        <ng-container *ngIf="agenteSelecionado; else semAgente">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Posto</th>
+                <th>Nome Completo</th>
+                <th>Colocação</th>
+                <th>Situação Laboral</th>
+                <th>Motivo Situação Laboral</th>
+                <th>Mais Informações</th>
+                <th>Inativo desde</th>
+                <th>Duração</th>
+                <th>Termina em</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>{{ agenteSelecionado.patente_nome || 'S/N' }}</td>
+                <td>{{ agenteSelecionado.nome_completo | uppercase }}</td>
+                <td class="text-start" [title]="agenteSelecionado.orgao?.nome" style="cursor: pointer;">
+                  <ng-container *ngIf="agenteSelecionado.orgao?.nome; else elseOrgao">
+                    {{ agenteSelecionado.orgao?.sigla }}
+                  </ng-container>
+                  <ng-template #elseOrgao>
+                    S/N
+                  </ng-template>
+                </td>
+                <td class="text-center">{{ agenteSelecionado.estado ?? 'S/N' }}</td>
+                <td class="text-center">{{ agenteSelecionado.nome_fora_atividade ?? 'S/N' }}</td>
+                <td class="text-center">{{ agenteSelecionado.motivo_desistencia ?? 'S/N' }}</td>
+                <td class="text-center">{{ agenteSelecionado?.data_inicio_inatividade || 'S/N' }}</td>
+                <td class="text-center">{{ agenteSelecionado?.duracao_inatividade ? agenteSelecionado.duracao_inatividade + ' dias' : 'S/N' }}</td>
+                <td class="text-center">{{ calcularFimInatividade(agenteSelecionado.data_inicio_inatividade, agenteSelecionado.duracao_inatividade) }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+
+          <!-- Formulário para Atualizar Data de Início, Hora e Duração -->
+           <ng-container *ngIf="propositoModal=='atualizar'">
+          <form class="mt-4" (ngSubmit)="editarEstado(agenteSelecionado.id)" [formGroup]="formulario">
+            <div class="form-group row">
+              <label for="dataInicioInatividade" class="col-sm-4 col-form-label">Data de Início da Inatividade:</label>
+              <div class="col-sm-4">
+                <input type="date" id="dataInicioInatividade" class="form-control" [(ngModel)]="data_inicio_inatividadeData" name="data_inicio_inatividadeData" (change)="validarData()"/>
+                <small *ngIf="dataInvalida" class="text-danger">A data de início não pode estar no futuro.</small>
+              </div>
+            </div>
+            <div class="form-group row mt-2">
+              <label for="duracaoInatividade" class="col-sm-4 col-form-label">Duração (dias):</label>
+              <div class="col-sm-8">
+                <input type="number" id="duracaoInatividade" class="form-control" [(ngModel)]="duracao_inatividade" name="duracao_inatividade" placeholder="Dias" (change)="validarDuracao()"/>
+                <small *ngIf="duracaoInvalida" class="text-danger">Duração deve ser um número positivo.</small>
+
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary" *ngIf="!dataInvalida && data_inicio_inatividadeData && duracao_inatividade && !duracaoInvalida">Confirmar</button>
+          </form>
+          </ng-container>
+
+          <ng-container *ngIf="propositoModal=='retomar'">
+            <form class="mt-4" (ngSubmit)="editarEstado(agenteSelecionado.id)" [formGroup]="formulario">
+              <div class="form-group row">
+                <label for="dataInicioInatividade" class="col-sm-4 col-form-label">Data de Reinício da Efetividade:</label>
+                <div class="col-sm-4">
+                  <input type="date" id="dataInicioInatividade" [(ngModel)]="data_inicio_inatividadeData" class="form-control" name="data_inicio_inatividadeData" (change)="validarData()"/>
+                  <small *ngIf="dataInvalida" class="text-danger">A data de início não pode estar no passado.</small>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary"*ngIf="!dataInvalida && data_inicio_inatividadeData">Confirmar</button>
+            </form>
+            </ng-container>
+
+
+
+        </ng-container>
+
+        <ng-template #semAgente>
+          <p>Por favor, selecione um agente para visualizar as informações.</p>
+        </ng-template>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close" (click)="resetForm()">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>

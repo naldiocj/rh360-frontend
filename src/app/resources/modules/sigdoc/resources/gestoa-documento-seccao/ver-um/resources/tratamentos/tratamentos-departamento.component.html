@@ -1,0 +1,218 @@
+<div class="row">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+    <div class="row py-2">
+      <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12">
+        <form class="form-inline">
+          <select class="form-control mr-sm-1" (change)="filtrarPagina('perPage', $event)">
+            <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">
+              {{ item }}
+            </option>
+          </select>
+          <input class="form-control mr-sm-1" type="text" [ngModel]="filtro.search"
+            (ngModelChange)="filtrarPagina('search', $event)" placeholder="Pesquisa ..." />
+          <button (click)="this.recarregarPagina()" class="btn-piips btn-piips-secondary m-0 py-2" type="submit">
+            <i style="font-size: 14px;" class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+            <b>Recarregar</b>
+          </button>
+        </form>
+      </div>
+      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 d-flex justify-content-end" *ngIf="!this.isEnviada && this.isRecebida">
+        <button data-toggle="modal" data-target="#registar-editar-tratamento"
+          class="btn-piips btn-piips-primary m-0 py-2">
+          <i style="font-size: 14px;" class="fa fa-plus fa-3x fa-fw mx-1"></i>
+          <b>Tratar</b>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+    <div class="table-responsive">
+      <table class="table table-border table-striped custom-table datatable mb-0">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>ID</th>
+            <th>Departamento</th>
+            <th>Tratado Por</th>
+            <th>Data do trametanto</th>
+            <th>Anexado</th>
+            <th>Estado</th>
+            <th class="text-right">Operação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="this.isLoading">
+            <td colspan="9">
+              <aside *ngIf="this.isLoading">
+                <loading-page [texto]="'lista de documentos tratado'"></loading-page>
+              </aside>
+            </td>
+          </tr>  
+          <tr *ngFor="
+              let item of this.tratamentos
+                | paginate
+                  : {
+                      id: 'tratamentoId',
+                      itemsPerPage: this.pagination.per_page,
+                      currentPage: this.pagination.current_page,
+                      totalItems: this.pagination.total
+                    };
+              index as i
+            ">
+            <td [style.backgroundColor]="item?.cor" class="px-4">
+
+            </td>
+            <td>{{ i + 1 }}</td>
+            <td>
+              <ng-container *ngIf="item?.orgao_rementente; else semOrgao">
+                {{ item?.orgao_rementente?.sigla }} - {{ this.upperCase(item?.orgao_rementente?.nome_completo)}}
+              </ng-container>
+              <ng-template #semOrgao>
+                S/N
+              </ng-template>
+            </td>
+            <td>
+              <ng-container *ngIf="item?.agente_remetente; else semAgente">
+                <a routerLink="/" ariaCurrentWhenActive="page"
+                  [routerLink]="['/piips/sigpg/perfil/', item?.agente_remetente?.id]" style="font-size: 15px;">
+                  {{ item?.agente_remetente?.patente_nome ?? 'S/N' }} - {{ item?.agente_remetente?.nip ?? 'S/N' }} - {{
+                  this.upperCase(item?.agente_remetente?.nome_completo)}}
+                </a>
+              </ng-container>
+              <ng-template #semAgente>
+                S/N
+              </ng-template>
+            </td>
+            <td>{{ item?.created_at }}</td>
+            <td>{{ this.temAnexado(item?.anexo) }}</td>
+            <td id="i">{{ getStatus(item?.cor) }}</td>
+            
+            <td class="text-right">
+              <div class="dropdown dropdown-action">
+                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                  <i class="fa fa-ellipsis-v"></i>
+                </a>
+                <div class="dropdown-menu">
+                  <a *ngIf="item.anexo!=null" class="dropdown-item" href="javascript:void(0)" (click)="visualizar(item)"
+                    data-toggle="modal" data-target="#modal-visual-documento">
+                    <i class="fa fa-file m-r-5"></i>
+                    Ver Tratamento DOC
+                  </a>
+                  <a class="dropdown-item" href="#" (click)="construcao()" data-toggle="modal"
+                    data-target="#delete_patient">
+                    <i class="fa fa-trash-o m-r-5"></i>
+                    Eliminar
+                  </a>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+    <div class="row">
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+        Mostrando de {{ this.pagination.current_page }} á
+        {{ this.pagination.per_page }} de {{ this.pagination.total }} Registo
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+        <div class="float-right">
+          <pagination-controls id="tratamentoId" (pageChange)="this.filtrarPagina('page', $event)"
+            [directionLinks]="true" [autoHide]="false" previousLabel="Anterior" nextLabel="Próximo" [maxSize]="4"
+            [responsive]="true"></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-sigpq-registar-ou-editar [correspondencia]="this.getCorrespondencia" (onRegistarEditar)="this.recarregarPagina()" ></app-sigpq-registar-ou-editar>
+
+<div class="modal fade" id="modal-visual-documento" aria-labelledby="modalCargoVisual" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="overflow-y: hidden; min-width: 70%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>
+          <i class="fa fa-user"></i>
+          Visualização de Documentos
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="content">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <nav class="navbar navbar-light bg-light">
+                <h5>Código de Referência do Documento - {{this.getCorrespondencia?.referenciaDoc}}</h5><br>
+                <aside *ngIf="this.documento">
+                  <span class="text-light px-2 py-2" [style.backgroundColor]="this.documento.cor">{{this.documento?.status | uppercase}}</span>
+                </aside>
+              </nav>
+              <div class="col-sm-12">
+                <aside *ngIf="carregarDocumento; else carregarDocumentoVerMensagem">
+                  <div class="container">
+                    <div class="row justify-content-center">
+                      Carregando documentos ...
+                      <div class="col-sm-12 text-center">
+                        <div class="spinner-border text-primary" style="width: 2rem; height: 2rem;" role="status"></div>
+                      </div>
+                    </div>
+                  </div>
+                </aside>
+                <ng-template #carregarDocumentoVerMensagem>
+                  <div class="row">
+                    <!-- Documento de Entrada (em cima) -->
+                    <div class="col-sm-12 mb-3">
+                      <h6>Documento de Entrada</h6>
+                      <aside *ngIf="fileUrls.anexo_entrada; else semAnexoEntrada">
+                        <iframe [src]="fileUrls.anexo_entrada" width="100%" height="800px"></iframe>
+                      </aside>
+                      <ng-template #semAnexoEntrada>
+                        <div class="container">
+                          <div class="row justify-content-center">
+                            <div class="col-sm-12 text-center">
+                              Sem documento de entrada anexado
+                            </div>
+                          </div>
+                        </div>
+                      </ng-template>
+                    </div>
+                    <!-- Documento de Tratamento (embaixo) -->
+                    <div class="col-sm-12">
+                      <div class="alert alert-success" role="alert">
+                        <h4 class="alert-heading">NOTA:</h4>
+                        <p>{{this.documento?.nota}}.</p>
+                      </div>
+                      <h6>Documento de Tratamento</h6>
+                      <aside *ngIf="fileUrls.anexo; else semAnexo">
+                        <iframe [src]="fileUrls.anexo" width="100%" height="800px"></iframe>
+                      </aside>
+                      <ng-template #semAnexo>
+                        <div class="container">
+                          <div class="row justify-content-center">
+                            <div class="col-sm-12 text-center">
+                              Sem documento de tratamento anexado
+                            </div>
+                          </div>
+                        </div>
+                      </ng-template>
+                    </div>
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            <span class="fa fa-close m-r-2"></span>Fechar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

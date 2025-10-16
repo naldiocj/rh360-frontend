@@ -1,0 +1,62 @@
+ 
+  
+    
+
+
+ 
+  <table class="table  table-stripedkv" #tableToPrint>
+    <thead class="table-thead">
+      <tr>
+        <th>#</th> 
+        <th>Nome</th> 
+        <th>Nacionalidade</th>
+        <th>Bilhete De Identidade</th>
+        <th>Contacto</th>
+        <th>Intervenção</th>
+        <th>Importancia</th>
+        <th>data</th>
+
+        <th class="text-right">Operação</th>
+      </tr>
+    </thead>
+    <ng-container *ngIf="this.testemunhas == ''; else elseTemplate">
+     Sem testemunhas
+   </ng-container>
+   <ng-template #elseTemplate>
+
+     <tbody class="table-tbody">
+       <tr  *ngFor="let item of this.testemunhas index as i" >
+        <td class="text-center">{{ item.id}}</td>
+        <td >{{ item.nome}}</td>
+        <td  class="text-center">{{ item.nacionalidade}}</td>
+        <td  class="text-center">{{ item.bi_n}}</td>
+        <td >{{ item.tel}}</td>
+        <td >{{ item.sicgo_denucia}}</td>
+        <td >{{ item.sicgo_importancias}}</td>
+        <td >{{ item.created_at}}</td>
+
+         <td class="text-right">
+             <div class="dropdown dropdown-action">
+               <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
+                   class="fs-2 bi bi-three-dots-vertical"></i>
+               </a>
+               <div class="dropdown-menu dropdown-menu-right  dropdown-menu-arrow">
+                 <a class="dropdown-item" href="#" data-toggle="modal"
+                 data-target="#modalRegistarOuEditarInterveniente">
+                   <i class="fas fa-edit m-r-5"></i>Editar
+                 </a>
+                 <a class="dropdown-item" target="_blank" href="#">
+                   <i class="fa fa-file-archive-o"></i>
+                   Gerar PDF
+                 </a>
+               </div>
+             </div>
+           </td>
+         </tr>
+
+     </tbody>
+    </ng-template>
+
+   </table>
+
+ 

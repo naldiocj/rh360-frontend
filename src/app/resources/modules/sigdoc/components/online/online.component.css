@@ -1,0 +1,34 @@
+.dropdown button{
+    border: none;
+    background-color: unset;
+}
+.dropdown button .user{
+    flex: 0 0 55px;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+}
+
+.dropdown-menu{
+    background-color: unset;
+    border: unset;
+    box-shadow: var(--shadow);
+    transition: all .4s;
+    overflow: hidden;
+}
+.dropdown-menu .dropdown-item {
+    cursor: pointer;
+    width: 100%;
+}
+
+.dropdown-menu .dropdown-item:active{
+    background-color: var(--bgColor);
+    
+
+}
+.btn-toggle-user .bx{
+    transition: all .4s!important;
+}
+.bx.rotate{
+    transform: rotate(180deg);
+}

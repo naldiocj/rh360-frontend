@@ -1,0 +1,218 @@
+<div class="modal fade" id="delete-modal" style="border-radius: unset;">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-ms">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title w-100 d-flex justify-content-between align-items-center">
+                    Eliminação de Calibre
+                    <a data-dismiss="modal" class="bi bi-x-lg text-danger" style="cursor: pointer;"></a>
+                </div>
+            </div>
+            <div class="modal-body text-center" style="font-size:16px; color: #041b43;">
+                <span>Confirmas a eliminação ?</span>
+                <div class="btn-groups my-2">
+                    <a class="btn btn-link" style="text-decoration: none; color: #041b43;" (click)="this.eliminar()">Sim</a>
+                    <div class="btn btn-link" data-dismiss="modal" style="text-decoration: none; color:  #041b43;">Não
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w-100">
+
+
+
+    <div class="pagetitle my-4 col" style="margin-left:10px;">
+        <h1 class="d-flex align-items-center justify-content-start">
+            <i class="bi bi-plus-lg plus-buttom p-1 d-flex align-items-center justify-content-center rounded-pill"></i>
+            <span class="mx-2 d-none d-lg-block fw-bolder" [style]="{ color: 'var(--bg-color)', fontWeight: '400' }">Fazer uma
+        Correspondecia</span>
+        </h1>
+
+        <!--
+
+ <h1 class="d-flex align-items-center justify-content-start">
+            <i class="bi bi-plus-lg plus-buttom p-1 d-flex align-items-center justify-content-center rounded-pill" (click)="view()"></i>
+            <span class="mx-2 d-none d-lg-block fw-bolder" [style]="{ color: 'var(--bg-color)', fontWeight: '400' }">Fazer uma
+        Correspondecia</span>
+        </h1>
+
+         -->
+
+        <div class="row" id="line">
+            <div class="col-2" *ngIf="ver">
+
+                <ul class="d-grid col" style="display: grid;justify-content:left;
+    height: 200px;width:50%;">
+                    <button style="height: 40px;width:150px; background-color: 
+   var(--bg-color); color: white; border-radius: 5px;margin-top:50px;" data-toggle="modal" data-target="#reparacao">Manutenção</button>
+
+                    <button style="height: 40px;width:150px; background-color: 
+   var(--bg-color); color: white; border-radius: 5px;margin-top:50px;" data-toggle="modal" data-target="#entregar">Entregar</button>
+
+                </ul>
+            </div>
+            <div class="col">
+
+                <div class="content">
+
+                    <div class="col fundo" class="col-12 d-grid justify-content-between align-items-center p-0 border-0 my-1 rounded shadow">
+                        <nav class="navbar navbar-light bg-light">
+                            <form class="form-inline">
+                                <select class="form-control mr-sm-1" (change)="filtrarPagina('perPage',$event)">
+                      <option *ngFor="let item of [10,20,50,100]" [value]="item">{{item}}</option>
+                  </select>
+                                <input class="form-control mr-sm-1" type="search" placeholder="Pesquisa ..." [ngModel]="filtro.search" (ngModelChange)="filtrarPagina('search',$event)" />
+
+                                <button id="btpe1" class="btn btn-outline-success my-2 my-sm-0" type="submit"><i
+                          style="font-size: 14px;" class="fa fa-refresh fa-spin fa-3x fa-fw"></i><b>
+                          Recarregar</b>
+                  </button>
+                                <a id="btpe1" class=" btn btn-primary text-light my-2 my-sm-0 btnRegistar" type="submit" style="background-color: var(--primary-color)" data-toggle="modal" data-target="#reparacao">
+                                    <i style="font-size: 14px;" class="fa fa-plus-circle"></i><b>
+                      Registar</b>
+                                </a>
+                            </form>
+                        </nav>
+
+                        <ol class="row w-100">
+
+                            <table class="table table-border table-striped custom-table datatable mb-0">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Descrição</th>
+                                    <th>Entidade</th>
+                                    <th>Data de Actulização</th>
+                                    <th>Estado de Actulização</th>
+                                    <th>Data de Envio</th>
+                                    <th>operação</th>
+                                </tr>
+
+                                <tr class="row-12 h-100" *ngFor="let item of solicitacoes | paginate
+                                : {
+                                    itemsPerPage: this.pagination.per_page,
+                                    currentPage: this.pagination.current_page,
+                                    totalItems: this.pagination.total
+                                  };
+                            index as i" style="text-align: center;height: 100%;">
+                                    <td class="col-1">{{1+i}}</td>
+                                    <td class="col-2">{{item.descricao}}</td>
+                                    <td class="col-2" style="margin-top:1%;">{{item.nome}}</td>
+                                    <td class="col-2">{{item.updatedAt==null?"Nenhuma":item.updatedAt}}</td>
+                                    <td class="col-2" [className]="cor">{{item.estado}}</td>
+                                    <td class="col-2">{{item.createdAt}}</td>
+                                    <td class="col-1">
+
+
+                                        <div class="dropdown">
+                                            <button type="button" class="btn" data-toggle="dropdown">
+                        <i class="bi bi-three-dots-vertical " data-toggle="dropup"></i>
+                      </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="#" (click)="itemId(item)" data-toggle="modal" data-target="#editarEntrega" *ngIf="this.is==0 || this.is==1">Editar</a>
+                                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete-modal" (click)="delete(item.id)" *ngIf="this.is==0 || this.is==1">Eliminar</a>
+
+                                            </div>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </ol>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<app-modais [infoE]="info"></app-modais>
+
+<div class="modal fade" id="editarEntrega" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog -dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="font-family: 'poppins'; font-size: 20px;">Entrega de arma de crime</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+
+                <form [formGroup]="formEntregar" class="col-12 d-grid justify-content-center w-100 h-100">
+
+
+
+                    <div class="form-group ">
+                        <label><b>Tipo Orgão</b><span class="text-danger"> *</span></label>
+                        <ng-select2 [options]="options" [data]="this.orgaoOuComandoProvincial" (valueChanged)="selecionarOrgaoOuComandoProvincial($event)" autorequired>
+                        </ng-select2>
+                    </div>
+
+                    <div class="form-group ">
+                        <label><b>Orgão</b><span class="text-danger"> *</span></label>
+                        <ng-select2 [options]="options" formControlName="orgao_id" [data]="this.direcaoOuOrgao" (valueChanged)="this.selecionarAgente($event)">
+                        </ng-select2>
+                    </div>
+
+                    <div class="form-group ">
+                        <label><b>Agente resposavel</b><span class="text-danger"> *</span></label>
+                        <ng-select2 [options]="options" formControlName="pessoa_id" [data]="this.func">
+                        </ng-select2>
+                    </div>
+
+
+
+                    <div class="form-group ">
+                        <label>
+                            <b>
+                             Arma:
+                                <span class="text-danger"> *</span>
+                            </b>
+                        </label>
+
+                        <ng-select2 [options]="options" formControlName="arma_id" [data]="armass" style="height:40px;border-radius: 1px; width: 100%;">
+                        </ng-select2>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>
+                            <b>
+                Descrição da Arma de Crime :
+                                <span class="text-danger" > *</span>
+                            </b>
+                        </label>
+
+                        <textarea type="text" placeholder="Qual é o nome do orgão?" formControlName="descricao" style="height:100px;border-radius: 1px; width: 100%;" required> </textarea>
+
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger w-25" data-dismiss="modal">Fechar</button>
+                <button type="submit" class="btn btn-primary w-25" (click)="entregar()">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-sm-6">
+            Mostrando de {{ this.pagination.current_page }} á {{ this.pagination.per_page }} de {{ this.pagination.total }} Registo
+        </div>
+        <div class="col-sm-6">
+            <div class="float-right">
+                <pagination-controls (pageChange)="this.filtrarPagina('page', $event)" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+<p>notificacoes works!</p>
+
+  <div class="list-group">
+    <a   *ngFor=" let item of this.notifica; index as i " href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+      <img src="https://github.com/twbs.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0" _mstalt="49348" _msthash="6">
+      <div class="d-flex gap-2 w-100 justify-content-between">
+        <div>
+          <h6 class="mb-0" _msttexthash="818324" _msthash="7">Pedido que </h6>
+          <p class="mb-0 opacity-75" _msttexthash="1843218" _msthash="8">{{item.mensagem}}</p>
+        </div>
+        <small class="opacity-50 text-nowrap" _msttexthash="61217" _msthash="9">{{item.created_at}}</small>
+      </div>
+    </a> 
+  </div>

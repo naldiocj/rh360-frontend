@@ -1,0 +1,71 @@
+<div>
+    <div class="ml-4 pl-1 pt-2 pr-2 pb-2 mr-4 sigv-breadCrumb mt-4">
+        <ul type="none" class="d-flex align-items-center m-0 pl-0">
+            <li>
+                <a [routerLink]="['/piips/sigvest/dashboard']">
+                    <i class="bi bi-house-door-fill"></i> <i class="bi bi-chevron-right"></i>
+                </a>
+            </li>
+            <li>
+                <a [routerLink]="['/piips/sigvest/planificacao']">
+                    Planificação <i class="bi bi-chevron-right"></i>
+                </a>
+            </li>
+            <li>
+                <a [routerLink]="['/piips/sigvest/planificacao/pre-despacho']">
+                    Pré-Despacho <i class="bi bi-chevron-right"></i>
+                </a>
+            </li>
+            <li routerLinkActive="efeito-breadcrumb">
+                <a [routerLink]="['/piips/sigvest/planificacao/pre-despacho/individual']">
+                    <span>Individual</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <h3 class="ml-3 pl-3 mb-4 mt-3 titulo">
+        <img src="../../../../../../assets/assets_sigv/img/img1/document.gif" alt="">
+        <!-- <i class="bi bi-tools ii"></i> -->
+        <span>
+            Individual
+            <div>Gestão de planificações da logística PNA</div>
+        </span>
+    </h3>
+
+    <section>
+        <div class="container-fluid">
+            <div class="row px-3 opcoes-container">
+                <div class="col-12" [routerLink]="['/piips/sigvest/planificacao/pre-despacho/individual/registar']">
+                    <a [routerLink]="['/piips/sigvest/planificacao/pre-despacho/individual/registar']"
+                        class="d-flex justify-content-between align-items-center">
+                        <span class="d-flex align-items-center">
+                            <i class="bi bi-plus-circle-fill iii"></i>
+                            <span>
+                                Registar
+                                <aside>registe todas as planificações na logística dos Vestuários.</aside>
+                            </span>
+                        </span>
+
+                        <span><i class="bi bi-chevron-right"></i></span>
+                    </a>
+                </div>
+
+                <div class="col-12" [routerLink]="['/piips/sigvest/planificacao/pre-despacho/individual/listar']">
+                    <a [routerLink]="['/piips/sigvest/planificacao/pre-despacho/individual/listar']"
+                        class="d-flex justify-content-between align-items-center">
+                        <span class="d-flex align-items-center">
+                            <i class="bi bi-list-ul iii"></i>
+                            <span>
+                                Listar
+                                <aside>Listar todas as planificações e meios relacionados...</aside>
+                            </span>
+                        </span>
+
+                        <span><i class="bi bi-chevron-right"></i></span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>

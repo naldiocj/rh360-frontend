@@ -1,0 +1,88 @@
+<div class="modal fade " id="modalRegistarOuEditarDelituosoCondenado" aria-labelledby="modalRegistarOuEditarDelituosoCondenado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalRegistarOuEditarDelituosoCondenadoLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title"><b>Registro de Delituoso</b></h5>
+          <a
+              type="button"
+              data-bs-dismiss="modal" aria-label="Close"
+            >
+            <i  class="bi bi-backspace-reverse-fill cursor-pointer rounded-lg "
+            style="font-size: 1.2em"></i>
+            </a>
+      </div>
+          <form [formGroup]="Form" (ngSubmit)="onSubmit()">
+ 
+            <div class=" modal-body" >
+             
+
+                          <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active p-4" id="dados-primarios" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+
+                              <div >
+                                    <div class="row">
+                                      <div class="col-lg-12">
+                                        <div class="form-group">
+                                          <label><b>Estabelecimento Prisional</b></label>
+                                          
+                                          <ng-select2
+                                            class="custom-border ng-select-container"
+                                            [options]="this.options"
+                                            [data]="this.prisao"
+                                            formControlName="estabelecimento_prisional_id"
+                                        >
+                                        </ng-select2>
+                                        </div>
+  
+                                      </div>
+                                      <fieldset class="row">
+                                        <legend class="legend">Situação</legend>
+                                        <div class="col-lg-6">
+
+                                          <div class="form-group">
+                                            <label><b>Situação do Condenado</b></label>
+                                            <select class="form-control" id="nose-types" formControlName="situacao">
+                                              <option value="Em cumprimento de Pena">Em cumprimento de Pena</option>
+                                              <option value="Em liberdade">Em liberdade</option>
+                                              <option value="Falecido">Falecido</option>
+                                              <option value="Evadido">Evadido</option>
+                                            </select>
+                                        </div>
+  
+                                      </div>
+                                      <div class="col-lg-6">
+  
+                                        <div class="form-group">
+                                            <label><b>Data</b></label>
+                                            <input type="date" class="form-control"  formControlName="data">
+                                        </div>
+  
+                                      </div>
+                                      </fieldset>
+                                     
+                                    
+                                  </div>
+
+                                </div>
+
+                               </div>
+
+                          </div>
+
+
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    Fechar
+                </button>
+                <button type="submit" type="submit" [disabled]="isLoading" class="btn btn-primary">Salvar</button>
+            </div>
+            </div>
+          
+        </form>
+  </div>
+</div>
+</div>
+
+
+

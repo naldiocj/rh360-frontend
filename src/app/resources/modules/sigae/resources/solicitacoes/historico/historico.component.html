@@ -1,0 +1,90 @@
+<div class="row w-100">
+
+
+
+  <div class="pagetitle my-4 col">
+    <h1 class="d-flex align-items-center justify-content-start">
+      &nbsp;&nbsp;&nbsp; <i class="fa fa-refresh" style="font-size: 20px;font-weight:300;"></i>
+      <span class="mx-2 d-none d-lg-block fw-bolder" [style]="{ color: 'var(--bg-color)', fontWeight: '400' }">Historico
+        de Correspondecia</span>
+    </h1>
+
+
+    <div class="row">
+
+      <div class="col">
+
+        <div class="content">
+
+          <div class="col fundo"
+            class="col-12 d-grid justify-content-between align-items-center p-0 border-0 my-1 rounded shadow overflow-hidden">
+            <nav class="navbar navbar-light bg-light" style="display:flex;margin-left: 20px;">
+              <form class="form-inline">
+
+                <input class="form-control mr-sm-1" type="search" placeholder="Pesquisa ..." />
+
+                <button id="btpe1" class="btn btn-outline-success my-2 my-sm-0" type="submit"><i
+                    style="font-size: 14px;" class="fa fa-refresh fa-spin fa-3x fa-fw"></i><b>
+                    Recarregar</b>
+                </button>
+
+
+              </form>
+              <br>
+
+
+
+            </nav>
+            <ol class="row w-100">
+
+
+              <table class="table table-border table-striped custom-table datatable mb-0">
+                <tr>
+                  <th>ID</th>
+                  <th>Descrição</th>
+                  <th>Entidade</th>
+                  <th>Data para Realização</th>
+                  <th>Estado de Correspondecia</th>
+                  <th>Data da Correspondecia</th>
+                  <th>Data de Tratamento</th>
+                </tr>
+
+                <tr class="row-12 h-100" *ngFor="let item of solicitacoes | paginate
+                : {
+                    itemsPerPage: this.pagination.per_page,
+                    currentPage: this.pagination.current_page,
+                    totalItems: this.pagination.total
+                  };
+            index as i" style="text-align: center;">
+                  <td class="col-1">{{i+1}}</td>
+                  <td class="col-2">{{item.descricao}}</td>
+                  <td class="col-2">{{item.nome}}</td>
+                  <td class="col-2">{{item.updatedAt==null?"Nenhuma":item.updatedAt}}</td>
+                  <td class="col-2" [className]="cor">{{item.estado}}</td>
+                  <td class="col-2">{{item.createdAt}}</td>
+                  <td class="col-1">
+                    {{"Nenhuma"}}</td>
+                </tr>
+              </table>
+
+            </ol>
+
+          </div>
+
+
+
+
+
+
+
+        </div>
+      </div>
+
+
+
+
+    </div>
+  </div>
+
+
+</div>

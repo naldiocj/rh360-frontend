@@ -1,0 +1,193 @@
+<div class="modal fade" id="eliminar" style="border-radius: unset;">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-ms">
+        <div class="modal-content">
+            <div class="modal-body text-center" style="font-size:16px; color: #041b43;">
+                <span>Tens a certeza que desejas Eliminar?</span>
+                <div class="btn-groups my-2">
+                    <a class="btn btn-link" style="text-decoration: none; color: #041b43;" (click)="apagar()">Sim</a>
+                    <div class="btn btn-link" data-dismiss="modal" style="text-decoration: none; color:  #041b43;">Não
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="content main_" id="main">
+    <div class="row">
+        <div class="col-sm-7">
+            <h4 style="color: #002d59" class="page-title">
+                <img src="../../../../../../../assets/sigef/Parchment.png" alt="" />
+                <b>Funções do Utilizador</b>
+            </h4>
+            <h4 style="font-size: 14px">Roles Registrados no Sistema</h4>
+        </div>
+    </div>
+    <div class="row-12 col-12">
+        <nav class="navbar navbar-light bg-light">
+            <form class="form-inline">
+                <select class="form-control mr-sm-1">
+                    <option>Activos</option>
+                    <option>Inativos</option>
+                </select>
+
+                <select class="form-control mr-sm-1">
+                    <option *ngFor="let item of [5, 10, 20, 50]" [value]="item" [(ngModel)]="filtro.perPage">
+                        {{ item }}
+                    </option>
+                </select>
+                <input class="form-control mr-sm-1" type="search" placeholder="Pesquisa ..." name="search" [(ngModel)]="filtro.search" (ngModelChange)="filtrarPagina('search',$event)" />
+
+                <button id="btpe1" class="btn btn-outline-success my-2 my-sm-0" (click)="Recarregar()">
+                    <i class="fa fa-refresh "></i>
+                    Recarregar
+                </button>
+
+            </form>
+            <button id="btpe1" class="btn btn-outline-primary text-white my-2 my-sm-0" style="background-color: var(--primary-color);" data-toggle="modal" data-target="#modalRegistrarOuEditarFuncao">
+                <i class="fa fa-plus "></i>
+                Registar
+            </button>
+        </nav>
+
+        <div class="col-md-12">
+            <table class="table table-border table-striped custom-table mb-2">
+                <thead>
+                    <tr style="background-color: #041B4E;">
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Estado</th>
+                        <th>Data de Criação</th>
+                        <th>Selecionar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="
+              let item of funcoes
+                | paginate
+                  : {
+                      itemsPerPage: this.pagination.per_page,
+                      currentPage: this.pagination.current_page,
+                      totalItems: this.pagination.total
+                    };
+              index as i
+            ">
+                        <td>{{ this.totalBase + i }}</td>
+                        <td>{{ item.nome_funcao }}</td>
+                        <td>
+                            <a class="btn btn-lg btn-outline-success text-dark fw-bold">Activo</a>
+                        </td>
+                        <td> {{ item.created_at }}</td>
+
+
+                        <td>
+                            <div class="dropdown dropdown-action">
+                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" routerLink="/" href="javascript:void(0)" (click)="setItem(item)">
+                                        <i class="fa fa-eye m-r-5"></i> Visualizar
+                                    </a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editar" (click)="getData(item)">
+                                        <i class="fa fa-pencil m-r-5"></i> Editar
+                                    </a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#eliminar" (click)="setItem(item.id)">
+                                        <i class="fa fa-trash-o m-r-5"></i> Apagar
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-sm-6">
+                    Mostrando de {{ this.pagination.current_page }} á {{ this.pagination.per_page }} de {{ this.pagination.total }} Registo
+                </div>
+                <div class="col-sm-6">
+                    <div class="float-right">
+                        <pagination-controls (pageChange)="this.filtrarPagina('page', $event)" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-registrar-ou-editar></app-registrar-ou-editar>
+
+<div class="modal fade" id="editar" aria-labelledby="editar" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="overflow-y: hidden; min-width: 70%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 style="
+            color: #041b48;
+            font-size: 20px;
+            font-style: normal;
+            line-height: normal;
+            font-weight: bold;
+            font-family: Poppins;
+          ">
+                    <img src="../../../../../../../assets/sigef/Parchment.png" alt="" /> Registar Função
+                </h5>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="content">
+                <div class="main-img"></div>
+                <form [formGroup]="this.simpleForm">
+                    <div class="modal-body">
+                        <div class="row">
+
+
+                            <div class="form-group col-6">
+                                <label class="placeholder">Nome da Função*</label>
+                                <input formControlName="nome_funcao" type="text" class="form-control" />
+                            </div>
+
+                            <div class="form-group col-6">
+                                <label>Selecione a Permissão</label>
+                                <ng-select2 formControlName="permission_id" [options]="options" [data]="this.permicoes">
+                                </ng-select2>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button style="
+                background-color: #ccc;
+                border-radius: 3px;
+                color: #fff;
+                border: none;
+                width: 130px;
+                height: 32px;" data-dismiss="moldal">
+                            Cancelar
+                        </button>
+
+                        <button style="
+                background-color: #041b4e;
+                border-radius: 3px;
+                color: #fff;
+                border: none;
+                width: 130px;
+                height: 32px;
+              " type="reset" (click)="Actualizar()">
+                            Actualizar
+                        </button>
+
+                        <ng-template #ocultarBotao> </ng-template>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

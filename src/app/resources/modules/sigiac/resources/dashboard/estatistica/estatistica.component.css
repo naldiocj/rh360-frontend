@@ -1,0 +1,126 @@
+
+/* Caixa de Informações Adicionais */
+.itens-right{
+    h3{
+        font-size: 17px;
+        font-weight: bold;
+        color: #020d27;
+    }
+    p{
+        font-size: 12px;
+    }
+    background-color: #F8F9FA;
+    box-shadow: 0px 0px 15px 2px rgb(222, 222, 222);
+    padding: 15px;
+    border-radius: 12px;
+    overflow-x: auto;
+    width: 395px;
+}
+
+.infor-total{
+    display: flex;
+    justify-content: space-between;
+}
+.number{
+    width: 200px;
+    padding: 10px;
+    background-color: #0a2563;
+    margin: 10px;
+    border-radius: 12px;
+    color: aliceblue;
+    cursor: pointer;
+}
+.number2{
+    width: 200px;
+    padding: 10px;
+    background-color: #E0A20B;
+    /* background-color: #586174; */
+    margin: 10px;
+    border-radius: 12px;
+    color: aliceblue;
+    cursor: pointer;
+}
+.alertas{
+    display: flex;
+    justify-content: space-between;
+    margin-top: -30px;
+}
+/* Fim, Caixa de Informações Adicionais */
+
+.caixas1{
+    display: flex;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    height: 300px;
+    margin-bottom: 60px;
+}
+.painel-org{
+    display: flex;
+    flex-wrap: nowrap;
+}
+.form-selects{
+    background-color: #f7f7f7;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 4px 4px 4px -3px gray;
+    border: 3px solid rgb(255, 255, 255);
+    margin: 8px 3px 8px 3px;
+    margin-bottom: -10px;
+    width: 175px;
+}
+.form-select{
+    option{
+        margin-top: 5px;
+        color: #282b37;
+        background-color: #E9E9E9;
+        font-weight: bold;
+        border: 3px solid whitesmoke;
+    }
+    background-color: #f7f7f7;
+    padding: 6px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 15px 2px rgb(222, 222, 222);
+    border: 3px solid rgb(255, 255, 255);
+    margin: 8px 3px 8px 3px;
+    margin-bottom: -10px;
+    font-size: 15px;
+    color: #282b37;
+    width: 157px;
+}
+.selector{
+    border-radius: 8px;
+    background-color: rgb(255, 255, 255);
+    padding: 10px;
+}
+.top-infop{
+    margin-top: 7px;
+}
+
+@media only screen and (max-width: 600px) {
+    .painel-org{
+        flex-wrap: wrap;
+    }
+    .caixas{
+        flex-wrap: wrap;
+    }
+}
+@media only screen and (min-width: 600px) and (min-width: 900px)  {
+   
+}
+@media only screen and (max-width: 900px) {
+    
+}
+
+@media only screen and (min-width: 600px) {
+    .painel-org{
+        flex-wrap: nowrap;
+        .caixas{
+            flex-wrap: wrap;
+        }
+    }
+}
+@media only screen and (max-width: 600px) {
+    .itens-right{
+        margin-left: 11px;
+    }
+}

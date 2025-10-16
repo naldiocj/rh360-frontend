@@ -1,0 +1,71 @@
+<main id="main_" class="main_">
+    <div class="pagetitle mb-4">
+        <h1> <i class="bi bi-stickies-fill"></i><span class="mx-2">Documentos - diversos </span></h1>
+    </div>
+
+
+    <div class="content">
+
+        <div class="animated fadeIn row">
+            <div class="col-md-6 col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <aside style="
+                    background-color: #002d59;
+                    color: white;
+                    padding: 5px 5px 5px 5px;
+                  ">
+                            <img src="../../../assets/img/justica.png">
+                            <b style="margin-left: 5px;"> Dados do Processo </b>
+                        </aside>
+                    </div>
+                    <div class="card-body">
+                        <!-- <aside *ngIf="this.diversos?.id === this.getId  ; else verDisciplinar"> -->
+                        <div class="col-sm-6 pull-left">
+                            <aside class="mb-1">
+                                <b>ID: </b> 000{{this.diversos?.id}}/DAJ
+                            </aside>
+
+                            <aside class="mb-1">
+                                <b>Nº do Oficío: </b> {{this.diversos?.oficio}}/{{this.diversos?.data}}
+                            </aside>
+
+                            <aside class="mb-1">
+                                <b>Proveniência:</b> {{this.diversos?.proveniencia}}
+                            </aside>
+
+                            <aside class="mb-1">
+                                <b class="my-2">Observação</b>
+                                <div class="mb-1 overflow-auto text-justify"
+                                    style=" word-wrap: break-word; width: 100%; overflow-y: scroll; ">
+                                    {{this.diversos?.observacao}}
+                                </div>
+                            </aside>
+
+                            <aside class="mb-1">
+                                <b class="my-2">Assunto</b>
+                                <div class="mb-1 overflow-auto text-justify"
+                                    style=" word-wrap: break-word; width: 100%; overflow-y: scroll; ">
+                                    {{this.diversos?.assunto}}
+                                </div>
+                            </aside>
+
+                        </div>
+
+                        <!-- </aside> -->
+                        <!-- <ng-template #verDisciplinar>
+                            <div class="card-body text-center">
+                                <aside class="mb-1">Sem Dados</aside>
+                              </div>
+                          </ng-template> -->
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</main>

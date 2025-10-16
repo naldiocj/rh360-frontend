@@ -1,0 +1,1338 @@
+<div id="asidebar" class="asidebar trns" [ngStyle]="{'background-image': useGradient}">
+  <ul>
+    <li class="nav-item">
+      <span class="menu-p" style="font-weight: bold; font-size: 14px"
+        ><i style="margin-right: 8px" class="bi bi-grid-fill"></i> Menu
+        Principal</span
+      >
+    </li>
+    <li style="margin-top: 20px" class="nav-item">
+      <a
+        class="nav-link d-flex align-items-center"
+        [routerLink]="['/piips/sigpg/dashboard']"
+        routerLinkActive="active"
+      >
+        <i class="bi bi-speedometer2"></i>
+        <span>Painel de Controlo</span>
+      </a>
+    </li>
+
+    <li>
+      <hr class="dropdown-divider" />
+    </li>
+
+    <li class="nav-item">
+      <a
+        class="nav-link d-flex align-items-center"
+        routerLinkActive="active"
+        href="#cadastrarefec"
+        data-toggle="collapse"
+      >
+        <i class="bi bi-person-circle"></i>
+        <span><span></span>Gestão do Efectivo</span
+        ><span class="menu-arrow">
+          <i
+            class="bi bi-chevron-right flex-fill text-white"
+            style="text-align: right; font-size: 12px"
+          ></i
+        ></span>
+      </a>
+      <ul id="cadastrarefec" class="collapse transition-fade">
+        <li
+          style="padding-left: 25%; padding-top: 10px; padding-bottom: 5px"
+          *ngIf="this.isAdmin"
+        >
+          <a
+            class="nav-link"
+            ariaCurrentWhenActive="page"
+            [routerLink]="['/piips/sigpg/funcionario/registar-ou-editar']"
+            routerLinkActive="active"
+          >
+            <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+            <span><span></span> Registar</span><span class="menu-arrow"></span>
+          </a>
+        </li>
+        <li style="padding-left: 25%; padding-top: 10px; padding-bottom: 5px">
+          <a
+            class="nav-link"
+            ariaCurrentWhenActive="page"
+            [routerLink]="['/piips/sigpg/funcionario/listar']"
+            (isActiveChange)="this.onRouterLinkActive('funcionario-listar')"
+            routerLinkActive="active"
+          >
+            <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+            <span><span></span> Activos</span><span class="menu-arrow"></span>
+          </a>
+        </li>
+
+        <li style="padding-left: 25%; padding-top: 10px; padding-bottom: 5px">
+          <a
+            class="nav-link"
+            ariaCurrentWhenActive="page"
+            [routerLink]="['/piips/sigpg/funcionario/listar-passivos']"
+            (isActiveChange)="this.onRouterLinkActive('listar-passivos')"
+            routerLinkActive="active"
+          >
+            <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+            <span><span></span> Passivos</span><span class="menu-arrow"></span>
+          </a>
+        </li>
+        <!-- <li style="padding-left: 25%; padding-top: 10px; padding-bottom: 5px">
+            <a class="nav-link" ariaCurrentWhenActive="page" [routerLink]="['/piips/sigpg/funcionario/propor-agente-execcao']"
+            (isActiveChange)="this.onRouterLinkActive('funcionario-propor-agente-execcao')"
+ routerLinkActive="active">
+                <i style="font-size: 14px;"  class="bi bi-arrow-right-circle"></i>
+                <span><span></span> Listagem para Progressão</span><span class="menu-arrow"></span>
+            </a>
+        </li> -->
+
+       <!--  <li style="padding-left: 25%; padding-top: 10px; padding-bottom: 5px">
+          <a
+            class="nav-link"
+            ariaCurrentWhenActive="page"
+            [routerLink]="['/piips/sigpg/funcionario/fora-de-atividade']"
+            (isActiveChange)="
+              this.onRouterLinkActive('funcionario-foram-de-atividade')
+            "
+            routerLinkActive="active"
+          >
+            <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+            <span><span></span> Fora de Atividade</span
+            ><span class="menu-arrow"></span>
+          </a>
+        </li>
+
+        <li style="padding-left: 25%; padding-top: 10px; padding-bottom: 5px">
+          <a
+            class="nav-link"
+            ariaCurrentWhenActive="page"
+            [routerLink]="['/piips/sigpg/funcionario/inatividade-temporaria']"
+            (isActiveChange)="
+              this.onRouterLinkActive('funcionario-inatividade-temporaria')
+            "
+            routerLinkActive="active"
+          >
+            <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+            <span><span></span> Inactividade Temporária</span
+            ><span class="menu-arrow"></span>
+          </a>
+        </li> -->
+
+        <li style="padding-left: 25%; padding-top: 10px; padding-bottom: 5px">
+          <a
+            class="nav-link"
+            ariaCurrentWhenActive="page"
+            [routerLink]="['/piips/sigpg/funcionario/inactivo']"
+            (isActiveChange)="
+              this.onRouterLinkActive('funcionario-inactivo')
+            "
+            routerLinkActive="active"
+          >
+            <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+            <span><span></span> Inactivos</span
+            ><span class="menu-arrow"></span>
+          </a>
+        </li>
+
+        
+
+        <div id="cadastrarefec" class="collapse transition-fade">
+          <li style="padding-top: 10px; padding-bottom: 10px; margin-left: 5%">
+            <a
+              href="javascript:void(0)"
+              class="nav-link d-flex align-items-center"
+              routerLinkActive="active"
+              href="#estatisticas"
+              data-toggle="collapse"
+            >
+              <i class="" class="bi bi-arrow-right-circle"></i>
+              <span><span></span>Proteção Social</span
+              ><span class="menu-arrow">
+                <i
+                  class="bi bi-chevron-right flex-fill text-white"
+                  style="text-align: right; font-size: 12px"
+                ></i
+              ></span>
+            </a>
+            <div id="estatisticas" class="collapse transition-fade">
+              <li
+                style="padding-left: 25%; padding-top: 1px; padding-bottom: 10px"
+              >
+                <a
+                  class="nav-link"
+                  [routerLink]="[
+                    '/piips/sigpg/funcionario/protecao-social-reformados'
+                  ]"
+                  routerLinkActive="active"
+                >
+                  <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+                  <span><span></span> Reformados</span
+                  ><span class="menu-arrow"></span>
+                </a>
+              </li>
+              <li
+                style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px"
+              >
+                <a
+                  class="nav-link"
+                  [routerLink]="['/piips/sigpg/funcionario/protecao-social-demitidos']"
+                  routerLinkActive="active"
+                >
+                  <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+                  <span><span></span> Demitidos</span
+                  ><span class="menu-arrow"></span>
+                </a>
+              </li>
+              <li
+                style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px"
+              >
+                <a
+                  class="nav-link"
+                  [routerLink]="['/piips/sigpg/funcionario/protecao-social-falecidos']"
+                  routerLinkActive="active"
+                >
+                  <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+                  <span><span></span> Falecidos</span
+                  ><span class="menu-arrow"></span>
+                </a>
+              </li>
+            </div>
+          </li>
+
+
+        </div>
+
+
+      </ul>
+    </li>
+
+    <li>
+      <hr class="dropdown-divider" />
+    </li>
+
+    <!-- <li style="margin-top: 5px;" class="nav-item">
+  <a class="nav-link d-flex  align-items-center" [routerLink]="['/piips/sigpg/provimento/promocao/em-tempo/listar']"
+    routerLinkActive="active">
+    <i class="bi bi-star"></i>
+    <span>Provimento</span>
+  </a>
+</li> -->
+
+    <li class="nav-item">
+      <a
+        class="nav-link d-flex align-items-center"
+        routerLinkActive="active"
+        href="#provimentos"
+        data-toggle="collapse"
+      >
+        <i class="bi bi-star"></i>
+        <span><span></span>Provimento</span
+        ><span class="menu-arrow">
+          <i
+            class="bi bi-chevron-right flex-fill text-white"
+            style="text-align: right; font-size: 12px"
+          ></i
+        ></span>
+      </a>
+      <ul id="provimentos" class="collapse transition-fade">
+        <li style="padding-top: 10px; padding-bottom: 10px; margin-left: 5%">
+          <a
+            href="javascript:void(0)"
+            class="nav-link d-flex align-items-center"
+            routerLinkActive="active"
+            href="#propostas"
+            data-toggle="collapse"
+          >
+            <i class=""></i>
+            <span><span></span>Propostas</span
+            ><span class="menu-arrow">
+              <i
+                class="bi bi-chevron-right flex-fill text-white"
+                style="text-align: right; font-size: 12px"
+              ></i
+            ></span>
+          </a>
+          <ul id="propostas" class="collapse transition-fade">
+            <li
+              style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px"
+            >
+              <a
+                class="nav-link"
+                ariaCurrentWhenActive="page"
+                [routerLink]="['/piips/sigpg/provimento/propostas/listar']"
+                routerLinkActive="active"
+              >
+                <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+                <span><span></span>Listar</span>
+              </a>
+            </li>
+            <li
+              style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px"
+            >
+              <a
+                class="nav-link"
+                ariaCurrentWhenActive="page"
+                href="javascript:void(0)"
+                [routerLink]="[
+                  '/piips/sigpg/provimento/propostas/em-tempo/agentes'
+                ]"
+              >
+                <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+                <span><span></span>Agentes</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li
+          style="padding-top: 10px; padding-bottom: 10px; margin-left: 5%"
+          *ngIf="this.isAdmin"
+        >
+          <a
+            href="javascript:void(0)"
+            class="nav-link d-flex align-items-center"
+            routerLinkActive="active"
+            href="#ordem"
+            data-toggle="collapse"
+          >
+            <i class=""></i>
+            <span><span></span>Ordem de Serviço</span
+            ><span class="menu-arrow">
+              <i
+                class="bi bi-chevron-right flex-fill text-white"
+                style="text-align: right; font-size: 12px"
+              ></i
+            ></span>
+          </a>
+          <ul id="ordem" class="collapse transition-fade">
+            <li
+              style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px"
+            >
+              <a
+                class="nav-link"
+                ariaCurrentWhenActive="page"
+                [routerLink]="['/piips/sigpg/provimento/listar']"
+                routerLinkActive="active"
+              >
+                <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+                <span><span></span>Listar</span>
+              </a>
+            </li>
+            <li
+              style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px"
+            >
+              <a
+                class="nav-link"
+                ariaCurrentWhenActive="page"
+                href="javascript:void(0)"
+                [routerLink]="['/piips/sigpg/provimento/propostas/listar']"
+              >
+                <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+                <span><span></span>Propostas</span>
+              </a>
+            </li>
+            <li
+              style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px"
+            >
+              <a
+                class="nav-link"
+                ariaCurrentWhenActive="page"
+                href="javascript:void(0)"
+                [routerLink]="[
+                  '/piips/sigpg/provimento/promocao/em-tempo/listar'
+                ]"
+              >
+                <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+                <span><span></span>Agentes</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <!-- <li style="padding-left: 25%; padding-top: 1px; padding-bottom: 10px; margin-top: 10px;">
+  <a class="nav-link" href="javascript:void(0)" routerLinkActive="active">
+    <i style="font-size: 14px;" class="bi bi-arrow-right-circle"></i>
+    <span><span></span> Ordem de Serviço</span><span class="menu-arrow"></span>
+  </a>
+</li> -->
+      </ul>
+    </li>
+
+    <li>
+      <hr class="dropdown-divider" />
+    </li>
+
+    <li class="nav-item">
+      <a
+        class="nav-link d-flex align-items-center"
+        routerLinkActive="active"
+        href="#mobilidade"
+        data-toggle="collapse"
+      >
+        <i class="bi bi-arrow-left-right"></i>
+        <span><span></span>Mobilidade</span
+        ><span class="menu-arrow">
+          <i
+            class="bi bi-chevron-right flex-fill text-white"
+            style="text-align: right; font-size: 12px"
+          ></i
+        ></span>
+      </a>
+      <ul id="mobilidade" class="collapse transition-fade">
+        <li style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px">
+          <a
+            class="nav-link"
+            [routerLink]="['/piips/sigpg/mobilidade/listar']"
+            routerLinkActive="active"
+          >
+            <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+            <span><span></span> Listar</span><span class="menu-arrow"></span>
+          </a>
+        </li>
+        <li style="padding-left: 25%; padding-top: 1px; padding-bottom: 10px">
+          <a
+            class="nav-link"
+            [routerLink]="['/piips/sigpg/mobilidade/listar-agentes']"
+            (isActiveChange)="this.onRouterLinkActive('funcionario-listar')"
+            routerLinkActive="active"
+          >
+            <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+            <span><span></span> Agentes</span><span class="menu-arrow"></span>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <li>
+      <hr class="dropdown-divider" />
+    </li>
+
+    <li class="nav-item">
+      <a
+        class="nav-link d-flex align-items-center"
+        href="javascript:void(0)"
+        [routerLink]="['/piips/sigpg/sistuacao-disciplinar/listar']"
+        routerLinkActive="active"
+      >
+        <i class="bi bi-journal-richtext"></i>
+        <span>Situação Disciplinar</span>
+      </a>
+    </li>
+
+    <li>
+      <hr class="dropdown-divider" />
+    </li>
+
+    <li class="nav-item">
+      <a
+        class="nav-link d-flex align-items-center"
+        routerLinkActive="active"
+        href="#licenças"
+        data-toggle="collapse"
+      >
+        <i class="bi bi-card-heading"></i>
+        <span><span></span>Licenças e Férias </span
+        > <!-- Faltas --><span class="menu-arrow">
+          <i
+            class="bi bi-chevron-right flex-fill text-white"
+            style="text-align: right; font-size: 12px"
+          ></i
+        ></span>
+      </a>
+      <div id="licenças" class="collapse transition-fade">
+        <li style="padding-top: 10px; padding-bottom: 10px; margin-left: 5%">
+          <a
+            href="javascript:void(0)"
+            class="nav-link d-flex align-items-center"
+            routerLinkActive="active"
+            href="#estatisticas"
+            data-toggle="collapse"
+          >
+            <i class=""></i>
+            <span><span></span>Licenças</span
+            ><span class="menu-arrow">
+              <i
+                class="bi bi-chevron-right flex-fill text-white"
+                style="text-align: right; font-size: 12px"
+              ></i
+            ></span>
+          </a>
+          <div id="estatisticas" class="collapse transition-fade">
+            <li
+              style="padding-left: 25%; padding-top: 1px; padding-bottom: 10px"
+            >
+              <a
+                class="nav-link"
+                [routerLink]="[
+                  '/piips/sigpg/licencas/visualizar-licencas-dos-agentes'
+                ]"
+                routerLinkActive="active"
+              >
+                <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+                <span><span></span> Agentes em Licença</span
+                ><span class="menu-arrow"></span>
+              </a>
+            </li>
+            <li
+              style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px"
+            >
+              <a
+                class="nav-link"
+                [routerLink]="['/piips/sigpg/licencas/planificar-licenca']"
+                routerLinkActive="active"
+              >
+                <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+                <span><span></span> Planificar Licença</span
+                ><span class="menu-arrow"></span>
+              </a>
+            </li>
+            <li
+              style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px"
+            >
+              <a
+                class="nav-link"
+                [routerLink]="['/piips/sigpg/licencas/analisar-licenca']"
+                routerLinkActive="active"
+              >
+                <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+                <span><span></span> Analisar Licença</span
+                ><span class="menu-arrow"></span>
+              </a>
+            </li>
+            <li
+              style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px"
+            >
+              <a
+                class="nav-link"
+                [routerLink]="[
+                  '/piips/sigpg/licencas/rejeitar-licenca-aprovada'
+                ]"
+                routerLinkActive="active"
+              >
+                <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+                <span><span></span> Rejeitar Licença Aprovada</span
+                ><span class="menu-arrow"></span>
+              </a>
+            </li>
+          </div>
+        </li>
+
+          <li style="padding-top: 10px; padding-bottom: 10px; margin-left: 5%">
+            <a
+              href="javascript:void(0)"
+              class="nav-link d-flex align-items-center"
+              routerLinkActive="active"
+              href="#ferias"
+              data-toggle="collapse"
+            >
+              <i class=""></i>
+              <span><span></span>Férias</span
+              ><span class="menu-arrow">
+                <i
+                  class="bi bi-chevron-right flex-fill text-white"
+                  style="text-align: right; font-size: 12px"
+                ></i
+              ></span>
+            </a>
+            <div id="ferias" class="collapse transition-fade">
+              <li
+                style="padding-left: 25%; padding-top: 1px; padding-bottom: 10px"
+              >
+                <a
+                  class="nav-link"
+                  [routerLink]="[
+                    '/piips/sigpg/ferias/visualizar-ferias-dos-agentes'
+                  ]"
+                  routerLinkActive="active"
+                >
+                  <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+                  <span><span></span> Agentes em Féria</span
+                  ><span class="menu-arrow"></span>
+                </a>
+              </li>
+              <li
+                style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px"
+              >
+                <a
+                  class="nav-link"
+                  [routerLink]="['/piips/sigpg/ferias/planificar-ferias']"
+                  routerLinkActive="active"
+                >
+                  <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+                  <span><span></span> Planificar Féria</span
+                  ><span class="menu-arrow"></span>
+                </a>
+              </li>
+              <li
+                style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px"
+              >
+                <a
+                  class="nav-link"
+                  [routerLink]="['/piips/sigpg/ferias/analisar-ferias']"
+                  routerLinkActive="active"
+                >
+                  <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+                  <span><span></span> Analisar Féria</span
+                  ><span class="menu-arrow"></span>
+                </a>
+              </li>
+              <li
+                style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px"
+              >
+                <a
+                  class="nav-link"
+                  [routerLink]="[
+                    '/piips/sigpg/ferias/rejeitar-ferias-aprovada'
+                  ]"
+                  routerLinkActive="active"
+                >
+                  <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+                  <span><span></span> Rejeitar Férias Aprovada</span
+                  ><span class="menu-arrow"></span>
+                </a>
+              </li>
+            </div>
+          </li>
+
+
+       <!--  <li style="padding-top: 10px; padding-bottom: 10px; margin-left: 5%">
+          <a
+            href="javascript:void(0)"
+            class="nav-link d-flex align-items-center"
+            routerLinkActive="active"
+            href="#assiduidade"
+            data-toggle="collapse"
+          >
+            <i class=""></i>
+            <span><span></span>Faltas</span
+            ><span class="menu-arrow">
+              <i
+                class="bi bi-chevron-right flex-fill text-white"
+                style="text-align: right; font-size: 12px"
+              ></i
+            ></span>
+          </a>
+          <div id="assiduidade" class="collapse transition-fade">
+            <li
+              style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px"
+            >
+              <a
+                class="nav-link"
+                [routerLink]="['/piips/sigpg/assiduidade/gerenciar']"
+                routerLinkActive="active"
+              >
+                <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+                <span><span></span> Gerenciar Falta</span
+                ><span class="menu-arrow"></span>
+              </a>
+            </li>
+            <li
+              style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px"
+            >
+              <a
+                class="nav-link"
+                [routerLink]="['/piips/sigpg/assiduidade/analisar']"
+                routerLinkActive="active"
+              >
+                <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+                <span><span></span> Analisar Falta</span
+                ><span class="menu-arrow"></span>
+              </a>
+            </li>
+           --  <li
+              style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px"
+            >
+              <a
+                class="nav-link"
+                [routerLink]="['/piips/sigpg/licencas/rejeitar-falta-aprovada']"
+                routerLinkActive="active"
+              >
+                <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+                <span><span></span> Justificar assiduidades</span
+                ><span class="menu-arrow"></span>
+              </a>
+            </li> --
+          </div>
+        </li> -->
+      </div>
+    </li>
+
+    <li>
+      <hr class="dropdown-divider" />
+    </li>
+
+    <li class="nav-item">
+      <a
+        class="nav-link d-flex align-items-center"
+        routerLinkActive="active"
+        href="#emissaopasses"
+        data-toggle="collapse"
+      >
+        <i class="bi bi-person-vcard"></i>
+        <span><span></span>Emissão de Passes</span
+        ><span class="menu-arrow">
+          <i
+            class="bi bi-chevron-right flex-fill text-white"
+            style="text-align: right; font-size: 12px"
+          ></i
+        ></span>
+      </a>
+      <ul id="emissaopasses" class="collapse transition-fade">
+        <li style="padding-top: 10px; padding-bottom: 10px; margin-left: 5%">
+          <a
+            href="javascript:void(0)"
+            class="nav-link d-flex align-items-center"
+            routerLinkActive="active"
+            href="#estatisticas"
+            data-toggle="collapse"
+          >
+            <i class=""></i>
+            <span><span></span>Passe Profissional</span
+            ><span class="menu-arrow">
+              <i
+                class="bi bi-chevron-right flex-fill text-white"
+                style="text-align: right; font-size: 12px"
+              ></i
+            ></span>
+          </a>
+          <ul id="estatisticas" class="collapse transition-fade">
+            <li
+              style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px"
+            >
+              <a
+                class="nav-link"
+                ariaCurrentWhenActive="page"
+                [routerLink]="['/piips/sigpg/passes/profissional/listar']"
+                routerLinkActive="active"
+              >
+                <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+                <span><span></span>Listar</span>
+              </a>
+            </li>
+            <li
+              style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px"
+            >
+              <a
+                class="nav-link"
+                ariaCurrentWhenActive="page"
+                href="javascript:void(0)"
+                [routerLink]="['/piips/sigpg/passes/profissional/agentes']"
+              >
+                <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+                <span><span></span>Agentes</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li
+          style="
+            padding-left: 25%;
+            padding-top: 1px;
+            padding-bottom: 10px;
+            margin-top: 10px;
+          "
+        >
+          <a
+            class="nav-link"
+            href="javascript:void(0)"
+            routerLinkActive="active"
+          >
+            <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+            <span><span></span> Passe Interno</span
+            ><span class="menu-arrow"></span>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <li>
+      <hr class="dropdown-divider" />
+    </li>
+
+    <li class="nav-item">
+      <a
+        class="nav-link d-flex align-items-center"
+        routerLinkActive="active"
+        href="#relatorios"
+        data-toggle="collapse"
+      >
+        <i class="bi bi-file-earmark-pdf"></i>
+        <span><span></span>Relatórios</span
+        ><span class="menu-arrow">
+          <i
+            class="bi bi-chevron-right flex-fill text-white"
+            style="text-align: right; font-size: 12px"
+          ></i
+        ></span>
+      </a>
+
+      <ul id="relatorios" class="collapse transition-fade">
+        <li style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px">
+          <a
+            class="nav-link"
+            href="javascript:void(0)"
+            [routerLink]="['/piips/sigpg/relatorio/geral']"
+            routerLinkActive="active"
+          >
+            <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+            <span><span></span>Geral</span>
+          </a>
+        </li>
+        <li style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px">
+          <a class="nav-link" href="javascript:void(0)" [routerLink]="['/piips/sigpg/relatorio/licencas']"
+            routerLinkActive="active">
+            <i style="font-size: 14px;" class="bi bi-arrow-right-circle"></i>
+            <span><span></span>Licenças</span>
+          </a>
+        </li>
+        <li style="padding-top: 10px; padding-bottom: 10px; margin-left: 5%;">
+          <a href="javascript:void(0)" class="nav-link d-flex  align-items-center" routerLinkActive="active"
+            href="#estatisticas" data-toggle="collapse">
+            <i class=""></i>
+            <span><span></span>Estatística</span
+            ><span class="menu-arrow">
+              <i
+                class="bi bi-chevron-right flex-fill text-white"
+                style="text-align: right; font-size: 12px"
+              ></i
+            ></span>
+          </a>
+          <ul id="estatisticas" class="collapse transition-fade">
+            <li
+              style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px"
+            >
+              <a
+                class="nav-link"
+                ariaCurrentWhenActive="page"
+                [routerLink]="['/piips/sigpg/estatistica/mapa-estatistico']"
+                routerLinkActive="active"
+              >
+                <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+                <span><span></span>Mapa de Efectividade</span>
+              </a>
+            </li>
+            <li
+              style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px"
+            >
+              <a
+                class="nav-link"
+                ariaCurrentWhenActive="page"
+                href="javascript:void(0)"
+                [routerLink]="['/piips/sigpg/estatistica/geral']"
+                routerLinkActive="active"
+              >
+                <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+                <span><span></span>Geral</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li
+          style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px"
+          *ngIf="this.authService.isPermission('role-delete')"
+        >
+          <a
+            class="nav-link"
+            href="javascript:void(0)"
+            routerLinkActive="active"
+          >
+            <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+            <span><span></span>Consultar Dados</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <!-- <li class="nav-item">
+      <a href="javascript:void(0)" class="nav-link d-flex  align-items-center" routerLinkActive="active"
+        href="#chefiacomandos" data-toggle="collapse">
+        <i class="bi bi-person-fill-exclamation"></i>
+        <span><span></span>Chefia e Comandos</span><span class="menu-arrow"> <i
+            class="bi bi-chevron-right flex-fill text-white" style="text-align:right; font-size: 12px;"></i></span>
+      </a>
+
+      <ul id="chefiacomandos" class="collapse transition-fade">
+        <li style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px">
+          <a class="nav-link" href="javascript:void(0)" [routerLink]="['/piips/sigpg/config/chefia-comando/listar']"
+            routerLinkActive="active">
+            <i style="font-size: 14px;" class="bi bi-arrow-right-circle"></i>
+            <span><span></span>Listar</span>
+          </a>
+        </li>
+        <li style="padding-left: 25%; padding-top: -10px; padding-bottom: 10">
+          <a class="nav-link" href="javascript:void(0)"
+            [routerLink]="['/piips/sigpg/config/chefia-comando/listar-agentes']" routerLinkActive="active">
+            <i style="font-size: 14px;" class="bi bi-arrow-right-circle"></i>
+            <span><span></span>Agentes</span>
+          </a>
+        </li>
+      </ul>
+    </li> -->
+    <li>
+      <hr class="dropdown-divider" />
+    </li>
+
+    <li class="nav-item">
+      <a
+        class="nav-link d-flex align-items-center"
+        routerLinkActive="active"
+        href="#administracao"
+        data-toggle="collapse"
+      >
+        <i class="bi bi-app-indicator"></i>
+        <span><span></span>Administração</span
+        ><span class="menu-arrow">
+          <i
+            class="bi bi-chevron-right flex-fill text-white"
+            style="text-align: right; font-size: 12px"
+          ></i
+        ></span>
+      </a>
+
+      <div
+        id="administracao"
+        class="collapse transition-fade"
+        *ngIf="this.isAdmin"
+      >
+        <li style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px">
+          <a
+            class="nav-link"
+            [routerLink]="['/piips/sigpg/config/direcao-or-orgao']"
+            routerLinkActive="active"
+          >
+            <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+            <span><span></span>Direcção <br />| Comando Provincial</span>
+          </a>
+        </li>
+        <li style="padding-left: 25%; padding-top: -10px; padding-bottom: 10">
+          <a
+            class="nav-link"
+            [routerLink]="['/piips/sigpg/config/departamento']"
+            routerLinkActive="active"
+          >
+            <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+            <span><span></span>Departamento | Comando Municipal</span>
+          </a>
+        </li>
+        <li style="padding-left: 25%; padding-top: -10px; padding-bottom: 10px">
+          <a
+            class="nav-link"
+            [routerLink]="['/piips/sigpg/config/seccao']"
+            routerLinkActive="active"
+          >
+            <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+            <span><span></span>Secção | Esquadras | Subunidade</span>
+          </a>
+        </li>
+        <li
+          style="
+            padding-left: 25%;
+            padding-top: -10px;
+            padding-bottom: 10px;
+            margin-top: 8px;
+          "
+        >
+          <a
+            class="nav-link"
+            [routerLink]="['/piips/sigpg/config/posto-policial']"
+            routerLinkActive="active"
+          >
+            <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+            <span><span></span>Posto Policial</span>
+          </a>
+        </li>
+        <li
+          style="
+            padding-left: 25%;
+            padding-top: -10px;
+            padding-bottom: -5px;
+            margin-top: 8px;
+          "
+        >
+          <a
+            class="nav-link"
+            [routerLink]="['/piips/sigpg/config/provincias']"
+            routerLinkActive="active"
+          >
+            <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+            <span><span></span>Províncias</span>
+          </a>
+        </li>
+        <li
+          style="
+            padding-left: 25%;
+            padding-top: -10px;
+            padding-bottom: -5px;
+            margin-top: 8px;
+          "
+        >
+          <a
+            class="nav-link"
+            [routerLink]="['/piips/sigpg/config/municipio']"
+            routerLinkActive="active"
+          >
+            <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+            <span><span></span>Município</span>
+          </a>
+        </li>
+        <li
+          style="
+            padding-left: 25%;
+            padding-top: -10px;
+            padding-bottom: -5px;
+            margin-top: 8px;
+          "
+        >
+          <a
+            class="nav-link"
+            [routerLink]="['/piips/sigpg/config/distrito']"
+            routerLinkActive="active"
+          >
+            <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+            <span><span></span>Distrito</span>
+          </a>
+        </li>
+        <li
+          style="
+            padding-left: 25%;
+            padding-top: -10px;
+            padding-bottom: -5px;
+            margin-top: 8px;
+          "
+        >
+          <!-- <a
+            class="nav-link"
+            [routerLink]="['/piips/sigpg/config/tipo-de-formacao']"
+            routerLinkActive="active"
+          >
+            <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+            <span><span></span>Tipo de Formação</span>
+          </a>
+        </li>
+        <li
+          style="
+            padding-left: 25%;
+            padding-top: -10px;
+            padding-bottom: -5px;
+            margin-top: 8px;
+          "
+        > -->
+          <a
+            class="nav-link"
+            [routerLink]="['/piips/sigpg/config/curso']"
+            routerLinkActive="active"
+          >
+            <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+            <span><span></span>Curso</span>
+          </a>
+        </li>
+        <li
+          style="
+            padding-left: 25%;
+            padding-top: -10px;
+            padding-bottom: -5px;
+            margin-top: 8px;
+          "
+        >
+          <a
+            class="nav-link"
+            [routerLink]="['/piips/sigpg/config/instituicao-de-ensino']"
+            routerLinkActive="active"
+          >
+            <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+            <span><span></span>Instituição de Ensino</span>
+          </a>
+        </li>
+        <li
+          style="
+            padding-left: 25%;
+            padding-top: -10px;
+            padding-bottom: -5px;
+            margin-top: 8px;
+          "
+        ><a
+        class="nav-link"
+        [routerLink]="['/piips/sigpg/config/empresa']"
+        routerLinkActive="active"
+      >
+        <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+        <span><span></span>Empresa</span>
+      </a>
+    </li>
+    <li
+      style="
+        padding-left: 25%;
+        padding-top: -10px;
+        padding-bottom: -5px;
+        margin-top: 8px;
+      "
+    >
+          <a
+            class="nav-link"
+            [routerLink]="['/piips/sigpg/config/funcao-regime']"
+            routerLinkActive="active"
+          >
+            <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+            <span><span></span>Função</span>
+          </a>
+        </li>
+
+        <li
+          style="
+            padding-left: 25%;
+            padding-top: -10px;
+            padding-bottom: -5px;
+            margin-top: 8px;
+          "
+        >
+          <a
+            class="nav-link"
+            [routerLink]="['/piips/sigpg/config/patentes']"
+            routerLinkActive="active"
+          >
+            <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+            <span><span></span>Patentes</span>
+          </a>
+        </li>
+
+        <li
+          style="
+            padding-left: 25%;
+            padding-top: -10px;
+            padding-bottom: -5px;
+            margin-top: 8px;
+          "
+        >
+          <a
+            class="nav-link"
+            [routerLink]="['/piips/sigpg/config/cargos']"
+            routerLinkActive="active"
+          >
+            <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+            <span><span></span>Cargos</span>
+          </a>
+        </li>
+        <li
+          style="
+            padding-left: 25%;
+            padding-top: -10px;
+            padding-bottom: -5px;
+            margin-top: 8px;
+          "
+        >
+          <a
+            class="nav-link"
+            [routerLink]="['/piips/sigpg/config/tipo-licencas']"
+            routerLinkActive="active"
+          >
+            <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+            <span><span></span>Tipo Licenças</span>
+          </a>
+        </li>
+
+        <li
+          style="
+            padding-left: 25%;
+            padding-top: -10px;
+            padding-bottom: -5px;
+            margin-top: 8px;
+          "
+        >
+          <a
+            class="nav-link"
+            [routerLink]="['/piips/sigpg/config/feriados']"
+            routerLinkActive="active"
+          >
+            <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+            <span><span></span>Feriados</span>
+          </a>
+        </li>
+
+        <li
+          style="
+            padding-left: 25%;
+            padding-top: -10px;
+            padding-bottom: -5px;
+            margin-top: 8px;
+          "
+        >
+          <a
+            class="nav-link"
+            [routerLink]="[
+              '/piips/sigpg/config/dias-de-restricoes-para-licencas'
+            ]"
+            routerLinkActive="active"
+          >
+            <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+            <span><span></span>Dias de Restrições para Licenças</span>
+          </a>
+        </li>
+
+        <li
+          style="
+            padding-left: 25%;
+            padding-top: -10px;
+            padding-bottom: -5px;
+            margin-top: 8px;
+          "
+        >
+          <a
+            class="nav-link"
+            [routerLink]="['/piips/sigpg/config/vagas-por-progressao']"
+            routerLinkActive="active"
+          >
+            <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+            <span><span></span>Vagas para Promoção</span>
+          </a>
+        </li>
+      </div>
+    </li>
+    <li>
+      <hr class="dropdown-divider" />
+    </li>
+
+    <li class="nav-item">
+      <a
+        class="nav-link d-flex align-items-center"
+        routerLinkActive="active"
+        href="#configs"
+        data-toggle="collapse"
+      >
+        <i class="bi bi-wrench-adjustable-circle"></i>
+        <span><span></span>Configurações</span
+        ><span class="menu-arrow">
+          <i
+            class="bi bi-chevron-right flex-fill text-white"
+            style="text-align: right; font-size: 12px"
+          ></i
+        ></span>
+      </a>
+
+      <ul
+        id="configs"
+        class="collapse transition-fade"
+        *ngIf="this.authService.isPermission('role-delete')"
+      >
+        <li style="padding-top: 10px; padding-bottom: 10px; margin-left: 5%">
+          <a
+            href="javascript:void(0)"
+            class="nav-link d-flex align-items-center"
+            routerLinkActive="active"
+            href="#superior"
+            data-toggle="collapse"
+            *ngIf="this.isAdmin"
+          >
+            <i class=""></i>
+            <span><span></span>Chefia & Mando</span
+            ><span class="menu-arrow">
+              <i
+                class="bi bi-chevron-right flex-fill text-white"
+                style="text-align: right; font-size: 12px"
+              ></i
+            ></span>
+          </a>
+          <ul id="superior" class="collapse transition-fade">
+            <li
+              style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px"
+            >
+              <a
+                class="nav-link"
+                ariaCurrentWhenActive="page"
+                *ngIf="this.isAdmin"
+                [routerLink]="['/piips/sigpg/config/chefia-comando/listar']"
+                href="javascript:void(0)"
+                routerLinkActive="active"
+              >
+                <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+                <span><span></span>Listar</span>
+              </a>
+            </li>
+            <li
+              style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px"
+              *ngIf="this.isAdmin"
+            >
+              <a
+                class="nav-link"
+                ariaCurrentWhenActive="page"
+                [routerLink]="[
+                  '/piips/sigpg/config/chefia-comando/listar-agentes'
+                ]"
+                routerLinkActive="active"
+              >
+                <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+                <span><span></span>Agentes</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li style="padding-top: 10px; padding-bottom: 10px; margin-left: 5%">
+          <a
+            href="javascript:void(0)"
+            class="nav-link d-flex align-items-center"
+            routerLinkActive="active"
+            href="#acessos"
+            data-toggle="collapse"
+          >
+            <i class=""></i>
+            <span><span></span>Controlo de Acesso</span
+            ><span class="menu-arrow">
+              <i
+                class="bi bi-chevron-right flex-fill text-white"
+                style="text-align: right; font-size: 12px"
+              ></i
+            ></span>
+          </a>
+          <ul id="acessos" class="collapse transition-fade">
+            <li
+              style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px"
+            >
+              <a
+                class="nav-link"
+                ariaCurrentWhenActive="page"
+                [routerLink]="['/piips/sigpg/config/acl/permissao/listar']"
+                href="javascript:void(0)"
+                routerLinkActive="active"
+              >
+                <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+                <span><span></span>Permissões</span>
+              </a>
+            </li>
+            <li
+              style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px"
+              *ngIf="this.authService.isPermission('role-index')"
+            >
+              <a
+                class="nav-link"
+                ariaCurrentWhenActive="page"
+                [routerLink]="['/piips/sigpg/config/acl/funcao/listar']"
+                routerLinkActive="active"
+              >
+                <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+                <span><span></span>Funções</span>
+              </a>
+            </li>
+            <li
+              style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px"
+              *ngIf="this.authService.isPermission('role-index')"
+            >
+              <a
+                class="nav-link"
+                ariaCurrentWhenActive="page"
+                [routerLink]="['/piips/sigpg/config/acl/utilizador/listar']"
+                routerLinkActive="active"
+              >
+                <i style="font-size: 14px" class="bi bi-arrow-right-circle"></i>
+                <span><span></span>Utilizadores</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+
+    <div class="infor" [ngStyle]="{'background-image': useGradient}">
+      <h5>
+        SIGPQ V 1.6 -
+        <span style="font-weight: lighter; color: orange">Profissional</span>
+      </h5>
+      <P>PIIPS - Todos os direitos reservados a PNA</P>
+    </div>
+  </ul>
+</div>

@@ -1,0 +1,355 @@
+<div class="content">
+    <div class="row">
+        <div class="col-sm-7">
+            <h4 style="color: #002d59;" class="page-title"><b>Listagem de Armas Desportivas</b></h4>
+            <h4 style="font-size: 16px;">Sistema de Gestão de <b> armamento</b></h4>
+
+        </div>
+    </div>
+    <div class="row">
+        <nav class="navbar navbar-light bg-light">
+            <form class="form-inline">
+                <select class="form-control mr-sm-1" (change)="filtrarPagina('perPage',$event)">
+                    <option *ngFor="let item of [10,20,50,100]" [value]="item">{{item}}</option>
+                </select>
+                <input class="form-control mr-sm-1" type="search" placeholder="Pesquisa ..." name="search"
+                    [(ngModel)]="filtro.search" (ngModelChange)="filtrarPagina('search',$event)" />
+
+                <button id="btpe1" class="btn btn-outline-success my-2 my-sm-0" (click)="recarregarPagina()"><i
+                        style="font-size: 14px;" class="fa fa-refresh fa-spin fa-3x fa-fw"></i><b>
+                        Recarregar</b>
+                </button> &nbsp;
+            </form>
+       </nav>
+
+        <div class="col-md-12">
+            <table class="table table-border table-striped custom-table datatable mb-0">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Classificação</th>
+                        <th>Nº da arma</th>
+                        <th>Série</th>
+                        <th>Tipo</th>
+                        <th>Modelo</th>
+                        <th>Marca</th>
+                        <th>Calibre</th>
+                        <th>Situaçao da Arma</th>
+                        <th>País de Origem</th>
+                        <th>Ano de Fábrico</th>
+                        <th>Operação</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr
+                        *ngFor="let item of arma | paginate: { itemsPerPage: this.pagination.per_page, currentPage: this.pagination.current_page,totalItems: this.pagination.total}; index as i">
+                        <td>{{i+1}}</td>
+                        <td>{{item.classificacao}}</td>
+                        <td>{{item.livrete==""?"N/S":item.livrete}}</td>
+                        <td>{{item.serie}}</td>
+                        <td>{{item.tipo_arma}}</td>
+                        <td>{{item.modelo}}</td>
+                        <td>{{item.marca}}</td>
+                        <td>{{item.calibre_arma}}</td>
+                        <td>
+                            <a
+                                [class]='item.estado=="AT"?"btn btn-lg btn-success text-white":"btn btn-lg btn-danger text-white" '>{{item.estado}}</a>
+                        </td>
+                        <td>{{item.pais}}</td>
+                        <td>{{item.ano_fabrico}}</td>
+                        <td class="text-center">
+                            <div class="dropdown dropdown-action">
+                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
+                                    aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#actualizar"
+                                        (click)="this.obj(item)" *ngIf="this.is==0 || this.is==1"><i class="fa fa-pencil m-r-5"></i>
+                                        Editar</a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#ver"
+                                        (click)="this.obj(item)">
+                                        <i class="bi bi-eye" *ngIf="this.is==0 || this.is"></i>&nbsp; Visualizar</a>
+                                </div>
+                            </div>
+                        </td>
+
+                        <div class="modal fade" id="delete-modal" style="border-radius: unset;">
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-ms">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <div
+                                            class="modal-title w-100 d-flex justify-content-between align-items-center">
+                                            Eliminação de Calibre
+                                            <a data-dismiss="modal" class="bi bi-x-lg text-danger"
+                                                style="cursor: pointer;"></a>
+                                        </div>
+                                    </div>
+                                    <div class="modal-body text-center" style="font-size:16px; color: #041b43;">
+                                        <span>Confirmas a eliminação ?</span>
+                                        <div class="btn-groups my-2">
+                                            <a class="btn btn-link" style="text-decoration: none; color: #041b43;"
+                                                (click)="this.delete_(item.id)">Sim</a>
+                                            <div class="btn btn-link" data-dismiss="modal"
+                                                style="text-decoration: none; color: #041b43;">Não
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-sm-6">
+                    Mostrando de {{ this.pagination.current_page }} á {{ this.pagination.per_page }} de {{
+                    this.pagination.total }} Registo
+                </div>
+                <div class="col-sm-6">
+                    <div class="float-right">
+                        <pagination-controls (pageChange)="this.filtrarPagina('page', $event)" previousLabel="Anterior"
+                            nextLabel="Próximo"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div
+  class="modal fade"
+  id="actualizar"
+  aria-labelledby="classes"
+  aria-hidden="true"
+>
+  <div
+    style="margin-top: 15%"
+    class="modal-dialog"
+    role="document"
+    style="overflow-y: hidden; min-width: 70%"
+  >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5><i class="fa fa-gun"></i>
+          {{ocultarEditar?'Visualizar arma':'Actualizar arma'}}
+          </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="content">
+        <form [formGroup]="this.form" (submit)="editar()">
+          <div class="modal-body">
+            <div class="row">
+              <div class="form-group col-md-4">
+                <label>
+                  <b>
+                    Classificação da arma
+                    <span class="text-danger"> *</span>
+                  </b>
+                </label>
+                <ng-select2
+                  [options]="options"
+                  formControlName="classificacao_arma_id"
+                  [data]="this.classes"
+                  [disabled]="ocultarEditar"
+                  autofocus
+                >
+                </ng-select2>
+              </div>
+
+              <div
+                class="form-group col-md-4"
+              >
+                <label>
+                  <b>
+                    Entidade:
+                    <span class="text-danger"> *</span>
+                  </b>
+                </label>
+                <ng-select2
+                  [options]="options"
+                  formControlName="categoria"
+                  [data]="this.enty"
+                >
+                </ng-select2>
+              </div>
+
+
+              <div class="form-group col-md-4">
+                <label>
+                  <b>
+                    Tipo de armas
+                    <span class="text-danger"> *</span>
+                  </b>
+                </label>
+                <ng-select2
+                  [options]="options"
+                  [disabled]="ocultarEditar"
+                  [disabled]="ocultarEditar"
+                  [data]="this.tipos"
+                  (ngModelChange)="buscarMarca($event)"
+                >
+                </ng-select2>
+              </div>
+
+
+              <div class="form-group col-md-4">
+                <label>
+                  <b>
+                    Marca da arma
+                    <span class="text-danger"> *</span>
+                  </b>
+                </label>
+
+                <ng-select2
+                  [options]="options"
+                  formControlName="marca_arma_id"
+                  [disabled]="ocultarEditar"
+                  [data]="this.marcas"
+                  (ngModelChange)="buscarCalibre($event)"
+                >
+                </ng-select2>
+              </div>
+
+              <div class="form-group col-md-4">
+                <label>
+                  <b>
+                    Modelo da arma
+                    <span class="text-danger"> *</span>
+                  </b>
+                </label>
+
+                <ng-select2
+                  [options]="options"
+                  formControlName="modelo_id"
+                  [disabled]="ocultarEditar"
+                  [data]="this.modelos"
+                >
+                </ng-select2>
+              </div>
+
+              <div class="form-group col-md-4">
+                <label>
+                  <b>
+                    Calibre da arma
+                    <span class="text-danger"> *</span>
+                  </b>
+                </label>
+                <ng-select2
+                  [options]="options"
+                  formControlName="calibre_arma_id"
+                  [disabled]="ocultarEditar"
+                  [data]="this.calibres"
+                >
+                </ng-select2>
+              </div>
+
+              <div class="form-group col-md-4">
+                <label>
+                  <b> País de origem </b>
+                </label>
+                <ng-select2
+                  [options]="options"
+                  formControlName="pai_id"
+                  [disabled]="ocultarEditar"
+                  [data]="this.pais"
+                >
+                </ng-select2>
+              </div>
+         
+
+              <div class="form-group col-md-4">
+                <label  >
+                  <b> Ano de Fabrico </b>
+                </label>
+                <input
+                  formControlName="ano_fabrico"
+                  type="date"
+                  class="form-control"
+                  style="margin-top: -1px"
+                />
+              </div>
+
+              <div class="form-group col-md-4">
+                <label>
+                  <b>
+                    Nº da arma:
+                    <span class="text-danger" > *</span>
+                  </b>
+                </label>
+                <input
+                  formControlName="livrete"
+                  type="text"
+                  maxlength="10"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="form-group col-md-4">
+                <label>
+                  <b>
+                    Nº de série
+                    <span class="text-danger" > *</span>
+                  </b>
+                </label>
+                <input
+                  formControlName="serie"
+                  type="text"
+                  maxlength="6"
+                  class="form-control"
+                  required
+                />
+              </div>
+
+
+              <div class="form-group col-md-12" style="height: 60px">
+                <label>
+                  <b>
+                    Descrição da acção
+                    <span class="text-danger"> *</span>
+                  </b>
+                </label>
+                <input
+                  formControlName="descricao"
+                  maxlength="60"
+                  type="text"
+                  class="form-control"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              class="btn btn-danger btn-square danger-sigae"
+              data-dismiss="modal"
+            >
+              Cancelar
+            </button>
+
+            <button
+              class="btn btn-primary btn-square danger-sigae"
+              type="submit"
+              id="btns"
+            >
+              Actualizar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

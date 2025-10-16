@@ -1,0 +1,107 @@
+<div class="modal fade" id="registar-editar-solicitacao" aria-labelledby="modalPortalRegistarAcidente"
+  aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog modal-dialog-xl" style="min-width: 35%; max-width: 70%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>
+          <i class="fa fa-calendar"></i>
+          Fazer solicitação de {{ this.getEvento?.nome }}
+        </h5>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="limparTodoForm()"
+          id="close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="content">
+        <form [formGroup]="this.simpleForm">
+          <div class="modal-body">
+            <div class="row">
+              <div class="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 ">
+                <label>
+
+                  Tipo de orgão<span class="text-danger"> *</span>
+
+                </label>
+
+                <ng-select2 [options]="options" [data]="this.tipoEstruturaOrganicas" formControlName="tipo_estrutura_sigla"
+                  (valueChanged)="selecionarOrgaoOuComandoProvincial($event)">
+                </ng-select2>
+              </div>
+              <div class="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <label>
+                  Entidade à enviar<span class="text-danger"> *</span>
+                </label>
+                <ng-select2 [options]="options" formControlName="pessoajuridica_id" [data]="this.direcaoOuOrgao">
+                </ng-select2>
+              </div>
+              <div class="form-group col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <label for="observacao"> Nota: </label>
+                <angular-editor [config]="editorConfig" formControlName="nota" style="width: 100%"
+                  class="editor"></angular-editor>
+              </div>
+              <div class="form-group col-md-12 d-flex justify-content-end">
+                <button (click)="this.adicionarDocumento()" class="btn-piips btn-piips-primary m-0 px-2 py-1"
+                  data-solicitar="true">
+                  <i class="fa fa-file"></i>
+                  Documento
+                </button>
+              </div>
+              <div class="col-md-12" *ngIf="this.simpleForm?.controls?.documentos">
+                <div formArrayName="documentos">
+                  <div *ngFor="let item of this.simpleForm?.controls?.documentos.controls; let i=index">
+                    <div [formGroupName]="i">
+                      <div class="row">
+                        <div class="form-group col-md-5">
+                          <label><b>Nome documento</b><span class="text-danger"> *</span></label>
+                          <ng-select2 placeholder="Selecione uma opção" width="100%"
+                            formControlName="sigpq_tipo_documento_id" [data]="this.tipoDados">
+                          </ng-select2>
+                        </div>
+                        <div class="form-group col-md-5">
+                          <label><b>Anexo</b><span class="text-danger"> *</span></label>
+                          <div class="profile-upload">
+                            <div class="upload-img">
+                              <img alt="" src="assets/img/user-doc-2.png">
+                            </div>
+                            <div class="upload-input">
+                              <input type="file" class="form-control" (change)="uploadFile($event, i)"
+                                [accept]="this.formatAccept">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group col-md-2 d-flex align-items-center justify-content-end flex-column">
+                          <br>
+                          <button class="btn-piips btn-piips-red m-0 px-2 py-1" (click)="this.remover(i)">
+                            <span class="fa fa-trash"></span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 d-flex align-items-center  justify-content-end p-0">
+              <button class="btn-piips btn-piips-red m-0 px-2 py-1" (click)="this.reset()">
+                <span class="fa fa-refresh"></span> Limpar
+              </button>
+              <button (click)="onSubmit()" [disabled]="!this.simpleForm.valid || this.isLoading"
+                class="btn btn-piips btn-piips-primary m-0 px-2 py-1">
+                <ng-container *ngIf="this.isLoading; else naoCarregando">
+                  <i class="spinner-border spinner-border-sm m-1"></i>
+                  Solcitando
+                </ng-container>
+                <ng-template #naoCarregando>
+                  <i class="fa fa-plus-circle"></i>
+                  Solicitar
+                </ng-template>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

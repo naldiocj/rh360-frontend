@@ -1,0 +1,601 @@
+<div class="modal fade" id="delete-modal" style="border-radius: unset;">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-ms">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title w-100 d-flex justify-content-between align-items-center">
+                    Eliminação de Calibre
+                    <a data-dismiss="modal" class="bi bi-x-lg text-danger" style="cursor: pointer;"></a>
+                </div>
+            </div>
+            <div class="modal-body text-center" style="font-size:16px; color: #041b43;">
+                <span>Confirmas a eliminação ?</span>
+                <div class="btn-groups my-2">
+                    <a class="btn btn-link" style="text-decoration: none; color: #041b43;" (click)="this.delete_(this.id)">Sim</a>
+                    <div class="btn btn-link" data-dismiss="modal" style="text-decoration: none; color:  #041b43;">Não
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="content">
+    <div class="row">
+        <div class="col-sm-7">
+            <h4 style="color: #002d59;" class="page-title"><b>Listagem de Munições</b></h4>
+                      <h4 style="font-size: 14px;">Sistema de Gestão de <b> armamento</b></h4>
+
+        </div>
+        <div class="col-sm-5 text-right m-b-20">
+
+
+        </div>
+    </div>
+    <div class="row">
+        <nav class="navbar navbar-light bg-light">
+            <form class="form-inline">
+                <select class="form-control mr-sm-1" (change)="filtrarPagina('perPage',$event)">
+                    <option *ngFor="let item of [10,20,50,100]" [value]="item">{{item}}</option>
+                </select>
+                <input class="form-control mr-sm-1" type="search" placeholder="Pesquisa ..." [ngModel]="filtro.search" (ngModelChange)="filtrarPagina('search',$event)" />
+
+                <button id="btpe1" (click)="recarregarPagina()" class="btn btn-outline-success my-2 my-sm-0" type="submit"><i
+                        style="font-size: 14px;" class="fa fa-refresh fa-spin fa-3x fa-fw"></i><b>
+                        Recarregar</b>
+                </button> &nbsp;
+                <div class="dropdown">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                 Armas
+                </button>
+                    <div class="dropdown-menu" *ngIf="this.is==0 || this.is==1">
+
+                        <a class="dropdown-item" [routerLink]="['/piips/sigae/armas']" *ngIf="this.is==0 || this.is==1">Arma Singular</a>
+                        <a class="dropdown-item" [routerLink]="['/piips/sigae/lotes-armas']" *ngIf="this.is==0 || this.is==1">Armas em Quantidades</a>
+                    </div>
+                </div>
+                &nbsp;
+                <div class="dropdown">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+  Explosivos
+                </button>
+                    <div class="dropdown-menu" *ngIf="this.is==0 || this.is==1">
+
+                        <a class="dropdown-item" [routerLink]="['/piips/sigae/explosivo']" *ngIf="this.is==0 || this.is==1">Explosivo em Singular</a>
+                        <a class="dropdown-item" [routerLink]="['/piips/sigae/lotes-explosivos']" *ngIf="this.is==0 || this.is==1">Explosivos em Quantidades</a>
+                    </div>
+                </div>&nbsp;
+                <div class="dropdown">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                        Munições
+                    </button>
+                    <div class="dropdown-menu" *ngIf="this.is==0 || this.is==1">
+
+                        <a class="dropdown-item" [routerLink]="['/piips/sigae/municoes']" *ngIf="this.is==0 || this.is==1">Munição Singular</a>
+                        <a class="dropdown-item" [routerLink]="['/piips/sigae/municoes-lote']" *ngIf="this.is==0 || this.is==1">Munições em
+                            Quantidades</a>
+                    </div>
+                </div>
+                &nbsp;
+
+                <a id="btpe1" class="btn btn-primary text-light my-2 my-sm-0 btnRegistar" type="submit" style="background-color: var(--primary-color)" data-toggle="modal" data-target="#municoes" *ngIf="this.is==0 || this.is==1">
+                    <i style="font-size: 14px;" class="fa fa-plus-circle"></i><b>
+                  Registar</b>
+                </a>
+            </form>
+        </nav>
+
+        <div class="col-md-12">
+            <table class="table table-border table-striped custom-table datatable mb-0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tipo</th>
+                        <th>Calibre</th>
+                        <th>Serie</th>
+                        <th>Marca</th>
+                        <th>Quantidade</th>
+                        <th>Pais</th>
+                        <th>Estado</th>
+                        <th>Descrição</th>
+                        <th>Data de Registado</th>
+                        <th>Ultima actualização</th>
+                        <th class="text-center">Operação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of arma | paginate: { itemsPerPage: this.pagination.per_page, currentPage: this.pagination.current_page,totalItems: this.pagination.total }; index as i">
+                        <td>{{i+1}}</td>
+                        <td>{{item.tipo}}</td>
+                        <td>{{item.calibre_arma}}</td>
+                        <td>{{item.serie}}</td>
+                        <td>{{item.marca}}</td>
+                        <td>123</td>
+                        <td>{{item.pais}}</td>
+                        <td>   <a [class]='item.estado=="AT"?"btn btn-lg btn-success text-white":"btn btn-lg btn-danger text-white" '>{{item.estado}}</a>
+                        </td>
+                        <td>{{item.descricao}}</td>
+                        <td>{{item.createdAt}}</td>
+                        <td>{{item.updatedAt}}</td>
+
+                        <td class="text-center">
+                            <div class="dropdown dropdown-action">
+                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <!-- <a class="dropdown-item" href="profile.html"><i class="fa fa-eye m-r-5"></i>
+                                        Visualizar</a> -->
+                                    <a class="dropdown-item" data-toggle="modal" href="#" data-target="#actualizar" (click)="this.setobj(item)" *ngIf="this.is==0 || this.is==1"><i class="fa fa-pencil m-r-5"></i>
+                                        Editar</a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete-modal" (click)="delete_(item.id)" *ngIf="this.is==0 || this.is"><i class="fa fa-trash-o m-r-5"></i> Eliminar</a>
+                                    <a class="dropdown-item" href="#" [routerLink]="['/piips/sigae/balas']" *ngIf="this.is"><i class="fa fa-plus-circle m-r-5" ></i> Cadastrar bala</a>
+                                    <a class="dropdown-item" data-toggle="modal" href="#" data-target="#atribuicao" (click)="setId(item.id)"  *ngIf="this.is==0 && item.estado== 'NA' || this.is && item.estado== 'NA'"><i class="bi bi-person-fill-down m-r-5"></i> Atribuir </a>
+                                    <a class="dropdown-item" data-toggle="modal" href="#" data-target="#ver-documento" (click)="setFileInfo(item.user_id,item.guia_link)"  *ngIf="this.is==0 && item.guia_link!=null || this.is==1 && item.guia_link!=null || item.guia_link!=undefined"><i class="bi bi-eye m-r-5"></i> ver Anexo </a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-sm-6">
+                    Mostrando de {{ this.pagination.current_page }} á {{ this.pagination.per_page }} de {{ this.pagination.total }} Registo
+                </div>
+                <div class="col-sm-6">
+                    <div class="float-right">
+                        <pagination-controls (pageChange)="this.filtrarPagina('page', $event)" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="atribuicao" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Atribuição de Munições</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <form class="forma d-grid justify-content-center w-100 " [formGroup]="formAt" >
+                        <div class="form-group col" id="inp_at">
+
+                            <div class="col">
+                                <div class="form-inline">
+                            <ng-select2
+                            [options]="options"
+                            [data]="this.direcaoOuOrgao"
+                            formControlName="orgao_id"
+                             (valueChanged)="selecionarAgente($event)" style="width:210px"
+                          >
+                          </ng-select2>
+                          <form action="">
+                
+                            <input
+                              class="form-control mr-sm-1"
+                              type="search"
+                              placeholder="Pesquisa pelo NIP,NOME"
+                              name="search"
+                              [(ngModel)]="setorgao"
+                              (ngModelChange)="SetOrgao($event)"
+                            />
+                            &nbsp;
+                
+                          </form>
+                                </div>
+                          
+                                <table
+                                class="table table-border table-resposive table-striped custom-table datatable mb-0"
+                              >
+                                <thead>
+                                  <tr>
+                                    <th>Nip</th>
+                                    <th>Nome do Agente</th>
+                                    <th>acção</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr
+                                  *ngFor="
+                                  let item of func "
+                                  [class]="this.pos == item.id?'bg-success text-white':''"
+                              >
+                                <td>{{ item.nip }}</td>
+                                <td>{{ item.nome}}</td>
+                                <td>
+                                  <a
+                            *ngIf="this.showATs"
+                                    class="btn text-white bg-primary p-1"
+                                    style="height: 30px;"
+                                    (click)="setAgente(item.id)"
+                                  >Adicionar
+                                  </a>
+                                  <a
+                                  *ngIf="!this.showATs && this.pos == item.id"
+                                          class="btn text-white bg-danger p-1"
+                                          style="height: 30px;"
+                                          (click)="unsetAgente()"
+                                        >remover
+                                        </a>
+                                </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                           
+                              </div>
+          
+                            <div class="form-group col" id="inp_at">
+                                <label>
+                                <b>
+                                    Numero de despacho ou Guia:
+                                    <span class="text-danger"> *</span>
+                                </b>
+                            </label>
+                                <input formControlName="num_despacho" type="text" class="form-control">
+                            </div>
+                            <div class="form-group col" id="inp_at">
+                                <label>
+                                <b>
+                                    Anexar Documento:
+                                    <span class="text-danger"> *</span>
+                                </b>
+                            </label>
+                                <input  type="file" class="form-control" accept=".docx,.pdf,.csv" (change)="this.getFile($event)" required>
+                            </div>
+                     
+                          
+                            <div class="form-group col" id="inp_at">
+                                <label>
+                                <b>
+                                    Descrição:
+                                    <span class="text-danger"> *</span>
+                                </b>
+                            </label>
+                                <input formControlName="descricao" type="text" class="form-control">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="reset " class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary" (click)="registarMunicoes()">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="municoes" aria-labelledby="classes" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="overflow-y: hidden; min-width: 70%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>
+                    <i class="fa fa-gun "></i> Registro de Munições em Caixa
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" (click)="this.resetForm()">&times;</span>
+                </button>
+            </div>
+
+            <div class="content">
+                <form [formGroup]="this.form" (ngSubmit)="onsubmit()">
+                    <div class="modal-body">
+                        <div class="row">
+
+                            <div class="form-group col-md-4">
+                                <label>
+                                    <b>
+                                        Classificação da arma
+                                        <span class="text-danger"> *</span>
+                                    </b>
+                                </label>
+                                <ng-select2 [options]="options" formControlName="classificacao_id" [data]="this.classes" autofocus>
+                                </ng-select2>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label>
+                                    <b>
+                                Entidade:
+                                        <span class="text-danger"> *</span>
+                                    </b>
+                                </label>
+                                <ng-select2 [options]="options" formControlName="entidade_id" [data]="this.entidade">
+                                </ng-select2>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label>
+                                    <b>
+                                        Tipo de Munição
+                                        <span class="text-danger"> *</span>
+                                    </b>
+                                </label>
+                                <ng-select2 [options]="options" formControlName="tipo_id" [data]="this.tipos">
+                                </ng-select2>
+                            </div>
+
+
+                            <div class="form-group col-md-4">
+                                <label>
+                                    <b>
+                                        Calibre da Munição
+                                        <span class="text-danger"> *</span>
+                                    </b>
+                                </label>
+                                <ng-select2 [options]="options" formControlName="calibre_id" [data]="this.calibres">
+
+                                </ng-select2>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>
+                                    <b>
+                                        País de origem
+                                        <span class="text-danger"> *</span>
+                                    </b>
+                                </label>
+                                <ng-select2 [options]="options" formControlName="pais" [data]="this.pais">
+
+                                </ng-select2>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label>
+                                    <b>
+                                        Ano de Fabrico
+                                        <span class="text-danger"> *</span>
+                                    </b>
+                                </label>
+                                <input formControlName="ano_fabrico" type="date" class="form-control" onfocus="(this.type='date')">
+
+
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>
+                                    <b>
+                                Marca da Munição:
+                                        <span class="text-danger"> *</span>
+                                    </b>
+                                </label>
+                                <ng-select2 [options]="options" formControlName="marca_id" [data]="this.marcas">
+
+                                </ng-select2>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label>
+                                    <b>
+                               Quantidade
+                                        <span class="text-danger"> *</span>
+                                    </b>
+                                </label>
+                                <input formControlName="ano_fabrico" type="text" class="form-control">
+
+
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>
+                                    <b>
+                                    Numero de Serie:
+                                        <span class="text-danger"> *</span>
+                                    </b>
+                                </label>
+                                <input formControlName="serie"    maxlength="10" type="text" class="form-control">
+
+
+                            </div>
+                            <div class="form-group col-12" style="height: 60px;">
+                                <label>
+                                    <b>
+                                        Descrição da acção
+                                        <span class="text-danger"> *</span>
+                                    </b>
+                                </label>
+                                <textarea formControlName="descricao"    maxlength="60" type="text" class="form-control" style="height: 60px;"></textarea>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <br>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger btn-square danger-sigae" type="reset" (click)="this.resetForm()">
+                            <span class="fa fa-refresh"></span> Limpar
+                        </button>
+                        <button class="btn btn-square text-light primary-sigae" type="submit" id="btns" [disabled]="form.invalid">
+                     Registar
+                        </button>
+
+
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="actualizar" aria-labelledby="classes" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="overflow-y: hidden; min-width: 70%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>
+                    <i class="fa fa-gun "></i> actualização de Munições em Caixa
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" (click)="this.resetForm()">&times;</span>
+                </button>
+            </div>
+
+            <div class="content">
+                <form [formGroup]="this.form" (ngSubmit)="editar()">
+                    <div class="modal-body">
+                        <div class="row">
+
+                            <div class="form-group col-md-4">
+                                <label>
+                                    <b>
+                                        Classificação da arma
+                                        <span class="text-danger"> *</span>
+                                    </b>
+                                </label>
+                                <ng-select2 [options]="options" formControlName="classificacao_id" [data]="this.classes" autofocus>
+                                </ng-select2>
+                            </div>
+
+
+                            <div class="form-group col-md-4">
+                                <label>
+                                    <b>
+                                        Tipo de Munição
+                                        <span class="text-danger"> *</span>
+                                    </b>
+                                </label>
+                                <ng-select2 [options]="options" formControlName="tipo_id" [data]="this.tiposMunicoes">
+                                </ng-select2>
+                            </div>
+
+
+                            <div class="form-group col-md-4">
+                                <label>
+                                    <b>
+                                        Calibre da Munição
+                                        <span class="text-danger"> *</span>
+                                    </b>
+                                </label>
+                                <ng-select2 [options]="options" formControlName="calibre_id" [data]="this.calibres">
+
+                                </ng-select2>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>
+                                    <b>
+                                        País de origem
+                                        <span class="text-danger"> *</span>
+                                    </b>
+                                </label>
+                                <ng-select2 [options]="options" formControlName="pais_id" [data]="this.pais">
+
+                                </ng-select2>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label>
+                                    <b>
+                                        Ano de Fabrico
+                                        <span class="text-danger"> *</span>
+                                    </b>
+                                </label>
+                                <input formControlName="ano_fabrico" type="date" class="form-control" onfocus="(this.type='date')">
+
+
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>
+                                    <b>
+                                Marca da Munição:
+                                        <span class="text-danger"> *</span>
+                                    </b>
+                                </label>
+                                <ng-select2 [options]="options" formControlName="marca_id" [data]="this.marcas">
+
+                                </ng-select2>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label>
+                                    <b>
+                               Quantidade
+                                        <span class="text-danger"> *</span>
+                                    </b>
+                                </label>
+                                <input formControlName="ano_fabrico" type="number" class="form-control">
+
+
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>
+                                    <b>
+                                    Numero de Serie:
+                                        <span class="text-danger"> *</span>
+                                    </b>
+                                </label>
+                                <input formControlName="serie"    maxlength="10" type="text" class="form-control">
+
+
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>
+                                    <b>
+                                        Descrição da acção
+                                        <span class="text-danger"> *</span>
+                                    </b>
+                                </label>
+                                <input formControlName="descricao" 
+                                maxlength="60" type="text" class="form-control">
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger btn-square danger-sigae" type="reset" (click)="this.resetForm()">
+                            <span class="fa fa-refresh"></span> Limpar
+                        </button>
+                        <button class="btn btn-square text-light primary-sigae" type="submit" id="btns" [disabled]="selecionado">
+                     Registar
+                        </button>
+
+
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ver-documento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-lg">
+        <div class="modal-content ">
+            <div class="modal-header bg-primary w-100 ">
+                <h5 class="modal-title text-light" style="font-size: 20px;" id="exampleModalLabel">Arma em Lotes
+                </h5>
+                <button type="button" class=" btn-light bg-transparent border-0 text-light" data-dismiss="modal"
+                    aria-label="Close">
+                    <h5 style="font-size: 20px;font-stretch: 600;" class="d-sm-none d-xl-inline">
+                        Visualização de Anexo de Guia
+                    </h5>
+
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body" style="padding: 5px;">
+                    <div class="holder" id="viewerHolder">
+                        <iframe id="viewerPro" style="height:800px;" class="w-100"
+                            [src]="this.getPathCaminho">
+                        </iframe>
+                        </div>
+                </div>
+
+            </div>
+            
+            <div class="modal-footer d-xl-flex d-sm-grid d-lg-flex d-md-grid justify-content-center w-100">
+                <button type="button" class="btn btn-danger w-25" data-dismiss="modal">Fechar</button>
+                <a class="btn btn-primary w-25" (click)="baixarFile(getPathCaminho)">Baixar</a>
+            </div>
+   
+        </div>
+    </div>
+</div>

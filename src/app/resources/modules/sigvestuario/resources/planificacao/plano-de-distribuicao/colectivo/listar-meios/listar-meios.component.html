@@ -1,0 +1,200 @@
+<div class="ml-4 pl-1 pt-2 pr-2 pb-2 mr-4 sigv-breadCrumb mt-4">
+    <ul type="none" class="d-flex align-items-center m-0 pl-0">
+        <li>
+            <a [routerLink]="['/piips/sigvest/dashboard']">
+                <i class="bi bi-house-door-fill"></i> <i class="bi bi-chevron-right"></i>
+            </a>
+        </li>
+        <li>
+            <a [routerLink]="['/piips/sigvest/planificacao']">
+                Planificação <i class="bi bi-chevron-right"></i>
+            </a>
+        </li>
+        <li>
+            <a [routerLink]="['/piips/sigvest/planificacao/plano-de-distribuicao']">
+                Plano de Distribuição <i class="bi bi-chevron-right"></i>
+            </a>
+        </li>
+        <li>
+            <a [routerLink]="['/piips/sigvest/planificacao/plano-de-distribuicao/colectivo']">
+                Plano Colectivo <i class="bi bi-chevron-right"></i>
+            </a>
+        </li>
+        <li routerLinkActive="efeito-breadcrumb">
+            <a [routerLink]="['/piips/sigvest/planificacao/plano-de-distribuicao/colectivo/listar']">
+                Listar <i class="bi bi-chevron-right"></i>
+            </a>
+        </li>
+        <li routerLinkActive="efeito-breadcrumb">
+            <a [routerLink]="['/piips/sigvest/planificacao/plano-de-distribuicao/colectivo/listar']">
+                <span>Produtos</span>
+            </a>
+        </li>
+    </ul>
+  </div>
+  
+  <h3 class="ml-3 pl-2 mt-3 titulo">
+    <img src="../../../../../../assets/assets_sigv/img/img1/lista-de-tarefas (1).gif" alt="">
+    Listar Meios Referente ao Plano nº {{num}}
+  </h3>
+  
+  <div class="container-fluid m-0 mt-3 conteudo-container ">
+    <div class="table-dashboard table-responsive bg-light">
+      <div class="row container-fluid pl-0 pr-0 inputs">
+  
+        <div class="col-1  primeiro pr-0">
+          <select class="form-select form-select-sm" class="form-control" (change)="filtrarPagina('perPage',$event)">
+            <option *ngFor="let item of [10,5,20,50]" [value]="item">{{item}}</option>
+          </select>
+        </div>
+  
+        <!-- Select que lista as categorias -->
+        <div class="col-2  primeiro pr-0">
+          <select class="pl-2" placeholder="Categorias" (change)="filtrarPagina('nome_calorico',$event)">
+            <option value="categoria" [selected]="true">Categorias</option>
+            <option *ngFor="let option of categorias" [value]="option.nome_calorico">
+              {{ option.nome_calorico | uppercase }}
+            </option>
+          </select>
+  
+        </div>
+  
+        <div class="col-8 pr-0">
+          <form class="segundo">
+            <input required type="search" [ngModel]="filtro.search" class="pl-3"
+                  (ngModelChange)="filtrarPagina('search',$event)" placeholder="Pesquisar">
+            
+              <button type="button" class=" " (click)="recarregarPagina()">
+                <img src="../../../../../../assets/assets_sigv/img/img/new/Refresh.png" alt="" id="gira" class="mr-2"
+                  height="20" width="20"> Actualizar
+              </button>
+          </form>
+        </div>
+        <!-- Button trigger modal -->
+        <!-- <ng-container *ngIf="this.planificacao?.estado_plano != 'APROVADA' && this.planificacao?.estado_plano != 'REJEITADA'">
+          <div class="col-2 ml-0 terceiro pr-0 p-0">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalRegistar">
+              <i class="bi bi-plus-circle"></i> Novo
+            </button>
+          </div>
+        </ng-container> -->
+
+        <div class="col-1 quarto pr-0 pl-0">
+          <button type="button" class="offset-1 p-0">
+            Total <span class="ml-2 ">{{this.pagination.total}}</span>
+          </button>
+        </div>
+      </div>
+      <table class="table table-striped lightweight-table custom-table" *ngIf="isLoading;">
+        <thead>
+          <tr id="cabecalho" class="lightweight-table">
+            <!-- <th>#</th> -->
+            <th>ID</th>
+            <th>Nome do Produto</th>
+            <th>Quantidade</th>
+            <!-- <th>Unidade</th> -->
+            <th>Preço Unitário</th>
+            <th>Grau de Cumprimento</th>
+            <th>Data de Registo</th>
+            <th>Data Actualização</th>
+            <th class="text-center">Operação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let produto of this.produtos |
+          paginate
+          : {
+            id: 'idAbastecimentoProduto',
+            itemsPerPage: this.pagination.per_page,
+            currentPage: this.pagination.current_page,
+            totalItems: this.pagination.total
+          }; index as i">
+            <!-- <td>
+              <input type="checkbox"/>
+            </td> -->
+            <td class=" "> {{i+1}} </td>
+            <td class=" "> {{produto.nome_produto}} </td>
+            <td class=" "> {{produto.quantidade + ' ' + produto.tipo_unidades}} </td>
+            <!-- <td class=" "> {{produto.unidade_massa}} </td> -->
+            <td class=" "> {{produto.preco_unitario}} </td>
+            <td class=" ">
+              {{ produto.grau_cumprimento ?? 0 }}%
+              <progress [value]="produto.grau_cumprimento ?? 0" max="100"> </progress>
+            </td>
+            <td class=" "> {{ produto.created_at }} </td>
+            <td class=" "> {{ produto.updated_at }} </td>
+  
+            <td class=" text-center">
+              <!-- botão ver mais-->
+              
+                <div class="dropdown dropdown-action position-static">
+                  <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
+                      aria-expanded="false"><i class="bi bi-three-dots-vertical"></i></a>
+                  <div class="dropdown-menu dropdown-menu-right lista-option">
+                    <a class="dropdown-item" href="javascript:void(0)" (click)="setItem(produto)" data-toggle="modal" data-target="#modalDetalhe">
+                      <i class="bi bi-eye-fill"></i>
+                      Mais informações
+                    </a>
+                    <a (click)="setItem(produto)" class="dropdown-item" href="javascript:void(0)" data-toggle="modal" data-target="#modalRegistar" *ngIf="this.planificacao?.estado_plano.toLowerCase() === 'retificar'">
+                      <i class="bi bi-pencil-square"></i>
+                      Editar
+                    </a>
+                    <a class="dropdown-item" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#modalEliminar" (click)="this.validarEliminar(produto)" style="color: #dc3545;">
+                      <i class="bi bi-trash-fill"></i>
+                      Eliminar
+                    </a>
+    
+                  </div>
+                </div>
+            </td>
+          </tr>
+  
+  
+        </tbody>
+      </table>
+      <div class="col-md-12" *ngIf="isLoading">
+        <div class="row">
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+            Mostrando de {{ this.pagination.current_page }} a
+            {{ this.pagination.per_page }} de {{ this.pagination.total}}
+            <aside *ngIf="this.pagination.total < 2; else outrosRegistos">registos</aside>
+            <ng-template #outrosRegistos>registos</ng-template>
+          </div>
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+            <div class="float-right">
+              <pagination-controls id="idAbastecimentoProduto"
+                         (pageChange)="filtrarPagina('page', $event, false)"
+                         [directionLinks]="true"
+                         [autoHide]="false"
+                         previousLabel="Anterior"
+                         nextLabel="Próximo"
+                         [maxSize]="4"
+                         [responsive]="true">
+            </pagination-controls>
+        </div>
+      </div>
+  
+    </div>
+  
+    <!-- Exemplo implementado para verificar se funciona - teste -->
+     
+    <ng-template #loading class="pt-5">
+      <span class="loading"><strong>Processando todos os produtos...</strong> <br>Nota: se este processo durar por muito
+        tempo, verifique o seguinte:
+        <li>A conexão de internet.</li>
+        <li>Se o servidor está no ar.</li>
+        <li>Actualize a página.</li>
+        <li>Procure por ajuda.</li>
+      </span>
+      
+      <div style="text-align: center; padding-top: 5rem; margin-bottom: 4rem;">
+        <img src="../../../../../../../assets/assets_sigv/img/img1/figprocess.gif" alt="" width="90">
+      </div>
+    </ng-template>
+  
+    <!-- Modal -->
+    <!-- <app-registar-ou-editar-produtos [produto]="produto" [plano_id]="num" (onSubmitProdutoForm)="recarregarPagina()"></app-registar-ou-editar-produtos> -->
+
+    <!-- Detalhe -->
+     <!-- <app-detalhe-produto-modal [produto]="produto"></app-detalhe-produto-modal> -->
+  </div>

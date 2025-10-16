@@ -1,0 +1,124 @@
+<!-- <body class="back-itens">
+    <div class="header d-flex">
+      <div class="org">
+        <img src="assets/dashboard/piips.png" alt="" />
+        <h5>PIIPS - Plataforma Integrada de Informações <br> Políciais e Serviços</h5>
+      </div>
+      <div class="left-itens">
+        <input class="busca form-control mr-sm-1" type="text" [ngModel]="filtro.search" (ngModelChange)="filtrarPagina($event)"
+        placeholder="Buscar">
+        <button (click)="this.onLogout()" type="button"
+        class="btn-piips btn-piips-red border d-flex align-item-center justify-content-center" style="gap: .4rem; border-radius: 50%!important; padding-top: 0.7rem!important;
+        padding-bottom: 0.7rem!important; margin-left: 12px;"><i class="fa fa-power-off"></i></button>
+      </div>
+    </div>
+
+  <img class="bgimg" src="assets/dashboard/bgfound.png" alt="" />
+
+  <section style="height: 100px"></section>
+  <div class="itens row">
+    <div class="cont w-25 row col-12 col-sm-6 col-md-4 col-lg-3">
+      <div class="custom-div col"  *ngFor="let items of modulos">
+        <div class="top_content">
+          <div class="d-flex justify-content-center align-items-center">
+            <h1 class="sigla">{{ items.sigla }}</h1>
+            <img [src]="items?.img" style="width: 40px;">
+          </div>
+          <p></p>
+        </div>
+        <div class="nome mt-2 d-flex justify-content-center flex-column align-items-center" style="row-gap: .8rem">
+          <div style="display: flex;">
+            <h1>{{ items?.nome }}</h1>
+          </div>
+          <button (click)="redirecionar(items?.sigla)">
+            Acessar
+          </button>
+        </div>
+      </div>
+    </div> 
+  </div> 
+
+ <footer class="fixed-corner">
+    <p style="padding-left: 200px; color: #041B48;" class="copy">
+      &copy; 2023 - {{this.getAno}}. Desenvolvido por DTTI-PNA, Inc. Todos os direitos reservados à Polícia Nacional de
+      Angola
+    </p>
+    <img width="150px" src="assets/dashboard/logo-angola 2.png" alt="" />
+  </footer>
+</body> -->
+
+<body class="back-itens base">
+  <div class="headerr d-flex">
+    <div class="org">
+      <div class="picture"> 
+        <img class="logi" src="assets/dashboard/logpi.png" alt="" />
+        <img src="assets/dashboard/piips.png" alt="" />
+      </div>
+      <h5>DTTI-DDS <br> Serviço de Investigação Criminal.</h5>
+    </div>
+    <div class="left-itens">
+      <input class="busca form-control mr-sm-1" type="text" [ngModel]="filtro.search" (ngModelChange)="filtrarPagina($event)"
+      placeholder="Buscar">
+      <button (click)="this.onLogout()" type="button"
+      class="btn-piips btn-piips-red border d-flex align-item-center justify-content-center" style="gap: .4rem; border-radius: 50%!important; padding-top: 0.7rem!important;
+      padding-bottom: 0.7rem!important; margin-left: 12px;"><i class="bi bi-power"></i></button>
+    </div>
+  </div>
+
+  <section style="height: 100px"></section>
+  <div class="police">
+    <img [src]="logoPath" alt="" />
+  </div>
+  
+<!--   <div class="other">
+    <img class="bgpoli" src="../../../assets/dashboard/bgpoly.png" alt="">
+  </div> -->
+
+
+  <div class="poly"> 
+    <!-- Boxes -->
+
+
+      <div class="hex" *ngFor="let items of modulos">
+        
+        <!--    
+        <div class="b-bord">
+          <i class="bord bi bi-hexagon"></i>
+        </div> 
+        -->
+
+        <img class="boo" src="../../../assets/dashboard/bordas.ico" alt="">
+            <div class="back-bl" (click)="redirecionar(items?.sigla)">
+              <div class="rot">
+                <div class="top_content" style="color:white">
+                  <div class="conteudo d-flex justify-content-center align-items-center" style="color:white">
+                    <h1 style="color:white;font-size: 18px;" class="sigla">{{ items.sigla }}</h1>
+                    <div class="icoo">
+                      <img [src]="items?.img" style="width: 12px;">
+                    </div>
+                  </div>
+                </div>
+                <div class="nome mt-1 d-flex justify-content-center flex-column align-items-center" style="row-gap: .8rem">
+                  <div class="nm" style="display: flex;">
+                      <h1 style="color:white;font-size: 11px;">{{ items?.nome }}</h1>
+                  </div>
+                  <button>
+                    Acessar
+                  </button>
+                </div>
+              </div>
+            </div>
+      </div> 
+    <!-- end Boxes -->
+  </div>
+
+<section style="height: 100px"></section>
+
+  <footer class="fixed-corner">
+    <p style="padding-left: 100px; color: #041B48; font-size: 13px; font-weight: bolder;" class="copy">
+      &copy; 2023 - {{this.getAno}}. Desenvolvido por DTTI-PNA e DTTI-SIC, Inc. Todos os direitos reservados 
+    </p>
+    <img width="90px" src="assets/dashboard/logo-angola 2.png" alt="" />
+  </footer>
+
+</body> 

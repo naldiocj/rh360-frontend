@@ -1,0 +1,155 @@
+@charset "utf-8";
+/* RESET */
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+.section-pna-container-nmg{
+    width: 100%;
+    height: 100vh;
+    padding-bottom: 24px;
+    /* background-color: red; */
+
+    .banner-nmg {
+        /* background-color: yellow; */
+        /* background-image: url('../../../../../../../../assets/assets_sigvest/img/pna1.png'); */
+        background-color: rgb(32, 91, 133);
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: calc(100vh - 70vh);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+
+        h3 {
+            font-size: 2rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: white;
+        }
+
+        p{
+            color: white;
+            font-size: 1rem;
+        }
+
+        div {
+            margin-top: 8px;            
+            i {
+                color: white;
+                font-size: 4rem;
+                display: inline-block;
+                animation: abanar 2s ease-in-out infinite;
+                transition: all .5 linear;
+            }
+        }
+
+        button {
+            position: absolute;
+            left: 28px;
+            top: 5px;
+            padding: 5px;
+            border-radius: 4px;
+        }
+
+    }
+    
+    .cards-nmg {
+        background-color: rgb(32, 91, 133);
+        padding: 20px 10px 10px 30px;
+
+        div {
+           margin-bottom: 16px;
+
+            span {
+                padding: 5px;
+                border-radius: 6px;
+                background-color: #e9e9ed;
+                margin-right: 8px;
+                cursor: pointer;
+            }
+        }
+    }
+    
+    .filtro-container-nmg {
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-top: 10px;
+        .filtro {
+            transition: all .5s linear;
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.122);
+
+            label{
+              color: #041B4E;
+              padding-left: 2px;
+              margin-bottom: 5px;
+              font-weight: 500;
+            }
+
+            .alone-nmg {
+                width: 100%;
+                height: 46px;
+                border-radius: 6px;
+                box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -5px,
+                rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+                padding-left: 10px;
+            }
+        }
+    }
+
+    .tabela-nmg{
+        padding: 20px 30px 10px 30px;
+        table {
+            box-shadow: 0 5px 10px rgba(0,0,0,000.3);
+        }
+        thead > tr > th {background-color: #041b4e; color: white;}
+        thead > tr > th:first-child {border-radius: 8px 0 0 0;}
+        thead > tr > th:last-child {border-radius: 0 8px 0 0;}
+        thead > caption {
+            /* text-align: center; */
+            width: 100%;
+            font-size: 1rem;
+            padding: 5px 10px;
+        }
+    }
+}
+
+@keyframes abanar {
+    from {
+        transform: translateY(-10px)
+    } to {
+        transform: translateY(0px)
+    }
+}
+
+/* No arquivo CSS global ou no estilo do componente */
+.select2-container--default .select2-selection--single {
+    /* Seus estilos personalizados aqui */
+    background-color: #f2f2f3;
+    border: 1px solid #f0f0f0 !important;
+  }
+
+  .select2-results__option--highlighted[aria-selected] {
+    background-color: #5897fb;
+    color: white;
+  }
+  
+  .select2-results__option[aria-selected] {
+    padding-top: 10px;
+    padding-left: 20px;
+  }
+  /* No arquivo do componente, por exemplo, seu-componente.component.css */
+  :host ::ng-deep .select2-container--default .select2-selection--single {
+    background-color: #ffffff;
+    height: 46px;
+    border: 1px solid #dbdbdb !important;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -5px,
+    rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+    border-radius:6px!important;
+    /* Adicione mais estilos conforme necessário */
+  }

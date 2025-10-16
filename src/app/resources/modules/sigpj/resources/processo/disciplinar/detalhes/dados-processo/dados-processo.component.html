@@ -1,0 +1,38 @@
+<div class="col-sm-8 pull-left">
+  <aside class="mb-1">
+    <b>ID:</b> {{ this.disciplinars?.id }}/DAJ
+  </aside>
+  <aside class="mb-1">
+    <b>Número do Processo:</b> {{ this.disciplinars?.numero_processo }} <br />
+  </aside>
+  <aside class="mb-1">
+    <b>Número do Oficío: </b> {{ this.disciplinars?.numero_oficio }} <br />
+  </aside>
+  <aside class="mb-1">
+    <b>Data de Oficío: </b> {{ this.disciplinars?.data_oficio }} <br />
+  </aside>
+  <aside class="mb-1">
+    <b>Orgão de proveniência:</b> {{ this.disciplinars?.orgao_nome }}<br />
+  </aside>
+  <div class="mb-1">
+    <b class="my-2">Infração</b>
+    <div class="mb-1 overflow-auto text-justify" style="word-wrap: break-word; width: 100%; overflow-y: scroll">
+      {{ this.disciplinars?.infracao }}
+    </div>
+  </div>
+
+  <div class="mb-1 my-4">
+    <!-- <h4><b>{{this.disciplinarTotal == 1 ? 'Factor Primário':'Antecedentes' }}</b></h4> -->
+    <aside>
+      <!-- {{ this.disciplinarTipo }} -->
+      <!-- <b> {{ this.disciplinarTotal }}</b> -->
+    </aside>
+    <aside class="mb-1">
+      <!-- {{ this.reclamacaoTipo }} -->
+      <!-- <b> {{ this.reclamacaoTotal }} </b> -->
+    </aside>
+    <aside class="mb-1">
+      <!-- <b>Total: </b> {{ this.reclamacaoTotal + this.disciplinarTotal }} -->
+    </aside>
+  </div>
+</div>

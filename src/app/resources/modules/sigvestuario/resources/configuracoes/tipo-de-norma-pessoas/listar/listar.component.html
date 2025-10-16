@@ -1,0 +1,168 @@
+<div class="ml-4 pl-1 pt-2 pr-2 pb-2 mr-4 sigv-breadCrumb mt-4">
+    <ul type="none" class="d-flex align-items-center m-0 pl-0">
+        <li>
+            <a [routerLink]="['/piips/sigvest/dashboard']">
+                <i class="bi bi-house-door-fill"></i> <i class="bi bi-chevron-right"></i>
+            </a>
+        </li>
+        <li>
+            <a [routerLink]="['/piips/sigvest/configuracoes']">
+                Configurações <i class="bi bi-chevron-right"></i>
+            </a>
+        </li>
+        <li routerLinkActive="efeito-breadcrumb">
+            <a [routerLink]="['/piips/sigvest/configuracoes/tipo-de-norma-pessoas']">
+                <span>Tipos de Norma Pessoas</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<h3 class="ml-3 pl-2 mt-3 titulo">
+    <img src="../../../../../../assets/assets_sigv/img/img1/lista-de-tarefas (2).gif" alt="">
+    Listar Tipos de Norma Pessoas
+</h3>
+<div class="container-fluid m-0 mt-3 conteudo-container ">
+    <div class="table-dashboard table-responsive bg-light">
+        <div class="row container-fluid pl-0 pr-0 inputs">
+
+            <div class="col-1  primeiro pr-0">
+                <select class="form-select form-select-sm" class="form-control"
+                    (change)="filtrarPagina('perPage',$event)">
+                    <option *ngFor="let item of [5,10,20,50]" [value]="item">{{item}}</option>
+                </select>
+            </div>
+            <div class="col-8 pr-0">
+                <form class="segundo">
+                    <input required type="search" [ngModel]="filtro.search" class="pl-3"
+                        (ngModelChange)="filtrarPagina('search',$event)" placeholder="Pesquisar">
+
+                    <button type="button" class=" " (click)="recarregarPagina()">
+                        <img src="../../../../../../../assets/assets_sigv/img/img/new/Refresh.png" alt="" id="gira"
+                            class="mr-2" height="20" width="20"> Actualizar
+                    </button>
+                </form>
+            </div>
+            <!-- Button trigger modal -->
+            <div class="col-2 ml-0 terceiro pr-0 p-0">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalRegistar">
+                    <i class="bi bi-plus-square"></i> Novo
+                </button>
+            </div>
+
+            <div class="col-1 quarto pr-0 pl-0">
+                <button type="button" class="p-0 offset-1">
+                    Total <span class="ml-2">{{ this.pagination.total}}</span>
+                </button>
+            </div>
+        </div>
+        <table class="table table-striped lightweight-table custom-table" *ngIf="loadingPage else loading">
+            <thead>
+                <tr id="cabecalho" class="lightweight-table">
+                    <!-- <th>#</th> -->
+                    <th>N/O</th>
+                    <th>Designação tipo de Norma</th>
+                    <!--
+                      <th>Quantidade</th>
+                      <th>plano</th>
+                      <th>Fornecedor</th>
+                      <th>Data de Entrada</th>
+                      <th>Registado por</th>
+                      -->
+                    <th>Descrição</th>
+                    <!-- <th>Nº Dias</th> -->
+                    <th>Data de Criação</th>
+                    <th>Última Actualização</th>
+                    <th class="text-center">Operação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of tipo_de_meios
+                                | paginate
+                                  : {
+                                      itemsPerPage: this.pagination.per_page,
+                                      currentPage: this.pagination.current_page,
+                                      totalItems: this.pagination.total,
+                                      id:'all_tipo_de_meios_id'
+                                    };
+                              index as i
+                            ">
+                    <!-- <td>
+                        <input type="checkbox" />
+                    </td> -->
+                    <td class=" "> {{i < 10? '0' + (i+1) : i+1}} </td>
+                    <td class=" "> {{item.nome}} </td>
+                    <td class=" "> {{item.descricao | slice:0:50}}... </td>
+                    <!-- <td class=" "> {{item.dias}} </td> -->
+                    <td class=""> {{item.created_at}} </td>
+                    <td class=" "> {{item.updated_at}} </td>
+                    <td class=" text-center">
+                        <div class="dropdown dropdown-action position-static">
+                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
+                                aria-expanded="false"><i class="bi bi-three-dots-vertical"></i></a>
+                            <div class="dropdown-menu dropdown-menu-right lista-option">
+                                <a class="dropdown-item" href="javascript:void(0)" (click)="setItem('', item)"
+                                    data-toggle="modal" data-target="#modalDetalhe">
+                                    <i class="bi bi-eye-fill"></i>
+                                    Mais informações
+                                </a>
+                                <a (click)="setItem('editar', item)" class="dropdown-item" href="javascript:void(0)"
+                                    data-toggle="modal" data-target="#modalRegistar">
+                                    <i class="bi bi-pencil-square"></i>
+                                    Editar
+                                </a>
+                                <a class="dropdown-item" href="javascript:void(0)" data-bs-toggle="modal"
+                                    data-bs-target="#modalEliminar" (click)="this.validarEliminar(item)"
+                                    style="color: #dc3545;">
+                                    <i class="bi bi-trash-fill"></i>
+                                    Eliminar
+                                </a>
+
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+
+            </tbody>
+        </table>
+        <!-- Exemplo implementado paginação para verificar se funciona - teste -->
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                    Mostrando de {{ this.pagination.current_page }} a
+                    {{ this.pagination.per_page }} de {{ this.pagination.total}}
+                    <aside *ngIf="this.pagination.total < 2; else outrosRegistos">registos</aside>
+                    <ng-template #outrosRegistos>registos</ng-template>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                    <div class="float-right">
+                        <pagination-controls id="all_tipo_de_meios_id" (pageChange)="filtrarPagina('page', $event, false)"
+                            [directionLinks]="true" [autoHide]="false" previousLabel="Anterior" nextLabel="Próximo"
+                            [maxSize]="4" [responsive]="true">
+                        </pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Fim do exemplo, posso usá-lo dentro de uma div-->
+    </div>
+
+    <ng-template #loading>
+        <div class="mt-3"></div>
+        <span class="mt-5 loading"><strong>Processando todos os tipos de meios...</strong> 
+            <br>Nota: se este processo durar por muito tempo, verifique o seguinte:
+            <li>A conexão de internet.</li>
+            <li>Se o servidor está no ar.</li>
+            <li>Actualize a página.</li>
+            <li>Procure por ajuda.</li>
+        </span>
+
+        <div style="text-align: center; padding-top: 5rem; margin-bottom: 4rem;">
+            <img src="../../../../../../../assets/assets_sigv/img/img1/figprocess.gif" alt="" width="90">
+        </div>
+    </ng-template>
+
+    <!-- Modal -->
+    <sigvest-registar-ou-editar class="row p-2" [plano]="this.tipo_de_meios_para_modal_editar" (onSubmitTipoDeMeiosForm)="recarregarPagina()"></sigvest-registar-ou-editar>
+</div>

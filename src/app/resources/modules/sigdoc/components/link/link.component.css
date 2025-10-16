@@ -1,0 +1,42 @@
+.nav-link {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0.8rem 1.2rem;
+    transition: all 0.4s;
+    cursor: pointer;
+    position: relative;
+    color: #999;
+  }
+  .nav-link i {
+    font-size: 1.6rem;
+    margin-right: 0.8rem;
+  }
+  .nav-link span {
+    font-weight: 400;
+    font-size: 1.1rem;
+  }
+  
+  .nav-link .badge {
+    font-size: 0.8rem;
+    position: absolute;
+    left: 30px;
+    top: 4px;
+    transition: all 0.4s;
+    background-color: var(--red);
+  }
+  
+  .nav-link:hover .badge {
+    top: 0px;
+  }
+  .nav-link:hover, .nav-link.active:hover {
+    background: var(--lightWhite);
+    color: var(--bgColor);
+  }
+  .nav-link.active {
+    border-right: 10px solid var(--lightWhite);
+    color: var(--lightWhite);
+    /* background-color: var(--lightWhite); */
+  }
+  
+  

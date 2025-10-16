@@ -1,0 +1,62 @@
+<div class="modal fade" id="modalRegistarAlocacao" aria-labelledby="modalRegistarAlocacao" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="overflow-y: hidden;min-width: 60%;margin-top: 10%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 style="color: var(--use-color)">
+                    <i class="fa fa-passport"></i>
+                    Emissão de Passe Profissional
+                </h4>
+                <button style="border:none; outline:none;" type="button" class="close text-red" data-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="content">
+                <form [formGroup]="this.simpleForm">
+                    <div class="modal-body d-flex justify-content-center ">
+                        <aside *ngIf="this.agentesId?.length == 0; else temAgentesSelecionados">
+                            <h5 style="color: var(--red);font-weight:normal!important;"> Nenhum agente selecionado <i
+                                    class="fa fa-times"></i></h5>
+                        </aside>
+                        <ng-template #temAgentesSelecionados>
+                            <h5 style="color: var(--use-color); font-weight:normal!important;">{{this.agentesId?.length}}
+                                {{this.agentesId?.length == 1? 'Agente foi selecionado para à emissão do passe
+                                profissional!':'Agentes foram selecionados, para emissão dos passes profissionais!'}}
+                                Pretende continuar
+                                com o processo ? </h5>
+                        </ng-template>
+
+                        <div class="row">
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn-piips btn-piips-red py-2 m-0" type="reset" disabled="true">
+                            <span class="fa fa-refresh"></span> Limpar
+                        </button>
+                        <ng-container *ngIf="this.simpleForm.valid && this.agentesId?.length; else ocultarBotao">
+                            <aside *ngIf="this.isLoading; else regista">
+                                <button disabled="true" class="btn-piips btn-piips-primary py-2 m-0">
+                                    <div class="spinner-border spinner-border-sm m-1"></div>
+                                    <a style="text-decoration: none;color: white;"> A
+                                        Carregando ...</a>
+                                </button>
+                            </aside>
+                            <ng-template #regista>
+                                <button (click)="onSubmit()" class="btn-piips btn-piips-primary py-2 m-0">
+                                    <i class="fa fa-plus-circle"></i>
+                                    Sim
+                                </button>
+                            </ng-template>
+                        </ng-container>
+                        <ng-template #ocultarBotao>
+                            <button disabled="true" class="btn-piips btn-piips-primary py-2 m-0">
+                                <i class="fa fa-plus-circle"></i>
+                                Sim
+                            </button>
+                        </ng-template>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>

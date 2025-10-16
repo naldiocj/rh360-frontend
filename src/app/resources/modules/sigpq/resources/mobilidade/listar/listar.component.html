@@ -1,0 +1,277 @@
+
+  <div class="content">
+    <sigpq-header></sigpq-header>
+    <div class="header-ficha mt-1">
+      <div class="row" style="align-items: center;">
+        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 d-flex justify-content-start align-items-start">
+          <div class="mais-info d-flex justify-content-center align-items">
+            <h4 class="text-white"><b>Mobilidade de Afectivos / Guia de Marcha</b></h4>
+          </div>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 d-flex justify-content-end align-items-center"
+          style="gap:.4rem">
+          <span class="legend-item" *ngFor="let item of this.estados">
+            <div class="legend-color" [style.backgroundColor]="item.cor"></div>
+            <span class="legend-text">{{item.texto}}</span>
+          </span>
+        </div>
+      </div>
+      <!-- <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 d-flex justify-content-end align-items-start">
+          <a href="javascript:void(0)" href="javascript:void(0)" data-toggle="modal" data-target="#"
+            class="btn-piips btn-piips-secondary border m-0 py-2 px-4"><i class="fa fa-list-alt"></i>
+            Exportar</a>
+        </div>
+      </div> -->
+    </div>
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <legend class="border-top d-flex justify-content-end align-item-center"> <button
+            class="btn-piips btn-piips-secondary m-0 py-2 border" data-toggle="collapse" href="#pesquisa-avancada"
+            role="button" aria-expanded="false" aria-controls="pesquisa-avancada" style="cursor: pointer;"> <i
+              class="fa fa-search mx-2"></i>Pesquisa avançada</button></legend>
+      </div>
+    </div>
+    <fieldset class="p-2">
+      <aside class="row">
+        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12">
+          <select class="form-control" (change)="filtrarPagina('perPage', $event)">
+            <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">
+              {{ item }}
+            </option>
+          </select>
+        </div>
+
+        <div class="col-xl-8 col-lg-8 col-md-6 col-sm-12">
+          <input class="form-control mr-sm-1" type="text" [ngModel]="filtro.search" name="search"
+            (ngModelChange)="filtrarPagina('search', $event)" placeholder="Pesquisar nome completo, nip, nas, ..." />
+        </div>
+
+        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 d-flex justify-content-end align-items-center">
+          <button type="button" data-toggle="modal" data-target="#ver-guia-marcha" (click)="this.recarregarPagina()"
+            class="btn-piips btn-piips-secondary m-0 py-2">
+            <i style="font-size: 14px;" class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+            <b>Recarregar</b>
+          </button>
+        </div>
+      </aside>
+      <aside class="row  mt-2 collapse" id="pesquisa-avancada">
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-4" *ngIf="this.getAuth?.user?.aceder_todos_agentes">
+          <label for=""><b>Tipo de Órgão</b></label>
+          <ng-select2 [options]="options" [data]="this.tipoEstruturaOrganicas"
+            (valueChanged)="selecionarOrgaoOuComandoProvincial($event);">
+          </ng-select2>
+        </div>
+
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-4" *ngIf="this.getAuth?.user?.aceder_todos_agentes">
+          <label for=""><b>Direcção/Comando </b></label>
+          <ng-select2 [options]="options" (valueChanged)="filtrarPagina('orgaoId',$event)" [data]="this.orgaos"
+            [ngModel]="this.filtro.orgaoId" name="orgaoId">
+          </ng-select2>
+        </div>
+      </aside>
+
+
+    </fieldset>
+
+
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-m-d12 col-sm-12">
+        <div class="table-responsive">
+          <table class="table table-border table-striped custom-table datatable mb-0">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>ID</th>
+                <th>Guia n.º</th>
+                <th>Despacho n.º</th>
+                <th class="text-start">Colocação destino</th>
+                <th class="text-start">Colocação de proveniência</th>
+                <th>Total Agentes</th>
+                <th>Data de última atualização</th>
+                <th class="text-right">Operação</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="this.isLoading">
+                <td colspan="9">
+                  <aside *ngIf="this.isLoading">
+                    <loading-page [texto]="'lista de mobilidade'"></loading-page>
+                  </aside>
+                </td>
+              </tr>
+              <tr *ngFor="
+              let item of this.mobilidades
+                | paginate
+                  : {
+                      id: 'mobilidadeLista',
+                      itemsPerPage: this.pagination.per_page,
+                      currentPage: this.pagination.current_page,
+                      totalItems: this.pagination.total
+                    };
+              index as i
+            ">
+                <td [style.backgroundColor]="item?.tratamento?.cor">
+                </td>
+                <td>{{ this.totalBase + i }}</td>
+                <td>
+                  <ng-container *ngIf="item?.numero_guia=='' || !item?.numero_guia; else temGuia">
+                    S/N
+                  </ng-container>
+                  <ng-template #temGuia>
+                    <a ariaCurrentWhenActive="page"
+                      [routerLink]="['/piips/sigpg/mobilidade/',this.formatarGuia(item?.numero_guia)]">
+                      {{ item.numero_guia | uppercase }}
+                    </a>
+                  </ng-template>
+                </td>
+                <td>
+                  <ng-container *ngIf="item.despacho; else elseTemplate">
+                    {{ item.despacho_descricao | uppercase }}
+                  </ng-container>
+                  <ng-template #elseTemplate>
+                    S/N
+                  </ng-template>
+                </td>
+
+                <!-- <td>
+                <strong>
+                  {{ item.data_ingresso }}
+                </strong>
+              </td> -->
+                <td class="text-start">
+                  <ng-container *ngIf="item.pessoajuridica_actual; else elseTemplate">
+                    {{ item.pessoajuridica_actual.sigla | uppercase }}
+                  </ng-container>
+                  <ng-template #elseTemplate>
+                    S/N
+                  </ng-template>
+                </td>
+                <td class="text-start">
+                  <ng-container *ngIf="item.pessoajuridica_passado; else elseTemplate">
+                    {{ item.pessoajuridica_passado.sigla | uppercase }}
+                  </ng-container>
+                  <ng-template #elseTemplate>
+                    S/N
+                  </ng-template>
+                </td>
+                <td class="text-center">
+                  <strong class="">
+                    {{ item.total }}
+                  </strong>
+                </td>
+
+
+                <td>{{ item.updated_at }}</td>
+                <td class="text-right">
+                  <div class="dropdown dropdown-action position-static">
+                    <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                      <i class="fa fa-ellipsis-v"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <a class="dropdown-item" href="javascript:void(0)" (click)="visualizar(item)" data-toggle="modal"
+                        data-target="#modalGerarRelarorio">
+                        <i class="fa fa-eye m-r-5"></i>
+                        Ver guia de marcha
+                      </a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-sm-6">
+            Mostrando de {{ this.pagination.current_page }} a
+            {{ this.pagination.per_page }} de {{ this.pagination.total }}
+            <aside *ngIf="this.pagination.total < 2; else outrosRegistos">
+              registos
+            </aside>
+            <ng-template #outrosRegistos>registos</ng-template>
+          </div>
+          <div class="col-sm-6">
+            <div class="float-right">
+              <pagination-controls id="funcionarioEspecial" (pageChange)="this.filtrarPagina('page', $event, false)"
+                [directionLinks]="true" [autoHide]="true" previousLabel="Anterior" nextLabel="Próximo" [maxSize]="4"
+                [responsive]="true"></pagination-controls>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="modalGerarRelarorio" class="modal secand-modal" tabindex="-1" role="dialog" style="display:none;" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="overflow-y: hidden;min-width: 70%;" appDraggable>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5>
+            <i class="fa fa-user"></i>
+            Guia de Marcha
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" (click)="fecharModalRelatorio()" (click)="closeModal('modalGerarRelarorio')">&times;</span>
+          </button>
+        </div>
+        <div class="content">
+          <div class="modal-body">
+            <aside *ngIf="this.fileUrl; else showLoadingRelatorio">
+              <iframe [src]="fileUrl" width="100%" frameborder="0" style="min-height: 700px;"></iframe>
+              <!-- <img [src]="this.fileUrl" width="100" height="100" alt="Profile" class="rounded-circle my-2"> -->
+            </aside>
+            <ng-template #showLoadingRelatorio>
+              <div class="container">
+                <div class="row justify-content-center">
+                  Carregando Guia de Marcha ...
+                  <div class="col-sm-12 text-center">
+                    <div class="spinner-border text-primary" style="width: 2rem; height: 2rem;" role="status">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"  (click)="fecharModalRelatorio()" (click)="closeModal('modalGerarRelarorio')">
+              <span class="fa fa-close m-r-2"> </span> Fechar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <app-sigpq-mobilidade-registar-ou-editar [agentesId]="this.agentesSelecionados"
+    (eventRegistarOuEditModel)="this.buscarFuncionario();this.limparVariaveis()"></app-sigpq-mobilidade-registar-ou-editar>
+<app-sigpq-mobilidade-ver-selecionados
+    [agentesSelecionados]="agentesSelecionados"></app-sigpq-mobilidade-ver-selecionados>
+
+    <sigpq-marcha-guia></sigpq-marcha-guia>
+    [agentesSelecionados]="agentesSelecionados"></app-sigpq-mobilidade-ver-selecionados> -->
+
+  <div class="modal fade" id="modalVisualizarFicha" aria-labelledby="modalVisualizarFicha" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="overflow-y: hidden; min-width: 40%;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5>
+            <i class="fa fa-user"></i>
+            Mobilidade
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="content p-4">
+          <aside *ngFor="let item of this.listarPDF">
+            <app-sigpq-mobilidade-pdf [listarPDF]="item"></app-sigpq-mobilidade-pdf>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <app-sigpq-mobilidade-registar-ou-editar [numeroGuia]="this.numeroGuia"></app-sigpq-mobilidade-registar-ou-editar> -->

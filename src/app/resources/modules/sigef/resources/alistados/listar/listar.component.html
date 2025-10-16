@@ -1,0 +1,163 @@
+<div class="content">
+    <div class="row">
+      <div class="col-sm-7">
+        <h4 style="color: #002d59" class="page-title">
+          <img src="../../../../../../../assets/sigef/Parchment.png" alt="" />
+          <b>Listagem dos Formandos | Alistados</b>
+        </h4>
+        <h4 style="font-size: 14px">Alistados Registrados no Sistema</h4>
+      </div>
+    </div>
+    <div class="row-12 col">
+      <nav class="navbar navbar-light bg-light">
+        <form class="form-inline">
+            <select class="form-control mr-sm-1">
+                <option>Activos</option>
+                <option>Inativos</option>
+            </select>
+
+            <select class="form-control mr-sm-1">
+                <option *ngFor="let item of [5, 10, 20, 50]" [value]="item" [(ngModel)]="filtro.perPage">
+                    {{ item }}
+                </option>
+            </select>
+            <input class="form-control mr-sm-1" type="search" placeholder="Pesquisa ..." name="search" [(ngModel)]="filtro.search" (ngModelChange)="filtrarPagina('search',$event)" />
+
+            <button id="btpe1" class="btn btn-outline-success my-2 my-sm-0" (click)="Recarregar()">
+                <i class="fa fa-refresh "></i>
+                Recarregar
+            </button>
+
+        </form>
+        <button id="btpe1" class="btn btn-outline-primary text-white my-2 my-sm-0" style="background-color: var(--primary-color);" data-toggle="modal" data-target="#modalRegistrarOuEditarFuncao">
+            <i class="fa fa-plus "></i>
+            Registar
+        </button>
+    </nav>
+
+      <div class="col-md-12">
+        <table class="table table-border table-striped custom-table mb-2">
+          <thead >
+            <tr style="background-color: #041B4E;">
+              <th>ID</th>
+              <th>Nome</th>
+              <th>Nº.Bilhete</th>
+              <th>Estado Civíl</th>
+              <th>Naturalidade</th>
+              <!-- <th>Nº EPP</th> -->
+              <th>Genero</th>
+              <th>Data de Nascimento</th>
+              <th>Telefone</th>
+              <th>Operações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="
+            let item of alistados
+              | paginate
+                : {
+                    id: 'alistados',
+                    itemsPerPage: this.pagination.per_page,
+                    currentPage: this.pagination.current_page,
+                    totalItems: this.pagination.total
+                  };
+            index as i"
+              
+            >
+              <td> {{ this.totalBase + i }} </td>
+              <td> {{ item.nome_completo }} </td>
+              <td> {{ item.numero_bi }} </td>
+              <td> {{ item.estado_civil }} </td>
+              <td> {{ item.provincia_naturalidade }}</td>
+              <td> {{ item.genero }} </td>
+              <!-- <td></td> -->
+
+              <td> {{ item.data_nascimento }} </td>
+              <td> {{ item.contacto }} </td>
+  
+              <td>
+                <div class="dropdown dropdown-action">
+                  <a
+                    href="#"
+                    class="action-icon dropdown-toggle"
+                    data-toggle="dropdown"
+                    aria-expanded="false"
+                    ><i class="fa fa-ellipsis-v"></i
+                  ></a>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <a
+                      class="dropdown-item"
+                      routerLink="/"
+                      href="javascript:void(0)"
+                    >
+                      <i class="fa fa-eye m-r-5"></i>
+                      Visualizar
+                    </a>
+                    <a
+                      class="dropdown-item"
+                      href="#"
+                      data-toggle="modal"
+                      data-target="#modalRegistrarOuEditarFuncao"
+                    >
+                      <i class="fa fa-pencil m-r-5"></i>
+                      Editar
+                    </a>
+                    <a
+                      class="dropdown-item"
+                      href="#"
+                      data-toggle="modal"
+                      data-target="#delete_perfil"
+                    >
+                      <i class="fa fa-trash-o m-r-5"></i> Apagar
+                    </a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-sm-6">
+
+          </div>
+          <div class="col-sm-6">
+            <div class="float-right">
+              <pagination-controls
+                id="veiculos"
+                (pageChange)="this.filtrarPagina('page', $event)"
+                [directionLinks]="true"
+                [autoHide]="true"
+                previousLabel="Anterior"
+                nextLabel="Próximo"
+                [maxSize]="4"
+                [responsive]="true"
+              ></pagination-controls>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  
+  <div class="col-md-12">
+    <div class="row">
+        <div class="col-sm-6">
+            Mostrando de {{ this.pagination.current_page }} á {{ this.pagination.per_page }} de {{ this.pagination.total }} Registo
+        </div>
+        <div class="col-sm-6">
+            <div class="float-right">
+                <pagination-controls (pageChange)="this.filtrarPagina('page', $event)" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+  <app-registar-ou-editar>
+
+  </app-registar-ou-editar>

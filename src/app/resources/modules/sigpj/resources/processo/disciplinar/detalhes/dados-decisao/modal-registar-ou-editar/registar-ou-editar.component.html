@@ -1,0 +1,67 @@
+<div class="modal fade" id="modalRegistarOuEditarDecisao" aria-labelledby="modalRegistarOuEditarDecisao"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document" style="overflow-y: hidden; min-width: 50%">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 style="color: #002d54" class="page-title">
+          <b>Adicionar Decisão</b>
+        </h5>
+        <button id="close-modal-decisao" type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="content">
+        <div class="col-md-12">
+          <form [formGroup]="decisaoForm" enctype="multipart/form-data">
+            <div class="row">
+              <div class="col-lg-6 mb-2">
+                <label><b>Nº do Ofício </b><span class="text-danger">*</span></label>
+                <input type="text" class="form-control" required formControlName="numero_oficio">
+              </div>
+
+              <div class="col-lg-6 mb-2">
+                <label><b>Nº do Despacho </b><span class="text-danger">*</span></label>
+                <input type="text" class="form-control" required formControlName="numero_despacho">
+              </div>
+
+              <div class="col-lg-6 mb-2">
+                <label><b> Data da Decisão </b><span class="text-danger"></span></label>
+                <input type="date" class="form-control" required formControlName="data_decisao" [max]="this.dataActual">
+              </div>
+
+              <div class="col-lg-6 mb-2">
+                <label><b>Decisão </b><span class="text-danger">*</span></label>
+                <div>
+                  <ng-select2 [options]="options" formControlName="tipo_decisao_id" [data]="this.tipoDecisao">
+                  </ng-select2>
+                </div>
+              </div>
+
+              <div class="col-lg-12 mb-2">
+                <label><b>Transcrição do Despacho da Decisão</b></label>
+                <textarea rows="3" class="form-control" required formControlName="transcricao"> </textarea>
+              </div>
+            </div>
+          </form>
+
+
+          <div class="form-group my-2">
+            <div class="row">
+              <div class="col-6">
+                <input id="file" type="file" (change)="arquivosParecer($event)" class="form-control" />
+              </div>
+              <div class="col-6">
+                <button (click)="this.registar()" class="btn btn-primary my-2 my-sm-0" type="submit">
+                  <i class="fa fa-plus-circle mr-2"></i>
+                  Registar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

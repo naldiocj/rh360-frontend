@@ -1,0 +1,87 @@
+<div class="modal fade" id="modalRegistarTipoLicencass" aria-labelledby="modalRegistarTipoLicencass" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="overflow-y: hidden;min-width: 20%;max-width: 25%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>
+          <i class="fa fa-user"></i>
+          {{ this.buscarId ? 'Editar' : 'Registar'}} Plano de Licença
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closed" (click)="ngOnDestroy()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="content">
+        <form [formGroup]="this.simpleForm">
+          <div class="modal-body">
+
+            <div class="row">
+
+              <div class="col-lg-12 col-md-12 col-sm-12 mb-4">
+                <label><b>órgão</b><span class="text-danger"> *</span></label>
+                <ng-select2 [options]="options" [data]="this.direcaoOuOrgao" formControlName="pessoajuridica_id">
+                </ng-select2>
+              </div>
+
+              <div class="col-lg-12 col-md-12 col-sm-12 mb-4">
+                <label><b>Patente</b><span class="text-danger"> *</span></label>
+                <ng-select2 [options]="options" [data]="this.patentes" formControlName="patentes_id"
+                (valueChanged)="this.setarCarreiraOrCategoria($event)">
+                </ng-select2>
+              </div>
+
+              <div class="col-lg-12 col-md-12 col-sm-12 mb-4">
+                <label><b>Classe</b><span class="text-danger"> *</span></label>
+                <ng-select2 [options]="options" [data]="this.tipoCarreiraOuCategorias" formControlName="tipo_carreiras_id">
+                </ng-select2>
+              </div>
+
+              <div class="col-lg-12 col-md-12 col-sm-12 mb-4">
+                <label><b>Quantidade de Vagas</b><span class="text-danger"> *</span></label>
+                <input type="text" class="form-control" formControlName="quantidade">
+              </div>
+
+
+              <div class="col-lg-12 col-md-12 col-sm-12 mb-4">
+                <label><b>Data Inicio</b><span class="text-danger"> *</span></label>
+                <input type="date" class="form-control" formControlName="data_inicio">
+              </div>
+
+              <div class="col-lg-12 col-md-12 col-sm-12 mb-4">
+                <label><b>Data Fim</b><span class="text-danger"> *</span></label>
+                <input type="date" class="form-control" formControlName="data_fim">
+              </div>
+
+
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-danger btn-square" type="reset" (click)="this.reiniciarFormulario()" disabled="true">
+              <span class="fa fa-refresh"></span> Limpar
+            </button>
+            <ng-container *ngIf="this.simpleForm.valid; else ocultarBotao">
+              <aside *ngIf="this.isLoading; else regista">
+                <button id="bookreset" disabled="true" class="btn btn-primary btnRegistar">
+                  <div class="spinner-border spinner-border-sm m-1"></div>
+                  <a style="text-decoration: none; color: white;"> {{ this.buscarId ? 'A Editar ...' : 'A Registar...'}}
+                  </a>
+                </button>
+              </aside>
+              <ng-template #regista>
+                <button id="bookreset" (click)="onSubmit()" class="btn btn-primary btnRegistar">
+                  <i class="fa fa-plus-circle"></i>
+                  {{ this.buscarId ? 'Editar' : 'Registar'}}
+                </button>
+              </ng-template>
+            </ng-container>
+            <ng-template #ocultarBotao>
+              <button id="bookreset" disabled="true" class="btn btn-primary btnRegistar">
+                <i class="fa fa-plus-circle"></i>
+                {{ this.buscarId ? 'Editar' : 'Registar'}}
+              </button>
+            </ng-template>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

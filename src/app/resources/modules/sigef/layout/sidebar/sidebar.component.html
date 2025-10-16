@@ -1,0 +1,359 @@
+<div class="modal fade" id="logout-modal" style="border-radius: unset;">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-ms">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title w-100 d-flex justify-content-between align-items-center">
+                    Terminar sessão
+                    <a data-dismiss="modal" class="bi bi-x-lg text-danger" style="cursor: pointer;"></a>
+                </div>
+            </div>
+            <div class="modal-body text-center" style="font-size:16px; color: #041b43;">
+                <span>Confirmas o termino da sessão?</span>
+                <div class="btn-groups my-2">
+                    <a class="btn btn-link" style="text-decoration: none; color: #041b43;" (click)="sair()">Sim</a>
+                    <div class="btn btn-link" data-dismiss="modal" style="text-decoration: none; color:  #041b43;">Não</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="asidebar" class="asidebar">
+    <ul>
+        <li class="nav-item">
+            <a class="nav-link d-flex  align-items-center" [routerLink]="['/piips/sigef/dashboard']" routerLinkActive="active">
+                <img style="width: 40px; margin-left: -10px" src="../../../../../../assets/img/icons do sigae/menu/Dashboard.png" alt="" />
+                <span>Painel de Controlo </span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link d-flex  align-items-center" [routerLink]="['/piips/sigef/funcoes/listar']" routerLinkActive="active">
+                <img style="width: 30px; margin-left: -10px" src="../../../../../../assets/sigef/sidebar/Rules.png" alt="" />
+                <span>Função</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link d-flex  align-items-center" [routerLink]="['/piips/sigef/formadores/listar']" routerLinkActive="active">
+                <img style="width: 30px; margin-left: -10px" src="../../../../../../assets/sigef/sidebar/Administrator Male.png" alt="" />
+                <span>Formadores</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link d-flex  align-items-center" routerLinkActive="active" href="#demo" data-toggle="collapse">
+                <img style="width: 30px; margin-left: -10px" src="../../../../../../assets/sigef/sidebar/Document Writer.png" alt="" />
+                <span><span></span>Formandos</span><span class="menu-arrow"> <i class="bi bi-chevron-right flex-fill text-white" style="text-align:right"></i></span>
+            </a>
+
+            <div id="demo" class="collapse">
+                <li style="padding-left: 30%; padding-top: 10px; padding-bottom: 5px">
+                    <a href="#efetivos" data-toggle="collapse" routerLinkActive="active">
+                        <img style="width: 30px; margin-left: -10px" src="../../../../../../assets/sigef/sidebar/Police.png" alt="" />
+                        <span><span></span>Efectivos</span><span class="menu-arrow"><i class="bi bi-chevron-right flex-fill text-white" style="text-align:right"></i></span>
+                    </a>
+
+                    <div id="efetivos" class="collapse">
+                        <li style="padding-left: 30%; padding-top: 10px; padding-bottom: 5px">
+                            <a [routerLink]="['/piips/sigef/regime-especial/listar']" routerLinkActive="active">
+                                <img style="width: 30px; margin-left: -10px" src="../../../../../../assets/sigef/sidebar/Contact.png" alt="" />
+                                <span>Regime Especial</span>
+                            </a>
+                        </li>
+                    </div>
+                    <div id="efetivos" class="collapse">
+                        <li style="padding-left: 30%; padding-top: 10px; padding-bottom: 5px">
+                            <a [routerLink]="['/piips/sigef/regime-geral/listar']" routerLinkActive="active">
+                                <img style="width: 30px; margin-left: -10px" src="../../../../../../assets/sigef/sidebar/Contact.png" alt="" />
+                                <span>Regime Geral</span>
+                            </a>
+                        </li>
+                    </div>
+                </li>
+
+                <li style="padding-left: 30%; padding-top: 10px; padding-bottom: 5px">
+                    <a [routerLink]="['/piips/sigef/alistados/listar']" routerLinkActive="active">
+                        <img style="width: 30px; margin-left: -10px" src="../../../../../../assets/sigef/sidebar/Users.png" alt="" />
+                        <span><span></span>Alistados</span><span class="menu-arrow"></span>
+                    </a>
+                    <div id="alistados">
+                        <li style="padding-left: 30%; padding-top: 10px; padding-bottom: 5px"></li>
+                    </div>
+                </li>
+
+                <li style="padding-left: 30%; padding-bottom: 5px">
+                    <a [routerLink]="['/piips/sigef/instruendos/listar']" routerLinkActive="active">
+                        <img style="width: 30px; margin-left: -10px" src="../../../../../../assets/sigef/sidebar/Users.png" alt="" />
+                        <span><span></span>Instruendos</span><span class="menu-arrow"></span>
+                    </a>
+                    <div id="instruendos">
+                        <li style="padding-left: 30%; padding-top: 10px; padding-bottom: 5px"></li>
+                    </div>
+                </li>
+            </div>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link d-flex  align-items-center" [routerLink]="['/piips/sigef/mapa-de-cursos/listar']" routerLinkActive="active">
+                <img style="width: 30px; margin-left: -10px" src="../../../../../../assets/sigef/sidebar/Map Marker.png" alt="" />
+                <span>Mapa de Cursos</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link d-flex  align-items-center" [routerLink]="['/piips/sigef/plano-de-MapaDe_cursos/listar']" routerLinkActive="active">
+                <img style="width: 30px; margin-left: -10px" src="../../../../../../assets/sigef/sidebar/Calendar 7.png" alt="" />
+                <span>Plano de Mapa de Cursos</span>
+            </a>
+        </li>
+
+        <!-- <li>
+      <a routerLink="/" routerLinkActive="active">
+        <img
+          style="width: 30px; margin-left: -10px"
+          src="../../../../../../assets/sigef/sidebar/Combo Chart.png"
+          alt=""
+        />
+        <span>Gestão Escolar</span>
+      </a>
+    </li> -->
+
+        <li class="nav-item">
+            <a class="nav-link d-flex  align-items-center" routerLinkActive="active" href="#demoGestao" data-toggle="collapse">
+                <img style="width: 30px; margin-left: -10px" src="../../../../../../assets/sigef/sidebar/Combo Chart.png" alt="" />
+                <span><span></span>Gestão Escolar</span><span class="menu-arrow"> <i class="bi bi-chevron-right flex-fill text-white" style="text-align:right"></i></span>
+            </a>
+
+            <div id="demoGestao" class="collapse">
+                <li style="padding-left: 30%; padding-top: 10px; padding-bottom: 5px">
+                    <a href="#efetivos" data-toggle="collapse" routerLinkActive="active">
+                        <img style="width: 30px; margin-left: -10px" src="../../../../../../assets/sigef/sidebar/Law.png" alt="" />
+                        <span><span></span>Prova de Admissão</span><span class="menu-arrow"><i class="bi bi-chevron-right flex-fill text-white" style="text-align:right"></i></span>
+                    </a>
+
+                    <div id="efetivos" class="collapse">
+                        <li style="padding-left: 30%; padding-top: 10px; padding-bottom: 5px">
+                            <a [routerLink]="['/piips/sigef/regime-especial/listar']" routerLinkActive="active">
+                                <img style="width: 30px; margin-left: -10px" src="../../../../../../assets/sigef/sidebar/Contact.png" alt="" />
+                                <span>Sem informação</span>
+                            </a>
+                        </li>
+                    </div>
+                    <div id="efetivos" class="collapse">
+                        <li style="padding-left: 30%; padding-top: 10px; padding-bottom: 5px">
+                            <a [routerLink]="['/piips/sigef/regime-geral/listar']" routerLinkActive="active">
+                                <img style="width: 30px; margin-left: -10px" src="../../../../../../assets/sigef/sidebar/Contact.png" alt="" />
+                                <span>Sem informação</span>
+                            </a>
+                        </li>
+                    </div>
+                </li>
+
+                <li style="padding-left: 30%; padding-top: 10px; padding-bottom: 5px">
+                    <a [routerLink]="['/piips/sigef/gestaoEscolar/listar-cursos']" routerLinkActive="active">
+                        <img style="width: 30px; margin-left: -10px" src="../../../../../../assets/sigef/sidebar/cursos.png" alt="" />
+                        <span><span></span>Cursos</span><span class="menu-arrow"></span>
+                    </a>
+                </li>
+                <li style="padding-left: 30%; padding-top: 10px; padding-bottom: 5px">
+                    <a [routerLink]="['/piips/sigef/gestaoEscolar/listar-disciplinas']" routerLinkActive="active">
+                        <img style="width: 30px; margin-left: -10px" src="../../../../../../assets/sigef/sidebar/Document.png" alt="" />
+                        <span><span></span>Disciplinas</span><span class="menu-arrow"></span>
+                    </a>
+                </li>
+
+                <li style="padding-left: 30%; padding-top: 10px; padding-bottom: 5px">
+                    <a href="#programas" data-toggle="collapse" routerLinkActive="active">
+                        <img style="width: 30px; margin-left: -10px" src="../../../../../../assets/sigef/sidebar/programas.png" alt="" />
+                        <span><span></span>Programas</span><span class="menu-arrow"><i class="bi bi-chevron-right flex-fill text-white" style="text-align:right"></i></span>
+                    </a>
+                    <div id="programas" class="collapse">
+                        <li style="padding-left: 30%; padding-top: 10px; padding-bottom: 5px">
+                            <a [routerLink]="[
+                  '/piips/sigef/gestao-escolar/listar-disciplinas'
+                ]" routerLinkActive="active">
+                                <img style="width: 30px; margin-left: -10px" alt="" />
+                                <span>Registar</span>
+                            </a>
+                        </li>
+                    </div>
+                </li>
+                <li style="padding-left: 30%; padding-top: 10px; padding-bottom: 5px">
+                    <a href="#avaliacao" data-toggle="collapse" routerLinkActive="active">
+                        <img style="width: 30px; margin-left: -10px" src="../../../../../../assets/sigef/sidebar/avaliacao.png" alt="" />
+                        <span><span></span>Avaliações</span><span class="menu-arrow"><i class="bi bi-chevron-right flex-fill text-white" style="text-align:right"></i></span>
+                    </a>
+                    <div id="avaliacao" class="collapse">
+                        <li style="padding-left: 30%; padding-top: 10px; padding-bottom: 5px">
+                            <a [routerLink]="['/piips/sigef/avaliacoes/listar-avaliar']" routerLinkActive="active">
+                                <img style="width: 30px; margin-left: -10px" alt="" />
+                                <span>Avaliar</span>
+                            </a>
+                        </li>
+                    </div>
+
+                    <div id="avaliacao" class="collapse">
+                        <li style="padding-left: 30%; padding-top: 10px; padding-bottom: 5px">
+                            <a [routerLink]="['/piips/sigef/avaliacoes/listar-mapas']" routerLinkActive="active">
+                                <img style="width: 30px; margin-left: -10px" alt="" />
+                                <span>Carregar Mapa</span>
+                            </a>
+                        </li>
+                    </div>
+
+                    <div id="avaliacao" class="collapse">
+                        <li style="padding-left: 30%; padding-top: 10px; padding-bottom: 5px">
+                            <a [routerLink]="[
+                  '/piips/sigef/gestao-escolar/listar-disciplinas'
+                ]" routerLinkActive="active">
+                                <img style="width: 30px; margin-left: -10px" alt="" />
+                                <span>Pautas</span>
+                            </a>
+                        </li>
+                    </div>
+                </li>
+
+                <li style="padding-left: 30%; padding-top: 10px; padding-bottom: 5px">
+                    <a href="#c-efectivos" data-toggle="collapse" routerLinkActive="active">
+                        <img style="width: 30px; margin-left: -10px" src="../../../../../../assets/sigef/sidebar/Scales.png" alt="" />
+                        <span><span></span>C.Efectivos</span><span class="menu-arrow"><i class="bi bi-chevron-right flex-fill text-white" style="text-align:right"></i></span>
+                    </a>
+
+                    <div id="c-efectivos" class="collapse">
+                        <li style="padding-left: 30%; padding-top: 10px; padding-bottom: 5px">
+                            <a [routerLink]="[
+                  '/piips/sigef/gestao-escolar/listar-disciplinas'
+                ]" routerLinkActive="active">
+                                <img style="width: 30px; margin-left: -10px" alt="" />
+                                <span>Sem informação</span>
+                            </a>
+                        </li>
+                    </div>
+
+                    <div id="c-efectivos" class="collapse">
+                        <li style="padding-left: 30%; padding-top: 10px; padding-bottom: 5px">
+                            <a [routerLink]="[
+                  '/piips/sigef/gestao-escolar/listar-disciplinas'
+                ]" routerLinkActive="active">
+                                <img style="width: 30px; margin-left: -10px" alt="" />
+                                <span>Sem informação</span>
+                            </a>
+                        </li>
+                    </div>
+                </li>
+
+                <li style="padding-left: 30%; padding-top: 10px; padding-bottom: 5px">
+                    <a href="#planos" data-toggle="collapse" routerLinkActive="active">
+                        <img style="width: 30px; margin-left: -10px" src="../../../../../../assets/sigef/sidebar/planos.png" alt="" />
+                        <span><span></span>Planos</span><span class="menu-arrow"><i class="bi bi-chevron-right flex-fill text-white" style="text-align:right"></i></span>
+                    </a>
+
+                    <div id="planos" class="collapse">
+                        <li style="padding-left: 30%; padding-top: 10px; padding-bottom: 5px">
+                            <a [routerLink]="[
+                  '/piips/sigef/gestao-escolar/listar-disciplinas'
+                ]" routerLinkActive="active">
+                                <img style="width: 30px; margin-left: -10px" alt="" />
+                                <span>Sem informação</span>
+                            </a>
+                        </li>
+                    </div>
+
+                    <div id="planos" class="collapse">
+                        <li style="padding-left: 30%; padding-top: 10px; padding-bottom: 5px">
+                            <a [routerLink]="[
+                  '/piips/sigef/gestao-escolar/listar-disciplinas'
+                ]" routerLinkActive="active">
+                                <img style="width: 30px; margin-left: -10px" alt="" />
+                                <span>Sem informação</span>
+                            </a>
+                        </li>
+                    </div>
+                </li>
+
+                <li style="padding-left: 30%; padding-top: 10px; padding-bottom: 5px">
+                    <a href="#horario" data-toggle="collapse" routerLinkActive="active">
+                        <img style="width: 30px; margin-left: -10px" src="../../../../../../assets/sigef/sidebar/horario.png" alt="" />
+                        <span><span></span>Horário</span><span class="menu-arrow"><i class="bi bi-chevron-right flex-fill text-white" style="text-align:right"></i></span>
+                    </a>
+
+                    <div id="horario" class="collapse">
+                        <li style="padding-left: 30%; padding-top: 10px; padding-bottom: 5px">
+                            <a [routerLink]="[
+                  '/piips/sigef/gestao-escolar/listar-disciplinas'
+                ]" routerLinkActive="active">
+                                <img style="width: 30px; margin-left: -10px" alt="" />
+                                <span>Sem informação</span>
+                            </a>
+                        </li>
+                    </div>
+
+                    <div id="horario" class="collapse">
+                        <li style="padding-left: 30%; padding-top: 10px; padding-bottom: 5px">
+                            <a [routerLink]="[
+                  '/piips/sigef/gestao-escolar/listar-disciplinas'
+                ]" routerLinkActive="active">
+                                <img style="width: 30px; margin-left: -10px" alt="" />
+                                <span>Sem informação</span>
+                            </a>
+                        </li>
+                    </div>
+                </li>
+            </div>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link d-flex  align-items-center" [routerLink]="['/piips/sigef/instituicao-de-ensino/listar']" routerLinkActive="active">
+                <img style="width: 30px; margin-left: -10px" src="../../../../../../assets/sigef/sidebar/School.png" alt="" />
+                <span>Instituição de ensino</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link d-flex  align-items-center" [routerLink]="['/piips/sigef/proveniencia/listar']" routerLinkActive="active">
+                <img style="width: 30px; margin-left: -10px" src="../../../../../../assets/sigef/sidebar/Home Page.png" alt="" />
+                <span>Proviniência</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link d-flex  align-items-center" [routerLink]="['/piips/sigef/relatorios-padronizados/listar']" routerLinkActive="active">
+                <img style="width: 30px; margin-left: -10px" src="../../../../../../assets/sigef/sidebar/Graph Report.png" alt="" />
+                <span>Relatório padronizados</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link d-flex  align-items-center" [routerLink]="['/piips/sigef/relatorio-personalizado/listar']" routerLinkActive="active">
+                <img style="width: 30px; margin-left: -10px" src="../../../../../../assets/sigef/sidebar/Pie Chart Report Script.png" alt="" />
+                <span>Relatório personalizados</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link d-flex  align-items-center" routerLinkActive="active" href="#configuracoes" data-toggle="collapse">
+                <img style="width: 30px; margin-left: -10px" src="../../../../../../assets/sigef/sidebar/Gears.png" alt="" />
+                <span><span></span>Configurações</span><span class="menu-arrow"> <i class="bi bi-chevron-right flex-fill text-white" style="text-align:right"></i></span>
+            </a>
+
+            <div id="configuracoes" class="collapse">
+                <li style="padding-left: 30%; padding-top: 10px; padding-bottom: 5px">
+                    <a [routerLink]="['/piips/sigef/configuracoes/listar']" routerLinkActive="active">
+                        <img style="width: 30px; margin-left: -10px" src="../../../../../../assets/sigef/sidebar/Diploma.png" alt="" />
+                        <span><span></span>Habilitações</span>
+                    </a>
+                </li>
+            </div>
+
+            <div id="configuracoes" class="collapse">
+                <li style="padding-left: 30%; padding-top: 10px; padding-bottom: 5px">
+                    <a [routerLink]="['/piips/sigef/configuracoes/listar']" routerLinkActive="active">
+                        <img style="width: 30px; margin-left: -10px" src="../../../../../../assets/sigef/sidebar/Diploma.png" alt="" />
+                        <span><span></span>Especialidades</span>
+                    </a>
+                </li>
+            </div>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,16 @@
+.pagetitle .btn.btn-outline-primary, 
+.modal .btn.btn-outline-primary,
+.card-body-header .btn.btn-outline-primary{
+  border-color: #041B4E!important;
+  color: #041B4E;
+  transition: all .6s;
+  border-radius: 5px!important;
+  padding: 10px 15px!important;
+}
+
+.pagetitle .btn-outline-primary:hover,
+.modal .btn-outline-primary:hover,
+.card-body-header .btn.btn-outline-primary:hover{
+  background: #041B4E;
+  color: #fff;
+}

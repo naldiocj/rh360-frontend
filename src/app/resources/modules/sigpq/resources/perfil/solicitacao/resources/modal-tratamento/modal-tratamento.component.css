@@ -1,0 +1,25 @@
+.texto {
+  font-size: 1.1rem;
+  color: #000;
+}
+
+.bold {
+  font-weight: bolder;
+}
+
+.observacao {
+  font-size: 1.1rem;
+}
+
+.inc {
+  font-size: 1.02rem;
+  font-weight: bold;
+}
+
+.titulo {
+  font-size: 1.1rem;
+}
+
+.title-header {
+  font-size: 1.1rem;
+}

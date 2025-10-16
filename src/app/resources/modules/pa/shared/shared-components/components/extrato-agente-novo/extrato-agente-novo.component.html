@@ -1,0 +1,1253 @@
+<div class="modal fade" id="view-agente-completa-extra">
+  <div class="modal-dialog modal-xl border-0 arounded-0" style="min-width: 1220px">
+    <div class="modal-content border-0 arounded-0">
+      <div class="modal-header d-flex justifty-content-between align-items-center border-0 arounded-0"
+        style="background-color: var(--use-color)">
+        <h5 class="text-uppercase" style="color: var(--white);font-weight: bold;">{{nomeSelecionado}} do agente</h5>
+        <button type="button" style="
+            background-color: transparent;
+            border: none;
+            padding: 0px !important;
+            outline: none;
+          " data-dismiss="modal">
+          <i class="fa fa-close text-danger"></i>
+        </button>
+      </div>
+      <div class="modal-body d-flex flex-row align-items-start border" style="column-gap: .8rem">
+        <div class="controller d-block" style="width: 150px;">
+          <div class="dropdown w-100">
+            <button type="button" class="btn-piips btn-piips-primary  m-0 px-2 py-1" data-toggle="dropdown">
+              Exportar
+            </button>
+
+            <div class="dropdown-menu" [ngStyle]="{ 'width': dynamicWidthUp + 'px' }">
+
+              <div>
+                <a class="dropdown-item input-form"
+                  style="display: flex; align-items: baseline; justify-content: space-between">
+                  <label for="extracto" style=" margin: 0px 10px;" (click)="toggleDropdownTitle($event)">Título do
+                    Documento</label>
+                  <input type="checkbox" class="check-form" id="extracto" (change)="onCheck($event)" />
+                </a>
+                <div class="dropdown-options" [ngStyle]="{ 'width': dynamicWidth + 'px' }"
+                  *ngIf="this.isDropdownOpenTitle">
+                  <ng-container *ngFor="let option of options_title">
+                    <div class="option-item">
+                      <label [for]="option.id">{{ option.label }}</label>
+                      <input type="checkbox" class="option-checkbox" [checked]="nomeSelecionado === option.label"
+                        [id]="option.id" (click)="selecionarOpcao(option.label)" />
+                    </div>
+                  </ng-container>
+
+
+                </div>
+              </div>
+
+              <div>
+                <a class="dropdown-item input-form"
+                  style="display: flex; align-items: baseline; justify-content: space-between">
+                  <label for="pessoal" style="font-size: 1rem; margin: 0px 10px;" (click)="toggleDropdown($event)">DADOS
+                    PESSOAIS</label>
+                  <input type="checkbox" class="check-form" id="pessoal" (change)="onCheck($event)" />
+                </a>
+
+                <div class="dropdown-options" [ngStyle]="{ 'width': dynamicWidth + 'px' }" *ngIf="this.isDropdownOpen">
+                  <ng-container *ngFor="let option of options_aux">
+
+                    <ng-container *ngIf="option.children && option.children.length > 0;else default">
+
+                      <div class="option-item">
+                        <div class="option-item-item">
+                          <label [for]="option.id">{{ option.label }}</label>
+                          <input style="margin-left:5px" type="checkbox" class="option-checkbox" [id]="option.id"
+                            (change)="onOptionCheck(option.key, $event)" />
+                        </div>
+                        <div class="option-item-item" *ngFor="let option_v2 of option.children">
+                          <label [for]="option_v2.id" style="margin-right:5px">{{ option_v2.label }}</label>
+                          <input type="checkbox" class="option-checkbox" [id]="option_v2.id"
+                            (change)="onOptionCheck(option_v2.key, $event)" />
+                        </div>
+                      </div>
+
+                    </ng-container>
+
+                    <ng-template #default>
+                      <div class="option-item">
+                        <label [for]="option.id">{{ option.label }}</label>
+                        <input type="checkbox" class="option-checkbox" [id]="option.id"
+                          (change)="onOptionCheck(option.key, $event)" />
+                      </div>
+                    </ng-template>
+
+
+                  </ng-container>
+
+                </div>
+
+              </div>
+
+              <div>
+                <a class="dropdown-item input-form"
+                  style="display: flex; align-items: baseline; justify-content: space-between">
+                  <label for="formacao_academica" (click)="toggleDropdownFormacao($event)"
+                    style="font-size: 1rem; margin: 0px 10px;">FORMAÇÃO ACADÊMICA</label>
+                  <input type="checkbox" class="check-form" id="formacao_academica" (change)="onCheck($event)" />
+                </a>
+                <div class="dropdown-options" [ngStyle]="{ 'width': dynamicWidth + 'px' }"
+                  *ngIf="this.isDropdownOpenFormacaoAcademica">
+                  <ng-container *ngFor="let option of formacaoAcademicaOptions">
+                    <div class="option-item">
+                      <div class="option-item-item">
+                        <label [for]="option.id">{{ option.label }}</label>
+                        <input style="margin-left:5px" type="checkbox" class="option-checkbox" [id]="option.id"
+                          (change)="onOptionCheck(option.key, $event)" />
+                      </div>
+                      <div class="option-item-item" *ngFor="let option_v2 of option.children">
+                        <label [for]="option_v2.id" style="margin-right:5px">{{ option_v2.label }}</label>
+                        <input type="checkbox" class="option-checkbox" [id]="option_v2.id"
+                          (change)="onOptionCheck(option_v2.key, $event)" />
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+
+              </div>
+
+              <div>
+                <a class="dropdown-item input-form"
+                  style="display: flex; align-items: baseline; justify-content: space-between">
+                  <label for="profissional" style="font-size: 1rem; margin: 0px 10px;"
+                    (click)="toggleDropdownProfessional($event)">DADOS PROFISSIONAIS</label>
+                  <input type="checkbox" class="check-form" id="profissional" (change)="onCheck($event)" />
+                </a>
+
+                <div class="dropdown-options" [ngStyle]="{ 'width': dynamicWidth + 'px' }"
+                  *ngIf="this.isDropdownOpenProfissional">
+                  <ng-container *ngFor="let option of professionalOptions">
+
+                    <ng-container *ngIf="option.children && option.children.length > 0;else default">
+
+                      <div class="option-item">
+                        <div class="option-item-item">
+                          <label [for]="option.id">{{ option.label }}</label>
+                          <input style="margin-left:5px" type="checkbox" class="option-checkbox" [id]="option.id"
+                            (change)="onOptionCheck(option.key, $event)" />
+                        </div>
+                        <div class="option-item-item" *ngFor="let option_v2 of option.children">
+                          <label [for]="option_v2.id" style="margin-right:5px">{{ option_v2.label }}</label>
+                          <input type="checkbox" class="option-checkbox" [id]="option_v2.id"
+                            (change)="onOptionCheck(option_v2.key, $event)" />
+                        </div>
+                      </div>
+
+                    </ng-container>
+
+                    <ng-template #default>
+                      <div class="option-item">
+                        <label [for]="option.id">{{ option.label }}</label>
+                        <input type="checkbox" class="option-checkbox" [id]="option.id"
+                          (change)="onOptionCheck(option.key, $event)" />
+                      </div>
+                    </ng-template>
+
+
+                  </ng-container>
+
+                </div>
+              </div>
+
+              <div *ngIf="this.funcionario?.regime_nome=='Especial'">
+                <a class="dropdown-item input-form"
+                  style="display: flex; align-items: baseline; justify-content: space-between">
+                  <label for="formacao" (click)="toggleDropdownFormacaoProfissional($event)"
+                    style="font-size: 1rem; margin: 0px 10px;">FORMAÇÃO TÉCNICO-PROFISSIONAL</label>
+                  <input type="checkbox" class="check-form" id="formacao" (change)="onCheck($event)" />
+                </a>
+                <div class="dropdown-options" [ngStyle]="{ 'width': dynamicWidth + 'px' }"
+                  *ngIf="this.isDropdownOpenFormacaoProfissional">
+                  <ng-container *ngFor="let option of formacaoProfissionalOptions">
+                    <div class="option-item">
+                      <div class="option-item-item">
+                        <label [for]="option.id">{{ option.label }}</label>
+                        <input style="margin-left:5px" type="checkbox" class="option-checkbox" [id]="option.id"
+                          (change)="onOptionCheck(option.key, $event)" />
+                      </div>
+                      <div class="option-item-item" *ngFor="let option_v2 of option.children">
+                        <label [for]="option_v2.id" style="margin-right:5px">{{ option_v2.label }}</label>
+                        <input type="checkbox" class="option-checkbox" [id]="option_v2.id"
+                          (change)="onOptionCheck(option_v2.key, $event)" />
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+
+              </div>
+
+              <div>
+                <a class="dropdown-item input-form"
+                  style="display: flex; align-items: baseline; justify-content: space-between">
+                  <label for="formacao_outros" (click)="toggleDropdownProfessionalOutros($event)"
+                    style="font-size: 1rem; margin: 0px 10px;">OUTRAS FORMAÇÕES</label>
+                  <input type="checkbox" class="check-form" id="formacao_outros" (change)="onCheck($event)" />
+                </a>
+                <div class="dropdown-options" [ngStyle]="{ 'width': dynamicWidth + 'px' }"
+                  *ngIf="this.isDropdownOpenFormacaoOutras">
+                  <ng-container *ngFor="let option of formacaoOutrasOptions">
+                    <div class="option-item">
+                      <div class="option-item-item">
+                        <label [for]="option.id">{{ option.label }}</label>
+                        <input style="margin-left:5px" type="checkbox" class="option-checkbox" [id]="option.id"
+                          (change)="onOptionCheck(option.key, $event)" />
+                      </div>
+                      <div class="option-item-item" *ngFor="let option_v2 of option.children">
+                        <label [for]="option_v2.id" style="margin-right:5px">{{ option_v2.label }}</label>
+                        <input type="checkbox" class="option-checkbox" [id]="option_v2.id"
+                          (change)="onOptionCheck(option_v2.key, $event)" />
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+
+              </div>
+
+              <div>
+                <a class="dropdown-item input-form"
+                  style="display: flex; align-items: baseline; justify-content: space-between">
+                  <label for="outros_empregos" (click)="toggleDropdownOutrosEmpregos($event)"
+                    style="font-size: 1rem; margin: 0px 10px;">OUTROS EMPREGOS</label>
+                  <input type="checkbox" class="check-form" id="outros_empregos" (change)="onCheck($event)" />
+                </a>
+                <div class="dropdown-options" [ngStyle]="{ 'width': dynamicWidth + 'px' }"
+                  *ngIf="this.isDropdownOpenOutrasEmpregos">
+                  <ng-container *ngFor="let option of outrosEmpregosOptions">
+                    <div class="option-item">
+                      <div class="option-item-item">
+                        <label [for]="option.id">{{ option.label }}</label>
+                        <input style="margin-left:5px" type="checkbox" class="option-checkbox" [id]="option.id"
+                          (change)="onOptionCheck(option.key, $event)" />
+                      </div>
+                      <div class="option-item-item" *ngFor="let option_v2 of option.children">
+                        <label [for]="option_v2.id" style="margin-right:5px">{{ option_v2.label }}</label>
+                        <input type="checkbox" class="option-checkbox" [id]="option_v2.id"
+                          (change)="onOptionCheck(option_v2.key, $event)" />
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+
+              </div>
+
+              <div>
+
+                <a class="dropdown-item input-form"
+                  style="display: flex; align-items: baseline; justify-content: space-between">
+                  <label for="provimento" style="font-size: 1rem; margin: 0px 10px;"
+                    (click)="toggleDropdownProvimento($event)">PROVIMENTO</label>
+                  <input type="checkbox" class="check-form" id="provimento" (change)="onCheck($event)" />
+                </a>
+
+                <div class="dropdown-options" [ngStyle]="{ 'width': dynamicWidth + 'px' }"
+                  *ngIf="this.isDropdownOpenProvimento">
+                  <ng-container *ngFor="let option of provimentoOptions">
+
+                    <ng-container *ngIf="option.children && option.children.length > 0;else default">
+
+                      <div class="option-item">
+                        <div class="option-item-item">
+                          <label [for]="option.id">{{ option.label }}</label>
+                          <input style="margin-left:5px" type="checkbox" class="option-checkbox" [id]="option.id"
+                            (change)="onOptionCheck(option.key, $event)" />
+                        </div>
+                        <div class="option-item-item" *ngFor="let option_v2 of option.children">
+                          <label [for]="option_v2.id" style="margin-right:5px">{{ option_v2.label }}</label>
+                          <input type="checkbox" class="option-checkbox" [id]="option_v2.id"
+                            (change)="onOptionCheck(option_v2.key, $event)" />
+                        </div>
+                      </div>
+
+                    </ng-container>
+
+                    <ng-template #default>
+                      <div class="option-item">
+                        <label [for]="option.id">{{ option.label }}</label>
+                        <input type="checkbox" class="option-checkbox" [id]="option.id"
+                          (change)="onOptionCheck(option.key, $event)" />
+                      </div>
+                    </ng-template>
+
+
+                  </ng-container>
+
+                </div>
+
+              </div>
+
+
+              <div>
+
+                <a class="dropdown-item input-form"
+                  style="display: flex; align-items: baseline; justify-content: space-between">
+                  <label for="sansao_disciplinar" style="font-size: 1rem; margin: 0px 10px;"
+                    (click)="toggleDropdownSancoes($event)">{{this.funcionario?.regime_nome=='Especial'?'SANÇÕES':'REGISTO'}}
+                    DISCIPLINARES</label>
+                  <input type="checkbox" class="check-form" id="sansao_disciplinar" (change)="onCheck($event)" />
+                </a>
+
+                <div class="dropdown-options" [ngStyle]="{ 'width': dynamicWidth + 'px' }"
+                  *ngIf="this.isDropdownOpenSancoes">
+                  <ng-container *ngFor="let option of sansaoDiciplinarOptions">
+
+                    <ng-container *ngIf="option.children && option.children.length > 0;else default">
+
+                      <div class="option-item">
+                        <div class="option-item-item">
+                          <label [for]="option.id">{{ option.label }}</label>
+                          <input style="margin-left:5px" type="checkbox" class="option-checkbox" [id]="option.id"
+                            (change)="onOptionCheck(option.key, $event)" />
+                        </div>
+                        <div class="option-item-item" *ngFor="let option_v2 of option.children">
+                          <label [for]="option_v2.id" style="margin-right:5px">{{ option_v2.label }}</label>
+                          <input type="checkbox" class="option-checkbox" [id]="option_v2.id"
+                            (change)="onOptionCheck(option_v2.key, $event)" />
+                        </div>
+                      </div>
+
+                    </ng-container>
+
+                    <ng-template #default>
+                      <div class="option-item">
+                        <label [for]="option.id">{{ option.label }}</label>
+                        <input type="checkbox" class="option-checkbox" [id]="option.id"
+                          (change)="onOptionCheck(option.key, $event)" />
+                      </div>
+                    </ng-template>
+
+
+                  </ng-container>
+
+                </div>
+
+              </div>
+
+              <div>
+
+                <a class="dropdown-item input-form"
+                  style="display: flex; align-items: baseline; justify-content: space-between">
+                  <label for="opcao_recompensas" style="font-size: 1rem; margin: 0px 10px;"
+                    (click)="toggleDropdownRecompensas($event)">RECOMPENSAS</label>
+                  <input type="checkbox" class="check-form" id="opcao_recompensas" (change)="onCheck($event)" />
+                </a>
+
+                <div class="dropdown-options" [ngStyle]="{ 'width': dynamicWidth + 'px' }"
+                  *ngIf="this.isDropdownRecopensas">
+                  <ng-container *ngFor="let option of recompensasOptions">
+
+                    <ng-container *ngIf="option.children && option.children.length > 0;else default">
+
+                      <div class="option-item">
+                        <div class="option-item-item">
+                          <label [for]="option.id">{{ option.label }}</label>
+                          <input style="margin-left:5px" type="checkbox" class="option-checkbox" [id]="option.id"
+                            (change)="onOptionCheck(option.key, $event)" />
+                        </div>
+                        <div class="option-item-item" *ngFor="let option_v2 of option.children">
+                          <label [for]="option_v2.id" style="margin-right:5px">{{ option_v2.label }}</label>
+                          <input type="checkbox" class="option-checkbox" [id]="option_v2.id"
+                            (change)="onOptionCheck(option_v2.key, $event)" />
+                        </div>
+                      </div>
+
+                    </ng-container>
+
+                    <ng-template #default>
+                      <div class="option-item">
+                        <label [for]="option.id">{{ option.label }}</label>
+                        <input type="checkbox" class="option-checkbox" [id]="option.id"
+                          (change)="onOptionCheck(option.key, $event)" />
+                      </div>
+                    </ng-template>
+
+
+                  </ng-container>
+
+                </div>
+
+              </div>
+
+              <div>
+
+                <a class="dropdown-item input-form"
+                  style="display: flex; align-items: baseline; justify-content: space-between">
+                  <label for="agregado_familiar" style="font-size: 1rem; margin: 0px 10px;"
+                    (click)="toggleDropdownAgregado($event)">AGREGADO FAMILIAR</label>
+                  <input type="checkbox" class="check-form" id="agregado_familiar" (change)="onCheck($event)" />
+                </a>
+
+                <div class="dropdown-options" [ngStyle]="{ 'width': dynamicWidth + 'px' }"
+                  *ngIf="this.isDropdownOpenAgregadoFamiliar">
+                  <ng-container *ngFor="let option of agregadoFamiliarOptions">
+
+                    <ng-container *ngIf="option.children && option.children.length > 0;else default">
+
+                      <div class="option-item">
+                        <div class="option-item-item">
+                          <label [for]="option.id">{{ option.label }}</label>
+                          <input style="margin-left:5px" type="checkbox" class="option-checkbox" [id]="option.id"
+                            (change)="onOptionCheck(option.key, $event)" />
+                        </div>
+                        <div class="option-item-item" *ngFor="let option_v2 of option.children">
+                          <label [for]="option_v2.id" style="margin-right:5px">{{ option_v2.label }}</label>
+                          <input type="checkbox" class="option-checkbox" [id]="option_v2.id"
+                            (change)="onOptionCheck(option_v2.key, $event)" />
+                        </div>
+                      </div>
+
+                    </ng-container>
+
+                    <ng-template #default>
+                      <div class="option-item">
+                        <label [for]="option.id">{{ option.label }}</label>
+                        <input type="checkbox" class="option-checkbox" [id]="option.id"
+                          (change)="onOptionCheck(option.key, $event)" />
+                      </div>
+                    </ng-template>
+
+
+                  </ng-container>
+
+                </div>
+
+              </div>
+
+              <a class="dropdown-item">
+                Sair
+              </a>
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+        <div class="ficha-completa" id="extrato-agente-novo">
+          <div class="container-fluid p-0 ficha-ficha">
+            <div class="img-background">
+              <img [src]="logoBack" alt="background-image">
+            </div>
+            <div class="col-12 header-ficha">
+              <div class="row">
+                <div
+                  class="col-xl-12 col-lg-12 col-md-12 col-sm-12 d-flex justify-content-start align-items-center column-gap-4">
+                  <div class="image">
+                    <img [src]="logoPath" alt="image-logo" style="width:79px; height: 79px;">
+                  </div>
+                  <div class="logos mx-2">
+                    <h2 style="color: var(--use-color);">{{tituloPrincipal}}</h2>
+                    <!-- <h4>Direcção de Pessoal e Quadros</h4> -->
+                    <h4 style="color: var(--use-color);">{{nomeSelecionado}}</h4>
+                  </div>
+
+                  <!-- <div style="width:128px; height: 75px;">
+                      <img *ngIf="qrCodeDataUrl" [src]="qrCodeDataUrl" alt="QR Code" />
+                  </div> -->
+
+                </div>
+              </div>
+            </div>
+            <ng-container *ngIf="funcionario;else semFuncionario">
+              <div class="main-ficha" *ngIf="this.optionsExportar.extracto">
+                <div class="content-ficha" *ngIf="this.optionsExportar.pessoal" #fichaPpessoal>
+                  <div class="row justify-content-center">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <div class="header-content-ficha">
+                        <h5>DADOS PESSOAIS</h5>
+                      </div>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <div class="row border-dados my-1">
+                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2">
+                          <div class="image-civil civil">
+                            <ng-container *ngIf="this.isLoadingCivil || !this.fileUrlCivil; else temFotoCivil">
+                              <img src="assets/img/img-civil.png" alt="image-preview">
+                            </ng-container>
+                            <ng-template #temFotoCivil>
+                              <img [src]="this.fileUrlCivil" alt="image-preview">
+                            </ng-template>
+                          </div>
+                        </div>
+
+
+                        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 text-center">
+                          <span class="d-flex mb-3 nome-agente" style="font-size: 16px;">
+                            <p>{{ this.funcionario?.nome_completo ?? 'S/D' }}</p>
+                            <p style="margin-left: 10px;" *ngIf="optionsState['PSEUDONIMO']">{{
+                              this.funcionario?.pseudonimo?? '' }}</p>
+                          </span>
+
+                          <div class="row">
+                            <div class="col-5 d-flex flex-column justify-content-start align-items-start"
+                              style="width:100%">
+                              <span class="d-flex" style="width: 100%;" *ngIf="optionsState['FILIACAO']">
+                                <p class="titulo">Filiação:</p>
+                                <p class="descricao">{{this.funcionario?.nome_pai ?? 'S/D' }}</p>
+                              </span>
+                              <span class="d-flex" style="width: 100%;" *ngIf="optionsState['FILIACAO']">
+                                <p class="titulo">e: </p>
+                                <p class="descricao"> {{this.funcionario?.nome_mae ?? 'S/D' }}</p>
+                              </span>
+                              <span class="d-flex" style="width: 100%;" *ngIf="optionsState['ESTADO_CIVIL']">
+                                <p class="titulo">Estado Civil:</p>
+                                <p class="descricao">{{this.funcionario?.estado_civil_nome ?? 'S/D' }}</p>
+                              </span>
+                              <span class="d-flex" style="width: 100%;" *ngIf="optionsState['SEXO']">
+                                <p class="titulo">Sexo:</p>
+                                <p class="descricao">{{this.getGenero(this.funcionario?.genero) ?? 'S/D'}}</p>
+                              </span>
+                              <span class="d-flex" style="width: 100%;" *ngIf="optionsState['PROVINCIA']">
+                                <p class="titulo">Província:</p>
+                                <p class="descricao">{{this.funcionario?.naturalidade ?? 'S/D' }}</p>
+                              </span>
+                              <span class="d-flex" style="width: 100%;" *ngIf="optionsState['NACIONALIDADE']">
+                                <p class="titulo">Nacionalidade:</p>
+                                <p class="descricao">{{this.funcionario?.local_nascimento ?? 'S/D'}}</p>
+                              </span>
+                            </div>
+                            <div class="col-7 d-flex flex-column justify-content-start align-items-start">
+                              <span class="d-flex" style="width: 100%;" *ngIf="optionsState['BILHETE_DATA_EMISSAO']">
+                                <p class="titulo">Data de emissão do B.I.:</p>
+                                <p class="descricao">{{this.funcionario?.sigpq_documentos?.data_emissao ?? 'S/D' }}</p>
+                                <div class="d-flex" style="margin-left:5px;" *ngIf="optionsState['VALIDADE_BILHETE']">
+                                  <p class="titulo">Validade:</p>
+                                  <p class="descricao">{{this.funcionario?.sigpq_documentos?.data_expira ?? 'S/D' }}</p>
+                                </div>
+                              </span>
+                              <span class="d-flex" style="width: 100%;" *ngIf="optionsState['AGREGADO_FAMILIAR']">
+                                <p class="titulo">Agregado familiar:</p>
+                                <p class="descricao">({{this.agregadosFamiliares.length}})</p>
+                              </span>
+                              <span class="d-flex" style="width: 100%;" *ngIf="optionsState['CARTA_DE_CONDUCAO']">
+                                <p class="titulo">Carta de condução n.º:</p>
+                                <p class="descricao">{{this.funcionario?.sigpq_carta_canducao?.nid ?? 'S/D'}}</p>
+                                <div class="d-flex" style="margin-left:5px;" *ngIf="optionsState['VALIDADE_CARTA']">
+                                  <p class="titulo">Validade:</p>
+                                  <p class="descricao">{{this.funcionario?.sigpq_cartao_conducao?.data_expira ?? 'S/D'}}
+                                  </p>
+                                </div>
+                              </span>
+                              <span class="d-flex" style="width: 100%;" *ngIf="optionsState['PASSAPORTE']">
+                                <p class="titulo">Passaporte n.º:</p>
+                                <p class="descricao">{{this.funcionario?.sigpq_passaporte?.nid ?? 'S/D'}}</p>
+                                <div class="d-flex" style="margin-left:5px;"
+                                  *ngIf="optionsState['VALIDADE_PASSAPORTE']">
+                                  <p class="titulo">Validade:</p>
+                                  <p class="descricao">{{this.funcionario?.sigpq_passaporte?.data_expira ?? 'S/D' }}</p>
+                                </div>
+                              </span>
+                              <span class="d-flex" style="width: 100%;" *ngIf="optionsState['SANGUINEO']">
+                                <p class="titulo">Grupo sanguíneo:</p>
+                                <p class="descricao">{{this.funcionario.tipo_sanguineo ?? 'S/D'}}</p>
+                              </span>
+                              <span class="d-flex" style="width: 100%;" *ngIf="optionsState['HABILITACAO_LITERARIA']">
+                                <p class="titulo">Habilitações literárias:</p>
+                                <p class="descricao">
+                                  {{this.funcionario?.sigpq_habilitacao_literaria?.habilitacao_literaria ?? 'S/D' }} {{
+                                  funcionario?.sigqp_curso?.nome ? 'em ' + funcionario.sigqp_curso.nome : '' }}</p>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10" style="margin-left: -80px;">
+                      <div class="row">
+                        <div class="col-7 d-flex flex-column justify-content-start align-items-start">
+                          <span class="d-flex" style="width: 100%;" *ngIf="optionsState['NASCIMENTO']">
+                            <p class="titulo">Data de nascimento:</p>
+                            <p class="descricao">{{this.funcionario?.data_nascimento ?? 'S/D' }}
+                              ({{calcularIdade(this.funcionario?.data_nascimento) }})</p>
+                          </span>
+                          <span class="d-flex" style="width: 100%;" *ngIf="optionsState['IBAN']">
+                            <p class="titulo">IBAN: </p>
+                            <p class="descricao"> {{this.funcionario?.iban ?? 'S/D' }}</p>
+                          </span>
+                          <span class="d-flex" style="width: 100%;" *ngIf="optionsState['RESIDENCIA']">
+                            <p class="titulo">Residência actual:</p>
+                            <p class="descricao">{{this.funcionario?.sigpq_endereco?.residencia_actual ?? 'S/D' }}</p>
+                          </span>
+                          <span class="d-flex" style="width: 100%;" *ngIf="optionsState['BI_NUMERO']">
+                            <p class="titulo">B.I. n.º:</p>
+                            <p class="descricao">{{this.funcionario?.sigpq_documentos?.nid ?? 'S/D' }}</p>
+                          </span>
+                          <span class="d-flex" style="width: 100%;" *ngIf="optionsState['CONTACTO']">
+                            <p class="titulo">Contacto:</p>
+                            <p class="descricao">{{this.funcionario?.sigpq_contacto_pessoal?.contacto ?? 'S/D'}}</p>
+                          </span>
+                          <span class="d-flex" style="width: 100%;" *ngIf="optionsState['ALTERNATIVO']">
+                            <p class="titulo">Em caso de Emergência:</p>
+                            <p class="descricao">{{this.funcionario?.sigpq_contacto_alternativo?.contacto ?? 'S/D'}}</p>
+                          </span>
+                          <span class="d-flex" style="width: 100%;" *ngIf="optionsState['EMAIL_PESSOAL']">
+                            <p class="titulo">E-mail pessoal:</p>
+                            <p class="descricao"> {{this.funcionario.email_pessoal ?? 'S/D'}}</p>
+                          </span>
+                        </div>
+                        <div class="col-5 d-flex flex-column justify-content-start align-items-start"
+                          style="margin-left: -20px;">
+                          <!-- <span class="d-flex" style="width: 100%;" *ngIf="optionsState['FILIACAO']"><p class="titulo">Pós graduado:</p> <p class="descricao">19/07/2017</p> <div class="d-flex" style="margin-left:5px;"><p class="titulo">Validade:</p> <p class="descricao">S/D</p></div></span>
+                        <span class="d-flex" style="width: 100%;" *ngIf="optionsState['FILIACAO']"><p class="titulo">Licenciado:</p> <p class="descricao">(5)</p></span>-->
+                          <span class="d-flex" style="width: 100%;" *ngIf="optionsState['CURSOS_PROFISSIONAIS']">
+                            <p class="titulo">Cursos:</p>
+                          </span>
+                          <ng-container *ngFor="let item of this.cursosAcademicos; index as i">
+                            <span class="d-flex" style="width: 100%;" *ngIf="optionsState['CURSOS_PROFISSIONAIS']">
+                              <p class="descricao">{{ item?.nome | uppercase}}</p>
+                            </span>
+                          </ng-container>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="content-ficha" *ngIf="this.optionsExportar.formacao_academica" #fichaFormacao_academica>
+                  <div class="row justify-content-center">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <div class="header-content-ficha">
+                        <h5>FORMAÇÕES ACADÊMICAS</h5>
+                      </div>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+
+                            <th *ngIf="optionsState['CURSO_ACADEMICO']">ID</th>
+                            <th *ngIf="optionsState['CURSO_ACADEMICO']">Curso</th>
+                            <th *ngIf="optionsState['INSTITUICAO_ACADEMICO']">Instituição</th>
+                            <th *ngIf="optionsState['ANO_ACADEMICO']">Ano</th>
+
+                          </tr>
+                        </thead>
+
+
+                        <tbody>
+
+                          <ng-container *ngIf="this.cursosAcademicos.length>0; else semDadoscursosAcademicos">
+                            <tr *ngFor="let item of this.cursosAcademicos; index as i">
+                              <td *ngIf="optionsState['CURSO_ACADEMICO']"> {{i+1}}</td>
+                              <td *ngIf="optionsState['CURSO_ACADEMICO']"> {{ item?.nome | uppercase}}</td>
+                              <td *ngIf="optionsState['INSTITUICAO_ACADEMICO']"> {{
+                                item?.instituicao_sigla?(item?.instituicao_sigla + ' - ' + item?.instituicao_nome) :
+                                'S/D' | uppercase }}</td>
+                              <td *ngIf="optionsState['ANO_ACADEMICO']"> {{ item?.ano_de_conclusao_do_curso??'S/D'}}
+                              </td>
+                            </tr>
+                          </ng-container>
+
+                          <ng-template #semDadoscursosAcademicos>
+                            <tr>
+                              <td>Nenhum dado disponível.</td>
+                            </tr>
+                          </ng-template>
+
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <div class="content-ficha" *ngIf="this.optionsExportar.profissional" #fichaProfissional>
+                  <div class="row justify-content-center">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <div class="header-content-ficha">
+                        <h5>DADOS PROFISSIONAIS</h5>
+                      </div>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <div class="row border-dados py-1">
+                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2">
+                          <div class="image-civil mx-2">
+                            <ng-container *ngIf="this.isLoadingEfectivo || !this.fileUrl; else temFotoEfectivo">
+                              <img [src]="imgUser" alt="image-preview">
+                            </ng-container>
+                            <ng-template #temFotoEfectivo>
+                              <img [src]="this.fileUrl" alt="image-preview">
+                            </ng-template>
+                          </div>
+                        </div>
+                        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 text-center">
+                          <div class="row">
+                            <div class="col-5 d-flex flex-column justify-content-start align-items-start">
+                              <span class="d-flex" style="width: 100%;" *ngIf="optionsState['NIP']">
+                                <p class="titulo">{{this.funcionario?.regime_nome=='Especial'?'NIP':'RG'}}:</p>
+                                <p class="descricao">{{this.funcionario?.nip??'S/D' }}</p>
+                              </span>
+                              <span class="d-flex" style="width: 100%;" *ngIf="optionsState['POSTO']">
+                                <p class="titulo">
+                                  {{this.funcionario?.regime_nome=='Especial'?'Posto':'categoria/Cargo'}}: </p>
+                                <p class="descricao"> {{this.funcionario?.patente_nome??'S/D' }}</p>
+                              </span>
+                              <!-- <span class="d-flex" style="width: 100%;" *ngIf="optionsState['PSEUDONIMO']"><p class="titulo">Psedônimo:</p> <p class="descricao">{{this.funcionario?.pseudonimo }}</p></span> -->
+                              <span class="d-flex" style="width: 100%;" *ngIf="optionsState['FUNCAO']">
+                                <p class="titulo">Função:</p>
+                                <p class="descricao">{{this.funcionario?.sigpq_funcao?.nome??'S/D' }}</p>
+                              </span>
+                              <span class="d-flex" style="width: 100%;" *ngIf="optionsState['NAS']">
+                                <p class="titulo">NAS:</p>
+                                <p class="descricao">{{this.funcionario?.numero_agente??'S/D' }}</p>
+                              </span>
+                              <span class="d-flex" style="width: 100%;" *ngIf="optionsState['REGIME']">
+                                <p class="titulo">Regime de carreira:</p>
+                                <p class="descricao">{{this.funcionario?.regime_nome??'S/D' }}</p>
+                              </span>
+                            </div>
+                            <div class="col-7 d-flex flex-column justify-content-start align-items-start">
+                              <span class="d-flex" style="width: 100%;" *ngIf="optionsState['VINCULO']">
+                                <p class="titulo">Vinculo:</p>
+                                <p class="descricao">{{this.funcionario?.sigpq_tipo_vinculo_nome??'S/D' }}</p>
+                              </span>
+                              <span class="d-flex" style="width: 100%;" *ngIf="optionsState['SITUACAO_ATUAL']">
+                                <p class="titulo">Situação actual:</p>
+                                <p class="descricao">{{this.funcionario?.estado??'S/D' }}</p>
+                              </span>
+                              <span class="d-flex" style="width: 100%;" *ngIf="optionsState['CARGO']">
+                                <p class="titulo">Cargo:</p>
+                                <p class="descricao">{{this.funcionario?.sigpq_cargo?.nome??'S/D' }}</p>
+                              </span>
+                              <span class="d-flex" style="width: 100%;" *ngIf="optionsState['DATA_DE_INGRESSO']">
+                                <p class="titulo">Data de
+                                  {{this.funcionario?.regime_nome=='Especial'?'ingresso':'admissão'}}:</p>
+                                <p class="descricao">{{this.funcionario?.data_adesao??'S/D' }}:</p>
+                                <div class="d-flex" style="margin-left:5px;" *ngIf="optionsState['TEMPO_DE_SERVICO']">
+                                  <p class="titulo"></p>
+                                  <p class="descricao">({{calcularIdade(this.funcionario?.data_adesao) }})</p>
+                                </div>
+                              </span>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10" style="margin-left: -80px; margin-top: 10px;">
+                      <div class="row">
+                        <div class="col-7 d-flex flex-column justify-content-start align-items-start">
+                          <span class="d-flex" style="width: 100%;" *ngIf="optionsState['COLOCACAO']">
+                            <p class="titulo">Colocação:</p>
+                            <p class="descricao">{{this.funcionario?.sigpq_tipo_orgao?.sigla }} -
+                              {{this.funcionario?.sigpq_tipo_orgao?.nome_completo }}</p>
+                          </span>
+                          <span class="d-flex" style="width: 100%;" *ngIf="optionsState['CLASSE']">
+                            <p class="titulo">Classe: </p>
+                            <p class="descricao"> {{this.funcionario?.sigpq_categoria?.nome ??'S/D'}}</p>
+                          </span>
+                          <span class="d-flex" style="width: 100%;" *ngIf="optionsState['CONTACTO_PROF']">
+                            <p class="titulo">Contacto profissional:</p>
+                            <p class="descricao">{{this.funcionario?.sigpq_contacto_profissional?.contacto??'S/D' }}</p>
+                          </span>
+                          <span class="d-flex" style="width: 100%;" *ngIf="optionsState['EMAIL_PROF']">
+                            <p class="titulo">Email profissional:</p>
+                            <p class="descricao">{{this.funcionario?.utilizador?.email??'S/D' }}</p>
+                          </span>
+                        </div>
+                        <!-- <div class="col-5 d-flex flex-column justify-content-start align-items-start" style="margin-left: -20px;">
+                        <span class="d-flex" style="width: 100%;" *ngIf="optionsState['FILIACAO']"><p class="titulo">Cursos:</p></span>
+                        <ng-container  *ngFor="let item of this.cursosPoliciais; index as i">
+                          <span class="d-flex" style="width: 100%;" *ngIf="optionsState['FILIACAO']"><p class="titulo">{{ item?.nome | uppercase}}</p></span>
+                          </ng-container>
+                      </div> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <div class="content-ficha"
+                  *ngIf="this.optionsExportar.formacao && this.funcionario?.regime_nome=='Especial'"
+                  #fichaFormacao_academica>
+                  <div class="row justify-content-center">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <div class="header-content-ficha">
+                        <h5>FORMAÇÃO TÉCNICO PROFISSIONAL</h5>
+                      </div>
+                    </div>
+
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+
+                            <th *ngIf="optionsState['CURSO_PROFISSIONAL']">ID</th>
+                            <th *ngIf="optionsState['CURSO_PROFISSIONAL']">Curso</th>
+                            <th *ngIf="optionsState['INSTITUICAO_PROFISSIONAL']">Instituição</th>
+                            <th *ngIf="optionsState['ANO_PROFISSIONAL']">Ano</th>
+
+                          </tr>
+                        </thead>
+
+
+                        <tbody>
+
+                          <ng-container *ngIf="this.cursosPoliciais.length>0; else semDadoscursosPoliciais">
+                            <tr *ngFor="let item of this.cursosPoliciais; index as i">
+                              <td *ngIf="optionsState['CURSO_PROFISSIONAL']"> {{i+1}}</td>
+                              <td *ngIf="optionsState['CURSO_PROFISSIONAL']"> {{ item?.nome | uppercase}}</td>
+                              <td *ngIf="optionsState['INSTITUICAO_PROFISSIONAL']"> {{
+                                item?.instituicao_sigla?(item?.instituicao_sigla + ' - ' + item?.instituicao_nome) :
+                                'S/D' | uppercase }}</td>
+                              <td *ngIf="optionsState['ANO_PROFISSIONAL']"> {{ item?.ano_de_conclusao_do_curso??'S/D'}}
+                              </td>
+                            </tr>
+                          </ng-container>
+
+                          <ng-template #semDadoscursosPoliciais>
+                            <tr>
+                              <td>Nenhum dado disponível.</td>
+                            </tr>
+                          </ng-template>
+
+
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="content-ficha" *ngIf="this.optionsExportar.formacao_outros" #fichaFormacao_academica>
+                  <div class="row justify-content-center">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <div class="header-content-ficha">
+                        <h5>OUTRAS FORMAÇÕES</h5>
+                      </div>
+                    </div>
+
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+
+                            <th *ngIf="optionsState['CURSO_OUTROS']">ID</th>
+                            <th *ngIf="optionsState['CURSO_OUTROS']">Curso</th>
+                            <th *ngIf="optionsState['INSTITUICAO_OUTROS']">Instituição</th>
+                            <th *ngIf="optionsState['ANO_OUTROS']">Ano</th>
+
+                          </tr>
+                        </thead>
+
+
+                        <tbody>
+
+                          <ng-container *ngIf="this.cursosOutros.length>0; else semDadosCurosOutros">
+                            <tr *ngFor="let item of this.cursosOutros; index as i">
+                              <td *ngIf="optionsState['CURSO_OUTROS']"> {{i+1}}</td>
+                              <td *ngIf="optionsState['CURSO_OUTROS']"> {{ item?.nome | uppercase}}</td>
+                              <td *ngIf="optionsState['INSTITUICAO_OUTROS']"> {{
+                                item?.instituicao_sigla?(item?.instituicao_sigla + ' - ' + item?.instituicao_nome) :
+                                'S/D' | uppercase }}</td>
+                              <td *ngIf="optionsState['ANO_OUTROS']"> {{ item?.ano_de_conclusao_do_curso??'S/D'}}</td>
+                            </tr>
+                          </ng-container>
+
+                          <ng-template #semDadosCurosOutros>
+                            <tr>
+                              <td>Nenhum dado disponível.</td>
+                            </tr>
+                          </ng-template>
+
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div class="content-ficha" *ngIf="this.optionsExportar.outros_empregos" #fichaFormacao_academica>
+                  <div class="row justify-content-center">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <div class="header-content-ficha">
+                        <h5>OUTROS EMPREGOS</h5>
+                      </div>
+                    </div>
+
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+
+                            <th *ngIf="optionsState['EMPRESA']">ID</th>
+                            <th *ngIf="optionsState['EMPRESA']">Empresa</th>
+                            <th *ngIf="optionsState['CARGO']">Cargo</th>
+                            <th *ngIf="optionsState['CONTRATO']">Tipo de Contrato</th>
+                            <th *ngIf="optionsState['DITURNIDADE']">Contagem de Tempo</th>
+
+                          </tr>
+                        </thead>
+
+
+                        <tbody>
+
+                          <ng-container *ngIf="this.outosEmpregos.length>0; else semDadosCurosOutros">
+                            <tr *ngFor="let item of this.outosEmpregos; index as i">
+                              <td *ngIf="optionsState['EMPRESA']"> {{i+1}}</td>
+                              <td *ngIf="optionsState['EMPRESA']"> {{ item?.empresa | uppercase}}</td>
+                              <td *ngIf="optionsState['CARGO']"> {{ item?.cargo | uppercase }}</td>
+                              <td *ngIf="optionsState['CONTRATO']"> {{ item?.tipo_de_contrato??'S/D'}}</td>
+                              <td *ngIf="optionsState['DITURNIDADE']"> {{ (item?.ano_inicio && (item?.ano_fim ??
+                                getYear()) - item.ano_inicio) + ' anos' || 'S/D' }}
+                              </td>
+                            </tr>
+                          </ng-container>
+
+                          <ng-template #semDadosCurosOutros>
+                            <tr>
+                              <td>Nenhum dado disponível.</td>
+                            </tr>
+                          </ng-template>
+
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="content-ficha" *ngIf="this.optionsExportar.provimento">
+                  <div class="row justify-content-center">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <div class="header-content-ficha">
+                        <h5>PROVIMENTOS</h5>
+                      </div>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" #fichaProvimento>
+                      <table class="table table-border table-striped custom-table datatable mb-0">
+                        <thead>
+                          <tr>
+                            <th *ngIf="optionsState['POSTO_PROVIMENTO']">Posto</th>
+                            <th *ngIf="optionsState['ACTO_PROVIMENTO']">Tipo de Acto</th>
+                            <th *ngIf="optionsState['ORDEM_PROVIMENTO']">Ordem n.º </th>
+                            <th *ngIf="optionsState['DITURNIDADE_POSTO']">Diturnidade</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+
+                          <ng-container *ngIf="this.provimentos.length>0; else semDadosprovimentos">
+                            <tr *ngFor=" let item of this.provimentos; let i=index ">
+                              <td *ngIf="optionsState['POSTO_PROVIMENTO']">{{
+                                item.patente_nome?.toString().toUpperCase() ?? 'S/D' }}</td>
+                              <td *ngIf="optionsState['ACTO_PROVIMENTO']">{{
+                                item.sigpq_acto_progressaos_nome?.toString()?.toUpperCase() ?? 'S/D' }}</td>
+                              <td *ngIf="optionsState['ORDEM_PROVIMENTO']"> <ng-container
+                                  *ngIf="item?.numero_ordem!=null; else ordem">
+                                  {{ item?.ordem_descricao ?? 'S/D' }}
+                                </ng-container>
+                                <ng-template #ordem>
+                                  {{ item?.despacho_descricao ?? 'S/D' }}
+                                </ng-template>
+                              </td>
+
+                              <td *ngIf="optionsState['DITURNIDADE_POSTO']">
+                                <ng-container *ngIf="this.eData(item?.data_provimento); else semData">
+                                  {{ calcularIdade(item?.data_provimento) }}
+                                </ng-container>
+                                <ng-template #semData> S/D </ng-template>
+                              </td>
+
+                            </tr>
+                          </ng-container>
+
+                          <ng-template #semDadosprovimentos>
+                            <tr>
+                              <td>Nenhum dado disponível.</td>
+                            </tr>
+                          </ng-template>
+
+
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" #fichaCargos>
+                      <table class="table table-border table-striped custom-table datatable mb-0">
+                        <thead>
+                          <tr>
+                            <th *ngIf="optionsState['CARGO_FUNCAO']">CARGO/FUNÇÃO</th>
+                            <th *ngIf="optionsState['ACTO_CARGO']">Tipo de Acto</th>
+                            <th *ngIf="optionsState['DESPACHO_CARGO']">Despacho n.º</th>
+                            <th *ngIf="optionsState['DITURNIDADE_CARGO']">Diturnidade</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <ng-container *ngIf="this.cargos.length>0; else semDadoscargos">
+                            <tr *ngFor="let item of this.cargos; let i=index">
+                              <td *ngIf="optionsState['CARGO_FUNCAO']"> {{ item?.nome?.toString().toUpperCase() ??
+                                'S/D'}}</td>
+                              <td *ngIf="optionsState['ACTO_CARGO']"> {{ item?.acto_nomeacao?.toString().toUpperCase()
+                                ?? 'S/D' }}</td>
+                              <!-- <td> {{ item?.patente?.toString().toUpperCase() ?? 'S/D' }}</td> -->
+                              <td *ngIf="optionsState['DESPACHO_CARGO']"> {{
+                                item?.numero_despacho.toString().toUpperCase() ?? 'S/D' }}</td>
+                              <!-- <td> {{ item?.numero_ordem ?? 'S/D' }}</td> -->
+                              <!-- <td> {{ item?.direcao?.toString().toUpperCase() }}</td> -->
+                              <td *ngIf="optionsState['DITURNIDADE_CARGO']">
+                                <ng-container *ngIf="this.eData(item?.data); else semData">
+                                  {{ calcularIdade(item?.data) }}
+                                </ng-container>
+                                <ng-template #semData> S/D </ng-template>
+                              </td>
+                            </tr>
+                          </ng-container>
+
+                          <ng-template #semDadoscargos>
+                            <tr>
+                              <td>Nenhum dado disponível.</td>
+                            </tr>
+                          </ng-template>
+
+                        </tbody>
+                      </table>
+                    </div>
+
+
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+
+                            <th *ngIf="optionsState['MOBILIDADE']">Mobilidade</th>
+                            <!-- <th>Colocação anterior</th> -->
+                            <th *ngIf="optionsState['DESPACHO_MOBILIDADE']">Despacho n.º</th>
+                            <th *ngIf="optionsState['GUIA_MOBILIDADE']">Guia n.º</th>
+                            <th *ngIf="optionsState['DITURNIDADE_MOBILIDADE']">Diturnidade</th>
+
+                          </tr>
+                        </thead>
+
+
+                        <tbody>
+
+                          <ng-container *ngIf="this.mobilidades.length>0; else semDadosMobilidade">
+                            <tr *ngFor="let item of this.mobilidades; let i=index">
+                              <td *ngIf="optionsState['MOBILIDADE']">{{ item.pessoajuridica_actual?? 'S/D' }}</td>
+                              <!-- <td>{{ item?.pessoajuridica_passado ?? 'S/D' }}</td> -->
+                              <td *ngIf="optionsState['DESPACHO_MOBILIDADE']">{{ item.despacho_descricao ?? 'S/D'}}</td>
+                              <!-- <td>{{ item.numero_ordem ?? 'S/D' }}</td> -->
+                              <td *ngIf="optionsState['GUIA_MOBILIDADE']">{{ item.numero_guia ?? 'S/D' }}</td>
+                              <td *ngIf="optionsState['DITURNIDADE_MOBILIDADE']">
+                                {{ item.numero_guia?calcularIdade(item?.numero_guia):'S/D' }}
+                              </td>
+                            </tr>
+                          </ng-container>
+
+                          <ng-template #semDadosMobilidade>
+                            <tr>
+                              <td>Nenhum dado disponível.</td>
+                            </tr>
+                          </ng-template>
+
+
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="content-ficha" *ngIf="this.optionsExportar.sansao_disciplinar" #sansao_disciplinar>
+                  <div class="row justify-content-center">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <div class="header-content-ficha">
+                        <h5>{{this.funcionario?.regime_nome=='Especial'?'SANÇÕES':'REGISTO'}} DISCIPLINARES</h5>
+                      </div>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+
+                            <th *ngIf="optionsState['DESIGNACAO_SANCAO']">ID</th>
+                            <th *ngIf="optionsState['DESIGNACAO_SANCAO']">Designação</th>
+                            <th *ngIf="optionsState['DESPACHO_SANCAO']">Despacho</th>
+
+                          </tr>
+                        </thead>
+
+
+                        <tbody>
+
+                          <ng-container *ngIf="this.sansoes.length>0; else semDadosSancoes">
+                            <tr *ngFor="let item of this.sansoes; index as i">
+                              <td *ngIf="optionsState['DESIGNACAO_SANCAO']"> {{i+1}}</td>
+                              <td *ngIf="optionsState['DESIGNACAO_SANCAO']"> {{ item?.designacao | uppercase}}</td>
+                              <td *ngIf="optionsState['DESPACHO_SANCAO']"> {{ item?.despacho??'s/d' | uppercase}}</td>
+                            </tr>
+                          </ng-container>
+
+                          <ng-template #semDadosSancoes>
+                            <tr>
+                              <td>Nenhum dado disponível.</td>
+                            </tr>
+                          </ng-template>
+
+
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="content-ficha" *ngIf="this.optionsExportar.opcao_recompensas" #opcao_recompensas>
+                  <div class="row justify-content-center">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <div class="header-content-ficha">
+                        <h5>RECOMPENSAS</h5>
+                      </div>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+
+                            <th *ngIf="optionsState['DESIGNACAO_RECOMPENSA']">ID</th>
+                            <th *ngIf="optionsState['DESIGNACAO_RECOMPENSA']">Designação</th>
+                            <th *ngIf="optionsState['ACTO_RECOMPENSA']">Tipo de Acto</th>
+                            <th *ngIf="optionsState['ORDEM_RECOMPENSA']">Ordem</th>
+                            <th *ngIf="optionsState['ENTIDADE_RECOMPENSA']">Entidade</th>
+
+                          </tr>
+                        </thead>
+
+
+                        <tbody>
+
+                          <ng-container *ngIf="this.recompensas.length>0; else semDadosRecompensa">
+                            <tr *ngFor="let item of this.recompensas; index as i">
+
+                              <td *ngIf="optionsState['DESIGNACAO_RECOMPENSA']"> {{i+1}}</td>
+                              <td *ngIf="optionsState['DESIGNACAO_RECOMPENSA']"> {{ item?.designacao | uppercase}}</td>
+                              <td *ngIf="optionsState['ACTO_RECOMPENSA']"> {{ item?.tipo_acto??'s/d' | uppercase}}</td>
+                              <td *ngIf="optionsState['ORDEM_RECOMPENSA']"> {{ item?.ordem??'s/d' | uppercase}}</td>
+                              <td *ngIf="optionsState['ENTIDADE_RECOMPENSA']"> {{ item?.entidade??'s/d' | uppercase}}
+                              </td>
+                            </tr>
+                          </ng-container>
+
+                          <ng-template #semDadosRecompensa>
+                            <tr>
+                              <td>Nenhum dado disponível.</td>
+                            </tr>
+                          </ng-template>
+
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="content-ficha" *ngIf="this.optionsExportar.agregado_familiar" #fichaAgregadoFamiliar>
+                  <div class="row justify-content-center">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <div class="header-content-ficha">
+                        <h5>AGREGADO FAMILIAR</h5>
+                      </div>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+
+                            <th *ngIf="optionsState['NOME_AGREGADO']">ID</th>
+                            <th *ngIf="optionsState['NOME_AGREGADO']">Nome</th>
+                            <th *ngIf="optionsState['RELACAO']">Relação</th>
+                            <th *ngIf="optionsState['NASCIMENTO_AGREDADO']">Data nascimento</th>
+                            <th *ngIf="optionsState['CONTACTO_AGREGADO']">Contacto</th>
+                          </tr>
+                        </thead>
+
+
+                        <tbody>
+
+                          <ng-container *ngIf="this.agregadosFamiliares.length>0; else semDados">
+                            <tr *ngFor="let item of this.agregadosFamiliares; index as i">
+                              <td *ngIf="optionsState['NOME_AGREGADO']"> {{i+1}}</td>
+                              <td *ngIf="optionsState['NOME_AGREGADO']"> {{ item?.nome | uppercase}}</td>
+                              <td *ngIf="optionsState['RELACAO']"> {{ item?.sigpq_tipo_familiar_nome | uppercase}}</td>
+                              <td *ngIf="optionsState['NASCIMENTO_AGREDADO']"> {{ item?.data_nascimento=='null' ||
+                                !item?.data_nascimento ? 'S/D' : item?.data_nascimento }}</td>
+                              <td *ngIf="optionsState['CONTACTO_AGREGADO']"> {{ item?.contacto=='null' ||
+                                !item?.contacto ? 'S/D' : item?.contacto }}</td>
+                            </tr>
+                          </ng-container>
+
+                          <ng-template #semDados>
+                            <tr>
+                              <td>Nenhum dado disponível.</td>
+                            </tr>
+                          </ng-template>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+
+                <tfoot class="d-flex" style="justify-content: space-between;padding-top: 5px;">
+                  <tr>
+                    <td colspan="3">
+                      <p>Impressão realizada por: <strong>{{this.getNameUser()}}</strong> em
+                        <em>{{this.getCurrentDate()}}</em></p>
+                    </td>
+                  </tr>
+                  <div style="margin-left: 4%;">
+                    <img *ngIf="qrCodeDataUrl" [src]="qrCodeDataUrl" alt="QR Code" />
+                  </div>
+                </tfoot>
+
+                <tfoot style="padding-top: 20px;">
+                  <div class="d-flex"
+                    style="justify-content: space-between; width:180%; font-size:11px; margin-top:90px;">
+                    <div>
+                      <p>Av. 4 de Fevereiro, n.º 206, Marginal de Luanda, 1.º andar, edifício sede da PNA</p>
+                      <p>Telefone: +(244) 222 339 962 E-mail: {{'dpq@pn.gov.ao'}}</p>
+                    </div>
+                    <div>
+                      <img src="assets/logo-footer.jpeg" alt="imagem de footer"
+                        style="width: 115px; margin-bottom: 15px;">
+                    </div>
+                  </div>
+                </tfoot>
+
+              </div>
+            </ng-container>
+            <ng-template #semFuncionario>
+              <p style="width: 100%; padding:10px; padding-left:30px;">Buscando o agente porfavor aguarde.....</p>
+            </ng-template>
+          </div>
+
+
+        </div>
+
+      </div>
+      <div class="modal-footer" *ngIf="this.optionsExportar.extracto">
+        <!-- <button type="button" class="btn-piips btn-piips-primary m-0" data-dismiss="modal"
+          (click)="imprimir('ficha-agente')">
+          <i class="fa fa-save"></i> Descarregar
+        </button> -->
+        <button type="button" class="btn-piips btn-piips-primary m-0" data-dismiss="modal"
+          (click)="imprimir('extrato-agente-novo')">
+          <i class="fa fa-print"></i> Imprimir
+        </button>
+      </div>
+
+    </div>

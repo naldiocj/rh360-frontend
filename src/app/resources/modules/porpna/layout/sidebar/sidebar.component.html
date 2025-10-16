@@ -1,0 +1,297 @@
+<div class="modal fade" id="logout-modal" style="border-radius: unset">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-ms">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div
+          class="modal-title w-100 d-flex justify-content-between align-items-center"
+        >
+          Terminar sessão
+          <a
+            data-dismiss="modal"
+            class="bi bi-x-lg text-danger"
+            style="cursor: pointer"
+          ></a>
+        </div>
+      </div>
+      <div
+        class="modal-body text-center"
+        style="font-size: 16px; color: #041b43"
+      >
+        <span>Confirmas o termino da sessão?</span>
+        <div class="btn-groups my-2">
+          <a
+            class="btn btn-link"
+            style="text-decoration: none; color: #041b43"
+            (click)="sair()"
+            >Sim</a
+          >
+          <div
+            class="btn btn-link"
+            data-dismiss="modal"
+            style="text-decoration: none; color: #041b43"
+          >
+            Não
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<aside id="asidebar" class="asidebar">
+  <ul class="asidebar-nav" id="sidebar-nav">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="painel-controlo" routerLinkActive="active">
+        <i class="bi bi-graph-up" id="cor_icone"></i>
+        <span>Painel Controlo</span>
+      </a>
+    </li>
+    <!-- <li class="nav-item">
+      <a
+        class="nav-link collapsed d-flex justify-content-center"
+        data-target="#candidatos-menu"
+        data-toggle="collapse"
+        href="#"
+        routerLinkActive="active"
+      >
+        <i class="bi bi-people-fill" id="cor_icone"></i>
+        <span>Candidato</span>
+        <i class="bi bi-chevron-down flex-fill" style="text-align: right"></i>
+      </a>
+      <ul
+        id="candidatos-menu"
+        class="nav-content collapse bg-light rounded-bottom py-0"
+        data-parent="#sidebar-nav"
+      >
+        <li>
+          <a
+            class="d-flex justify-content-between align-items-center pr-2"
+            routerLink="solicitacao/listar"
+            >Listado<i
+              class="bi bi-card-checklist"
+              style="font-size: 1.2rem"
+            ></i
+          ></a>
+        </li>
+        <li>
+          <a
+            class="d-flex justify-content-between align-items-center pr-2"
+            routerLink="solicitacao/recebidas"
+            >Não listado<i class="bi bi-x" style="font-size: 1.2rem"></i
+          ></a>
+        </li>
+      </ul>
+    </li> -->
+
+    <li class="nav-item">
+      <a class="nav-link" routerLinkActive="active" routerLink="candidatos">
+        <i class="bi bi bi-people-fill" id="cor_icone"></i
+        ><span>Candidato</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link collapsed d-flex justify-content-center"
+        data-target="#docs-menu"
+        data-toggle="collapse"
+        href="#"
+        routerLinkActive="active"
+      >
+        <i class="bi bi bi-file-pdf" id="cor_icone"></i>
+        <span>Documentos</span>
+        <i class="bi bi-chevron-down flex-fill" style="text-align: right"></i>
+      </a>
+      <ul
+        id="docs-menu"
+        class="nav-content collapse bg-light rounded-bottom py-0"
+        data-parent="#sidebar-nav"
+      >
+      <li>
+        <a
+          class="d-flex justify-content-start align-items-center pr-2"
+          routerLink="/piips/porpna/documentos/certificado-habilitacao"
+        >
+          <i class="bi bbi bi-circle-fill mx-2" style="font-size: 0.8rem"></i
+          >Cert. de habilitações</a
+        >
+      </li>
+      <li>
+        <a
+          class="d-flex justify-content-start align-items-center pr-2"
+          routerLink="/piips/porpna/documentos/certidao-militar"
+        >
+          <i class="bi bi-circle-fill mx-2" style="font-size: 0.8rem"></i
+          >Certidão militar</a
+        >
+      </li>
+      <li>
+        <a
+          class="d-flex justify-content-start align-items-center pr-2"
+          routerLink="/piips/porpna/documentos/bilhetes"
+        >
+          <i class="bi bi-circle-fill mx-2" style="font-size: 0.8rem"></i
+          >Bilhete de entidade</a
+        >
+      </li>
+
+        <!-- <li>
+          <a
+            class="d-flex justify-content-between align-items-center pr-2"
+            routerLink="solicitacao/historico"
+            >Histórico<i
+              class="bi bi-arrow-repeat"
+              style="font-size: 1.2rem"
+            ></i
+          ></a>
+        </li> -->
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="javascript:void(0)">
+        <i class="bi bi-info-circle-fill" id="cor_icone"></i
+        ><span>Informação</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="javascript:void(0)">
+        <i class="bi bi-calendar3" id="cor_icone"></i><span>Calendário</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="javascript:void(0)" style="cursor: pointer">
+        <i class="bi bi-bell-fill" id="cor_icone"></i>
+        <span>Notificação</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link collapsed d-flex justify-content-center"
+        data-target="#setting-menu"
+        data-toggle="collapse"
+        href="#"
+        routerLinkActive="active"
+      >
+        <i class="bi bi bi-gear-fill" id="cor_icone"></i>
+        <span>Configuração</span>
+        <i class="bi bi-chevron-down flex-fill" style="text-align: right"></i>
+      </a>
+      <ul
+        id="setting-menu"
+        class="nav-content collapse bg-light rounded-bottom py-0"
+        data-parent="#sidebar-nav"
+      >
+      <li>
+        <a
+          class="d-flex justify-content-start align-items-center pr-2"
+          routerLink="/piips/porpna/ramos-faa"
+        >
+          <i class="bi bbi bi-circle-fill mx-2" style="font-size: 0.8rem"></i
+          >Ramos das FAA</a
+        >
+      </li>
+      <li>
+        <a
+          class="d-flex justify-content-start align-items-center pr-2"
+          routerLink="/piips/porpna/patente-faa"
+        >
+          <i class="bi bi-circle-fill mx-2" style="font-size: 0.8rem"></i
+          >Patentes das FAA</a
+        >
+      </li>
+      <li>
+        <a
+          class="d-flex justify-content-start align-items-center pr-2"
+          routerLink="/piips/porpna/especialidade-faa"
+        >
+          <i class="bi bi-circle-fill mx-2" style="font-size: 0.8rem"></i
+          >Especialidades das FAA</a
+        >
+      </li>
+        <li>
+          <a
+            class="d-flex justify-content- align-items-center pr-2"
+            routerLink="/piips/porpna/unidades-faa"
+            ><i class="bi bi bi-circle-fill mx-2" style="font-size: 0.8rem"></i
+            >Unidades das FAA</a
+          >
+        </li>
+        <li>
+          <a
+            class="d-flex justify-content- align-items-center pr-2"
+            routerLink="/piips/porpna/config-outras"
+            ><i class="bi bi bi-circle-fill mx-2" style="font-size: 0.8rem"></i
+            >Outras</a
+          >
+        </li>
+        <!-- <li>
+          <a
+            class="d-flex justify-content-between align-items-center pr-2"
+            routerLink="solicitacao/historico"
+            >Histórico<i
+              class="bi bi-arrow-repeat"
+              style="font-size: 1.2rem"
+            ></i
+          ></a>
+        </li> -->
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link collapsed d-flex justify-content-center"
+        data-target="#setting-admin"
+        data-toggle="collapse"
+        href="#"
+        routerLinkActive="active"
+      >
+        <i class="bi bi-shield-shaded" id="cor_icone"></i>
+        <span>Adminstração</span>
+        <i class="bi bi-chevron-down flex-fill" style="text-align: right"></i>
+      </a>
+      <ul
+        id="setting-admin"
+        class="nav-content collapse bg-light rounded-bottom py-0"
+        data-parent="#sidebar-nav"
+      >
+        <li>
+          <a
+            class="d-flex justify-content- align-items-center pr-2"
+            routerLink="/piips/porpna/adminstracao-utilizador-sistema"
+            ><i class="bi bi bi-circle-fill mx-2" style="font-size: 0.8rem"></i
+            >Utilizador do sistema</a
+          >
+        </li>
+        <li>
+          <a
+            class="d-flex justify-content-start align-items-center pr-2"
+            routerLink="/piips/porpna/adminstracao-utilizador-portal"
+          >
+            <i class="bi bbi bi-circle-fill mx-2" style="font-size: 0.8rem"></i
+            >Utilizador do portal</a
+          >
+        </li>
+
+        <!-- <li>
+          <a
+            class="d-flex justify-content-between align-items-center pr-2"
+            routerLink="solicitacao/historico"
+            >Histórico<i
+              class="bi bi-arrow-repeat"
+              style="font-size: 1.2rem"
+            ></i
+          ></a>
+        </li> -->
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        data-toggle="modal"
+        data-target="#logout-modal"
+        style="cursor: pointer"
+      >
+        <i class="bi bi-power" id="cor_icone"></i>
+        <span>Terminar sessão</span>
+      </a>
+    </li>
+  </ul>
+</aside>

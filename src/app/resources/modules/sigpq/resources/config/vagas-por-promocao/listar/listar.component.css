@@ -1,0 +1,27 @@
+.header-ficha {
+  width: 100%;
+  background-color: var(--use-color);
+  margin: 0 auto;
+  padding: .8rem;
+  color: var(--light-white);
+}
+
+.header-ficha h1 {
+  font-size: 1.5vw;
+}
+
+.header-ficha h3 {
+  font-size: 1vw;
+}
+
+.titulo {
+  font-size: 1rem!important;
+  font-weight: normal;
+}
+
+th{
+  background: var(--use-color);
+  color: white;
+
+}
+

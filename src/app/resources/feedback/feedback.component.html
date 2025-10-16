@@ -1,0 +1,72 @@
+<!-- Floating button to open feedback chat -->
+<button
+  (click)="openChat()"
+  [class.d-none]="isOpen"
+  id="btnFloating"
+  class="position-fixed bottom-0 end-0 rounded-circle p-3 shadow-lg"
+  aria-label="Open feedback chat"
+>
+  <i class="bi bi-chat-left-text fs-5"></i>
+  <!-- Usei ícones Bootstrap aqui -->
+</button>
+
+<!-- Feedback chat card -->
+<div
+  [class.opacity-100]="isOpen"
+  [class.opacity-0]="!isOpen"
+  [class.pointer-events-none]="!isOpen"
+  class="position-fixed p-3 w-80  border-1 border-white"
+  id="btnFloatingcard"
+>
+  <div class="pb-2">
+    <div class="d-flex justify-content-between align-items-center">
+      <h2 class="fs-2 text-white">Enviar nota ao administrador</h2>
+      <button
+        (click)="closeChat()"
+        class="text-gray-500 hover:text-gray-700"
+        aria-label="Close feedback chat"
+      >
+        <i class="bi bi-x fs-6"></i>
+      </button>
+    </div>
+  </div>
+  <form [formGroup]="form"
+  (ngSubmit)="informar()">
+  <label for="" class="text-white">
+    Nome do Modulo:
+  </label> 
+  <br>
+  <input type="text" class="form-control" formControlName="origem" placeholder="modulo onde aconteceu a anomalia">
+  <br>
+    <label for="" class="text-white">
+      assunto:
+    </label> 
+    <input type="text" class="form-control" formControlName="titulo" placeholder="qual foi a anomalia?">
+    <label for="" class="text-white">
+      O que aconteceu:
+    </label>
+    <textarea
+      placeholder="descreva o que aconteceu."
+      class="form-control resize-none"
+      formControlName="descricao"
+      rows="4"
+      [(ngModel)]="feedback"
+      [disabled]="isSubmitting || isSubmitted"
+    ></textarea>
+    <div class="d-grid justify-content-between">
+      <div *ngIf="isSubmitted" class="d-flex align-items-center text-success w-100 justify-content-center">
+        <i class="bi bi-check-circle fs-6 me-2"></i>
+        <span>enviado!</span>
+      </div>
+      <button
+        type="submit"
+        class="w-100 btn btn-secondary p-3 mt-2"
+      >
+        <span *ngIf="!isSubmitting" class="d-flex align-items-center">
+          <i class="bi bi-send fs-6 me-2"></i>
+       Enviar
+        </span>
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,29 @@
+<ng-container>
+
+    <li>Pseudonimo: {{this.dadosProfissionais?.pseudonimo ?? 'S/N'}}</li>
+    <li>NIP: <ng-container
+            *ngIf="this.dadosProfissionais?.nip && this.utilsHelper.temQuadro(this.dadosProfissionais?.regime_quadro); else semQuadro">
+            {{this.dadosProfissionais?.regime_quadro}} {{ this.dadosProfissionais.nip }}
+        </ng-container>
+        <ng-template #semQuadro>
+            S/N
+        </ng-template>
+    </li>
+    <li>Classe/Carreira: {{this.dadosProfissionais?.sigpq_provimento?.classe ?? 'S/N'}}</li>
+    <li>Posto/Categoria: {{this.dadosProfissionais?.patente_nome ?? 'S/N'}}</li>
+    <li>Regime de carreira: {{this.dadosProfissionais?.regime_nome}}</li>
+    <li>Vínculo: {{this.dadosProfissionais?.sigpq_tipo_vinculo_nome ?? 'S/N' }}</li>
+    <li>Número de agente: {{this.dadosProfissionais?.numero_agente ?? 'S/N'}}</li>
+    <li>Função:
+        {{this.utilsHelper.buscarFuncao(this.dadosProfissionais?.regime_nome,this.dadosProfissionais?.sigpq_funcao?.nome,
+        this.dadosProfissionais?.sigpq_cargo?.nome)
+        }}
+    </li>
+    <li [title]="this.dadosProfissionais?.sigpq_funcionario_orgao?.nome_completo">Colocação:
+        {{this.dadosProfissionais?.sigpq_tipo_orgao?.sigla ?? 'S/N'}}</li>
+    <li [title]="this.dadosProfissionais?.sigpq_tipo_departamento?.nome_completo" >Dep/CM/Un: {{this.dadosProfissionais?.sigpq_tipo_departamento?.sigla ?? 'S/N'}}</li>
+    <li [title]="this.dadosProfissionais?.sigpq_tipo_seccao?.nome_completo">Sec/Esq/Subun:
+        {{this.dadosProfissionais?.sigpq_tipo_seccao?.sigla ?? 'S/N'}}</li>
+    <li>Data de Ingresso: {{this.dadosProfissionais?.data_adesao}}</li>
+
+</ng-container>

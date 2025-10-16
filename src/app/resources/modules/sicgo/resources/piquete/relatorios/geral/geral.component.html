@@ -1,0 +1,193 @@
+<section class="bg-light row">
+  <section class="col-lg-8 col-md-8 col-sm-8">
+    <div class="col-lg-12 col-md-12 col-sm-12 col1">
+      <h1 style="color: #002d59;" class="page-title"><b>Gerar Relatórios</b></h1>
+    </div>
+
+    <!-- Coluna a esquerda -->
+    <div class="col-lg-12 col-md-12 col-sm-12 mb-4 col2">
+      <div style="margin-bottom: 5%;">
+        <label>
+          <b> <span class="text-danger">! Importante:</span> </b><br>
+          Selecione as colunas que deseja incluir no relatório:<br>
+          A ordem de seleção determina a ordem em que as colunas aparecerão no documento. <br>
+          Para gerar a lista, é necessário selecionar pelo menos duas opções.
+        </label>
+      </div>
+
+      <div class="m-t-10">
+        <div class="col-md-12 col-sm-12 m-b-12" data-bs-theme="dark">
+
+            <!-- Linha de tipicidade -->
+            <div class="row">
+
+               <!-- Filtro Província -->
+               <div class="form-group col-md-3">
+                <label><b>Província</b></label>
+                <ng-select2 [options]="options" [data]="provincias" [(ngModel)]="filtro.provincias"
+                  (valueChanged)="handlerProvincias($event)">
+                </ng-select2>
+              </div>
+
+              <!-- Filtro Município -->
+              <div class="form-group col-md-3">
+                <label><b>Município</b></label>
+                <ng-select2 [options]="options" [data]="municipios" [(ngModel)]="filtro.municipios"
+                  (valueChanged)="selecionarMunicipio($event)">
+                </ng-select2>
+              </div>
+
+              <!-- Filtro Distrito -->
+              <div class="form-group col-md-3">
+                <label><b>Distrito</b></label>
+                <ng-select2 [options]="options" [data]="distritos" [(ngModel)]="filtro.distritos"
+                  (valueChanged)="filtrarPagina('distritos', $event)">
+                </ng-select2>
+              </div>
+
+              <!-- Filtro Data com Hora -->
+              <div class="form-group col-md-3">
+                <label><b>Por Data</b></label>
+                <input type="datetime-local" class="form-control single" [(ngModel)]="filtro.data"
+                  (ngModelChange)="filtrarPagina('data', $event)">
+              </div>
+
+              <!-- Filtro Família de Crime -->
+              <div class="form-group col-md-3">
+                <label><b>Família de Crime <span class="text-red">*</span></b></label>
+                <ng-select2 [options]="options" [data]="familiaCrimes" [(ngModel)]="filtro.familiaCrime"
+                  (valueChanged)="filtrarPagina('familiaCrime', $event)">
+                </ng-select2>
+              </div>
+
+              <!-- Filtro Tipo de Crime -->
+              <div class="form-group col-md-3">
+                <label><b>Tipo de Crime <span class="text-red">*</span></b></label>
+                <ng-select2 [options]="options" [data]="tipoOcorrencias" [(ngModel)]="filtro.tipoOcorrencia"
+                  (valueChanged)="selecionarCategoriaCrime($event)">
+                </ng-select2>
+              </div>
+
+              <!-- Filtro Tipicidade -->
+              <div class="form-group col-md-3">
+                <label><b>Tipicidade <span class="text-red">*</span></b></label>
+                <ng-select2 [options]="options" [data]="tipoCategorias" [(ngModel)]="filtro.tipoCategoria"
+                  (valueChanged)="filtrarPagina('tipoCategoria', $event)">
+                </ng-select2>
+              </div>
+
+              <!-- Filtro Importância -->
+              <div class="form-group col-md-3">
+                <label><b>Importância</b></label>
+                <ng-select2 [options]="options" [data]="importancias" [(ngModel)]="filtro.importancia"
+                  (valueChanged)="filtrarPagina('importancia', $event)">
+                </ng-select2>
+              </div>
+
+
+              <!-- Botão para aplicar o filtro -->
+              <div class="form-group col-md-3">
+                <button (click)="aplicarFiltro_()" class="btn btn-primary">Aplicar Filtro</button>
+              </div>
+
+               <!-- Botão para gerar relatorio -->
+               <div class="form-group col-md-3">
+                <button (click)="gerarRelatorioPDFComDados()" class="btn btn-warning">Gerar Relatório</button>
+              </div>
+
+              <!-- Botão para limpar o filtro -->
+              <div class="form-group col-md-3">
+                <button (click)="limparFiltro()" class="btn btn-danger">Limpar Filtro</button>
+              </div>
+
+            </div>
+        </div>
+
+        <aside *ngIf="this.carregando; else showLoading">
+          <button id="bookreset" class="btn btn-primary submit-btn  mt-3" disabled="true">
+            <div class="d-flex justify-content-center">
+              <div class="spinner-border spinner-border-sm m-1"></div>
+              <a style="text-decoration: none;color: white;">
+                Gerando relatório ...
+              </a>
+            </div>
+          </button>
+        </aside>
+
+        <ng-template #showLoading>
+          <!--button id="bookreset" (click)="gerarRelatorioPDFComDados()" class="btn btn-piips-button btn-primary submit-btn mt-3">
+            <div class="d-flex justify-content-center">
+              <a href="javascript:void(0)" data-toggle="modal" data-target="#modalGerarRelarorio"
+                style="text-decoration: none;color: white;">
+                Gerar relatório
+              </a>
+            </div>
+          </!--button-->
+        </ng-template>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Coluna a direita -->
+  <div class="col-lg-4 col-md-4 col-sm-4">
+
+    <div class="col-lg-12 col-md-12 col-sm-12  col1">
+      <h1 style="color: #002d59;" class="page-title"><b>Gerar Relatórios</b></h1>
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12 mb-4 col2">
+      <div>
+        <label>
+          <b> <span class="text-danger">! Importante:</span> </b><br>
+          Selecione as colunas que deseja incluir no relatório:<br>
+          A ordem de seleção determina a ordem em que as colunas aparecerão no documento. <br>
+          Para gerar a lista, é necessário selecionar pelo menos duas opções.
+        </label>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- Modal do relatório here -->
+<div class="modal fade" id="modalGerarRelarorio" aria-labelledby="modalGerarRelarorio" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="overflow-y: hidden;min-width: 70%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>
+          <i class="fa fa-user"></i>
+          Relatório de Ocorrências
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="content">
+        <div class="modal-body">
+          <aside>
+            <iframe width="100%" height="700px" frameborder="0" style="min-height: 700px;"></iframe>
+          </aside>
+          <ng-template #showLoadingRelatorio>
+            <div class="container">
+              <div class="row justify-content-center">
+                Carregando relatório ...
+                <div class="col-sm-12 text-center">
+                  <div class="spinner-border text-primary" style="width: 2rem; height: 2rem;" role="status">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            <span class="fa fa-close m-r-2"> </span> Fechar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

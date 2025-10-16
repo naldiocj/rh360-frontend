@@ -1,0 +1,212 @@
+<form [formGroup]="this.produtosPlanificadosForm" (ngSubmit)="onSubmitProdutosPlanificados()" #formDir="ngForm" class="row container-fluid pr-4" style="padding-left: 50px;">
+    <div class="row" style="width: 100% !important;">
+        <ng-container *ngIf="this.flag_mostrar_estructura_organica_e_orgaos_no_template">
+            <div class="pe-0 tamanho-personalizado-para-ng-select-estructura-organica-e-orgao">
+                <div class="">
+                    <label for="">Tipo de Estructura Orgânica</label>
+                    <ng-select2 [options]="options" [data]="tipo_de_carreira" id="carreira_id"
+                        aria-describedby="nomeProdutoHelp" formControlName="carreira_id" style="border-radius: 10px; "
+                        class="mb-2" (valueChanged)="this.adicionarTipoDeCarreiraAoPlano($event)">
+                    </ng-select2>
+                </div>
+                <div id="nomeProdutoHelp" class="form-text validation-error"
+                    *ngIf="produtosPlanificadosForm.get('carreira_id')?.hasError('required') && formDir.submitted">
+                    <p>O Órgão / Comando é obrigatório</p>
+                </div>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="this.flag_mostrar_estructura_organica_e_orgaos_no_template">
+            <div class="pe-0 tamanho-personalizado-para-ng-select-estructura-organica-e-orgao">
+                <div class="">
+                    <label for="">Órgão / Comando</label>
+                    <ng-select2 [options]="options" [data]="tipo_de_carreira" id="carreira_id"
+                        aria-describedby="nomeProdutoHelp" formControlName="carreira_id" style="border-radius: 10px; "
+                        class="mb-2" (valueChanged)="this.adicionarTipoDeCarreiraAoPlano($event)">
+                    </ng-select2>
+                </div>
+                <div id="nomeProdutoHelp" class="form-text validation-error"
+                    *ngIf="produtosPlanificadosForm.get('carreira_id')?.hasError('required') && formDir.submitted">
+                    <p>O Órgão / Comando é obrigatório</p>
+                </div>
+            </div>
+        </ng-container>
+
+        <div class="pe-0" [ngClass]="{
+            'tamanho-personalizado-para-ng-select-estructura-organica-e-orgao': this.flag_mostrar_estructura_organica_e_orgaos_no_template,
+            'tamanho-personalizado-para-ng-select-carreira': !this.flag_mostrar_estructura_organica_e_orgaos_no_template
+        }">
+            <div class="">
+                <label for="">Tipo de Classe ou Carreira</label>
+                <ng-select2 [options]="options" [data]="tipo_de_carreira" id="carreira_id"
+                    aria-describedby="nomeProdutoHelp" formControlName="carreira_id" style="border-radius: 10px; "
+                    class="mb-2" (valueChanged)="this.adicionarTipoDeCarreiraAoPlano($event)">
+                </ng-select2>
+            </div>
+            <div id="nomeProdutoHelp" class="form-text validation-error"
+                *ngIf="produtosPlanificadosForm.get('carreira_id')?.hasError('required') && formDir.submitted">
+                <p>O Órgão / Comando é obrigatório</p>
+            </div>
+        </div>
+
+        <button type="btn" class="btn" style="background-color: #f3f3f3; color: #041b4e; box-shadow: 0px 5px 8px rgba(0,0,0,0.323); font-weight: 400; height: 46px; margin-top: 2rem; margin-left: 8px;" (click)="this.mostrarOuEsconderEstructuraOrganica()">
+            <span>Adicionar Órgão</span>
+        </button>
+
+    </div>
+    <div class="row d-flex p-0 m-0 align-items-center produtos">
+        <div class="pe-0 img-produto-label">
+            <label for="descricao_id" class="form-label"> </label>
+        </div>
+        <div class="pe-0 nome-produto">
+            <label for="descricao_id" class="form-label">Designação do Meio <i class="bi bi-exclamation-circle-fill icone-alerta"></i></label>
+        </div>
+        <div class="ml-2 mt-2 pr-0 quantidade">
+            <label for="quantidade" class="form-label">Quantidade <i class="bi bi-exclamation-circle-fill icone-alerta"></i></label>
+        </div>
+        <div class="pe-0 norma-pessoas">
+            <label for="descricao_id" class="form-label">Norma Pessoas <i class="bi bi-exclamation-circle-fill icone-alerta"></i></label>
+        </div>
+        <div class="pe-0 norma-pessoas">
+            <label for="descricao_id" class="form-label">Preço Unitário <i class="bi bi-exclamation-circle-fill icone-alerta"></i></label>
+        </div>
+        <div class="pe-0 norma-pessoas">
+            <label for="descricao_id" class="form-label">pr_t_nec <i class="bi bi-exclamation-circle-fill icone-alerta"></i></label>
+        </div>
+        <div class="pe-0 norma-pessoas">
+            <label for="descricao_id" class="form-label">Prazo de Uso <i class="bi bi-exclamation-circle-fill icone-alerta"></i></label>
+        </div>
+    </div>
+    <div *ngFor="let item of itens; let i = index">
+
+        <div [formGroup]="item" class="row d-flex p-0 m-0 align-items-center produtos">
+            <div class="img-produto">
+                <img *ngIf="item.get('imagemUrl')?.value" [src]="item.get('imagemUrl')?.value" alt="img"
+                    class="img-responsive" (click)="setItem(item)" data-target="#modalDetalhes" data-toggle="modal">
+                <ng-container *ngIf="!item.get('imagemUrl')?.value">
+                    <img src="../../../../../../../../assets/assets_sigv/img/img/img-capa.png" alt="img"
+                        class="img-responsive">
+                </ng-container>
+            </div>
+            <div class="pe-0 nome-produto">
+                <div class="">
+                    <ng-select2 [options]="options" [data]="designacao_de_meios" id="meio_id"
+                        aria-describedby="nomeProdutoHelp" formControlName="meio_id" style="border-radius: 10px; "
+                        class="mb-2" (valueChanged)="setarUnidades($event, i)">
+                    </ng-select2>
+                </div>
+                <div id="nomeProdutoHelp" class="form-text validation-error"
+                    *ngIf="produtosPlanificadosForm.get('meio_id')?.hasError('required') && formDir.submitted">
+                    <p>O Órgão / Comando é obrigatório</p>
+                </div>
+            </div>
+           
+            <div class="ml-2 mt-2 pr-0 quantidade">
+                <div class="segundo-quant">
+                    <input type="number" required placeholder=" " class="mb-2 pl-3" id="quantidade"
+                        aria-describedby="quantidadeHelp"
+                        formControlName="quantidade">
+                    <select formControlName="tipo_unidades">
+                        <option value="">Selecione Unidade</option>
+                        <option *ngFor="let item of [
+                              {id: 'Unids', valor: 'Unid(s)'},
+                              {id: 'Par', valor: 'Par(es)'}
+                            ]" [value]="item.id" [selected]="item.id=='Unid(s)'"> {{ item.valor }} 
+                        </option>
+                    </select>
+                </div>
+                <div id="quantidadeHelp" class="form-text validation-error"
+                    *ngIf="produtosPlanificadosForm.get('quantidade')?.hasError('required') && formDir.submitted">
+                    <p>O número do pedido é obrigatório</p>
+                </div>
+            </div>
+
+            <div class="pe-0 norma-pessoas">
+                <div class="">
+                    <ng-select2 [options]="options" [data]="designacao_de_norma_pessoas" id="norma_pessoa_id"
+                        aria-describedby="nomeProdutoHelp" formControlName="norma_pessoa_id" style="border-radius: 10px; "
+                        class="mb-2">
+                    </ng-select2>
+                </div>
+                <div id="nomeProdutoHelp" class="form-text validation-error"
+                    *ngIf="produtosPlanificadosForm.get('norma_pessoa_id')?.hasError('required') && formDir.submitted">
+                    <p>O Órgão / Comando é obrigatório</p>
+                </div>
+            </div>
+
+            <div class="ml-2 mt-2 pr-0 norma-pessoas">
+                <div class="">
+                    <input type="number" required placeholder="Ex.: 5000 " class="mb-2 pl-3 alone sombra" id="preco_unitario" aria-describedby="preco_unitarioHelp" formControlName="preco_unitario">
+                </div>
+                <div id="preco_unitarioHelp" class="form-text validation-error"
+                    *ngIf="produtosPlanificadosForm.get('preco_unitario')?.hasError('required') && formDir.submitted">
+                    <p>O número do pedido é obrigatório</p>
+                </div>
+            </div>
+
+            <div class="ml-2 mt-2 pr-0 norma-pessoas">
+                <div class="">
+                    <input type="number" required placeholder="Ex.: Unknown " class="mb-2 pl-3 alone sombra" id="pr_t_nec" aria-describedby="pr_t_necHelp" formControlName="pr_t_nec">
+                </div>
+                <div id="pr_t_necHelp" class="form-text validation-error"
+                    *ngIf="produtosPlanificadosForm.get('pr_t_nec')?.hasError('required') && formDir.submitted">
+                    <p>O número do pedido é obrigatório</p>
+                </div>
+            </div>
+
+            <div class="ml-2 mt-2 pr-0 norma-pessoas">
+                <div class="">
+                    <input type="date" required placeholder="Ex.: Unknown " class="mb-2 pl-3 alone sombra" id="prazo_uso" aria-describedby="prazo_usoHelp" formControlName="prazo_uso">
+                </div>
+                <div id="prazo_usoHelp" class="form-text validation-error"
+                    *ngIf="produtosPlanificadosForm.get('prazo_uso')?.hasError('required') && formDir.submitted">
+                    <p>O número do pedido é obrigatório</p>
+                </div>
+            </div>
+
+            <div class="ml-2" style="margin-top: 0px;">
+                <button (click)="removerItem(i)" class="btn btn-danger p-2"
+                    style="box-shadow: 0px 5px 8px rgba(0,0,0,0.323); height: 44px;">
+                    <i class="bi bi-trash-fill"></i> Remover
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- botão submit da planificacao -->
+    <div class="col-12 mb-3 p-0 d-flex justify-content-end">
+        <button type="button" class="btn mb-0 mt-3 mr-3 btn-outline-danger"
+            (click)="this.validarEliminar({plano_id: this.plano_id})" style="box-shadow: 0px 5px 8px rgba(0,0,0,0.323)"
+            [routerLink]="['/piips/sigv/planificacao/a/listar']">
+            <i class="bi bi-trash-fill"></i>
+            Descartar
+        </button>
+
+        <button type="button" class="btn mb-0 mt-3 mr-3"
+            style="background-color: #f3f3f3; color: #041b4e; box-shadow: 0px 5px 8px rgba(0,0,0,0.323); font-weight: 400;">
+            <i class="bi bi-x-circle-fill"></i>
+            Limpar Dados
+        </button>
+
+        <button type="button" class="btn mb-0 mt-3 mr-3"
+            style="background-color: #041b4e; color: white; box-shadow: 0px 5px 8px rgba(0,0,0,0.323)"
+            [disabled]="this.produtosPlanificadosForm.invalid" (click)="adicionarItem()">
+            <i class="bi bi-plus-circle"></i>
+            Adicionar Produtos
+        </button>
+
+        <button type="button" class="btn mb-0 mt-3 mr-3"
+            style="background-color: #041b4e; color: white; box-shadow: 0px 5px 8px rgba(0,0,0,0.323)"
+            [disabled]="this.produtosPlanificadosForm.invalid" (click)="adicionarOutraClasse()">
+            <i class="bi bi-plus-circle"></i>
+            Outra Classe
+        </button>
+
+        <button type="Submit" class="btn mb-0 mt-3"
+            style="background-color: #041b4e; color: white; box-shadow: 0px 5px 8px rgba(0,0,0,0.323)" (click)="finalizar()"
+            > <!-- [disabled]="this.produtosPlanificadosForm.invalid"  [routerLink]="['/piips/sigvest/planificacao/plano-de-necessidades/listar']"-->
+            <i class="bi bi-check"></i>
+            Finalizar & Salvar
+        </button>
+    </div>
+</form>

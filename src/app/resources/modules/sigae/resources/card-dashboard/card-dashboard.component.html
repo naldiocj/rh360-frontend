@@ -1,0 +1,27 @@
+    <div class="row mx-xl-3 d-flex justity-content-center w-100 h-100 mt-4 ">
+      <div class="box mx-xl-3 mt-3 p-3 bg-light" *ngFor="let dashboard of dashboard">
+        <div class="detalhes" id="" (click)="redirect(dashboard.url)" *ngIf="dashboard.canSee">
+            <div class="infor">
+                <img id="img" [src]="dashboard.icon"  [alt]="dashboard.nome" class="mb-3" style="border-radius: 20px; height: 40px;width: 40px; background-color: #041B4E;">
+
+                <div class="infor-wt">
+                    <h2><b>{{dashboard.nome}}</b></h2>
+                    <p>
+                        Dados Fornecidos pelo Sistema
+                    </p>
+                </div>
+            </div>
+            <div class="count d-flex">
+                <div class="rota">
+                    <!-- <a routerLink="" class=""><i class="cam bi-arrow-right-circle-fill"></i></a> -->
+                </div>
+                <div class="dados">
+                    <h2>{{dashboard.total}}</h2>
+                    <p>Dados dinâmicos</p>
+                </div>
+
+            </div>
+        </div>
+
+      </div>
+    </div>

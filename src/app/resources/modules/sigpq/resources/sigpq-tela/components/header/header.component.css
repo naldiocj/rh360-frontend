@@ -1,0 +1,53 @@
+.header-pipna {
+    width: 100%;
+    margin: 0 auto;
+    background-color: var(--use-color);
+    position: fixed;
+}
+.pps{
+    background-color: var(--use-gradiente);
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.navbar {
+    background-color: var(--use-color);
+    font-weight: normal !important;
+    box-shadow: 1px solid 23px 12px 12px 23px;
+}
+
+.logo_ {
+    margin-right: 5%;
+    color: white;
+}
+
+.logo_ strong {
+    font-size: 1rem !important;
+    font-weight: bolder;
+    color: white;
+}
+
+.btn-options {
+    gap: .4rem;
+
+    a {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: .2rem;
+        color: white;
+        cursor: pointer;
+
+        i {
+            font-size: 20px;
+
+
+        }
+
+        &:last-child {
+            i {
+                color: var(--red);
+            }
+        }
+    }
+}

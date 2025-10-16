@@ -1,0 +1,68 @@
+<div class="modal fade" id="modalRegistarOuEditarDiverso" aria-labelledby="modalRegistarOuEditarDiverso"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document"
+        style="overflow-y: hidden; overflow-x: hidden; min-width:70%; min-height: 80%">
+        <div class="modal-content" style="padding-top: 4em;">
+            <div class="modal-header">
+                <div class="col-lg-8 offset-lg-2">
+                    <h4 clpass="page-title"> <b>Registar Documentos Diversos</b></h4>
+                    <p>Os campos com (<span id="ob"><b>*</b></span>) são de carácter obrigatório </p>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="content " style="padding-top: 10px;">
+                <form class="col-lg-8 offset-lg-2  " [formGroup]="diversoForm" (submit)="registrar()">
+                    <div style="display: flex; justify-content: space-evenly; ">
+                        <div class="form-group col-6 col-md-6 col-lg-4 ">
+                            <label><b>Nº do Ofício </b><span class="text-danger">*</span></label>
+                            <input type="text" id="name" class="form-control" required formControlName="oficio">
+
+                        </div>
+
+                        <div class="form-group col-6 col-md-6 col-lg-4">
+                            <label><b>Proveniência </b><span class="text-danger">*</span></label>
+                            <ng-select2 [options]="options" formControlName="orgao_id" [data]="this.orgaos">
+                            </ng-select2>
+                        </div>
+
+                        <div class="form-group col-6 col-md-6 col-lg-4">
+                            <label><b>Data do Documento </b><span class="text-danger">*</span></label>
+                            <input type="date" id="data" class="form-control" required formControlName="data">
+
+                        </div>
+                    </div>
+
+                    <div class="form-group col-12 col-md-12">
+                        <label><b>Assunto</b></label>
+                        <input type="text" id="name" class="form-control" required formControlName="assunto">
+                    </div>
+
+                    <div class="form-group col-12  col-md-12">
+                        <label><b>Observação</b></label>
+                        <input type="text" id="name" class="form-control" required
+                            formControlName="observacao">
+                    </div>
+
+                    <div class="form-group my-2" style="display: flex; justify-content: space-evenly;">
+                        <div class="d-flex flex-row">
+                            <label class="upload-input " id="label">
+                                <i class="bi bi-file-pdf-fill  mx-2 " style="font-size:1.3rem"></i>
+                                Carregar peças
+                                <input id="file" type="file" (change)="onFileSelected($event)" class="form-control"
+                                    multiple />
+                            </label>
+                            <button class="btn btn-primary submit-btn mx-4" type="submit" style=" height: 2.5em;">
+                                Registar
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</div>

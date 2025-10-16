@@ -1,0 +1,848 @@
+
+  /* modal */
+  .modal-header{
+    background: #002d54;
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 5px;
+  }
+  .modal-content{
+    --bs-bg-opacity: 0;
+    overflow-y: hidden;
+    width: 100%;
+  }
+
+  input,
+  select,
+  textarea {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -5px,
+      rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+      border-radius:5px;
+      border: 1px solid #dbdbdb !important;
+  }
+  .bt-radius{
+    border-radius:5px;
+
+  }
+
+
+
+  /* avatar modal upload*/
+  .webcam{
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    border-radius: 100%;
+    border: 1px solid #d8d8d8;
+    margin: auto;
+  }
+  /* avatar modal upload*/
+  .avatar{
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    border-radius: 100%;
+    border: 1px solid #d8d8d8;
+    margin: auto;
+  }
+  .avatar img{
+    width: 100%;
+    height: auto;
+  }
+
+  .colocacao_title {
+    width: 100%;
+    background-color: var(--color-bar-collapse);
+    padding: 0.6rem;
+  }
+
+  .colocacao_title a {
+    color: var(--bg-color);
+    font-size: 1rem;
+    font-weight: 500;
+    width: 100%;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  fieldset {
+    margin: 10px;
+    padding: 0 10px 10px;
+
+    border-radius: 2px;
+    box-shadow: 0 0 2px #666;
+  }
+
+  legend {
+    padding: 2px 4px;
+    background: #fff;
+  }
+
+  fieldset>legend {
+    float: left;
+    margin-top: -20px;
+  }
+
+  fieldset>legend+* {
+    clear: both;
+  }
+
+  .input-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .input-fixed {
+    border: 0.5px solid #555252;
+    border-right: 0;
+    padding: 7.7px 0px 10px 10px;
+    background-color: #eee;
+    border-radius: 0px;
+    width: 55px;
+  }
+
+  .input-editable {
+    padding: 5px;
+    flex-grow: 1;
+  }
+
+  .card {
+    width: 100%;
+    flex-shrink: 0;
+    background-color: rgba(4, 27, 78, 0.1);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    margin-top: 40px;
+  }
+
+  label {
+    color: #000;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  .userimg {
+    padding-top: 10px;
+    display: flex;
+  }
+  .btg{
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    background: red;
+    border-radius: 50%;
+  }
+
+  .gcard{
+    height: 100%;
+    display: inline-flex;
+  }
+  .img-card {
+    background: #fff;
+    position: relative;
+    height: 70px;
+    width: 70px;
+    border: 2px solid #ccc;
+    border-radius: 50px;
+    overflow: hidden;
+  }
+
+  .img-card img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .first-title {
+    width: 100%;
+  }
+
+  .first-title h1 {
+    background: var(--bg-color);
+    box-shadow: var(--shadow);
+    color: var(--white);
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 400;
+    padding: 0.6rem;
+    text-align: center;
+  }
+
+/* Estilos para as tabelas rend */
+
+
+.table .table-thead {
+  font-size: small;
+  text-align: justify;
+  background-color: #f8fcff;
+}
+.table-tbody {
+  background-color: #ffffff;
+}
+
+.table-tbody :hover {
+  background-color: #0c1b5c;
+  color: #ffffff;
+}
+
+/* styles.css ou componente específico
+ background-color: #f5f8fa;
+  border-color: #f5f8fa;
+  color: #5e6278;
+  transition: color 0.2s ease;
+  */
+  .bg-select {
+    --bs-bg-opacity: 0;
+    border-radius: 12px !important;
+    background-color: rgba(232, 236, 236, 0.986) !important;
+    padding: 5px;
+    width: auto;
+    height: 100%;
+  }
+  .bg-btn {
+    --bs-bg-opacity: 0;
+    border-radius: 12px !important;
+    background-color: rgba(232, 236, 236, 0.986) !important;
+    padding: 7px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+  }
+
+.bg-btn::before{
+  color: rgb(59, 59, 59);
+  content: "Adicionar armas utilizadas à ocorrência.";
+  position: absolute;
+  top: -75px;
+  left: 0;
+  width: 0;
+  height: auto;
+  width: 150px;
+  background-color: #fff;
+  border: 1px solid #e4e4e460;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+    z-index: 1;
+}
+
+.bg-btn::before {
+    transform: scaleX(0);
+    transform-origin: left;
+}
+
+.bg-btn::after {
+    transform: scaleY(0);
+    transform-origin: top;
+}
+
+.bg-btn:hover::before {
+    transform: scaleX(1);
+}
+
+.bg-btn:hover::after {
+    transform: scaleY(1);
+}
+
+.bg-btn:hover {
+    transform: scale(1.05);
+}
+  .bg-img {
+    --bs-bg-opacity: 0;
+    border-radius: 12px !important;
+    background-color: rgba(232, 236, 236, 0.986) !important;
+    padding: 7px;
+    height: auto;
+    margin-top: 3px;
+    margin-bottom: 3px;
+  }
+  .bg-img::before{
+    color: rgb(58, 58, 58);
+    content: "Imagens ou Documentos que servem de evidências relacionadas à ocorrência.";
+    position: absolute;
+    top: -95px;
+    right: 0;
+    width: 0;
+    height: auto;
+    width: 150px;
+    background-color: #fff;
+    border: 1px solid #e4e4e452;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+      z-index: 1;
+  }
+
+  .bg-img::before {
+      transform: scaleX(0);
+      transform-origin: right;
+  }
+
+  .bg-img::after {
+      transform: scaleY(0);
+      transform-origin: top;
+  }
+
+  .bg-img:hover::before {
+      transform: scaleX(1);
+  }
+
+  .bg-img:hover::after {
+      transform: scaleY(1);
+  }
+
+  .bg-img:hover {
+      transform: scale(1.05);
+  }
+  .bg-tertiary {
+    --bs-bg-opacity: 0;
+    border-radius: 12px !important;
+    background-color: rgba(232, 236, 236, 0.986) !important;
+    padding: 10px;
+    height: 100%;
+  }
+.bg-light {
+  --bs-bg-opacity: 0;
+  border-top-left-radius: 0px !important;
+  border-top-right-radius: 11px !important;
+  border-bottom-left-radius: 11px !important;
+  border-bottom-right-radius: 11px !important;
+  background-color: rgba(232, 236, 236, 0.986) !important;
+  padding: 10px;
+  row-gap: 1.2rem;
+}
+.bg-lightt {
+  --bs-bg-opacity: 0;
+  background-color: rgba(232, 236, 236, 0.986) !important;
+  row-gap: 1.2rem;
+  margin-top: 0.1rem;
+}
+
+.bg-lightt {
+  --bs-bg-opacity: 0;
+  border-top-left-radius: 2px !important;
+  border-top-right-radius: 2px !important;
+  background-color: rgba(232, 236, 236, 0.986) !important;
+  padding: 2px;
+}
+.col-lgkv-3 {
+  flex: 0 0 auto;
+  width: 10%;
+}
+.col-lgkv-2 {
+  flex: 0 0 auto;
+  width: 20%;
+}
+.col-lgkv-1 {
+  flex: 0 0 auto;
+  width: 67.2%;
+}
+.hidden-banner {
+  display: none;
+}
+.nav-btn-button {
+  border:none;
+  border-top-right-radius: 10px !important;
+  border-top-left-radius: 10px !important;
+  border-bottom-right-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+  background-color: #e8ecec;
+  border: 1px solid #e8ecec !important;
+  min-height: 40px;
+  max-height: 50px;
+  margin-right: 2px;
+}
+
+
+/* seu-componente.component.scss */
+
+
+/* styles.css ou componente específico */
+.hidden-banner {
+  display: none;
+}
+
+
+.checkboxes__item {
+  max-width: 20px;
+  margin-top: 0;
+  margin-bottom: -12px;
+}
+
+
+/* STYLE C */
+.checkbox.style-c {
+  display: inline-block;
+  position: relative;
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.checkbox.style-c input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+.checkbox.style-c input:checked ~ .checkbox__checkmark {
+  background-color: #e2e2e2;
+}
+.checkbox.style-c input:checked ~ .checkbox__checkmark:after {
+  opacity: 1;
+}
+.checkbox.style-c:hover input ~ .checkbox__checkmark {
+  background-color: #eee;
+}
+.checkbox.style-c:hover input:checked ~ .checkbox__checkmark {
+  background-color: #1c92f3;
+}
+.checkbox.style-c .checkbox__checkmark {
+  position: relative;
+  top: 2px;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #eee;
+  transition: background-color 0.25s ease;
+  border-radius: 4px;
+}
+.checkbox.style-c .checkbox__checkmark:after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 4px;
+  width: 5px;
+  height: 10px;
+  border: solid #333;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.checkbox.style-c .checkbox__body {
+  color: #ffffff;
+  line-height: 1.4;
+  font-size: 16px;
+}
+
+/* Aplicando border-radius ao cabeçalho da tabela */
+
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+thead tr:first-child th:first-child {
+  border-top-left-radius: 5px; /* Raio da borda superior esquerda */
+  border-bottom-left-radius: 10px;
+}
+thead tr:first-child th:last-child {
+  border-top-right-radius: 5px; /* Raio da borda superior direita */
+  border-bottom-right-radius: 10px;
+}
+.table-thead thead{
+ margin-bottom:13rem; /* Raio da borda superior direita */
+}
+
+td {
+  padding: 7px;
+}
+tr:first-child td:first-child {
+  border-top-left-radius: 10px;
+}
+tr:first-child td:last-child {
+  border-top-right-radius: 10px;
+}
+tr:last-child td:first-child {
+  border-bottom-left-radius: 10px;
+}
+tr:last-child td:last-child {
+  border-bottom-right-radius: 10px;
+}
+
+/*--------------------------------------------------------------
+# Page Title
+--------------------------------------------------------------*/
+
+@media (min-width: 1200px) {
+
+  #main,
+  #footer {
+    margin-right: 300px;
+  }
+}
+
+@media (max-width: 1199px) {
+  .toggle-sidebar .asidebar {
+    left: 0;
+  }
+}
+
+@media (min-width: 1200px) {
+
+  .toggle-sidebar #main,
+  .toggle-sidebar #footer {
+    margin-left: 0;
+  }
+}
+
+@media (min-width: 1200px) {
+
+.toggle-sidebar #main,
+.toggle-sidebar #footer {
+  margin-left: 0;
+}
+
+.toggle-sidebar .asidebar {
+  left: -300px;
+}
+}
+
+
+
+/* No arquivo CSS global ou no estilo do componente */
+.select2-container--default .select2-selection--single {
+  /* Seus estilos personalizados aqui */
+  background-color: #f2f2f3;
+  border: 1px solid #f0f0f0 !important;
+}
+.select2-results__option--highlighted[aria-selected] {
+  background-color: #5897fb;
+  color: white;
+}
+
+.select2-results__option[aria-selected] {
+  padding-left: 20px;
+}
+/* No arquivo do componente, por exemplo, seu-componente.component.css */
+:host ::ng-deep .select2-container--default .select2-selection--single {
+  background-color: #ffffff;
+  border: 1px solid #dbdbdb !important;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -5px,
+  rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+  border-radius:6px!important;
+  /* Adicione mais estilos conforme necessário */
+}
+
+@keyframes piscar {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.alerta-piscante {
+  animation: piscar 1s steps(1, end) infinite;
+}
+
+
+
+
+.list-group {
+  width: 100%;
+  max-width: 460px;
+  margin-inline: 1.5rem;
+}
+
+.form-check-input:checked + .form-checked-content {
+  opacity: .5;
+}
+
+.form-check-input-placeholder {
+  border-style: dashed;
+}
+[contenteditable]:focus {
+  outline: 0;
+}
+
+.list-group-checkable .list-group-item {
+  cursor: pointer;
+}
+.list-group-item-check {
+  position: absolute;
+  clip: rect(0, 0, 0, 0);
+}
+.list-group-item-check:hover + .list-group-item {
+  background-color: var(--bs-secondary-bg);
+}
+.list-group-item-check:checked + .list-group-item {
+  color: #fff;
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
+}
+.list-group-item-check[disabled] + .list-group-item,
+.list-group-item-check:disabled + .list-group-item {
+  pointer-events: none;
+  filter: none;
+  opacity: .5;
+}
+
+.list-group-radio .list-group-item {
+  cursor: pointer;
+  border-radius: .5rem;
+}
+.list-group-radio .form-check-input {
+  z-index: 2;
+  margin-top: -.5em;
+}
+.list-group-radio .list-group-item:hover,
+.list-group-radio .list-group-item:focus {
+  background-color: var(--bs-secondary-bg);
+}
+
+.list-group-radio .form-check-input:checked + .list-group-item {
+  background-color: var(--bs-body);
+  border-color: var(--bs-primary);
+  box-shadow: 0 0 0 2px var(--bs-primary);
+}
+.list-group-radio .form-check-input[disabled] + .list-group-item,
+.list-group-radio .form-check-input:disabled + .list-group-item {
+  pointer-events: none;
+  filter: none;
+  opacity: .5;
+}
+
+
+
+
+body {
+  background-color:#091900;
+}
+
+   .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: red;
+      border-radius: 34px;
+      transition: .4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: '';
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      border-radius: 50%;
+      transition: .4s;
+    }
+
+    input:checked + .slider {
+      background-color: #2196F3;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+
+    .input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .hidden {
+      display: none;
+  }
+
+/* app.component.css */
+
+.select-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.custom-select {
+  width: 100%;
+  height: 200px; /* Altura do select */
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  color: #333;
+  overflow: auto; /* Para permitir rolagem se houver muitos itens */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s, box-shadow 0.3s;
+  padding-right: 30px; /* Espaço para o ícone */
+}
+
+.select-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none; /* Para que o ícone não interfira na interação com o select */
+  font-size: 20px;
+  color: #333;
+}
+
+.custom-select:hover {
+  border-color: #007bff;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.custom-select option {
+  padding: 5px;
+  background-color: #fff;
+  color: #333;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.custom-select option:hover {
+  background-color: #ddd;
+}
+
+.custom-select option:checked {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.custom-select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+.hidden {
+  display: none;
+}
+
+
+
+/* styles.css ou componente específico */
+.hidden-banner {
+  display: none;
+}
+
+
+.checkboxes__item {
+  max-width: 20px;
+  margin-top: 0;
+  margin-bottom: -12px;
+}
+
+
+/* STYLE C */
+.checkbox.style-c {
+  display: inline-block;
+  position: relative;
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.checkbox.style-c input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+.checkbox.style-c input:checked ~ .checkbox__checkmark {
+  background-color: #e2e2e2;
+}
+.checkbox.style-c input:checked ~ .checkbox__checkmark:after {
+  opacity: 1;
+}
+.checkbox.style-c:hover input ~ .checkbox__checkmark {
+  background-color: #eee;
+}
+.checkbox.style-c:hover input:checked ~ .checkbox__checkmark {
+  background-color: #1c92f3;
+}
+.checkbox.style-c .checkbox__checkmark {
+  position: relative;
+  top: 2px;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #eee;
+  transition: background-color 0.25s ease;
+  border-radius: 4px;
+}
+.checkbox.style-c .checkbox__checkmark:after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 4px;
+  width: 5px;
+  height: 10px;
+  border: solid #333;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.checkbox.style-c .checkbox__body {
+  color: #ffffff;
+  line-height: 1.4;
+  font-size: 16px;
+}
+
+/* Aplicando border-radius ao cabeçalho da tabela */
+
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  border: none;
+}
+.table .table-thead {
+  font-size: small;
+  text-align: justify;
+  background-color: #f8fcff;
+}
+.table-tbody {
+  background-color: #ffffff;
+}
+
+.table-tbody tr:hover {
+  background-color: #0c1b5c;
+  color: #ffffff;
+}
+thead tr:first-child th:first-child {
+  border-top-left-radius: 10px; /* Raio da borda superior esquerda */
+}
+thead tr:first-child th:last-child {
+  border-top-right-radius: 10px; /* Raio da borda superior direita */
+
+}
+.table-thead thead{
+ margin-bottom:13rem; /* Raio da borda superior direita */
+}
+
+td {
+  padding: 7px;
+}
+
+tr:last-child td:first-child {
+  border-bottom-left-radius: 10px;
+}
+tr:last-child td:last-child {
+  border-bottom-right-radius: 10px;
+}
+
+.modal-content {
+    overflow: hidden;
+}
+

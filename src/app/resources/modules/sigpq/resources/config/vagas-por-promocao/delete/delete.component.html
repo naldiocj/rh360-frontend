@@ -1,0 +1,21 @@
+<div class="modal fade" id="modalEliminarPlanoLicença" aria-labelledby="modalEliminarFuncaoCursoLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalEliminarFuncaoCursoLabel">Eliminar licença</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Tem certeza de que deseja eliminar estas vagas?</p>
+       <!--  <p><strong>Nome:</strong> {{ cargo?.nome }}</p> -->
+        <p>Essa acção é irreversível.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="cancelar()" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" (click)="onDelete()" id="confirmDeleteButton" data-dismiss="modal">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,394 @@
+/* src/app/resources/modules/sigdoc/layout/header/header.component.css */
+.header_ {
+  transition: all 0.5s;
+  z-index: 997;
+  height: 60px;
+  box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
+  background-color: #fff;
+  padding-left: 20px;
+  /* Toggle Sidebar Button */
+  /* Search Bar */
+}
+
+.header_ .toggle-sidebar-btn {
+  font-size: 32px;
+  padding-left: 10px;
+  cursor: pointer;
+  color: #041b4e !important;
+}
+
+@media (max-width: 1199px) {
+  .toggle-sidebar .asidebar {
+    left: 0;
+  }
+}
+
+@media (min-width: 1200px) {
+  .toggle-sidebar #main_,
+  .toggle-sidebar #footer {
+    margin-left: 0;
+  }
+
+  .toggle-sidebar .asidebar {
+    left: -300px;
+  }
+}
+
+.logo_ {
+  line-height: 1;
+}
+
+@media (min-width: 1200px) {
+  .logo_ {
+    width: 280px;
+  }
+}
+
+.logo_ img {
+  max-height: 46px;
+  margin-right: 6px;
+}
+
+.logo_ span {
+  font-size: 25px;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  color: #041b43 !important;
+  font-weight: normal;
+  letter-spacing: -2px;
+}
+
+.header-nav_ ul {
+  list-style: none;
+  margin-left: auto !important;
+}
+
+.header-nav_ > ul {
+  margin: 0;
+  padding: 0;
+}
+
+.header-nav_ .nav-icon {
+  font-size: 22px;
+  color: #041b43 !important;
+  margin-right: 25px;
+  position: relative;
+}
+
+.header-nav_ .nav-profile {
+  color: #041b43 !important;
+}
+
+.header-nav_ .nav-profile img {
+  max-height: 36px;
+}
+
+.header-nav_ .nav-profile span {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.header-nav_ .nav-profile .foto {
+  position: relative;
+}
+
+/* Estilo do ponto verde no perfil (sem animação) */
+.header-nav_ .nav-profile .foto .dot {
+  width: 13px;
+  height: 13px;
+  background: lightgreen;
+  border-radius: 50%;
+  border: 2px solid white;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+/* Estilo do ponto no sino (com número de notificações e animação) */
+.header-nav_ .nav-icon .foto .dot {
+  width: 18px;
+  height: 18px;
+  background: #dc3545; /* Vermelho para destacar */
+  color: white;
+  border-radius: 50%;
+  border: 2px solid white;
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Aplicar animação de piscar */
+  animation: blink 1s infinite;
+}
+
+/* Desativar animação quando não há notificações (opcional, já controlado pelo *ngIf) */
+.header-nav_ .nav-icon .foto .dot:not([style*="display: block"]) {
+  animation: none;
+}
+
+.header-nav_ .notifications .notification-item {
+  display: flex;
+  align-items: center;
+  padding: 15px 10px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.header-nav_ .notifications .notification-item i {
+  margin: 0 20px 0 10px;
+  font-size: 24px;
+  background: white;
+}
+
+.dropdown-menu-arrow {
+  position: absolute;
+  inset: 0px auto auto 0px;
+  margin: 0px;
+  transform: translate(-251px, 51px);
+}
+
+.dropdown-menu.show {
+  display: block;
+}
+
+.header-nav_ ul {
+  list-style: none;
+}
+
+.dropdown-menu {
+  position: absolute;
+  z-index: 1000;
+  display: none;
+  min-width: 10rem;
+  padding: 0.5rem 0;
+  margin: 0;
+  font-size: 1rem;
+  color: #212529;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  background-clip: padding-box;
+  border-radius: 0.25rem;
+}
+
+.dropdown-menu {
+  border-radius: 4px;
+  padding: 10px 0;
+  animation-name: dropdown-animate;
+  animation-duration: 0.2s;
+  animation-fill-mode: both;
+  border: 0;
+  box-shadow: 0 5px 30px 0 rgba(82, 63, 105, 0.2);
+}
+
+.header-nav_ .notifications .notification-item h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.header-nav_ .notifications .notification-item p {
+  font-size: 13px;
+  margin-bottom: 3px;
+  color: #919191 !important;
+}
+
+.header-nav_ .notifications .notification-item:hover {
+  background-color: #f6f9ff !important;
+}
+
+.header-nav_ .messages {
+  inset: 8px -15px auto auto !important;
+}
+
+.header-nav_ .messages .message-item {
+  padding: 15px 10px;
+  transition: 0.3s;
+}
+
+.header-nav_ .messages .message-item a {
+  display: flex;
+}
+
+.header-nav_ .messages .message-item img {
+  margin: 0 20px 0 10px;
+  max-height: 40px;
+}
+
+.header-nav_ .messages .message-item h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #444444;
+}
+
+.header-nav_ .messages .message-item p {
+  font-size: 13px;
+  margin-bottom: 3px;
+  color: #919191;
+}
+
+.header-nav_ .messages .message-item:hover {
+  background-color: #f6f9ff;
+}
+
+.header-nav_ .profile {
+  min-width: 240px;
+  padding-bottom: 0;
+  top: 8px !important;
+}
+
+.header-nav_ .profile .dropdown-header h6 {
+  font-size: 18px;
+  margin-bottom: 0;
+  font-weight: 600;
+  color: #444444;
+}
+
+.header-nav_ .profile .dropdown-header span {
+  font-size: 14px;
+}
+
+.header-nav_ .profile .dropdown-item {
+  font-size: 14px;
+  padding: 10px 15px;
+  transition: 0.3s;
+}
+
+.header-nav_ .profile .dropdown-item i {
+  margin-right: 10px;
+  font-size: 18px;
+  line-height: 0;
+}
+
+.header-nav_ .profile .dropdown-item:hover {
+  background-color: #f6f9ff;
+}
+
+@media (min-width: 768px) {
+  .dropdown-menu-arrow::before {
+    content: "";
+    width: 13px;
+    height: 13px;
+    background: #f6f9ff !important;
+    position: absolute;
+    top: -7px;
+    right: 20px;
+    transform: rotate(45deg);
+    border-top: 1px solid #eaedf1;
+    border-left: 1px solid #eaedf1;
+  }
+}
+
+.dropdown-menu .dropdown-divider {
+  color: #a5c5fe;
+  margin: 0;
+}
+
+hr:not([size]) {
+  height: 1px;
+}
+
+.dropdown-divider {
+  height: 0;
+  margin: 0.5rem 0;
+  overflow: hidden;
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+hr {
+  margin: 1rem 0;
+  color: inherit;
+  background-color: currentColor;
+  border: 0;
+  opacity: 0.25;
+}
+
+*, ::after, ::before {
+  box-sizing: border-box;
+}
+
+@-webkit-keyframes dropdown-animate {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+  0% {
+    opacity: 0;
+  }
+}
+
+@keyframes dropdown-animate {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+  0% {
+    opacity: 0;
+  }
+}
+
+/* Animação de piscar */
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* src/app/resources/modules/sigdoc/layout/header/header.component.css */
+/* ... (código anterior até .header-nav_ .nav-profile .foto .dot) ... */
+
+/* Estilo do ponto no sino (com número de notificações e animação) */
+.header-nav_ .nav-icon .foto .dot {
+  width: 18px;
+  height: 18px;
+  background: #dc3545; /* Vermelho para destacar */
+  color: white;
+  border-radius: 50%;
+  border: 2px solid white;
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Animação base */
+  animation: blink 1s infinite;
+}
+
+/* Reiniciar animação com a classe blink-start */
+.header-nav_ .nav-icon .foto .dot.blink-start {
+  animation: blink 1s infinite; /* Reinicia ao aplicar/remover a classe */
+}
+
+/* Animação de piscar aprimorada */
+@keyframes blink {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.2;
+    transform: scale(1.1); /* Pequeno aumento de tamanho para destacar */
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ... (código restante) ... */

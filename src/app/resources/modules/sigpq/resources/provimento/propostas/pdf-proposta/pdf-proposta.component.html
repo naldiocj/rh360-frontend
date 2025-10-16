@@ -1,0 +1,190 @@
+<div
+  class="modal-body d-flex flex-row align-items-start"
+  style="column-gap: 0.8rem"
+  id="invoice"
+  #invoice
+>
+  <ng-container *ngIf="!this.isLoading; else carregando">
+    <div class="wrapper-pdf" id="wrapper-pdf">
+      <div class="card">
+        <div class="card-header">
+          <div class="header-pdf">
+            <div class="insigina">
+              <img src="assets/img/insignia.png" alt="Insignia de Angola" />
+            </div>
+            <div class="header-angola">
+              <span class="text-header"> REPÚBLICA DE ANGOLA </span>
+              <span class="text-header"> ---«»--- </span>
+              <span class="text-header"> MINISTÉRIO DO INTERIOR </span>
+              <span class="text-header"> {{tituloPrincipal | uppercase }} </span>
+              <span class="text-header">
+                <u
+                  ><b
+                    >{{ this.listarPDF?.orgao?.nome_completo | uppercase }}
+                  </b></u
+                >
+              </span>
+            </div>
+          </div>
+        </div>
+        <ng-container *ngIf="this.getSomenteUm; else temMais">
+          <div class="card-body">
+            <div class="text-body my-2">
+              PROPOSTA DE PROGRESSÃO NA CARREIRA Nº
+              <u>{{ this.listarPDF?.numero }}</u>
+            </div>
+            <div class="text-body my-2" style="text-align: start">
+              À SUA EXCELÊNCIA, COMISSÁRIO GIL FAMOSO SEBASTIÃO DA SILVA DIRETOR
+              NACIONAL DA DIRECÇÃO DE PESSOAL E QUADRO
+            </div>
+            <div class="text-body my-2" style="text-align: start">
+              <strong>Assunto: </strong> Proposta de Tratamento do Pessoal da
+              Relação Nominal
+            </div>
+            <div class="text-body my-2" style="text-align: start">
+              <strong>Excelentíssimo Comissário,</strong>
+            </div>
+            <div class="text-body my-2">
+              É comgrande respeito que me dirijo a Vossa Excelência para
+              apresentar a proposta de progressão na carreira dos agentes
+              listados na relação nominal anexa.
+            </div>
+            <div class="text-body my-2">
+              <b>Contexto </b>: A valorização do nosso pessoal é essencial para
+              o fortalecimento da Polícia Nacional de Angola. A progressão na
+              carreira não apenas reconhece o esforço e dedicação dos agentes,
+              mas também promove um ambiente de trabalho mais motivador.
+            </div>
+            <div class="text-body my-2">
+              <b>Proposta</b>: Solicito que a Direção de Pessoal e Quadros
+              considere a progressão para
+              <b> {{ this.listarPDF?.patente_promover?.nome }} </b> do seguinte
+              agente:
+            </div>
+            <ul
+              style="
+                list-style: circle !important;
+                color: black;
+                margin-top: 0.4rem;
+              "
+            >
+              <li
+                *ngFor="let item of this.funcionarios"
+                class="d-flex flex-row row-gap-3 my-3"
+                style="color: black"
+              >
+                <span
+                  >{{ item?.patente_actual?.nome }} - {{ item?.nome_completo }}
+                  {{ item.apelido | uppercase }}, {{ item?.quadro ?? "" }}
+                  {{ item?.nip ?? "" }}</span
+                >
+              </li>
+            </ul>
+          </div>
+        </ng-container>
+        <ng-template #temMais>
+          <div class="card-body">
+            <div class="text-body my-2">
+              PROPOSTA DE PROGRESSÃO NA CARREIRA Nº
+              <u>{{ this.listarPDF?.numero }}</u>
+            </div>
+            <div class="text-body my-2" style="text-align: start">
+              À SUA EXCELÊNCIA, COMISSÁRIO GIL FAMOSO SEBASTIÃO DA SILVA DIRETOR
+              NACIONAL DA DIRECÇÃO DE PESSOAL E QUADRO
+            </div>
+            <div class="text-body my-2" style="text-align: start">
+              <strong>Assunto: </strong> Proposta de Tratamento do Pessoal da
+              Relação Nominal
+            </div>
+            <div class="text-body my-2" style="text-align: start">
+              <strong>Excelentíssimo Comissário,</strong>
+            </div>
+            <div class="text-body my-2">
+              É comgrande respeito que me dirijo a Vossa Excelência para
+              apresentar a proposta de progressão na carreira dos agentes
+              listados na relação nominal anexa.
+            </div>
+            <div class="text-body my-2">
+              <b>Contexto </b>: A valorização do nosso pessoal é essencial para
+              o fortalecimento da Polícia Nacional de Angola. A progressão na
+              carreira não apenas reconhece o esforço e dedicação dos agentes,
+              mas também promove um ambiente de trabalho mais motivador.
+            </div>
+            <div class="text-body my-2">
+              <b>Proposta</b>: Solicito que a Direção de Pessoal e Quadros
+              considere a progressão para
+              <b> {{ this.listarPDF?.patente_promover?.nome }} </b> dos
+              seguintes agentes:
+            </div>
+            <ul
+              style="
+                list-style: circle !important;
+                color: black;
+                margin-top: 0.4rem;
+              "
+            >
+              <li
+                *ngFor="let item of this.funcionarios"
+                class="d-flex flex-row row-gap-3 my-3"
+                style="color: black"
+              >
+                <span
+                  >{{ item?.patente_actual?.nome }} -
+                  {{ item.nome_completo | uppercase }}
+                  {{ item.apelido | uppercase }}, {{ item?.quadro ?? "" }}
+                  {{ item?.nip ?? "" }}</span
+                >
+              </li>
+            </ul>
+          </div>
+        </ng-template>
+        <div class="card-body ordenante" *ngIf="this.listarPDF?.chefia">
+          <div class="text-body" style="font-weight: 500">
+            O {{ this.listarPDF?.chefia?.chefia | uppercase }}
+          </div>
+          <div class="text-body" style="font-weight: bolder">
+            <h5>
+              O {{ this.listarPDF?.chefia?.nome_completo }}
+              {{ this.listarPDF?.chefia?.apelido ?? "" }}
+            </h5>
+          </div>
+          <div class="text-body" style="font-family: 300">
+            <h5>**{{ this.listarPDF?.chefia?.patente_nome | uppercase }}**</h5>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="font-diferente origin">
+            <p class="only-p" *ngIf="this.listarPDF?.agente_responsavel">
+              Elab: {{ this.listarPDF?.agente_responsavel?.nome_completo }}
+            </p>
+            <div class="another-text">
+              <p>{{ this.listarPDF?.orgao?.endereco }}</p>
+              <!-- <p>Marginal de Luanda</p>
+                            <p>1.º andar, edifício sede da PNA</p> -->
+              <p>Telef: +(244) {{ this.listarPDF?.orgao?.contacto }}</p>
+              <p>E-mail: {{ this.listarPDF?.orgao?.email_pessoal }}</p>
+              <p>Facebook: Policia Nacional de Angola</p>
+            </div>
+          </div>
+          <div class="simbolos font-diferente">
+            <div class="rpa">
+              <img
+                src="assets/img/rpa_.png"
+                alt="Foto-footer-Republica-Angola"
+              />
+            </div>
+            <div class="pna">
+              <span class="pna-site">
+                <a href="https://pna.gov.ao/">pna.gov.ao</a>
+              </span>
+              <span class="pna-name"> {{tituloPrincipal}} </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #carregando>
+    <loading-page [texto]="'Carregado documento...'"></loading-page>
+  </ng-template>
+</div>

@@ -1,0 +1,422 @@
+/* === Asidebars === */
+#asidebars {
+  position: fixed;
+  right: -580px;
+  width: 530px;
+  opacity: 1;
+  transition: right 0.4s cubic-bezier(1, -0.43, 0.21, 1.57), width 0.4s ease;
+  z-index: 1000;
+}
+
+#asidebars.visible {
+  right: 0;
+  width: 530px;
+}
+
+#asidebars.expanded {
+  width: 900px;
+  right: 0;
+  transform: translateX(0);
+}
+
+#asidebars.expanded.visible {
+  left: 50%;
+  right: auto;
+  width: 900px;
+  transform: translateX(-50%);
+  transition: transform 0.3s ease, width 0.3s ease;
+  height: 100vh;
+  backdrop-filter: blur(2px);
+  background-color: rgba(6, 2, 42, 0.737);
+}
+
+#asidebars.visible::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: -60%;
+  width: 190vw;
+  height: 100vh;
+  backdrop-filter: blur(2px);
+  background-color: rgba(6, 2, 42, 0.737);
+  z-index: -1;
+}
+
+/* === Navigation (collapsed e padrão) === */
+/* === Navigation geral (padrão e collapsed) === */
+.navigations,
+section#asidebars.collapsed .navigations {
+  display: flex;
+  align-items: stretch;
+  padding: 1rem; 
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+/* === Menu UL === */
+.navigation-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex; 
+  gap: 0.5rem;
+}
+
+/* === Itens do menu === */
+.navigation-menu .nav-item {
+  width: 100%;
+}
+
+.navigation-menu .nav-link {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-weight: 500;
+  border-radius: 0.375rem;
+  color: #212529;
+  transition: background-color 0.2s ease;
+}
+
+.navigation-menu .nav-link:hover {
+  background-color: #e2e6ea;
+}
+
+.navigation-menu .nav-item.active .nav-link {
+  background-color: #0d6efd;
+  color: #fff;
+}
+
+/* === Responsivo === */
+@media (max-width: 768px) {
+  .navigations {
+    padding: 0.5rem;
+  }
+
+  .navigation-menu .nav-link {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+  }
+}
+
+
+.section {
+  --col-orange: #110361;
+  --col-dark: #fafafa;
+  --col-darkGray: #52555a;
+  --col-gray: #aeaeae;
+
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: var(--col-dark);
+  border-radius: 30px;
+}
+.label {
+  padding: 8px 18px;
+  transition: all 200ms;
+  display: inline-block;
+}
+
+.label input[type="radio"] {
+  display: none;
+}
+.label > svg {
+  transition: all 200ms;
+  fill: var(--col-gray);
+  width: 14px;
+}
+.label:hover:not(:has(input:checked)) > svg {
+  fill: #080038;
+  opacity: 0.6;
+}
+.label::before {
+  content: "";
+  display: block;
+  width: 0%;
+  height: 2px;
+  border-radius: 5px;
+  position: relative;
+  left: 50%;
+  top: 20px;
+  background: var(--col-orange);
+  transition: all 200ms;
+}
+.label > svg {
+  transition: 300ms;
+  fill: var(--col-darkGray);
+  margin-top: 0;
+}
+.label:has(input:checked) > svg {
+  fill: var(--col-orange);
+  scale: 1.2;
+  margin-top: -5px;
+}
+
+.label:has(input:checked)::before {
+  width: 100%;
+  left: 0;
+  top: 25px;
+}
+
+
+/* === Offcanvas Base === */
+.offcanvas {
+    position: absolute;
+  z-index: 999;
+}
+
+.offcanvas-end {
+  width: 350px;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.offcanvas-header {
+  padding: 0.5rem 0.7rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.offcanvas-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1d1d1d;
+}
+
+.btn-close {
+  padding: 0.2rem;
+  background: transparent;
+  border: none;
+  opacity: 0.5;
+  transition: opacity 0.15s ease;
+}
+
+.btn-close:hover {
+  opacity: 1;
+}
+
+/* === Offcanvas Body === */
+.offcanvas-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  height: calc(100% - 56px);
+}
+
+.offcanvas-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* === Overlay === */
+.offcanvas-backdrop,
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+/* === Transições === */
+.offcanvas.showing {
+  transform: translateX(0);
+  transition: transform 0.3s ease-in-out;
+}
+
+.offcanvas.hiding:not(.show) {
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+/* === Responsivo === */
+@media (max-width: 768px) {
+  .offcanvas-end {
+    width: 300px;
+  }
+}
+
+@media (max-width: 576px) {
+  .offcanvas-end {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .offcanvas-header {
+    padding: 0.75rem 1rem;
+  }
+
+  .offcanvas-body {
+    padding: 1rem;
+  }
+}
+
+/* === Menu === */
+.offcanvas-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.offcanvas-menu li {
+  margin-bottom: 0.5rem;
+}
+
+.offcanvas-menu a {
+  display: block;
+  padding: 0.5rem 0;
+  color: #212529;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.offcanvas-menu a:hover {
+  color: #0d6efd;
+}
+
+/* === Seções e Formulários === */
+.offcanvas-section {
+  margin-bottom: 1.5rem;
+}
+
+.offcanvas-section-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #495057;
+  border-bottom: 1px solid #e9ecef;
+  padding-bottom: 0.5rem;
+}
+
+.offcanvas-form .form-group {
+  margin-bottom: 1rem;
+}
+
+.offcanvas-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.offcanvas-form input,
+.offcanvas-form select,
+.offcanvas-form textarea {
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
+
+/* === Botões === */
+.offcanvas-btn {
+  display: inline-block;
+  padding: 0.375rem 0.75rem;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  color: #212529;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.offcanvas-btn:hover {
+  background-color: #e9ecef;
+}
+
+.offcanvas-btn-primary {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+  color: white;
+}
+
+.offcanvas-btn-primary:hover {
+  background-color: #0b5ed7;
+  border-color: #0a58ca;
+}
+
+/* === Offcanvas Container === */
+.offcanvas-container {
+  top: 0;
+  right: 0;
+  width: 530px;
+  height: 100%;
+  z-index: 1000;
+  padding: 0;
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+
+.offcanvas-container.show {
+  transform: translateX(0);
+}
+
+/* === Botão Hamburguer === */
+.hamburger {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1001;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 30px;
+  width: 30px;
+}
+
+.hamburger span {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background: #333;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Transforma o hambúrguer em X */
+#asidebars.visible + .hamburger span:nth-child(1) {
+  transform: rotate(45deg);
+}
+
+#asidebars.visible + .hamburger span:nth-child(2) {
+  opacity: 0;
+}
+
+#asidebars.visible + .hamburger span:nth-child(3) {
+  transform: rotate(-45deg);
+}
+
+/* === Corpo da Página === */
+.corpo {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  padding: 4px;
+  border-radius: 19px;
+  color: var(--bs-accordion-color);
+  background: linear-gradient(to bottom, #e9e9e9, #e9e9e9);
+  box-shadow: inset 0 -5px 15px -5px transparent;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  align-content: flex-start;
+  flex-direction: column;
+}
+
+/* === Conteúdo Principal (movido pelo sidebar) === */
+.page__frame {
+  width: 100%;
+  transition: margin-right 0.3s ease;
+}
+
+.offcanvas-container.show + .page__frame {
+  margin-right: 250px;
+}

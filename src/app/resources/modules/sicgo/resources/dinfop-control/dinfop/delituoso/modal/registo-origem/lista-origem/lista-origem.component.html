@@ -1,0 +1,142 @@
+ 
+<details class="custom-details" *ngFor="let items of entidadeIdentificadora">
+    <summary class="d-block">
+      <div class="d-flex">
+        <div *ngIf="entidadeIdentificadora.length > 0; else noVeiculos" class="mr-2">
+            <i class="bi bi-plus-lg"></i> 
+          </div>
+          <ng-template #noVeiculos>
+            <div class="mr-2">
+              <i class="bi bi-x-lg"></i> <!-- Ícone ou conteúdo alternativo -->
+            </div>
+          </ng-template>
+          
+          <div class="row col-sm-12 offset-sm-12 col-md-12 ">
+            <div class="col-11">
+                <a>Entidade: {{ items.entidade_ordem }}</a>
+             </div>
+             <div class="col-1 p-1">
+                <div class="dropdown dropdown-action">
+                    <a
+                        href="#"
+                        class="action-icon dropdown-toggle"
+                        data-toggle="dropdown"
+                        aria-expanded="false"
+                    >
+                        <i class="bi bi-three-dots-vertical"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right bg-main">
+                        <a
+                            class="dropdown-item"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalRegistarOuEditarDelituosoOrigem"
+                            (click)="Editar(items)"
+                        >
+                            <i class="fas fa-edit m-r-5"></i>
+                            <b>Editar</b>
+                        </a>
+                        <a
+                                data-toggle="modal"
+                                class="dropdown-item"
+                                data-target="#modalRegistarOuEditarDelituosoCondenado"
+                                (click)="setAr(items)"
+                            >
+                                <i class="bi bi-person-lock"></i>
+                                Situação do Condendado
+                            </a>
+                            <a
+                            data-toggle="modal"
+                            class="dropdown-item"
+                            data-target="#modalRegistarOuEditarDelituosoResultado"
+                            (click)="setAr(items)"
+                        >
+                            <i class="bi bi-graph-up"></i>
+                            Decisao
+                        </a>
+                    </div>
+                </div>
+             </div>
+         </div>
+      </div>
+       
+     <div class="row col-sm-12 offset-sm-12 col-md-12 ">
+        <div class="col-11">
+            <span>Processo Crime nº: {{ items.numero_processo }}</span>
+            <p>Destino: {{ items.destino_detido }}</p>
+         </div>
+         
+     </div>
+    </summary>
+    <div class="bg-lightt">
+         
+        <details class="details" *ngFor="let items of items.resultado_processo">
+            <summary class="d-flex">
+              <div *ngIf="items.length > 0; else noResultado" class="mr-2">
+                <i class="bi bi-plus-lg"></i>
+              </div>
+              <ng-template #noResultado>
+                <div class="mr-2">
+                  <i class="bi bi-x-lg"></i> <!-- Ícone ou conteúdo alternativo -->
+                </div>
+              </ng-template>
+              Resultado do Processo: {{ items.resultado_processo }}
+            </summary>
+            <div class="bg-lightt">
+              <ng-container *ngIf="entidadeIdentificadora.length > 0; else elseTemplate">
+                <div class="row mt-1">
+                  <div class="col-sm-12 offset-sm-12 col-md-12 offset-md-0">
+                    <div class="col"> 
+                      <span>Resultado: {{ items.resultado_processo }}</span>
+                      <p> 
+                        Numero Processo: {{ items.numero_processo  }} 
+                      </p>
+                      
+                     
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-template #elseTemplate>
+                <span>
+                  Nenhum Entidade Identificadora registada
+                </span>
+              </ng-template>
+            </div>
+          </details>
+          <details class="details" *ngFor="let items of items.situacao_condenado">
+            <summary class="d-flex">
+              <div *ngIf="items.length > 0; else noResultado" class="mr-2">
+                <i class="bi bi-plus-lg"></i>
+              </div>
+              <ng-template #noResultado>
+                <div class="mr-2">
+                  <i class="bi bi-x-lg"></i> <!-- Ícone ou conteúdo alternativo -->
+                </div>
+              </ng-template>
+              Situacao Do Condenado: {{ items.situacao }}
+            </summary>
+            <div class="bg-lightt">
+              <ng-container *ngIf="entidadeIdentificadora.length > 0; else elseTemplate">
+                <div class="row mt-1">
+                  <div class="col-sm-12 offset-sm-12 col-md-12 offset-md-0">
+                    <div class="col"> 
+                      <span>Estabelecimento Prisional: {{ items.estabelecimento_prisional }}</span>
+                      <span> 
+                        Numero Processo: {{ items.numero_processo  }} 
+                      </span>
+                      
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-template #elseTemplate>
+                <span>
+                  Nenhuma Situacao Do Condenado registada
+                </span>
+              </ng-template>
+            </div>
+          </details>
+    </div>
+    
+  </details>
+ 

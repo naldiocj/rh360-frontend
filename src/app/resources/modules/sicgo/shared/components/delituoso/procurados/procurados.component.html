@@ -1,0 +1,267 @@
+<!-- Carrossel de Procurados (30% da largura) -->
+<div
+    class="suspects-slider"
+    *ngIf="groupedDelituosos.length > 0"
+>
+    <!-- Cabeçalho -->
+    <header class="slider-header">
+        <h1 class="title-with-icon">
+            <svg
+                class="alert-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+            >
+                <path
+                    fill="#e74c3c"
+                    d="M3.378 5.082C3 5.62 3 7.22 3 10.417v1.574c0 5.638 4.239 8.375 6.899 9.536c.721.315 1.082.473 2.101.473c1.02 0 1.38-.158 2.101-.473C16.761 20.365 21 17.63 21 11.991v-1.574c0-3.198 0-4.797-.378-5.335c-.377-.537-1.88-1.052-4.887-2.081l-.573-.196C13.595 2.268 12.812 2 12 2s-1.595.268-3.162.805L8.265 3c-3.007 1.03-4.51 1.545-4.887 2.082M13.5 15a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1.401A2.999 2.999 0 0 1 12 8a3 3 0 0 1 1.5 5.599z"
+                ></path>
+            </svg>
+            <span>Profogos Procurados</span>
+        </h1>
+        <div class="slider-controls">
+            <button
+                class="slider-prev button-2"
+                (click)="prevSlide()"
+                aria-label="Anterior"
+            >
+                <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#2c3e50"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-width="2"
+                        d="M15 18l-6-6 6-6"
+                    ></path>
+                </svg>
+            </button>
+            <span class="slider-counter">
+                {{ currentSlideIndex + 1 }} / {{ groupedDelituosos.length }}
+            </span>
+            <button
+                class="slider-next button-2"
+                (click)="nextSlide()"
+                aria-label="Próximo"
+            >
+                <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#2c3e50"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-width="2"
+                        d="M9 18l6-6-6-6"
+                    ></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+
+
+
+
+
+    <!-- Carrossel -->
+    <div class="slider-wrapper">
+        <div
+            class="slider-track"
+            [@slideAnimation]="currentSlideIndex"
+        >
+            <div
+                class="suspect-slide"
+                *ngFor="let groups of groupedDelituosos; let i = index"
+            >
+                <!-- From Uiverse.io by JohnnyCSilva -->
+                <div
+                    class="cards"
+                    *ngFor="let group of groups"
+                >
+                    <div class="img">
+                        <img
+                            [src]="group.delituoso.fileUrlFrontal || fotodfault"
+                            alt="Foto de {{group.delituoso.nome}}"
+                            class="suspect-photo"
+                            (click)="openPhotoViewer(group.delituoso.fileUrlFrontal || fotodfault, group.delituoso.id)"
+                            (error)="handleImageError($event)"
+                        >
+                    </div>
+                    <div class="textBox">
+                        <div class="textContent">
+                            <p class="h1">{{group.delituoso.nome}}</p>
+                            <span class="span">
+                                <button
+                                    class="action-btn remove-btn button-2"
+                                    (click)="removeDelituoso(group.delituoso.id); $event.stopPropagation()"
+                                >
+                                    <!-- Ícone mantido -->
+                                    x
+                                </button>
+                            </span>
+                        </div>
+                        <p class="p">
+                            <span>
+                                {{group.delituoso.genero}} - {{calculateAge(group.delituoso.dataNascimento)}} anos
+                            </span>
+                        </p>
+                        <div></div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Indicadores -->
+    <div
+        class="slider-indicators"
+        *ngIf="groupedDelituosos.length > 1"
+    >
+        <button
+            *ngFor="let group of groupedDelituosos; let i = index"
+            [class.active]="i === currentSlideIndex"
+            (click)="goToSlide(i)"
+            [attr.aria-label]="'Ir para slide ' + (i + 1)"
+        >
+        </button>
+
+
+
+
+        <button
+            *ngIf="pagination.page < pagination.totalPages"
+            (click)="buscarDelituoso()"
+            class="load-more"
+        >
+            Carregar mais
+        </button> 
+
+
+    </div>
+
+
+
+    <!-- Mensagem quando não há dados -->
+    <div
+        class="no-data-message"
+        *ngIf="!isLoading && (!groupedDelituosos || groupedDelituosos.length === 0)"
+    >
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="48"
+            height="48"
+            viewBox="0 0 24 24"
+        >
+            <rect
+                width="24"
+                height="24"
+                fill="none"
+            ></rect>
+            <path
+                fill="#b1b1b1"
+                d="M3 10.417c0-3.198 0-4.797.378-5.335c.377-.537 1.88-1.052 4.887-2.081l.573-.196C10.405 2.268 11.188 2 12 2s1.595.268 3.162.805l.573.196c3.007 1.029 4.51 1.544 4.887 2.081C21 5.62 21 7.22 21 10.417v1.574c0 5.638-4.239 8.375-6.899 9.536C13.38 21.842 13.02 22 12 22s-1.38-.158-2.101-.473C7.239 20.365 3 17.63 3 11.991z"
+                opacity="0.4"
+                stroke-width="0.1"
+                stroke="#f7f7f7"
+            ></path>
+            <path
+                fill="#b1b1b1"
+                d="M14 9a2 2 0 1 1-4 0a2 2 0 0 1 4 0m-2 8c4 0 4-.895 4-2s-1.79-2-4-2s-4 .895-4 2s0 2 4 2"
+                stroke-width="0.1"
+                stroke="#f7f7f7"
+            ></path>
+        </svg>
+        <p>Nenhum procurado registrado</p>
+        <small>
+            Utilize o mapa para adicionar novos registros
+        </small>
+    </div>
+ 
+    <!-- Loading state -->
+    <div
+        class="loading-state"
+        *ngIf="isLoading"
+    >
+        <div class="spinner"></div>
+        <p>Carregando procurados...</p>
+    </div> 
+
+
+    <!-- Photo Viewer Modal -->
+    <div
+        class="photo-viewer-modal"
+        *ngIf="isPhotoViewerOpen"
+        (click)="closePhotoViewer($event)"
+    >
+        <div class="modal-content">
+            <button
+                class="close-btn button-2"
+                (click)="closePhotoViewer($event)"
+                aria-label="Fechar visualizador"
+            >
+                &times;
+            </button>
+
+
+
+
+
+            <div class="photo-container">
+                <img
+                    [src]="selectedPhotoUrl"
+                    alt="Foto do procurado"
+                    class="main-photo"
+                >
+            </div>
+
+
+
+
+
+            <div
+                class="photo-thumbnails"
+                *ngIf="hasMultiplePhotos()"
+            >
+                <div
+                    class="thumbnail"
+                    *ngFor="let thumb of getAvailablePhotos()"
+                    [class.active]="thumb.url === selectedPhotoUrl"
+                    (click)="selectPhoto(thumb.url, $event)"
+                >
+                    <img
+                        [src]="thumb.url"
+                        [alt]="thumb.type"
+                    >
+                </div>
+            </div>
+
+
+
+
+
+            <div class="photo-info">
+                <h4>
+                    {{ getCurrentDelituoso()?.nome || 'Procurado' }}
+                </h4>
+                <p>ID: {{ selectedPhotoId }}</p>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+</div>

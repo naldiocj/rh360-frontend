@@ -1,0 +1,62 @@
+ 
+ 
+<div class="the-page"  class="main_" id="main_">
+    <div class="page__frame">
+      <div class="page-tab-header fix-top">
+        
+        
+      
+
+        <nav class="navigation" id="navigationMenu">
+          <ul class="navigation-menu" #navigationMenu>
+            <span class="hori-selector"></span>
+            
+            <li class="nav-item active hori-selector">
+              <a class="nav-tab t--tab nav-link" routerLinkActive="active" aria-current="page"  [routerLink]="['/piips/sicgo/config/acl/utilizador/listar']" title="Alpha">Utilizador</a>
+            </li>
+            <li class="nav-item hori-selector">
+              <a class="nav-tab t--tab nav-link" routerLinkActive="active" aria-current="page"  [routerLink]="['/piips/sicgo/config/acl/permissao/listar']" title="Beta">Permissões</a>
+            </li> 
+            <li class="nav-item hori-selector"><a class="nav-tab t--tab nav-link" routerLinkActive="active" aria-current="page"  [routerLink]="['/piips/sicgo/config/acl/funcao/listar']" title="Delta">Funções</a></li>
+              </ul>
+        </nav>
+      </div>
+    </div>
+
+
+  <section class="page__frame">
+      <div class="tab__content">
+        <main class="tab__main">
+        
+          <router-outlet></router-outlet>
+      </main>
+      </div>
+  </section>
+</div>
+    <!-- https://css-tricks.com/gooey-effect/ -->
+      <svg
+          xmlns="http://www.w3.org/2000/svg"
+          version="1.1"
+      >
+          <defs>
+              <filter id="goo">
+                  <feGaussianBlur
+                      in="SourceGraphic"
+                      stdDeviation="10"
+                      result="blur"
+                  ></feGaussianBlur>
+                  <feColorMatrix
+                      in="blur"
+                      mode="matrix"
+                      values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
+                      result="goo"
+                  ></feColorMatrix>
+                  <feBlend
+                      in="SourceGraphic"
+                      in2="goo"
+                  ></feBlend>
+              </filter>
+          </defs>
+      </svg>
+      <!-- In your component.html -->
+

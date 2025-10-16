@@ -1,0 +1,172 @@
+<div
+  class="modal fade"
+  id="modalRegistarOuEditarLancamentoDeNotasFormandos"
+  aria-labelledby="modalRegistarOuEditarLancamentoDeNotasFormandos"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog"
+    role="document"
+    style="overflow-y: hidden; min-width: 70%"
+  >
+    <div class="modal-content">
+      <div style="background: #041b48;" class="modal-header">
+        <h5
+          style="
+            color: #fff;
+            font-size: 20px;
+            font-style: normal;
+            line-height: normal;
+            font-weight: bold;
+            font-family: Poppins;
+          "
+        >
+          <img src="../../../../../../../assets/sigef/sidebar/User.png" alt="" />
+          Registar Utilizador
+        </h5>
+
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="content">
+        <div class="main-img"></div>
+        <form >
+          <div class="modal-body">
+            <div class="row">
+              <div class="form-group col-4">
+                <label class="placeholder">Nome Completo*</label>
+                <input
+                  formControlName="NomeCompleto"
+                  type="text"
+                  class="form-control"
+                />
+              </div>
+
+              <div class="form-group col-4">
+                <label class="placeholder">Nome de Utilizador*</label>
+                <input
+                  formControlName="NomeUtilizador"
+                  type="text"
+                  class="form-control"
+                />
+              </div>
+
+              <div class="form-group col-4">
+                <label class="placeholder">E-mail*</label>
+                <input
+                  formControlName="email"
+                  type="text"
+                  class="form-control"
+                />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-4">
+                <label for="">Senha*</label>
+                <input
+                  formControlName="senha"
+                  type="text"
+                  class="form-control"
+                />
+              </div>
+
+              <div class="form-group col-4">
+                <label >Selecione a Função</label>
+                <select class="form-control">
+                  <option value="">Selecione uma opção</option>
+                </select>
+              </div>
+
+              <!-- <div class="form-group col-4">
+                <label for="">Selecione a Função</label>
+                <ng-select2 [options]="options" formControlName="funcao">
+                </ng-select2>
+              </div> -->
+
+              <div class="form-group col-4">
+                <label >Selecione a Função</label>
+                <select class="form-control">
+                  <option value="">Selecione uma opção</option>
+                </select>
+              </div>
+
+              <!-- <div class="form-group col-4">
+                <label for="">Selecione a Função</label>
+                <ng-select2 [options]="options" formControlName="funcao">
+                </ng-select2>
+              </div> -->
+
+              <div class="form-group col-4">
+                <label for="">Estado*</label>
+                <div class="form-check col-4">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="flexRadioDefault"
+                    id="flexRadioDefault1"
+                  />
+                  <label class="form-check-label" for="flexRadioDefault1">
+                    Activo
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="flexRadioDefault"
+                    id="flexRadioDefault2"
+                    checked
+                  />
+                  <label class="form-check-label" for="flexRadioDefault2">
+                    Inativo
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              style="
+                background-color: #e31212;
+                border-radius: 3px;
+                color: #fff;
+                border: none;
+                width: 130px;
+                height: 32px;
+              "
+              type="reset"
+              disabled="true"
+            >
+              Limpar
+            </button>
+
+            <button
+              style="
+                background-color: #041b4e;
+                border-radius: 3px;
+                color: #fff;
+                border: none;
+                width: 130px;
+                height: 32px;
+              "
+              type="reset"
+              disabled="true"
+            >
+              Registrar
+            </button>
+
+            <ng-template #ocultarBotao> </ng-template>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

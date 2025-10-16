@@ -1,0 +1,345 @@
+/* In your component.css */
+/*
+ *  STYLE 10
+ */
+
+.modal-body {
+  position: relative;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  padding: 0.1rem;
+}
+footer {
+  grid-area: footer;
+  border-top: 1px solid #ddd;
+  background-color: #041b4e;
+  color: #fff;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+}
+.borders {
+  margin-left: 7px;
+  width: 112px;
+  height: 115px;
+  overflow: hidden;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+  background-image: url("../../../../../../../assets/assets_sicgo/img/delituoso.png");
+}
+.borders .borders-img {
+  border-top: 11px solid #dddddd00;
+  border-left: 5px solid #dddddd00;
+  border-right: 5px solid #dddddd00;
+  border-bottom: 5px solid #dddddd00;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  margin: auto;
+}
+.borders-img img {
+  width: 100%;
+  height: auto;
+}
+
+.ficha-completa {
+  width: 100%;
+}
+.bg-prima {
+  background-color: #041b4e;
+}
+
+.modal-content {
+  border-radius: 15px;
+}
+
+.header-ficha {
+  width: 100%;
+  background-color: #041b4e00;
+  margin: 0 auto;
+  padding: 0.8rem;
+  color: rgb(0, 0, 0);
+}
+
+.header-ficha h1 {
+  font-size: 2vw;
+}
+
+.header-ficha h3 {
+  font-size: 1.3vw;
+}
+
+.main-ficha {
+  width: 99%;
+  margin: 0.4rem auto;
+}
+
+.ficha-ficha {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.ficha-ficha .img-background {
+  position: absolute;
+  width: 600px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+}
+
+.img-background img {
+  width: 100%;
+  height: 100%;
+}
+
+.break-all {
+  overflow-wrap: break-all;
+}
+.break-word {
+  word-wrap: break-word;
+}
+
+.header-content-ficha-c {
+  width: 100%;
+  padding: 5px 2px 5px 2px;
+  color: rgb(45, 45, 45);
+  font-size: 0.8vw;
+  margin: 0.8rem auto;
+}
+
+.header-content-ficha-c h5 {
+  margin-top: 5px;
+  text-transform: uppercase;
+}
+.header-content-ficha {
+  width: 100%;
+  padding: 0.8rem 0.4rem;
+  background-color: #041b4e;
+  color: white;
+  font-size: 0.8vw;
+  margin: 0.8rem auto;
+}
+
+.header-content-ficha h5 {
+  text-transform: uppercase;
+}
+
+.main-ficha .image-civil {
+  width: 120px;
+  height: 140px;
+  display: block;
+  object-fit: fill;
+}
+
+.main-ficha .image-civil img {
+  width: 98%;
+  height: 98%;
+}
+
+.mais-dados {
+  max-width: 98%;
+  margin: 0.8rem auto;
+}
+
+.border-dados {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0.8rem 0.4rem;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+b {
+  font-weight: 500;
+}
+
+b + * {
+  font-weight: 600;
+}
+
+.card-footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 0 !important;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+}
+
+.img-background img {
+  width: 100%;
+  height: 100%;
+}
+
+.card-body {
+  width: 100%;
+  margin-top: 0rem !important;
+
+  margin-bottom: 100px !important;
+}
+
+.another-text {
+  display: flex;
+  grid-gap: -0.8rem;
+  flex-direction: column;
+  border-left: 1px solid black;
+  margin-left: -0.8rem;
+  padding: 1rem 0px 0px 0.8rem;
+}
+
+.another-text p {
+  line-height: 8px;
+}
+
+.only-p {
+  line-height: 2px !important;
+}
+
+.card-body {
+  padding-top: 0px !important;
+}
+
+.card-header {
+  padding-bottom: 0px !important;
+}
+
+.text-body {
+  padding: 0rem 3.6rem 1rem 3.6rem;
+}
+
+/* .all{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding-top: 2em;
+}
+
+
+.styled{
+    width: 250px;
+    height: 2em;
+    background-color: rgb(198, 198, 198);
+    color: black;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#fileupload{
+    display: none;
+
+  }
+  */
+
+input,
+select,
+textarea {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -5px,
+    rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+  border-radius: 5px;
+  border: 1px solid #dbdbdb !important;
+}
+.bt-radius {
+  border-radius: 5px;
+  border-radius: 12px;
+  padding: 5px;
+}
+
+.btn-info {
+  background-color: #0a2563;
+  border: 1px solid #002d54;
+}
+
+.dropdown-menu {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  transform-origin: left top 0;
+  box-shadow: inherit;
+  background-color: #0a2563;
+  color: #0b0b0b;
+}
+
+.bg-light {
+  --bs-bg-opacity: 0;
+  border-top-left-radius: 0px !important;
+  border-top-right-radius: 11px !important;
+  border-bottom-left-radius: 11px !important;
+  border-bottom-right-radius: 11px !important;
+  background-color: rgba(232, 236, 236, 0.986) !important;
+  padding: 10px;
+  row-gap: 1.2rem;
+}
+
+.checkboxes__item {
+  max-width: auto;
+  margin-top: 0;
+}
+
+/* STYLE C */
+.checkbox.style-c {
+  display: inline-block;
+  position: relative;
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.checkbox.style-c input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+.checkbox.style-c input:checked ~ .checkbox__checkmark {
+  background-color: #e2e2e2;
+}
+.checkbox.style-c input:checked ~ .checkbox__checkmark:after {
+  opacity: 1;
+}
+.checkbox.style-c:hover input ~ .checkbox__checkmark {
+  background-color: #eee;
+}
+.checkbox.style-c:hover input:checked ~ .checkbox__checkmark {
+  background-color: #1c92f3;
+}
+.checkbox.style-c .checkbox__checkmark {
+  position: relative;
+  top: 12px;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #eee;
+  transition: background-color 0.25s ease;
+  border-radius: 4px;
+}
+.checkbox.style-c .checkbox__checkmark:after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 4px;
+  width: 5px;
+  height: 10px;
+  border: solid #333;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.checkbox.style-c .checkbox__body {
+  color: #ffffff;
+  line-height: 1.4;
+  font-size: 16px;
+}

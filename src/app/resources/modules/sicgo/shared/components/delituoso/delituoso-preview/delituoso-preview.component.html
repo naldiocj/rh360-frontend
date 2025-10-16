@@ -1,0 +1,391 @@
+<div class="modal fade " id="modalDelituosover" aria-labelledby="modalDelituosoverLabel"  data-bs-keyboard="false" tabindex="-1" aria-hidden="true" >
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content offcanvas-container" id="{{showBannerup}}" *ngIf="showBannerup">
+            
+                <div class="page__frame">
+                    <div class="page-tab-header">
+            
+                        <nav
+                            class="navigation"
+                            id="js--navid"
+                        >
+                            <ul
+                                class="navigation-menu"
+                                #navigationMenu
+                            >
+                                <li
+                                    class="nav-item active"
+                                    [class.active]="activeTab === 'delituoso'"
+                                >
+                                    <a
+                                        class="nav-tab t--tab"
+                                        (click)="openTab('delituoso')"
+                                        title="delituoso"
+                                    >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 24 24">
+                                        <rect width="24" height="24" fill="none" />
+                                        <path fill="currentColor" fill-rule="evenodd" d="M10 4h4c3.771 0 5.657 0 6.828 1.172S22 8.229 22 12s0 5.657-1.172 6.828S17.771 20 14 20h-4c-3.771 0-5.657 0-6.828-1.172S2 15.771 2 12s0-5.657 1.172-6.828S6.229 4 10 4m3.25 5a.75.75 0 0 1 .75-.75h5a.75.75 0 0 1 0 1.5h-5a.75.75 0 0 1-.75-.75m1 3a.75.75 0 0 1 .75-.75h4a.75.75 0 0 1 0 1.5h-4a.75.75 0 0 1-.75-.75m1 3a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5h-3a.75.75 0 0 1-.75-.75M11 9a2 2 0 1 1-4 0a2 2 0 0 1 4 0m-2 8c4 0 4-.895 4-2s-1.79-2-4-2s-4 .895-4 2s0 2 4 2" clip-rule="evenodd" />
+                                    </svg>
+                                    Delituoso
+                                    </a>
+                                </li>
+                                <li
+                                    class="nav-item"
+                                    [class.active]="activeTab === 'alpha'"
+                                >
+                                    <a
+                                        class="nav-tab t--tab"
+                                        (click)="openTab('alpha')"
+                                        title="Beta"
+                                    >
+                                        Modo Operante
+                                    </a>
+                                </li>
+                                <li
+                                    class="nav-item"
+                                    [class.active]="activeTab === 'beta'"
+                                >
+                                    <a
+                                        class="nav-tab t--tab"
+                                        (click)="openTab('beta')"
+                                        title="Gamma"
+                                    > 
+                                        Antecedente
+                                    </a>
+                                </li>
+                                <li
+                                    class="nav-item"
+                                    [class.active]="activeTab === 'gamma'"
+                                >
+                                    <a
+                                        class="nav-tab t--tab"
+                                        (click)="openTab('gamma')"
+                                        title="Delta"
+                                    > 
+                                        Tribunal
+                                    </a>
+                                </li>
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <section class="page__frame">
+                    <div class="tab__content">
+                        <main class="tab__main"> 
+                            <div *ngFor=" let item of this.delituoso">
+                                 <!-- <p class="ml-5" *ngIf="recordSize">Tamanho: {{ recordSize.sizeInKB.toFixed(2) }} KB ({{ recordSize.sizeInMB.toFixed(4) }} MB)</p> -->
+                                <section
+                                    *ngIf="activeTab === 'delituoso'"
+                                    id="delituoso"
+                                >
+                                <div class="d-flex  mt-1">
+                                    
+                                    
+                                        <div class="grid col-8 text-start">
+                                            <div class="g-col-6 font-1"><strong>Nome Completo:</strong></div>
+                                            <div class="g-col-6 font-2">{{item.nome}}</div>
+                                            <div class="g-col-6 font-1"><strong>Afiliação:</strong></div>
+                                            <div class="g-col-5 font-2">
+                                                {{item.nomePai}} 
+                                                <strong class="font-1">e</strong> 
+                                                {{item.nomeMae}}
+                                            </div>
+                                            <div class="g-col-6 font-1">
+                                                <strong>Data Nascimento :</strong> ({{item.dataNascimento}})
+                                             </div>
+                                            <div class="g-col-6 font-1"><strong>{{item.tipo_identificao}} Nº:</strong></div>
+                                            <div class="g-col-6 font-1"><strong>{{item.numero_identidade}}</strong></div>
+                                            
+                
+                                        </div>
+                                   
+                                         <!-- Avatar -->
+                            
+                              <div class="grid col-4">
+                                <div class="g-col-6 font-1">
+                                   <strong>Apelido :</strong> 
+                                     ({{item.alcunha}})
+                                 </div>
+                                <div class="g-col-6 font-1">
+                                    <strong>Genero :</strong> {{item.genero}}
+                                 </div>
+                                 
+                                <div class="avatars avatars-xl mt-2">
+                                <img [src]="item.fileUrlFrontal || fotodfault" alt>
+                              </div>
+                              
+                            </div>
+                                     
+                                    
+                                </div>
+                                <hr>
+                                <h6 class="ml-2 mt-1">Caracteristicas</h6>
+                                <section class="boxDvDelituoso">
+                                    
+                                    <div class="d-flex  mt-1" *ngFor=" let iten of item.caracteristicas">
+                                        
+                                    
+                                        <div class="grid col-7 text-start">
+                                            <div class="g-col-6 font-1"><strong>Raca: </strong> {{iten.raca}}</div> 
+                                            <div class="g-col-6 font-1">
+                                                <strong>cabelo: </strong> ({{iten.cabelo}})
+                                             </div>
+                                            <div class="g-col-6 font-1"><strong>Cor dos Olhos: </strong>{{iten.cor_olhos}}</div>
+                                            <div class="g-col-6 font-1"><strong>Nariz: </strong>{{iten.nariz}}</div>
+                                            
+                                        </div>
+                                   
+                                         <!-- Avatar -->
+                            
+                              <div class="grid col-5">
+                                <div class="g-col-6 font-1">
+                                   <strong>Altura :</strong> 
+                                     ({{iten.altura}})
+                                 </div>
+                                <div class="g-col-6 font-1">
+                                    <strong>Genero :</strong> {{item.genero}}
+                                 </div>
+                                
+                              
+                            </div>
+                                     
+                                    
+                                </div>
+                                <div class="d-flex  mt-1" *ngFor=" let iten of item.caracteristicas">
+                                        
+                                    
+                                   
+                                        <div class="col-12 font-1">
+                                            <strong>Caracteristicas: </strong> 
+                                            {{iten.caracteristicas}}
+                                        </div>
+                                        
+                                     
+                               
+                                     <!-- Avatar -->
+                        
+                          
+                                 
+                                
+                            </div>
+                                    <div class="d-flex p-1 mt-1">
+                                        <div class="borders">
+                                            <div class="borders-img">
+                                                <img
+                                                    [src]="item.fileUrlFrontal || fotodfault"
+                                                    alt
+                                                >
+                                            </div>
+                                        </div>
+                                        <div class="borders">
+                                            <div class="borders-img">
+                                                <img
+                                                    [src]="item.fileUrlLateralDireita || fotodfault"
+                                                    alt
+                                                >
+                                            </div>
+                                        </div>
+                                        <div class="borders">
+                                            <div class="borders-img">
+                                                <img
+                                                    [src]="item.fileUrlLateralEsquerda || fotodfault"
+                                                    alt
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
+                                        <!-- Exibe a impressão digital -->
+                                        <div class="ml-2 p-1 mt-1">
+                                            <h6>Digitais</h6>
+                                        <div class="d-flex" *ngIf="item.digitais.length > 0">
+                                                <div class="box" *ngFor="let digital of item.digitais">
+                                                    <div class="box-impression">
+                                                        <img [src]="digital.imgThumb" alt>
+                                                    </div>
+                                                    <h5>
+                                                        Dedo:{{ digital.thumb }}
+                                                    </h5>
+                    
+                                                </div> 
+                                        </div>
+                                        </div>
+                                </section>
+                                    
+                                    
+                                </section>
+            
+                                <section
+                                    *ngIf="activeTab === 'alpha'"
+                                    id="alpha"
+                                >
+                                    <div class="d-flex">
+                                        <div class="col-10">
+                                            <h5 class="head-title mt-3">Modo Operante</h5>
+                                        </div>
+            
+                                    </div>
+                                    <!-- Modo Operante -->
+                                     
+                                     
+                                </section>
+            
+                                <section
+                                    *ngIf="activeTab === 'beta'"
+                                    id="beta"
+                                >
+                                    <h3>Beta Section</h3>
+                                    <!-- Antecedentes -->
+                                    <div class="container">
+                                        <!-- Card closed state -->
+                                        <div class="card--closed">
+                                            <svg
+                                                class="icon"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="20"
+                                                height="20"
+                                                fill="currentColor"
+                                                class="bi bi-people-fill"
+                                                viewBox="0 0 16 16"
+                                            >
+                                                <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"></path>
+                                            </svg>
+                                            <div class="divisor--closed"></div>
+                                            <p class="title">Antecedentes</p>
+                                            <div class="divisor--open"></div>
+                                        </div>
+                                        <!-- Card opened state -->
+                                        <div class="card--open">
+                                            <fieldset>
+                                                <legend>
+                                                    Antecedentes - {{item.antecedentes.length}}
+                                                </legend>
+                                                <!-- Verifica se a lista 'item.delituosos' está vazia -->
+                                                <div *ngFor=" let items of item.antecedentes">
+                                                    <div class="col-sm-5 offset-sm-2 col-md-9 offset-md-0">
+                                                        <div class="d-block">
+                                                            <span>Nº registo: {{items.codigo_sistema}}</span>
+                                                            <p>Titulo: {{items.title}}</p>
+                                                            <span>Familia Crime: {{items.familia_crime}}</span>
+                                                            <p>Tipo de Crime:{{items.tipo_crime}}</p>
+                                                            <p>Crime: {{items.tipicidade_crime}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+            
+                                            </fieldset>
+            
+                                        </div>
+                                    </div>
+            
+                                    <!-- Card -->
+                                    <div class="container">
+                                        <!-- Card closed state -->
+                                        <div class="card--closed">
+                                            <svg
+                                                class="icon"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="30"
+                                                height="30"
+                                                fill="currentColor"
+                                                class="bi bi-people-fill"
+                                                viewBox="0 0 16 16"
+                                            >
+                                                <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"></path>
+                                            </svg>
+                                            <div class="divisor--closed"></div>
+                                            <p class="title">
+                                                Ocorrencias  - {{item.ocorrencias.length}}
+                                            </p>
+                                            <div class="divisor--open"></div>
+                                        </div>
+                                        <!-- Card opened state -->
+                                        <div class="card--open">
+                                            <fieldset>
+                                                <legend>
+                                                    <i class="bi bi-people-fill"></i>
+                                                    Ocorrencias associadas
+                                                </legend>
+                                                <!-- Verifica se a lista 'item.delituosos' está vazia -->
+                                                <div *ngFor=" let items of item.ocorrencias">
+                                                    <div class="row mt-2">
+            
+                                                        <div class="col-sm-5 offset-sm-2 col-md-9 offset-md-0">
+                                                            <div class="d-flex">- {{item.codigo_sistema}}</div>
+            
+                                                        </div>
+                                                    </div>
+                                                </div>
+            
+                                            </fieldset>
+            
+                                        </div>
+                                    </div>
+                                </section>
+            
+                                <section
+                                    *ngIf="activeTab === 'gamma'"
+                                    id="gamma"
+                                >
+                                    <h3>Gamma Section</h3>
+                                    <!-- Origem -->
+                                    <div class="container">
+                                        <!-- Card closed state -->
+                                        <div class="card--closed">
+                                            <svg
+                                                class="icon"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="30"
+                                                height="30"
+                                                fill="currentColor"
+                                                class="bi bi-people-fill"
+                                                viewBox="0 0 16 16"
+                                            >
+                                                <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"></path>
+                                            </svg>
+                                            <div class="divisor--closed"></div>
+                                            <p class="title">Origem  - {{item.origem.length}}</p>
+                                            <div class="divisor--open"></div>
+                                        </div>
+                                        <!-- Card opened state -->
+                                        <div class="card--open">
+                                            <fieldset>
+                                                <legend>Origens</legend>
+                                                <!-- Verifica se a lista 'item.delituosos' está vazia -->
+                                                <div *ngFor=" let items of item.origem">
+                                                    <div class="row mt-2">
+            
+                                                        <div class="col-sm-5 offset-sm-2 col-md-9 offset-md-0">
+                                                            <div class="d-flex">
+                                                                Entidade:
+                                                                <p>{{items.entidade_ordem}}</p>
+                                                                Nº Processo:
+                                                                <p>{{items.numero_processo}}/2024</p>
+                                                                Data Dentenção:
+                                                                <p>{{items.data_detencao}}/2024</p>
+            
+                                                            </div>
+            
+                                                        </div>
+                                                    </div>
+                                                </div>
+            
+                                            </fieldset>
+            
+                                        </div>
+                                    </div>
+            
+                                </section>
+            
+                            </div>
+                        </main>
+                    </div>
+                </section>
+            
+  
+         
+      </div>
+    </div>
+  </div>
+  
+

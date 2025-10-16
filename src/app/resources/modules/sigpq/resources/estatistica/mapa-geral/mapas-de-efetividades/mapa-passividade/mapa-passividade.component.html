@@ -1,0 +1,175 @@
+
+<div style="height: 16px; margin-top: 23px; opacity: 0%;"></div>
+<div class="col-md-12">
+    <div id="cor_dashboard" class="card-header" style="cursor:pointer;" >
+        <h4 style="color: white; cursor:pointer;" class="card-title d-inline-block" (click)="togglesituacaoPassiva()" ><b>
+         MAPA DE CONTROLO DO PESSOAL EM SITUAÇÃO DE PASSIVIDADE/PNA <!--REFERENTE AO MÊS DE {{mes}}-->
+        </b></h4>
+
+        <article class="opcoes">
+
+          <form [formGroup]="this.simpleForm" class="form-inline">
+            <div class="row w-100">
+              <!-- Situação Laboral -->
+              <div class="form-group col-md-4 col-sm-12 mb-3">
+                <label for=""><b>Situação Laboral <span class="text-danger">*</span></b></label>
+                <ng-select2 [options]="options" (valueChanged)="this.selecionarSituacaoLaboral($event)"
+                  formControlName="sigpq_situacao_id" [data]="this.situacaoEstados">
+                </ng-select2>
+              </div>
+
+              <!-- Estado (Depende da Situação Laboral) -->
+              <div class="form-group col-md-4 col-sm-12 mb-3">
+                <label for="">
+                  <b>{{this.tituloSituacao}}
+                    <span class="text-danger">
+                      <ng-container *ngIf="this.tituloSituacao != ''; else temTitle">
+                        *
+                      </ng-container>
+                      <ng-template #temTitle>
+                        &nbsp;
+                      </ng-template>
+                    </span>
+                  </b>
+                </label>
+                <ng-select2 [options]="options" (valueChanged)="this.selecionarSituacaoLaboralLaboral($event)"
+                  formControlName="sigpq_estado_id" [data]="this.estado">
+                </ng-select2>
+              </div>
+
+              <!-- Situação Laboral (Reforma) -->
+              <div class="form-group col-md-4 col-sm-12 mb-3">
+                <label for="">
+                  <b>{{this.tituloSituacaoLaboral}}
+                    <span class="text-danger">
+                      <ng-container *ngIf="this.tituloSituacaoLaboral != ''; else mTitle">
+                        *
+                      </ng-container>
+                      <ng-template #mTitle>
+                        &nbsp;
+                      </ng-template>
+                    </span>
+                  </b>
+                </label>
+                <ng-select2 [options]="options" formControlName="sigpq_estado_reforma_id"
+                  [data]="this.estadoReformas">
+                </ng-select2>
+              </div>
+            </div>
+          </form>
+
+
+          <div>
+            <label><b>Patente</b></label>
+            <ng-select2 [options]="options" [data]="this.patenteEspecial" (valueChanged)="searchBypatente($event)">
+            </ng-select2>
+        </div>
+
+
+
+          <!-- <div>
+            <label><b>Tipo Orgão</b></label>
+            <ng-select2 [options]="options" [data]="this.orgaoOuComandoProvincial"
+            (valueChanged)="selecionarOrgaoOuComandoProvincial($event)">
+        </ng-select2>
+        </div>
+
+          <div>
+            <label><b>Orgão</b></label>
+            <ng-select2 [options]="optionsOrgao" [data]="this.direcaoOuOrgao" (valueChanged)="searchByOrgao($event)">
+            </ng-select2>
+        </div> -->
+
+
+
+      <!--<div>
+        <label><b>Função</b></label>
+        <ng-select2 [options]="options" [data]="this.tipoFuncaos" (valueChanged)="searchByFuncao($event)">
+        </ng-select2>
+     </div>-->
+
+      <!-- <div>
+        <label><b>Habilitação Literária</b></label>
+        <ng-select2 [options]="options" [data]="this.tipoHabilitacaoLiterarias" (valueChanged)="searchByHabilitacao($event)">
+        </ng-select2>
+     </div> -->
+        </article>
+    </div>
+    <div class="table-responsive" *ngIf="situacaoPassiva">
+        <table class="table  table-striped  datatable mb-0">
+            <thead class="sutotal">
+                     <tr>
+                     <th rowspan="3" >Nº/0</th>
+                     <th rowspan="3"  >PATENTE</th>
+                     <th rowspan="3" >NOME</th>
+                     <th rowspan="3"  style="position: relative; bottom: 4px;" class="inverter">GENERO</th>
+                     <th rowspan="3"  >NIP</th>
+
+                     </tr>
+
+                     <tr>
+                       <th colspan="1">NASCIMENTO</th>
+                       <th colspan="1">INGRESSO/PNA</th>
+                       <th  colspan="1">DESPACHO PROMOÇÃO</th>
+                       <th  rowspan="3"  >HABILITAÇÃO LITERÁRIA</th>
+                       <th rowspan="3"  >Nº DE AGENTE</th>
+                       <th colspan="1">DESPACHO</th>
+                       <th rowspan="3"  >Nº BILHETE DE IDENTIDADE</th>
+                       <th rowspan="3"  >TEMPO QUE SE ENCONTRA NA CONDIÇÃO</th>
+                     </tr>
+
+                     <tr>
+                       <!--- NASCIMENTO------>
+                       <th >dd/mm/aaa</th>
+                       <!-----!-------INGRESSO/PNA-->
+                       <th >dd/mm/aaa</th>
+                       <!-----!-------DESPACHO PROMOÇÃO-->
+                       <th >Nº /ano</th>
+
+                        <!-----!-------DESPACHO-->
+                        <th >Nº /ano</th>
+
+                     </tr>
+
+
+
+            </thead>
+            <tbody>
+
+             <!--<tr>
+                <ng-container *ngFor="let item of [1,2,3,4,5,6,7,8,9,10,11,12,13]">
+                   <td style="text-align: center; border: 1px solid #041B4E;">{{item}}</td>
+                </ng-container>
+
+             </tr>-->
+
+             <tr>
+                <td colspan="13" style="text-align: center;">SITUAÇÃO LABORAL/CONDIÇÃO</td>
+             </tr>
+
+             <ng-container *ngFor="let item of passividades">
+              <tr>
+               <td>{{item.id}}</td>
+               <td>{{item.patente}}</td>
+               <td>{{item.nome_completo +" " + item.pseudonimo}}</td>
+               <td>{{item.genero}}</td>
+               <td>{{item.nip}}</td>
+               <td>{{item.data_nascimento}}</td>
+               <td>{{item.data_adesao}}</td>
+               <td>{{item.data_provimento}}</td>
+               <td>{{item.habilitacao_literaria}}</td>
+               <td>{{item.numero_agente}}</td>
+               <td>...........</td>
+               <td>{{item.bilhente_identidade}}</td>
+               <td>...........</td>
+              </tr>
+</ng-container>
+
+<tr *ngIf="lastpage!=filtro.page">
+<td colspan="13" style="text-align: center; cursor: pointer;" (click)="nextData()"> carregar mais dados</td>
+</tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>

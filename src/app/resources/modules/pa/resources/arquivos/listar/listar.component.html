@@ -1,0 +1,151 @@
+<div class="modal fade" id="delete-arquivo" style="border-radius: unset">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-ms">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title w-100 d-flex justify-content-between align-items-center">
+          Remover meu arquivo
+          <a data-dismiss="modal" class="bi bi-x-lg text-danger" style="cursor: pointer"></a>
+        </div>
+      </div>
+      <div class="modal-body text-center" style="font-size: 16px; color: #041b43">
+        <span>Confirmas a removação do arquivo ?</span>
+        <div class="btn-groups my-2">
+          <a class="btn btn-link" style="text-decoration: none; color: #041b43"
+            (click)="deleteArquivo(deleteById)">Sim</a>
+          <div class="btn btn-link" data-dismiss="modal" id="close-modal" style="text-decoration: none; color: #041b43">
+            Não
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="mostrarArquivo" aria-labelledby="modalPortalRegistarAcidente" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document" style="overflow-y: hidden; min-width: 30%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="title-header  text-primary-color">Visualização de arquivo</h5>
+
+        <button type="button" (click)="this.fileUrl=null" class="close" id="btn-close-modal" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" *ngIf="this.fileUrl">
+        <iframe [src]="this.fileUrl" class="iframe"></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main id="main_" class="main">
+
+  <div class="pagetitle mb-4">
+    <h1> <i class="bi bi-stickies-fill"></i><span class="mx-2">Meu arquivos</span></h1>
+  </div>
+  <section class="section p-0 ">
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="card recent-sales" style="box-shadow: unset">
+          <div class="card-body p-0">
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 my-2">
+                <form class="row gap-3">
+                  <div class="col-xl-1 col-lg-2 col-md-12 col-sm-12">
+                    <select class="form-control mr-sm-1" (change)="filtrarPagina('perPage', $event)">
+                      <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">
+                        {{ item }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-xl-8 col-lg-7 col-md-12 col-sm-12">
+
+                    <input class="form-control mr-sm-1" type="text" [ngModel]="filtro.search" name="filtro.search"
+                      (ngModelChange)="filtrarPagina('search', $event)" placeholder="Pesquisa ..." />
+                  </div>
+                  <div class="col-xl-3 col-lg-4 col-md-12 col-sm-12">
+                    <div class="w-100 d-flex align-items-center justify-content-end flex-wrap">
+                      <button (click)="this.recarregarPagina()"
+                        class="btn-piips btn-piips-secondary m-0 d-flex align-items-center justify-content-center gap-2"
+                        type="button">
+                        <i style="font-size: 14px" class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+                        Recarregar
+                      </button>
+                      <button data-toggle="modal" data-target="#registar-editar-arquivo"
+                        class="btn-piips btn-piips-primary m-0 d-flex align-items-center justify-content-center gap-2"
+                        type="button">
+                        <i style="font-size: 14px" class="fa fa-plus fa-3x fa-fw"></i>
+                        Registar
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="table-responsive">
+                  <table class="table table-border table-striped custom-table datatable mb-0">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Descrição</th>
+                        <th>Extensão</th>
+                        <th>Data de carregamento</th>
+                        <th class="text-center" colspan="2">Operação</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        *ngFor="let item of this.arquivos | paginate: { itemsPerPage: this.pagination.per_page, currentPage: this.pagination.current_page,totalItems: this.pagination.total,id:'idArquivo' }; index as i">
+                        <td>{{i+1}}</td>
+                        <td>{{ item.descricao }}</td>
+                        <td>
+                          [{{ this.getTipo(item?.tipo)?.toString()?.toUpperCase() }}]
+                        </td>
+                        <td>{{ item.createdAt }}</td>
+                        <td class="text-center">
+                          <div class="dropdown dropdown-action">
+                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
+                              aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+
+                            <div class="dropdown-menu dropdown-menu-right">
+                              <a (click)="verArquivo(item.arquivo)" href="#" class="dropdown-item" data-toggle="modal"
+                                [style.cursor]="'pointer'" data-target="#mostrarArquivo" ariaCurrentWhenActive="page">
+                                <i class="fa fa-eye m-r-5"></i>
+                                Visualizar</a>
+                              <a class="dropdown-item" href="javascript::void(0)" (click)="this.setDeleteID(item?.id)" data-toggle="modal"
+                                data-target="#delete-arquivo"><i class="fa fa-trash-o m-r-5"></i> Apagar</a>
+                            </div>
+                          
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 my-4">
+                <div class="row">
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                    Mostrando de {{ this.pagination.current_page }} a {{ this.pagination.per_page }} de {{
+                    this.pagination.total}}
+                    <span *ngIf="this.pagination.total < 2; else outrosRegistos">registo</span>
+                    <ng-template #outrosRegistos>registos</ng-template>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                    <div class="float-right">
+                      <pagination-controls id="idArquivo" (pageChange)="this.filtrarPagina('page', $event)"
+                        [directionLinks]="true" [autoHide]="false" previousLabel="Anterior" nextLabel="Próximo" [maxSize]="4"
+                        [responsive]="true"></pagination-controls>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<app-registar-ou-editar></app-registar-ou-editar>

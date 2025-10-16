@@ -1,0 +1,54 @@
+<div class="charts" *ngIf="this.grafico">
+    <canvas baseChart class="chart" [data]="this.grafico" [type]="this.tipo">
+    </canvas>
+</div>
+<div class="itens-right">
+  <div class="selector">
+    <h3>Análise Operativa Semanal</h3>
+    <marquee behavior="" direction="">
+      <p style="margin-top: -5px;">Visualização e Comparação de Análise Operativa registadas no Sistema: <b>Detidos</b>, <b>Giros</b>, <b>Ocorrências</b>, <b>Processos</b>, <b>Desaparecidos</b>, <b>Quaixas</b>, <b>Denúncias</b></p>
+    </marquee>
+    <h5 style="margin-left: 5px; margin-top: -18x; margin-bottom: -5px;"><b>Operação</b></h5>
+    <div class="d-flex">
+    <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+      <option selected>--------</option>
+      <option value="1">Detidos</option>
+      <option value="2">Ocorrências</option>
+      <option value="3">Processos</option>
+    </select>
+    <div class="" aria-label=".form-select-lg example">
+      
+    </div>
+    </div>
+  </div>
+  <div class="selector" style="margin-top: -15px;">
+    <div class="d-flex">
+      <div class="" aria-label=".form-select-lg example">
+        <h5 style="margin-left: 5px; margin-bottom: -5px;"><b>Data Inicial</b></h5>
+        <input type="date" class="form-select form-select-lg mb-3" id="dataRegisto">
+      </div>
+      <div class="" aria-label=".form-select-lg example">
+        <h5 style="margin-left: 4px; margin-bottom: -5px;"><b>Data Final</b></h5>
+        <input type="date" class="form-select form-select-lg mb-3" id="dataRegisto">
+      </div>
+    </div>
+  </div>
+  <div class="infor-total">
+    <div class="number">
+      <p>
+        <b>Status:</b> Actual <br> 
+        <b>Data:</b> 17 - 06 - 2024
+      </p>
+        <h1>340</h1>
+    </div>
+    <div class="number2">
+      <p>
+        <b>Status:</b> Anterior <br> 
+        <b>Data:</b> 16 - 06 - 2024
+      </p>
+      <h1>100</h1>
+    </div>
+</div>
+<h5 style="margin-top: 8px; color: #020d27;"><b>Referência:</b></h5>
+<p style="color: #020d27;">Dados fornecidos pelo <b style="color: #020d27; font-weight: bold;">SICGO</b></p>
+</div>

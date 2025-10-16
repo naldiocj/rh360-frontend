@@ -1,0 +1,89 @@
+<section class="section dashboard">
+  <aside *ngIf="isLoading; else showDashboard">
+    <br><br><br>
+    <loading-page [texto]="'os dashboards'"></loading-page>
+  </aside>
+
+  <ng-template #showDashboard>
+    <div class="dash-org">
+      <div class="box bg-light col-12 container p-4">
+        <!-- Título centralizado -->
+        <div class="row infor justify-content-center align-items-center">
+          <div class="infor-wt col-md-6 col-sm-10 text-center d-flex flex-column">
+            <i id="img" class="perfil-d bi bi-person-circle" style="font-size: 4rem;"></i>
+            <h2><b>Total de Efectivo</b></h2>
+            <div class="count d-flex justify-content-center align-items-center mt-3">
+              <div class="dados">
+                <h2 style="font-size: 1.6rem; margin-top: 5px;">{{ dashboardService.data_dashboard.resumo[0].total | spaceSeparator }}</h2>
+                <p>Dados dinâmicos</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Linha inferior com duas colunas -->
+        <div class="row infor" style="margin-top: 16px; margin-bottom: 20px;">
+          <!-- Função para renderizar as colunas -->
+          <ng-container *ngFor="let regime of regimes">
+            <div class="col-md-6 col-sm-12">
+              <div class="p-3 bg-white border rounded d-flex align-items-center">
+                <i id="img" class="perfil-d bi {{ regime.icon }}" style="font-size: 1.6rem; margin-right: 10px;"></i>
+                <h2 style="font-size: 1.6rem; margin-top: -5px;">
+                  <b>{{ regime.nome }} :</b> <b> {{ dashboardService.data_dashboard.resumo[regime.index].total | spaceSeparator }}</b>
+                </h2>
+              </div>
+
+              <div class="bg-light d-flex justify-content-between mt-2">
+                <!-- Caixa Ativo -->
+                <div class="border rounded p-3 text-center flex-fill mr-1" (click)="redirect(regime.rotaActivo)">
+                  <h2 style="font-size: 1.6rem;"><b>ACTIVO</b></h2>
+                  <h2 style="font-size: 1.6rem;" class="activo p-2"> {{ dashboardService.data_dashboard[regime.tipo][5].total | spaceSeparator }}</h2>
+                </div>
+
+                <!-- Caixa Passivo -->
+                <div class="border rounded p-3 text-center flex-fill mr-1" (click)="redirect(regime.rotaPassivo)">
+                  <h2 style="font-size: 1.6rem;"><b>PASSIVO</b></h2>
+                  <h2 style="font-size: 1.6rem;" class="passivo p-2"> {{ dashboardService.data_dashboard[regime.tipo][6].total | spaceSeparator }}</h2>
+                </div>
+                <!-- Caixa Inactivo -->
+                <div class="border rounded p-3 text-center flex-fill" (click)="redirect(regime.rotaInactivo)">
+                  <h2 style="font-size: 1.6rem;"><b>INACTIVO</b></h2>
+                  <h2 style="font-size: 1.6rem;" class="inactivo p-2"> {{ dashboardService.data_dashboard[regime.tipo][7].total | spaceSeparator }}</h2>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+
+        <!-- Totais de Ativos e Passivos -->
+         <div class="row bg-white p-2">
+         </div>
+        <div class="row infor" style="margin-top: 16px;">
+          <div class="col-md-4 col-sm-12">
+            <div class="p-3 bg-white border rounded d-flex align-items-center" (click)="redirectAgentes('listar')">
+              <h2 style="font-size: 1.6rem; margin-top: -5px;">
+                <b>ACTIVOS :</b> <b> {{ dashboardService.data_dashboard.especial[5].total + dashboardService.data_dashboard.geral[5].total | spaceSeparator }}</b>
+              </h2>
+            </div>
+          </div>
+
+          <div class="col-md-4 col-sm-12">
+            <div class="p-3 bg-white border rounded d-flex align-items-center" (click)="redirectAgentes('listar-passivos')">
+              <h2 style="font-size: 1.6rem; margin-top: -5px;">
+                <b>PASSIVOS :</b> <b> {{ dashboardService.data_dashboard.especial[6].total + dashboardService.data_dashboard.geral[6].total | spaceSeparator }}</b>
+              </h2>
+            </div>
+          </div>
+
+          <div class="col-md-4 col-sm-12">
+            <div class="p-3 bg-white border rounded d-flex align-items-center" (click)="redirectAgentes('inactivo')">
+              <h2 style="font-size: 1.6rem; margin-top: -5px;">
+                <b>INACTIVOS :</b> <b> {{ dashboardService.data_dashboard.especial[7].total + dashboardService.data_dashboard.geral[7].total | spaceSeparator }}</b>
+              </h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</section>

@@ -1,0 +1,243 @@
+<aside [formGroup]="this.simpleForm" class="row">
+
+    <fieldset>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-4">
+                <label><b>Foto Civil</b></label>
+                <div class="profile-upload">
+                    <div class="upload-img">
+                        <img alt="" src="assets/img/user-documento.png">
+                    </div>
+                    <div class="upload-input">
+                        <input type="file" formControlName="foto_civil" class="form-control"
+                            (change)="uploadFile($event, 'foto_civil')" [accept]="this.formatAccept">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-4">
+                <label><b>Usar a Webcam</b><span class="text-danger"></span></label><br>
+                <img width="30px" style="cursor: pointer;" src="assets/img/webcamicone.png" alt="">
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-4">
+                <label><b>Nome completo</b><span class="text-danger"> *</span></label>
+                <input id="nome_completo" formControlName="nome_completo" class="form-control" type="text" autofocus
+                    [ngClass]="{
+              'is-invalid': this.validaForm.nome_completo.errors && this.validaForm.nome_completo.dirty,
+              'is-valid': this.validaForm.nome_completo.dirty && !this.validaForm.nome_completo.errors
+            }">
+                <div *ngIf="this.validaForm.nome_completo.dirty && this.validaForm.nome_completo.errors"
+                    class="invalid-feedback">
+                    <div *ngIf="this.validaForm['nome_completo'].errors.required">
+                        {{ this.formErrors["nome_completo"].required }}
+                    </div>
+                    <div *ngIf="this.validaForm['nome_completo'].errors.minlength">
+                        {{ this.formErrors["nome_completo"].minLength}}
+                    </div>
+                    <div *ngIf="this.validaForm['nome_completo'].errors.number">
+                        {{ this.formErrors["nome_completo"].number}}
+                    </div>
+                    <div *ngIf="this.simpleForm.controls.nome_completo.errors.pattern">
+                        Somente texto é permitido
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 mb-4">
+                <label><b>Apelido</b><span class="text-danger"> *</span></label>
+                <input formControlName="apelido" class="form-control" type="text" [ngClass]="{
+                    'is-invalid': this.simpleForm.controls.apelido.dirty && this.simpleForm.controls.apelido.errors,
+                    'is-valid': this.simpleForm.controls.apelido.dirty && !this.simpleForm.controls.apelido.errors
+                  }">
+                <div *ngIf="this.simpleForm.controls?.apelido?.dirty && this.simpleForm.controls?.apelido?.errors"
+                    class="invalid-feedback">
+                    <div *ngIf="this.simpleForm.controls?.apelido?.errors?.required">
+                        Este campo é obrigatório
+                    </div>
+                    <div *ngIf="this.simpleForm.controls?.apelido?.errors?.pattern">
+                        Somente texto é permitido
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 mb-4">
+                <label><b>Data de Nascimento</b><span class="text-danger"> *</span></label>
+                <input type="date" formControlName="data_nascimento" [max]="this.validarDataNascimento"
+                    class="form-control">
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 mb-4">
+                <label><b>Género</b><span class="text-danger"> *</span></label>
+                <ng-select2 [options]="options" formControlName="genero">
+                    <option value="M">Masculino</option>
+                    <option value="F">Feminino</option>
+                </ng-select2>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 mb-4">
+                <label><b>Estado Civil</b><span class="text-danger"> *</span></label>
+                <ng-select2 [options]="options" formControlName="estado_civil_id" [data]="this.estadoCivils">
+                </ng-select2>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-4">
+                <label><b>Naturalidade</b><span class="text-danger"> *</span></label>
+                <ng-select2 [options]="options" formControlName="naturalidade_id" [data]="this.provincias">
+                </ng-select2>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-4">
+                <label>
+                    <b>Residência B.I</b>
+                    <span class="text-danger"> *</span>
+                </label>
+                <input class="form-control" formControlName="residencia_bi" type="text">
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 mb-4">
+                <label><b>Número do B.I<span class="text-danger"> *</span></b></label>
+                <input formControlName="nid" class="form-control" type="text" [ngClass]="{
+                    'is-invalid': this.simpleForm.controls.nid.dirty && this.simpleForm.controls.nid.errors,
+                    'is-valid': this.simpleForm.controls.nid.dirty && !this.simpleForm.controls.nid.errors
+                  }">
+                <div *ngIf="this.simpleForm.controls?.nid?.dirty && this.simpleForm.controls?.nid?.errors"
+                    class="invalid-feedback">
+                    <div *ngIf="this.simpleForm.controls.nid.errors.pattern">
+                        O número ainda não respeita o padrão
+                    </div>
+                    <div *ngIf="this.simpleForm.controls?.nid?.errors?.required">
+                        Este campo é obrigatório
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 mb-4">
+                <label>
+                    <b>Data de validade</b>
+                </label>
+                <input type="date" formControlName="data_expira" class="form-control">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-4">
+                <label>
+                    <b>Nome do Pai</b>
+                </label>
+                <input class="form-control" formControlName="nome_pai" type="text">
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-4">
+                <label>
+                    <b>Nome da Mãe</b>
+                </label>
+                <input class="form-control" formControlName="nome_mae" type="text">
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 mb-4">
+                <label>
+                    <b>Nº do Passaporte</b>
+                </label>
+                <input class="form-control" formControlName="numero_passaporte" type="text">
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 mb-4">
+                <label>
+                    <b>Data de validade</b>
+                    <span class="text-danger"></span>
+                </label>
+                <input type="date" formControlName="data_expira_passaporte" class="form-control">
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-4">
+                <label>
+                    <b>Residência Actual</b>
+                </label>
+                <input class="form-control" formControlName="residencia_actual" type="text">
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-4">
+                <label><b>Iban</b></label>
+                <div class="input-container">
+                    <input type="text" class="input-fixed" value="AO06" readonly>
+                    <input type="text" class="form-control input-editable" [ngClass]="{
+                        'is-invalid': this.simpleForm.controls.iban.dirty && this.simpleForm.controls.iban.errors,
+                        'is-valid': this.simpleForm.controls.iban.dirty && !this.simpleForm.controls.iban.errors
+                      }" formControlName="iban">
+                </div>
+                <div *ngIf="this.simpleForm.controls?.iban?.dirty && this.simpleForm.controls?.iban?.errors">
+                    <div *ngIf="this.simpleForm.controls?.iban?.errors?.pattern" style="color: #dc3545;">
+                        Somente número é permitido
+                    </div>
+                    <div *ngIf="this.simpleForm.controls?.iban?.errors?.maxlength" style="color: #dc3545;">
+                        Excedeu o número de caracteres
+                    </div>
+                    <div *ngIf="this.simpleForm.controls?.iban?.errors?.minlength" style="color: #dc3545;">
+                        O número mínimo de caracteres é 21
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 mb-4">
+                <label>
+                    <b>Nº Carta de Condução</b>
+                </label>
+                <input class="form-control" formControlName="numero_carta_conducao" type="text">
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 mb-4">
+                <label>
+                    <b>Data de validade</b>
+                    <span class="text-danger"></span>
+                </label>
+                <input type="date" formControlName="data_expira_carta_conducao" class="form-control">
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-4">
+                <label><b>Habilitações Literárias</b><span class="text-danger"> *</span></label>
+                <ng-select2 [options]="options" formControlName="sigpq_tipo_habilitacao_literaria_id"
+                    [data]="this.tipoHabilitacaoLiterarias">
+                </ng-select2>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-4">
+                <label><b>Curso</b></label>
+                <ng-select2 [options]="options" formControlName="sigpq_tipo_curso_id" [data]="this.cursos">
+                </ng-select2>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-4">
+                <label><b>Pais</b></label>
+                <ng-select2 [options]="options" formControlName="pais_id" [data]="this.paises">
+                </ng-select2>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 mb-4">
+                <label>
+                    <b>Grupo Sanguíneo</b>
+                </label>
+                <ng-select2 [options]="options" formControlName="sigpq_tipo_sanguineo_id" [data]="this.tipoSanguineos">
+                </ng-select2>
+            </div>
+
+            <div class="col-lg-2 col-md-2 col-sm-2 mb-4">
+                <label><b>Telefone</b></label>
+                <input type="text" class="form-control input-editable" [ngClass]="{
+                    'is-invalid': this.simpleForm.controls.contacto.dirty && this.simpleForm.controls.contacto.errors,
+                    'is-valid': this.simpleForm.controls.contacto.dirty && !this.simpleForm.controls.contacto.errors
+                  }" formControlName="contacto">
+                <div *ngIf="this.simpleForm.controls?.contacto?.dirty && this.simpleForm.controls?.contacto?.errors">
+                    <div *ngIf="this.simpleForm.controls?.contacto?.errors?.pattern" style="color: #dc3545;">
+                        Digite um contacto válido
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-2 col-sm-2 mb-4">
+                <label><b>Email Pessoal</b></label>
+                <input type="text" class="form-control input-editable" [ngClass]="{
+                    'is-invalid': this.simpleForm.controls.email.dirty && this.simpleForm.controls.email.errors,
+                    'is-valid': this.simpleForm.controls.email.dirty && !this.simpleForm.controls.email.errors
+                  }" formControlName="email">
+                <div *ngIf="this.simpleForm.controls?.email?.dirty && this.simpleForm.controls?.email?.errors">
+                    <div *ngIf="this.simpleForm.controls?.email?.errors?.pattern" style="color: #dc3545;">
+                        Digite um email válido
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</aside>

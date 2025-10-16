@@ -1,0 +1,99 @@
+<div class="row">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+    <nav class="navbar navbar-light bg-light">
+      <form class="form-inline">
+        <select class="form-control mr-sm-1" (change)="filtrarPagina('perPage', $event)">
+          <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">
+            {{ item }}
+          </option>
+        </select>
+        <!-- <input class="form-control mr-sm-1" type="text" [ngModel]="filtro.search"
+          (ngModelChange)="filtrarPagina('search', $event)" placeholder="Pesquisa ..." /> -->
+
+          <div class="row mx-1 my-1 mb-4">
+            <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12">
+                <label for=""><b>Licenças</b></label>
+                <ng-select2 [data]="this._tipolicencas" [options]="this.options" [ngModel]="this.filtro.mes"
+                    name="regimeId" (valueChanged)="filtrarPagina('tipo_licenca_id',$event)">
+                </ng-select2>
+            </div>
+
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                <label for=""><b>Ano</b></label>
+                <ng-select2 [data]="this.anos" [options]="this.options" [ngModel]="this.filtro.ano"
+                    name="regimeId" (valueChanged)="filtrarPagina('ano',$event)">
+                </ng-select2>
+            </div>
+
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                <label for=""><b>Mês</b></label>
+                <ng-select2 [data]="this.meses" [options]="this.options" [ngModel]="this.filtro.mes"
+                    name="regimeId" (valueChanged)="filtrarPagina('mes',$event)">
+                </ng-select2>
+            </div>
+        </div>
+
+        <button (click)="this.recarregarPagina()" class="btn-piips btn-piips-secondary m-0 py-2" type="submit">
+          <i style="font-size: 14px" class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+          <b>Recarregar</b>
+        </button>
+
+      </form>
+
+    </nav>
+  </div>
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+    <div class="table-responsive">
+      <table class="table table-border table-striped custom-table datatable mb-0">
+        <thead>
+          <tr>
+            <th>ID</th>
+
+            <th>Dia da Licença</th>
+            <th>Data de Actualização</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="
+              let item of this.funcaos
+                | paginate
+                  : {
+                      id: 'faltasIdentificador',
+                      itemsPerPage: this.pagination.per_page,
+                      currentPage: this.pagination.current_page,
+                      totalItems: this.pagination.total
+                    };
+              index as i
+            ">
+            <td> {{i+1}}</td>
+
+            <td> {{ item?.dia_selecionado ? (item.dia_selecionado | date: 'dd-MM-yyyy') : 'Data inválida' }}
+            </td>
+            <td> {{ item?.updated_at | date: 'dd-MM-yyyy'}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+    <div class="row">
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+        Mostrando de {{ this.pagination.current_page }} a {{ this.pagination.per_page }} de {{
+        this.pagination.total}}
+        <aside *ngIf="this.pagination.total < 2; else outrosRegistos">registos</aside>
+        <ng-template #outrosRegistos>registos</ng-template>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+        <div class="float-right">
+          <pagination-controls id="funcionarioEspecial" (pageChange)="this.filtrarPagina('page', $event)"
+            [directionLinks]="true" [autoHide]="true" previousLabel="Anterior" nextLabel="Próximo" [maxSize]="4"
+            [responsive]="true"></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

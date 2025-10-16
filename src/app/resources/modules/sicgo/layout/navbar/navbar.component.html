@@ -1,0 +1,73 @@
+<main class="navbarkivova bg-main d-flex fix-top">
+    <!-- Ícone do menu responsivo -->
+    <nav class="navbarkivova-expand-lg navbarkivova-dark">
+        <!-- Ícone do menu responsivo -->
+
+
+        <button
+            class="toggle navbarkivova-toggler"
+            [class.active]="menuAtivo"
+            (click)="alternarMenu()"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarkivovaNav"
+            aria-controls="navbarkivovaNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+            <div
+                class="bars"
+                id="bar1"
+            ></div>
+            <div
+                class="bars"
+                id="bar2"
+            ></div>
+            <div
+                class="bars"
+                id="bar3"
+            ></div>
+        </button>
+
+
+        <!-- Itens da Navbarkivova -->
+        <div
+            class="collapse navbarkivova-collapse"
+            id="navbarkivovaNav"
+        >
+            <nav class="  align-items-center justify-content-center justify-content-lg-start">
+
+
+                <ul class="nav nav-tabes ml-5">
+                    <li>
+                        <a class="nav-link active">
+                            <span
+                                class="menu-button" aria-pressed="false" aria-label="Toggle menu"
+                                [class.open]="!collapsed"
+                                [class.active]="!collapsed"
+                                (click)="toggle()"
+                                aria-label="Toggle menu"
+                            >
+                               <div id="line-top" class="line"></div>
+                              <div id="line-middle" class="line"></div>
+                              <div id="line-bottom" class="line"></div>
+                            </span>
+                        </a>
+                    </li>
+                    <li
+                        *ngFor="let tab of filteredTabs"
+                        [ngClass]="{ 'active': tab.selected }"
+                        (click)="onTabClick(tab)"
+                    >
+                        <a
+                            class="nav-link"
+                            [routerLink]="[tab.url]"
+                            routerLinkActive="active"
+                        >
+                            {{ tab.label }}
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </nav>
+</main>

@@ -1,0 +1,51 @@
+<div class="base modal fade" id="modalRegistarOuEditarDiverso" aria-labelledby="modalRegistarOuEditarDiverso"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document"
+        style="overflow-y: hidden; overflow-x: hidden; min-width: 80%; min-height: 80%">
+        <div class="modal-content" style="padding-top: 4em;">
+            <div class="modal-header">
+                <div class="col-lg-8 offset-lg-2">
+                    <h4 class="page-title"> <b>Registrar proc. disciplinar</b></h4>
+                    <p>Os campos com (<span id="ob"><b>*</b></span>) são de carácter obrigatório </p>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="content " style="padding-top: 10px;">
+                <div class="col-lg-8 offset-lg-2">
+                    <form [formGroup]="diversoForm">
+
+                        <div style="display: flex; justify-content: start; align-items: center; ">
+
+                            <div class="form-group px-md-2">
+                                <label><b>Nome do Instrutor Principal</b></label>
+                                <input style="height: 30px;  " type="text" id="name" class="form-control" required
+                                    formControlName="observacao">
+
+                            </div>
+                            <div class="form-group">
+                                <label><b>Nome do Instrutor Adjunto</b></label>
+                                <input style="height: 30px;  " type="text" id="name" class="form-control" required
+                                    formControlName="observacao">
+
+                            </div>
+
+                            <div class="form-group px-md-2">
+                                <label><b>Provincia</b></label>
+                                <input style=" height: 30px; " type="text" id="name" class="form-control" required
+                                    formControlName="observacao">
+                            </div>
+
+                            <button class="btn btn btn-primary py-2 " >
+                                Registrar
+                            </button>
+                         </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

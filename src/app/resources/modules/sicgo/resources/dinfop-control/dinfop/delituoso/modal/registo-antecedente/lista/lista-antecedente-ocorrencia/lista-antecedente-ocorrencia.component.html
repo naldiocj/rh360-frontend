@@ -1,0 +1,81 @@
+ 
+
+            <details class="custom-details" *ngFor="let item of antecedenteocorrencia">
+                <summary class="d-flex">
+                  <!-- Ícone de acordo com a existência de antecedentes -->
+                  <div *ngIf="antecedenteocorrencia.length > 0; else noAntecedenteocorrencia" class="mr-2">
+                    <i class="bi bi-plus-lg"></i>
+                  </div>
+                  <ng-template #noAntecedenteocorrencia>
+                    <div class="mr-2">
+                      <i class="bi bi-x-lg"></i> <!-- Ícone ou conteúdo alternativo -->
+                    </div>
+                  </ng-template>
+                  <!-- Título do item -->
+                  <div class="row col-12">
+                    <div class="col-11">
+                        <a>Título: Ocorrencia</a>
+                     </div>
+                     <div class="col-1 p-1">
+                        <div class="dropdown dropdown-action">
+                            <a
+                                href="#"
+                                class="action-icon dropdown-toggle"
+                                data-toggle="dropdown"
+                                aria-expanded="false"
+                            >
+                                <i class="bi bi-three-dots-vertical"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right bg-main">
+                                <a
+                                    class="dropdown-item"
+                                    
+                                >
+                                    <i class="fas fa-edit m-r-5"></i>
+                                    <b>Editar</b>
+                                </a>
+                                 
+                            </div>
+                        </div>
+                     </div>
+                 </div>
+                </summary>
+              
+                <div class="bg-lightt">
+                  <!-- Verifica se existem dados para exibir -->
+                  <ng-container *ngIf="antecedenteocorrencia.length > 0; else elseTemplate">
+                    <div class="row mt-1">
+                      <div class="col-sm-12 offset-sm-12 col-md-12 offset-md-0">
+                        <ul class="d-block">
+                          <li>Registro Nº: {{ item.codigo_sistema }}</li>
+                          <li>Família Crime: {{ item.tipicidade_ocorrencia }}</li>
+                          <li>Tipo Crime: {{ item.tipo_ocorrencia }}</li>
+                          <li>Crime: {{ item.categoria }}</li> 
+                          <li>Local: {{ item.local }}</li> 
+                          <li>Tipo Local: {{ item.tipo_local }}</li> 
+                          <li>Importancia: {{ item.importancia }}</li> 
+                          <li>Província: {{ item.provincia }}</li>
+                          <li>Município: {{ item.municipio }}</li>
+                          </ul>
+              
+                        <!-- Controle de texto -->
+                        <div class="decricao p-2">
+                          {{ item.descricao | slice: 0:limiteTexto }}
+                          <span *ngIf="!mostrarTudo && item.descricao.length > limiteTexto">...</span>
+                          <a *ngIf="item.descricao.length > limiteTexto" (click)="toggleTexto(item)">
+                            {{ mostrarTudo ? 'Ver Menos' : 'Ver Mais' }}
+                          </a>
+                        </div>
+              
+                       
+                      </div>
+                    </div>
+                  </ng-container>
+              
+                  <!-- Template alternativo -->
+                  <ng-template #elseTemplate>
+                    <span>Nenhum modo operante registado</span>
+                  </ng-template>
+                </div>
+              </details>
+              

@@ -1,0 +1,58 @@
+<div class="modal fade" id="modalGetFacialRecon" tabindex="-1" aria-labelledby="modalGetFacialRecon" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="tab-content" id="myTabContent">
+          <div class="video-container position-relative">
+            <div class="bar mb-2"></div>
+
+            <video #video autoplay muted playsinline class="w-100 rounded shadow"></video>
+            <div #canvas id="canvasKL" class="position-absolute top-0 start-0 w-100 h-100"></div>
+          </div>
+
+          <div *ngIf="!loading && result" class="mt-3">
+            <h5>Resultado:</h5>
+
+            <div *ngIf="result.match">
+              <p><strong>Taxa de Confiança:</strong> {{ (result.confidence * 100) | number: '1.2-2' }}%</p>
+              <p><strong>Grau de Confiança:</strong>
+                <span [ngClass]="{
+        'text-success': result.confidence >= 0.85,
+        'text-warning': result.confidence >= 0.75 && result.confidence < 0.85,
+        'text-danger': result.confidence >= 0.60 && result.confidence < 0.75,
+        'text-muted': result.confidence < 0.60
+      }">
+                  {{
+                  result.confidence >= 0.85 ? 'Alta' :
+                  result.confidence >= 0.75 ? 'Moderada' :
+                  result.confidence >= 0.60 ? 'Baixa' :
+                  'Muito Baixa'
+                  }}
+                </span>
+              </p>
+
+              <p><strong>Nome:</strong> {{ result.user.nome }} {{ result.user.apelido }} ({{ result.user.alcunha }})</p>
+              <p><strong>Residência:</strong> {{ result.user.residencia || '---' }}</p>
+            </div>
+
+            <div *ngIf="!result.match">
+              <p class="text-muted">Nenhum rosto correspondente encontrado com confiança aceitável.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="modal-footer btn-group">
+        <button type="button" class="btn btn-secondary" (click)="stopCamera()">Fechar</button>
+        <button type="button" class="btn btn-secondary" (click)="startCamera()">Abrir</button>
+        <button class="btn btn-primary" (click)="handleSearchFace()" [disabled]="loading">
+          <span *ngIf="!loading">Reconhecer</span>
+          <span *ngIf="loading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+          <span *ngIf="loading">A processar...</span>
+        </button>
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Fechar Modal</button>
+      </div>
+    </div>
+  </div>
+</div>

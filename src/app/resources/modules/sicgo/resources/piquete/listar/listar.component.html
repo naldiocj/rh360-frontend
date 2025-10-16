@@ -1,0 +1,1126 @@
+<section class="tab__content">
+    <main class="tab__main">
+        <div class="d-flex flex-wrap justify-content-between col-lgkv-1">
+            <div class="col-xl-10 col-sm-12 col-lg-10 col-md-12 mt-2">
+                <div class="col-lgkv-1 mt-3">
+                    <div class="d-flex flex-wrap">
+                        <div class="col-auto">
+                            <div class="avatars avatars-xl text-primary">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="35"
+                                    height="35"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <rect
+                                        width="24"
+                                        height="24"
+                                        fill="none"
+                                    ></rect>
+                                    <path
+                                        fill="#c8c7c6"
+                                        fill-rule="evenodd"
+                                        d="M14 22h-4c-3.771 0-5.657 0-6.828-1.172S2 17.771 2 14v-4c0-3.771 0-5.657 1.172-6.828S6.239 2 10.03 2c.606 0 1.091 0 1.5.017q-.02.12-.02.244l-.01 2.834c0 1.097 0 2.067.105 2.848c.114.847.375 1.694 1.067 2.386c.69.69 1.538.952 2.385 1.066c.781.105 1.751.105 2.848.105h4.052c.043.534.043 1.19.043 2.063V14c0 3.771 0 5.657-1.172 6.828S17.771 22 14 22"
+                                        clip-rule="evenodd"
+                                        opacity="0.7"
+                                        stroke-width="0.1"
+                                        stroke="#f7f7f7"
+                                    ></path>
+                                    <path
+                                        fill="#c8c7c6"
+                                        d="M6 13.75a.75.75 0 0 0 0 1.5h8a.75.75 0 0 0 0-1.5zm0 3.5a.75.75 0 0 0 0 1.5h5.5a.75.75 0 0 0 0-1.5zm5.51-14.99l-.01 2.835c0 1.097 0 2.066.105 2.848c.114.847.375 1.694 1.067 2.385c.69.691 1.538.953 2.385 1.067c.781.105 1.751.105 2.848.105h4.052q.02.232.028.5H22c0-.268 0-.402-.01-.56a5.3 5.3 0 0 0-.958-2.641c-.094-.128-.158-.204-.285-.357C19.954 7.494 18.91 6.312 18 5.5c-.81-.724-1.921-1.515-2.89-2.161c-.832-.556-1.248-.834-1.819-1.04a6 6 0 0 0-.506-.154c-.384-.095-.758-.128-1.285-.14z"
+                                        stroke-width="0.1"
+                                        stroke="#f7f7f7"
+                                    ></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 infor-top-o mt-2">
+                            <h3 class="fs-4 mb-0">Listagem</h3>
+                            <span class="text-body-secondary">Listagem de Eventos</span>
+                        </div>
+                    </div>
+
+
+                    <div class="p-1">
+                        <div class="weister ml-2">
+                            <div
+                                class="alerta"
+                                *ngFor="let item of estados"
+                            >
+                                <span
+                                    class="legend-color cod_"
+                                    [style.backgroundColor]="item.cor"
+                                >
+                                    <i class="bi bi-info-lg"></i>
+                                </span>
+                                <div class="textos legend-text">
+                                    <h4>{{ item.texto }}</h4>
+                                    <p>Estado das Ocorrências</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lgkv-1 p-2">
+                        <div class="row d-flex flex-wrap justify-content-between">
+                            <div class="col-12 col-md-auto">
+                                <div
+                                    class="custom-radius btn-group"
+                                    role="group"
+                                    aria-label="Basic example"
+                                >
+                                    <select
+                                        title="kivova"
+                                        class="w-20s btn input-select"
+                                        (change)="filtrarPagina('perPage', $event)"
+                                    >
+                                        <option
+                                            *ngFor="let item of [5, 10, 20, 50]"
+                                            [value]="item"
+                                        >
+                                            {{ item }}
+                                        </option>
+                                    </select>
+
+
+                                    <button
+                                        class="btn input-buscar w-30s"
+                                        type="button"
+                                    >
+                                        <i class="bi bi-search"></i>
+                                    </button>
+
+
+                                    <input
+                                        class="btn input-search"
+                                        type="text"
+                                        [(ngModel)]="filtro_na_pesquisa.search"
+                                        (ngModelChange)="filtrarPesquisa($event)"
+                                        placeholder="Pesquisa ..."
+                                    >
+
+
+                                    <button
+                                        data-bs-target="#ToggleExternalContent"
+                                        aria-controls="navbarToggleExternalContent"
+                                        aria-expanded="false"
+                                        aria-label="Toggle navigation"
+                                        class="btn input-filtro p-2"
+                                        type="button"
+                                        data-bs-toggle="collapse"
+                                    >
+                                        <i class="bi bi-filter  mr-1"></i>
+                                        Pesquisa Avançada
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="mt-1">
+                            <nav
+                                class="nav nav-pills mt-1"
+                                *ngIf="this.selectedIds.length > 0"
+                            >
+                                <ul class="nav">
+                                    <li class="nav-item">
+                                        <div
+                                            class="custom-radius btn-group"
+                                            role="group"
+                                            aria-label="Basic example"
+                                        >
+                                            <button
+                                                [disabled]="isDisabled"
+                                                data-toggle="modal"
+                                                data-target="#modalVerSelecionados"
+                                                data-toggle="modal"
+                                                type="button"
+                                                class="btn impro"
+                                            >
+                                                <i class="fa fa-eye"></i>
+                                                {{ this.selectedIds.length > 1 ? 'Ver todos selecionados' : 'Ver o selecionado' }}
+                                            </button>
+
+
+                                            <button
+                                                [disabled]="isDisabled"
+                                                data-toggle="modal"
+                                                data-target="#modalRegistarOuEditarLinkar"
+                                                type="button"
+                                                class="btn impro"
+                                            >
+                                                <i class="bi bi-people-fill"></i>
+                                                {{ this.selectedIds.length > 1 ? 'Linkar delituosos á ocorrencias' : 'Linkar delituoso á ocorrencia'}}
+                                            </button>
+
+
+                                            <button
+                                                [disabled]="isDisabled"
+                                                data-toggle="modal"
+                                                data-target="#modalRegistarOuEditarLinkar"
+                                                type="button"
+                                                class="btn impro"
+                                            >
+                                                <i class="bi bi-people-fill"></i>
+                                                {{ this.selectedIds ? 'Associa á um Grupo' : 'Associar-los á um Grupo' }}
+                                            </button>
+
+
+                                            <button
+                                                [disabled]="isDisabled"
+                                                *ngIf="selectedIds.length > 0"
+                                                class="btn impro"
+                                                (click)="eliminarSelecionados()"
+                                            >
+                                                <i class="bi bi-people-fill"></i>
+                                                {{ this.getMaisOcorrenciasSelecionados ? 'Procurado' : 'Procurados' }}
+                                            </button>
+
+
+                                            <button
+                                                [disabled]="isDisabled"
+                                                *ngIf="selectedIds.length > 1"
+                                                class="btn impro"
+                                                (click)="eliminarSelecionados()"
+                                            >
+                                                <i class="bi bi-people-fill"></i>
+                                                Criar Grupo
+                                            </button>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-12 col-md-2 mt-3">
+                <div class="button-container row card-b col-auto justify-content-center">
+                    <div class="col-6 col-sm-3 col1">
+                        <i class="bi bi-fingerprint font-18"></i>
+                    </div>
+                    <div class="col-6 col-sm-3 col1">
+                        <i
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalRegistarOuEditarDelituosbuscar"
+                            class="bi bi-person-bounding-box font-18"
+                        ></i>
+                    </div>
+                    <div class="w-100"></div>
+                    <div class="col-6 col-sm-3 col1">
+                        <i
+                            data-bs-toggle="modal"
+                            data-bs-target="#exampleModal"
+                            class="bi bi-person-vcard-fill font-18"
+                        ></i>
+                    </div>
+                    <div class="col-6 col-sm-3 col1">
+                        <i
+                            data-bs-toggle="modal"
+                            data-bs-target="#vozModal"
+                            class="bi bi-mic-fill"
+                        ></i>
+                    </div>
+                </div>
+
+
+                <div class="button-container mt-3 card-b col-12 col-md-5">
+                    <button
+                        class="button-27"
+                        role="button"
+                        [disabled]="isDisabled"
+                        data-bs-toggle="modal"
+                        data-bs-target="#zonaCizentaModal"
+                        (volumechange)="this.novaOcorrencia()"
+                    >
+                        <span class="text">
+                            &nbsp;&nbsp;
+                            <i class="fa fa-plus"></i>
+                            &nbsp; Zona Cizenta
+                        </span>
+                    </button>
+                    <button
+                        class="button-27"
+                        role="button"
+                        [disabled]="isDisabled"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalRegistarOuEditar"
+                        (volumechange)="this.novaOcorrencia()"
+                    >
+                        <span class="text">
+                            &nbsp;&nbsp;
+                            <i class="fa fa-plus"></i>
+                            &nbsp; Novo Evento
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+        <div
+            id="ToggleExternalContent"
+            class="collapse"
+            data-bs-theme="dark"
+        >
+            <div class="mt-3 col-lg-12 col-md-12 col-sm-12 row">
+                <div class="d-flex justify-content-between col-lg-12 col-md-12 col-sm-12">
+                    <div class="col-lg-7  col-sm-7 col-7">
+                        <div class=" shadow-md bg-white relative group hover:bg-gray-100">
+                            <h3 class="text-xl font-semibold text-gray-700">🔍 Filtros de Ocorrência</h3>
+                            <span class="text-gray-600">
+                                Refine sua busca com base na família do crime e no tipo específico de ocorrência.
+                            </span>
+
+
+                        </div>
+                    </div>
+                    <div class="mt-3 d-flex col-auto">
+                        <!-- Botão Limpar Filtro -->
+                        <button
+                            class="button-28 "
+                            role="button"
+                            [disabled]="isDisabled"
+                            (click)="limparFiltro()"
+                        >
+                            <span class="text">
+                                <i class="fa fa-refresh fa-spin fa-1x fa-fw"></i>
+                            </span>
+                        </button>
+                        <!-- div -->
+
+
+
+
+                        <!-- Botão Aplicar Filtro -->
+                        <button
+                            class="button-28"
+                            role="button"
+                            [disabled]="isDisabled"
+                            (click)="aplicarFiltro()"
+                        >
+                            <span class="text">
+                                <i class="fa fa-check"></i>
+                                Aplicar
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-between ml-2 mt-3">
+                    <!-- Primeira linha com 5 filtros -->
+                    <div class="row col-auto col-12">
+                        <!-- Filtro Família de Crime -->
+                        <div class="form-group col-md-3 col-sm-6">
+                            <label>
+                                <b>
+                                    Família de crime
+                                    <span class="text-red">*</span>
+                                </b>
+                            </label>
+                            <ng-select2
+                                [options]="options"
+                                [data]="familiaCrimes"
+                                [(ngModel)]="filtro.familiaCrime"
+                                (valueChanged)="filtrarPagina('familiaCrime', $event)"
+                            >
+                            </ng-select2>
+                        </div>
+
+
+
+
+                        <!-- Filtro Tipo de Crime -->
+                        <div class="form-group col-md-3 col-sm-6">
+                            <label>
+                                <b>
+                                    Tipo de Crime
+                                    <span class="text-red">*</span>
+                                </b>
+                            </label>
+                            <ng-select2
+                                [options]="options"
+                                [data]="tipoOcorrencias"
+                                [(ngModel)]="filtro.tipoOcorrencia"
+                                (valueChanged)="selecionarCategoriaCrime($event)"
+                            >
+                            </ng-select2>
+                        </div>
+
+
+
+
+                        <!-- Filtro Tipicidade -->
+                        <div class="form-group col-md-3 col-sm-6">
+                            <label>
+                                <b>
+                                    Tipicidade
+                                    <span class="text-red">*</span>
+                                </b>
+                            </label>
+                            <ng-select2
+                                [options]="options"
+                                [data]="tipoCategorias"
+                                [(ngModel)]="filtro.tipoCategoria"
+                            >
+                            </ng-select2>
+                        </div>
+
+
+
+
+                        <!-- Filtro Importância -->
+                        <div class="form-group col-md-3 col-sm-6">
+                            <label>
+                                <b>Importância</b>
+                            </label>
+                            <ng-select2
+                                [options]="options"
+                                [data]="importancias"
+                                [(ngModel)]="filtro.importancia"
+                                (valueChanged)="filtrarPagina('importancia', $event)"
+                            >
+                            </ng-select2>
+                        </div>
+
+
+
+
+                        <!-- Filtro Província -->
+                        <div class="form-group col-md-3 col-sm-6">
+                            <label>
+                                <b>Província</b>
+                            </label>
+                            <ng-select2
+                                [options]="options"
+                                [data]="provincias"
+                                [(ngModel)]="filtro.provincias"
+                                (valueChanged)="handlerProvincias($event)"
+                            >
+                            </ng-select2>
+                        </div>
+
+
+
+
+                    </div>
+
+
+
+
+                    <!-- Segunda linha com os próximos 5 filtros -->
+                    <div class="row col-auto col-12">
+                        <!-- Filtro Município -->
+                        <div class="form-group col-md-3 col-sm-6">
+                            <label>
+                                <b>Município</b>
+                            </label>
+                            <ng-select2
+                                [options]="options"
+                                [data]="municipios"
+                                [(ngModel)]="filtro.municipios"
+                                (valueChanged)="selecionarMunicipio($event)"
+                            >
+                            </ng-select2>
+                        </div>
+
+
+
+
+                        <!-- Filtro Distrito -->
+                        <div class="form-group col-md-3 col-sm-6">
+                            <label>
+                                <b>Distrito</b>
+                            </label>
+                            <ng-select2
+                                [options]="options"
+                                [data]="distritos"
+                                [(ngModel)]="filtro.distritos"
+                            >
+                            </ng-select2>
+                        </div>
+
+
+
+
+                        <!-- Filtro Data com Hora -->
+                        <div class="form-group col-md-3 col-sm-6">
+                            <label>
+                                <b>Por Data</b>
+                            </label>
+                            <input
+                                type="datetime-local"
+                                class="form-control single"
+                                [(ngModel)]="filtro.data"
+                                (ngModelChange)="filtrarPagina('data', $event)"
+                            >
+                        </div>
+
+
+
+
+                        <!-- Filtro Data Inicial -->
+                        <div class="form-group col-md-3 col-sm-6">
+                            <label>
+                                <b>Data Inicial</b>
+                            </label>
+                            <input
+                                type="datetime-local"
+                                class="form-control single"
+                                [(ngModel)]="filtro.data_inicial"
+                                (ngModelChange)="filtrarPagina('data_inicial', $event)"
+                            >
+                        </div>
+
+
+
+
+                        <!-- Filtro Data Final -->
+                        <div class="form-group col-md-3 col-sm-6">
+                            <label>
+                                <b>Data Final</b>
+                            </label>
+                            <input
+                                type="datetime-local"
+                                class="form-control single"
+                                [(ngModel)]="filtro.data_final"
+                                (ngModelChange)="filtrarPagina('data_final', $event)"
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <section class="mt-2">
+
+
+
+
+            <div
+                *ngIf="novaOcorrenciaRecebida"
+                class="badge-notification"
+            >
+                Nova Ocorrência
+            </div>
+
+
+
+
+            <div
+                class
+                *ngIf="this.ocorrencias.length > 0"
+            >
+
+
+
+
+                <table
+                    class="table table-striped "
+                    #tableToPrint
+                >
+                    <thead class="table-thead">
+                        <tr>
+                            <th scope="col">
+                                <div class="checkboxes__items">
+                                    <label class="checkbox style-c">
+                                        <input
+                                            title="f"
+                                            type="checkbox"
+                                            type="checkbox"
+                                            [disabled]="isDisabled"
+                                            [(ngModel)]="selectAll"
+                                            (volumechange)="toggleSelectAll()"
+                                        >
+                                        <div class="checkbox__checkmark hover:bg-muted-100 dark:hover:bg-muted-700/70"></div>
+                                    </label>
+                                </div>
+                            </th>
+                            <th
+                                scope="col"
+                                class="text-justify"
+                            >
+                                #
+                            </th>
+                            <th
+                                scope="col"
+                                class="text-justify"
+                            >
+                                Cód. do sistema
+                            </th>
+                            <th
+                                scope="col"
+                                class="text-justify"
+                            >
+                                Familia de Crime
+                            </th>
+                            <th
+                                scope="col"
+                                class="text-justify"
+                            >
+                                Tipo de Crime
+                            </th>
+                            <th
+                                scope="col"
+                                class="text-justify"
+                            >
+                                Tipicidade
+                            </th>
+                            <th
+                                scope="col"
+                                class="text-justify"
+                            >
+                                Importancia
+                            </th>
+                            <th
+                                scope="col"
+                                class="text-justify"
+                            >
+                                Tipo de Local
+                            </th>
+                            <th
+                                scope="col"
+                                class="text-justify"
+                            >
+                                Local Ocorrido
+                            </th>
+                            <th
+                                scope="col"
+                                class="text-justify"
+                            >
+                                Provincia
+                            </th>
+                            <th
+                                scope="col"
+                                class="text-justify"
+                            >
+                                Municipio
+                            </th>
+                            <th
+                                scope="col"
+                                class="text-justify"
+                            >
+                                Data
+                            </th>
+                            <th
+                                scope="col"
+                                class="text-right"
+                            >
+                                Opçõens
+                            </th>
+                        </tr>
+                    </thead>
+
+
+
+
+                    <!-- Loop para exibir ocorrências filtradas e paginadas -->
+                    <tbody class="table-tbody">
+                        <tr
+                            *ngFor="let item of (filtroAplicado ? ocorrenciasFiltradas : ocorrencias)
+              | pesquisarOcorrencias:filtro_na_pesquisa.search
+              | paginate : {
+                id: 'idOcorrencia',
+                itemsPerPage: pagination.per_page,
+                currentPage: pagination.current_page,
+                totalItems: pagination.total
+              }; trackBy: trackById; index as i"
+                            (click)="selectOccurrence(item)"
+                            [@fadeIn]
+                        >
+                            <td>
+                                <i
+                                    class="bi bi-caret-right-fill"
+                                    *ngIf="isSharingEnabled"
+                                    (click)="shareOccurrence()"
+                                ></i>
+                                <!-- Toggle Button Style 7 -->
+                                <div class="checkboxes__item">
+                                    <label class="checkbox style-c">
+                                        <input
+                                            title="f"
+                                            type="checkbox"
+                                            [id]="item.id"
+                                            [disabled]="isDisabled"
+                                            [(ngModel)]="item.selected"
+                                            [checked]="selectAll"
+                                            (change)="onSelectItem(item)"
+                                            [checked]="validarSelecionado(item?.id)"
+                                        >
+                                        <div class="checkbox__checkmark hover:bg-muted-100 dark:hover:bg-muted-700/70"></div>
+                                    </label>
+                                </div>
+                            </td>
+
+
+
+
+                            <td>
+                                <span class="legend-item align-items-center">
+                                    <ng-container *ngIf="item.estado == 'P'; else elseTemplate">
+                                        <div
+                                            class="table-legend-color btn alerta-piscante align-items-center"
+                                            [style.backgroundColor]="item.cor"
+                                        >
+                                            <i class="bi bi-info-lg me5"></i>
+                                        </div>
+                                    </ng-container>
+
+
+
+
+                                    <ng-template #elseTemplate>
+                                        <div
+                                            class="table-legend-color btn align-items-center"
+                                            [style.backgroundColor]="item.cor"
+                                        >
+                                            <i class="bi bi-info-lg me5"></i>
+                                        </div>
+                                    </ng-template>
+                                </span>
+                            </td>
+
+
+
+
+                            <td
+                                class="text-left"
+                                (click)="toggle(item)"
+                            >
+                                {{ item.codigo_sistema }}
+                            </td>
+
+
+
+
+                            <td (click)="toggle(item)">
+                                {{ item.tipicidade_ocorrencia | slice : 0 : 20 }}..
+                            </td>
+
+
+
+
+                            <td (click)="toggle(item)">
+                                {{ item.tipo_ocorrencia | slice : 0 : 20 }}..
+                            </td>
+
+
+
+
+                            <td (click)="toggle(item)">{{ item.categoria | slice : 0 : 20 }}..</td>
+                            <td
+                                class="text-center"
+                                (click)="toggle(item)"
+                            >
+                                {{ item.importancia ?? "S/N" }}
+                            </td>
+
+
+
+
+                            <td
+                                class="text-center"
+                                (click)="toggle(item)"
+                            >
+                                {{ item.tipo_local ?? "S/N" }}
+                            </td>
+
+
+
+
+                            <td
+                                class="text-center"
+                                (click)="toggle(item)"
+                            >
+                                {{ item.local ?? "S/N" }}
+                            </td>
+
+
+
+
+                            <td (click)="toggle(item)">
+                                {{ item.provincia ?? "S/N" | slice : 0 : 10 }}
+                            </td>
+
+
+
+
+                            <td (click)="toggle(item)">
+                                {{ item.municipio ?? "S/N" | slice : 0 : 10 }}
+                            </td>
+
+
+
+
+                            <td (click)="toggle(item)">{{ item.data_ocorrido ?? "S/N" }}</td>
+
+
+
+
+                            <td class="text-right">
+                                <div class="dropdown dropdown-action">
+
+
+
+
+                                    <a
+                                        href="#"
+                                        [disabled]="isDisabled"
+                                        class="action-icon dropdown-toggle"
+                                        data-toggle="dropdown"
+                                        aria-expanded="false"
+                                    >
+                                        <i class="fa fa-ellipsis-v"></i>
+                                    </a>
+
+
+
+
+                                    <div class="dropdown-menu dropdown-menu-right  dropdown-menu-arrow">
+
+
+
+
+                                        <a
+                                            class="dropdown-item"
+                                            (click)="editar(item)"
+                                            data-toggle="modal"
+                                            (click)="this.setOcorencia(item)"
+                                            data-target="#modalRegistarOuEditar"
+                                        >
+                                            <i class="fa fa-edit m-r-5"></i>
+                                            Editar
+                                        </a>
+
+
+
+
+                                        <a
+                                            data-toggle="modal"
+                                            class="dropdown-item"
+                                            data-target="#modalRegistarOuEditarInterveniente"
+                                            (click)="KV(item.id)"
+                                        >
+                                            <i class="fa fa-user-plus m-r-5"></i>
+                                            Adicionar Intervenientes
+                                        </a>
+
+
+
+
+                                        <a
+                                            data-toggle="modal"
+                                            class="dropdown-item"
+                                            data-target="#modalRegistarOuEditarVeiculo"
+                                            (click)="this.KV(item.id)"
+                                        >
+                                            <i class="fa fa-user m-r-5"></i>
+                                            Adicionar Veiculo Roubado(a)
+                                        </a>
+
+
+
+
+                                        <a
+                                             class="dropdown-item"
+                                             data-bs-toggle="modal" 
+                                             data-bs-target="#modalRegistarOuEditarArmas"
+                                            (click)="this.KV(item.id)"
+                                        >
+                                            <i class="fa fa-user m-r-5"></i>
+                                            Adicionar Armas
+                                        </a>
+
+
+
+
+                                        <a
+                                            data-toggle="modal"
+                                            class="dropdown-item"
+                                            data-target="#modalRegistarOuEditarEvidencia"
+                                            (click)="KV(item.id)"
+                                        >
+                                            <i class="fas fa-file-alt m-r-5"></i>
+                                            Adicionar Evidência Criminal
+                                        </a>
+
+
+
+
+                                        <a
+                                            data-toggle="modal"
+                                            class="dropdown-item"
+                                            data-target="#modalRegistarOuEditarVitimas"
+                                            (click)="this.KV(item.id)"
+                                        >
+                                            <i class="fa fa-user m-r-5"></i>
+                                            Adicionar Vitima
+                                        </a>
+
+
+
+
+                                        <a
+                                            data-toggle="modal"
+                                            class="dropdown-item"
+                                            data-target="#modalRegistarOuEditarBens"
+                                            (click)="KV(item.id)"
+                                        >
+                                            <i class="fa fa-cubes m-r-5"></i>
+                                            Adicionar Tipo de Bens
+                                        </a>
+
+
+
+
+                                        <hr>
+
+
+
+
+                                        <a
+                                            data-toggle="modal"
+                                            class="dropdown-item"
+                                            data-target="#modalRegistarOuEditarLinkar"
+                                            (click)="KV(item.id)"
+                                        >
+                                            <i class="fa fa-link m-r-5"></i>
+                                            Associar Suspeito
+                                        </a>
+
+
+
+
+                                        <a
+                                            data-toggle="modal"
+                                            class="dropdown-item"
+                                            data-target="#modalRegistarOuEditarLinkarGrupo"
+                                            (click)="KV(item.id)"
+                                        >
+                                            <i class="fa fa-link m-r-5"></i>
+                                            Associar Grupo Suspeito
+                                        </a>
+
+
+
+
+                                        <a
+                                            class="dropdown-item"
+                                            href="#/piips/sicgo/piquete"
+                                            (click)="this.emitirEtiqueta(item)"
+                                        >
+                                            <i class="bi bi-ticket-perforated-fill m-r-5"></i>
+                                            Imprimir Etiqueta
+                                        </a>
+
+
+
+
+                                        <a
+                                            class="dropdown-item"
+                                            (click)="changeOcorrenciaId(item.id)"
+                                            href="#"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#view-ocorrencias-completa"
+                                            data-target="#view-ocorrencias-completa"
+                                        >
+                                            <i class="bi bi-receipt-cutoff"></i>
+                                            Ficha
+                                        </a>
+
+
+
+
+                                        <a
+                                            class="dropdown-item"
+                                            (click)="Delete(item.id)"
+                                            href="#"
+                                            data-toggle="modal"
+                                            data-target="#view-ocorrencias-delete"
+                                        >
+                                            <i class="bi bi-trash-fill"></i>
+                                            deletar
+                                        </a>
+
+
+
+
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+
+
+
+                        <tr>
+                            <td colspan="9">
+                                Mostrando de {{ this.pagination.current_page }} a
+                {{ this.pagination.per_page }} de {{ this.pagination.total }}
+                                <aside *ngIf="this.pagination.total < 2; else outrosRegistos">registos</aside>
+                                <ng-template #outrosRegistos>registos</ng-template>
+                            </td>
+
+
+
+
+                            <td colspan="5">
+                                <div class="float-right">
+                                    <pagination-controls
+                                        id="idOcorrencia"
+                                        (pageChange)="this.filtrarPagina('page', $event, false)"
+                                        [directionLinks]="true"
+                                        [autoHide]="false"
+                                        previousLabel="Anterior"
+                                        nextLabel="Próximo"
+                                        [maxSize]="4"
+                                        [responsive]="true"
+                                    ></pagination-controls>
+                                </div>
+                            </td>
+
+
+
+
+                        </tr>
+
+
+
+
+                    </tbody>
+                </table>
+
+
+
+
+            </div>
+            <!-- Mensagem quando não há dados -->
+            <div
+                class="no-data-message"
+                *ngIf="!isLoading && (!ocorrencias || ocorrencias.length === 0)"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="96"
+                    height="96"
+                    viewBox="0 0 24 24"
+                >
+                    <rect
+                        width="24"
+                        height="24"
+                        fill="none"
+                    ></rect>
+                    <path
+                        fill="#b1b1b1"
+                        d="M3 10.417c0-3.198 0-4.797.378-5.335c.377-.537 1.88-1.052 4.887-2.081l.573-.196C10.405 2.268 11.188 2 12 2s1.595.268 3.162.805l.573.196c3.007 1.029 4.51 1.544 4.887 2.081C21 5.62 21 7.22 21 10.417v1.574c0 5.638-4.239 8.375-6.899 9.536C13.38 21.842 13.02 22 12 22s-1.38-.158-2.101-.473C7.239 20.365 3 17.63 3 11.991z"
+                        opacity="0.4"
+                        stroke-width="0.1"
+                        stroke="#f7f7f7"
+                    ></path>
+                    <path
+                        fill="#b1b1b1"
+                        d="M12 7.25a.75.75 0 0 1 .75.75v4a.75.75 0 0 1-1.5 0V8a.75.75 0 0 1 .75-.75M12 16a1 1 0 1 0 0-2a1 1 0 0 0 0 2"
+                        stroke-width="0.1"
+                        stroke="#f7f7f7"
+                    ></path>
+                </svg>
+                <p>Nenhuma Ocorrencia registrado</p>
+                <small>
+                    Utilize o mapa para adicionar novos registros
+                </small>
+            </div>
+
+
+
+
+            <!-- Loading state -->
+            <div
+                class="loading-state"
+                *ngIf="isLoading"
+            >
+                <div class="spinner"></div>
+                <p>Carregando Ocorrencia...</p>
+            </div>
+        </section>
+    </main>
+</section>
+
+
+
+
+<piquete-view
+    [view]="this.isData"
+    [showBannerup]="this.isOffcanvasVisible"
+></piquete-view>
+
+ 
+
+<app-sicgo-zona-cizenta (eventRegistarOuEditar)="buscarOcorrencias()"></app-sicgo-zona-cizenta>
+<app-ocorrencias-selecionados [ocorrenciasSelecionados]="selectedIds"></app-ocorrencias-selecionados>
+<app-sicgo-armas-registar-ou-editar (eventRegistarOuEditar)="buscarOcorrencias()"></app-sicgo-armas-registar-ou-editar>
+<sicgo-rgistar-ou-editar-emergencia
+    [ocorrencia]="this.ocorrencia"
+    (eventRegistarOuEditar)="buscarOcorrencias()"
+></sicgo-rgistar-ou-editar-emergencia>
+
+
+
+
+<!-- <app-arquivo-midia></app-arquivo-midia> -->
+<app-evidencia
+    [ocorrenciaId]="this.isOffVisible"
+    (eventRegistarOuEditar)="buscarOcorrencias()"
+></app-evidencia>
+<app-testemunha
+    [ocorrenciaId]="this.isOffVisible"
+    (eventRegistarOuEditar)="buscarOcorrencias()"
+></app-testemunha>
+<app-vitima-modal
+    [ocorrenciaId]="this.isOffVisible"
+    (eventRegistarOuEditar)="buscarOcorrencias()"
+></app-vitima-modal>
+<app-tipodebens
+    [ocorrenciaId]="this.isOffVisible"
+    (eventRegistarOuEditar)="buscarOcorrencias()"
+></app-tipodebens>
+<app-linkar-suspeito-modal
+    [ocorrenciaId]="selectedIds"
+    [ocorrenciaId]="this.isOffVisible"
+    (eventRegistarOuEditar)="buscarOcorrencias()"
+></app-linkar-suspeito-modal>
+<app-ficha-ocorrencias
+    [ocorrenciaId]="this.selectedOcorrenciaId"
+    (eventRegistarOuEditar)="buscarOcorrencias()"
+></app-ficha-ocorrencias>
+<app-relatorio-ocorrencias
+    [ocorrenciaId]="this.isOffVisible"
+    (eventRegistarOuEditar)="buscarOcorrencias()"
+></app-relatorio-ocorrencias>
+<app-sicgo-veiculo
+    [ocorrenciaId]="this.isOffVisible"
+    (eventRegistarOuEditar)="buscarOcorrencias()"
+></app-sicgo-veiculo>
+<app-sicgo-associar-grupo-registo-ou-editar
+    [ocorrenciaId]="this.isOffVisible"
+    (eventRegistarOuEditar)="buscarOcorrencias()"
+></app-sicgo-associar-grupo-registo-ou-editar>
+<app-sicgo-delituoso-preview></app-sicgo-delituoso-preview>
+
+
+
+
+<!-- Formulário para a Opção 1 -->
+<sicgo-registar-ou-editar-piquete
+    [orgaoIdDoUsuarioLogado]="orgao_id"
+    [orgaoSigla]="orgao"
+    [ocorrencia]="ocorrencia"
+    (eventRegistarOuEditar)="buscarOcorrencias()"
+    [ocorrenciaId]="buscarId()"
+></sicgo-registar-ou-editar-piquete>
+<!-- <map></map>... -->

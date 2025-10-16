@@ -1,0 +1,49 @@
+<details>
+  <summary class="d-flex">
+    <div *ngIf="tipobens?.length; else noTipobens" class="mr-2">
+      <i class="bi bi-plus-lg"></i>
+    </div>
+    <ng-template #noTipobens>
+      <div class="mr-2">
+        <i class="bi bi-x-lg"></i> <!-- Ícone ou conteúdo alternativo -->
+      </div>
+    </ng-template>
+    TIPO BENS
+  </summary>
+  
+  <div class="bg-light">
+    <ng-container *ngIf="tipobens?.length; else elseTemplate">
+       
+    <details class="details"  *ngFor="let item of this.tipobens index as i" >
+      <summary class="summary d-flex"> 
+           <div class="col-5 d-flex mt-2 ml-2"> {{ item.nome | slice : 0 : 14 }} <span class="col-5 sfont">&nbsp;{{ item.estado }} &nbsp;</span></div> 
+            
+      
+      </summary>
+      <div class=" bg-lightt">
+        Propriedades:
+        <div class="col-10" *ngFor="let item of item.tipodebenspropriedade index as i">
+          <a>{{item.nome}}</a>
+          <a>{{item.descricao}}</a>
+        </div>
+        <hr>
+        Historicos:
+        <div class="col-10" *ngFor="let item of item.tipobenshistorico index as i">
+          <a>{{item.data}}</a>
+          <a>{{item.descricao}}</a>
+        </div>
+        
+              
+      </div>
+    </details>
+  
+    </ng-container>
+    <ng-template #elseTemplate>
+        <span>
+          Nenhum suspeito associado
+        </span> 
+    </ng-template>
+  </div>
+</details>
+
+

@@ -1,0 +1,64 @@
+label {
+    font-size: 16px;
+    font-weight: 500;
+    font-style: bold;
+}
+
+input:focus {
+    border: solid 5px rgb(65, 215, 65);
+}
+
+.form-group {
+    width: 85%;
+}
+
+input,
+button {
+    margin-left: 20px;
+    min-width: 400px;
+    height: 50px;
+    border-radius: 5px;
+}
+
+.show_nip {
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 25px;
+    font-family: arial;
+    font-style: bold;
+    text-align: center;
+}
+
+select,
+input,
+button {
+    margin-left: 20px;
+    min-width: 400px;
+    height: 50px;
+    border-radius: 5px;
+}
+
+.bt_layout {
+    background-image: url(../../../../../../assets/sigcod/fundo.png);
+    background-repeat: no-repeat;
+    background-color: transparent;
+    background-size: 99.5%;
+    height: 100%;
+    color: white;
+    margin-left: 0%;
+    border: none;
+    margin-top: 30px;
+    ;
+}
+
+.bt_layout:active {
+    border: none;
+}
+
+@media(max-width:768px) {
+    .section_main {
+        display: grid;
+        justify-content: space-between;
+        height: auto;
+    }
+}

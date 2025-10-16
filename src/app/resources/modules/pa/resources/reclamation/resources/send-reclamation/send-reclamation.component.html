@@ -1,0 +1,140 @@
+<main id="main_" class="main_">
+  <div class="pagetitle mb-4">
+    <h1>
+      <i class="bi bi-envelope-fill"></i
+      ><span class="mx-2">Enviar reclamação</span>
+    </h1>
+  </div>
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body py-4">
+            <form [formGroup]="this.simpleForm" (submit)="onSubmit()">
+              <div class="row">
+                <div class="form-group col-xl-3 col-lg-3 col-md-5 col-sm-12">
+                  <label
+                    style="font-size: 1rem; font-weight: 600; color: #041b43"
+                  >
+                    <b>
+                      Tipo de orgão a enviar<span class="text-danger"> *</span>
+                    </b>
+                  </label>
+                  <ng-select2
+                    [options]="options"
+                    [data]="this.orgaoOuComandoProvincial"
+                    (valueChanged)="selecionarOrgaoOuComandoProvincial($event)"
+                  >
+                  </ng-select2>
+                </div>
+                <div class="form-group col-xl-5 col-lg-5 col-md-7 col-sm-12">
+                  <label
+                    style="font-size: 1rem; font-weight: 600; color: #041b43"
+                  >
+                    <b> Órgão a enviar<span class="text-danger"> *</span> </b>
+                  </label>
+                  <ng-select2
+                    [options]="options"
+                    formControlName="pessoajuridica_id"
+                    [data]="this.direcaoOuOrgao"
+                  >
+                  </ng-select2>
+                </div>
+                <div class="form-group col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                  <label
+                    style="font-size: 1rem; font-weight: 600; color: #041b43">
+                    <b>Enviar para <span class="text-danger"> *</span> </b>
+                  </label>
+                  <ng-select2
+                    [options]="options"
+                    formControlName="modulo_id"
+                    [data]="this.modulos"
+                  >
+                  </ng-select2>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3 col-md-4 col-sm-12">
+                  <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <label
+                        style="
+                          font-size: 1rem;
+                          font-weight: 600;
+                          color: #041b43;
+                        "
+                        for="mensagem"
+                        class="my-2"
+                        >Adicionar arquivo <span>(opcional)</span></label
+                      >
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <label
+                        for="addFile"
+                        class="btn btn-outline-primary w-100"
+                        style="font-size: 0.9rem"
+                      >
+                        <i class="bi bi-file-pdf"></i>Arquivo[PDF]
+                      </label>
+                      <input
+                        type="file"
+                        id="addFile"
+                        class="d-none"
+                        accept="application/pdf"
+                        (change)="onSelectFile($event)"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-9 col-md-8 col-sm-12">
+                  <div class="form-group">
+                    <label
+                      style="font-size: 1rem; font-weight: 600; color: #041b43"
+                      for="mensagem"
+                      class="my-2"
+                      >Mensagem
+                      <b
+                        >Enviar para <span class="text-danger"> *</span>
+                      </b></label
+                    >
+                    <div class="col-12">
+                      <angular-editor
+                        [config]="editorConfig"
+                        formControlName="texto"
+                        style="width: 100%"
+                        class="editor"
+                      ></angular-editor>
+                    </div>
+                    <!-- <editor [init]="config" formControlName="texto" style="width: 100%;" class="editor"></editor> -->
+                  </div>
+                </div>
+                <div class="col-12 d-flex justify-content-end">
+                  <div class="btn-groups d-flex my-2">
+                    <button
+                      type="reset"
+                      class="btn btn-outline-danger d-flex align-items-center"
+                      style="border-radius: 5px 0px 0px 5px !important"
+                    >
+                      <i class="bi bi-x-lg mx-2"></i>
+                      <span class="d-none d-lg-block">Cancelar</span>
+                    </button>
+                    <button
+                      type="submit"
+                      class="btn btn-outline-primary py-0 d-flex"
+                      style="border-radius: 0px 5px 5px 0px !important"
+                      [disabled]="!this.simpleForm.valid"
+                    >
+                      <i class="bi bi-telegram mx-2"></i>
+                      <span class="d-none d-lg-block">Enviar</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

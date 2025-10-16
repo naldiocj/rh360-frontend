@@ -1,0 +1,589 @@
+<body>
+  <div class="col-sm-8 col-9 text-left mb-4 mt-2">
+    <a
+      data-toggle="modal"
+      id="book"
+      ariaCurrentWhenActive="page"
+      class="btn btn btn-primary btn-rounded"
+      data-target="#modalRegistarOuEditarProcessos"
+    >
+      <i class="fa fa-plus"></i> <b> Novo Processo</b>
+    </a>
+
+    <a
+      data-toggle="modal"
+      id="book"
+      ariaCurrentWhenActive="page"
+      class="btn btn btn-primary btn-rounded"
+    >
+      <i class="fa fa-plus"></i> <b> Imprimir</b>
+    </a>
+  </div>
+
+  <div class="container m-lg-6">
+    <div class="row filter-section">
+      <div class="col-md-4 filter-column">
+        <div class="filter-field">
+          <div class="input-group mb-1">
+            <input type="date" id="fromDateFilter" class="form-control" />
+            <span class="input-group-text">até</span>
+            <input type="date" id="toDateFilter" class="form-control" />
+          </div>
+        </div>
+
+        <div class="filter-field">
+          <div class="form-check form-check-inline">
+            <input
+              type="checkbox"
+              id="typicityFilterEnabled"
+              class="form-check-input"
+            />
+            <label for="typicityFilter" class="form-check-label"
+              >Tipicidade:</label
+            >
+          </div>
+
+          <div class="form-check form-check-inline">
+            <select
+            style="width: 165px; height: 30px; margin-left: 72px"
+              id="typicityFilter"
+              class="form-select"
+            >
+              <option value="">Todos</option>
+              <option value="low">Baixa</option>
+              <option value="medium">Média</option>
+              <option value="high">Alta</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="filter-field">
+          <div class="form-check form-check-inline">
+            <input
+              type="checkbox"
+              id="legalFrameworkFilterEnabled"
+              class="form-check-input"
+            />
+            <label for="legalFrameworkFilter" class="form-check-label"
+              >Enquadramento Legal:</label
+            >
+          </div>
+          <div class="form-check form-check-inline mt-1">
+            <select
+            style="width: 165px; height: 30px; margin-left: -5px"
+              id="legalFrameworkFilter"
+              class="form-select"
+            >
+              <option value="">Todos</option>
+              <option value="legal1">Legal 1</option>
+              <option value="legal2">Legal 2</option>
+              <option value="legal3">Legal 3</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="filter-field">
+          <div class="form-check form-check-inline">
+            <input
+              type="checkbox"
+              id="securityLevelFilterEnabled"
+              class="form-check-input"
+            />
+            <label for="securityLevelFilter" class="form-check-label"
+              >Nível de Segurança:</label
+            >
+          </div>
+          <div class="form-check form-check-inline mt-1">
+            <select
+            style="width: 165px; height: 30px; margin-left: 13px"
+              id="securityLevelFilter"
+              class="form-select"
+            >
+              <option value="">Todos</option>
+              <option value="low">Baixo</option>
+              <option value="medium">Médio</option>
+              <option value="high">Alto</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 filter-column">
+        <div class="filter-field">
+          <div class="form-check form-check-inline">
+            <input
+              type="checkbox"
+              id="objectFilterEnabled"
+              class="form-check-input"
+            />
+            <label for="objectFilter" class="form-check-label">Objeto:</label>
+          </div>
+
+          <div class="form-check form-check-inline">
+            <select
+              style="width: 165px; height: 30px; margin-left: 44px"
+              id="objectFilter"
+              class="form-select"
+            >
+              <option value="">Todos</option>
+              <option value="low">Baixo</option>
+              <option value="medium">Médio</option>
+              <option value="high">Alto</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="filter-field">
+          <div class="form-check form-check-inline">
+            <input
+              type="checkbox"
+              id="damageTypeFilterEnabled"
+              class="form-check-input"
+            />
+            <label for="damageTypeFilter" class="form-check-label"
+              >Tipo de Dano:</label
+            >
+          </div>
+          <div class="form-check form-check-inline mt-1">
+            <select
+              style="width: 165px; height: 30px; margin-left: 2px"
+              id="damageTypeFilter"
+              class="form-select"
+            >
+              <option value="">Todos</option>
+              <option value="low">Baixa</option>
+              <option value="medium">Média</option>
+              <option value="high">Alta</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="filter-field">
+          <div class="form-check form-check-inline">
+            <input
+              type="checkbox"
+              id="gravityFilterEnabled"
+              class="form-check-input"
+            />
+            <label for="gravityFilter" class="form-check-label"
+              >Gravidade:</label
+            >
+          </div>
+          <div class="form-check form-check-inline mt-1">
+            <select
+              id="gravityFilter"
+              class="form-select"
+              style="width: 165px; height: 30px; margin-left: 20px"
+            >
+              <option value="">Todos</option>
+              <option value="low">Baixa</option>
+              <option value="medium">Média</option>
+              <option value="high">Alta</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="filter-field">
+          <div class="form-check form-check-inline">
+            <input
+              type="checkbox"
+              id="treatmentFilterEnabled"
+              class="form-check-input"
+            />
+            <label for="treatmentFilter" class="form-check-label"
+              >Tratamento:</label
+            >
+          </div>
+          <div class="form-check form-check-inline mt-1">
+            <select
+              id="treatmentFilter"
+              class="form-select"
+              style="width: 165px; height: 30px; margin-left: 10px"
+            >
+              <option value="">Todos</option>
+              <option value="low">Baixa</option>
+              <option value="medium">Média</option>
+              <option value="high">Alta</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 filter-column">
+        <div class="filter-field">
+          <div class="form-check form-check-inline">
+            <input
+              type="checkbox"
+              id="provinceFilterEnabled"
+              class="form-check-input"
+            />
+            <label for="provinceFilter" class="form-check-label"
+              >Província:</label
+            >
+          </div>
+          <div class="form-check form-check-inline mt-1">
+            <select
+              id="provinceFilter"
+              class="form-select"
+              style="width: 140px; height: 30px; margin-left: 102px"
+            >
+              <option value="">Todos</option>
+              <option value="low">Baixa</option>
+              <option value="medium">Média</option>
+              <option value="high">Alta</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="filter-field">
+          <div class="form-check form-check-inline">
+            <input
+              type="checkbox"
+              id="victimNationalityFilterEnabled"
+              class="form-check-input"
+            />
+            <label for="victimNationalityFilter" class="form-check-label"
+              >Nacionalidade da Vítima:</label
+            >
+          </div>
+          <div class="form-check form-check-inline mt-1">
+            <select
+              id="victimNationalityFilter"
+              class="form-select"
+              style="width: 140px; height: 30px; margin-left: 8px"
+            >
+              <option value="">Todos</option>
+              <option value="low">Baixa</option>
+              <option value="medium">Média</option>
+              <option value="high">Alta</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="filter-field">
+          <div class="form-check form-check-inline">
+            <input
+              type="checkbox"
+              id="suspectNationalityFilterEnabled"
+              class="form-check-input"
+            />
+            <label
+              for="suspectNationalityFilterEnabled"
+              class="form-check-label"
+              >Nacionalidade do Suspeito:</label
+            >
+          </div>
+          <div class="form-check form-check-inline mt-1">
+            <select
+              id="suspectNationalityFilter"
+              class="form-select"
+              style="width: 140px; height: 30px; margin-left: -8px;"
+              >
+              <option value="">Todos</option>
+              <option value="low">Baixa</option>
+              <option value="medium">Média</option>
+              <option value="high">Alta</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <div class="col-md-12 m-lg-2">
+    <button class="btn btn-primary">
+      <i class="fa fa-search-plus m-r-5"></i> Aplicar Filtros
+    </button>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-border table-striped custom-table datatable mb-0">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Código</th>
+          <th>NumExp</th>
+          <th>Número do Processo</th>
+          <th>Data da Abertura</th>
+          <th>Instrutor</th>
+          <th>Interveniente-1</th>
+          <th>Interveniente-2</th>
+          <th>Interveniente-3</th>
+          <th>Interveniente-4</th>
+          <th>Interveniente-5</th>
+          <th class="text-right">Operação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>aaaaaaaaaaaa</td>
+          <td>aaaaaaa</td>
+          <td>aaaaaaa</td>
+          <td>aaaaaa</td>
+          <td>aaaaaa</td>
+          <td>aaaaa</td>
+          <td>aaaa</td>
+          <td>aaaaaa</td>
+          <td>aaaaaaa</td>
+          <td>aaaaaaa</td>
+          <td>aaaaa</td>
+
+          <td class="text-right">
+            <div class="dropdown dropdown-action">
+              <a
+                href="#"
+                class="action-icon dropdown-toggle"
+                data-toggle="dropdown"
+                aria-expanded="false"
+                ><i class="fa fa-ellipsis-v"></i
+              ></a>
+              <div class="dropdown-menu dropdown-menu-right bg-main">
+                <a class="dropdown-item">
+                  <i class="fas fa-edit m-r-5"></i><b> Editar</b>
+                </a>
+                <a
+                  data-toggle="modal"
+                  class="dropdown-item bold"
+                  data-target="#modalRegistarOuEditarTestemunha"
+                >
+                  <i class="fas fa-user-plus m-r-5"></i
+                  ><b> Adicionar Testemunha/Informante/Participante</b>
+                </a>
+                <a
+                  data-toggle="modal"
+                  class="dropdown-item bold"
+                  data-target="#modalRegistarOuEditarEvidencia"
+                >
+                  <i class="fas fa-file-alt m-r-5"></i
+                  ><b> Adicionar Evidência Criminal</b>
+                </a>
+                <a
+                  data-toggle="modal"
+                  class="dropdown-item bold"
+                  data-target="#modalRegistarOuEditarVitima"
+                >
+                  <i class="fas fa-user-injured m-r-5"></i>
+                  <b>Adicionar Vítima</b>
+                </a>
+                <a
+                  data-toggle="modal"
+                  class="dropdown-item bold"
+                  data-target="#modalRegistarOuEditarBens"
+                >
+                  <i class="fas fa-cubes m-r-5"></i
+                  ><b> Adicionar Tipo de Bens</b>
+                </a>
+                <a
+                  data-toggle="modal"
+                  class="dropdown-item bold"
+                  data-target="#modalRegistarOuEditarLinkar"
+                >
+                  <i class="fas fa-link m-r-5"></i> <b>Linkar Suspeito</b>
+                </a>
+                <a
+                  data-toggle="modal"
+                  class="dropdown-item bold"
+                  data-target="#modalRegistarOuEditarArquivo"
+                >
+                  <i class="fas fa-file-image m-r-5"></i>
+                  <b>Arquivo de Mídia</b>
+                </a>
+              </div>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td>aaaaaaaaaaaa</td>
+          <td>aaaaaaa</td>
+          <td>aaaaaaa</td>
+          <td>aaaaaa</td>
+          <td>aaaaaa</td>
+          <td>aaaaa</td>
+          <td>aaaa</td>
+          <td>aaaaaa</td>
+          <td>aaaaaaa</td>
+          <td>aaaaaaa</td>
+          <td>aaaaa</td>
+
+          <td class="text-right">
+            <div class="dropdown dropdown-action">
+              <a
+                href="#"
+                class="action-icon dropdown-toggle"
+                data-toggle="dropdown"
+                aria-expanded="false"
+                ><i class="fa fa-ellipsis-v"></i
+              ></a>
+              <div class="dropdown-menu dropdown-menu-right bg-main">
+                <a class="dropdown-item">
+                  <i class="fas fa-edit m-r-5"></i><b> Editar</b>
+                </a>
+                <a
+                  data-toggle="modal"
+                  class="dropdown-item bold"
+                  data-target="#modalRegistarOuEditarTestemunha"
+                >
+                  <i class="fas fa-user-plus m-r-5"></i
+                  ><b> Adicionar Testemunha/Informante/Participante</b>
+                </a>
+                <a
+                  data-toggle="modal"
+                  class="dropdown-item bold"
+                  data-target="#modalRegistarOuEditarEvidencia"
+                >
+                  <i class="fas fa-file-alt m-r-5"></i
+                  ><b> Adicionar Evidência Criminal</b>
+                </a>
+                <a
+                  data-toggle="modal"
+                  class="dropdown-item bold"
+                  data-target="#modalRegistarOuEditarVitima"
+                >
+                  <i class="fas fa-user-injured m-r-5"></i>
+                  <b>Adicionar Vítima</b>
+                </a>
+                <a
+                  data-toggle="modal"
+                  class="dropdown-item bold"
+                  data-target="#modalRegistarOuEditarBens"
+                >
+                  <i class="fas fa-cubes m-r-5"></i
+                  ><b> Adicionar Tipo de Bens</b>
+                </a>
+                <a
+                  data-toggle="modal"
+                  class="dropdown-item bold"
+                  data-target="#modalRegistarOuEditarLinkar"
+                >
+                  <i class="fas fa-link m-r-5"></i> <b>Linkar Suspeito</b>
+                </a>
+                <a
+                  data-toggle="modal"
+                  class="dropdown-item bold"
+                  data-target="#modalRegistarOuEditarArquivo"
+                >
+                  <i class="fas fa-file-image m-r-5"></i>
+                  <b>Arquivo de Mídia</b>
+                </a>
+              </div>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td>aaaaaaaaaaaa</td>
+          <td>aaaaaaa</td>
+          <td>aaaaaaa</td>
+          <td>aaaaaa</td>
+          <td>aaaaaa</td>
+          <td>aaaaa</td>
+          <td>aaaa</td>
+          <td>aaaaaa</td>
+          <td>aaaaaaa</td>
+          <td>aaaaaaa</td>
+          <td>aaaaa</td>
+
+          <td class="text-right">
+            <div class="dropdown dropdown-action">
+              <a
+                href="#"
+                class="action-icon dropdown-toggle"
+                data-toggle="dropdown"
+                aria-expanded="false"
+                ><i class="fa fa-ellipsis-v"></i
+              ></a>
+              <div class="dropdown-menu dropdown-menu-right bg-main">
+                <a class="dropdown-item">
+                  <i class="fas fa-edit m-r-5"></i><b> Editar</b>
+                </a>
+                <a class="dropdown-item bold">
+                  <i class="fas fa-user-plus m-r-5"></i
+                  ><b> Adicionar Testemunha/Informante/Participante</b>
+                </a>
+                <a class="dropdown-item">
+                  <i class="fas fa-file-alt m-r-5"></i
+                  ><b> Adicionar Evidência Criminal</b>
+                </a>
+                <a class="dropdown-item">
+                  <i class="fas fa-user-injured m-r-5"></i>
+                  <b>Adicionar Vítima</b>
+                </a>
+                <a class="dropdown-item">
+                  <i class="fas fa-cubes m-r-5"></i
+                  ><b> Adicionar Tipo de Bens</b>
+                </a>
+                <a class="dropdown-item">
+                  <i class="fas fa-link m-r-5"></i> <b>Linkar Suspeito</b>
+                </a>
+                <a class="dropdown-item">
+                  <i class="fas fa-file-image m-r-5"></i>
+                  <b>Arquivo de Mídia</b>
+                </a>
+              </div>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td>aaaaaaaaaaaa</td>
+          <td>aaaaaaa</td>
+          <td>aaaaaaa</td>
+          <td>aaaaaa</td>
+          <td>aaaaaa</td>
+          <td>aaaaa</td>
+          <td>aaaa</td>
+          <td>aaaaaa</td>
+          <td>aaaaaaa</td>
+          <td>aaaaaaa</td>
+          <td>aaaaa</td>
+
+          <td class="text-right">
+            <div class="dropdown dropdown-action">
+              <a
+                href="#"
+                class="action-icon dropdown-toggle"
+                data-toggle="dropdown"
+                aria-expanded="false"
+                ><i class="fa fa-ellipsis-v"></i
+              ></a>
+              <div class="dropdown-menu dropdown-menu-right bg-main">
+                <a class="dropdown-item">
+                  <i class="fas fa-edit m-r-5"></i><b> Editar</b>
+                </a>
+                <a class="dropdown-item bold">
+                  <i class="fas fa-user-plus m-r-5"></i
+                  ><b> Adicionar Testemunha/Informante/Participante</b>
+                </a>
+                <a class="dropdown-item">
+                  <i class="fas fa-file-alt m-r-5"></i
+                  ><b> Adicionar Evidência Criminal</b>
+                </a>
+                <a class="dropdown-item">
+                  <i class="fas fa-user-injured m-r-5"></i>
+                  <b>Adicionar Vítima</b>
+                </a>
+                <a class="dropdown-item">
+                  <i class="fas fa-cubes m-r-5"></i
+                  ><b> Adicionar Tipo de Bens</b>
+                </a>
+                <a class="dropdown-item">
+                  <i class="fas fa-link m-r-5"></i> <b>Linkar Suspeito</b>
+                </a>
+                <a class="dropdown-item">
+                  <i class="fas fa-file-image m-r-5"></i>
+                  <b>Arquivo de Mídia</b>
+                </a>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+
+<sigop-registar-ou-editar-processos></sigop-registar-ou-editar-processos>

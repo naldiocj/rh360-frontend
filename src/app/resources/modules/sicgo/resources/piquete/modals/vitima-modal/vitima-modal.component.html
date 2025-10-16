@@ -1,0 +1,292 @@
+<div class="modal fade" id="modalRegistarOuEditarVitimas" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalRegistarOuEditarVitimasLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header bg-prima text-white">
+        <h4 class="modal-title">Registar Vitima</h4>
+        <a type="button" data-bs-dismiss="modal" aria-label="Close">
+          <i class="bi bi-backspace-reverse-fill cursor-pointer rounded-lg" style="font-size: 1.5em"></i>
+        </a>
+      </div>
+
+      <!-- Form -->
+      <form [formGroup]="this.simpleForm" (ngSubmit)="this.onSubmit()">
+        <div class="modal-body">
+          <div class="page__content">
+            <div class="page__frame">
+                <div class="page-tab-header"> 
+                  <p class="ml-0 pl-3"><i class="bi bi-exclamation-triangle-fill text-warning"></i> Os campos marcados com ( <strong class="asterisco">*</strong> ) são de carácter <strong>obrigatório</strong>. </p>
+<!-- Nav Tabs -->
+
+                    <nav
+                        class="navigation"
+                        id="myTab" role="tablist"
+                    >
+                        <ul class="navigation-menu">
+                          <li class="nav-item" role="presentation">
+                            <a class="nav-link active nav-tab t--tab" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Dados Primários</a>
+                          </li>
+                          <li class="nav-item" role="presentation">
+                            <a class="nav-link nav-tab t--tab" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Dados Secundarios</a>
+                          </li>
+                             
+                            
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+
+            <section class="page__segment">
+                <div class="page__frame">
+                    <div class="tab__content p-3">
+
+                        <!-- Tab Content -->
+                        <div class="tab-content" id="myTabContent">
+                          <!-- Tab 1: Dados Primários -->
+                          <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                            <div class="row">
+                              <div class="col-lg-7">
+                                <div class="form-group">
+                                  <label><b>Nome Completo</b></label>
+                                  <input type="text" class="form-control" formControlName="nome" />
+                                  <div *ngIf="simpleForm.controls['nome'].touched && simpleForm.controls['nome'].errors?.['required']">
+                                    O campo Nome é obrigatório.
+                                  </div>
+                                  
+                                </div>
+                               
+                                
+                              </div>
+
+                              <div class="col-lg-5">
+                                <div class="form-group">
+                                  <label><b>Alcunha</b></label>
+                                  <input type="text" class="form-control" formControlName="alcunha" />
+                                  <div *ngIf="simpleForm.controls['alcunha'].touched && simpleForm.controls['alcunha'].errors?.['required']">
+                                    O campo alcunha é obrigatório.
+                                  </div>
+                                </div>
+                              </div>
+
+                              
+                            </div>
+
+                            <div class="row">
+                                 
+                                
+                              <div class="col-lg-4 form-group">
+                                  <label><b>Gênero</b><span class="text-danger">*</span></label>
+                                  <select class="form-control" formControlName="genero" required>
+                                    <option value="">Selecione o gênero</option>
+                                    <option value="Masculino">Masculino</option>
+                                    <option value="Feminino">Feminino</option>
+                                  </select>
+                                </div>
+                               
+                                <div class="col-lg-4 form-group">
+                                  <label><b>Data do Nascimento</b><span class="text-danger">*</span></label>
+                                  <input type="date" class="form-control" formControlName="data_nascimento" required />
+                                  <div *ngIf="simpleForm.controls['data_nascimento'].touched && simpleForm.controls['data_nascimento'].errors?.['required']">
+                                    O campo data nascimento é obrigatório.
+                                  </div>
+                                  
+                                </div>
+                                <div class="col-lg-4">
+                                  <div class="form-group">
+                                    <label><b>Tom de Pele</b><span class="text-danger">*</span></label>
+                                    <select class="form-control" formControlName="raca" required>
+                                      <option value="">Selecione o tom de pele</option>
+                                      <option value="Branco">Clara</option>
+                                      <option value="Negro">Escuro</option>
+                                      <option value="Mestiço">Mestiço</option>
+                                    </select>
+                                  </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                              
+
+                              <div class="col-lg-6">
+                                <div class="form-group">
+                                  <label><b>Telefone</b><span class="text-danger">*</span></label>
+                                  <input type="tel" class="form-control" formControlName="contacto" required />
+                                </div>
+                              </div>
+
+                              <div class="col-lg-6">
+                                <div class="form-group">
+                                  <label><b>País / Nacionalidade</b><span class="text-danger">*</span></label>
+                                  <ng-select2 [options]="options" formControlName="pais_id" [data]="this.pais"></ng-select2>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+
+                            <div class="row">
+                              
+                              <div class="col-lg-6">
+                              <div class="form-group">
+                                <label><b>Tipo de Documento</b></label>
+                                <select class="form-control" formControlName="tipo_doc">
+                                  <option value="">Selecione um tipo de documento</option>
+                                  <option value="Bilhete de Identidade">Bilhete de Identidade</option>
+                                  <option value="Passaporte">Passaporte</option>
+                                  <option value="Carta de Condução">Carta de Condução</option>
+                                  <option value="Outro">Outro</option>
+                                </select>
+                              </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                              <div class="form-group">
+                                <label><b>Número do Documento</b></label>
+                                <input type="text" class="form-control" formControlName="n_id" />
+                                <div *ngIf="simpleForm.controls['n_id'].touched && simpleForm.controls['n_id'].errors?.['required']">
+                                  O campo Número do Documento é obrigatório.
+                                </div>
+                              </div>
+                            </div>
+
+                            </div>
+
+                            <div class="row">
+                              <div class="col-lg-6">
+                                <div class="form-group">
+                                  <label><b>Ocupação / Local de Trabalho</b></label>
+                                  <input type="text" class="form-control" formControlName="local_de_trabalho" />
+                                </div>
+                              </div>
+                              <div class="col-lg-6">
+                                <div class="form-group">
+                                  <label><b>Endereço da Vítima</b></label>
+                                  <input type="text" class="form-control" formControlName="residencia" />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- Tab 2: Propriedades -->
+                          <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                            <div class="row">
+                              <div class="col-lg-6">
+                                <div class="form-group">
+                                  <label><b>Data do Dano</b><span class="text-danger">*</span></label>
+                                  <input type="datetime-local" class="form-control" formControlName="data_de_dano" required />
+                                </div>
+                                
+                                <div class="form-group">
+                                  <label><b>Característica</b></label>
+                                  <select class="form-control" formControlName="caracteristica">
+                                    <option value="">Selecione uma característica</option>
+                                    <option value="Deficiente">Deficiente</option>
+                                    <option value="Paralitico">Paralitico</option>
+                                    <option value="Doente">Doente</option>
+                                    <option value=">Doente Mental">Doente Mental</option>
+                                    <option value="Normal">Normal</option> 
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="col-lg-6">
+                                <div class="form-group">
+                                  <label><b>Lesões Físicas ou Danos</b><span class="text-danger">*</span></label>
+                                  <select class="form-control" formControlName="tipo_de_dano" required>
+                                    <option value="">Selecione o tipo de dano</option>
+                                    <option value="Ferida">Ferida</option>
+                                    <option value="Traumatismos">Traumatismos</option>
+                                    <option value="Traumatismo Craniano">Traumatismo Craniano</option>
+                                    <option value="Traumatismo Torácico">Traumatismo Torácico</option>
+                                    <option value="Traumatismo Abdominal">Traumatismo Abdominal</option>
+                                    <option value="Trauma Raquimedular">Trauma Raquimedular (Coluna Vertebral)</option> 
+                                    <option value="Cortes ou Lacerações">Cortes ou Lacerações</option>
+                                    <option value="Arranhões ou Escoriações">Arranhões ou Escoriações</option>
+                                    <option value="Hematomas(Roxos)">Hematomas (Roxos)</option>
+                                    <option value="Contusão Simples">Contusão Simples</option>
+                                    <option value="Inchaço">Inchaço</option>
+                                    <option value="Fratura">Fratura</option>
+                                    <option value="Fratura Fechada">Fratura Fechada</option>
+                                    <option value="Fratura Exposta">Fratura Exposta</option>
+                                    <option value="Microfratura">Microfratura (Fratura por Estresse)</option>
+                                    <option value="Torções de Articulações">Torções de Articulações</option>
+                                    <option value="Distensão Muscular">Distensão Muscular</option>
+                                    <option value="Ruptura de Tendões ou Ligamentos">Ruptura de Tendões ou Ligamentos</option>
+                                    <option value="Queimadura">Queimadura</option>
+                                    <option value="Queimadura de Primeiro Grau">Queimadura de Primeiro Grau</option>
+                                    <option value="Queimadura de Segundo Grau">Queimadura de Segundo Grau</option>
+                                    <option value="Queimadura de Terceiro Grau">Queimadura de Terceiro Grau</option>
+                                    <option value="Queimadura Química">Queimadura Química</option>
+                                    <option value="Lesões por Impacto">Lesões por Impacto</option>
+                                    <option value="Lesão por Queda">Lesão por Queda</option>
+                                    <option value="Lesão por Impacto com Objeto">Lesão por Impacto com Objeto</option>
+                                    <option value="Lesão por Colisão Veicular">Lesão por Colisão Veicular</option>
+                                    <option value="Lesões por Perfuração">Lesões por Perfuração</option>
+                                    <option value="Perfuração por Objeto Pontiagudo">Perfuração por Objeto Pontiagudo</option>
+                                    <option value="Lesão por Projétil de Arma de Fogo">Lesão por Projétil de Arma de Fogo</option>
+                                    <option value="Lesões Cortantes Profundas">Lesões Cortantes Profundas</option>
+                                    <option value="Amputações">Amputações</option>
+                                    <option value="Amputações Parcial">Amputações Parcial</option>
+                                    <option value="Amputações Total">Amputações Total</option>
+                                    <option value="Lesões por Compressão">Lesões por Compressão</option>
+                                    <option value="Esmagamento de Tecidos">Esmagamento de Tecidos</option>
+                                    <option value="Lesões Neurológicas">Lesões Neurológicas</option>
+                                    <option value="Danos em Nervos Periféricos">Danos em Nervos Periféricos</option>
+                                    <option value="Lesões por Intoxicação Química">Lesões por Agentes Químicos ou Biológicos</option>
+                                    <option value="Lesões por Intoxicação Química">Lesões por Reações Alérgicas Severas</option>
+                                    <option value="Lesões Oculares">Lesões Oculares</option>
+                                    <option value="Abrasão na Córnea">Abrasão na Córnea</option>
+                                    <option value="Queimadura Química nos Olhos">Queimadura Química nos Olhos</option>
+                                    <option value="Hemorragia Subconjuntival">Hemorragia Subconjuntival</option>
+                                    <option value="Lesões Auditivas">Lesões Auditivas</option>
+                                    <option value="Perda Auditiva por Ruído">Perda Auditiva por Ruído</option>
+                                    <option value="Barotrauma">Barotrauma (Mudança de Pressão)</option>
+                                    <option value="Lesões Desconhecidas">Lesões Desconhecidas</option>
+                                    <option value="Lesões Diversas Não Classificadas">Lesões Diversas Não Classificadas</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+
+                            
+
+                            <div class="row">
+                              <div class="col-lg-12">
+                                <div class="form-group">
+                                  <label><b>Descrição do Incidente</b><span class="text-danger">*</span></label>
+                                  <textarea class="form-control" rows="4" formControlName="descricao" required></textarea>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+          
+
+          
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+          <button type="submit" class="btn btn-primary">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+ 
+
+  

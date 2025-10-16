@@ -1,0 +1,49 @@
+<div class="modal fade" id="registar-editar-arquivo" aria-labelledby="modalRegistarEditarArquivos" aria-hidden="true"
+  data-backdrop="static">
+  <div class="modal-dialog" role="document" style="overflow-y: hidden; min-width: 35%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 style="font-weight:normal" class="text-primary-color d-flex align-itens-center justify-content-start gap-2">
+          <i class="bi bi-stickies-fill mx-2"></i>
+          Registar meu arquivo
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <form [formGroup]="simpleForm" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+              <div class="form-group">
+                <label for="descricao" style="font-size: 14px; font-weight: normal; color:#041b43">Descrição (Ex:
+                  Curriculum Vitae)</label>
+                <input type="email" class="form-control py-3" id="descricao" formControlName="descricao" placeholder=" "
+                  style="border-radius: 5px; border: 2px solid #041b43; color:#041b43">
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+              <br>
+              <label for="formFile" class="btn-piips btn-piips-primary m-0 w-100 align-items-center justify-content-center"
+                style="border-radius: 5px!important">
+                <i class="bi bi-file-pdf-fill" style="font-size:1rem"></i>
+                Escolher o ficheiro
+              </label>
+              <input class="form-control" type="file" id="formFile" style="display:none"
+                (change)="onSelectFile($event)">
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+              <div class="w-100 d-flex align-items-center justify-content-end">
+                <button type="reset" class="btn-piips btn-piips-red m-0" style="border-radius: 2px;"><i
+                    class="bi bi-cloud-slash mx-2"></i>Cancelar</button>
+                <button type="submit" class="btn-piips btn-piips-primary px-2 m-0" style="border-radius: 2px;"
+                  [disabled]="this.simpleForm.invalid"><i class="bi bi-cloud-upload mx-2"></i>Enviar</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

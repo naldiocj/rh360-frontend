@@ -1,0 +1,72 @@
+<div
+    #modalRef
+    class="modal fade"
+    id="modalRegistarOuEditar"
+    aria-labelledby="modalRegistarOuEditarLabel"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-hidden="true"
+    style="display: none"
+>
+    <div
+        class="modal-dialog modal-fullscreen"
+        role="document"
+    >
+        <div class="modal-content">
+            <div class="modal-header bg-prima text-white">
+                <h4 class="modal-title">
+                    {{ ocorrencia ? "Editar" : "Registar" }} Ocorrência
+                </h4>
+                <a
+                    type="button"
+                    #closeButton
+                    (click)="fecharModal()"
+                >
+                    <i
+                        class="bi bi-backspace-reverse-fill cursor-pointer rounded-lg"
+                        style="font-size: 1.5em"
+                    ></i>
+                </a>
+            </div>
+
+
+
+            <div class="content">
+                <section class="modal-body">
+                    <section
+                        class="row "
+                        #resizeContainer
+                    >
+                        <div class="col-5 col-md-5 col-lg-5 order-2 order-md-1">
+                            <map (shapeCoordinatesEmitter)="onShapeCoordinatesReceived($event)"></map>
+                        </div>
+                        <div class="col-12 col-md-7 col-lg-7 order-1 order-md-2 mb-3 ">
+                            <app-sicgo-formulario-transito
+                                *ngIf="isDTSerUser()"
+                                [currentStep]="currentStep"
+                                [ocorrencia]="ocorrencia"
+                                (eventRegistarOuEditar)="propagarEvento($event)"
+                                (stepChange)="goToStep($event)"
+                            >
+                            </app-sicgo-formulario-transito>
+
+
+
+                            <app-sicgo-formulario-ordem-publica
+                                *ngIf="!isDTSerUser()"
+                                [currentStep]="currentStep"
+                                [ocorrencia]="ocorrencia"
+                                (eventRegistarOuEditar)="propagarEvento($event)"
+                                (stepChange)="goToStep($event)"
+                            >
+                            </app-sicgo-formulario-ordem-publica>
+                        </div>
+
+
+                    </section>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>

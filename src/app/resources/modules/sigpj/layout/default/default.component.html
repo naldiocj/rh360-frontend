@@ -1,0 +1,36 @@
+<div class="content">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h4 class="page-title"><b>Mudar a Senha</b></h4>
+            <form [formGroup]="userForm" >
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label><b>Senha Antiga</b></label>
+                            <input type="password" formControlName="senha_antiga"  class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label><b>Nova Senha</b> </label>
+                            <input type="password"  formControlName="senha_nova" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label><b>Confirmar a Senha</b></label>
+                            <input type="password"  formControlName="senha_confirm"  class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 text-center m-t-20">
+                        <button id="book" type="button"  (click)="onSubmit()"  class="btn btn-primary submit-btn">Actualizar a Senha</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

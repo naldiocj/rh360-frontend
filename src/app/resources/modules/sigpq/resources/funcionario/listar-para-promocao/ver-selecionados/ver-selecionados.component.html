@@ -1,0 +1,91 @@
+<div class="modal fade" id="modalVerSelecionados" aria-labelledby="modalVerSelecionados" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="overflow-y: hidden;min-width: 60%;margin-top: 10%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 style="color:var(--use-color)">
+                    <i class="fa fa-resistance"></i>
+                    Agentes Selecionados
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="content">
+                <div class="modal-body">
+                    <aside *ngIf="this.agentesSelecionados?.length == 0; else temAgentesSelecionados">
+                        <h5 style="color: var(--red);font-weight:normal!important;"> Nenhum agente selecionado <i
+                                class="fa fa-times"></i></h5>
+                    </aside>
+                    <ng-template #temAgentesSelecionados>
+                        <h5 style="color: var(--use-color); font-weight:normal!important;">
+                            {{this.agentesSelecionados?.length}}
+                            {{this.agentesSelecionados?.length == 1? 'Agente Selecionado':'Agentes Selecionados'}} <i
+                                class="fa fa-check"></i> </h5>
+                    </ng-template>
+                    <div class="row">
+                        <table class="table table-border table-striped custom-table datatable mb-0">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nome</th>
+                                    <th>NIP</th>
+                                    <th>Posto</th>
+                                    <th>NAS</th>
+                                    <th>Ano de Promoção</th>
+                                    <th>Ano de Diuturnidade</th>
+                                    <!-- <th class="text-center">Colocação actual</th> -->
+                                    <!-- <th>Data de Registo</th> -->
+                                    <th>Data de Actualização</th>
+                                    <th class="text-right">Operação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of this.agentesSelecionados ; index as i">
+                                    <td>{{i+1}}</td>
+                                    <td>
+                                        <a routerLink="/" ariaCurrentWhenActive="page"
+                                            [routerLink]="['/piips/sigpg/perfil/',item.id, 'provimento']">
+                                            {{item.nome_completo}} {{item.apelido}}
+                                        </a>
+                                    </td>
+
+                                    <td>
+                                        <ng-container *ngIf="item?.nip; else semNip">
+                                            {{item?.quadro}} {{item.nip}}
+                                        </ng-container>
+                                        <ng-template #semNip>
+                                            S/N
+                                        </ng-template>
+                                    </td>
+                                    <td>{{item.patente_nome}}</td>
+                                    <td>{{item.numero_agente}}</td>
+                                    <!-- <td> <span class="custom-badge status-orange">Pronto</span> </td> -->
+                                    <td class="text-start">{{item.ano_acto ?? 'S/N'}} </td>
+                                    <td> {{item.acto_duracao ?? 'S/N'}} </td>
+                                    <td>{{item.updated_at}}</td>
+                                    <td class="text-right">
+                                        <div class="dropdown dropdown-action">
+                                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
+                                                aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a href="javascript:void(0)" class="dropdown-item"
+                                                    (click)="this.removerAgenteSelecionado(item)">
+                                                    <i class="fa fa-trash m-r-5"></i> Eliminar
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-piips btn-piips-red py-2 m-0" (click)="this.removerTodos()"
+                        [disabled]="!this.agentesSelecionados?.length">
+                        <span class="fa fa-refresh"></span> Remover todos
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>

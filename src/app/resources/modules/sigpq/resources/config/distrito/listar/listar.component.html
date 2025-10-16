@@ -1,0 +1,128 @@
+<div class="content">
+
+    <sigpq-header></sigpq-header>
+    <div class="header-ficha mt-1">
+        <div class="row" style="align-items: center;">
+            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 d-flex justify-content-start align-items-start">
+                <div class="mais-info d-flex justify-content-center align-items">
+                    <h4 class="text-white"><b>Listagem dos Distritos</b></h4>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 d-flex justify-content-end align-items-start">
+                <a href="javascript:void(0)" data-toggle="modal" data-target="#modalRegistar"
+                    class="btn-piips btn-piips-secondary border m-0 py-2 px-4"><i class="fa fa-plus-circle"></i>
+                    Registar</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row  p-2">
+        <div class="col-xl-12 col-lg-12 col-md-col-12 col-sm-12 my-4">
+            <form class="row" style="align-items: center;">
+                <div class="col-xl-1 col-lg-1 col-md-6 col-sm-12 order-1">
+                    <select class="form-control" style="width: 100%!important; padding: .8rem auto;"
+                        (change)="filtrarPagina('perPage',$event)">
+                        <option *ngFor="let item of [5,10,20,50]" [value]="item">{{item}}</option>
+                    </select>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 order-4">
+                    <input class="form-control w-100" type="text" [ngModel]="this.filtro.search"
+                        (ngModelChange)="filtrarPagina('search',$event)" placeholder="Pesquisa ...">
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 order-2">
+                    <ng-select2 [options]="options" [data]="this.provincias"
+                        (valueChanged)="filtrarPagina('provincia_id',$event)" [ngModel]="this.filtro.provincia_id"
+                        name="provincia_id">
+                    </ng-select2>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 order-3">
+                    <ng-select2 [options]="options" [data]="this.municipios"
+                        (valueChanged)="filtrarPagina('municipio_id',$event)" [ngModel]="this.filtro.municipio_id"
+                        name="municipio_id">
+                    </ng-select2>
+                </div>
+
+                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 d-flex justify-content-end align-items-center order-5">
+                    <button (click)="this.recarregarPagina()" class="btn-piips btn-piips-secondary m-0" type="submit">
+                        <i style="font-size: 14px;" class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+                        <b>Recarregar</b>
+                    </button>
+                </div>
+            </form>
+
+        </div>
+
+
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
+            <table class="table table-border table-striped custom-table datatable mb-0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Província</th>
+                        <th>Município</th>
+                        <th>Nome</th>
+                        <th>Sigla</th>
+                        <!-- <th>Estado</th> -->
+                        <th>Data de Registo </th>
+                        <th class="text-center">Operação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                        *ngFor="let item of this.distritos | paginate: { itemsPerPage: this.pagination.per_page, currentPage: this.pagination.current_page,totalItems: this.pagination.total,id:'idDirecaoOuOrgao' }; index as i">
+                        <td>{{i+1}}</td>
+                        <td>{{item.provincia}}</td>
+                        <td>{{item.municipio}}</td>
+                        <td>{{item.nome}}</td>
+                        <!-- <td>{{item.nif}}</td> -->
+                        <td>{{item.sigla}}</td>
+                        <!-- <td>
+                            <ng-container *ngIf="item.activo; else elseTemplate">
+                                <span class="custom-badge status-green">Activo</span>
+                            </ng-container>
+                            <ng-template #elseTemplate>
+                                <span class="custom-badge status-red">Inactivo</span>
+                            </ng-template>
+                        </td> -->
+
+                        <td>{{item.createdAt}}</td>
+                        <!-- <td>{{item.updatedAt}}</td> -->
+                        <td class="text-center">
+                            <div class="dropdown dropdown-action">
+                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
+                                    aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="javascript:void(0)" data-toggle="modal"
+                                        data-target="#modalRegistar" (click)="setItem(item)"><i
+                                            class="fa fa-pencil m-r-5"></i>
+                                        Editar</a>
+                                    <a class="dropdown-item" href="javascript::void(0)" data-toggle="modal"
+                                        data-target="#delete_patient"><i class="fa fa-trash-o m-r-5"></i> Apagar</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-sm-6">
+                    Mostrando de {{ this.pagination.current_page }} á
+                    {{ this.pagination.per_page }} de {{ this.pagination.total }} Registo
+                </div>
+                <div class="col-sm-6">
+                    <div class="float-right">
+                        <pagination-controls id="idDirecaoOuOrgao" (pageChange)="this.filtrarPagina('page', $event)"
+                            [directionLinks]="true" [autoHide]="true" previousLabel="Anterior" nextLabel="Próximo"
+                            [maxSize]="4" [responsive]="true"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<sigpq-registar-ou-editar-modal [distrito]="this.item"
+    (eventRegistarOuEditModel)="this.setItemNull()"></sigpq-registar-ou-editar-modal>

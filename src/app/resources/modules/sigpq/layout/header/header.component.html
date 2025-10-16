@@ -1,0 +1,160 @@
+<!-- <a id="toggle_btn" href="javascript:void(0);">
+    <i id="home" class="fa fa-bars"></i>
+</a> -->
+
+
+
+<!-- // Modo telefone -->
+<div class="dropdown mobile-user-menu float-right">
+    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        <span class="user-img">
+            <img class="rounded-circle" [src]="imgUser" width="40" alt="Admin">
+            <span class="status online"></span>
+        </span>
+        <!-- <span id="ad">Utilizadores</span> -->
+    </a>
+    <div class="dropdown-menu">
+        <a class="dropdown-item" [routerLink]="['/piips']">Ir em Piips</a>
+        <a class="dropdown-item" href="#">Definições</a>
+        <a class="dropdown-item" href="#" (click)="this.sair()">
+            Sair
+        </a>
+    </div>
+</div>
+
+<app-definicoes></app-definicoes>
+
+<header id="header_" class="header_ fixed-top d-flex align-items-center shadow">
+    
+    <div class="d-flex align-items-center justify-content-between">
+        <a [routerLink]="['/piips/sigpg/dashboard']" class="logo_ d-flex align-items-center">
+            <h1><span style="font-weight: bold;" class="d-none d-lg-block">   <img class="imgp" [src]="logoH" style="width: 180px; height: auto;" alt="RH+360º"> </span></h1>
+        </a>
+        <i class="bi bi-list toggle-sidebar-btn" (click)="toggle()"></i>
+    </div>
+
+    <nav class="header-nav_ flex-fill d-flex">
+
+        
+        <ul class="d-flex align-items-center">
+          <li class="nav-item dropdown">
+            <ng-container *ngIf="this.temAlertas; else semAlert">
+              <a class="nav-link nav-icon" href="#" data-toggle="dropdown">
+                <i class="bi bi-bell-fill" [ngStyle]="{'color': useColor}"></i>
+                <span
+                  class="badge badge-number text-light"
+                  [ngStyle]="{'background-color': useColor}"
+                  >{{ notifications.length }}</span
+                >
+              </a>
+            </ng-container>
+            <ng-template #semAlert>
+              <a class="nav-link nav-icon" routerLink="push">
+                <i class="bi bi-bell"></i>
+              </a>
+            </ng-template>
+          
+            <!-- Menu de notificações -->
+            <ul
+              class="dropdown-menu dropdown-menu-start dropdown-menu-arrow notifications"
+              style="left: 0; transform: translateX(-100%);"
+            >
+              <!-- Iteração sobre o array de notificações -->
+               <ng-container *ngFor="let notification of notifications">
+              <li>
+                <div class="d-flex align-items-start p-2 notification-item">
+                  <!-- Ícone do usuário -->
+                  <div class="me-3">
+                    <i [class]="'fas fa-user-circle'" class="fa-2x text-primary"></i>
+                    <!-- Ícone maior e com cor primária -->
+                  </div>
+          
+                  <!-- Conteúdo da notificação -->
+                  <div class="flex-grow-1" style="margin-left: 10px;">
+                    <!-- Nome do usuário -->
+                    <p class="mb-1 fw-bold" style="font-size: 0.9em; color: #041b43">
+                      {{ notification.user }}
+                    </p>
+          
+                    <!-- Descrição da notificação -->
+                    <p class="mb-1 text-muted" style="font-size: 0.85em">
+                      {{ notification.message }}
+                    </p>
+                  </div>
+          
+                  <!-- Hora do evento -->
+                  <div class="flex-grow-1">
+                    <small class="text-muted" style="font-size: 0.8em">
+                      <i class="fas fa-clock me-1"></i>
+                      <!-- Ícone de relógio -->
+                      {{ notification.time }}
+                    </small>
+                  </div>
+                </div>
+              </li>
+              <li><hr class="dropdown-divider my-2" /></li>
+            </ng-container>          
+              <!-- Link "Ver todas" no final do dropdown -->
+              <li *ngIf="notifications.length>0">
+                <a
+                  routerLink="/notificacoes"
+                  class="dropdown-item text-center text-primary fw-bold"
+                  style="font-size: 0.9em"
+                >
+                  Ver todas as notificações
+                </a>
+              </li>
+            </ul>
+          </li>
+            <li class="nav-item dropdown">
+
+                <a class="nav-link nav-profile d-flex align-items-center" href="#" data-toggle="dropdown">
+                    <div class="foto r">
+                        <img [src]="imgUser" alt="Profile" style="width: 40px; height: 60px; border-radius:50%">
+                        <span class="dot"></span>
+                    </div>
+                    <span class="d-none d-md-block dropdown-toggle pl-2" [ngStyle]="{'color': useColor}">{{this.nomeUtilizador}}</span>
+                </a>
+
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                    <li>
+                        <a style="font-weight: bold;" class="dropdown-item d-flex align-items-center text-dark" routerLink="perfil">
+                            <i style="font-weight: bold;" class="bi bi-person"></i>
+                            <span>Meu Perfil</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <!-- <a class="dropdown-item" [routerLink]="['/piips']">Ir em Piips</a> -->
+                        <a style="font-weight: bold;" class="dropdown-item d-flex align-items-center text-dark" [routerLink]="['/piips/sigpg']">
+                            <i class="bi fa-birthday-cake"></i>
+                            <span>Ir na DPQ</span>
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li>
+                        <a style="font-weight: bold;" class="dropdown-item d-flex align-items-center text-dark" href="javascript:void(0)" data-toggle="modal" data-target="#modalDefinicoes">
+                        <i  class="bi bi-wrench-adjustable-circle"></i>
+                       <span>Definições</span>
+                        <!-- <i class="fa fa-plus-circle"></i>  -->
+                    </a>
+
+                    </li>
+
+                    <li>
+                        <a (click)="sair()" style="font-weight: bold;" class="dropdown-item d-flex align-items-center" data-toggle="modal" data-target="#logout-modal" style="cursor:pointer;">
+                            <i style="font-weight: bold;" class="bi bi-power bold"></i>
+                            <span style="font-weight: bold;">Sair</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+        </ul>
+    </nav>
+
+</header>

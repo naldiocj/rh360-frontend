@@ -1,0 +1,97 @@
+<section>
+  <div class="row">
+    <div class="col-lgkv-3 col-md-2 col-sm-12">
+    </div>
+
+        <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
+            <div class="row p-2 bg-light justify-content-evenly  ">
+                  <div class="col-5 d-flex justify-content-lg-start align-items-start align-items-lg-start">
+                    <button data-toggle="modal" class="btn-piips btn-piips-primary m-0 py-2 btn-piips-button-all1"
+                      data-target="#modalRegistarOuEditarVitima">
+                      <i class="fa fa-plus"></i> Novo
+                    </button>
+                    <button data-toggle="modal" class="btn-piips btn-primary m-0 py-2 btn-piips-button-all0"
+                      data-target="#registarOuEditarEemergencia">
+                      <i class="bi bi-printer-fill"></i> Impressão
+                    </button>
+
+                  </div>
+
+                  <div class="col-7 d-flex justify-content-between align-items-center">
+                    <select title="kivova" class="form-control input-piips-search btn-piips-select w-25 custom-selec"
+                      >
+                      <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">
+                        {{ item }}
+                      </option>
+                    </select>
+                    <input class="form-control mr-sm-1 input-piips-search" type="text"   placeholder="Pesquisa ..." />
+                    <button data-bs-target="#ToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                      aria-expanded="false" aria-label="Toggle navigation"
+                      class="input-piips-search btn-piips-button w-50 " type="button" data-bs-toggle="collapse">
+
+                      <i class="bi bi-filter toggle-sidebar-btn"></i>
+                      Filtros
+                    </button>
+                    <button   class="btn w-50 navbar-toggler btn-piips-filter"
+                      type="submit">
+                      <i style="font-size: 14px" class="fa fa-refresh fa-spin fa-3x fa-fw"></i> Limpar Filtro
+                    </button>
+                  </div>
+
+
+
+            </div>
+      </div>
+
+  </div>
+  <!-- In your component.html -->
+
+  <div class="bg-lightt">
+    <table class="table table-striped" #tableToPrint>
+      <thead class="table-thead">
+        <tr>
+          <th>ID</th>
+          <th>Codigo Sitema</th>
+          <th>Tipo</th>
+          <th>DataPostal</th>
+          <th>DataActual</th>
+          <th>Referencia</th>
+          <th>Título</th>
+          <th>Assunto</th>
+
+          <th class="text-right">Operação</th>
+        </tr>
+      </thead>
+
+      <tbody class="table-tbody">
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+
+          <td class="text-right">
+            <div class="dropdown dropdown-action">
+              <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
+                  class="fa fa-ellipsis-v"></i></a>
+              <div class="dropdown-menu dropdown-menu-right bg-main">
+                <a class="dropdown-item" href="visualisarm.html">
+                  <i class="fas fa-edit m-r-5"></i><b> Adicionar Foto/video</b>
+                </a>
+
+              </div>
+
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  </section>
+
+
+  <app-registar-ou-editar-formulario></app-registar-ou-editar-formulario>

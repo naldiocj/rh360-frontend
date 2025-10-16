@@ -1,0 +1,122 @@
+<nav
+    class="asidebar app-menu"
+    [ngClass]="{ 'collapsed': !collapsed }"
+>
+
+
+    <ul class="asidebar-nav">
+        <li class="nav-item">
+          <a
+          class="nav-link d-flex align-items-center text-white"
+          [routerLink]="['/piips/sicgo/']"
+          routerLinkActive="active"
+          (click)="toggleSidebar()"
+        >
+          <i
+            class="bi me-2"
+            [ngClass]="collapsed ? 'bi bi-grid-fill' : 'bi-chevron-left'"
+          ></i>
+          <span>Painel de Controlo</span>
+        </a>
+        
+        </li>
+        <li
+            class="nav-item"
+            *ngFor="let item of menuItems; let first = first; let last = last"
+            [class.active]="item.selected"
+            [class.first-item]="first"
+            [class.last-item]="last"
+            [class.has-submenu]="item.submenu && item.submenu.length > 0"
+        >
+            <div *ngIf="!item.role || item.role.includes(currentUser.role)">
+                <a
+                    (click)="toggleSubmenu(item, $event)"
+                    class="nav-link d-flex align-items-center"
+                    [ngClass]="{ 'active': item.selected }"
+                    [routerLink]="item.submenu ? null : item.url"
+                    routerLinkActive="active"
+                >
+
+
+                    <i
+                        class="bi me-2"
+                        [ngClass]="item.icon"
+                    ></i>
+                    <span *ngIf="!collapsed">{{ item.label }}</span>
+                    <span
+                        *ngIf="item.numero !== undefined"
+                        class="ml-1 top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                    >
+                        {{ item.numero }}+
+                    </span>
+
+
+
+                    <span
+                        *ngIf="item.submenu && item.submenu.length > 0"
+                        class="menu-arrow"
+                    >
+                        <i
+                            class="fas"
+                            [class.fa-chevron-down]="!item.isOpen"
+                            [class.fa-chevron-up]="item.isOpen"
+                        ></i>
+                    </span>
+
+
+
+                </a>
+
+
+
+                <!-- SUBMENU -->
+                <ul
+                    *ngIf="item.submenu?.length && !collapsed"
+                    [class.show]="item.isOpen"
+                    class="collapse transition-fade submenu"
+                >
+                    <li
+                        *ngFor="let sub of item.submenu; let firstSub = first; let lastSub = last"
+                        [class.first-item]="firstSub"
+                        [class.last-item]="lastSub"
+                    >
+                        <a
+                            [routerLink]="[sub.url]"
+                            routerLinkActive="active"
+                        >
+                            <i
+                                class="bi me-1"
+                                *ngIf="sub.icon"
+                                [ngClass]="sub.icon"
+                            ></i>
+                            {{ sub.label }}
+                        </a>
+                    </li>
+                </ul>
+
+
+
+            </div>
+        </li>
+
+
+
+
+        <li>
+            <hr class="dropdown-dividers">
+        </li>
+
+
+        <app-sicgo-menu-dinfop [collapsed]="collapsed"></app-sicgo-menu-dinfop>
+        
+    </ul>
+    <div class="infor">
+        <h5>
+            SICGO V 1.1 -
+            <span style="font-weight: lighter; color: orange;">Profissional</span>
+        </h5>
+        <P>
+            PIIPS - Todos os direitos reservados a PNA
+        </P>
+    </div>
+</nav>

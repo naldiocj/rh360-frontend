@@ -1,0 +1,228 @@
+<!-- Breadcrumbs -->
+<div>
+    <div class="ml-4 pl-1 pt-2 pr-2 pb-2 mr-4 sigv-breadCrumb mt-4">
+        <ul type="none" class="d-flex align-items-center m-0 pl-0">
+            <li>
+                <a [routerLink]="['/piips/sigvest/dashboard']">
+                    <i class="bi bi-house-door-fill"></i> <i class="bi bi-chevron-right"></i>
+                </a>
+            </li>
+            <li>
+                <a [routerLink]="['/piips/sigvest/planificacao']">
+                    Planificação <i class="bi bi-chevron-right"></i>
+                </a>
+            </li>
+            <li>
+                <a [routerLink]="['/piips/sigvest/planificacao/pre-despacho']">
+                    Pré - Despacho <i class="bi bi-chevron-right"></i>
+                </a>
+            </li>
+            <li>
+                <a [routerLink]="['/piips/sigvest/planificacao/pre-despacho/individual']">
+                    Individual <i class="bi bi-chevron-right"></i>
+                </a>
+            </li>
+            <li routerLinkActive="efeito-breadcrumb">
+                <a [routerLink]="['/piips/sigvest/planificacao/pre-despacho/individual/registar']">
+                    <span>Registar</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <h3 class="ml-3 mt-3 pl-4 titulo">Registar Pré - Despacho</h3>
+    <p class="ml-3 pl-4">
+        <i class="bi bi-exclamation-triangle-fill text-warning"></i>
+        Os campos marcados com ( <i class="bi bi-exclamation-circle-fill icone-alerta"></i> ) são de carácter
+        <strong>obrigatório</strong>.
+    </p>
+
+    <section class=" row container-fluid pl-5 pr-3  pt-2 pedido-container">
+        <div class="col-12 p-0 m-0 shadow">
+            <button data-toggle="modal" data-target="#listarEfectivos"> Listar Efectivos </button>
+            <div class="m-0 pl-0 me-0 pt-4" style="border: 1px solid #ccc; border-radius: 4px;">
+                <form id="form" class="row  container-fluid pr-4 pl-4 pm-3" (ngSubmit)="onSubmit()"
+                    [formGroup]="planificacaoForm" #formDir="ngForm" *ngIf="!this.flagProdutosForm">
+                    <!-- Tipo de Orgão Fornecedor -->
+                    <div class="col-4 pr-0 mb-2">
+                        <label for="fornecedor" class="form-label">Ordem de Fornecimento:
+                            <i class="bi bi-exclamation-circle-fill icone-alerta"
+                                *ngIf="!this.planificacaoForm.get('ordem_fornecimento')?.value"></i>
+                        </label>
+                        <div class=" ">
+                            <input type="number" formControlName="ordem_fornecimento" class="alone pl-3" [min]="'1'"
+                                [max]="'1000'">
+                        </div>
+                        <div id="fornecedorHelp" class="form-text validation-error"
+                            *ngIf="planificacaoForm.get('ordem_fornecimento')?.hasError('required') && formDir.submitted">
+                            <p>O nome é obrigatório</p>
+                        </div>
+                        <div id="recebidoHelp" class="form-text validation-error"
+                            *ngIf="this.planificacaoForm.get('ordem_fornecimento')?.hasError('pattern') && this.planificacaoForm.get('ordem_fornecimento')?.dirty">
+                            <p>Somente digito é permitido!</p>
+                        </div>
+                    </div>
+
+                    <!-- Tipo de Orgão Fornecedor -->
+                    <div class="col-8 pr-0 mb-2">
+                        <label for="fornecedor" class="form-label">Nome Benificiário:
+                            <i class="bi bi-exclamation-circle-fill icone-alerta" *ngIf="!this.planificacaoForm.get('nome_completo_civil_recebe')?.value"></i>
+                        </label>
+                        <div class=" ">
+                            <input type="text" value="{{dados_do_funcionario_ou_efectivo?.patente_nome + ' - ' + dados_do_funcionario_ou_efectivo?.nome_completo + ' ' + dados_do_funcionario_ou_efectivo?.apelido}}" [disabled]="true" class="alone pl-3">
+                        </div>
+                        <div id="recebidoHelp" class="form-text validation-error"
+                            *ngIf="this.planificacaoForm.get('nome_completo_civil_recebe')?.hasError('required') && formDir.submitted">
+                            <p>O Nome é obrigatório!</p>
+                        </div>
+
+                        <div id="recebidoHelp" class="form-text validation-error"
+                            *ngIf="this.planificacaoForm.get('nome_completo_civil_recebe')?.hasError('pattern') && this.planificacaoForm.get('nome_completo_civil_recebe')?.dirty">
+                            <p>Somente texto é permitido!</p>
+                        </div>
+
+                        <div id="recebidoHelp" class="form-text validation-error"
+                            *ngIf="this.planificacaoForm.get('nome_completo_civil_recebe')?.hasError('minlength') && this.planificacaoForm.get('nome_completo_civil_recebe')?.dirty">
+                            <p>mínimo 8 caracteres!</p>
+                        </div>
+                    </div>
+
+                    <!-- Tipo de Orgão Fornecedor -->
+                    <div class="col-4 pr-0 mb-2">
+                        <label for="fornecedor" class="form-label">Local de Busca:
+                            <i class="bi bi-exclamation-circle-fill icone-alerta"
+                                *ngIf="!this.planificacaoForm.get('local_fornecimento')?.value"></i>
+                        </label>
+                        <div class=" ">
+                            <select class="alone pl-3" id="" formControlName="local_fornecimento" placeholder="tttt">
+                                <option *ngFor="let item of ['BCA']" [value]="item" [selected]="item == 'BCA'"> {{item}}
+                                </option>
+                            </select>
+                        </div>
+                        <div id="fornecedorHelp" class="form-text validation-error"
+                            *ngIf="planificacaoForm.get('local_fornecimento')?.hasError('required') && formDir.submitted">
+                            <p>O nome é obrigatório</p>
+                        </div>
+                    </div>
+
+                    <!-- TIPO DE PLANO -->
+                    <!-- <div class="col-4 pr-0 mb-2">
+                        <label for="tipoPlano" class="form-label">Plano
+                            <i class="bi bi-exclamation-circle-fill icone-alerta"
+                                *ngIf="!this.planificacaoForm.get('referencia_planos_id')?.value"></i>
+                        </label>
+                        <div class=" ">
+                            <ng-select2 [options]="options" [data]="this.tipoPlano" id="tipoPlano"
+                                aria-describedby="TipoPlanoHelp" formControlName="referencia_planos_id"
+                                style="border-radius: 10px; ">
+                            </ng-select2>
+                        </div>
+                        <div id="tipoPlanoHelp" class="form-text validation-error"
+                            *ngIf="planificacaoForm.get('referencia_planos_id')?.hasError('required') && formDir.submitted">
+                            <p>O nome é obrigatório</p>
+                        </div>
+                    </div> -->
+
+                    <!-- Tipo de Orgão Fornecedor -->
+                    <div class="col-4 pr-0 mb-2">
+                        <label for="fornecedor" class="form-label">Validade do Documento em horas:
+                            <i class="bi bi-exclamation-circle-fill icone-alerta"
+                                *ngIf="!this.planificacaoForm.get('validade_documento')?.value"></i>
+                        </label>
+                        <div class=" ">
+                            <select class="alone pl-3" id="" formControlName="validade_documento">
+                                <option *ngFor="let item of [24, 48, 72]" [value]="item" [selected]="item == 72">
+                                    {{item}} </option>
+                            </select>
+                        </div>
+                        <div id="fornecedorHelp" class="form-text validation-error"
+                            *ngIf="planificacaoForm.get('validade_documento')?.hasError('required') && formDir.submitted">
+                            <p>O nome é obrigatório</p>
+                        </div>
+                    </div>
+
+                    <!-- sexto -->
+                    <!-- Upload doc-->
+                    <div class="col-4 pt-0 m-0 pr-0">
+                        <label for="oficio"
+                            class="btn btn-outline-secondary d-flex align-items-center justify-content-center arquivo sombra">
+                            <i class="bi bi-file-pdf-fill  mx-2 " style="font-size:1.3rem"></i>
+                            {{pdfFlag? 'Anexar Planificação (pdf)' : this.documentoSelecionado.name}}
+                        </label>
+                        <input formControlName="oficioPdf" type="file"
+                            style=" padding: 10px; width: 100%; color: #000; background-color: hsla(221, 90%, 16%, 10%); border-radius: 4px; margin-right:0; display: none;"
+                            class="mt-2 " (change)="selecionarDocumentoDoFront($event)" id="oficio"
+                            aria-describedby="oficioHelp">
+                        <!--
+                      <div id="oficioHelp" class="form-text validation-error mb-0" *ngIf="oficioDocumentoPdf.invalid && formDir.submitted">
+                          <p *ngIf="oficioDocumentoPdf.errors?.['required']">O Arquivo pdf é obrigatório</p>
+                      </div>
+                      -->
+                    </div>
+
+
+                    <!-- Descriçaõ / observação-->
+                    <div class="col-12 mr-0 pr-0 mb-2">
+                        <label for="obs_abastecimento" style=" margin: 0; padding: 5px;">Observação</label>
+                        <textarea class="p-1 sombra" name="nome8" cols="15" rows="6" style="width: 100%; border: 1px solid #ccc; text-indent: 0px;" aria-describedby="descricaoObsHelp" formControlName="descricao" id="obs_abastecimento">
+                        </textarea>
+                    </div>
+
+                    <!-- botão submit da planificacao -->
+                    <div class="col-12 mb-3 p-0 d-flex justify-content-end">
+                        <button type="button" class="btn mb-0 mt-3 mr-3 btn-outline-danger" style="box-shadow: 0px 5px 8px rgba(0,0,0,0.323)"
+                            [routerLink]="['/piips/sigv/planificacao/a/listar']">
+                            <i class="bi bi-trash-fill"></i>
+                            Descartar
+                        </button>
+
+                        <button type="button" class="btn mb-0 mt-3 mr-3" style="background-color: #f3f3f3; color: #041b4e; box-shadow: 0px 5px 8px rgba(0,0,0,0.323); font-weight: 400;"
+                            (click)="this.reiniciarFormulario()">
+                            <i class="bi bi-x-circle-fill"></i>
+                            Limpar Dados
+                        </button>
+
+                        <button type="submit" class="btn mb-0 mt-3" style="background-color: #041b4e; color: white; box-shadow: 0px 5px 8px rgba(0,0,0,0.323)"
+                            [disabled]="this.planificacaoForm.invalid">
+                            <i class="bi bi-plus-circle"></i>
+                            Adicionar Produtos
+                        </button>
+                    </div>
+                </form>
+
+                <ng-container *ngIf="this.flagProdutosForm">
+                    <div class="loading">
+                        <div>
+                            <img src="../../../../../../../assets/assets_sigv/img/img1/figprocess.gif" alt=""
+                                width="90">
+                        </div>
+                        <p class="loading-produto">
+                            Adicionando os produtos, atenção não saia sem finalizar...
+                        </p>
+                    </div>
+                </ng-container>
+
+                <!-- Inserção do formulário de Produto -->
+
+                <ng-container class="mt-5" *ngIf="this.flagProdutosForm">
+                    <h4 class="" style="padding-left: 30px;">Inserir Produtos da Planificação:</h4>
+                    <hr>
+                    <sigvest-registar-meios 
+                    [plano_id]="this.lastPlanoAdd"
+                    (limparEstadoProcessamento)="this.limparEstadoProcessamento()"> 
+                    </sigvest-registar-meios>
+                </ng-container>
+
+            </div>
+        </div>
+    </section>
+
+    <ng-container *ngIf="flagLoading">
+        <div class="overlay">
+            <div class="spinner"></div>
+            <p>Processando os produtos, por favor aguarde...</p>
+        </div>
+    </ng-container>
+</div>
+
+<sigvest-listar-efectivos-modal (partilharDadosDoFuncionarioOuEfectivo)="this.adicionarOsDadosDoEfectivo($event)"></sigvest-listar-efectivos-modal>

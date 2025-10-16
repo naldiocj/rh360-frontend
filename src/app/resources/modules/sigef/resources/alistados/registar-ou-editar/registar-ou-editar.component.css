@@ -1,0 +1,12 @@
+#btn_div{
+    padding-top: 30px;
+    justify-content: space-between;
+    display: flex;
+}
+
+#btn_div button{
+    border: none;
+    width: 130px;
+    height: 32px;
+    color: white;
+}

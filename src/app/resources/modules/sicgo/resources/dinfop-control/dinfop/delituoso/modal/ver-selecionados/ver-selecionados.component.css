@@ -1,0 +1,230 @@
+fieldset {
+    display: block;
+    margin-left: 2px;
+    margin-right: 2px;
+    padding-top: 0.35em;
+    padding-bottom: 0.625em;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    border: 2px groove (internal value);
+}
+
+
+
+
+  
+  /* Estilos para as cores dos estados do processo */
+  .processo_em_andamento {
+    background-color: #ffc107; /* Amarelo */
+  }
+  
+  .processo_concluido {
+    background-color: #28a745; /* Verde */
+  }
+  
+  .processo_pendente {
+    background-color: #dc3545; /* Vermelho */
+  }
+  
+  .filters-toggle-btn.filters-active svg {
+    display: none;
+    fill: #0d0c22;
+  }
+  /* Estilos para as cores dos estados do processo */
+  
+  .legend {
+    display: flex;
+    flex-direction: row;
+    margin-top: 3px;
+    margin-bottom: 5px;
+    padding: 2px;
+    background: #e9e9e900 !important;
+    border-radius: 12px;
+    color: rgb(44, 44, 44);
+  }
+  
+  .legend-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 15px;
+  }
+  .legend-items {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin: auto;
+  }
+  .small-td {
+    width: 20px;
+    height: 20px;
+    overflow: hidden; /* Para cortar conteúdo que ultrapasse o tamanho */
+    text-overflow: ellipsis; /* Para adicionar "..." ao texto longo */
+    white-space: nowrap; /* Para impedir a quebra de linha */
+  }
+  .legend-cl {
+    width: 80%;
+    height: 20%;
+    margin: auto;
+    border-radius: 10px;
+  }
+  .legend-color {
+    width: 20px;
+    height: 20%;
+    margin-right: 10px;
+    border-radius: 15px;
+    box-shadow: inset rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
+      rgba(9, 30, 66, 0.08) 0px 0px 0px 1px !important;
+  }
+  .table-legend-color {
+    width: 20px;
+    height: 25px;
+    border-radius: 15px;
+  }
+  .legend-text {
+    margin-right: 5px;
+    font-size: 2%;
+  }
+  
+  
+  
+  .legend-text {
+    font-size: 14px;
+  }
+  
+  /* Estilos para as tabelas rend */
+  .borders {
+    margin-right: 5px;
+    width: 60px;
+    height: 50px;
+    overflow: hidden;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url('../../../../../../../../../../assets/assets_sicgo/img/delituoso.png');
+  }
+  .borders .borders-img {
+    border-top:5.1px solid #dddddd00;
+    border-left: 8px solid #dddddd00;
+    border-right: 8px solid #dddddd00;
+    border-bottom: 3px solid #dddddd00;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin: auto;
+   }
+  .borders-img img{
+   width:100%;
+   height: auto;
+  }
+   
+  /* Estilos para as tabelas rend */
+  /* modal */
+  .bg-prima{
+    background-color: #041b4e;
+  }
+  
+  .modal-content{
+    border-radius: 15px;
+  }
+   
+   
+
+    
+  /*-----------------
+      2. Table
+  -----------------------*/
+  
+  .table {
+    color: #000;
+    border: none !important;
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%; 
+    text-align: justify;
+  }
+  
+  .table > tbody > tr > td {
+    font-weight: 300;
+  }
+  
+  table.table td .avatar {
+    margin: 0 5px 0 0;
+  }
+  
+  table.table td h2 {
+    display: inline-block;
+    font-size: inherit;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+  }
+  
+  table.table td h2 a {
+    color: #757575;
+  }
+  
+  table.table td h2 a:hover {
+    color: #002d54;
+  }
+  
+  table.table td h2 span {
+    color: #9e9e9e;
+    display: block;
+    font-size: 12px;
+    margin-top: 3px;
+  }
+  
+  .table .table-thead {
+    font-size: small;
+    text-align: justify;
+    position: -webkit-sticky;
+    position: relative;
+    border-collapse:  none !important;
+    background: linear-gradient(#fff, #dcdcdc)!important;
+    box-shadow: inset 0 -5px 10px -5px #b8b8b8;
+    border-bottom: 1px solid #dbdbdb !important;
+  }
+   
+  .table-tbody {
+    background-color: #ffffff;
+  }
+  
+  .table-tbody tr:hover {
+    background-color: #041b4e;
+    color: #ffffff;
+  }
+  thead tr:first-child th:first-child {
+    border-top-left-radius: 0px; /* Raio da borda superior esquerda */
+  }
+  thead tr:first-child th:last-child {
+    border-top-right-radius: 0px; /* Raio da borda superior direita */
+  }
+  thead tr:last-child th:first-child {
+    border-bottom-left-radius: 0px; /* Raio da borda superior direita */
+  }
+  thead tr:last-child th:last-child {
+     border-bottom-right-radius: 0px;
+  }
+  
+  tr,td {
+    padding: 0px;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    vertical-align: middle;
+    unicode-bidi: isolate;
+  }
+  tr:first-child td:first-child {
+    border-top-left-radius: 0px;
+  }
+  tr:first-child td:last-child {
+    border-top-right-radius: 0px;
+  }
+  tr:last-child td:first-child {
+    border-bottom-left-radius: 12px;
+  }
+  tr:last-child td:last-child {
+    border-bottom-right-radius: 12px;
+  }

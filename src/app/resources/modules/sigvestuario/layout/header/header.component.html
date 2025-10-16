@@ -1,0 +1,201 @@
+<nav class="navbar navbar-expand">
+    <div class="container-fluid align-content-center">
+        <!--logo do header-->
+        <a class="navbar-brand header-logo menu-desktop" (click)="toggle()">
+            <img class="img-menu" src="../../../../../../assets/assets_sigv/img/img/bx-menu-alt-left.svg.png" alt="">
+            VESTUÁRIOS
+        </a>
+        <a class="navbar-brand header-logo menu-mobile" (click)="this.abrirMenuMobile()">
+          <img src="../../../../../../assets/assets_sigv/img/img/bx-menu-alt-left.svg.png" alt="">
+          VESTRUÁRIOS
+        </a>
+  
+        <!-- Links do header -->
+        <div class="">
+            <ul class="navbar-nav ml-auto mr-2 d-flex align-items-center">
+                <li class="nav-item">
+                  
+                </li>
+                
+                <li class="nav-item">
+                  <a class="nav-link foto" href="javascript:void(0)">
+                    <div class="foto">
+                      <img src="assets/img/user.jpg" alt="Profile" style=" border-radius:50%">
+                      <span class="dot"></span>
+                    </div>
+                  </a>
+                </li>
+  
+                <li class="nav-item"> 
+                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                    <li class="dropdown-header text-center">
+                        <h6>{{this.nomeUtilizador}}</h6>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center text-dark" routerLink="perfil">
+                            <i class="bi bi-person"></i>
+                            <span>Meu Perfil</span>
+                        </a>
+                    </li>
+                    <li>
+                        <!-- <a class="dropdown-item" [routerLink]="['/piips']">Ir em Piips</a> -->
+                        <a class="dropdown-item d-flex align-items-center text-dark" [routerLink]="['/piips']">
+                            <i class="bi fa-birthday-cake"></i>
+                            <span>Ir em Piips</span>
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center" data-toggle="modal" data-target="#logout-modal" style="cursor:pointer;">
+                            <i class="bi bi-power"></i>
+                            <span>Terminar sessão</span>
+                        </a>
+                    </li>
+                  </ul>
+                </li>
+                <div class="dropdown">
+                  <a class="dropdown-toggle dropdown-link" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ this.nomeUtilizador }}
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="javascript:void(0)"><i class="bi bi-person-fill"></i> Ver Perfil</a>
+                    <a class="dropdown-item" href="javascript:void(0)"><i class="bi bi-gear-fill"></i> Definições</a>
+                    <a class="dropdown-item" [routerLink]="['/piips']"><i class="bi bi-house-fill"></i> Ir para PIIPS</a>
+                    <a class="dropdown-item" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#modalEliminar" (click)="validarSair()" style="color: #dc3545;"><i class="bi bi-box-arrow-right"></i> Logout</a>
+                  </div>
+                </div>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<aside id="menu-mobile-nmg">
+
+  <div class="header-nmg">
+    <button (click)="this.fecharMenuMobile()">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+
+  <div class="body-nmg">
+    <!-- <blockquote> "Secção em desenvolvimento, se chegou até aqui é porque está a testar o aplicativo ou quer retirar
+      algumas idéias. Obrigado pelo tempo dispensado.
+      Não esqueça os copyrights..." 
+      <cite>Anonnymous-Kira (Nelson Manuel Garcia - Dev.)</cite> 
+    </blockquote> -->
+
+    <h3>
+      <span><i style="margin-right: 8px;" class="bi bi-grid-fill"></i>Menu Principal</span>
+    </h3>
+    <!-- <hr> -->
+    
+    <ul type="none" id="side-navbar">
+      <!-- Painel de controlo -->
+      <li routerLinkActive="efeito2">
+        <a [routerLink]="['/piips/sigvest/dashboard']" ariaCurrentWhenActive="page">
+          <i class="bi bi-laptop ii"></i>
+          <span>Painel Controlo </span>
+        </a>
+      </li>
+      
+      <!-- Planificação [routerLink]="['/piips/sigv/dashboard']" -->
+      <li routerLinkActive="efeito2">
+        <a [routerLink]="['/piips/sigvest/planificacao']"
+          ariaCurrentWhenActive="page">
+          <i class="bi bi-clipboard ii"></i>
+          <span> Planificação </span>
+        </a>
+      </li>
+    
+      <!-- Gestão de Estoque -->
+      <li routerLinkActive="efeito2">
+        <a ariaCurrentWhenActive="page" [routerLink]="['/piips/sigvest/gestao-de-estoque']">
+          <i class="bi bi-house  ii"></i>
+          <span>Gestão de Estoque <i class="bi bi-chevron-right icon-girar"></i></span>
+        </a>
+    
+        <!-- <div id="estoque" class="collapse">
+          <li style="padding-left: 30px; padding-top: 10px; padding-bottom: 5px" routerLinkActive="efeito2">
+            <a
+              [routerLink]="['/piips/sigv/abastecimento']"
+              ariaCurrentWhenActive="page"
+            ><i class="bi bi-house-down-fill ii"></i>
+              <span>Abastecimento</span>
+            </a>
+          </li>
+        </div>
+    
+        <div id="estoque" class="collapse" >
+          <li style="padding-left: 30px; padding-top: 10px; padding-bottom: 5px" routerLinkActive="efeito2">
+            <a
+              [routerLink]="['/piips/sigv/distribuicao']"
+              ariaCurrentWhenActive="page"
+            ><i class="bi bi-house-up-fill ii"></i>
+              <span>Distribuição</span>
+            </a>
+          </li>
+        </div>
+    
+        <div id="estoque" class="collapse" >
+          <li style="padding-left: 30px; padding-top: 10px; padding-bottom: 5px" routerLinkActive="efeito2">
+            <a
+              [routerLink]="['/piips/sigv/estoque']"
+              ariaCurrentWhenActive="page"
+            ><i class="bi bi-house-lock-fill ii"></i>
+              <span>Reserva</span>
+            </a>
+          </li>
+        </div> -->
+      </li>
+    
+      <!-- Gestão de Pedidos -->
+      <li routerLinkActive="efeito2">
+        <a
+          ariaCurrentWhenActive="page" [routerLink]="['/piips/sigvest/gestao-de-pedidos/']"
+        >
+          <i class="bi bi-archive ii"></i>
+          <span>Gestão de Pedidos </span> <span class="menu-arrow"></span>
+        </a>
+      </li>
+    
+      <!-- Relatório & análises   -->
+      <li routerLinkActive="efeito2">
+        <a  ariaCurrentWhenActive="page" [routerLink]="['/piips/sigvest/relatorios']">
+          <i class="bi bi-graph-up-arrow ii"></i>
+          <span> Relatório & Análises </span>
+        </a>
+      </li>
+    
+      <!-- Configurações -->
+      <li routerLinkActive="efeito2">
+        <a
+          ariaCurrentWhenActive="page"
+          [routerLink]="['/piips/sigvest/configuracoes']"      
+        >
+          <i class="bi bi-tools ii"></i>
+          <span>Configurações </span> <span class="menu-arrow"></span>
+        </a>
+    
+      </li>
+    </ul>
+    
+    
+    <div class="rodape">
+      <div>
+        <strong>Versão 0.1</strong> <br>
+        <span style="font-size: .6rem">
+          DTTI/PNA Todos os direitos reservados.<br>
+          Module of the PIIPS
+        </span>
+      </div>
+    </div>
+  </div>
+</aside>

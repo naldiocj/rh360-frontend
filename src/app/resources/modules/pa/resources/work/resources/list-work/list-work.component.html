@@ -1,0 +1,123 @@
+<app-pa-esc-trabalho
+  (onFecharModal)="this.modalFechado()"
+  [escala_trabalho]="this.escala"
+  [funcionario]="this.funcionario"
+></app-pa-esc-trabalho>
+
+
+<main id="main_" class="main_">
+  <div class="pagetitle my-4">
+    <h1>
+      <i class="bi bi-arrow-repeat"></i>
+      <span class="mx-2">Histórico de escalas de trabalho</span>
+    </h1>
+  </div>
+  <section class="section">
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card recent-sales overflow-auto shadow" style="border: none !important">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="card-body-header d-flex justify-content-between align-items-center my-2">
+
+                  <div class="row w-100">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <form class="row ">
+                        <div class="col-xl-1 col-lg-1 col-md-12 col-ms-1">
+                          <select id="perPageSelector" class="form-control" (change)="filtrarPagina('perPage', $event)">
+                            <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">
+                              {{ item }}
+                            </option>
+                          </select>
+                        </div>
+                        <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12">
+
+                          <input class="form-control mr-sm-1" type="text" [ngModel]="filtro.search" name="search"
+                            (ngModelChange)="filtrarPagina('search', $event)" placeholder="Pesquisa ..." />
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 d-flex justify-content-end p-0">
+                          <button (click)="this.recarregarPagina()" class="btn-piips btn-piips-secondary  m-0"
+                            type="submit">
+                            <i style="font-size: 14px" class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+                            Recarregar
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="table-responsive">
+                  <table class="table text-center ms-auto">
+                    <thead class="text-center">
+                      <tr>
+                        <th>ID</th>
+                        <th>Secção</th>
+                        <th>Departamento</th>
+                        <th>Enviado por</th>
+                        <th>Turno</th>
+                        <th>Escalado para</th>
+                        <th>Estado</th>
+                        <th>Data</th>
+                        <th>Enviado</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr (click)="this.setEscalaTrabalho(item)" data-toggle="modal" data-target="#view-escala-trabalho"
+                        *ngFor="
+                          let item of this.escalas
+                            | paginate
+                              : {
+                                  id: 'escalaId',
+                                  itemsPerPage: this.pagination.per_page,
+                                  currentPage: this.pagination.current_page,
+                                  totalItems: this.pagination.total
+                                };
+                          index as i
+                        ">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ item.seccao }}</td>
+                        <td>{{ item.departamento_sigla }}</td>
+                        <td>{{ item.direcao_sigla }}</td>
+                        <td>{{ this.getTurno(item?.turno) }}</td>
+                        <td>
+                          {{ this.getData(item?.date) }}
+                        </td>
+
+                        <td class="badge w-100 p-2 text-light" [style.margin]="'.4rem auto'"
+                          [style.backgroundColor]="this.getEstado(item.estado)?.cor" style="border-radius: unset">
+                          {{ this.getEstado(item.estado)?.nome }}
+                        </td>
+                        <td>{{ item.data }}</td>
+                        <td>{{ item.created_at }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 my-4">
+                <div class="row">
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                    Mostrando de {{ this.pagination.current_page }} a {{ this.pagination.per_page }} de {{
+                    this.pagination.total}}
+                    <span *ngIf="this.pagination.total < 2; else outrosRegistos">registo</span>
+                    <ng-template #outrosRegistos>registos</ng-template>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                    <div class="float-right">
+                      <pagination-controls id="escalaId" (pageChange)="this.filtrarPagina('page', $event)"
+                        [directionLinks]="true" [autoHide]="false" previousLabel="Anterior" nextLabel="Próximo"
+                        [maxSize]="4" [responsive]="true"></pagination-controls>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

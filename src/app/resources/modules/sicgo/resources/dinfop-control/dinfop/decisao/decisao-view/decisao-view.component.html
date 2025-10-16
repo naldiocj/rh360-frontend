@@ -1,0 +1,150 @@
+<section
+    id="{{showBannerup}}"
+    class="offcanvas   offcanvas-container parallax-element"
+    tabindex="-1"
+    aria-labelledby="offcanvasExampleLabel"
+    *ngIf="showBannerup"
+>
+
+    <div class="page__frame">
+        <div class="page-tab-header">
+
+            <nav
+                class="navigation"
+                id="js--navid"
+            >
+                <ul
+                    class="navigation-menu"
+                    #navigationMenu
+                >
+                    <li
+                        class="nav-item active"
+                        
+                    >
+                        <a
+                            class="nav-tab t--tab" 
+                            title="delituoso"
+                        >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 24 24">
+                            <rect width="24" height="24" fill="none" />
+                            <path fill="currentColor" fill-rule="evenodd" d="M10 4h4c3.771 0 5.657 0 6.828 1.172S22 8.229 22 12s0 5.657-1.172 6.828S17.771 20 14 20h-4c-3.771 0-5.657 0-6.828-1.172S2 15.771 2 12s0-5.657 1.172-6.828S6.229 4 10 4m3.25 5a.75.75 0 0 1 .75-.75h5a.75.75 0 0 1 0 1.5h-5a.75.75 0 0 1-.75-.75m1 3a.75.75 0 0 1 .75-.75h4a.75.75 0 0 1 0 1.5h-4a.75.75 0 0 1-.75-.75m1 3a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5h-3a.75.75 0 0 1-.75-.75M11 9a2 2 0 1 1-4 0a2 2 0 0 1 4 0m-2 8c4 0 4-.895 4-2s-1.79-2-4-2s-4 .895-4 2s0 2 4 2" clip-rule="evenodd" />
+                        </svg>
+                        Decisões 
+                        </a>
+                    </li>
+                     
+                    
+                    
+                    <li
+                        class="nav-item" 
+                    >
+                        <a
+                            class="nav-tab t--tab"
+                             data-target="#modalDelituosover"
+                             data-bs-toggle="modal"
+                             data-bs-target="#modalDelituosover">
+                             <i class="bi bi-arrows-fullscreen"></i>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <section class="page__frame">
+        <div class="tab__content">
+            <main class="tab__main">
+              <details class="custom-details" *ngFor="let item of decisao">
+                <summary class="d-flex">
+                  <div *ngIf="decisao.length > 0; else noVeiculos" class="mr-2">
+                    <i class="bi bi-plus-lg"></i>
+                  </div>
+                  <ng-template #noVeiculos>
+                    <div class="mr-2">
+                      <i class="bi bi-x-lg"></i> <!-- Ícone ou conteúdo alternativo -->
+                    </div>
+                  </ng-template>
+                  <div class="row col-12">
+                    <div class="col-11">
+                        <a>Decisão: {{item.resultado_processo}}</a>
+                        Resutado: {{item.resultado_processo}}
+                     </div>
+                     
+                     <div class="col-1 p-1">
+                        <div class="dropdown dropdown-action">
+                            <a
+                                href="#"
+                                class="action-icon dropdown-toggle"
+                                data-toggle="dropdown"
+                                aria-expanded="false"
+                            >
+                                <i class="bi bi-three-dots-vertical"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right bg-main">
+                                <a
+                                    class="dropdown-item"
+                                    data-bs-toggle="modal"
+                                     
+                                    data-bs-target="#ModoOperante"
+                                     
+                                >
+                                    <i class="fas fa-edit m-r-5"></i>
+                                    <b>Editar</b>
+                                </a>
+                                 
+                            </div>
+                        </div>
+                     </div>
+                 </div>
+                </summary>
+                <div class="bg-lightt">
+                  <ng-container *ngIf="decisao.length > 0; else elseTemplate">
+               
+                      
+                      <!-- Verifique se há delituosos -->
+                       
+                          <div class="row">
+                            <div class="col-sm-3 col-md-3">
+                              <div class="borders">
+                                <div class="borders-img">
+                                    <img
+                                        [src]="item.delituoso.fileUrlFrontal || fotodfault"
+                                        alt
+                                    >
+                                </div>
+                            </div>
+                            </div>
+                            <div class="col-sm-4 offset-sm-2 col-md-9 offset-md-0 ml-2">
+                              <div class="d-flex">
+                                Nome: {{item.delituoso.delituoso_nome}}<br> 
+                              </div>
+                              <div class="g-col-6">Idade: {{calculateAge(item.delituoso.dataNascimento)}}</div>
+                              <div class="g-col-6">Apelido: {{item.delituoso.alcunha}}</div>
+                            </div>
+                            
+                          </div>
+                        
+              
+                      <!-- Caso não haja delituosos -->
+                      <ng-template #vazioTemplate>
+                        <p class="text-center">Não há delituosos para exibir.</p>
+                      </ng-template>
+                    
+                  </ng-container>
+                  <ng-template #elseTemplate>
+                    <span>
+                      Nenhum modo operante registado
+                    </span>
+                  </ng-template>
+                </div>
+              </details>   
+               
+            </main>
+        </div>
+    </section>
+
+</section>
+
+
+ 
+

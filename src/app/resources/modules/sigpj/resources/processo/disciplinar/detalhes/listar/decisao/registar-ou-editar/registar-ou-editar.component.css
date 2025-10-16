@@ -1,0 +1,280 @@
+
+
+
+
+#file{
+    display: none;
+}
+
+#label{ width: 250px;
+    height: 2em;
+    background-color: rgb(198, 198, 198);
+    color: black;
+    font-size: 20px;   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+
+
+#file{
+    display: none;
+}
+
+#label{ width: 250px;
+    height: 2em;
+    background-color: rgb(198, 198, 198);
+    color: black;
+    font-size: 20px;   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#file{
+    display: none;
+}
+
+#label{ width: 250px;
+    height: 2em;
+    background-color: rgb(198, 198, 198);
+    color: black;
+    font-size: 20px;   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+ 
+#main_ {
+    margin-top: 60px;
+    padding: 20px 30px;
+    transition: all 0.3s;
+  }
+  
+  @media (max-width: 1199px) {
+    #main_ {
+      padding: 20px;
+    }
+  }
+  
+  /*--------------------------------------------------------------
+  # Page Title
+  --------------------------------------------------------------*/
+  .pagetitle {
+    margin-bottom: 10px;
+    padding: 0px;
+  }
+  
+  .pagetitle h1 {
+    font-size: 24px;
+    font-weight: normal;
+    color: #041b43!important;
+  }
+  
+@media (min-width: 1200px) {
+
+    #main_,
+    #footer {
+      margin-left: 300px;
+    }
+  }
+
+
+  .list-group-item .n_lido{
+    background: #e0dede7e;
+  }
+  .pagetitle .btn.btn-outline-primary, 
+.modal .btn.btn-outline-primary,
+.card-body-header .btn.btn-outline-primary{
+  border-color: #041b43!important;
+  color: #041b43;
+  transition: all .6s;
+  border-radius: 5px!important;
+  padding: 10px 15px!important;
+}
+
+.btn.btn-outline-primary{
+  border-color: #041b43!important;
+  color: #041b43;
+  transition: all .6s;
+  border-radius: 5px!important;
+  padding: 10px 15px!important;
+}
+.btn.btn-outline-primary.active{
+  background: #041b43!important;
+  color: #fff!important;
+}
+.btn.btn-outline-primary:hover{
+  background: #041b43;
+  color: #fff;
+}
+.error-404 .btn:hover {
+  background: #3e4f6f;
+}
+
+
+/** Testing the header style in the list of disciplinar page 
+
+:: the style start from here
+*/
+
+.pointer{
+  cursor: pointer;
+}
+
+ 
+  
+.header-nav_ ul {
+  list-style: none;
+  margin-left: auto!important;
+}
+
+.header-nav_>ul {
+  margin: 0;
+  padding: 0;
+}
+ 
+.dropdown-menu-arrow{
+position: absolute;
+inset: 0px auto auto 0px;
+left: -20px;
+margin: 0px;
+transform: translate(-440px, 51px);
+}
+.dropdown-menu.show {
+display: block;
+}
+.header-nav_ ul {
+list-style: none;
+}
+
+.dropdown-menu {
+position: absolute;
+z-index: 1000;
+display: none;
+min-width: 10rem;
+padding: 0.5rem 0;
+margin: 0;
+font-size: 1rem;
+color: #212529;
+text-align: left;
+list-style: none;
+background-color: #fff;
+background-clip: padding-box;
+border-radius: 0.25rem;
+}
+
+.dropdown-menu {
+border-radius: 4px;
+padding: 10px 0;
+animation-name: dropdown-animate;
+animation-duration: 0.2s;
+animation-fill-mode: both;
+border: 0;
+box-shadow: 0 5px 30px 0 rgba(82, 63, 105, 0.2);
+} 
+
+.header-nav_ .profile {
+  min-width: 240px;
+  padding-bottom: 0;
+  top: 8px !important;
+}
+
+.header-nav_ .profile .dropdown-header h6 {
+  font-size: 18px;
+  margin-bottom: 0;
+  font-weight: 600;
+  color: #444444;
+}
+
+.header-nav_ .profile .dropdown-header span {
+  font-size: 14px;
+}
+
+.header-nav_ .profile .dropdown-item {
+  font-size: 14px;
+  padding: 10px 15px;
+  transition: 0.3s;
+}
+
+.header-nav_ .profile .dropdown-item i {
+  margin-right: 10px;
+  font-size: 18px;
+  line-height: 0;
+}
+
+.header-nav_ .profile .dropdown-item:hover {
+  background-color: #f6f9ff;
+}
+
+
+@media (min-width: 768px){
+  .dropdown-menu-arrow::before {
+      content: "";
+      width: 13px;
+      height: 13px;
+      background: #f6f9ff!important;
+      position: absolute;
+      top: -7px; 
+      transform: rotate(45deg);
+      border-top: 1px solid #eaedf1;
+      border-left: 1px solid #eaedf1;
+  }
+}
+
+.dropdown-menu .dropdown-divider {
+  color: #a5c5fe;
+  margin: 0;
+}
+hr:not([size]) {
+  height: 1px;
+}
+.dropdown-divider {
+  height: 0;
+  margin: 0.5rem 0;
+  overflow: hidden;
+  border-top: 1px solid rgba(0,0,0,.15);
+}
+hr {
+  margin: 1rem 0;
+  color: inherit;
+  background-color: currentColor;
+  border: 0;
+  opacity: .25;
+}
+*, ::after, ::before {
+  box-sizing: border-box;
+}
+
+@-webkit-keyframes dropdown-animate {
+0% {
+  opacity: 0;
+}
+
+100% {
+  opacity: 1;
+}
+
+0% {
+  opacity: 0;
+}
+}
+
+@keyframes dropdown-animate {
+0% {
+  opacity: 0;
+}
+
+100% {
+  opacity: 1;
+}
+
+0% {
+  opacity: 0;
+}
+}

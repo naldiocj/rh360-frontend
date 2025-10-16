@@ -1,0 +1,34 @@
+<button (click)="this.adicionar()" [disabled]="true" style="cursor: pointer;padding: 8px 15px 8px 15px;"> <span class="fa fa-plus"></span>
+    Adicionar</button>
+<br><br>
+
+<aside [formGroup]="this.simpleForm">
+    <aside formArrayName="meios">
+        <div *ngFor="let item of this.meios.controls; let i=index">
+            <div [formGroupName]="i">
+                <div class="formulario">
+                    <div style="width: 46%;" class="form-group">
+                        <label><b>Descrição do Meio</b><span class="text-danger"> </span></label>
+                        <ng-select2 placeholder="Selecione uma opção" width="100%" formControlName="tipo_meio_id" [data]="this.tipoMeios">
+                        </ng-select2>
+                    </div>
+                    <div style="width: 25%; margin-left: 15px; margin-right: 15px;" class="form-group">
+                        <label><b>Tamanho</b></label>
+                        <input class="form-control" formControlName="tamanho" required min="0" type="number">
+                    </div>
+                    <div style="width: 25%; margin-left: 15px; margin-right: 15px;" class="form-group">
+                        <label><b>Quantidade</b></label>
+                        <input class="form-control" formControlName="quantidade" min="0" required type="number">
+                    </div>
+                    <div style="width: 4%;" class="form-group">
+                        <label><b>Remover</b></label>
+                        <br>
+                        <button style="cursor: pointer;padding: 7px 14px 7px 14px;" (click)="this.remover(i)">
+                            <span class="fa fa-trash"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+</aside>

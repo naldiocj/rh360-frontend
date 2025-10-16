@@ -1,0 +1,179 @@
+
+
+
+
+
+
+/* styles.css ou componente específico
+ background-color: #f5f8fa;
+  border-color: #f5f8fa;
+  color: #5e6278;
+  transition: color 0.2s ease;
+  */
+ 
+
+  .bg-lightt { 
+    background: linear-gradient(#ebebeb, #dfdfdffb) !important;
+    padding: 1px;  
+    border-radius: 17px 17px 14px 14px !important;
+  }
+   
+  .hidden-banner {
+    display: none;
+  }
+  .nav-btn-button {
+    border:none;
+    border-top-right-radius: 16px !important;
+    border-top-left-radius: 16px !important;
+    border-bottom-right-radius: 5px !important;
+    border-bottom-left-radius: 5px !important;
+    border: 1px solid #e8ecec !important;
+    min-height: 40px;
+    max-height: 50px;
+    margin-right: 4px;
+  }
+  
+   
+  /*-----------------
+    2. Table
+  -----------------------*/
+  /* Media Queries para tornar a tabela responsiva */
+  @media screen and (max-width: 768px) {
+    .table {
+      border-radius: 0;
+    }
+  
+    .table thead {
+      display: none; /* Esconde o cabeçalho da tabela em dispositivos menores */
+    }
+  
+    .table, .table tbody, .table tr, .table td {
+      display: block;
+      width: 100%;
+    }
+  
+    .table td {
+      text-align: left;
+      padding: 5px;
+      position: relative;
+    }
+  
+    .table td::before {
+      content: attr(data-label);
+      font-weight: bold;
+      display: inline-block;
+      width: 100%;
+      margin-bottom: 5px;
+      color: #757575;
+    }
+  }
+  
+  table { 
+    border: none !important;
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    background-color: transparent; 
+    bottom: 0;
+    text-align: justify;
+    border-radius: 12px;
+    margin-bottom: 0%;
+  }
+   
+   
+  .table .table-thead {
+    font-size: 10pt;
+    text-align: justify;
+    background-color: #fcfcfc;
+    border-collapse:  none !important;
+    
+  }
+  
+  .table thead tr { 
+    height: 20px!important;
+  }
+  
+  .table-tbody tr:hover {
+    background-color: #041b4e;
+    color: #ffffff;
+  }
+  thead tr:first-child th:first-child {
+    border-top-left-radius: 15px; /* Raio da borda superior esquerda */
+    border-bottom-left-radius: 3px;
+  }
+  
+  thead tr:first-child th:last-child {
+    border-top-right-radius: 15px; /* Raio da borda superior direita */
+    border-bottom-right-radius: 3px;
+  } 
+  
+  
+  td {
+    padding: 3px;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    vertical-align: middle;
+    }
+  td a:hover {
+      color: #ffffff;
+    }
+  tr:first-child td:first-child {
+    border-top-left-radius: 0px;
+  }
+  tr:first-child td:last-child {
+    border-top-right-radius: 0px;
+  }
+  tr:last-child td:first-child {
+    border-bottom-left-radius: 12px;
+  }
+  tr:last-child td:last-child {
+    border-bottom-right-radius: 12px;
+  }
+   
+  
+   
+   
+    /* Estilização para o elemento <details> */
+    details {
+      /* background-color: #fff;
+          border-right: 1px solid #3333331e;
+          border-left: 1px solid #3333331e;
+          border-top: 1px solid #3333331e; */
+      background: linear-gradient(#ffffff, #f8f6f6);
+      border-radius: 0px;
+      width: 100%;
+      padding: 2px;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      color: var(--bs-accordion-color);
+      box-shadow: 0 0 1px rgba(0, 0, 0, 0.275);
+    }
+    details:hover {
+      background-color: #f6f6f6;
+      border-radius: 19px;
+      transition: all 0.3s cubic-bezier(.175, .885, .32, 1.275);
+      color: #000000;
+    }
+  
+    /* Estilização para o resumo (summary) */
+    summary {
+      padding: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(.175, .885, .32, 1.275);
+    }
+  /* Ocultar a seta */
+  details.no-arrow summary::-webkit-details-marker {
+    display: none;
+  }
+  
+  details.no-arrow summary::before {
+    content: "▼";
+    color: transparent; /* Seta invisível */
+  }
+  
+  /* Exibir a seta apenas se houver registros */
+  details.custom-details summary::-webkit-details-marker {
+    display: block;
+  }
+  

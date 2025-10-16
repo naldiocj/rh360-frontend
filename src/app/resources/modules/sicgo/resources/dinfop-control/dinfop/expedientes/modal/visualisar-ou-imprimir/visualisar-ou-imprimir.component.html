@@ -1,0 +1,23 @@
+<!-- MODAL DE IMPRESSÃO -->
+<div
+    class="modal fade"
+    id="modalPrintExpediente"
+    tabindex="-1"
+    aria-labelledby="modalPrintExpedienteLabel"
+    aria-hidden="true"
+>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <editor
+                    [init]="editorConfig"
+                    class="editor-full-width"
+                    [ngModel]="selectedExpediente?.expedienteP"
+                >
+                </editor>
+            </div>
+
+        </div>
+    </div>
+</div>

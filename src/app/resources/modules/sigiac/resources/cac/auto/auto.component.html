@@ -1,0 +1,56 @@
+<main id="main_" class="main_">
+    <div class="pagetitle mb-4">
+      <h1> <i class="bi bi-journal-text"></i><span class="mx-2">Gerar auto de queixa </span></h1>
+      <p>
+        Os campos com (<span id="ob"><b>*</b></span>) são de carácter obrigatório
+      </p>
+      <button class="btn btn-primary" style="width: 10em; height: 3em;" (click)="onVoltar()">Voltar</button>
+    </div>
+  
+    <div class="content">
+      <div class="col-12 col-md-6 ">
+        <form  [formGroup]="autoForm" enctype="multipart/form-data" (submit)="registrar()">
+          <div class="row">
+            <div class="col-lg-4 col-md-6 col-6">
+              <label><b> Nº do Processo </b><span class="text-danger">*</span></label>
+  
+              <button disabled class="form-control">
+                {{ this.autoForm.value.processo }}
+              </button>
+            </div>
+  
+            <div class="col-lg-4 col-md-6 col-6" >
+              <label><b>Nº do Ofício </b><span class="text-danger">*</span></label>
+              <input   type="text" id="name" class="form-control" required formControlName="oficio" />
+            </div>
+  
+  
+            <div class="col-lg-4 col-md-6 col-6" >
+              <label><b>Data do Parecer </b><span class="text-danger">*</span></label>
+              <input type="date" id="name" class="form-control" required formControlName="data" />
+            </div>
+          </div>
+  
+  
+          <div class="col-md-12 col-12" style="left: -15px;">
+            <label><b>Transcrição do Assunto</b></label>
+            <textarea style=" height: 10em" class="form-control" required formControlName="assunto">
+            </textarea>
+          </div>
+  
+          <div class="form-group my-2">
+            <div class="d-flex flex-row">
+              <label class="upload-input " id="label">
+                <i class="bi bi-file-pdf-fill  mx-2 " style="font-size:1.3rem"></i>
+                Carregar peças
+                <input id="file" type="file" (change)="onFileSelected($event)" class="form-control" multiple />
+              </label>
+              <button class="btn btn-primary submit-btn mx-4" type="submit" style=" height: 2.5em;">
+                Registar
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>

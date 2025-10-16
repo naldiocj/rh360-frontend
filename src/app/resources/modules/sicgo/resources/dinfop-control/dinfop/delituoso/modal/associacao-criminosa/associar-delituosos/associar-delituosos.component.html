@@ -1,0 +1,304 @@
+ 
+  <!-- Modal -->
+  <div  class="modal fade"
+  id="modal1"
+  data-backdrop="static"
+  data-keyboard="false"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="modal1Label"
+  aria-hidden="true"
+  >
+   <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header bg-prima text-white">
+          <h4 class="modal-title fs-5" id="exampleModalLabel">Associação</h4>
+           <a
+          type="button"
+          data-dismiss="modal"
+      >
+          <i
+              class="bi bi-backspace-reverse-fill cursor-pointer rounded-lg "
+              style="font-size: 1.4em"
+          ></i>
+      </a>
+    </div>
+    <div class="modal-body">
+
+        <form
+            [formGroup]="form"
+            class="needs-validation"
+            novalidate
+        >
+
+            <div class="content">
+                <div class="row">
+                    <div class="col-7 col-md-7 col-lg-7">
+                  
+                                        <ng-container *ngIf="delituososSelecionados?.length === 0; else temAgentesSelecionados">
+                                            <h5 class="text-danger">
+                                                Nenhum delituoso selecionado
+                                                <i class="fa fa-times"></i>
+                                            </h5>
+                                        </ng-container>
+                                        <ng-template #temAgentesSelecionados>
+                                            <h5 class="text-success">
+                                                <span class="badge bg-primary rounded-pill">{{ delituososSelecionados?.length }}</span>
+                                                {{ delituososSelecionados?.length === 1 ? 'Delituoso Selecionado' : 'Delituosos Selecionados' }}
+                                                <i class="fa fa-check"></i>
+                                            </h5>
+                                        </ng-template>
+                                        <nav class="navbar navbar-light bg-light">
+                                            <form class="form-inline">
+                                              <select id="perPageSelector" class="form-control mr-sm-1"
+                                                (change)="filtrarPagina('perPage',$event)">
+                                                <option *ngFor="let item of [5,10,20,50]" [value]="item">{{item}}</option>
+                                              </select>
+                                               
+                                              <input class="form-control mr-sm-1" type="text" [ngModel]="filtro.search"
+                                                (ngModelChange)="filtrarPagina('search',$event)" placeholder="Pesquisa ...">
+
+                                                <button (click)="this.recarregarPagina()" class="btn input-filtro p-1" type="button">
+                                                    <i style="font-size: 12px" class="fa fa-refresh fa-spin fa-3x fa-fw mr-2"></i>
+                                                  </button>
+                                            </form>
+                                          </nav>
+                                <table class="table  table-striped " #tableToPrint>
+                                    <thead class="table-thead">
+                                      <tr>
+                                        <th>#</th>
+                                        <th>Código</th>
+                                        <th>foto</th>
+                                        <th>Nome</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th>Gênero</th> 
+                                        <th>Idade</th> 
+                                      </tr>
+                                    </thead>
+                                    <tbody class="table-tbody">
+                                      <tr *ngFor="let item of delituosos  | paginate
+                                      : {
+                                          id: 'idDelituoso',
+                                          itemsPerPage: this.pagination.per_page,
+                                          currentPage: this.pagination.current_page,
+                                          totalItems: this.pagination.total
+                                        };
+                                  index as i">
+                                        <td>
+                                         <div class="checkboxes__item">
+                                            <label class="checkbox style-c">
+                                                <input
+                                                title="f"
+                                                type="checkbox"
+                                                [id]="item.id"
+                                                [(ngModel)]="item.selected"
+                                                (change)="selecionarDelituosoParaDelituoso(item)"
+                                                [checked]="validarSelecionado(item.id)"
+                                            >
+                                              <div class="checkbox__checkmark hover:bg-muted-100 dark:hover:bg-muted-700/70"></div>
+                                            </label>
+                                          </div>
+                                        </td>
+                                        <td>{{ item.codigo_sistema }}</td>
+                                        <td>
+                                            <div class="avatars">
+                                                <img  
+                                                    [src]="item.fileUrlFrontal || fotodfault"
+                                                    alt="Foto de {{ item.nome }}"
+                                                >
+    
+                                            </div>
+                                        </td>
+                                        <td colspan="3">
+                                          {{ item.nome | uppercase }}
+                                        </td>
+                                        <td>{{ item.genero }}</td>
+                                         <td>
+                                          {{calculateAge(item.dataNascimento)}}
+                                          
+                                          <div *ngIf="idade !== null">{{ idade }}</div>
+                                        </td>
+                                         
+                                      </tr>
+                                      <tr>
+                                        <td colspan="9">
+                                           
+                                            <pagination-controls id="idDelituoso" (pageChange)="this.filtrarPagina('page', $event)"
+                                            [directionLinks]="true" [autoHide]="true" previousLabel="Anterior" nextLabel="Próximo" [maxSize]="4"
+                                            [responsive]="true"></pagination-controls>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                             
+                           
+                         
+
+                    </div>
+                    <div  class="col-5 col-md-5 col-lg-5">
+
+                        <div class="row g-2">
+
+                            <div class="col-sm-6">
+                                <label
+                                    for="local_atuacao"
+                                    class="form-label mt-2"
+                                >
+                                    Local de Atuação
+                                </label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="local_atuacao"
+                                    formControlName="local_atuacao"
+                                    placeholder
+                                    value
+                                    required
+                                >
+                                <div
+                                    class="invalid-feedback"
+                                    *ngIf="form.get('local_atuacao')?.invalid && form.get('local_atuacao')?.touched"
+                                >
+                                    Local de atuação é obrigatorio
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label
+                                    for="ponto_concentracao"
+                                    class="form-label mt-2"
+                                >
+                                    Ponto de Concentração
+                                </label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="ponto_concentracao"
+                                    formControlName="ponto_concentracao"
+                                    placeholder
+                                    value
+                                    required
+                                >
+                                <div
+                                    class="invalid-feedback"
+                                    *ngIf="form.get('ponto_concentracao')?.invalid && form.get('ponto_concentracao')?.touched"
+                                >
+                                    Ponto Concentracao é obrigatorio
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <label
+                                    for="hora_concentracao"
+                                    class="form-label mt-2"
+                                >
+                                    Hora da Concentracao
+                                </label>
+                                <input
+                                    type="datetime-local"
+                                    class="form-control"
+                                    id="hora_concentracao"
+                                    placeholder="hora da concentracao"
+                                    formControlName="hora_concentracao"
+                                >
+                                <div
+                                    class="invalid-feedback"
+                                    *ngIf="form.get('hora_concentracao')?.invalid && form.get('hora_concentracao')?.touched"
+                                >
+                                    hora concentracao é obrigatorio
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <label
+                                    for="hora_atuacao"
+                                    class="form-label mt-2"
+                                >
+                                    hora da atuacao
+                                </label>
+                                <input
+                                    type="datetime-local"
+                                    class="form-control"
+                                    id="hora_atuacao"
+                                    placeholder="hora da atuacao"
+                                    required
+                                    formControlName="hora_atuacao"
+                                >
+                                <div class="invalid-feedback">hora da atuação.</div>
+                            </div>
+
+                            <div class="col-12">
+                                <label
+                                    for="meios_id"
+                                    class="form-label mt-2"
+                                >
+                                    Objecto Crime
+                                    <span class="text-body-secondary">(*)</span>
+                                </label>
+                                <ng-select2
+                                    [options]="this.options"
+                                    [data]="this.objectoCrimes"
+                                    formControlName="meios_id"
+                                >
+                                </ng-select2>
+
+                            </div>
+                           
+                        </div>
+
+                    </div>
+
+                    <div *ngIf="currentStep === 3" class="col-md-12 col-lg-12">
+
+                      <div *ngFor=" let item of this.delituoso">
+
+                      <div class="d-flex">
+                          <div class="borders">
+                              <div class="borders-img">
+                                  <img
+                                      [src]="item.fileUrlFrontal || fotodfault"
+                                      alt
+                                  >
+                              </div>
+                          </div>
+
+                          <div class="grid text-start">
+                              <div class="ml-2">{{item.nome}} ({{item.alcunha}})</div>
+                              <div class="ml-2">Genero: {{item.genero}}</div>
+                              <div class="g-col-6 ml-2">Pais: {{item.pais}}</div>
+                          </div>
+                      </div>
+                    </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
+        
+    </div>
+    <div class="modal-footer">
+
+        <button
+            type="button"
+            class="btn btn-secondary"
+            data-dismiss="modal"
+        >
+            Fechar
+        </button>
+        <button
+            type="submit"
+            class=" btn btn-primary "
+            [disabled]="currentStep === 2 || (currentStep === 1 && delituosos.length === 0)"
+            (click)="addDelituosoToDelituoso()"
+        >
+            Associar Delituosos
+        </button>
+    </div>
+      </div>
+    </div>
+  </div>
+   
+<dinfo-ver-delituosos [delituosoId]="this.delituosoId"></dinfo-ver-delituosos>

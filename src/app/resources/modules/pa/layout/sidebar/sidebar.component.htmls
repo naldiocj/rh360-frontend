@@ -1,0 +1,153 @@
+<aside id="asidebar" class="asidebar">
+  <ul class="asidebar-nav" id="sidebar-nav">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="dashboard" routerLinkActive="active">
+        <i class="bi bi-graph-up" id="cor_icone"></i>
+        <span>Painel Controlo</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="perfil" routerLinkActive="active">
+        <i class="bi bi-person-square" id="cor_icone"></i>
+        <span>Meu Perfíl</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="dados" routerLinkActive="active">
+        <i class="bi bi-server" id="cor_icone"></i><span>Meus dados</span>
+      </a>
+    </li>
+
+    <!-- Dropdown: Meus Arquivos -->
+    <li class="nav-item">
+      <a
+        class="nav-link collapsed"
+        data-bs-toggle="collapse"
+        href="#gerenciamentoArquivos"
+        role="button"
+        aria-expanded="false"
+        aria-controls="gerenciamentoArquivos"
+      >
+        <i class="bi bi-stickies-fill" id="cor_icone"></i>
+        <span>Gerenciamento de Arquivos</span>
+        <i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul class="collapse" id="gerenciamentoArquivos">
+        <li>
+          <a routerLink="arquivo/listar-processo-individual" class="nav-link">
+            Processos Individuais
+          </a>
+        </li>
+        <li>
+          <a routerLink="arquivo/listar-agregado-familiar" class="nav-link">
+            Dados Familiares
+          </a>
+        </li>
+        <li>
+          <a routerLink="arquivo" class="nav-link">Arquivos Extras</a>
+        </li>
+      </ul>
+    </li>
+
+     <!-- Dropdown: Solicitação -->
+     <li class="nav-item">
+      <a
+        class="nav-link collapsed"
+        data-bs-toggle="collapse"
+        href="#solicitacaoMenu"
+        role="button"
+        aria-expanded="false"
+        aria-controls="solicitacaoMenu"
+      >
+        <i class="bi bi-receipt" id="cor_icone"></i>
+        <span>Solicitação</span>
+        <i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul class="collapse" id="solicitacaoMenu">
+        <li>
+          <a routerLink="solicitacao/listar" class="nav-link">Enviadas</a>
+        </li>
+        <li>
+          <a routerLink="solicitacao/recebidas" class="nav-link">Pendentes</a>
+        </li>
+        <li>
+          <a routerLink="solicitacao/licencas" class="nav-link">Licenças</a>
+        </li>
+        <li>
+          <a routerLink="solicitacao/historico" class="nav-link">Histórico</a>
+        </li>
+      </ul>
+    </li>
+
+    <!-- Dropdown: Reclamação -->
+    <li class="nav-item">
+      <a
+        class="nav-link collapsed"
+        data-bs-toggle="collapse"
+        href="#reclamacaoMenu"
+        role="button"
+        aria-expanded="false"
+        aria-controls="reclamacaoMenu"
+      >
+        <i class="bi bi-envelope-fill" id="cor_icone"></i>
+        <span>Reclamação</span>
+        <i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul class="collapse" id="reclamacaoMenu">
+        <li>
+          <a routerLink="reclamation/send" class="nav-link">Enviar</a>
+        </li>
+        <li>
+          <a routerLink="reclamation" class="nav-link">Enviadas</a>
+        </li>
+      </ul>
+    </li>
+
+
+    <!-- Dropdown: Escala de trabalho -->
+    <li class="nav-item">
+      <a
+        class="nav-link collapsed"
+        data-bs-toggle="collapse"
+        href="#escalaTrabalho"
+        role="button"
+        aria-expanded="false"
+        aria-controls="escalaTrabalho"
+      >
+        <i class="bi bi-puzzle-fill" id="cor_icone"></i>
+        <span>Escala de trabalho</span>
+        <i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul class="collapse" id="escalaTrabalho">
+        <li>
+          <a routerLink="work" class="nav-link">Recém recebida</a>
+        </li>
+        <li>
+          <a routerLink="work/historic" class="nav-link">Histórico</a>
+        </li>
+      </ul>
+    </li>
+
+    <!-- Outros Itens -->
+    <li class="nav-item">
+      <a class="nav-link" routerLink="meios-atribuido">
+        <i class="bi bi-box2-fill" id="cor_icone"></i>
+        <span>Meios atribuídos</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="push">
+        <i class="bi bi-bell-fill" id="cor_icone"></i>
+        <span>Notificação</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="modal" data-bs-target="#logout-modal">
+        <i class="bi bi-power" id="cor_icone"></i>
+        <span>Terminar sessão</span>
+      </a>
+    </li>
+  </ul>
+</aside>
+
+

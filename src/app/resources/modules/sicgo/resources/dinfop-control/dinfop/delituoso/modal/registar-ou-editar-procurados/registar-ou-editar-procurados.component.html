@@ -1,0 +1,190 @@
+<div
+    class="modal fade"
+    id="modalProcurados"
+    aria-labelledby="modalProcurados"
+    aria-hidden="true"
+>
+    <div
+        class="modal-dialog"
+        role="document"
+        style="overflow-y: hidden;min-width: 60%;margin-top: 5%;"
+    >
+        <div class="modal-content">
+            <div class="modal-header bg-prima text-white">
+                <h4
+                    class="modal-title fs-5"
+                    id="exampleModalLabel"
+                >
+                    
+                    {{this.delituosoIds.length == 1 ? 'Delituoso Selecionado':'Delituosos Selecionados'}}
+                            
+                </h4>
+                <a
+                    type="button"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                >
+                    <i
+                        class="bi bi-backspace-reverse-fill cursor-pointer rounded-lg "
+                        style="font-size: 1.4em"
+                    ></i>
+                </a>
+            </div>
+            <div class="content">
+                <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+                <div class="modal-body">
+                    <aside *ngIf="delituosoIds && delituosoIds.length == 0; else temAgentesSelecionados">
+                        <h5 style="color: var(--red);font-weight:normal!important;">
+                            Nenhum Delituoso selecionado
+                            <i class="fa fa-times"></i>
+                        </h5>
+                    </aside>
+                    <ng-template #temAgentesSelecionados>
+                        <h5 style="color: var(--bg-color); font-weight:normal!important;">
+                            {{this.delituosoIds.length}}
+                            {{this.delituosoIds.length == 1? 'Delituoso Selecionado':'Delituosos Selecionados'}}
+                            <i class="fa fa-check"></i>
+                        </h5>
+                    </ng-template>
+                    <div class="row">
+                       
+                        <table class="table table-border table-striped custom-table datatable mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Codigo Sistema</th>
+                                    <th>Status</th>
+                                    <th>Foto</th>
+                                    <th>Nome Completo</th>
+                                    <th>Apelido</th>
+                                    <th>Genero</th>
+                                    <th>Idade</th>
+                                    <th>Nacionalidade</th>
+                                    <th class="text-right">Operação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr *ngFor="  let item of this.delituosoIds; index as i">
+                                    
+                                    <td>
+                                        <span class="ml-4">{{item.codigo_sistema}}</span>
+                                    </td>
+                                    <td class="small-td">
+                                        <!-- Acessar diretamente o objeto "stado" -->
+                                        <div *ngIf="item.stado">
+
+                                            <span class="legend-items">
+                                                <div
+                                                    class="legend-cl btn p-2"
+                                                    [style.backgroundColor]="item.stado.cor"
+                                                >
+                                                </div>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="borders">
+                                            <div class="borders-img">
+                                                <img
+                                                    [src]="item.fileUrlFrontal || fotodfault"
+                                                    alt
+                                                >
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>{{item.nome | slice : 0 : 28 }}..</td>
+                                    <td>{{item.alcunha | slice : 0 : 14 }}..</td>
+                                    <td>{{item.genero}}</td>
+                                    <td>
+                                        {{calculateAge(item.dataNascimento)}}
+                                        <div *ngIf="idade !== null">{{ idade }}</div>
+                                    </td>
+                                    <td>{{item.pais}}</td>
+
+                                    <td class="text-right">
+                                        <div class="dropdown dropdown-action">
+                                            <a
+                                                href="#"
+                                                class="action-icon dropdown-toggle"
+                                                data-toggle="dropdown"
+                                                aria-expanded="false"
+                                            >
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right bg-main">
+                                                <a
+                                                    class="dropdown-item"
+                                                    href="visualisarm.html"
+                                                >
+                                                    <i class="fas fa-edit m-r-5"></i>
+                                                    <b>Editar</b>
+                                                </a>
+                                                <!-- Button trigger modal -->
+
+                                                <a
+                                                    data-toggle="modal"
+                                                    class="dropdown-item"
+                                                    data-target="#modalRegistarOuEditarDelituosoCondenado"
+                                                >
+                                                    <i class="bi bi-person-lock"></i>
+                                                    Situação do Condendado
+                                                </a>
+                                                <a
+                                                    data-toggle="modal"
+                                                    class="dropdown-item"
+                                                    data-target="#modalRegistarOuEditarAssociar"
+                                                >
+                                                    <i class="bi bi-graph-up"></i>
+                                                    Associar a grupos
+                                                </a>
+
+                                                <a
+                                                    data-toggle="modal"
+                                                    class="dropdown-item"
+                                                    data-target="#modal1"
+                                                >
+                                                    <i class="bi bi-people-fill"></i>
+                                                    Associar delituosos
+                                                </a>
+
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="form-group">
+                            <label for="descricao">Observação</label>
+                            <textarea id="descricao" class="form-control" formControlName="descricao"></textarea>
+                            <div *ngIf="registrationForm.get('descricao')?.touched && registrationForm.get('observacao')?.invalid" class="text-danger">
+                              <div *ngIf="registrationForm.get('descricao')?.hasError('required')">Observação is required</div>
+                              <div *ngIf="registrationForm.get('descricao')?.hasError('maxlength')">Observação must be no more than 255 characters long</div>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button
+                    class="btn-piips btn-primary py-2 m-0"
+                    type="submit"
+                    [disabled]="!this.delituosoIds.length"
+                >
+                    <span class="fa fa-user"></span>
+                    Validar
+                </button>
+                    <button
+                        class="btn-piips btn-piips-red py-2 m-0"
+                        (click)="this.removerTodos()"
+                        [disabled]="!this.delituosoIds.length"
+                    >
+                        <span class="fa fa-refresh"></span>
+                        Remover todos
+                    </button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

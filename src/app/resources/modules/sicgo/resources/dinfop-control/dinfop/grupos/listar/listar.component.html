@@ -1,0 +1,295 @@
+<div class=" ">
+ 
+  <div class="row ">
+    
+ 
+        <div class=" col-lgkv-1  ">
+            <div class="  mt-2">
+                  <div class="p-1 ml-3 rounded">
+                        <h4>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="30"
+                                height="30"
+                                fill="currentColor"
+                                class="bi bi-people-fill"
+                                viewBox="0 0 16 16"
+                            >
+                                <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"></path>
+                            </svg>
+                            Listagem Dos Grupos
+                        </h4>
+                        <p
+                            class="lead"
+                            style="font-size:small"
+                        >
+                        Listagem Dos Grupos Criminais.
+                        </p>
+                  </div>
+                 
+      <ul class="nav nav-pills ml- p-2">
+                  <li class="nav-item">
+                      <div
+                          class="custom-radius btn-group"
+                          role="group"
+                          aria-label="Basic example"
+                      >
+                          <button 
+                          data-toggle="modal"
+                          class="btn btn-primary"
+                          ariaCurrentWhenActive="page"
+                          data-target="#modalRegistarOuEditarGrupos"
+                          >
+                              <i class="bi bi-plus-circle-fill"></i>
+                              Novos Grupos
+                          </button> 
+                          <input
+                              class="btn input-search"
+                              type="search"
+                              [ngModel]="filtro.search"
+                              (ngModelChange)="filtrarPagina($event,'search')"
+                              placeholder="360% Pesquisa ..."
+                          >
+                          <button
+                          data-bs-target="#ToggleExternalContent"
+                          aria-controls="navbarToggleExternalContent"
+                          aria-expanded="false"
+                          aria-label="Toggle navigation"
+                          class="btn btn-primary"
+                          type="button"
+                          data-bs-toggle="collapse"
+                      >
+
+
+                          <i class="bi bi-filter toggle-sidebar-btn"></i>
+                          Filtros
+                      </button>
+                      <button
+                          (click)="this.recarregarPagina()"
+                          class="btn btn-primary"
+                          type="button"
+                      >
+                          <i
+                              style="font-size: 14px"
+                              class="fa fa-refresh fa-spin fa-3x fa-fw"
+                          ></i>
+                          Limpar Filtro
+                      </button>
+                      </div>
+
+
+                  </li>
+
+
+                  
+              </ul>
+            </div>
+           
+        </div>
+
+        <sicgo-grupo-view id="asidebar" [showBannerup]="this.isOffcanvasVisible"></sicgo-grupo-view>
+ 
+
+
+
+
+        
+    </div>
+    <div class="content ">
+ 
+                <table class="table table-stripedkv table-border table-striped" #tableToPrint>
+                    <thead class="table-thead">
+                        <tr>
+                            <th>#</th>
+                            <th>Código</th>
+                            <th>Denominação</th>
+                            <th>Sigla</th>
+                            <th>Data de Surgimento</th>
+                            <th>Nº Integrante</th>
+                            <th>Nº Associado</th>
+                            <th>Meios</th>
+                            <th>
+                                <i class="bi bi-pin-fill"></i>
+                                Local de Concentração
+                            </th>
+                            <th>Província</th>
+                            <th>Municipio</th>
+                            <th class="text-right">Operação</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-tbody">
+                        <tr *ngFor="let item of grupos;">
+                            <td (click)="toggle(item.id)"></td>
+                            <td (click)="toggle(item.id)">{{item.codigo_sistema}}</td>
+
+
+                            <td (click)="toggle(item.id)">{{item.nome}}</td>
+                            <td (click)="toggle(item.id)">{{item.sigla}}</td>
+                            <td (click)="toggle(item.id)">{{item.data_criado}}</td>
+                            <td (click)="toggle(item.id)">
+                                <i class="bi bi-people-fill"></i>
+                                {{item.numero_integrante}}
+                            </td>
+                            <td (click)="toggle(item.id)">{{(item.delituosos.length)}}</td>
+                            <td (click)="toggle(item.id)">{{item.meios}}</td>
+                            <td (click)="toggle(item.id)">{{item.local_concentracao}}</td>
+                            <td (click)="toggle(item.id)">{{item.provincia}}</td>
+                            <td (click)="toggle(item.id)">{{item.municipio}}</td>
+
+
+
+                            <td class="text-right">
+                                <div class="dropdown dropdown-action">
+                                    <a
+                                        href="#"
+                                        class="action-icon dropdown-toggle"
+                                        data-toggle="dropdown"
+                                        aria-expanded="false"
+                                    >
+                                        <i class="bi bi-three-dots-vertical"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right bg-main">
+                                        <a class="dropdown-item">
+                                            <i class="fas fa-edit m-r-5"></i>
+                                            <b>Editar</b>
+                                        </a>
+                                        <a
+                                            class="dropdown-item "
+                                            (click)="KV(item.id)"
+                                            data-toggle="modal"
+                                            ariaCurrentWhenActive="page"
+                                            data-target="#modalRegistarOuEditarAssociar"
+                                        >
+                                            <i class="bi bi-person-plus-fill"></i>
+                                            <b>Associar Delituosos</b>
+                                        </a>
+                                        <a
+                                            class="dropdown-item "
+                                            (click)="KV(item.id)"
+                                            data-toggle="modal"
+                                            ariaCurrentWhenActive="page"
+                                            data-target="#modalRegistarOuEditarAssociarGrupos"
+                                        >
+                                            <i class="bi bi-person-plus-fill"></i>
+                                            <b>Associar Grupos</b>
+                                        </a>
+                                        <a
+                                            class="dropdown-item  "
+                                            (click)="KV(item.id)" 
+                                                data-toggle="modal" 
+                                            data-target="#modalRegistarOuEditarAntecedentesGrupos"
+                                            >
+                                            <i class="bi bi-person-plus-fill"></i>
+                                            Antecedentes
+                                             
+                                        </a>
+                                        <a
+                                            class="dropdown-item "
+                                            (click)="KV(item.id)"
+                                            data-toggle="modal"
+                                            ariaCurrentWhenActive="page"
+                                            data-target="#GrupoModoOperantes"
+                                        >
+                                            
+                                            <!-- Button trigger modal -->
+                                            
+                                            <i class="bi bi-person-plus-fill"></i>
+                                            Modo Operante
+                                             
+                                        </a>
+                                        <a
+                                            class="dropdown-item  "
+                                            (click)="KV(item.id)" 
+                                         
+                                                data-toggle="modal"
+                                                data-target="#modalRegistarOuEditarHistorico"
+                                            >
+                                            
+                                            <i class="bi bi-node-plus-fill"></i>
+                                             Historicos
+                                            
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+
+
+                        </tr>
+                        <tr>
+                            <td colspan="12">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                            Mostrando de {{ this.pagination.current_page }} a {{ this.pagination.per_page }} de {{
+                  this.pagination.total}}
+                                            <aside *ngIf="this.pagination.total < 2; else outrosRegistos">registos</aside>
+                                            <ng-template #outrosRegistos>registos</ng-template>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                            <div class="float-right">
+                                                <pagination-controls
+                                                    id="funcionarioEspecial"
+                                                    (pageChange)="this.filtrarPagina('page', $event)"
+                                                    [directionLinks]="true"
+                                                    [autoHide]="true"
+                                                    previousLabel="Anterior"
+                                                    nextLabel="Próximo"
+                                                    [maxSize]="4"
+                                                    [responsive]="true"
+                                                ></pagination-controls>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+
+
+                        </tr>
+                    </tbody>
+                </table>
+            
+
+        </div>
+</div>
+
+ 
+
+<!-- Modal -->
+
+
+    <sicgo-dinfop-registo-modo-operante-grupo
+        [grupoId]="this.isOffVisible"
+        (eventRegistarOuEditar)="buscarGrupos()"
+    ></sicgo-dinfop-registo-modo-operante-grupo>
+
+ 
+
+<!-- Modal -->
+<div class="modal fade" tabindex="-1" id="modalRegistarOuEditarAntecedentesGrupos"  aria-labelledby="modalRegistarOuEditarAntecedentesGrupos"  aria-hidden="true">
+  <sicgo-dinfop-grupo-registo-antecedente
+  [grupoId]="this.isOffVisible"
+  (eventRegistarOuEditar)="buscarGrupos()"
+></sicgo-dinfop-grupo-registo-antecedente>
+
+</div>
+
+<!-- <div class="modal fade" tabindex="-1" id="modalRegistarOuEditarHistorico"  aria-labelledby="modalRegistarOuEditarHistorico"  aria-hidden="true">
+  <sicgo-dinfop-registar-ou-editar-historico
+  [grupoId]="this.isOffVisible"
+  (eventRegistarOuEditar)="buscarGrupos()"
+></sicgo-dinfop-registar-ou-editar-historico>
+</div> -->
+
+<sicgo-dinfop-associar-grupos
+    [grupoId]="this.isOffVisible"
+    (eventRegistarOuEditar)="buscarGrupos()"
+></sicgo-dinfop-associar-grupos>
+
+
+
+<sigop-registar-ou-editar-grupos (eventRegistarOuEditGrupo)="buscarGrupos()"></sigop-registar-ou-editar-grupos>
+<dinfop-app-registo-associar-delituoso
+    [grupoId]="this.isOffVisible"
+    (eventRegistarOuEditar)="buscarGrupos()"
+></dinfop-app-registo-associar-delituoso>
+

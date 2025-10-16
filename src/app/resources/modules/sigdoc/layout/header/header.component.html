@@ -1,0 +1,126 @@
+<header id="header_" class="header_ fixed-top d-flex align-items-center border">
+  <div class="d-flex align-items-center justify-content-between">
+    <a class="logo_ d-flex align-items-center">
+      <a routerLink="/piips/sigdoc/panel-controlo" class="logo">
+        <img
+          class="imgp"
+          src="/assets/img/icons/Opened Folder.png"
+          alt=""
+          style="width: 60px; height: 100px; color: #fff; font-weight: bolder;"
+        />
+        <span style="font-size: 1.5rem">SIGDOC</span>
+      </a>
+    </a>
+    <i class="bi bi-list toggle-sidebar-btn" (click)="toggle()"></i>
+  </div>
+
+  <nav class="header-nav_ flex-fill d-flex">
+    <ul class="d-flex align-items-center">
+      <li class="nav-item dropdown">
+        <!-- Botão do Sino -->
+        <a class="nav-link nav-icon" href="#" data-toggle="dropdown">
+          <div class="foto r">
+            <img class="sino" src="assets/img/icons/mySino.jpg" alt="Profile" />
+            <span
+              *ngIf="unreadCount > 0"
+              class="dot"
+              [ngClass]="{ 'blink-start': startBlink }"
+              >{{ unreadCount }}</span
+            >
+          </div>
+        </a>
+
+        <!-- Dropdown de Notificações -->
+        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+          <li class="dropdown-header">
+            Há {{ unreadCount }} documento(s) não lida(s)
+            <a>
+              <span class="badge rounded-pill p-2 ms-2" style="background-color: #041b43;">
+                Ver todas
+              </span>
+            </a>
+          </li>
+          <li>
+            <hr class="dropdown-divider" />
+          </li>
+
+          <!-- Lista de Correspondências Não Lidas -->
+          <ng-container *ngIf="correspondenciasNaoLidas.length > 0; else noCorrespondencias">
+            <li class="notification-item" *ngFor="let correspondencia of correspondenciasNaoLidas">
+              <a class="d-flex bg-muted align-items-start">
+                <i class="bi bi-info-circle" style="color: #041b43;"></i>
+                <div>
+                  <h4 style="color: #041b43a9;">Documento Recebido</h4>
+                  <p>{{ correspondencia.remetente }}</p>
+                  <p>{{ correspondencia.created_at }}</p>
+                  <button
+                    class="btn btn-link btn-sm"
+                    (click)="marcarComolido(correspondencia.id)"
+                  >
+                    Marcar como lida
+                  </button>
+                </div>
+              </a>
+            </li>
+          </ng-container>
+
+          <!-- Caso não haja correspondências -->
+          <ng-template #noCorrespondencias>
+            <li class="notification-item">
+              <p class="text-muted text-center">Nenhuma Documento não lida</p>
+            </li>
+          </ng-template>
+        </ul>
+      </li>
+
+      <!-- Perfil do Usuário -->
+      <li class="nav-item dropdown">
+        <a class="nav-link nav-profile d-flex align-items-center" href="#" data-toggle="dropdown">
+          <div class="foto r">
+            <img class="sino" src="assets/img/icons/myUser.jpg" alt="Profile" />
+            <span class="dot"></span>
+          </div>
+          <span class="d-none d-md-block dropdown-toggle pl-2">{{ nomeUtilizador }}</span>
+        </a>
+
+        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+          <li class="dropdown-header text-center">
+            <h6>{{ this.nomeUtilizador }}</h6>
+            <span *ngIf="this.perfil != undefined && this.perfil != null">{{ this.perfil.patente_nome }}</span>
+          </li>
+          <li>
+            <hr class="dropdown-divider" />
+          </li>
+          <li>
+            <a class="dropdown-item d-flex align-items-center text-dark" routerLink="perfil">
+              <i class="bi bi-person"></i>
+              <span>Meu Perfil</span>
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item d-flex align-items-center text-dark" [routerLink]="['/piips']">
+              <i class="bi fa-birthday-cake"></i>
+              <span>Ir em Piips</span>
+            </a>
+          </li>
+          <li>
+            <hr class="dropdown-divider" />
+          </li>
+          <li>
+            <hr class="dropdown-divider" />
+          </li>
+          <li>
+            <a
+              (click)="sair()"
+              class="dropdown-item d-flex align-items-center"
+              style="cursor: pointer;"
+            >
+              <i class="bi bi-power"></i>
+              <span>Terminar sessão</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</header>

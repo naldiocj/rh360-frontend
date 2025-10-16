@@ -1,0 +1,222 @@
+  <!-- Modal -->
+  <div class="modals fade" id="vozModal" tabindex="-1" aria-labelledby="vozModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modals-content"> 
+          
+            <div class="row">
+              <div class="col-md-12">
+                 <div #animationElement class="holder vibrating-element " (click)="startOrStopVoiceSearch()">
+                  <div class="bm-pl" (click)="startOrStopVoiceSearch()">
+                    <div  id="c1" class="c bm-pl__blob bm-pl__blob--r"></div>
+                    <div  id="c2" class="c bm-pl__blob bm-pl__blob--g"></div>
+                    <div  id="c3" class="c bm-pl__blob bm-pl__blob--b"></div>
+                    <div  id="c3" class="c bm-pl__blob bm-pl__blob--a"></div>
+                  </div>
+                </div>
+              
+              
+              </div>
+              <!--   -->
+            </div>
+            <p *ngIf="transcribedText">Texto detectado: {{ transcribedText }}</p>
+            <div *ngIf="isLoading">Carregando...</div>
+            <ul>
+              <li *ngFor="let item of result">{{ item.nome }}</li>
+            </ul>
+            <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+    <!-- Modal 
+    <div class="modal fade" id="vozModal" tabindex="-1" aria-labelledby="vozModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="holder vibrating-element" (click)="startVoiceSearch()"  >
+                    <div id="i8" class="i">
+                    <div id="c1" class="c"></div>
+                    <div id="c2" class="c"></div>
+                    <div id="c3" class="c"></div>
+                    <div id="c4" class="c"></div>
+                    <div id="c5" class="c"></div>
+                    <div id="c6" class="c"></div>
+                    <div id="c7" class="c"></div>
+                    <div id="c8" class="c"></div>
+                    <div id="c9" class="c"></div>
+                    <div id="c10" class="c"></div>
+                    <div id="c11" class="c"></div>
+                    <div id="c12" class="c"></div>
+                  </div>
+                </div>
+  
+                <div class="container">
+                  <h1>Busca por Voz</h1>
+                
+                  <div class="form-group">
+                    <label for="newKeyword">Adicionar Palavra-Chave:</label>
+                    <input
+                      id="newKeyword"
+                      type="text"
+                      [(ngModel)]="newKeyword"
+                      class="form-control"
+                      placeholder="Digite uma palavra-chave"
+                    />
+                    <button class="btn btn-primary mt-2" (click)="addKeyword()">Adicionar</button>
+                  </div>
+                
+                  <div class="keywords-list">
+                    <h3>Palavras-Chave Salvas:</h3>
+                    <ul>
+                      <li *ngFor="let keyword of keywords">
+                        {{ keyword }}
+                        <button class="btn btn-danger btn-sm ml-2" (click)="removeKeyword(keyword)">Remover</button>
+                      </li>
+                    </ul>
+                  </div>
+                
+                  <button
+                    class="btn btn-success mt-3"
+                    [disabled]="isListening"
+                    (click)="startVoiceSearch()"
+                  >
+                    {{ isListening ? 'Escutando...' : 'Iniciar Busca por Voz' }}
+                  </button>
+                
+                  <div *ngIf="transcribedText" class="mt-4">
+                    <h3>Texto Transcrito:</h3>
+                    <p>{{ transcribedText }}</p>
+                  </div>
+                
+                  <div *ngIf="result">
+                    <h3>Resultados:</h3>
+                    <pre>{{ result | json }}</pre>
+                  </div>
+                </div>
+                
+                </div>
+                <div class="col-md-6">
+                  <p>{{transcribedText}}</p>
+                   Div para a busca inicial (antes de encontrar o resultado)  
+  <div *ngIf="!result">
+      
+    </div>
+    
+    Div para exibir os resultados (quando 'result' for encontrado) 
+    <div *ngIf="result">
+       Seu conteúdo de resultado aqui  
+      <p>Resultados encontrados:</p>
+      
+      Exibir as fotos e detalhes dos delituosos  
+    
+                      <ul>
+                        <li *ngFor="let resultado of result">
+                          <div class="d-flex">
+                              <div class="borders">
+                                  <div class="borders-img">
+                                      <img
+                                          [src]="resultado.fileUrlFrontal || fotodfault"
+                                          alt
+                                      >
+                                  </div>
+                              </div>
+                               
+                              
+                          </div>
+                          <p><strong>{{ resultado.nome }}</strong></p>
+                          <p>Alcunha: {{ resultado.alcunha }}</p>
+                          <p>Nome do Pai: {{ resultado.nomePai }}</p>
+                        </li>
+                      </ul>
+                    </div>
+            
+                
+             
+  
+                <p>{{transcribedText}}</p>
+               
+                </div>
+              </div>
+            </div>
+            
+         
+              
+              
+          </div>
+          <div class="modal-footer">
+              <button >Start Recognition</button>
+              <button (click)="stopVoiceSearch()">Start Recognition</button>
+              
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+   -->
+  
+  
+  
+    

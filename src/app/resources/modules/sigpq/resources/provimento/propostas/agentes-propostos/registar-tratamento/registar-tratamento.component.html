@@ -1,0 +1,176 @@
+<div
+  class="modal fade"
+  id="registar-editar-tratamento"
+  aria-labelledby="modalPortalRegistarAcidente"
+  aria-hidden="true"
+>
+  <div
+    *ngIf="this.proposta"
+    class="modal-dialog"
+    role="document"
+    style="overflow-y: hidden"
+    [style.min-width]="'45%'"
+  >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="piips-text-color text-uppercase">
+          <i class="fa fa-plus-circle"></i>
+          Verficação da Proposta Nº.
+          {{ this.proposta?.numero }}
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="reiniciarFormulario()"
+          id="close-modal"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="content">
+        <form [formGroup]="this.simpleForm">
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group col-12 p-0">
+                  <label class="piips-text-color">
+                    <b>
+                      Observação
+                      <span class="text-danger">*</span>
+                    </b>
+                  </label>
+                  <textarea
+                    class="form-control"
+                    rows="7"
+                    formControlName="nota"
+                    type="text"
+                  ></textarea>
+                </div>
+              </div>
+              <div
+                class="col-xl-6 col-lg-6 col-md-12 col-sm-12 d-flex align-item-center"
+              >
+                <div class="d-flex flex-column w-50">
+                  <label for=""
+                    ><b>Despacho n.º<span class="text-red"></span></b
+                  ></label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    formControlName="numero_despacho_nomeacao"
+                    [ngClass]="{
+                      'is-invalid':
+                        this.simpleForm.controls?.numero_despacho_nomeacao
+                          .dirty &&
+                        this.simpleForm.controls?.numero_despacho_nomeacao
+                          .errors,
+                      'is-valid':
+                        this.simpleForm.controls?.numero_despacho_nomeacao
+                          .dirty &&
+                        !this.simpleForm.controls?.numero_despacho_nomeacao
+                          .errors
+                    }"
+                  />
+                  <div
+                    *ngIf="
+                      this.simpleForm.controls?.numero_despacho_nomeacao
+                        ?.dirty &&
+                      this.simpleForm.controls?.numero_despacho_nomeacao?.errors
+                    "
+                    class="invalid-feedback"
+                  >
+                    <div
+                      *ngIf="
+                        this.simpleForm.controls?.numero_despacho_nomeacao
+                          ?.errors?.required
+                      "
+                    >
+                      Este campo é obrigatório
+                    </div>
+                    <div
+                      *ngIf="
+                        this.simpleForm.controls?.numero_despacho_nomeacao
+                          ?.dirty &&
+                        this.simpleForm.controls?.numero_despacho_nomeacao
+                          ?.errors
+                      "
+                    >
+                      <div
+                        *ngIf="
+                          this.simpleForm.controls?.numero_despacho_nomeacao
+                            ?.errors?.pattern
+                        "
+                        style="color: #dc3545"
+                      >
+                        Digite um N.º válido
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex flex-column flex-grow-1">
+                  <label for=""
+                    ><b>Data<span class="text-red"></span></b
+                  ></label>
+                  <input
+                    id="data_aco"
+                    type="date"
+                    formControlName="data_despacho_nomeacao"
+                    class="form-control"
+                    [max]="this.validarDataAdesao"
+                  />
+                </div>
+              </div>
+
+              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                <label for=""
+                  ><b>Anexo do despacho<span class="text-red"></span></b
+                ></label>
+                <div class="upload-img">
+                  <div id="input-Img" class="upload-input">
+                    <input
+                      type="file"
+                      class="form-control"
+                      accept="application/pdf"
+                      (change)="this.uploadFilePDF($event, 'anexo')"
+                      id="anexo"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="col-md-12 d-flex align-items-center justify-content-end p-0"
+            >
+              <button
+                class="btn-piips btn-piips-red m-0 px-2 py-1"
+                (click)="this.reiniciarFormulario()"
+              >
+                <span class="fa fa-refresh"></span>
+                Limpar
+              </button>
+              <button
+                type="submit"
+                (click)="onSubmit()"
+                [disabled]="!this.simpleForm.valid || this.carregando"
+                class="btn btn-piips btn-piips-primary m-0 px-2 py-1"
+                type="submit"
+              >
+                <ng-container *ngIf="this.carregando; else naoCarregando">
+                  <i class="spinner-border spinner-border-sm m-1"></i>
+                  Carregando...
+                </ng-container>
+                <ng-template #naoCarregando>
+                  <i class="fa fa-plus-circle"></i>
+                  Enviar
+                </ng-template>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

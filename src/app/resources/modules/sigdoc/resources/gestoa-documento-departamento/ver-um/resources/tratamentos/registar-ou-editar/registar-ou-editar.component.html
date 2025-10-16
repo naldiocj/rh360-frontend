@@ -1,0 +1,97 @@
+ <div class="modal fade" id="registar-editar-tratamento" aria-labelledby="modalPortalRegistarAcidente"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document" style="overflow-y: hidden;"
+    [style.min-width]="'38%'">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="piips-text-color">
+          <i class="fa fa-calendar"></i>
+          Dar tratamento a Documento
+          {{ this.correspondencia?.referenciaDoc }}
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="reiniciarFormulario()"
+          id="close-modal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="content">
+        <form [formGroup]="this.simpleForm">
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group col-md-12">
+                  <label class="piips-text-color">
+                    <b>
+                      Tratamento
+                      <span class="text-danger">*</span>
+                    </b>
+                  </label>
+                  <ng-select2 [options]="options" [data]="this.tipoTratamentos" formControlName="estado"
+                    (valueChanged)="this.handlerTipoTratamento($event)"></ng-select2>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group col-12">
+                  <label class="piips-text-color">
+                    <b>
+                      Nota
+                      <span class="text-danger">*</span>
+                    </b>
+                  </label>
+                  <textarea class="form-control" rows="7" formControlName="nota" type="text"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <!--div class="col-xl-5 col-lg-5 col-md-12 col-sm-12">
+                <div class="form-group col-12">
+                  <label class="piips-text-color" for="checkbox">
+                    <input type="checkbox" id="checkbox" (change)="handlerAdicionarDocumento($event)" />
+                    <b>
+                      Anexar documento
+                    </b>
+                  </label>
+                </div>
+              </div-->
+              <div class="col-xl-7 col-lg-7 md-12 col-sm-12">
+                <div class="form-group col-12">
+                  <label for="file-anexo" class="piips-text-color">
+                    <b>
+                      Anexar documento
+                      <span class="text-red">*</span>
+                    </b>
+                  </label>
+                  <input id="file-anexo" type="file" class="form-control" accept="application/pdf"
+                    (change)="this.uploadFile($event, 'anexo')" />
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-12 d-flex align-items-center justify-content-end p-0">
+              <button class="btn-piips btn-piips-red m-0 px-2 py-1" (click)="this.reiniciarFormulario()">
+                <span class="fa fa-refresh"></span>
+                Limpar
+              </button>
+              <button (click)="onSubmit()" [disabled]="!this.simpleForm.valid || this.isLoading || !this.simpleForm.get('anexo')?.value"
+                class="btn btn-piips btn-piips-primary m-0 px-2 py-1" type="submit">
+                <ng-container *ngIf="this.isLoading; else naoCarregando">
+                  <i class="spinner-border spinner-border-sm m-1"></i>
+                  Carregando...
+                </ng-container>
+                <ng-template #naoCarregando>
+                  Enviar
+                  <i class="fa fa-send"></i>
+                </ng-template>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- [disabled]="!this.simpleForm.valid || this.isLoading" -->

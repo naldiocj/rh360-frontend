@@ -1,0 +1,120 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'poppins',sans-serif;
+    box-sizing: border-box;
+}
+
+.hero{
+    background-image:url(../img/bg2.jpg);
+    color:#1d2026;
+    min-height: 100vh;
+    width: 100%;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    transition: background 0.5s;
+}
+nav{
+    display: flex;
+    align-items: center;
+    padding: 20px 8%;
+}
+nav .menu-img{
+    width: 25px;
+    margin-right: 20px;
+    cursor: pointer;
+    transition: 0.5s;
+}
+nav .logo-img{
+    width: 160px;
+    cursor: pointer;
+
+}
+nav ul{
+    flex: 1;
+    text-align: right;
+}
+nav ul li{
+    display: inline-block;
+    list-style: none;
+    margin: 0 20px;
+}
+nav ul li a{
+    text-decoration: none;
+    color: #1d2026;
+    transition: 0.5s;
+    transition: color 0.5s;
+}
+nav ul li a:hover{
+    color: #c62151;
+}
+button{
+    background:#293177;
+    height: 30px;
+    width: 60px;
+    border-radius: 20px;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    color: white;
+    transition: background 0.5s;
+}
+button span{
+    display: block;
+    background: #c62151;
+    height: 26px;
+    width: 26px;
+    border-radius: 50%;
+    margin-left: 2px;
+    transition: background 0.5s, margin-left 0.5s;
+}
+.text-container{
+    max-width: 600px;
+    margin-top: 7%;
+    margin-left: 10%;
+}
+.text-container h1{
+    font-size: 90px;
+    font-weight: 400;
+    transition: color 0.5s;       
+}
+.text-container h2{
+    transition: color 0.5s;
+}
+.text-container p{
+    margin-top: 30px;
+    transition: color 0.5s;
+}
+.text-container a{
+    text-decoration: none;
+    background: #293177;
+    padding: 14px 40px;
+    display: inline-block;
+    color: white;
+    font-size: 18px;
+    margin-top: 30px;
+    border-radius: 30px;
+    transition: 0.5s;
+}
+.text-container a:hover{
+    background: #c62151;
+}
+.active{
+    background: #c62151;
+    transform: 0.5s;
+}
+.active span{
+    background: #293177;
+    margin-left: 31px;
+}
+.cor{
+    background-image:url(img/bgb.png);
+    color: white;
+}
+.lw{
+    background-image: url(img/logow.png);
+}
+.tc{
+    color: white;
+}

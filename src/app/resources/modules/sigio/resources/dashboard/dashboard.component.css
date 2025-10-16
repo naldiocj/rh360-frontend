@@ -1,0 +1,111 @@
+/* .system{
+  padding-left: 200px;
+}
+
+.card-body{
+  transition: 1.5s;
+  width: 355px;
+  height: 150px;
+  background: #041B4E;
+  box-shadow: 30px 20px 40px 0px rgba(32, 32, 32, 0.25);
+  display: flex;
+  justify-content: space-between;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.card-body img{
+  background-color: #041B4E;
+  border-radius: 30px;
+  border: 3px solid white;
+}
+
+.card-footer{
+  transition: 1.5s;
+  width: 355px;
+  background: #fff;
+  box-shadow: 30px 20px 40px 0px rgba(32, 32, 32, 0.25);
+  padding-top: 0;
+  display: flex;
+  justify-content: space-between;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  
+}
+.row span{
+  color: white;
+  font-family: 'Poppins';
+  font-size: 20px;
+  cursor: pointer;
+}
+
+
+.card-footer span{
+  color: #000;
+  font-family: 'Poppins';
+  font-size: 16px;
+  font-style: normal;
+  line-height: normal;
+  padding-top: 10px;
+}
+
+.card-footer  img{
+  padding-top: 10px;
+}
+
+#bookr .container-images {
+  width: 64px;
+  height: 64px;
+  border-radius: 90px;
+  background-color: #c2bdbd;
+} */
+
+
+
+
+
+
+
+
+.main-content{
+  padding-left: 190px;
+}
+
+.title-content{
+  padding-left: 200px;
+}
+
+#my_cards{
+  background: #041B4E;
+  box-shadow: 30px 20px 40px 0px rgba(32, 32, 32, 0.25);
+}
+
+.title{
+  color: white;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+
+.c-icon{
+  background-color: white;
+  border-radius: 90px;
+  width: 80px;
+  height: 80px;
+  border: 2px solid black;
+}
+
+
+
+
+
+@media screen and  (max-width: 988px){
+  .main-content{
+      padding-left: 0px;
+  }
+
+  .title-content{
+      padding-left: 0px;
+  }
+  
+}

@@ -1,0 +1,39 @@
+fieldset {
+    background-color: #eeeeee;
+}
+
+legend {
+  background-color: var(--use-color);
+  color: white;
+  padding: 5px 10px;
+}
+
+.header-ficha {
+  width: 100%;
+  background-color: var(--use-color);
+  margin: 0 auto;
+  padding: .8rem;
+  color: var(--light-white);
+}
+
+.header-ficha h1 {
+  font-size: 1.7vw;
+}
+
+.header-ficha h3 {
+  font-size: 1.2vw;
+}
+th{
+  background: var(--use-color);
+  color: white;
+  
+}
+
+
+td{
+  text-align: left;
+}
+
+th{
+  text-align: left;
+}

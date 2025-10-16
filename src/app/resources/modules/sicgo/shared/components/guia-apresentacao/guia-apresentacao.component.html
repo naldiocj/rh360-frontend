@@ -1,0 +1,42 @@
+<div class="container" 
+     (touchstart)="handleTouchStart($event)" 
+     (touchend)="handleTouchEnd($event)">
+  
+  <div class="progress-container">
+    <div class="progress-bar" [style.width.%]="progresso"></div>
+  </div>
+
+  <div class="slide">
+    <img [src]="slides[slideAtual].imagem" alt="Ilustração do slide" class="slide-image">
+    
+    <div class="slide-content">
+      <h2>{{ slides[slideAtual].titulo }}</h2>
+      <p>{{ slides[slideAtual].texto }}</p>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button *ngIf="slideAtual > 0" 
+            class="nav-button" 
+            (click)="slideAnterior()">
+      ‹
+    </button>
+    
+    <div class="dots">
+      <button *ngFor="let slide of slides; let i = index" 
+              class="dot" 
+              [class.active]="i === slideAtual"
+              (click)="irParaSlide(i)">
+      </button>
+    </div>
+
+    <button class="nav-button" 
+            (click)="slideAtual === slides.length - 1 ? fecharGuia() : proximoSlide()">
+      {{ slideAtual === slides.length - 1 ? 'Começar' : '›' }}
+    </button>
+  </div>
+
+  <button class="skip-button" (click)="fecharGuia()">
+    Pular introdução
+  </button>
+</div>

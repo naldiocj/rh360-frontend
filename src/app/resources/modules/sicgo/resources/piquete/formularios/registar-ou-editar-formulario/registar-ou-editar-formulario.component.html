@@ -1,0 +1,222 @@
+<div class="modal fade" id="modalRegistarOuEditarVitima" aria-labelledby="modalRegistarOuEditarVitima"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h4 class="modal-title">
+          <b>Formularios</b>
+        </h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body p-2">
+
+
+        <form>
+          <div class="container">
+
+
+
+            <div class="row">
+
+              <div class="col-lg-4 mt-5">
+
+                <div class="list-group list-group-checkable d-grid gap-2 border-0">
+                  <input class="list-group-item-check pe-none" type="radio" name="listGroupCheckableRadios"
+                    id="listGroupCheckableRadios1" value="" checked="">
+                  <label class="list-group-item rounded-3 py-3 form-foto" for="listGroupCheckableRadios1">
+                    <i class="bi bi-receipt"></i> Abrir Vasio
+                    <span class="d-block small opacity-50">Abrir documedddddnto</span>
+                  </label>
+
+                  <input class="list-group-item-check pe-none" type="radio" name="listGroupCheckableRadios"
+                    id="listGroupCheckableRadios2" value="">
+                  <label class="list-group-item rounded-3 py-3 form-foto" for="listGroupCheckableRadios2">
+                    Visualizar
+                    <span class="d-block small opacity-50">Visualizar documento</span>
+                  </label>
+
+
+                  <input class="list-group-item-check pe-none" type="file" name="listGroupCheckableRadios"
+                    id="listGroupCheckableRadios4" value="" disabled="">
+                  <label class="list-group-item rounded-3 py-3 form-foto" for="listGroupCheckableRadios4">
+                    <i class="bi bi-floppy2"></i> Carregar Documentos
+                    <span class="d-block small opacity-50">Carregar Documentos na Base de Dados</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="col-lg-8">
+                <div class="d-flex justify-content-lg-start align-items-start align-items-lg-start">
+                  <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                      <a class="nav-link active nav-btn-button" routerLinkActive="active" aria-current="page">
+                        Dados Primários
+                      </a>
+                    </li>
+
+                  </ul>
+
+
+                </div>
+                <div class="p-3 bg-light">
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="form-group">
+                        <label>
+                          <b>Data</b>
+                          <span class="text-danger">*</span>
+                        </label>
+                        <input type="date" class="form-control" formControlName="data" required>
+                      </div>
+                    </div>
+                    <div class="col-lg-12">
+                      <!-- app.component.html -->
+                      <div>
+                        <label for="documentSelect">Selecione o Documento:</label>
+                        <select id="documentSelect" [(ngModel)]="selectedDocumentId">
+                          <option value="">--Selecione--</option>
+                          <option *ngFor="let doc of tipoformularios" [value]="doc.id">{{ doc.nadme }}</option>
+                        </select>
+                        <button (click)="openDocument()">Abrir Documento</button>
+                      </div>
+
+
+                    </div>
+                  </div>
+
+
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label>
+                          <b>Titulo</b>
+                          <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" class="form-control" formControlName="titulo" required>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label>
+                          <b>Referencia</b>
+                        </label>
+                        <input type="text" class="form-control" formControlName="referencia">
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="form-group">
+                        <label>
+                          <b>Assunto</b>
+                        </label>
+                        <textarea class="form-control" rows="4" formControlName="assunto" required></textarea>
+                      </div>
+                    </div>
+                    <div class="col-lg-12">
+                      <div class="form-group">
+                        <label>
+                          <b>Criterio/Opções de Pesquisa</b>
+                        </label>
+                        <input type="text" class="form-control" formControlName="provincia">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+
+        </form>
+
+
+      </div>
+
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Fechar
+        </button>
+        <button type="submit" class="btn btn-primary">
+          Salvar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="ver-documento-correspondencia-recebida" aria-labelledby="modalVisualizarIndividual"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document" style="overflow-y: hidden;min-width: 70%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>
+          <i class="fa fa-user"></i>
+          Visualizar documento
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="content">
+        <div class="modal-body">
+          <div class="row">
+
+            <div class="col-sm-12">
+              <nav class="navbar navbar-light bg-light">
+                <h3>wew</h3>
+                <aside *ngIf="this.documento">
+                  <span *ngIf="this.documento.activo" class="custom-badge status-green">Activo</span>
+                  <span *ngIf="!this.documento.activo" class="custom-badge status-orange">Inactivo</span>
+                </aside>
+              </nav>
+              <div class="col-sm-12">
+                <aside *ngIf="carregarDocumento;else carregarDocumentoVerMensagem">
+                  <div class="container">
+                    <div class="row justify-content-center">
+                      Carregando documento ...
+                      <div class="col-sm-12 text-center">
+                        <div class="spinner-border text-primary" style="width: 2rem; height: 2rem;" role="status">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </aside>
+                <ng-template #carregarDocumentoVerMensagem>
+                  <aside *ngIf="fileUrl; else verMensagem">
+                    <iframe [src]="fileUrl" width="100%" height="700px"></iframe>
+                  </aside>
+                  <ng-template #verMensagem>
+                    <div class="container">
+                      <div class="row justify-content-center">
+                        <div class="col-sm-12 text-center">
+                          Sem documento adicionado
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                </ng-template>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            <span class="fa fa-close m-r-2"></span>Fechar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

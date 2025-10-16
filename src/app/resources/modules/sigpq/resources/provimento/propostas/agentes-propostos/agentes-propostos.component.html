@@ -1,0 +1,403 @@
+<div class="content">
+    <div class="header-ficha">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 d-flex justify-content-start align-items-start"
+                style="row-gap: 0.8rem;">
+                <div class="image">
+                    <img [src]="logoPath" alt="image-logo" style="width: 80px; height: 80px;" />
+                </div>
+                <div class="logos mx-2">
+                    <h1>POLÍCIA NACIONAL DE ANGOLA</h1>
+                    <h3 class="text-uppercase">
+                        Sistema Integrado de Gestão de Pessoal e Quadros
+                    </h3>
+                    <h4 class="text-light my-2">
+                        <b>
+                            Nº. : &nbsp; {{this.propostas?.numero}}
+                        </b>
+                    </h4>
+                    <!-- <div class="mais-info my-2 d-flex justify-content-center flex-column align-items">
+                        <p>
+                            Guia emitida em: {{this.propostas?.created_at}}
+                        </p>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        <div class="row my-6">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="d-flex justify-content-end align-items-center w-100" *ngIf="this.propostas?.estado">
+                    <div href="javascript:void(0)" class="btn-piips py-2 m-0 text-light cursor-indicator">
+                        <ng-container *ngIf="this.getMaisAgentes; else menosAgentes">
+                            <i class="fa fa-users"></i>
+                            <strong> {{this.propostas?.total}} </strong> Agentes proposto
+                        </ng-container>
+                        <ng-template #menosAgentes>
+                            <i class="fa fa-user"></i>
+                            <strong> {{this.propostas?.total}} </strong> Agente proposto
+                        </ng-template>
+                    </div>
+                    <ng-container *ngIf="this.authService.isAdmin; else naoAdmin">
+                        <button *ngIf="this.getPendente(this.propostas.estado);" type="button"
+                            (click)="this.setTrataProposta(this.propostas)" data-toggle="modal"
+                            data-target="#registar-editar-tratamento" class="text-light btn-piips border py-2 m-0"
+                            [style.backgroundColor]="this.propostas?.cor">
+                            <i class="fa fa-exclamation"></i>
+                            {{this.propostas?.status}}
+                        </button>
+
+                    </ng-container>
+                    <ng-template #naoAdmin>
+                        <button *ngIf="this.getPendente(this.propostas.estado);" type="button"
+                            class="text-light btn-piips border py-2 m-0" [style.backgroundColor]="this.propostas?.cor">
+                            <i class="fa fa-exclamation"></i>
+                            {{this.propostas?.status}}
+                        </button>
+                    </ng-template>
+
+
+                    <button *ngIf="this.getExpedira(this.propostas?.estado)" type="button"
+                        (click)="this.setTrataProposta(this.propostas)" data-target="#registar-editar-tratamento"
+                        class="text-light btn-piips border py-2 m-0" [style.backgroundColor]="this.propostas?.cor">
+                        <i class="fa fa-times"></i>
+                        {{this.propostas?.status}}
+                    </button>
+
+                    <button
+                        *ngIf="!this.getExpedira(this.propostas?.estado) && !this.getPendente(this.propostas?.estado);"
+                        type="button" (click)="this.setTrataProposta(this.propostas)"
+                        data-target="#registar-editar-tratamento" class="text-light btn-piips border py-2 m-0"
+                        [style.backgroundColor]="this.propostas?.cor">
+                        <i class="fa fa-check"></i>
+                        {{this.propostas?.status}}
+                    </button>
+
+                    <!-- <button type="button" (click)="setTrataMobilidade(this.propostas)" data-toggle="modal"
+                        data-target="#registar-editar-tratamento"
+                        class="btn-piips btn-piips-secondary border py-2 m-0">
+                        <i class="fa fa-check"></i>
+                        Guia verificada
+                    </button> -->
+                    <a href="javascript:void(0)" data-toggle="modal" data-target="#modalVisualizarFicha"
+                        (click)="this.visualizar(this.propostas)" class="btn-piips btn-piips-secondary border py-2 m-0">
+                        <i class="fa fa-file"></i>
+                        Ver o documento
+                    </a>
+                    <button class="btn-piips btn-piips-secondary m-0 py-2 border" data-toggle="collapse"
+                        href="#pesquisa-avancada" role="button" aria-expanded="false" aria-controls="pesquisa-avancada"
+                        style="cursor: pointer;"> <i class="fa fa-search mx-2"></i>Pesquisa avançada</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <fieldset class="p-2">
+        <aside class="row" style="row-gap: .4rem;">
+            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12">
+                <select class="form-control" (change)="filtrarPagina('perPage', $event)">
+                    <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">
+                        {{ item }}
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12">
+                <input class="form-control mr-sm-1" type="text" [ngModel]="filtro.search"
+                    (ngModelChange)="filtrarPagina('search', $event)"
+                    placeholder="Pesquisar nome completo, nip, nas, ..." />
+            </div>
+            <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 d-flex justify-content-end align-items-center">
+                <button type="button" data-toggle="modal" data-target="#ver-guia-marcha"
+                    (click)="this.recarregarPagina()" class="btn-piips btn-piips-secondary m-0 py-2 w-100">
+                    <i style="font-size: 14px;" class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+                    <b>Recarregar</b>
+                </button>
+            </div>
+        </aside>
+        <aside class="row collapse" id="pesquisa-avancada">
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+                <label for=""><b>Regime de Carreira</b></label>
+                <ng-select2 [data]="this.regimes" [options]="this.options" [ngModel]="this.filtro.regimeId"
+                    name="regimeId" (valueChanged)="filtrarPagina('regimeId',$event)">
+                </ng-select2>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+                <label for=""><b>Tipo de Vínculo</b></label>
+                <ng-select2 [data]="this.tipoVinculos" [options]="this.options" [ngModel]="this.filtro.tipoVinculoId"
+                    name="tipoVinculoId" (valueChanged)="filtrarPagina('tipoVinculoId',$event)">
+                </ng-select2>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4" *ngIf="this.mostrarCarreira">
+                <label for=""><b>Classe/Carreira</b></label><br>
+                <ng-select2 [data]="this.patenteClasses" [ngModel]="this.filtro.patenteClasse" name="patenteClasse"
+                    (valueChanged)="filtrarPagina('patenteClasse',$event)" [options]="this.options">
+
+                </ng-select2>
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4" *ngIf="this.mostrarCarreira">
+                <label for=""><b>Posto/Categoria</b></label><br>
+                <ng-select2 [data]="this.patentes" [options]="this.options" [ngModel]="this.filtro.patenteId"
+                    name="patenteId" (valueChanged)="filtrarPagina('patenteId',$event)">
+                </ng-select2>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+                <label for=""><b>Gênero</b></label>
+                <ng-select2 [options]="options" [ngModel]="this.filtro.genero" name="genero"
+                    (valueChanged)="filtrarPagina('genero',$event)" [data]="this.generos">
+                </ng-select2>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+                <label for=""><b>Situação Laboral <span class="text-danger"></span></b></label>
+                <ng-select2 [options]="options" [ngModel]="this.filtro.situacaoId" name="situacaoId"
+                    (valueChanged)="this.filtrarPagina('situacaoId',$event)" [data]="this.situacaoEstados">
+                </ng-select2>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6  col-sm-12 mb-4">
+                <label for=""><b>{{this.tituloSituacao}} <span class="text-danger">&nbsp;</span></b></label>
+                <ng-select2 [options]="options" name="estadoId" [ngModel]="this.filtro.estadoId"
+                    (valueChanged)="this.filtrarPagina('estadoId',$event)" [data]="this.estado">
+                </ng-select2>
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4" *ngIf="this.getAuth?.user?.aceder_todos_agentes">
+                <label for=""><b>Tipo de Órgão</b></label>
+                <ng-select2 [options]="options" [data]="this.tipoEstruturaOrganicas"
+                    (valueChanged)="selecionarOrgaoOuComandoProvincial($event);">
+                </ng-select2>
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4" *ngIf="this.getAuth?.user?.aceder_todos_agentes">
+                <label for=""><b>Direcção/Comando </b></label>
+                <ng-select2 [options]="options" (valueChanged)="filtrarPagina('orgaoId',$event)" [data]="this.orgaos"
+                    [ngModel]="this.filtro.orgaoId" name="orgaoId">
+                </ng-select2>
+            </div>
+        </aside>
+
+
+    </fieldset>
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div class="table-responsive">
+                <table class="table table-border table-striped custom-table datatable mb-0">
+                    <thead>
+                        <tr>
+                            <th class="text-left">ID</th>
+                            <th class="text-left">Nome Completo</th>
+                            <th class="text-left">NIP</th>
+                            <th class="text-left">NAS</th>
+                            <th class="text-left">Posto actual</th>
+                            <th class="text-left">Ano de Promocão</th>
+                            <th class="text-left">Diuturnidade</th>
+                            <th class="text-left">Posto a promover</th>
+                            <th class="text-left">Acto</th>
+                            <th class="text-left">Cargo actual</th>
+                            <th class="text-left">Cargo a promover</th>
+                            <th class="text-left">Colocação</th>
+                            <th class="text-left">Data de registo</th>
+                            <th class="text-right">Operação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngIf="this.isLoading">
+                            <td colspan="14">
+                                <aside *ngIf="this.isLoading">
+                                    <loading-page [texto]="'lista de agentes'"></loading-page>
+                                </aside>
+                            </td>
+                        </tr>
+                        <tr *ngFor="
+                        let item of this.funcionarios
+                          | paginate
+                            : {
+                                id: 'funcionarioEspecial',
+                                itemsPerPage: this.pagination.per_page,
+                                currentPage: this.pagination.current_page,
+                                totalItems: this.pagination.total
+                              };
+                        index as i
+                      ">
+                            <td>{{ this.totalBase + i }}</td>
+                            <td class="text-left">
+                                <strong>
+                                    <a routerLink="/" ariaCurrentWhenActive="page"
+                                        [routerLink]="['/piips/sigpg/perfil/', item.id, 'provimento']"
+                                        style="font-size: 15px;">
+                                        {{ item.nome_completo | uppercase }}
+                                        {{ item.apelido | uppercase }}
+                                    </a>
+                                </strong>
+                            </td>
+                            <td class="text-left">
+                                <ng-container *ngIf="item.nip; else elseTemplate">
+                                    {{item?.quadro}} {{ item?.nip }}
+                                </ng-container>
+                                <ng-template #elseTemplate>
+                                    S/N
+                                </ng-template>
+                            </td>
+                            <td class="text-left">
+                                <ng-container *ngIf="item.numero_agente; else elseTemplate">
+                                    {{ item.numero_agente }}
+                                </ng-container>
+                                <ng-template #elseTemplate>
+                                    S/N
+                                </ng-template>
+                            </td>
+                            <!-- <td class="text-left">
+                            <ng-container *ngIf="item.patente_nome; else elseTemplate">
+                                {{ item.patente_nome }}
+                            </ng-container>
+                            <ng-template #elseTemplate>
+                                S/N
+                            </ng-template>
+                        </td> -->
+                            <!-- <td class="text-left">
+                            <strong>
+                                <a routerLink="/" ariaCurrentWhenActive="page"
+                                    [routerLink]="['/piips/sigpg/perfil/', item.id, 'provimento']"
+                                    style="font-size: 15px;">
+                                    {{ item.nome_completo | uppercase }}
+                                    {{ item.apelido | uppercase }}
+                                </a>
+                            </strong>
+                        </td> -->
+
+                            <td class="text-left">
+                                <ng-container *ngIf="item?.patente_actual; else elsePatenteActual">
+                                    {{ item?.patente_actual?.nome }}
+                                </ng-container>
+                                <ng-template #elsePatenteActual>
+                                    S/N
+                                </ng-template>
+                            </td>
+                            <td class="text-start">{{item.ano_acto ?? 'S/N'}} </td>
+                            <td> {{item.acto_duracao ?? 'S/N'}} </td>
+                            <td class="text-left">
+                                <ng-container *ngIf="item?.patente_promover; else elsePatentePromover">
+                                    {{ item?.patente_promover?.nome }}
+                                </ng-container>
+                                <ng-template #elsePatentePromover>
+                                    S/N
+                                </ng-template>
+                            </td>
+                            <td class="text-left">
+                                <ng-container *ngIf="item?.acto; else elseActo">
+                                    {{ item?.acto?.nome }}
+                                </ng-container>
+                                <ng-template #elseActo>
+                                    S/N
+                                </ng-template>
+                            </td>
+                            <td class="text-left">
+                                <ng-container *ngIf="item?.cargo_actual; else elseCargo">
+                                    {{ item?.cargo_actual?.nome }}
+                                </ng-container>
+                                <ng-template #elseCargo>
+                                    S/N
+                                </ng-template>
+                            </td>
+                            <td class="text-left">
+                                <ng-container *ngIf="item?.cargo_promover; else elsePromover">
+                                    {{ item?.cargo_promover?.nome }}
+                                </ng-container>
+                                <ng-template #elsePromover>
+                                    S/N
+                                </ng-template>
+                            </td>
+                            <td class="text-left" [title]="item?.orgao?.nome_completo">
+                                <ng-container *ngIf="item?.orgao; else elseOrgao">
+                                    {{ item?.orgao?.sigla }}
+                                </ng-container>
+                                <ng-template #elseOrgao>
+                                    S/N
+                                </ng-template>
+                            </td>
+
+                            <!-- <td class="text-left">
+                            <ng-container *ngIf="item.pessoajuridica_passado?.nome_completo; else elseOrgao">
+                                {{ item?.pessoajuridica_passado?.nome_completo }}
+                            </ng-container>
+                            <ng-template #elseOrgao>
+                                S/N
+                            </ng-template>
+                        </td> -->
+                            <td>{{ item.created_at }}</td>
+                            <td class="text-right">
+                                <div class="dropdown dropdown-action position-static">
+                                    <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
+                                        aria-expanded="false">
+                                        <i class="fa fa-ellipsis-v"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="javascript:void(0)" (click)="visualizar(item)"
+                                            data-toggle="modal" data-target="#modalVisualizarFicha">
+                                            <i class="fa fa-file-pdf m-r-5"></i>
+                                            Documento
+                                        </a>
+                                        <a class="dropdown-item"
+                                            [routerLink]="['/piips/sigpg/perfil/', item.id, 'provimento']">
+                                            <i class="fa fa-eye m-r-5"></i>
+                                            Visualizar
+                                        </a>
+
+                                        <a href="javascript:void(0)" class="dropdown-item"
+                                            (click)="this.validarEliminar(item)" data-toggle="modal"
+                                            data-target="#delete_patient"><i class="fa fa-trash-o m-r-5"></i> Remover da
+                                            proposta
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div class="row">
+                <div class="col-sm-6">
+                    Mostrando de {{ this.pagination.current_page }} a
+                    {{ this.pagination.per_page }} de {{ this.pagination.total }}
+                    <aside *ngIf="this.pagination.total < 2; else outrosRegistos">
+                        registos
+                    </aside>
+                    <ng-template #outrosRegistos>registos</ng-template>
+                </div>
+                <div class="col-sm-6">
+                    <div class="float-right">
+                        <pagination-controls id="funcionarioEspecial"
+                            (pageChange)="this.filtrarPagina('page', $event, false)" [directionLinks]="true"
+                            [autoHide]="true" previousLabel="Anterior" nextLabel="Próximo" [maxSize]="4"
+                            [responsive]="true"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalVisualizarFicha" aria-labelledby="modalVisualizarFicha" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="overflow-y: hidden; min-width: 40%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>
+                    <i class="fa fa-star"></i>
+                    Proposta de progressão de carreira
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="content p-4">
+                <div class="content p-4">
+                    <app-pdf-proposta [listarPDF]="listarPDF"></app-pdf-proposta>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-registar-tratamento [proposta]="this.trataProposta"
+    (onTratamento)="this.recarregarTodos()"></app-registar-tratamento>

@@ -1,0 +1,80 @@
+<!-- Modal Logout -->
+<div class="modal fade" id="logout-modal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content mobile-rounded">
+      <div class="modal-header">
+        <h5 class="modal-title">Terminar sessão</h5>
+        <button type="button" class="btn-close text-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <p class="mb-3">Confirmas o término da sessão?</p>
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+          <a (click)="sair()" class="btn btn-outline-primary">Sim</a>
+          <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Não</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Header -->
+<header 
+  id="header_" 
+  class="header_ d-flex flex-column flex-md-row align-items-center p-2"
+  [ngStyle]="{
+    'background': cor,
+    'border-top': '2px solid ' + corb
+  }">
+  
+  <div class="d-flex flex-column flex-md-row align-items-center w-100">
+    <div class="logo_ me-md-3 text-center text-md-start">
+      <img [src]="logo" alt="Polícia Nacional de Angola" class="img-fluid"  >
+    </div>
+
+    <div class="text-start text-md-start w-50">
+      <h2 class="h3 mb-0">POLÍCIA NACIONAL DE ANGOLA</h2>
+      <h6 class="text-uppercase">Sistema Integrado de Controlo e Gestão de Ocorrências</h6>
+    </div>
+
+    <!-- Menu direito -->
+    <nav class="ms-md-auto mt-2   justify-content-md-end w-100">
+      <a [routerLink]="['/piips/pa']" routerLinkActive="active" class="btn btn-sm btn-light">PA</a>
+
+      <app-sicgo-notificacao></app-sicgo-notificacao>
+
+      <!-- Dropdown de usuário -->
+      <div class="dropdown">
+        <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle"  class="dropdown-toggle nav-linkv user-link kivova"
+        data-toggle="dropdown">
+          <span class="user-img">
+          <img
+            class="rounded-circle"
+            src="assets/img/user.jpg"
+            width="35"
+            alt="Admin"
+          />
+          <span class="status online"></span>
+        </span>
+          <span class="d-none d-sm-inline text-white ml-2">{{ nomeUtilizador }}</span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li class="dropdown-header text-center">
+            <strong>{{ nomeUtilizador }}</strong>
+          </li>
+          <li><hr class="dropdown-divider"></li>
+          <li>
+            <a class="dropdown-item d-flex align-items-center" [routerLink]="['/piips']">
+              <i class="bi bi-arrow-right-circle me-2"></i> Ir em Piips
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#logout-modal" style="cursor: pointer">
+              <i class="bi bi-power me-2"></i> Terminar sessão
+            </a>
+          </li>
+        </ul>
+      </div>
+ 
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,80 @@
+:host {
+    @import url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css');
+    @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css');
+  }
+  
+  .max-width-70 {
+    max-width: 70%;
+  }
+  
+  .border-dashed {
+    border: 2px dashed #ccc;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .border-dashed:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .table tbody tr:hover {
+    background-color: #f8f9fa;
+    cursor: pointer;
+  }
+  
+  .table td {
+    vertical-align: middle;
+  }
+  
+  .badge {
+    font-size: 0.8rem;
+  }
+  
+  /* Ajuste para a área de mensagens */
+  .chat-messages {
+    height: 500px; /* Altura fixa - ajuste conforme necessário */
+    overflow-y: auto; /* Barra de rolagem vertical quando o conteúdo ultrapassar */
+    overflow-x: hidden; /* Evita rolagem horizontal */
+    background-color: #f8f9fa; /* Cor de fundo para consistência */
+    padding: 15px; /* Espaçamento interno */
+  }
+
+  /* Nova classe para a área de conversas */
+.chat-conversas {
+    height: 650px; /* Mesma altura da área de mensagens para consistência */
+    overflow-y: auto; /* Barra de rolagem vertical quando necessário */
+    overflow-x: hidden; /* Evita rolagem horizontal */
+    background-color: #f8f9fa; /* Cor de fundo consistente */
+  }
+
+  .card {
+    max-width: 70%;
+    word-wrap: break-word;
+  }
+  
+  .img-fluid {
+    cursor: pointer; /* Indica que a imagem é clicável */
+  }
+  
+  .bi-file-earmark-pdf {
+    color: #ff4444; /* Cor do ícone do PDF, ajuste conforme desejado */
+  }
+
+/* Estilo da mensagem citada */
+.border-start {
+  border-color: #007bff !important; /* Cor da borda para 'eu' */
+}
+
+.bg-primary .border-start {
+  border-color: #ffffff !important; /* Cor da borda para mensagens enviadas por 'eu' */
+}
+
+/* Ajuste do botão Responder */
+.btn-sm {
+  padding: 0.1rem 0.3rem;
+}
+
+.btn-outline-secondary {
+  border-color: #ccc;
+}
+

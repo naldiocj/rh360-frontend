@@ -1,0 +1,159 @@
+
+<sigiac-registrar-ou-editar-auditorias
+    (eventRegistarOuEditDiversoModel)="this.buscarDiverso()">
+</sigiac-registrar-ou-editar-auditorias>
+
+
+
+<main id="main_" class="base main_">
+    <div class="pagetitle mb-4">
+        <div class="infor-top">
+            <h4>PIIPS <i style="margin-left: 15px; margin-right: 15px;" class="bi bi-chevron-right" aria-hidden="true"></i></h4>
+            <h4>SIGIAC <i style="margin-left: 15px; margin-right: 15px;" class="bi bi-chevron-right" aria-hidden="true"></i></h4>
+            <h4>INSPECÇÃO <i style="margin-left: 15px; margin-right: 15px;" class="bi bi-chevron-right" aria-hidden="true"></i></h4>
+      <!--       <h4> <a style="color: rgb(38, 38, 38);" [routerLink]="['/piips/sigev2/piqueteo/ocorrencias']">OCORRÊNCIAS</a> <i style="margin-left: 15px; margin-right: 15px;" class="bi bi-chevron-right" aria-hidden="true"></i></h4> -->
+            <h4>AUDITORIAS</h4>
+          </div>
+      
+           <!-- Fim Guia de rotas -->
+      
+          <div class="org d-flex">
+            <div class="img-top">
+                <i class="bi bi-puzzle-fill"></i>
+            </div>
+            <div>
+                <h3 class="titulo-top">Listagem de Auditorias </h3>
+                <h5 class="titulo-bt">Listagem de Auditorias Registadas no Sistema | <b>SIGIAC</b> - Sistema Integrado de Gestão de Inspecção e Atendimento ao Cidadão</h5>
+            </div> 
+          </div>
+    </div>
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <nav class="navbar navbar-light bg-light">
+                    <form class="form-inline">
+                        <select class="form-control mr-sm-1" (change)="filtrarPagina('perPage',$event)">
+                            <option *ngFor="let item of [5,10,20,50]" [value]="item">{{item}}</option>
+                        </select>
+                        <input class="form-control mr-sm-1" type="text" [ngModel]="filtro.search"
+                            (ngModelChange)="filtrarPagina('search',$event)" placeholder="Pesquisa ...">
+                        <button (click)="this.recarregarPagina()" id="btpe1"
+                            class="refr btn btn-outline-success my-2 my-sm-0" type="submit">
+                            <i style="font-size: 14px;" class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+                            
+                        </button>
+
+                        <a data-toggle="modal" id="book" ariaCurrentWhenActive="page"
+                            class="refr btn btn btn-primary btn-rounded float-right"
+                            data-target="#modalRegistarOuEditarAuditorias">
+                            <i class="bi bi-plus-circle"></i> <b> Registrar</b>
+                        </a>
+                    </form>
+                </nav>
+                <table class="table text-center table-border table-striped custom-table datatable mb-0">
+                    <thead class="text-center">
+
+
+                        <tr>
+                            <th>ID</th>
+                            <th>Nº de Ofício</th>
+                            <th>Proveniência</th>
+                            <th>Data Registado</th>
+                            <th colspan="3" class="text-right">Operação</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor="let item of this.diversos
+                              | paginate
+                                : {
+                                    itemsPerPage: this.pagination.per_page,
+                                    currentPage: this.pagination.current_page,
+                                    totalItems: this.pagination.total
+                                  };
+                            index as i
+                          ">
+                            <td>000{{item.id}}/DAJ</td>
+                            <td>{{item.sigla}}/{{item.oficio}}</td>
+                            <td>{{item.proveniencia}}</td>
+                            <td>{{item.updated_at}}</td>
+                            <td class="text-right">
+
+                                <nav class="header-nav_ flex-fill d-flex">
+                                    <ul class="d-flex align-items-center">
+                                        <li class="nav-item dropdown">
+
+                                            <a class="nav-link nav-profile d-flex align-items-center" href="#"
+                                                data-toggle="dropdown">
+                                                <i class="fa fa-ellipsis-v"></i>
+                                            </a>
+
+
+                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+
+
+                                                <li>
+                                                    <a class="dropdown-item d-flex align-items-center text-dark"
+                                                        [routerLink]="['/piips/sigpj/diverso/detalhes/listagem', item.id]">
+                                                        <i class="bi bi-list-ul"></i>
+                                                        <span>Mais detalhes</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <hr class="dropdown-divider">
+                                                </li>
+
+                                                <li>
+                                                    <a class="dropdown-item d-flex align-items-center text-dark"
+                                                        [routerLink]="['/piips/sigpj/diverso/ver-pecas', item.id]">
+                                                        <i class="fa fa-eye"></i>
+                                                        <span>Ver peças</span>
+                                                    </a>
+                                                </li>
+
+                                                <li>
+                                                    <hr class="dropdown-divider">
+                                                </li>
+
+                                                <li>
+                                                    <a class="dropdown-item d-flex align-items-center text-dark pointer"
+                                                        data-toggle="modal" data-target="#modalRegistarOuEditarDiverso"
+                                                        >
+                                                        <i class="fa fa-pencil"></i>
+                                                        <span>Editar processo</span>
+                                                    </a>
+                                                </li>
+
+                                            </ul>
+                                        </li>
+
+                                    </ul>
+                                </nav>
+
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            Mostrando de {{ this.pagination.current_page }} á
+                            {{ this.pagination.per_page }} de {{ this.pagination.total }} Registo
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="float-right">
+                                <pagination-controls id="funcionarioEspecial"
+                                    (pageChange)="this.filtrarPagina('page', $event)" [directionLinks]="true"
+                                    [autoHide]="true" previousLabel="Anterior" nextLabel="Próximo" [maxSize]="4"
+                                    [responsive]="true"></pagination-controls>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

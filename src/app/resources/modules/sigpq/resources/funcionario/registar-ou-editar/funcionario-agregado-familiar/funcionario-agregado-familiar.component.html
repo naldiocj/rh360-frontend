@@ -1,0 +1,297 @@
+<div class="row">
+  <div class="container-fluid">
+    <div id="historico-agregado-familiar" class=" w-100">
+      <div class="row">
+        <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12 ms-auto">
+          <form class="p-0 m-0 w-100" [formGroup]="this.simpleForm">
+            <div class="card mt-0 py-0" style="border-radius: 0px">
+              <div class="row p-2" style="row-gap: 1.2rem">
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 ">
+                  <label for="nome-familiar">
+                    <b>Nome do familiar <span class="text-red">*</span></b></label>
+                  <input type="text" id="nome-familiar" formControlName="nome" class="form-control" autofocus [ngClass]="{
+                    'is-invalid':
+                       this.simpleForm.controls?.nome.errors &&
+                       this.simpleForm.controls?.nome.dirty,
+                    'is-valid':
+                       this.simpleForm.controls?.nome.dirty &&
+                      ! this.simpleForm.controls?.nome.errors
+                  }" />
+                  <div *ngIf="
+                     this.simpleForm.controls?.nome.dirty &&
+                     this.simpleForm.controls?.nome.errors
+                  " class="invalid-feedback">
+                    <div *ngIf=" this.simpleForm.controls?.nome.errors.required">
+                      Este campo é obrigatório
+
+                    </div>
+                    <div *ngIf=" this.simpleForm.controls?.nome.errors.minlength">
+                      O nome completo tem de ter no mínimo 4 caracteres`,
+
+                    </div>
+                    <div *ngIf=" this.simpleForm.controls?.nome.errors.number">
+                      O nome não deve conter número
+
+                    </div>
+                    <div *ngIf="this.simpleForm.controls?.nome.errors.pattern">
+                      Somente texto é permitido
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 ">
+                  <label for="">
+                    <b>Grau de parentesco <span class="text-red">*</span>
+                    </b></label>
+                  <ng-select2 [options]="options" formControlName="sigpq_tipo_familiar_id" [data]="this.tipoFamiliares">
+                  </ng-select2>
+                </div>
+
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 ">
+                  <label for=""> <b>Contacto </b></label>
+                  <input class="form-control" type="text" formControlName="contacto" [ngClass]="{
+                    'is-invalid':
+                      this.simpleForm.controls?.contacto.dirty &&
+                      this.simpleForm.controls?.contacto.errors,
+                    'is-valid':
+                      this.simpleForm.controls?.contacto.dirty &&
+                      !this.simpleForm.controls?.contacto.errors
+                  }" formControlName="contacto" />
+                  <div *ngIf="
+                    this.simpleForm.controls?.contacto?.dirty &&
+                    this.simpleForm.controls?.contacto?.errors
+                  ">
+                    <div *ngIf="this.simpleForm.controls?.contacto?.errors?.pattern" style="color: #dc3545">
+                      Digite um contacto válido
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                  <label for=""><b>Data de Nascimento</b></label>
+                  <input
+                    class="form-control"
+                    type="date"
+                    formControlName="data_de_nascimento"
+                    [ngClass]="{
+                      'is-invalid':
+                        this.simpleForm.controls?.data_de_nascimento.dirty &&
+                        this.simpleForm.controls?.data_de_nascimento.errors,
+                      'is-valid':
+                        this.simpleForm.controls?.data_de_nascimento.dirty &&
+                        !this.simpleForm.controls?.data_de_nascimento.errors
+                    }"
+                  />
+                </div>
+
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 ">
+                  <label for="">
+                    <b>Nome do documento <span class="text-red">*</span></b></label>
+                  <ng-select2 [options]="options" formControlName="sigpq_tipo_documento_id"
+                    [data]="this.tipoDocumentos">
+                  </ng-select2>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 ">
+                  <label for="file-familiar"> <b>Anexo.(formato pdf)<span class="text-red">*</span></b></label>
+                  <input id="file-familiar" type="file" class="form-control" accept="application/pdf"
+                    (change)="this.uploadFile($event, 'anexo')" />
+                  <p id="text"></p>
+                </div>
+              </div>
+              <div class="row px-2" style="row-gap: 1.2rem">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 d-flex justify-content-end align-items-center my-2">
+                  <button class="btn-piips btn-piips-red m-0 py-1" (click)="this.reiniciarFormulario()">
+                    Cancelar
+                  </button>
+                  <button [disabled]="this.isLoading || this.submitted || !this.simpleForm.valid" type="button"
+                    (click)="onSubmit()" class="btn-piips btn-piips-primary m-0 py-1" style="border-radius: 0px">
+                    <ng-container *ngIf="this.isLoading || this.submitted; else naoRegistar">
+                      <div class="spinner-border spinner-border-sm "></div>
+                      Carregando...
+                    </ng-container>
+                    <ng-template #naoRegistar>
+
+                      {{this.buscarId ? 'Salvar': 'Registar'}}
+
+                    </ng-template>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row">
+        <nav class="navbar navbar-light bg-light w-100">
+          <div class="form-inline align-items-center d-flex justify-content-between w-100">
+            <div class="d-flex justify-content-start">
+              <select class="form-control mr-sm-1" (change)="filtrarPagina('perPage',$event)">
+                <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">
+                  {{ item }}
+                </option>
+              </select>
+              <input class="form-control mr-sm-1" type="text" [ngModel]="filtro.search" name="search"
+                placeholder="Pesquisa ..." (ngModelChange)="filtrarPagina('search',$event)" />
+              <button class="btn-piips btn-piips-primary py-2 m-0" (click)="this.recarregarPagina()">
+                <i style="font-size: 14px" class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+                <b>Recarregar</b>
+              </button>
+            </div>
+            <div class="d-flex justify-content-end">
+              <!-- <button disabled class="btn-piips btn-piips-primary py-2 m-0 " type="button">
+                <i style="font-size: 14px" class="fa fa-download  fa-3x fa-fw"></i>
+                <b>Exportar</b>
+              </button> -->
+            </div>
+          </div>
+        </nav>
+
+        <div class="col-md-12">
+          <table class="table table-border table-striped custom-table datatable mb-0 text-right">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Grau parentesco</th>
+                <th>Contacto</th>
+                <th>Documento</th>
+                <th>Estado</th>
+                <th>Data de Registo</th>
+                <th>Data de Actualização</th>
+                 <th>Data de nascimento</th>
+                <th class="text-right">Operação</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let item of this.agregadosFamiliares | paginate: { id: 'agregadoId', itemsPerPage: this.pagination.per_page, currentPage: this.pagination.current_page,totalItems: this.pagination.total }; index as i">
+                <td> {{i+1}}</td>
+                <td> {{ item?.nome}}</td>
+                <td> {{ item?.sigpq_tipo_familiar_nome}}</td>
+                <td> {{ item?.contacto=='null' || !item?.contacto ? 'S/N' : item?.contacto }}</td>
+                <td> {{ item?.sigpq_tipo_documento_nome ?? 'S/N'}}</td>
+                <td>
+                  <span *ngIf="item.activo" class="custom-badge status-green">Aprovado</span>
+                  <span *ngIf="!item.activo" class="custom-badge status-orange">Pendente</span>
+                </td>
+                <td> {{ item?.created_at}}</td>
+                <td> {{ item?.updated_at}}</td>
+                 <td>{{item?.data_de_nascimento??'S/D'}}</td>
+                <td class="text-right">
+                  <div class="dropdown dropdown-action">
+                    <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
+                        class="fa fa-ellipsis-v"></i></a>
+                    <div class="dropdown-menu">
+                      <a *ngIf="!item.activo" class="dropdown-item" (click)="setItemAprovar(item)"
+                      href="javascript:void(0)">
+                      <i class="fa fa-thumbs-o-up m-r-5"></i>
+                      Aprovar
+                     </a>
+                      <!-- 
+                      <a *ngIf="item.activo" class="dropdown-item" (click)="construcao()" href="javascript:void(0)">
+                        <i class="fa fa-thumbs-o-down m-r-5"></i>
+                        Desactivar
+                      </a> -->
+                      <a class="dropdown-item" href="javascript:void(0)" (click)="setItem(item)">
+                        <i class="fa fa-edit m-r-5"></i>
+                        Editar
+                      </a>
+                      <a class="dropdown-item" href="javascript:void(0)" (click)="visualizar(item)" data-toggle="modal"
+                        data-target="#modalVisualizarAgregado">
+                        <i class="fa fa-eye m-r-5"></i>
+                        Visualizar
+                      </a>
+                      <a class="dropdown-item" href="#" (click)="construcao()" data-toggle="modal"
+                        data-target="#delete_patient">
+                        <i class="fa fa-trash-o m-r-5"></i> Eliminar</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-sm-6">
+              Mostrando de {{ this.pagination.current_page }} á
+              {{ this.pagination.per_page }} de {{ this.pagination.total }} Registo
+            </div>
+            <div class="col-sm-6">
+              <div class="float-right">
+                <pagination-controls id="agregadoId" (pageChange)="this.filtrarPagina('page', $event)"
+                  [directionLinks]="true" [autoHide]="false" previousLabel="Anterior" nextLabel="Próximo" [maxSize]="4"
+                  [responsive]="true"></pagination-controls>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalVisualizarAgregado" aria-labelledby="modalVisualizarAgregado" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="overflow-y: hidden;min-width: 70%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>
+          <i class="fa fa-user"></i>
+          Visualizar documento
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="content">
+        <div class="modal-body">
+          <div class="row">
+
+            <div class="col-sm-12">
+              <nav class="navbar navbar-light bg-light">
+                <h3>{{this.documento?.sigpq_tipo_documento_nome}}</h3>
+                <aside *ngIf="this.documento">
+                  <span *ngIf="this.documento.activo" class="custom-badge status-green">Activo</span>
+                  <span *ngIf="!this.documento.activo" class="custom-badge status-orange">Inactivo</span>
+                </aside>
+              </nav>
+              <div class="col-sm-12">
+                <aside *ngIf="carregarDocumento;else carregarDocumentoVerMensagem">
+                  <div class="container">
+                    <div class="row justify-content-center">
+                      Carregando documento ...
+                      <div class="col-sm-12 text-center">
+                        <div class="spinner-border text-primary" style="width: 2rem; height: 2rem;" role="status">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </aside>
+                <ng-template #carregarDocumentoVerMensagem>
+                  <aside *ngIf="fileUrl; else verMensagem">
+                    <iframe [src]="fileUrl" width="100%" height="700px"></iframe>
+                  </aside>
+                  <ng-template #verMensagem>
+                    <div class="container">
+                      <div class="row justify-content-center">
+                        <div class="col-sm-12 text-center">
+                          Sem documento adicionado
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                </ng-template>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            <span class="fa fa-close m-r-2"></span>Fechar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,84 @@
+.stepper {
+    .steps {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+  
+      div {
+        flex: 1;
+        text-align: center;
+        padding: 10px;
+        background: #eee;
+        border-radius: 5px;
+        margin: 0 5px;
+        font-weight: bold;
+  
+        &.active {
+          background: #007bff;
+          color: white;
+        }
+      }
+    }
+  
+    .step-content {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      background: #fff;
+    }
+  
+    .navigation {
+      margin-top: 20px;
+      text-align: right;
+    }
+  }
+  
+
+  /* registro-empresa.component.scss */
+.steps {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    counter-reset: step;
+  }
+  
+  .steps div {
+    position: relative;
+    flex: 1;
+    text-align: center;
+    padding: 10px 0;
+    border-bottom: 4px solid #ccc;
+    color: #666;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+  .steps div::before {
+    content: counter(step);
+    counter-increment: step;
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ccc;
+    color: #fff;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+  }
+  .steps div.active {
+    border-color: #0d6efd;
+    color: #0d6efd;
+  }
+  .steps div.active::before {
+    background-color: #0d6efd;
+  }
+  .steps div.completed {
+    border-color: #198754;
+    color: #198754;
+  }
+  .steps div.completed::before {
+    background-color: #198754;
+  }
+  

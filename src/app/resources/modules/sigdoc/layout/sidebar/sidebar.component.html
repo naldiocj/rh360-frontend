@@ -1,0 +1,184 @@
+<aside id="asidebar" class="asidebar trns">
+    <ul class="asidebar-nav" id="sidebar-nav">
+      <li class="nav-item">
+        <span class="menu-p" style="font-weight: bold; font-size: 14px;"><i style="margin-right: 8px;"
+            class="bi bi-grid-fill"></i> Menu Principal</span>
+      </li>
+      <li style="margin-top: 20px;" class="nav-item">
+        <a class="nav-link d-flex  align-items-center" [routerLink]="['/piips/sigdoc/panel-controlo']"
+          routerLinkActive="active">
+          <i class="bi bi-speedometer2"></i>
+          <span>Painel de Controlo</span>
+        </a>
+      </li>
+
+      <li>
+        <hr class="dropdown-divider">
+      </li>
+
+      <li class="nav-item" *ngIf="!hasPermission('Director') && !hasPermission('Chefe Departamento') && !hasPermission('Tramitador')">
+        <a class="nav-link d-flex  align-items-center" href="javascript:void(0)"
+          [routerLink]="['/piips/sigdoc/entrada-expediente/listar']" routerLinkActive="active">
+          <i class="bi bi-envelope-fill"></i>
+          <span>Registo de Entrada de Documentos</span>
+        </a>
+      </li>
+
+      <li>
+        <hr class="dropdown-divider">
+      </li>
+
+      <li class="nav-item" *ngIf="!hasPermission('Director') && !hasPermission('Chefe Departamento') && !hasPermission('Operador')">
+        <a class="nav-link d-flex  align-items-center" href="javascript:void(0)"
+        [routerLink]="['/piips/sigdoc/tramitacao-expediente/listar']" routerLinkActive="active">
+          <i class="bi bi-envelope-paper"></i>
+          <span>Tramitação do Expediente</span>
+        </a>
+      </li>
+
+      <li>
+        <hr class="dropdown-divider">
+      </li>
+
+      <li class="nav-item" *ngIf="!hasPermission('Director') && !hasPermission('Chefe Departamento')">
+        <a class="nav-link d-flex  align-items-center" href="javascript:void(0)"
+        [routerLink]="['/piips/sigdoc/gestao-correspondencia/enviadas']" routerLinkActive="active">
+          <i class="bi bi-envelope-fill"></i>
+          <span>Documentos Enviados</span>
+        </a>
+      </li>
+  
+      <li>
+        <hr class="dropdown-divider">
+      </li>
+
+      <li class="nav-item" *ngIf="!hasPermission('Director') && !hasPermission('Chefe Departamento')">
+        <a class="nav-link d-flex  align-items-center" href="javascript:void(0)"
+        [routerLink]="['/piips/sigdoc/gestao-correspondencia/recebidas']" routerLinkActive="active">
+          <i class="bi bi-envelope-fill"></i>
+          <span>Documentos Recebidos</span>
+        </a>
+      </li>
+
+      <li>
+        <hr class="dropdown-divider">
+      </li>
+
+      <li class="nav-item" *ngIf="!hasPermission('Operador') && !hasPermission('Chefe Departamento') && !hasPermission('Tramitador')">
+        <a class="nav-link d-flex  align-items-center" href="javascript:void(0)"
+        [routerLink]="['/piips/sigdoc/gestao-documento-direcao/listar']" routerLinkActive="active">
+          <i class="bi bi-envelope-paper"></i>
+          <span>Secretáriado do Orgão</span>
+        </a>
+      </li>
+  
+      <li>
+        <hr class="dropdown-divider">
+      </li>
+
+      <li class="nav-item" *ngIf="!hasPermission('Operador') && !hasPermission('Director') && !hasPermission('Tramitador')">
+        <a class="nav-link d-flex  align-items-center" href="javascript:void(0)"
+        [routerLink]="['/piips/sigdoc/gestoa-documento-departamento/listar']" routerLinkActive="active">
+          <i class="bi bi-envelope-fill"></i>
+          <span>Departamento</span>
+        </a>
+      </li>
+  
+      <li>
+        <hr class="dropdown-divider">
+      </li>
+
+      <li class="nav-item" *ngIf="!hasPermission('Director') && !hasPermission('Chefe Departamento')  && !hasPermission('Tramitador') && !hasPermission('Operador')">
+        <a class="nav-link d-flex  align-items-center" href="javascript:void(0)"
+        [routerLink]="['/piips/sigdoc/gestoa-documento-seccao/listar']" routerLinkActive="active">
+          <i class="bi bi-envelope-paper"></i>
+          <span>Secção</span>
+        </a>
+      </li>
+
+      <li>
+        <hr class="dropdown-divider">
+      </li>
+
+      <li class="nav-item" *ngIf="!hasPermission('Operador') && !hasPermission('Director') && !hasPermission('Chefe Departamento') && !hasPermission('Tramitador')">
+        <a class="nav-link d-flex  align-items-center" routerLinkActive="active" href="#arquivos"
+          data-toggle="collapse">
+          <i class="bi bi bi-receipt"></i>
+          <span><span></span>Arquivos</span><span class="menu-arrow"> <i
+              class="bi bi-chevron-right flex-fill text-white" style="text-align:right; font-size: 12px;"></i></span>
+        </a>
+        <ul id="arquivos" class="collapse transition-fade">
+          <li style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px">
+            <a class="nav-link" [routerLink]="['/piips/sigdoc/arquivos-orgao/listar']" routerLinkActive="active">
+              <i style="font-size: 14px;" class="bi bi-arrow-right-circle"></i>
+              <span><span></span> Arquivos do Orgão</span><span class="menu-arrow"></span>
+            </a>
+          </li>
+          <li style="padding-left: 25%; padding-top: 1px; padding-bottom: 10px">
+            <a class="nav-link" [routerLink]="['/piips/sigdoc/arquivos/listar']"
+               routerLinkActive="active">
+              <i style="font-size: 14px;" class="bi bi-arrow-right-circle"></i>
+              <span><span></span> Arquivos Digitais</span><span class="menu-arrow"></span>
+            </a>
+          </li>
+          <!--li style="padding-left: 25%; padding-top: 1px; padding-bottom: 10px">
+            <a class="nav-link" [routerLink]="['/piips/sigdoc/arquivos/listar']"
+               routerLinkActive="active">
+              <i style="font-size: 14px;" class="bi bi-arrow-right-circle"></i>
+              <span><span></span> Arquivos Mortos</span><span class="menu-arrow"></span>
+            </a>
+          </li-->
+        </ul>
+      </li>
+      <!--li>
+        <hr class="dropdown-divider">
+      </li-->
+
+      <!--li class="nav-item">
+        <a class="nav-link d-flex  align-items-center" href="javascript:void(0)"
+          [routerLink]="['/piips/sigdoc/criar-documento/listar']" routerLinkActive="active">
+          <i class="bi bi-envelope-fill"></i>
+          <span>Criar Documento</span>
+        </a>
+      </li-->
+
+      <li>
+        <hr class="dropdown-divider">
+      </li>
+
+      <li class="nav-item" *ngIf="!hasPermission('Operador') && !hasPermission('Director')  && !hasPermission('Chefe Departamento') && !hasPermission('Tramitador')">
+        <a class="nav-link d-flex  align-items-center" routerLinkActive="active" href="#configuracao"
+          data-toggle="collapse">
+          <i class="bi bi-sliders"></i>
+          <span><span></span>Configurações</span><span class="menu-arrow"> <i
+              class="bi bi-chevron-right flex-fill text-white" style="text-align:right; font-size: 12px;"></i></span>
+        </a>
+        <ul id="configuracao" class="collapse transition-fade">
+          <li style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px">
+            <a class="nav-link" [routerLink]="['/piips/sigdoc/tipo-documento/listar']" routerLinkActive="active">
+              <i style="font-size: 14px;" class="bi bi-arrow-right-circle"></i>
+              <span><span></span>Tipos de Documentos</span><span class="menu-arrow"></span>
+            </a>
+          </li>
+        </ul>
+        <ul id="configuracao" class="collapse transition-fade">
+          <li style="padding-left: 25%; padding-top: 10px; padding-bottom: 10px">
+            <a class="nav-link" [routerLink]="['/piips/sigdoc/tipo-natureza/listar']" routerLinkActive="active">
+              <i style="font-size: 14px;" class="bi bi-arrow-right-circle"></i>
+              <span><span></span> Natureza do Documento</span><span class="menu-arrow"></span>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <hr class="dropdown-divider">
+      </li>
+        
+      <div class="infor">
+        <h5>SIGDOC V 1.1 - <span style="font-weight: lighter; color: orange;">Profissional</span></h5>
+        <P>PIIPS - Todos os direitos reservados a PNA</P>
+      </div>    
+
+      </ul>
+    </aside>

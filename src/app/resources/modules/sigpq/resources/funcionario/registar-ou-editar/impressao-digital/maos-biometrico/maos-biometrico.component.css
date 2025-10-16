@@ -1,0 +1,123 @@
+.hands-container {
+  display: flex;
+  justify-content: center;
+  gap: 84px; 
+  padding: 4px;
+  margin: 65px 60px 0px 0px;
+}
+
+.hand {
+  position: relative;
+  width: 100px;
+  height: 140px;
+  background: #f0f0f090;
+  border-radius: 50px 50px 100px 100px;
+  cursor: pointer;
+}
+
+.hand-left {
+  transform: scaleX(-1);
+}
+
+.finger {
+  position: absolute;
+  background: #e0e0e0;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.finger:hover {
+  background: #d0d0d0;
+  transform: translateY(-5px);
+}
+
+.finger.active {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
+}
+
+.thumb {
+  width: 20px;
+  height: 50px;
+  top: 55px;
+  left: -11px;
+  transform: rotate(-55deg);
+} 
+.thumb:hover {
+  transform: rotate(-55deg);
+}
+
+.index {
+  width: 17px;
+  height: 60px;
+  top: -30px;
+  left: 5px;
+}
+
+.middle {
+  width: 17px;
+  height: 70px;
+  top: -40px;
+  left: 30px;
+}
+
+.ring {
+  width: 17px;
+  height: 60px;
+  top: -30px;
+  left: 55px;
+}
+
+.pinky {
+  width: 16px;
+  height: 50px;
+  top: -20px;
+  left: 80px;
+}
+
+.palm {
+  position: absolute;
+  width: 102%;
+  height: 108px;
+  bottom: 0;
+  background: #ededed;
+  border-radius: 41px 41px 100px 100px;
+  border: 1px solid #cccccc91;
+
+  filter: url("#goo");
+}
+.feedback {
+  text-align: center;
+  margin-top: 20px;
+  padding: 10px;
+  font-family: Arial, sans-serif;
+  font-size: 8.1px;
+  min-height: 30px;
+  color: #333;
+}
+
+
+
+
+
+@keyframes blink {
+  0%, 100% {
+      opacity: 0;
+  }
+  50% {
+      opacity: 1;
+  }
+}
+ 
+@keyframes line {
+  0%, 100% {
+      top: 0%;
+  }
+  50% {
+      top: 100%;
+  }
+}
+ 
+ 

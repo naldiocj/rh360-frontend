@@ -1,0 +1,107 @@
+<div class="modal fade " id="modalRegistarOuEditarDelituosoOrigem" aria-labelledby="modalRegistarOuEditarDelituosoOrigem" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalRegistarOuEditarDelituosoOrigemLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+         <div class="modal-header bg-prima text-white">
+                <h4 class="modal-title"><b>{{ buscarId() ? 'Atualizar Registo' : 'Registar' }} PD, Potencial Delituoso</b></h4>
+                <a
+                    type="button"
+                    data-dismiss="modal" aria-label="Close"
+                  >
+                  <i  class="bi bi-backspace-reverse-fill cursor-pointer rounded-lg "
+                  style="font-size: 1.2em"></i>
+                  </a>
+            </div>  
+            
+            <form [formGroup]="FormOrigem"  (ngSubmit)="onSubmit()">
+              <div class="modal-body"> 
+                <p class="ml-0 pl-4">
+                  <i class="bi bi-exclamation-triangle-fill text-warning"></i> 
+                  Os campos marcados com ( <strong class="asterisco">*</strong> ) são de carácter <strong>obrigatório</strong>.
+                </p>
+                <button type="button" class="btn btn-warning w-100" *ngIf="origem"> {{ origem.destino_detido }}</button>
+      
+                <div class="row ml-5">
+                  
+                  <!-- Campo: Entidade a Ordem -->
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label for="entidade_ordem"><b>FONTE DE INFORMAÇÃO</b></label>
+                      <select 
+                        id="entidade_ordem" 
+                        class="form-control" 
+                        formControlName="entidade_ordem" 
+                        [class.is-invalid]="FormOrigem.get('entidade_ordem')?.invalid && FormOrigem.get('entidade_ordem')?.touched">
+                        <option value="PNA">PNA</option>
+                        <option value="DIIP">Serviço Penitenciario</option>
+                        <option value="DIIP">DIIP</option>
+                        <option value="SIC">SIC</option>
+                        <option value="Publica">Publica</option>
+                        <option value="Fonte Aberta">Fonte Aberta</option>
+                        <option value="Fonte Fechada">Fonte Fechada</option>
+                      </select>
+                      <div *ngIf="FormOrigem.get('entidade_ordem')?.invalid && FormOrigem.get('entidade_ordem')?.touched" 
+                           class="invalid-feedback">
+                        Selecione uma entidade válida.
+                      </div>
+                    </div>
+                  </div>
+            
+                    <!-- Campo: Data Detenção -->
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label for="data_detencao"><b>Data Detenção</b></label>
+                      <input 
+                        id="data_detencao" 
+                        type="date" 
+                        class="form-control" 
+                        formControlName="data_detencao" 
+                        [class.is-invalid]="FormOrigem.get('data_detencao')?.invalid && FormOrigem.get('data_detencao')?.touched">
+                      <div *ngIf="FormOrigem.get('data_detencao')?.invalid && FormOrigem.get('data_detencao')?.touched" 
+                           class="invalid-feedback">
+                        Este campo é obrigatório.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            
+                <fieldset>
+                  <legend>ABERTURA DO ESPEDIENTE OPERATIVA</legend>
+                    <!-- Campo: Família de Crime -->
+                    <div class="form-group ">
+                      <label for="descricao">
+                        <b>Observação <span class="text-red">*</span></b>
+                      </label>
+                      
+                     
+                      <editor [disabled]="false" id="descricao"  formControlName="descricao"></editor>
+                                                    
+                      <div *ngIf="FormOrigem.get('descricao')?.invalid && FormOrigem.get('familia_crime_id')?.touched" 
+                           class="invalid-feedback">
+                        Selecione uma família de crime válida.
+                      </div>
+                    </div>
+            
+                   
+                   
+                </fieldset>
+              </div>
+            
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button 
+                  type="submit" 
+                  class="btn btn-primary" 
+                  [disabled]="isLoading">
+                  
+                  <span *ngIf="isLoading" class="spinner-border spinner-border-sm"></span>
+                  {{ buscarId() ? 'Atualizar Registo' : 'Registar' }}
+                </button>
+              </div>
+            </form>
+            
+  </div>
+</div>
+</div>
+
+
+

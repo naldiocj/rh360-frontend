@@ -1,0 +1,83 @@
+.card {
+  width: 100%;
+  display: flex;
+  margin-bottom: 0px !important;
+}
+.card .card-body {
+  width: 100%;
+}
+.card .card-body .card-content {
+  width: 100%;
+  padding: 2rem;
+  margin: 0 auto;
+}
+
+img {
+  height: 300px;
+  width: 100%;
+}
+
+@media screen and (max-width: 992px) {
+  img {
+    height: 250px;
+    width: 250px;
+    margin: 0px auto;
+    display: block;
+  }
+}
+
+@media print {
+  img {
+    height: 250px;
+    width: 250px;
+    margin: 0px auto;
+    display: block;
+  }
+}
+
+.content-top {
+  background-color: var(--bg-color);
+  color: white;
+  height: 100%;
+}
+
+.label-text {
+  color: var(--white);
+}
+.content-text {
+  width: 100%;
+  text-align: center;
+  word-break: break-all;
+  word-wrap: break-word;
+  white-space: wrap;
+  font-size: 1rem;
+  font-weight: normal;
+  display: flex;
+  margin: 0.4rem auto;
+  justify-content: center;
+  padding: 0.4rem;
+}
+
+.content-bottom {
+  height: 100%;
+}
+
+.some-info {
+  width: 90%;
+  background: white;
+  color: var(--bg-color);
+  text-transform: uppercase;
+  transform: translateX(-30px);
+  padding: 0.8rem 0.4rem 0.4rem 2rem;
+  border-radius: 0px 0px 20px 0px;
+  left: 0px;
+  font-size: 0.9rem;
+  padding: 0.4rem;
+}
+
+
+.view-pdf{
+  border: none;
+  border-radius: 0px;
+  background-color: var(--bg-color);
+}

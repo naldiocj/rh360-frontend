@@ -1,0 +1,169 @@
+
+*{
+  text-transform: uppercase;
+}
+fieldset {
+  background-color: #eeeeee;
+}
+
+legend {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 5px 10px;
+}
+
+.header-ficha {
+width: 100%;
+background-color: var(--use-color);
+margin: 0 auto;
+padding: .8rem;
+color: var(--light-white);
+}
+
+.header-ficha h1 {
+font-size: 1.7vw;
+}
+
+.header-ficha h3 {
+font-size: 1.2vw;
+}
+th{
+background: var(--use-color);
+color: white;
+
+}
+
+
+td{
+text-align: left;
+}
+
+th{
+text-align: left;
+}
+
+.modal-fullscreen {
+  max-width: 100% !important;  /* Garante que o modal use toda a largura da tela */
+  width: 100% !important;       /* Garante que o modal use toda a largura da tela */
+  height: 70% !important;      /* Garante que o modal use toda a altura da tela */
+  margin: 0;                    /* Remove qualquer margem */
+  top: 0;                       /* Posiciona o modal no topo */
+  left: 0;                      /* Posiciona o modal à esquerda */
+}
+
+.secand-modal {
+  z-index: 1050; /* Certifique-se de que o z-index é alto o suficiente */
+}
+
+
+.event-title {
+  font-weight: bold; /* Negrito para o título */
+  font-size: 1.1em; /* Tamanho da fonte do título */
+}
+
+.description {
+  font-style: italic; /* Itálico para a descrição */
+  color: #555; /* Cor da descrição */
+}
+
+.pendente {
+  color: orange; /* Cor do texto para status pendente */
+  font-weight: bold; /* Negrito para o status pendente */
+}
+
+
+.licenca-selecionada {
+  font-size: 18px; /* Aumenta o tamanho da fonte para um tamanho acessível */
+  font-weight: bold; /* Torna o texto mais forte e visível */
+  color: #333333; /* Cor do texto (um tom escuro para boa legibilidade) */
+  background-color: #f0f4f8; /* Fundo claro e suave para dar contraste */
+  padding: 15px; /* Espaçamento interno para dar respiro ao texto */
+  border-radius: 10px; /* Bordas arredondadas para suavizar o visual */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombras suaves para criar um efeito elevado */
+  text-align: center; /* Centraliza o texto */
+  max-width: 80%; /* Limita a largura para manter o design responsivo */
+  margin: 20px auto; /* Alinha o elemento no centro com espaçamento superior e inferior */
+}
+
+p {
+  font-size: 14px; /* Aumenta o tamanho da fonte para um tamanho acessível */
+  font-weight: bold; /* Torna o texto mais forte e visível */
+  color: #333333; /* Cor do texto (um tom escuro para boa legibilidade) */
+  background-color: #f0f4f8; /* Fundo claro e suave para dar contraste */
+  padding: 15px; /* Espaçamento interno para dar respiro ao texto */
+  border-radius: 10px; /* Bordas arredondadas para suavizar o visual */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombras suaves para criar um efeito elevado */
+  text-align: center; /* Centraliza o texto */
+  max-width: 80%; /* Limita a largura para manter o design responsivo */
+  margin: 20px auto; /* Alinha o elemento no centro com espaçamento superior e inferior */
+}
+
+/* Estilo geral da descrição */
+.description {
+  padding: 10px;
+  border-radius: 5px; /* Bordas arredondadas */
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.custom-link {
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: 500; /* Fonte mais forte para parecer um botão */
+  transition: all 0.3s ease; /* Para efeito suave ao passar o mouse */
+}
+
+.custom-link:hover {
+  color: #007bff; /* Cor do texto ao passar o mouse (Bootstrap's primary color) */
+  text-decoration: none; /* Retirar o sublinhado ao passar o mouse */
+  background-color: rgba(0, 123, 255, 0.1); /* Efeito de fundo ao passar o mouse */
+  border-radius: 4px; /* Deixa os cantos arredondados no hover */
+}
+
+.card {
+  background-color: #f8f9fa; /* Cor de fundo para a card */
+  border: none; /* Remover borda */
+}
+
+.container {
+  max-width: 250px; /* Largura máxima para responsividade */
+}
+
+
+.modal-content {
+  border-radius: 15px;
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+
+.modal-footer {
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  background-color: #f8f9fa;
+}
+
+.modal-body {
+  font-size: 16px;
+}
+
+.textarea-modal {
+  width: 100%;
+  min-height: 150px;
+  border-radius: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  resize: vertical;
+}
+
+
+
+.btn-outline-secondary {
+  border-radius: 20px;
+}
+
+.modal-dialog {
+  max-width: 800px;
+  margin: 30px auto;
+}

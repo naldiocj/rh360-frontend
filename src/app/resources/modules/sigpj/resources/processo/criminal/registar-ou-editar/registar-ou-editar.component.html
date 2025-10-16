@@ -1,0 +1,142 @@
+<!-- Início das tabs -->
+<div class="content">
+  <div style="margin-top: -19px;" class="row">
+    <div style="margin-left: 24px;" class="col-sm-12">
+
+    </div>
+    <br>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-8 offset-lg-2">
+      <h4 style="color: #002d54;" class="page-title"> <b>Cadastrar Funcionário da PNA</b></h4>
+      <p>Os campos com (<span id="ob"><b>*</b></span>) são de carácter obrigatório </p>
+    </div>
+  </div>
+
+  <div class="col-lg-8 offset-lg-2">
+    <nav>
+      <div class="card">
+        <div class="card-header">
+          <div class="col-sm-6 pull pull-left" style="color: black; padding: 5px 5px 5px 5px">
+            Dados do arguido
+          </div>
+          <div class="col-sm-6 text-right pull-right">
+            <button class="btn btn-primary " type="button" data-toggle="modal" data-target="#modalAdicionarArguido"
+              aria-haspopup="true" aria-expanded="false">
+              Adicionar
+            </button>
+          </div>
+        </div>
+        <aside *ngIf="this.Funcionario.id; else verFuncionario">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-4">
+                <aside class="mb-1"><b>Gênero</b>: {{ this.Funcionario.genero == 'M'? 'Masculino':'Feminino' }} <br />
+                </aside>
+                <aside class="mb-1"><b>NIP</b>: {{ this.Funcionario.nip }}<br /></aside>
+              </div>
+              <div class="col-md-8">
+                <aside class="mb-1"><b>Nome</b>: {{ this.Funcionario.nome_completo }} <br /></aside>
+                <aside class="mb-1"><b>Patente</b>: {{ this.Funcionario.patente_nome }}<br /></aside>
+              </div>
+            </div>
+          </div>
+        </aside>
+        <ng-template #verFuncionario>
+          <div class="card-body text-center">
+            <aside class="mb-1">Sem arguido</aside>
+          </div>
+        </ng-template>
+      </div>
+    </nav>
+
+    <form [formGroup]="disciplinarForm">
+      <div class="row">
+        <div class="col-lg-4 col-md-4">
+          <label><b>Nº do processo </b><span class="text-danger">*</span></label>
+          <input style="width: 172px;" type="number" id="name" class="form-control" required formControlName="processo">
+        </div>
+
+        <div class="col-lg-4 col-md-4">
+          <label><b>Nº do Ofício </b><span class="text-danger">*</span></label>
+          <input style="width: 172px;" type="number" id="name" class="form-control" required formControlName="oficio">
+        </div>
+
+        <div class="col-md-4">
+          <label><b>Orgão </b><span class="text-danger">*</span></label>
+          <ng-select2 [options]="options" formControlName="orgao" [data]="this.orgaos">
+          </ng-select2>
+        </div>
+      </div>
+
+      <div class="mt-3">
+        <label><b>Infração</b></label>
+        <textarea class="form-control" required formControlName="infracao"> </textarea>
+      </div>
+
+      <div class="mt-0 all">
+        
+        <div class="form-group">
+          <label><b>Carregar processo</b></label>
+          <div class="profile-upload">
+            <div class="upload-img">
+              <img alt="" src="assets/img/user.jpg">
+            </div>
+            <div class="upload-input">
+              <input type="file" class="form-control">
+            </div>
+          </div>
+        </div>
+
+        <button id="bookreset" class="btn btn-primary submit-btn ml-2" style="margin-top: 10px;">
+          <a style="text-decoration: none;color: white;" (click)="registrar()">Registar</a>
+        </button>
+
+      </div>
+
+    </form>
+  </div>
+</div>
+
+
+<div class="modal fade" id="modalAdicionarArguido" aria-labelledby="modalAdicionarArguido" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="overflow-y: hidden; min-width: 25%">
+    <div class="modal-content">
+
+
+      <div class="content">
+        <form [formGroup]="this.simpleForm">
+          <div class="modal-body">
+            <div class="row">
+
+              <div class="form-group col-md-12">
+                <label>
+                  <b>
+                    Arguido
+                    <span class="text-danger"> *</span>
+                  </b>
+                </label>
+                <ng-select2 [options]="options" formControlName="Funcionario_id" [data]="this.funcionarios">
+                </ng-select2>
+              </div>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-danger btn-square" type="reset" (click)="this.reiniciarFormulario()">
+              <span class="fa fa-refresh"></span> Limpar
+            </button>
+
+            <button id="bookreset" (click)="onSubmit()" class="btn btn-primary btnRegistar">
+              <i class="fa fa-plus-circle"></i>
+              Adicionar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- modal gerar credencial -->
+</div>

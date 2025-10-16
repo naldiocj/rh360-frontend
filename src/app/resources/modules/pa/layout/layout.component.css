@@ -1,0 +1,17 @@
+.pa:root{
+    scroll-behavior: smooth;
+    --mainColor: #041B4E;
+    --secondColor: #041B4E;
+
+  }
+
+  /* .pa
+  {
+    background-image: url('../../../../../assets/img/water_mark.png');
+    background-position: center;
+    background-size: 45vw;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+  }
+
+ */

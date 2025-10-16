@@ -1,0 +1,109 @@
+<div class="modal fade" id="offModal">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title d-flex align-items-center">
+            <i
+              class="bx bx-power-off mt-1"
+              [style]="{ color: 'var(--bgColor)', fontSize: '1.6rem' }"
+            ></i>
+            Terminar sessão
+          </h5>
+          <button
+            type="button"
+            [style]="{
+              border: 'none',
+              cursor: 'pointer',
+              backgroundColor: 'unset'
+            }"
+            data-bs-dismiss="modal"
+          >
+            <i
+              class="bx bx-x"
+              [style]="{ fontSize: '1.6rem', color: 'var(--bgColor)' }"
+            ></i>
+          </button>
+        </div>
+        <div class="modal-body d-flex flex-column">
+          <span class="text-center"> Deseja terminar sessão? </span>
+          <div class="btn-group w-75 m-auto d-flex">
+            <button
+              type="button"
+              class="mx-2 btn btn-primary py-2 rounded"
+              #btnLogout
+            >
+              Sim
+            </button>
+            <button
+              type="button"
+              class="mx-2 btn btn-red py-2 rounded"
+              data-bs-dismiss="modal"
+            >
+              Não
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="dropdown">
+    <div class="row">
+      <div class="col-12">
+        <button
+          type="button"
+          data-bs-toggle="dropdown"
+          class="d-flex align-items-center btn-toggle-user"
+          (click)="toggleChevron($event)"
+        >
+          <span class="d-lg-block d-none">{{ username }}</span>
+          <div class="user">
+            <ng-container *ngIf="image; else notImage">
+              <img
+                [src]="image"
+                alt="user profile"
+                rel="preferred"
+                [style]="{ width: '100%', height: '100%', borderRadius: '50%' }"
+              />
+            </ng-container>
+            <ng-template #notImage>
+              <div class="bx bx-user"></div>
+            </ng-template>
+            <div class="dot-online"></div>
+          </div>
+          <i class="bx bx-chevron-down" [style]="{fontSize:'30px'}"></i>
+        </button>
+        <ul class="dropdown-menu py-0 my-2">
+          <li>
+            <a routerLink="/admin-system/profile" class="dropdown-item">
+              <i class="bx bx-user"></i>
+              Perfil
+            </a>
+          </li>
+          <li>
+            <a routerLink="/admin-system/setting" class="dropdown-item">
+              <i class="bx bx-cog"></i>
+              Definição e Privacidade
+            </a>
+          </li>
+          <li>
+            <a routerLink="/admin-system/help" class="dropdown-item">
+              <i class="bx bx-question-mark"></i>
+              Centro de ajuda
+            </a>
+          </li>
+          <li>
+            <a
+              class="dropdown-item"
+              data-bs-toggle="modal"
+              data-bs-target="#offModal"
+            >
+              <i class="bx bx-power-off"></i>
+              Terminar sessão
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  

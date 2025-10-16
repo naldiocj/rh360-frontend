@@ -1,0 +1,143 @@
+<main style="width:100%;margin-left:0% " id="main">
+    <div class="modal fade " id="delete-modal " style="border-radius: unset; ">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-ms ">
+            <div class="modal-content ">
+                <div class="modal-header ">
+                    <div class="modal-title w-100 d-flex justify-content-between align-items-center ">
+                        Eliminação de Calibre
+                        <a data-dismiss="modal " class="bi bi-x-lg text-danger " style="cursor: pointer; "></a>
+                    </div>
+                </div>
+                <div class="modal-body text-center " style="font-size:16px; color: #041b43; ">
+                    <span>Confirmas a eliminação ?</span>
+                    <div class="btn-groups my-2 ">
+                        <a class="btn btn-link " style="text-decoration: none; color: #041b43; " (click)="this.delete() ">Sim</a>
+                        <div class="btn btn-link " data-dismiss="modal " style="text-decoration: none; color: #041b43; ">Não
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="w-100 " style="height: 60px;width: 100vh ">
+
+        <h2 class="header-text ">
+            Listagem de Guia gerados </h2>
+        <br>
+        <div class="row">
+            <nav class="navbar navbar-light bg-transparent">
+                <form class="form-inline">
+                    <select class="form-control mr-sm-1" (ngModelChange)="filtrarPagina('perPage',$event)">
+                        <option *ngFor="let item of [10,20,50,100]" [value]="item">{{item}}</option>
+                    </select>
+                    <input class="form-control mr-sm-1" type="search" placeholder="Pesquisa ..." name="search" [(ngModel)]="filtro.search" (ngModelChange)="filtrarPagina('search',$event)" />
+
+                    <button id="btpe1" class="btn btn-outline-success my-2 my-sm-0" (click)="recarregarPagina()"><i
+                            style="font-size: 14px;" class="fa fa-refresh fa-spin fa-3x fa-fw"></i><b>
+                            Recarregar</b>
+                    </button>
+                </form>
+            </nav>
+        </div>
+
+        <table class="table table-striped shadow table-responsive-lg text-center align-items-center ">
+            <thead class="col-12 " style="width: 100%; ">
+                <tr class="w-100 ">
+                    <th>ID</th>
+                    <th>Nome completo</th>
+                    <th>Numero de Guia</th>
+                    <th>Data de criaçao</th>
+                    <th>Opçoes</th>
+                </tr>
+            </thead>
+            <tbody class="col-12 ">
+                <tr *ngFor="let i of items | paginate: { itemsPerPage: this.pagination.per_page, currentPage: this.pagination.current_page,totalItems: this.pagination.total}; index as e ">
+                    <td> {{e+1}} </td>
+                    <td> {{i.nome}} </td>
+                    <td>{{i.num_guia}} </td>
+                    <td>{{i.createdAt}} </td>
+                    <td class="text-center">
+                        <div class="dropdown dropdown-action">
+                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                            <div class="dropdown-menu dropdown-menu-right">
+
+                                <a class="dropdown-item d-none" data-toggle="modal" data-target="#actualizar"><i
+                                        class="fa fa-pencil m-r-5"></i>
+                                    Editar</a>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete-modal" (click)="setId(i.id)"><i class="fa fa-trash-o m-r-5"></i> Eliminar</a>
+
+
+                                <a class="dropdown-item" data-toggle="modal" data-target="#ver" (click)="setItems(i)">
+                                    <i class="bi bi-box-arrow-in-up"></i> visualizar</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+            <br>
+        </table>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-sm-6">
+                    Mostrando de {{ this.pagination.current_page }} á {{ this.pagination.per_page }} de {{ this.pagination.total }} Registo
+                </div>
+                <div class="col-sm-6">
+                    <div class="float-right">
+                        <pagination-controls (pageChange)="this.filtrarPagina('page', $event)" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <div class="modal" id="ver">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Detalhes sobre o alocado</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="modal-body">
+                        <div class="card-header row bg-primary text-light align-center w-100" style="margin-left: 19.5px;">
+
+
+                            Detalhes do Usuário
+                        </div>
+                        <ul class="border-0 row  text-dark m-t-10" style="font-weight: 600;">
+
+                            <li class="list-group-item w-100 d-flex justify-content-center align-center">
+                                <div style="width: 50%;height:200px;" class="rounded-2">
+                                    <img src="" style="width: 100%;height:100%;background-color: #041b43;" alt="">
+                                </div>
+                            </li>
+                            <li class="list-group-item w-100">Nome Completo:{{showItems?.nome}}</li>
+                            <li class="list-group-item w-100">Orgao:{{showItems?.orgao}}</li>
+                            <li class="list-group-item w-100">Nº Guia:{{showItems?.num_guia}}</li>
+                            <li class="list-group-item w-100">Data Criaçao:{{showItems?.createdAt}}</li>
+
+
+
+                        </ul>
+
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-primary w-50" data-dismiss="modal">Ok</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+</main>

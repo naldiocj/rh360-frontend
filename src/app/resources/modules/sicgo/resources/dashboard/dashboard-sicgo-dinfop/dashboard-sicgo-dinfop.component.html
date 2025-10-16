@@ -1,0 +1,425 @@
+<div class="parent">
+     
+    <div class="item2">
+       
+      <!-- Select para escolher a província -->
+      <div class="select-province">
+          <!-- <label for="provincia">Escolha uma província:</label> -->
+          <!-- <select id="provincia" [(ngModel)]="selectedProvincia" (change)="onProvinciaChange(selectedProvincia)">
+  <option *ngFor="let provincia of provincias" [value]="provincia">{{ provincia }}</option>
+</select> -->
+
+
+          <!-- <div class="select-province">
+  <label for="provincia">Escolha uma província:</label>
+  <ng-select2
+class="custom-border ng-select-container"
+[(ngModel)]="selectedProvincia"
+[options]="this.options"
+[data]="this.provincias"
+[placeholder]="'Selecione uma província'" 
+(change)="onProvinciaChange(selectedProvincia)">
+</ng-select2>
+</div> -->
+      </div>
+      <div style="display: block; width:100%; margin: auto;">
+
+
+          <canvas id="pieChart"></canvas>
+
+        </div>
+
+       
+         <!-- Dados dinâmicos -->
+         <div
+         style="border-radius: 15px;"
+         class="bg-light d-flex rounded-6 p-3 mt-12 justify-content-between align-items-center brd"
+     >
+         <div></div>
+
+
+         <div>
+             <h4
+                 class="font-weight-bold text-end"
+                 style="font-size: 2.0rem; color: #041B4E;"
+             >
+                 {{ total }}
+             </h4>
+             <p
+                 class="text-muted small mb-0"
+                 style="color: #041B4E;"
+             >
+                 + {{ porcentagemDelituosos + porcentagemSuspeitos }}
+             </p>
+         </div>
+     </div>
+
+    </div>
+     
+    <div class="item6">
+      <section class="section dashboard">
+        <div class="row">
+           
+            <div class="col-lg-11 ml-5 mt-5">
+             
+
+                <div class="row">
+
+
+                    <div
+                        class="col-xl-4 col-lg-4 col-md-5 col-sm-10"
+                        style="border-radius: 20px;"
+                    >
+                        <div
+                            class="card"
+                            style="border-radius: 15px; padding: 16px; box-shadow: 0px 0px 15px 2px rgb(222, 222, 222);"
+                        >
+                            <a routerLink="/piips/sicgo/dinfop/delituosos">
+                                <div class="d-flex justify-content-between align-items-center gap-3">
+                                    <!-- Ícone -->
+                                    <div
+                                        class="rounded-circle bg-light d-flex align-items-center justify-content-center"
+                                        style="width: 40px; height: 40px;"
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="40"
+                                            height="40"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <rect
+                                                width="24"
+                                                height="24"
+                                                fill="none"
+                                            ></rect>
+                                            <path
+                                                fill="currentColor"
+                                                d="M20.94 22H3.06a1 1 0 0 1-.994-1.108a9.995 9.995 0 0 1 19.868 0A1 1 0 0 1 20.94 22"
+                                                opacity="0.7"
+                                            ></path>
+                                            <path
+                                                fill="currentColor"
+                                                d="m12.708 18.307l4.706-4.715a10 10 0 0 0-10.833.003l4.712 4.712A1 1 0 0 0 12 18.6a1 1 0 0 0 .708-.293"
+                                                opacity="0.45"
+                                            ></path>
+                                            <path
+                                                fill="currentColor"
+                                                d="M11.995 14a6 6 0 1 1 6-6a6.007 6.007 0 0 1-6 6"
+                                                opacity="0.45"
+                                            ></path>
+                                            <path
+                                                fill="currentColor"
+                                                d="M6.09 9a5.993 5.993 0 0 0 11.82 0Z"
+                                            ></path>
+                                        </svg>
+                                    </div>
+                                    <!-- Informações alinhadas à direita -->
+                                    <div class="ms-auto text-end">
+                                        <h5
+                                            class="mb-1"
+                                            style="font-size: 1rem; color: #041B4E;"
+                                        >
+                                            Registo de Suspeitos
+                                        </h5>
+                                        <p class="text-muted small mb-0">Dados Fornecidos pelo Sistema</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="ml-5  mt-3 justify-content-between align-items-center">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="135"
+                                    height="135"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <rect
+                                        width="24"
+                                        height="24"
+                                        fill="none"
+                                    ></rect>
+                                    <path
+                                        fill="currentColor"
+                                        d="M20.94 22H3.06a1 1 0 0 1-.994-1.108a9.995 9.995 0 0 1 19.868 0A1 1 0 0 1 20.94 22"
+                                        opacity="0.7"
+                                    ></path>
+                                    <path
+                                        fill="currentColor"
+                                        d="m12.708 18.307l4.706-4.715a10 10 0 0 0-10.833.003l4.712 4.712A1 1 0 0 0 12 18.6a1 1 0 0 0 .708-.293"
+                                        opacity="0.45"
+                                    ></path>
+                                    <path
+                                        fill="currentColor"
+                                        d="M11.995 14a6 6 0 1 1 6-6a6.007 6.007 0 0 1-6 6"
+                                        opacity="0.45"
+                                    ></path>
+                                    <path
+                                        fill="currentColor"
+                                        d="M6.09 9a5.993 5.993 0 0 0 11.82 0Z"
+                                    ></path>
+                                </svg>
+                            </div>
+                            <!-- Dados dinâmicos -->
+                            <div
+                                style="border-radius: 15px;"
+                                class="bg-light rounded-6 p-3 mt-12 d-flex justify-content-between align-items-center brd"
+                            >
+                                <div></div>
+                                <div>
+                                    <h4
+                                        class="font-weight-bold text-end"
+                                        style="font-size: 2.2rem; color: #041B4E;"
+                                    >
+                                        {{ totalSuspeitos }}
+                                    </h4>
+                                    <p
+                                        class="text-muted small mb-0"
+                                        style="color: #041B4E;"
+                                    >
+                                        + {{ porcentagemSuspeitos }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div
+                        class="col-xl-4 col-lg-4 col-md-5 col-sm-10"
+                        style="border-radius: 20px;"
+                    >
+                        <div
+                            class="card"
+                            style="border-radius: 15px; padding: 16px; box-shadow: 0px 0px 15px 2px rgb(222, 222, 222);"
+                        >
+                            <a routerLink="/piips/sicgo">
+                                <div class="d-flex justify-content-between align-items-center gap-3">
+                                    <!-- Ícone -->
+                                    <div
+                                        class="rounded-circle bg-light d-flex align-items-center justify-content-center"
+                                        style="width: 40px; height: 40px;"
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="40"
+                                            height="40"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <rect
+                                                width="24"
+                                                height="24"
+                                                fill="none"
+                                            ></rect>
+                                            <path
+                                                fill="currentColor"
+                                                d="M17.998 8.064L6.003 8.11l-.277-3.325A3 3 0 0 1 8.17 1.482l.789-.143a17 17 0 0 1 6.086 0l.786.143a3 3 0 0 1 2.443 3.302Z"
+                                            ></path>
+                                            <path
+                                                fill="currentColor"
+                                                d="M6.009 8.109a5.994 5.994 0 0 0 11.984-.045Z"
+                                                opacity="0.45"
+                                            ></path>
+                                            <path
+                                                fill="currentColor"
+                                                d="m17.198 13.385l-4.49 4.49a1 1 0 0 1-1.415 0l-4.491-4.49a9.95 9.95 0 0 0-4.736 7.44a1 1 0 0 0 .994 1.108h17.88a1 1 0 0 0 .994-1.108a9.95 9.95 0 0 0-4.736-7.44"
+                                            ></path>
+                                            <path
+                                                fill="currentColor"
+                                                d="M15.69 12.654a6.01 6.01 0 0 1-7.381 0a10 10 0 0 0-1.507.73l4.491 4.492a1 1 0 0 0 1.414 0l4.491-4.491a10 10 0 0 0-1.507-.731Z"
+                                                opacity="0.7"
+                                            ></path>
+                                        </svg>
+                                    </div>
+                                    <!-- Informações alinhadas à direita -->
+                                    <div class="ms-auto text-end">
+                                        <h5
+                                            class="mb-1"
+                                            style="font-size: 1rem; color: #041B4E;"
+                                        >
+                                            Registo De Delituosos
+                                        </h5>
+                                        <p class="text-muted small mb-0">Dados Fornecidos pelo Sistema</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="ml-5 mt-3 justify-content-between align-items-center">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="135"
+                                    height="135"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <rect
+                                        width="24"
+                                        height="24"
+                                        fill="none"
+                                    ></rect>
+                                    <path
+                                        fill="currentColor"
+                                        d="M17.998 8.064L6.003 8.11l-.277-3.325A3 3 0 0 1 8.17 1.482l.789-.143a17 17 0 0 1 6.086 0l.786.143a3 3 0 0 1 2.443 3.302Z"
+                                    ></path>
+                                    <path
+                                        fill="currentColor"
+                                        d="M6.009 8.109a5.994 5.994 0 0 0 11.984-.045Z"
+                                        opacity="0.45"
+                                    ></path>
+                                    <path
+                                        fill="currentColor"
+                                        d="m17.198 13.385l-4.49 4.49a1 1 0 0 1-1.415 0l-4.491-4.49a9.95 9.95 0 0 0-4.736 7.44a1 1 0 0 0 .994 1.108h17.88a1 1 0 0 0 .994-1.108a9.95 9.95 0 0 0-4.736-7.44"
+                                    ></path>
+                                    <path
+                                        fill="currentColor"
+                                        d="M15.69 12.654a6.01 6.01 0 0 1-7.381 0a10 10 0 0 0-1.507.73l4.491 4.492a1 1 0 0 0 1.414 0l4.491-4.491a10 10 0 0 0-1.507-.731Z"
+                                        opacity="0.7"
+                                    ></path>
+                                </svg>
+                            </div>
+                            <!-- Dados dinâmicos -->
+                            <div
+                                style="border-radius: 15px;"
+                                class="bg-light rounded-6 p-3 mt-12 d-flex justify-content-between align-items-center brd"
+                            >
+                                <div></div>
+                                <div>
+                                    <h4
+                                        class="font-weight-bold text-end"
+                                        style="font-size: 2.2rem; color: #041B4E;"
+                                    >
+                                        {{ totalDelituosos }}
+                                    </h4>
+                                    <p
+                                        class="text-muted small mb-0"
+                                        style="color: #041B4E;"
+                                    >
+                                        + {{ porcentagemDelituosos }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div
+                    class="col-xl-4 col-lg-4 col-md-5 col-sm-10"
+                    style="border-radius: 20px;"
+                >
+                    <div
+                        class="card"
+                        style="border-radius: 15px; padding: 16px; box-shadow: 0px 0px 15px 2px rgb(222, 222, 222);"
+                    >
+                        <a routerLink="/piips/sicgo/grupos">
+                           
+             
+                            <div class="d-flex justify-content-between align-items-center gap-3">
+                                <!-- Ícone -->
+                                <div
+                                    class="rounded-circle bg-light d-flex align-items-center justify-content-center"
+                                    style="width: 40px; height: 40px;"
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="40"
+                                        height="40"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <rect
+                                            width="24"
+                                            height="24"
+                                            fill="none"
+                                        ></rect>
+                                        <path
+                                            fill="currentColor"
+                                            d="M17.998 8.064L6.003 8.11l-.277-3.325A3 3 0 0 1 8.17 1.482l.789-.143a17 17 0 0 1 6.086 0l.786.143a3 3 0 0 1 2.443 3.302Z"
+                                        ></path>
+                                        <path
+                                            fill="currentColor"
+                                            d="M6.009 8.109a5.994 5.994 0 0 0 11.984-.045Z"
+                                            opacity="0.45"
+                                        ></path>
+                                        <path
+                                            fill="currentColor"
+                                            d="m17.198 13.385l-4.49 4.49a1 1 0 0 1-1.415 0l-4.491-4.49a9.95 9.95 0 0 0-4.736 7.44a1 1 0 0 0 .994 1.108h17.88a1 1 0 0 0 .994-1.108a9.95 9.95 0 0 0-4.736-7.44"
+                                        ></path>
+                                        <path
+                                            fill="currentColor"
+                                            d="M15.69 12.654a6.01 6.01 0 0 1-7.381 0a10 10 0 0 0-1.507.73l4.491 4.492a1 1 0 0 0 1.414 0l4.491-4.491a10 10 0 0 0-1.507-.731Z"
+                                            opacity="0.7"
+                                        ></path>
+                                    </svg>
+                                </div>
+                                <!-- Informações alinhadas à direita -->
+                                <div class="ms-auto text-end">
+                                    <h5
+                                        class="mb-1"
+                                        style="font-size: 1rem; color: #041B4E;"
+                                    >
+                                        Registo De Grupos Criminosoa
+                                    </h5>
+                                    <p class="text-muted small mb-0">Dados Fornecidos pelo Sistema</p>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="ml-5 mt-3 justify-content-between align-items-center">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="105"
+                                height="105"
+                                viewBox="0 0 24 24"
+                            >
+                                <rect
+                                    width="24"
+                                    height="24"
+                                    fill="none"
+                                ></rect>
+                                <path
+                                    fill="currentColor"
+                                    d="M17.998 8.064L6.003 8.11l-.277-3.325A3 3 0 0 1 8.17 1.482l.789-.143a17 17 0 0 1 6.086 0l.786.143a3 3 0 0 1 2.443 3.302Z"
+                                ></path>
+                                <path
+                                    fill="currentColor"
+                                    d="M6.009 8.109a5.994 5.994 0 0 0 11.984-.045Z"
+                                    opacity="0.45"
+                                ></path>
+                                <path
+                                    fill="currentColor"
+                                    d="m17.198 13.385l-4.49 4.49a1 1 0 0 1-1.415 0l-4.491-4.49a9.95 9.95 0 0 0-4.736 7.44a1 1 0 0 0 .994 1.108h17.88a1 1 0 0 0 .994-1.108a9.95 9.95 0 0 0-4.736-7.44"
+                                ></path>
+                                <path
+                                    fill="currentColor"
+                                    d="M15.69 12.654a6.01 6.01 0 0 1-7.381 0a10 10 0 0 0-1.507.73l4.491 4.492a1 1 0 0 0 1.414 0l4.491-4.491a10 10 0 0 0-1.507-.731Z"
+                                    opacity="0.7"
+                                ></path>
+                            </svg>
+                        </div>
+                        <!-- Dados dinâmicos -->
+                        <div
+                            style="border-radius: 15px;"
+                            class="bg-light rounded-6 p-3 mt-12 d-flex justify-content-between align-items-center brd"
+                        >
+                            <div></div>
+                            <div>
+                                <h4
+                                    class="font-weight-bold text-end"
+                                    style="font-size: 2.2rem; color: #041B4E;"
+                                >
+                                {{ totalGrupos }}
+                                </h4>
+                                <p
+                                    class="text-muted small mb-0"
+                                    style="color: #041B4E;"
+                                >
+                                    + {{ porcentagemGrupos }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+ 
+            </div>
+        </div>
+    </section>
+    </div>
+    <!-- <div class="item7">Footer</div> -->
+  </div>

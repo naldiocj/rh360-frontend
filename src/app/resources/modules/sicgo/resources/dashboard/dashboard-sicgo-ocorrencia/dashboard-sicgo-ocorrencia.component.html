@@ -1,0 +1,167 @@
+<div class="the-page">
+  <div class="dashboard-container container-fluid">
+
+    <!-- Controles -->
+    <div class="row mb-3">
+      <div class="col-12">
+        <div class="chart-controls d-flex flex-wrap gap-2 align-items-center">
+          <button [class.active]="currentChartType === 'bar'" (click)="mudarTipoGrafico('bar')">
+            <i class="fas fa-chart-bar"></i> Graficos em Barras
+          </button>
+          <button [class.active]="currentChartType === 'line'" (click)="mudarTipoGrafico('line')">
+            <i class="fas fa-chart-line"></i> Graficos Linhas
+          </button>
+          <button [class.active]="currentChartType === 'pie'" (click)="mudarTipoGrafico('pie')">
+            <i class="fas fa-chart-pie"></i> Gráficos Setorial
+          </button>
+          <button class="btn btn-export excel" (click)="exportarExcel()" [disabled]="loading">
+            <i class="fas fa-file-excel"></i> {{ loading ? 'Gerando...' : 'Excel' }}
+          </button>
+          <button class="btn btn-export pdf" data-bs-toggle="modal" data-bs-target="#pdfModal" (click)="exportarPDF()" [disabled]="loading">
+            <i class="fas fa-file-pdf"></i> {{ loading ? 'Gerando...' : 'PDF' }}
+          </button>
+
+          <div class="data-type-selector d-flex flex-wrap gap-2 ms-3">
+            <button *ngFor="let tipo of dataTypes" [class.active]="currentDataType === tipo" (click)="selecionarTipoDados(tipo)">
+              {{ tipo | titlecase }}
+            </button>
+            <button (click)="resetarFiltros()">
+              <i class="fas fa-redo"></i> Resetar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Conteúdo principal -->
+    <div class="row">
+
+      <!-- Gráficos -->
+      <div class="col-12 col-lg-6 mb-4">
+        <div class="charts-container">
+
+          <!-- Gráfico de Barras -->
+          <div class="chart-wrapper" *ngIf="currentChartType === 'bar'">
+            <h5 class="text-uppercase mb-3"><i class="fas fa-chart-bar"></i> Gráfico de barras</h5>
+            <div class="chart-container"><canvas #chartCanvas></canvas></div>
+          </div>
+
+          <!-- Gráfico de Pizza -->
+          <div class="chart-wrapper" *ngIf="currentChartType === 'pie'">
+            <h5 class="text-uppercase mb-3"><i class="fas fa-chart-pie"></i> Gráfico de pizza</h5>
+            <div class="chart-container"><canvas #chartCanvasPie></canvas></div>
+          </div>
+
+           <!-- Gráfico de Linhas -->
+          <div class="chart-wrapper" *ngIf="currentChartType === 'line'">
+            <h5 class="text-uppercase mb-3"><i class="fas fa-chart-line"></i> Gráfico de pizza</h5>
+            <div class="chart-container"><canvas #chartCanvasLine></canvas></div>
+          </div>
+          <!-- Gráfico de Fim Linhas -->  
+          <!-- Total Geral -->
+          <div class="bg-light rounded-6 p-3 mt-4 d-flex justify-content-between align-items-center brd">
+            <div></div>
+            <div>
+              <h4 class="text-end fw-bold" style="font-size: 2rem; color: #041B4E;">
+                {{ dashboardData.totalGeral }}
+              </h4>
+              <p class="text-muted small mb-0">+ 00</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Filtros e Subtotais -->
+      <div class="col-12 col-lg-6 mb-4">
+        <!-- Filtros -->
+        <div class="filtros-section row g-3 mb-4">
+
+          <div class="col-10 col-md-10">
+            <label>Província</label>
+            <ng-select2 [options]="options" [data]="provincias" (valueChanged)="handlerProvincias($event)"></ng-select2>
+          </div>
+
+          <div class="col-10 col-md-10">
+            <label>Município</label>
+            <ng-select2 [options]="options" [data]="municipios" (valueChanged)="selecionarMunicipio($event)"></ng-select2>
+          </div>
+
+          <div class="col-10 col-md-10">
+            <label>Distrito</label>
+            <ng-select2 [options]="options" [data]="distritos" (valueChanged)="selecionarDistrito($event)"></ng-select2>
+          </div>
+
+          <div class="col-10 col-md-10">
+            <label>Data</label>
+            <input type="date" class="form-control" (change)="carregarDashboard()">
+          </div>
+
+        </div>
+
+        <!-- Subtotais -->
+        <h5 class="mb-3">SubTotais</h5>
+        <div class="row">
+          <div *ngFor="let key of getSubTotalKeys() | slice:0:displayedCards; trackBy: trackByKey" class="col-12 col-md-6 col-lg-4 mb-3">
+            <div class="card h-100">
+              <div class="card-body d-flex flex-column justify-content-between">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="me-2 text-end">
+                    <h6 class="mb-1 card-title" style="color: #041B4E;">{{ formatKeyName(key) }}</h6>
+                    <p class="text-muted small mb-0">Dados fornecidos pelo sistema</p>
+                  </div>
+                  <div style="width: 80px; height: 80px;">
+                    <canvas [id]="'subtotalChart-' + key"></canvas>
+                  </div>
+                </div>
+
+                <div class="bg-light rounded-6 p-2 mt-3 d-flex justify-content-between align-items-center brd">
+                  <div class="p-2"></div>
+                  <div>
+                    <h5 class="fw-bold text-end" style="color: #041B4E;">
+                      {{ dashboardData.subTotais[key]?.total || 0 }}
+                    </h5>
+                    <p class="text-muted small mb-0">{{ dashboardData.subTotais[key]?.percentual || '0%' }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Botão carregar mais -->
+          <div class="col-12 text-center mt-3">
+            <button class="btn btn-outline-primary" *ngIf="displayedCards < (dashboardData.subTotais | keyvalue).length" (click)="loadMore()">
+              Carregar mais
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading -->
+    <div *ngIf="loading" class="loading-overlay d-flex flex-column align-items-center justify-content-center">
+      <div class="spinner-border text-primary" role="status"></div>
+      <p class="mt-2">Carregando dados...</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal PDF -->
+<div class="modal fade" id="pdfModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="pdfModalLabel">Visualização do Relatório PDF</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body p-0" style="height: 80vh;">
+        <iframe *ngIf="pdfUrl" [src]="pdfUrl" width="100%" height="100%" style="border: none;"></iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        <a class="btn btn-success" [href]="pdfUrl" download="relatorio.pdf">Baixar PDF</a>
+      </div>
+    </div>
+  </div>
+</div>

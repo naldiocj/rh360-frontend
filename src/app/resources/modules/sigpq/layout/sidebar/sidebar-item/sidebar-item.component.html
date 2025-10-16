@@ -1,0 +1,21 @@
+<ul>
+  <a *ngIf="!item?.children?.length; else subMenu" [routerLink]="item?.url">
+    <i class="{{ item?.icon }}" style="font-size: 150%;"></i>
+    <span style="color: var(--secondary-color);">{{ item?.name }}</span>
+  </a>
+  <ng-template #subMenu>
+    <a href="javascript:void(0)" style="color: aliceblue;">
+      <i class="{{ item?.icon }}"><img style="width: 22px;" src="assets/img/cadastro.png" alt=""></i>
+      <span style="color: var(--secondary-color);">{{ item?.name }}</span><span class="menu-arrow"></span>
+    </a>
+    <ul style="display: none; background-color: #002d54; color: white;">dddd
+      <li *ngFor="let subItem of item?.children">
+        {{subItem|json}}
+        <!-- <a [routerLink]="subItem?.url">
+          <i><img style="width: 10px;" src="assets/img/circulo-white.png" alt=""></i>
+          <span><b style="color: var(--secondary-color);">{{ subItem?.name }}</b></span>
+        </a> -->
+      </li>
+    </ul>
+  </ng-template>
+</ul>

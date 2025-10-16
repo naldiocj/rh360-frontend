@@ -1,0 +1,37 @@
+<!-- <div class="projecto pb-5" (click)="redicionar(item)">
+   
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div class="box">
+
+                <img [src]="item?.logo" [alt]="item?.id" class="image-card-projecto">
+
+
+                <div class="box-image-content py-2"
+                    style="background-color: var(--light-white);">
+                    <div class="text-center nome-projecto" style="color:var(--bg-color)">{{item?.nome}}</div>
+                    <div class="text-center nome-projecto" style="color:var(--bg-color)">{{item?.sigla}}</div>
+                </div>
+            </div>
+
+        </div>
+
+
+</div> -->
+
+
+<div class="box" (click)="redicionar(item)">
+      
+            <div class="texto">
+
+                <div class="text-center nome-projecto" style="color: white">{{item?.sigla}}</div>
+                <div class="text-center nome-projecto" style="color: white">{{item?.nome}}</div>
+             
+            </div>
+
+</div>
+
+<div class="logo">
+
+    <img [src]="item?.logo" [alt]="item?.id" class="image-card-projecto">
+
+</div>

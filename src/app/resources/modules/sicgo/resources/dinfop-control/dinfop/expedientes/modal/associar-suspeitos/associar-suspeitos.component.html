@@ -1,0 +1,120 @@
+ 
+ <div class="modal fade" id="modalRegistarOuEditarAssociar" aria-labelledby="modalRegistarOuEditarAssociar" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-prima text-white">
+          <h4 class="modal-title"><b>Suspeitos</b></h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form>
+          <div class="modal-body">
+             
+              <div class="row ml-2">
+                    <div class="col-lg-12">
+                      <ng-container *ngIf="delituososSelecionados?.length === 0; else temAgentesSelecionados">
+                        <h5 class="text-danger">Nenhum delituoso selecionado <i class="fa fa-times"></i></h5>
+                      </ng-container>
+                      <ng-template #temAgentesSelecionados>
+                        <h5 class="text-success">
+                          {{ delituososSelecionados?.length }} {{ delituososSelecionados?.length === 1 ? 'Delituoso Selecionado' : 'Delituosos Selecionados' }} <i class="fa fa-check"></i>
+                        </h5>
+                      </ng-template>
+                    </div>
+                     
+                    <select id="perPageSelector" class="form-control mr-sm-1 col-1"
+                    (change)="filtrarPagina('perPage',$event)">
+                    <option *ngFor="let item of [5,10,20,50]" [value]="item">{{item}}</option>
+                  </select>
+                   
+                  <input class="form-control mr-sm-1 col-10" type="text" [ngModel]="filtro.search"
+                    (ngModelChange)="filtrarPagina('search',$event)" placeholder="Pesquisa ...">
+
+                    <button (click)="this.recarregarPagina()" class="btn input-filtro p-1  col-auto" type="button">
+                        <i style="font-size: 12px" class="fa fa-refresh fa-spin fa-3x fa-fw mr-2"></i>
+                      </button>
+
+                  </div>
+                   
+              <table class="table table-striped mt-2" #tableToPrint>
+                <thead class="table-thead">
+                  <tr>
+                    <th>#</th>
+                    <th>Código</th>
+                    <th>foto</th>
+                    <th>Nome</th>
+                    <th></th>
+                    <th></th>
+                    <th>Gênero</th> 
+                    <th>Idade</th> 
+                  </tr>
+                </thead>
+                <tbody class="table-tbody">
+                  <tr *ngFor="let item of delituosos  | paginate
+                  : {
+                      id: 'idDelituoso',
+                      itemsPerPage: this.pagination.per_page,
+                      currentPage: this.pagination.current_page,
+                      totalItems: this.pagination.total
+                    };
+              index as i">
+                    <td>
+                     <div class="checkboxes__item">
+                        <label class="checkbox style-c">
+                            <input
+                            title="f"
+                            type="checkbox"
+                            [id]="item.id"
+                            [(ngModel)]="item.selected"
+                            (change)="selecionarDelituosoParaExpediente(item.id)"
+                            [checked]="validarSelecionado(item.id)"
+                        >
+                          <div class="checkbox__checkmark hover:bg-muted-100 dark:hover:bg-muted-700/70"></div>
+                        </label>
+                      </div>
+                    </td>
+                    <td>{{ item.codigo_sistema }}</td>
+                    <td>
+                        <div class="avatars">
+                            <img  
+                                [src]="item.fileUrlFrontal || fotodfault"
+                                alt="Foto de {{ item.nome }}"
+                            >
+
+                        </div>
+                    </td>
+                    <td colspan="3">
+                      {{ item.nome | uppercase }}
+                    </td>
+                    <td>{{ item.genero }}</td>
+                     <td>
+                      {{calculateAge(item.dataNascimento)}}
+                      
+                      <div *ngIf="idade !== null">{{ idade }}</div>
+                    </td>
+                     
+                  </tr>
+                  <tr>
+                    <td colspan="9">
+                       
+                        <pagination-controls id="idDelituoso" (pageChange)="this.filtrarPagina('page', $event)"
+                        [directionLinks]="true" [autoHide]="true" previousLabel="Anterior" nextLabel="Próximo" [maxSize]="4"
+                        [responsive]="true"></pagination-controls>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+               
+             
+          </div>
+  
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            <button type="submit" class="btn btn-primary" (click)="addDelituosoExpediente()">Associar ao Expediente</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  

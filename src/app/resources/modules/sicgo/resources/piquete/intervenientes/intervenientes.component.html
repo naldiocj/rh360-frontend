@@ -1,0 +1,179 @@
+<div
+    class="the-page"
+    class="main_"
+    id="main_"
+>
+    <div class="page__frame">
+        <div class="page-tab-header d-flex d-flex flex-column flex-lg-row align-items-center justify-content-between">
+            <div class="col-4 col-lg-4 col-md-4 mt-2">
+                <div class="d-flex">
+                    <div class="col">
+                        <div class="avatars avatars-xl text-primary">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="35"
+                                height="35"
+                                viewBox="0 0 24 24"
+                            >
+                                <rect
+                                    width="24"
+                                    height="24"
+                                    fill="none"
+                                ></rect>
+                                <path
+                                    fill="#c8c7c6"
+                                    fill-rule="evenodd"
+                                    d="M14 22h-4c-3.771 0-5.657 0-6.828-1.172S2 17.771 2 14v-4c0-3.771 0-5.657 1.172-6.828S6.239 2 10.03 2c.606 0 1.091 0 1.5.017q-.02.12-.02.244l-.01 2.834c0 1.097 0 2.067.105 2.848c.114.847.375 1.694 1.067 2.386c.69.69 1.538.952 2.385 1.066c.781.105 1.751.105 2.848.105h4.052c.043.534.043 1.19.043 2.063V14c0 3.771 0 5.657-1.172 6.828S17.771 22 14 22"
+                                    clip-rule="evenodd"
+                                    opacity="0.7"
+                                    stroke-width="0.1"
+                                    stroke="#f7f7f7"
+                                ></path>
+                                <path
+                                    fill="#c8c7c6"
+                                    d="M6 13.75a.75.75 0 0 0 0 1.5h8a.75.75 0 0 0 0-1.5zm0 3.5a.75.75 0 0 0 0 1.5h5.5a.75.75 0 0 0 0-1.5zm5.51-14.99l-.01 2.835c0 1.097 0 2.066.105 2.848c.114.847.375 1.694 1.067 2.385c.69.691 1.538.953 2.385 1.067c.781.105 1.751.105 2.848.105h4.052q.02.232.028.5H22c0-.268 0-.402-.01-.56a5.3 5.3 0 0 0-.958-2.641c-.094-.128-.158-.204-.285-.357C19.954 7.494 18.91 6.312 18 5.5c-.81-.724-1.921-1.515-2.89-2.161c-.832-.556-1.248-.834-1.819-1.04a6 6 0 0 0-.506-.154c-.384-.095-.758-.128-1.285-.14z"
+                                    stroke-width="0.1"
+                                    stroke="#f7f7f7"
+                                ></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 infor-top-o mt-2">
+                        <h3 class="fs-4 mb-0">intervenientes</h3>
+                        <span class="text-body-secondary">Listagem de intervenientes</span>
+                    </div>
+
+
+
+                </div>
+                <div class="col-12 mt-3 d-flex justify-content-between  justify-content-lg-start">
+                    <div
+                        class="custom-radius btn-group"
+                        role="group"
+                        aria-label="Basic example"
+                    >
+
+
+
+
+                        <select
+                            title="kivova"
+                            class="w-20s btn input-select"
+                             
+                        >
+                            <option
+                                *ngFor="let item of [5, 10, 20, 50]"
+                                [value]="item"
+                            >
+                                {{ item }}
+                            </option>
+                        </select>
+                        <button
+                            class="btn input-buscar w-30s"
+                            type="button"
+                        >
+                            <i class="bi bi-search"></i>
+                        </button>
+                        <input
+                            class="btn input-search"
+                            type="text"
+                            
+                            placeholder="Pesquisa ..."
+                        >
+
+
+                        
+
+
+
+
+
+
+
+                    </div>
+
+
+
+                </div>
+            </div>
+
+
+
+            <nav class="navigations  align-items-center justify-content-center justify-content-lg-start">
+
+
+
+                <ul
+                    class="nav navigation-menu nav-tabes"
+                    id="navigationMenu"
+                >
+
+
+
+                    <li
+                        class="nav-item  "
+                        *ngFor="let tab of Nav"
+                        [ngClass]="{ 'active': tab.selected }"
+                        (click)="onTabClick(tab)"
+                    >
+                        <a
+                            class="nav-link active nav-tab nav-links t--tab"
+                            [ngClass]="{ 'active': tab.selected }"
+                            [routerLink]="[tab.url]"
+                            routerLinkActive="active"
+                        >
+                            <i
+                                *ngIf="tab.icon"
+                                [class]="tab.icon + ' m-r-3'"
+                            ></i>
+                            {{ tab.label }}
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+
+
+        </div>
+    </div>
+
+
+
+
+    <section class="page__frame">
+        <div class="tab__content">
+            <main class="tab__main">
+
+
+
+                <router-outlet></router-outlet>
+            </main>
+        </div>
+    </section>
+</div>
+<!-- https://css-tricks.com/gooey-effect/ -->
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    version="1.1"
+>
+    <defs>
+        <filter id="goo">
+            <feGaussianBlur
+                in="SourceGraphic"
+                stdDeviation="10"
+                result="blur"
+            ></feGaussianBlur>
+            <feColorMatrix
+                in="blur"
+                mode="matrix"
+                values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
+                result="goo"
+            ></feColorMatrix>
+            <feBlend
+                in="SourceGraphic"
+                in2="goo"
+            ></feBlend>
+        </filter>
+    </defs>
+</svg>
+<!-- In your component.html -->

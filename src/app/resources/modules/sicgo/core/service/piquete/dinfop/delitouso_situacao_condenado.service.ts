@@ -1,0 +1,69 @@
+import { Injectable } from '@angular/core';
+import { ApiService } from '@core/providers/http/api.service';
+import { BaseService } from '@core/services/interfaces/BaseService.service';
+import { Observable, debounceTime, map } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class DinfopSituacaoCondenadoDelitousoService {
+
+
+  public api: string = '/api/v1/sicgo';
+  public base: string = this.api + '/dinfop_delitouso_condenado';
+
+  constructor(private httpApi: ApiService) {}
+
+
+  listar(): Observable<any> {
+    return this.httpApi.get(`${this.base}`).pipe(
+      debounceTime(500),
+      map((response: Object): any => {
+        return Object(response).object;
+      })
+    );
+  }
+
+  listarTodos(options: any): Observable<any> {
+    return this.httpApi
+        .get(this.base, options)
+        .pipe(
+            debounceTime(500),
+            map((response: any): any => {
+                return response.object;
+            })
+        );
+}
+  registar(formData: FormData): Observable<any> {
+    return this.httpApi.post(`${this.base}`, formData).pipe(
+      debounceTime(500),
+      map((response: Object): any => {
+        return Object(response).object;
+      })
+    );
+  }
+
+  editar(formulario: any, id: any): Observable<any> {
+    return this.httpApi
+      .put(`${this.base}/${id}`, formulario)
+      .pipe(
+        debounceTime(500),
+        map((response: any): any => {
+          return response.object;
+        })
+      );
+  }
+
+  eliminar(id: any): Observable<any> {
+    return this.httpApi
+      .delete(`${this.base}/${id}`)
+      .pipe(
+        debounceTime(500),
+        map((response: any): Object => {
+          return Object(response).object;
+        })
+      );
+  }
+}
+
+

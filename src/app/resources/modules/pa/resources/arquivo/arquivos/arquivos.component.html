@@ -1,0 +1,165 @@
+<div class="modal fade" id="delete-arquivo" style="border-radius: unset">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-ms">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div
+          class="modal-title w-100 d-flex justify-content-between align-items-center"
+        >
+          Remover meu arquivo
+          <a
+            data-dismiss="modal"
+            class="bi bi-x-lg text-danger"
+            style="cursor: pointer"
+          ></a>
+        </div>
+      </div>
+      <div
+        class="modal-body text-center"
+        style="font-size: 16px; color: #041b43"
+      >
+        <span>Confirmas a removação do arquivo ?</span>
+        <div class="btn-groups my-2">
+          <a
+            class="btn btn-link"
+            style="text-decoration: none; color: #041b43"
+            (click)="deleteArquivo(deleteById)"
+            >Sim</a
+          >
+          <div
+            class="btn btn-link"
+            data-dismiss="modal"
+            id="close-modal"
+            style="text-decoration: none; color: #041b43"
+          >
+            Não
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="mostrarArquivo"
+  aria-labelledby="modalPortalRegistarAcidente"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog modal-lg"
+    role="document"
+    style="overflow-y: hidden; min-width: 30%"
+  >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="title-header">Visualização de arquivo</h5>
+
+        <button
+          type="button"
+          class="close"
+          id="btn-close-modal"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" *ngIf="this.fileUrl">
+        <iframe [src]="this.fileUrl" class="iframe"></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-12">
+  <div class="card recent-sales overflow-auto" style="box-shadow: unset">
+    <div class="card-body">
+      <div
+        class="card-body-header d-flex justify-content-between align-items-center my-2"
+      >
+        <h5 class="card-title">Arquivo enviado para PDQ</h5>
+      </div>
+
+      <div class="table-responsive">
+        <nav class="navbar navbar-light bg-light">
+          <form class="form-inline">
+            <select
+              class="form-control mr-sm-1"
+              (change)="filtrarPagina('perPage', $event)"
+            >
+              <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">
+                {{ item }}
+              </option>
+            </select>
+            <input
+              class="form-control mr-sm-1"
+              type="text"
+              [ngModel]="filtro.search"
+              name="filtro.search"
+              (ngModelChange)="filtrarPagina('search', $event)"
+              placeholder="Pesquisa ..."
+            />
+            <button
+              (click)="this.recarregarPagina()"
+              id="btpe1"
+              class="btn btn-outline-success my-2 my-sm-0"
+              type="submit"
+            >
+              <i
+                style="font-size: 14px"
+                class="fa fa-refresh fa-spin fa-3x fa-fw"
+              ></i>
+              <b>Recarregar</b>
+            </button>
+          </form>
+        </nav>
+        <table class="table text-center mb-0">
+          <thead class="text-center">
+            <tr>
+              <th>ID</th>
+              <th>Descrição</th>
+              <th>Extensão</th>
+              <th>Data de carregamento</th>
+              <th class="text-center" colspan="2">Operação</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of this.arquivos">
+              <td>{{ item.id }}</td>
+              <td>{{ item.descricao }}</td>
+              <td>
+                [{{ this.getTipo(item?.tipo)?.toString()?.toUpperCase() }}]
+              </td>
+              <td>{{ item.createdAt }}</td>
+              <td>
+                <a
+                  (click)="verArquivo(item.arquivo)"
+                  href="#"
+                  class="dropdown-item"
+                  data-toggle="modal"
+                  [style.cursor]="'pointer'"
+                  data-target="#mostrarArquivo"
+                  ariaCurrentWhenActive="page"
+                  class="btn btn-outline-primary bi bi-eye-fill"
+                  title="Ver ficheiro"
+                ></a>
+              </td>
+              <!-- <td>
+                <a class="btn btn-outline-primary bi bi-download" (click)="this.download(item.arquivo,item.descricao)" title="Descarregar"></a>
+              </td> -->
+              <td>
+                <a
+                  (click)="setDeleteID(item.id)"
+                  data-toggle="modal"
+                  data-target="#delete-arquivo"
+                  class="btn btn-outline-danger bi bi-eraser-fill"
+                  title="Remover ficheiro"
+                ></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

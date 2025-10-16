@@ -1,0 +1,93 @@
+<div class="facial-registration-container">
+    <!-- Cabeçalho e Controles -->
+    <div class="controls-header">
+      <h2>Reconhecimento Facial Inteligente</h2>
+      <div class="mode-selector">
+        <button (click)="activeFeature = 'detection'" [class.active]="activeFeature === 'detection'">
+          Detecção
+        </button>
+        <button (click)="activeFeature = 'emotion'" [class.active]="activeFeature === 'emotion'">
+          Emoções
+        </button>
+        <button (click)="activeFeature = 'demographics'" [class.active]="activeFeature === 'demographics'">
+          Demografia
+        </button>
+        <button (click)="activeFeature = 'recognition'" [class.active]="activeFeature === 'recognition'">
+          Reconhecimento
+        </button>
+      </div>
+    </div>
+  
+    <!-- Área Principal -->
+    <div class="main-content d-flex">
+      <!-- Visualização da Câmera -->
+      <div class="camera-section">
+        <div class="video-container"> 
+          <video autoplay muted playsinline #videoContainer id="video"></video>
+          <div #canvas id="canvasEL"></div>
+          <div class="guidance-overlay" *ngIf="isGuiding">
+            <div class="guidance-text">{{ guidanceText }}</div>
+            <div class="guidance-arrow" [ngClass]="guidanceDirection"></div>
+          </div>
+        </div>
+  
+        <!-- Controles da Câmera -->
+        <div class="camera-controls">
+          <button (click)="toggleCamera()">
+            {{ isCameraActive ? 'Desligar Câmera' : 'Ligar Câmera' }}
+          </button>
+          
+        </div>
+      </div>
+  
+      <!-- Painel de Resultados -->
+      <div class="results-panel">
+        <!-- Dados em Tempo Real -->
+        <div class="real-time-data" *ngIf="activeFeature !== 'recognition'">
+          <h3>Análise em Tempo Real</h3>
+          <div class="data-grid">
+            <div class="data-item" *ngIf="detectedAge">
+              <span class="label">Idade:</span>
+              <span class="value">{{ detectedAge }} anos</span>
+            </div>
+            <div class="data-item" *ngIf="detectedGender">
+              <span class="label">Gênero:</span>
+              <span class="value">{{ detectedGender }}</span>
+            </div>
+            <div class="data-item" *ngIf="detectedEmotion">
+              <span class="label">Emoção:</span>
+              <span class="value">{{ detectedEmotion }}</span>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Resultados do Reconhecimento -->
+        <div class="recognition-results" *ngIf="activeFeature === 'recognition'">
+          <h3>Resultados do Reconhecimento</h3>
+          <div class="match-indicator" [class.matched]="isFaceMatched">
+            <div class="confidence-level" [style.width.%]="matchConfidence"></div>
+            <span class="confidence-text">
+              {{ isFaceMatched ? 'Correspondência Encontrada' : 'Nenhuma Correspondência' }}
+            </span>
+          </div>
+          <div class="match-details" *ngIf="isFaceMatched">
+            <div class="detail-item">
+              <span class="label">Confiança:</span>
+              <span class="value">{{ matchConfidence | number:'1.0-2' }}%</span>
+            </div>
+            <!-- Adicionar mais detalhes da correspondência aqui -->
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Rodapé e Ações -->
+    <div class="actions-footer">
+      <button class="primary-action"  [disabled]="capturedImages.length < 4">
+        Finalizar Registro
+      </button>
+      <button class="secondary-action" >
+        Reiniciar Processo
+      </button>
+    </div>
+  </div>

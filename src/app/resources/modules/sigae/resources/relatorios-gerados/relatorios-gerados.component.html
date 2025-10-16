@@ -1,0 +1,99 @@
+<main class="main_" id="main_">
+
+    <div class="b">
+
+        <div class="sub">
+
+
+            <br>
+            <h5 class="sub-til"><img src="https://img.icons8.com/ios-filled/55/041b48/slice.png" alt="ic"> Relatórios&nbsp; | &nbsp; Gerar
+                <h5 class="subtitle">
+                    <b>SIGAE</b> Sistema de Gestão - de Armas e Explosivos
+                </h5>
+            </h5>
+        </div>
+        <div class="col w-100 d-grid justify-content-center ">
+            <div class="row tb w-100">
+                <h2 class="text-primary sub-til ttb align-center" style="font-size: 23px;">Relatórios&nbsp; | &nbsp; Gerar</h2>
+                <hr>
+
+
+                <table class="col m-l-10  d-grid justify-content-center" style="align-items: center;">
+                    <tr class="row " style="width:90%;padding-top:10px;font-size:18px;text-align:center;border: solid 1px #ccc;border-radius:8px;height: 50px;margin-left: auto; margin-right:auto">
+                        <th class="col">ID</th>
+                        <th class="col">Gerado Por</th>
+                        <th class="col">Data de Registro </th>
+                        <th class="col">Operações</th>
+
+                    </tr>
+
+                    <tr class="d-flex justify-content-center" style="align-items: center;width:90%;font-size:15px;height: 50px; text-align:center;margin-left: auto; margin-right:auto" *ngFor="let item of relatorio">
+                        <td class="col">{{item.id}}</td>
+                        <td class="col">{{item.criador}}</td>
+                        <td class="col">{{item.createdAt}}</td>
+                        <td class="col">
+                            <div class="dropdown dropdown-action">
+                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <!-- <a class="dropdown-item" href="profile.html"><i class="fa fa-eye m-r-5"></i>
+                    Visualizar</a> -->
+                                    <a class="dropdown-item" data-toggle="modal" data-target="#actualizar" href="#" (click)="this.setId(item)" *ngIf="this.is==0 || this.is==1"><i class="fa fa-pencil m-r-5"></i>
+                    Editar</a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete-modal" (click)="setId(1)"><i class="fa fa-trash-o m-r-5" *ngIf="this.is==0 || this.is"></i> Eliminar</a>
+                                </div>
+                            </div>
+                        </td>
+
+                    </tr>
+
+
+                </table>
+
+                <br>
+                <br>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</main>
+
+
+
+<!--editor de texto-->
+<div class="modal fade" id="actualizar" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
+
+    <div class="modal-dialog modal-lg " role="document">
+
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-normal" style="font-weight:400 ;font-size: 18px;text-align: left;">Relatório Personalizadas de armas
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+            </div>
+            <form [formGroup]="relatorios">
+                <div class="modal-body">
+                    <angular-editor placeholder="Já pode começar a inserir o conteúdo do seu relatório!" class="editor1" [config]="op" id="texto" formControlName="relatorio_corpo">
+
+                    </angular-editor>
+
+                </div>
+                <div class="modal-footer d-flex justify-content-center" id="bt1">
+                    <div class="row-12 w-100 d-flex">
+                        <div class="col-6">
+                            <button class="btn btn-primary w-100" type="reset" data-toggle="modal" data-target="#trabalhar-doc" data-dismiss="modal" (click)="guardar()">guardar </button>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn btn-primary w-100" type="reset" data-toggle="modal" data-target="#trabalhar-doc" data-dismiss="modal" (click)="gerar()">Exportar</button>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

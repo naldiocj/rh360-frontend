@@ -1,0 +1,720 @@
+<div class="modal fade" id="view-ficha-completa">
+  <div class="modal-dialog modal-lg-">
+  </div>
+</div>
+
+<section class="" id="print-section">
+  <div class="container-cv border p-2" id="cv">
+    <div class="aside">
+      <div class="aside-info">
+        <div class="foto">
+          <ng-container *ngIf="this.fileUrl; else semFoto">
+            <img [src]="this.fileUrl" alt="" class="foto-cv" />
+          </ng-container>
+          <ng-template #semFoto> </ng-template>
+          <img
+            src="assets/img/user.jpg"
+            alt=""
+            class="foto-cv"
+          />
+        </div>
+      </div>
+      <!-- <div class="aside-info">
+                  <div class="info sobre">
+                      <p class="title">Sobre</p>
+                      <p class="text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum illo deleniti
+                          ratione, </p>
+                      <p class="text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum illo deleniti
+                          ratione, </p>
+                  </div>
+              </div> -->
+      <div class="aside-info">
+        <div class="info contacto">
+          <p class="title">Contacto</p>
+          <ul>
+            <li>{{ this.funcionario?.email_pessoal }}</li>
+            <!-- <li>+244 982015342</li> -->
+            <!-- <li>{{ this.funcionario?.email }}</li> -->
+          </ul>
+        </div>
+      </div>
+      <div class="aside-info symbols">
+        <div class="symbol">
+          <img
+            src="assets/img/plc_cv.png"
+            alt=""
+            class="img-symbol mr-2 w-25"
+          />
+          <img
+            src="assets/img/rpa.png"
+            alt=""
+            class="img-symbol"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="main">
+      <!-- <div class="main-info name">
+                  <h4>{{this.person.nome_completo}}</h4>
+              </div> -->
+      <div class="main-info dado mt-2">
+        <p class="title">Dados Pessoais</p>
+        <ul class="dados">
+          <!-- <app-pessoal></app-pessoal> -->
+          <li>Nome Completo: {{ this.funcionario?.nome_completo }}</li>
+          <!-- <li>Aplido: Manuel</li> -->
+          <li>Data de Nascimento: {{ this.funcionario?.data_nascimento }}</li>
+          <li>Nacionalidade: {{ this.funcionario?.nacionalidade }}</li>
+          <li>Estado Cívil: {{ this.funcionario?.estado_civil_nome }}</li>
+
+          <li *ngIf="this.funcionario?.genero == 'F'">Género: Femenino</li>
+          <li *ngIf="this.funcionario?.genero == 'M'">Género: Masculino</li>
+          <li>Nome do Pai: {{ this.funcionario?.nome_pai }}</li>
+          <li>Nome da Mãe: {{ this.funcionario?.nome_mae }}</li>
+          <!-- <li>Nome do Cônjuge: </li>
+   <li>Número do B.I: XXXXXXXXXXXXXX</li>
+   <li>Data de expiração - B.I: 19/12/2023</li>
+   <li>Nº da Carta de Condução: XXXXXXXXXXXXXX</li>
+   <li>Número do Passaporte: XXXXXXXXXXXXXX</li>
+   <li>Data de Expiração - Passaporte: XXXXXXXXXXXXXX</li>
+   <li>Habilitações Literárias: XXXXXXXXXXXXXX</li>
+   <li>Contacto Familiar: +244 9XXXXXXX</li> -->
+          <li *ngIf="this.funcionario?.email_pessoal">
+            E-mail Pessoal: {{ this.funcionario?.email_pessoal }}
+          </li>
+          <!-- <li>Nome Completo: {{this.person.nome_completo}}</li>
+                      <li>Aplido: Manuel</li>
+                      <li>Data de Nascimento: {{this.person.data_nascimento}}</li>
+                      <li>Nacionalidade: {{this.person.nacionalidade}}</li>
+                      <li>Estado Cívil: {{this.person.estado_civil_nome}}</li>
+
+                      <li *ngIf="this.person.genero=='F'">Género: Femenino</li>
+                      <li *ngIf="this.person.genero=='M'">Género: Masculino</li>
+                      <li>Nome do Pai: {{this.person.nome_pai}}</li>
+                      <li>Nome da Mãe: {{this.person.nome_mae}}</li>
+                      <li>Nome do Cônjuge: </li>
+                      <li>Número do B.I: XXXXXXXXXXXXXX</li>
+                      <li>Data de expiração - B.I: 19/12/2023</li>
+                      <li>Nº da Carta de Condução: XXXXXXXXXXXXXX</li>
+                      <li>Número do Passaporte: XXXXXXXXXXXXXX</li>
+                      <li>Data de Expiração - Passaporte: XXXXXXXXXXXXXX</li>
+                      <li>Habilitações Literárias: XXXXXXXXXXXXXX</li>
+                      <li>Contacto Familiar: +244 9XXXXXXX</li>
+                      <li>E-mail Pessola: {{this.person.email_pessoal}}</li> -->
+        </ul>
+      </div>
+      <div class="main-info dado">
+        <p class="title">Dados Profissionais</p>
+        <ul class="dados">
+          <!-- <app-sipa-dados-profissionais></app-sipa-dados-profissionais> -->
+          <li>Pseudonimo: {{ this.funcionario?.pseudonimo }}</li>
+          <li>Regime: Específico</li>
+          <li>Posto/Patente: {{ this.funcionario?.patente_nome }}</li>
+          <li>NIP: {{ this.funcionario?.nip }}</li>
+          <li>NAS: {{ this.funcionario?.numero_agente }}</li>
+          <li>Número de Processo: {{ this.funcionario?.numero_processo }}</li>
+          <!-- <li>Anexo do Processo: anexo001.pdf</li>  -->
+          <li>
+            Tipo de Vínculo: {{ this.funcionario?.sigq_tipo_vinculo_nome }}
+          </li>
+          <li>Carreira: Sub-Director</li>
+          <li>Cargo: Director Nacional</li>
+          <li>Data de Ingresso: {{ this.funcionario?.data_adesao }}</li>
+          <!-- <li>Pseudonimo: {{this.profissional.pseudonimo}}</li>
+                      <li>Regime: Específico</li>
+                      <li>Posto/Patente: {{this.profissional.patente_nome}}</li>
+                      <li>NIP: {{this.profissional.nip}}</li>
+                      <li>Número do Agente: {{this.profissional.numero_agente}}</li>
+                      <li>Número de Processo: {{this.profissional.numero_processo}}</li>
+                      <li>Anexo do Processo: anexo001.pdf</li>
+                      <li>Tipo de Vínculo: {{this.profissional.sigq_tipo_vinculo_nome}}</li>
+                      <li>Carreira: Sub-Director</li>
+                      <li>Cargo: Director Nacional</li>
+                      <li>Data de Ingresso:{{this.profissional.data_adesao}}</li> -->
+        </ul>
+      </div>
+      <div class="main-info dado">
+        <p class="title">Histórico de provimento</p>
+        <ul
+          class="dados border-bottom py-2"
+          *ngFor="let item of this.funcionario?.sigpq_provimento"
+        >
+          <li>Patente: {{ item.patente_nome }}</li>
+          <li>Número de despacho: {{ item.numero_despacho }}</li>
+          <li>Data de realização: {{ item.data_provimento }}</li>
+          <li>Progressão: {{ item.sigpq_acto_progressaos_nome }}</li>
+          <li *ngIf="item.activo">
+            Estado: <span class="text-success">Actual</span>
+          </li>
+          <li *ngIf="!item.activo">
+            Estado <span class="text-danger">Anterior</span>
+          </li>
+        </ul>
+        <!-- <p class="title">Históricos de provimento</p> -->
+
+        <!-- <app-pa-historico-provimento></app-pa-historico-provimento> -->
+        <!-- <ul class="dados">
+                      <li>Patente: {{this.profissional.pseudonimo}}</li>
+                      <li>Número de despacho: Específico</li>
+                      <li>Data de realização: {{this.profissional.patente_nome}}</li>
+                      <li>Progressão: {{this.profissional.nip}}</li>
+                      <li>Número do Agente: {{this.profissional.numero_agente}}</li>
+                      <li>Número de Processo: {{this.profissional.numero_processo}}</li>
+                      <li>Anexo do Processo: anexo001.pdf</li>
+                      <li>Tipo de Vínculo: {{this.profissional.sigq_tipo_vinculo_nome}}</li>
+                      <li>Carreira: Sub-Director</li>
+                      <li>Cargo: Director Nacional</li>
+                      <li>Data de Ingresso:{{this.profissional.data_adesao}}</li>
+                  </ul> -->
+      </div>
+      <!-- <div class="main-info dado">
+                  <p class="title">Históricos de funções</p>
+              </div>
+              <div class="main-info dado">
+                  <p class="title">Históricos de clínico</p>
+              </div> -->
+      <div class="main-info dado">
+        <!-- <p class="title">Meios policiais destribuídos</p> -->
+        <!-- <app-sipa-meios-distribuidos></app-sipa-meios-distribuidos> -->
+        <!-- <ul class="dados">
+                      <li>Patente: {{this.profissional.pseudonimo}}</li>
+                      <li>Número de despacho: Específico</li>
+                      <li>Data de realização: {{this.profissional.patente_nome}}</li>
+                      <li>Progressão: {{this.profissional.nip}}</li>
+                      <li>Número do Agente: {{this.profissional.numero_agente}}</li>
+                      <li>Número de Processo: {{this.profissional.numero_processo}}</li>
+                      <li>Anexo do Processo: anexo001.pdf</li>
+                      <li>Tipo de Vínculo: {{this.profissional.sigq_tipo_vinculo_nome}}</li>
+                      <li>Carreira: Sub-Director</li>
+                      <li>Cargo: Director Nacional</li>
+                      <li>Data de Ingresso:{{this.profissional.data_adesao}}</li>
+                  </ul> -->
+      </div>
+      <!-- <div class="main-info dado">
+                  <p class="title">Históricos de dados</p>
+                  <ul class="dados">
+                      <li>Tipo de Documento: Certificado</li>
+                      <li>Anexo: certificado001.pdf</li>
+                  </ul>
+              </div> -->
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<div class="container-fluid p-0 ficha-ficha">
+  <div class="img-background">
+      <img src="assets/img/logopolice_.png" alt="background-image">
+  </div>
+
+  <div class="header-ficha">
+      <div class="row">
+          <div
+              class="col-xl-12 col-lg-12 col-md-12 col-sm-12 d-flex justify-content-start align-items-center column-gap-4">
+              <div class="image">
+                  <img src="assets/img/pna-big-log.png" alt="image-logo" style="width:70px; height: 70px;">
+              </div>
+              <div class="logos">
+                  <h1>POLÍCIA NACIONAL DE ANGOLA</h1>
+                  <h3>Direcção de Pessoal e Quadros</h3>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="main-ficha">
+      <div class="content-ficha ficha-pessoal">
+          <div class="row justify-content-center">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                  <div class="header-content-ficha">
+                      <h5>Dados profissional</h5>
+                  </div>
+              </div>
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                  <div class="row border-dados py-1">
+                      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2">
+                          <div class="image-civil">
+                              <img src="assets/img/user.png" alt="image-preview">
+                          </div>
+                      </div>
+                      <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10">
+                          <div class="row my-1">
+                              <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                                  <b>Nome de efectivo :</b> Josefina Manuel Inocência Tiago
+                              </div>
+                              <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                                  <b>NIP :</b> 122345564
+                              </div>
+                          </div>
+                          <div class="row my-1">
+                              <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                                  <b>NAS :</b> 122345564
+                              </div>
+                              <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                                  <b>Vínculo :</b> Agente efectivo
+                              </div>
+                          </div>
+                          <div class="row my-1">
+                              <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                                  <b>Nº de processo :</b> Josefina Manuel Inocência Tiago
+                              </div>
+                              <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                                  <b>Regime :</b> Especial
+                              </div>
+                          </div>
+                          <div class="row my-1">
+                              <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                                  <b>Posto :</b> 1º Subchefe
+                              </div>
+                              <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                                  <b>Estado :</b> Activo
+                              </div>
+                          </div>
+                          <div class="row my-1">
+                              <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                                  <b>Pesudônimio :</b> 1º Subchefe
+                              </div>
+
+                          </div>
+                          <div class="row my-1">
+                              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                  <b>Colocação :</b> DTTI - Direcção de Telecomunicação e Tecnologias de Informação.
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="mais-dados">
+                  <div class="row row-gap-2">
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <b>Carreira/Categoria: </b> Engenheiro
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <b>Cargo: </b> Engenheiro Engenheiro
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <b>Função: </b> Esquadras de Estados
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <b>Divisão: </b> Engenheiro Engenheiro
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <b>Esquadra: </b> Esquadras de Estados
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <b>Proveniência: </b> Engenheiro Engenheiro
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <b>Data de ingresso: </b> 12/12/2023
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <b>E-mail profissional: </b> josefina.manuel@pn.gov.ao
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <b>Contacto Profissional: </b> 12/12/2023
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="content-ficha ficha-pessoal">
+          <div class="row justify-content-center">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                  <div class="header-content-ficha">
+                      <h5>Dados pessoal</h5>
+                  </div>
+              </div>
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                  <div class="row border-dados my-1">
+                      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2">
+                          <div class="image-civil">
+                              <img src="assets/img/user.png" alt="image-preview">
+                          </div>
+                      </div>
+                      <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10">
+                          <div class="row my-1">
+                              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                  <b>Nome :</b> Josefina Manuel Inocência Tiago
+                              </div>
+                              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                  <b>Filhação :</b> José António Manuel
+                              </div>
+                          </div>
+                          <div class="row my-1">
+                              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                  <b>E de :</b> Filomena Cândida Tiago
+                              </div>
+                              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                  <b>Nº do BI:</b> 007211362LA043
+                              </div>
+                          </div>
+                          <div class="row my-1">
+                              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                  <b>Estado cívil :</b> Solteiro(a)
+                              </div>
+                              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                  <b>Residência :</b> Luanda, Cazenga, Cuca
+                              </div>
+                          </div>
+                          <div class="row my-1">
+                              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                  <b>Naturalidade :</b> Cazenga
+                              </div>
+                              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                  <b>Província :</b> Luanda
+                              </div>
+
+                          </div>
+                          <div class="row my-1">
+                              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                  <b>Nacionalidade :</b> Angola
+                              </div>
+                              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                  <b>Genêro :</b> Masculino
+                              </div>
+                          </div>
+                          <div class="row my-1">
+                              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                  <b>Data de nascimento :</b> 12/11/2023
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="mais-dados">
+                  <div class="row row-gap-2">
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <b>Habilitação Literárias: </b> Licenciado
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <b>Curso: </b> Agronomia
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <b>IBAN: </b> 00000000000000000000000
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <b>Línguas faladas: </b> Português, Inglês, Francês
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <b>Data de emissão do BI: </b> 12/12/2023
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <b>Data de validade do BI: </b> 12/12/2023
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <b>Residência BI: </b> josefina.manuel@pn.gov.ao
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <b>Residência actual: </b> josefina.manuel@pn.gov.ao
+                      </div>
+
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <b>N.º da carta de condução: </b> 12/12/2023
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <b>Data de emissão da CC: </b> 12/12/2023
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <b>Data de validade da CC: </b> 12/12/2023
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <b>N.º do passaporte: </b> 12/12/2023
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <b>Data de emissão do passaporte: </b> 12/12/2023
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <b>Data de validade do passaporte: </b> 12/12/2023
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <b>Grupo sanguíneo: </b> josefina.manuel@pn.gov.ao
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <b>Nome do conjunge: </b> josefina.manuel@pn.gov.ao
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <b>Tel.: </b> josefina.manuel@pn.gov.ao
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <b>Tel. alternativo: </b> josefina.manuel@pn.gov.ao
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                          <b>E-mail pessoal: </b> josefina.manuel@pn.gov.ao
+                      </div>
+
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="content-ficha ficha-pessoal">
+          <div class="row justify-content-center">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                  <div class="header-content-ficha">
+                      <h5>Ficha do agente</h5>
+                  </div>
+              </div>
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                  <div class="row border-dados py-1">
+                      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2">
+                          <div class="image-civil">
+                              <img src="assets/img/user.png" alt="image-preview">
+                          </div>
+                      </div>
+                      <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10">
+                          <div class="row my-1">
+                              <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                                  <b>Nome de efectivo :</b> Josefina Manuel Inocência Tiago
+                              </div>
+                              <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                                  <b>NIP :</b> 122345564
+                              </div>
+                          </div>
+                          <div class="row my-1">
+                              <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                                  <b>NAS :</b> 122345564
+                              </div>
+                              <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                                  <b>Vínculo :</b> Agente efectivo
+                              </div>
+                          </div>
+                          <div class="row my-1">
+                              <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                                  <b>Nº de processo :</b> Josefina Manuel Inocência Tiago
+                              </div>
+                              <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                                  <b>Regime :</b> Especial
+                              </div>
+                          </div>
+                          <div class="row my-1">
+                              <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                                  <b>Posto :</b> 1º Subchefe
+                              </div>
+                              <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                                  <b>Data de ingresso :</b> 12/12/2023
+                              </div>
+                          </div>
+                          <div class="row my-1">
+                              <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                                  <b>Diuturnidade na patente :</b> 12 Meses
+                              </div>
+                              <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                                  <b>Diuturnidade de função :</b> 12 Meses
+                              </div>
+                          </div>
+                          <div class="row my-1">
+                              <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                                  <b>Função actual :</b> Funcao Funcao
+                              </div>
+                          </div>
+                          <div class="row my-1">
+                              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                  <b>Colocação :</b> DTTI - Direcção de Telecomunicação e Tecnologias de Informação.
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="content-ficha ficha-pessoal">
+          <div class="row justify-content-center">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                  <div class="header-content-ficha">
+                      <h5>Histórico de função</h5>
+                  </div>
+              </div>
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                  <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>Função</th>
+                          <th>Orgão</th>
+                          <th>Nº de ordem</th>
+                          <th>Nº de despacho</th>
+                          <th>Situação</th>
+                          <th>Data de entrada </th>
+                          <th>Data de saída </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1.087,00</td>
+                          <td>Wilson Valdemar dos S. Domingos</td>
+                          <td>Actual</td>
+                          <td>15-06-2009</td>
+                          <td>30-12-2020</td>
+                          <td>30-12-2020</td>
+                        </tr>
+                        <tr>
+                          <td>1.087,00</td>
+                          <td>Wilson Valdemar dos S. Domingos</td>
+                          <td>Exercída</td>
+                          <td>15-06-2009</td>
+                          <td>30-12-2020</td>
+                          <td>30-12-2020</td>
+                        </tr>
+                        <tr>
+                          <td>1.087,00</td>
+                          <td>Wilson Valdemar dos S. Domingos</td>
+                          <td>Exercída</td>
+                          <td>15-06-2009</td>
+                          <td>30-12-2020</td>
+                          <td>30-12-2020</td>
+                        </tr>
+                      </tbody>
+                    </table>
+              </div>
+          </div>
+      </div>
+      <div class="content-ficha ficha-pessoal">
+          <div class="row justify-content-center">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                  <div class="header-content-ficha">
+                      <h5>Histórico de colocação</h5>
+                  </div>
+              </div>
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                  <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>Posto</th>
+                          <th>Orgão</th>
+                          <th>Nº de ordem</th>
+                          <th>Nº de despacho</th>
+                          <th>Situação</th>
+                          <th>Data de entrada </th>
+                          <th>Data de saída </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1.087,00</td>
+                          <td>Wilson Valdemar dos S. Domingos</td>
+                          <td>Actual</td>
+                          <td>15-06-2009</td>
+                          <td>30-12-2020</td>
+                          <td>30-12-2020</td>
+                        </tr>
+                        <tr>
+                          <td>1.087,00</td>
+                          <td>Wilson Valdemar dos S. Domingos</td>
+                          <td>Exercída</td>
+                          <td>15-06-2009</td>
+                          <td>30-12-2020</td>
+                          <td>30-12-2020</td>
+                        </tr>
+                        <tr>
+                          <td>1.087,00</td>
+                          <td>Wilson Valdemar dos S. Domingos</td>
+                          <td>Exercída</td>
+                          <td>15-06-2009</td>
+                          <td>30-12-2020</td>
+                          <td>30-12-2020</td>
+                        </tr>
+                      </tbody>
+                    </table>
+              </div>
+          </div>
+      </div>
+      <div class="content-ficha ficha-pessoal">
+          <div class="row justify-content-center">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                  <div class="header-content-ficha">
+                      <h5>Histórico de progressão de carreira</h5>
+                  </div>
+              </div>
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                  <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>Posto</th>
+                          <th>Nº de ordem</th>
+                          <th>Nº de despacho</th>
+                          <th>Situação</th>
+                          <th>Data de entrada </th>
+                          <th>Data de saída </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1.087,00</td>
+                          <td>Wilson Valdemar dos S. Domingos</td>
+                          <td>Actual</td>
+                          <td>15-06-2009</td>
+                          <td>30-12-2020</td>
+                          <td>30-12-2020</td>
+                        </tr>
+                        <tr>
+                          <td>1.087,00</td>
+                          <td>Wilson Valdemar dos S. Domingos</td>
+                          <td>Exercída</td>
+                          <td>15-06-2009</td>
+                          <td>30-12-2020</td>
+                          <td>30-12-2020</td>
+                        </tr>
+                        <tr>
+                          <td>1.087,00</td>
+                          <td>Wilson Valdemar dos S. Domingos</td>
+                          <td>Exercída</td>
+                          <td>15-06-2009</td>
+                          <td>30-12-2020</td>
+                          <td>30-12-2020</td>
+                        </tr>
+                      </tbody>
+                    </table>
+              </div>
+          </div>
+      </div>
+      <div class="content-ficha ficha-pessoal">
+          <div class="row justify-content-center">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                  <div class="header-content-ficha">
+                      <h5>Histórico de cargo</h5>
+                  </div>
+              </div>
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                  <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>Posto</th>
+                          <th>Nº de ordem</th>
+                          <th>Nº de despacho</th>
+                          <th>Situação</th>
+                          <th>Data de entrada </th>
+                          <th>Data de saída </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1.087,00</td>
+                          <td>Wilson Valdemar dos S. Domingos</td>
+                          <td>Actual</td>
+                          <td>15-06-2009</td>
+                          <td>30-12-2020</td>
+                          <td>30-12-2020</td>
+                        </tr>
+                        <tr>
+                          <td>1.087,00</td>
+                          <td>Wilson Valdemar dos S. Domingos</td>
+                          <td>Exercída</td>
+                          <td>15-06-2009</td>
+                          <td>30-12-2020</td>
+                          <td>30-12-2020</td>
+                        </tr>
+                        <tr>
+                          <td>1.087,00</td>
+                          <td>Wilson Valdemar dos S. Domingos</td>
+                          <td>Exercída</td>
+                          <td>15-06-2009</td>
+                          <td>30-12-2020</td>
+                          <td>30-12-2020</td>
+                        </tr>
+                      </tbody>
+                    </table>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

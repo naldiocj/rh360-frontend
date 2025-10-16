@@ -1,0 +1,75 @@
+<main id="main_" class="main_">
+  <div>
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body p-0">
+            <div class="tab-content pt-2" id="borderedTabJustifiedContent">
+              <div class="tab-pane fade active show" id="enviar" role="tabpanel" aria-labelledby="home-tab">
+                  <div class="row" style="row-gap: 2rem;">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <div class="header-ficha">
+                        <div class="row">
+                          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12  my-4 d-flex justify-content-end align-items-center"
+                            style="gap:.4rem">
+                            <span class="legend-item" *ngFor="let item of this.estados">
+                              <div class="legend-color" [style.backgroundColor]="item.cor"></div>
+                              <span class="legend-text">{{item.texto}}</span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <div class="row" style="row-gap: 0.8rem;">
+                
+                        <div class="col-xl-10 col-lg-8 col-md-12 col-s-12">
+                          <ul class="nav nav-tabs d-flex justify-content-between">
+                            <li class="flex-fill d-flex justify-content-between">
+                              <a class="flex-fill btn-piips btn-piips-primary m-0 py-2 border show active" id="informacao-geral-tab"
+                                data-toggle="tab" href="#informacao-geral" role="tab" aria-selected="true">
+                                Registar Documento
+                              </a>
+                            </li>
+                            
+                            <li class="flex-fill d-flex justify-content-between">
+                              <a class="flex-fill btn-piips btn-piips-primary m-0 py-2 border" id="documento-original-tab"
+                                data-toggle="tab" href="#documento-original" role="tab" aria-selected="true"
+                                >
+                                Doumentos Tramitados
+                              </a>
+                            </li>
+                            
+                            <li class="flex-fill d-flex justify-content-between">
+                              <a class="flex-fill btn-piips btn-piips-primary m-0 py-2 border" id="tratamento-correspondencia-tab"
+                                data-toggle="tab" href="#tratamento-correspondencia" role="tab" aria-selected="false"
+                                >
+                                Criar Documentos
+                              </a>
+                            </li>
+                
+                          </ul>
+                          <div class="tab-content p-0">
+                            <div class="tab-pane fade show active" id="informacao-geral" role="tabpanel"
+                              aria-labelledby="informacao-geral">
+
+                            </div>
+                
+                            <div class="tab-pane fade" id="documento-original" role="tabpanel" aria-labelledby="pa-tab">
+
+                            </div>     
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+</main>

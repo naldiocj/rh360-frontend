@@ -1,0 +1,29 @@
+
+/* Header */
+header {
+  background-color: #041B4D;
+  color: white;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.4px;
+}
+
+.logo img {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.system-name {
+  margin: 0;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+}
+
+.user i {
+  margin-right: 5px;
+}

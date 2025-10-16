@@ -1,0 +1,46 @@
+.card-pna {
+    width: 584px;
+    height: 330px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    border-radius: 5px;
+    
+
+}
+
+.card-front {
+    background-image: url('../../../../../../../assets/img/papel_.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: center;
+    overflow: hidden;
+
+}
+
+.title-pass {
+    color: var(--use-color);
+
+
+    &.text-pass-header {
+        line-height: 1.2;
+        font-weight: 500;
+    }
+
+    &.text-bold {
+        font-weight: 500;
+    }
+}
+
+.pass-image {
+    width: 150px;
+    height: 180px;
+    mix-blend-mode: multiply;
+}
+
+.photo-pass {
+    transform: translateY(-65px);
+}
+
+.nomes-pass {
+    transform: translateY(80px);
+}

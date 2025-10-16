@@ -1,0 +1,119 @@
+<div class="modal fade" id="modalRegistar" data-backdrop="static" aria-labelledby="staticBackdropLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document" style="min-width: 40%;">
+        <div class="modal-content">
+            <div class="modal-header align-items-center" style="background-color: #041b4e; color: white; height: 70px;">
+                <h1 class="modal-title fl-5 my-0" id="staticBackdropLabel" style="font-size: 1.3rem;">
+                    <i class="bi bi-cart-plus-fill" style="font-size: 2rem; margin-top: 0px; margin-right: 5px;"></i>
+                    {{descricao_produto_id ? 'Editar' : 'Registar'}} Designação de Norma Pessoas
+                </h1>
+                <button type="button" id="btn-close-registar" class="btn p-0" data-dismiss="modal" aria-label="Close"
+                    style="color: white;" (click)="this.reiniciarFormulario()">
+                    <i class="bi bi-backspace-fill" style="font-size: 1.5rem;"></i>
+                </button>
+            </div>
+            <div class="modal-body pt-0">
+                <section class="row container-fluid cadastro-container">
+                    <p>
+                        <!-- <i class="bi bi-exclamation-triangle-fill text-warning mr-2"></i> -->
+                        <i class="fa fa-hand-o-right mr-2" aria-hidden="true"></i>
+                        Os campos marcados com
+                        ( <i class="bi bi-exclamation-circle-fill icone-alerta"></i> ) são de carácter
+                        <strong>obrigatório</strong>.
+                    </p>
+                    <div class="col-12 p-0 m-0">
+                        <form class="row p-0 m-0 container-fluid" style="border: none; border-radius: 4px;"
+                            (ngSubmit)="onSubmit()" [formGroup]="cadastroForm" #formDir="ngForm">
+                            <div class="col-12 m-0 p-0">
+
+                                <div class="col-12 pr-0 mb-1">
+                                    <label for="nome-da-categoria" class="form-label">Designação da Norma <i
+                                            class="bi bi-exclamation-circle-fill icone-alerta"
+                                            *ngIf="!this.cadastroForm.get('nome')?.value"></i></label>
+                                    <div class="segundo">
+                                        <input type="text" class="mb-2 pl-3 sombra" id="nome-da-categoria"
+                                            aria-describedby="nomeCategoriaHelp" formControlName="nome"
+                                            placeholder="Ex.: Unknown">
+                                        <button type="button" class=" ">
+                                            <i class="bi bi-plus-square"></i>
+                                        </button>
+                                    </div>
+                                    <!-- <div id="nomeCategoriaHelp" class="form-text validation-error"
+                                        *ngIf="cadastroForm.get('nome')?.hasError('required') && formDir.submitted">
+                                        <p>O nome é obrigatório</p>
+                                    </div> -->
+                                </div>
+
+                                <!-- segundo -->
+                                <div class="col-12 pr-0 mb-1">
+                                    <label for="categoria" class="form-label">Tipo de Norma <i
+                                            class="bi bi-exclamation-circle-fill icone-alerta"
+                                            *ngIf="!this.cadastroForm.get('tipo_norma_pessoa_id')?.value"></i> </label>
+                                    <div class="segundo-com-select2">
+                                        <ng-select2 class="" [options]="options" [data]="this.tipo_de_norma_pessoas"
+                                            id="tipo_norma_pessoa_id" aria-describedby="fornecedorHelp"
+                                            formControlName="tipo_norma_pessoa_id" style="border-radius: 10px; ">
+                                        </ng-select2>
+                                        <button type="button" class=" ">
+                                            <i class="bi bi-plus-square"></i>
+                                        </button>
+                                    </div>
+                                    <!-- <div id="nomeCategoriaHelp" class="form-text validation-error"
+                                        *ngIf="cadastroForm.get('tipo_norma_pessoa_id')?.hasError('required') && formDir.submitted">
+                                        <p>O nome é obrigatório</p>
+                                    </div> -->
+                                </div>
+
+                                <div class="col-12 pr-0 pl-0 mb-2">
+                                    <label for="descricao_plano" class="form-label">Descrição: </label>
+                                    <div class="segundo">
+                                        <!-- se eu adicionar um form-control como class desse input, ele ficará colorido ao clicá-lo -->
+                                        <textarea class="p-1 sombra form-control" cols="15" rows="6"
+                                            aria-describedby="descricaoObsHelp" formControlName="descricao"
+                                            id="descricao_plano">
+                                          </textarea>
+                                    </div>
+                                    <!-- <div id="obs_planoHelp" class="form-text validation-error"
+                                        *ngIf="this.cadastroForm.get('descricao')?.hasError('required') && formDir.submitted">
+                                        <p>A Descrição é obrigatório</p>
+                                    </div> -->
+                                </div>
+                            </div>
+
+                            <!-- botão submit da categoria -->
+                            <div class="col-12 mb-3 botoes-nmg">
+                                <button type="button" class="btn mb-0 mt-3 mr-3 btn-outline-danger"
+                                    style="box-shadow: 0px 5px 8px rgba(0,0,0,0.323)" data-dismiss="modal"
+                                    (click)="this.reiniciarFormulario()">
+                                    <i class="bi bi-trash-fill"></i>
+                                    Descartar
+                                </button>
+
+                                <button type="reset" class="btn mb-0 mt-3 mr-3"
+                                    style="background-color: #f3f3f3; color: #041b4e; box-shadow: 0px 5px 8px rgba(0,0,0,0.323); font-weight: 400;"
+                                    (click)="this.reiniciarFormulario()">
+                                    <i class="bi bi-x-circle-fill"></i>
+                                    Limpar Dados
+                                </button>
+
+                                <button type="submit" class="btn mb-0 mt-3"
+                                    style="background-color: #041b4e; color: white; box-shadow: 0px 5px 8px rgba(0,0,0,0.323)">
+                                    <i class="bi bi-folder-plus"></i>
+                                    {{descricao_produto_id ? 'Salvar alterações' : 'Salvar'}}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+            </div>
+
+            <!--
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary">Understood</button>
+                  </div>
+              -->
+        </div>
+    </div>
+</div>

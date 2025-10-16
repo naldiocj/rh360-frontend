@@ -1,0 +1,226 @@
+<div class="content">
+    <sigpq-header></sigpq-header>
+    <div class="header-ficha mt-1">
+        <div class="row my-6">
+            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12">
+                <h4 class="text-light">
+                    <b>Passes Emitidos / Impressão de Passes Profissional</b>
+                </h4>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                <div class="d-flex justify-content-end align-item-center">
+                    <!-- <button class="btn-piips btn-piips-secondary m-0 py-2 border" data-toggle="collapse"
+                        href="#pesquisa-avancada" role="button" aria-expanded="false" aria-controls="pesquisa-avancada"
+                        style="cursor: pointer;"> <i class="fa fa-search mx-2"></i>Pesquisa avançada</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <fieldset class="p-2">
+        <aside class="row">
+            <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12">
+                <select class="form-control" (change)="filtrarPagina('perPage', $event)">
+                    <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">
+                        {{ item }}
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-xl-8 col-lg-8 col-md-6 col-sm-12">
+                <input class="form-control mr-sm-1" type="text" [ngModel]="filtro.search"
+                    (ngModelChange)="filtrarPagina('search', $event)"
+                    placeholder="Pesquisar nome completo, nip, nas, ..." />
+            </div>
+
+            <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 d-flex justify-content-end align-items-center">
+                <button type="button" data-toggle="modal" data-target="#ver-guia-marcha"
+                    (click)="this.recarregarPagina()" class="btn-piips btn-piips-secondary m-0 py-2">
+                    <i style="font-size: 14px;" class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+                    <b>Recarregar</b>
+                </button>
+            </div>
+        </aside>
+        <aside class="row collapse" id="pesquisa-avancada">
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+                <label for=""><b>Regime de Carreira</b></label>
+                <ng-select2 [data]="this.regimes" [options]="this.options" [ngModel]="this.filtro.regimeId"
+                    name="regimeId" (valueChanged)="filtrarPagina('regimeId',$event)">
+                </ng-select2>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+                <label for=""><b>Tipo de Vínculo</b></label>
+                <ng-select2 [data]="this.tipoVinculos" [options]="this.options" [ngModel]="this.filtro.tipoVinculoId"
+                    name="tipoVinculoId" (valueChanged)="filtrarPagina('tipoVinculoId',$event)">
+                </ng-select2>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4" *ngIf="this.mostrarCarreira">
+                <label for=""><b>Classe/Carreira</b></label><br>
+                <ng-select2 [data]="this.patenteClasses" [ngModel]="this.filtro.patenteClasse" name="patenteClasse"
+                    (valueChanged)="filtrarPagina('patenteClasse',$event)" [options]="this.options">
+
+                </ng-select2>
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4" *ngIf="this.mostrarCarreira">
+                <label for=""><b>Posto/Categoria</b></label><br>
+                <ng-select2 [data]="this.patentes" [options]="this.options" [ngModel]="this.filtro.patenteId"
+                    name="patenteId" (valueChanged)="filtrarPagina('patenteId',$event)">
+                </ng-select2>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+                <label for=""><b>Gênero</b></label>
+                <ng-select2 [options]="options" [ngModel]="this.filtro.genero" name="genero"
+                    (valueChanged)="filtrarPagina('genero',$event)" [data]="this.generos">
+                </ng-select2>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+                <label for=""><b>Situação Laboral <span class="text-danger"></span></b></label>
+                <ng-select2 [options]="options" [ngModel]="this.filtro.situacaoId" name="situacaoId"
+                    (valueChanged)="this.filtrarPagina('situacaoId',$event)" [data]="this.situacaoEstados">
+                </ng-select2>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6  col-sm-12 mb-4">
+                <label for=""><b>{{this.tituloSituacao}} <span class="text-danger">&nbsp;</span></b></label>
+                <ng-select2 [options]="options" [ngModel]="this.filtro.estadoId" name="estadoId"
+                    (valueChanged)="this.filtrarPagina('estadoId',$event)" [data]="this.estado">
+                </ng-select2>
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4" *ngIf="this.getAuth?.user?.aceder_todos_agentes">
+                <label for=""><b>Tipo de Órgão</b></label>
+                <ng-select2 [options]="options" [data]="this.tipoEstruturaOrganicas"
+                    (valueChanged)="selecionarOrgaoOuComandoProvincial($event);">
+                </ng-select2>
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4" *ngIf="this.getAuth?.user?.aceder_todos_agentes">
+                <label for=""><b>Direcção/Comando </b></label>
+                <ng-select2 [options]="options" (valueChanged)="filtrarPagina('orgaoId',$event)" [data]="this.orgaos"
+                    [ngModel]="this.filtro.orgaoId" name="orgaoId">
+                </ng-select2>
+            </div>
+        </aside>
+    </fieldset>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-border table-striped custom-table datatable mb-0 text-left">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Código</th>
+                            <th>Posto</th>
+                            <th>Nome do completo</th>
+                            <th>NIP</th>
+                            <th>Colocação</th>
+                            <th>Data de emissão</th>
+                            <th>Data de Última atualização</th>
+                            <th class="text-right">Operação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngIf="this.isLoading">
+                            <td colspan="9">
+                                <aside *ngIf="this.isLoading">
+                                    <loading-page [texto]="'lista de passes profissional'"></loading-page>
+                                </aside>
+                            </td>
+                        </tr>
+                        <tr *ngFor="
+                            let item of this.passes
+                            | paginate
+                                : {
+                                    id: 'mobilidadeLista',
+                                    itemsPerPage: this.pagination.per_page,
+                                    currentPage: this.pagination.current_page,
+                                    totalItems: this.pagination.total
+                                };
+                            index as i
+                                ">
+                            <td>{{ this.totalBase + i }}</td>
+                            <td>
+                                <!-- <a ariaCurrentWhenActive="page"
+                                    [routerLink]="['/piips/sigpg/mobilidade/',this.formatarGuia(item?.codigo)]">
+                                </a> -->
+                                {{ item.codigo | uppercase }}
+                            </td>
+                            <td>
+                                {{ item.patente_nome ?? 'S/N' }}
+                            </td>
+                            <td>
+                                {{ item.nome_completo | uppercase }}
+                            </td>
+                            <td>
+                                {{item?.nip ? item?.quadro : ''}} {{ item.nip ?? 'S/N' }}
+
+                            </td>
+                            <td>
+
+                                {{ item.orgao }}
+
+                            </td>
+                            <td>
+                                <strong>
+                                    {{ item.created_at }}
+                                </strong>
+                            </td>
+                            <td>
+                              <strong>
+                                  {{ item.updated_at }}
+                              </strong>
+                          </td>
+                            <td class="text-right">
+                                <div class="dropdown dropdown-action">
+                                    <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
+                                        aria-expanded="false">
+                                        <i class="fa fa-ellipsis-v"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="javascript:void(0)" data-toggle="modal"
+                                            data-target="#modal-visualizar-passe" (click)="setItem(item, false)">
+                                            <i class="fa fa-eye m-r-5"></i>
+                                            Visualizar passe profissional
+                                        </a>
+                                        <a href="javascript:void(0)" class="dropdown-item" (click)="setItem(item, true)"
+                                            data-toggle="modal" data-target="#modal-visualizar-passe">
+                                            <i class="fa fa-print m-r-5"></i>
+                                            Imprimir
+                                        </a>
+                                        <!-- <a href="javascript:void(0)" class="dropdown-item">
+                                            <i class="fa fa-pencil m-r-5"></i>
+                                            Editar
+                                        </a> -->
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-sm-6">
+                    Mostrando de {{ this.pagination.current_page }} a
+                    {{ this.pagination.per_page }} de {{ this.pagination.total }}
+                    <aside *ngIf="this.pagination.total < 2; else outrosRegistos">
+                        registos
+                    </aside>
+                    <ng-template #outrosRegistos>registos</ng-template>
+                </div>
+                <div class="col-sm-6">
+                    <div class="float-right">
+                        <pagination-controls id="funcionarioEspecial"
+                            (pageChange)="this.filtrarPagina('page', $event, false)" [directionLinks]="true"
+                            [autoHide]="true" previousLabel="Anterior" nextLabel="Próximo" [maxSize]="4"
+                            [responsive]="true"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-passe [agente]="this.agente" [imprimir]="this.imprimir" (onFchar)="this.setNullValue()"></app-passe>

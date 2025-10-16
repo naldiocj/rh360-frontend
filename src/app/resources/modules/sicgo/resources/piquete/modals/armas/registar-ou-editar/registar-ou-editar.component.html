@@ -1,0 +1,244 @@
+<!-- Modal -->
+<div class="modal fade" id="modalRegistarOuEditarArmas" tabindex="-1" aria-labelledby="modalRegistarOuEditarArmasLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header bg-prima text-white">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+       <form [formGroup]="this.form" (submit)="onSubmit()">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label>
+                                    <b>
+                                        Classificação da arma
+                                        <span class="text-danger"> *</span>
+                                    </b>
+                                </label>
+                                <ng-select2 [options]="options" formControlName="classificacao_arma_id" (ngModelChange)="lista($event)" [data]="this.classes">
+                                </ng-select2>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>
+                                    <b>
+                                        Nº de série
+                                        <span class="text-danger" *ngIf="crime"> *</span>
+                                    </b>
+                                </label>
+                                <input formControlName="serie" type="text" maxlength="6" class="form-control" [readOnly]="selecionado">
+                            </div>
+
+
+                            
+                            <div class="form-group col-md-4" *ngIf="true">
+                                <label>
+                                    <b>
+                                        Tipo de Arma:
+                                        <span class="text-danger"> *</span>
+                                    </b>
+                                </label>
+                                <ng-select2 [options]="options" formControlName="tipo_armas_id" [data]="this.tipos" (ngModelChange)="buscarMarca($event)" [disabled]="selecionado">
+                                </ng-select2>
+
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>
+                                    <b>
+                                        Marca da Arma
+                                        <span class="text-danger"> *</span>
+                                    </b>
+                                </label>
+
+                                <ng-select2 [options]="options" formControlName="marca_arma_id" [data]="this.marcas" [disabled]="selecionado" (ngModelChange)="buscarModelo($event)">
+                                </ng-select2>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>
+                                    <b>
+                                        Modelo da arma
+                                        <span class="text-danger"> *</span>
+                                    </b>
+                                </label>
+                                <ng-select2 [options]="options" formControlName="modelo_id" [data]="this.modelos" [disabled]="selecionado" (ngModelChange)="buscarCalibre($event)">
+                                </ng-select2>
+                            </div>
+
+
+                            <div class="form-group col-md-4">
+                                <label>
+                                    <b>
+                                        Calibre da arma
+                                        <span class="text-danger"> *</span>
+                                    </b>
+                                </label>
+                                <ng-select2 [options]="options" formControlName="calibre_arma_id" [disabled]="selecionado" [data]="this.calibres">
+
+                                </ng-select2>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label>
+                                    <b>
+                                        País de origem
+
+                                    </b>
+                                </label>
+                                <ng-select2 [options]="options" formControlName="pai_id" [data]="this.pais" [disabled]="selecionado">
+                                </ng-select2>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label *ngIf="rec==false && alo==false">
+                                    <b>
+                                        Ano de Fabrico
+
+                                    </b>
+                                </label>
+
+                                <label *ngIf="rec==true">
+                                    <b>
+                                        Data da Acção:
+
+                                    </b>
+                                </label>
+
+
+                                <label *ngIf="alo==true">
+                                    <b>
+                                        Data Final
+
+                                    </b>
+                                </label>
+                                <input formControlName="ano_fabrico" type="date" class="form-control" required [readOnly]="selecionado" style="margin-top: -1px;" >
+                            </div>
+
+
+                            <div class="form-group col" id="inp_at" *ngIf="pos==true && desc==true">
+                                <label>
+                                    <b>
+                                        Nº de Processo : <span class="text-danger"> *</span>
+
+                                    </b>
+                                </label><br>
+                                <input type="text" formControlName="processo"  maxlength="15" class="w-100" [readOnly]="selecionado" style="border-radius:0px;height:40px;" required>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label>
+                                    <b>
+                                        Nº da arma: <br style="line-height: 5px;">
+                                        <span class="text-danger" *ngIf="crime"> *</span>
+                                    </b>
+                                    <span class="text-danger" style="font-size: 10px;margin-top:-15%;"  >Esta arma já exite insire um outro numero da arma </span>
+                                </label>
+                                <input formControlName="livrete" type="text"  maxlength="12" class="form-control" (keyup)="setSerie($event)" required [readOnly]="selecionado">
+
+                            </div>
+
+                            <div class="form-group col-md-4" *ngIf="desc==true || rec==true || alo==true">
+                                <label>
+                                    <b>
+                                        Local:
+                                        <span class="text-danger"> *</span>
+                                    </b>
+                                </label>
+                                <ng-select2 [options]="options" formControlName="local" [data]="this.Tipolistar" [disabled]="selecionado">
+                                </ng-select2>
+                            </div>
+                            <div class="form-group col-md-4" style="height: 60px;" *ngIf="emp==false">
+                                <label>
+                                    <b>
+                                        Orgão:
+                                        <span class="text-danger"> *</span>
+                                    </b>
+                                </label>
+
+                                <input formControlName="nome" type="text"  maxlength="30" class="form-control" required [readOnly]="selecionado">
+                            </div>
+
+                            <div class="form-group col-md-4" style="height: 60px;" *ngIf="desc==false && alo==false && emp==true">
+                                <label>
+                                    <b>
+                                        Orgão:
+                                        <span class="text-danger"> *</span>
+                                    </b>
+                                </label>
+
+                                <input formControlName="nome" type="text"  maxlength="50" class="form-control" required [readOnly]="false">
+                            </div>
+
+                            <div class="form-group col-md-4" style="height: 60px;" *ngIf="rec==true">
+                                <label>
+                                    <b>
+                                        Nº de Processo:
+                                        <span class="text-danger"> *</span>
+                                    </b>
+                                </label>
+
+                                <input formControlName="processo"  maxlength="15" type="text" class="form-control" required [readOnly]="selecionado">
+                            </div>
+                            <div class="form-group col-md-4" style="height: 60px;" *ngIf="alo==true">
+                                <label>
+                                    <b>
+                                        Agente
+
+                                    </b>
+                                </label>
+                                <input formControlName="agente" type="text"  maxlength="60" class="form-control" required [readOnly]="selecionado">
+                            </div>
+
+                            <div class="form-group col-md-4" style="height: 60px;" *ngIf="alo==true">
+                                <label>
+                                    <b>
+                                        Anexo
+
+                                    </b>
+                                    <span class="text-danger" style="font-size: 10px;margin-top:-15%;" >O ficheiro não pode ser acima de 5mb </span>
+                                </label>
+                  
+                  <input  type="file" class="form-control col-12"   required [readOnly]="selecionado">
+                            </div>
+
+                            <div class="form-group col-md-4" type="number" style="height: 60px;" *ngIf="desc==true">
+                                <label>
+                                    <b>
+                                        Recompensa
+
+                                    </b>
+                                </label>
+                                <input formControlName="estado_entrega"  maxlength="20" type="text" class="form-control" required [readOnly]="selecionado">
+                            </div>
+                            <div class="form-group col-md-4" >
+                                <label>
+                                    <b>
+                                        Condição da arma:
+                                        <span class="text-danger"> *</span>
+                                    </b>
+                                </label>
+                                <ng-select2 [options]="options" formControlName="estado_arma"  [disabled]="selecionado">
+                                </ng-select2>
+                            </div>
+
+                            <div class="form-group col-md-12" style="height: 60px;">
+                                <label>
+                                    <b>
+                                        Descrição da acção
+                                        <span class="text-danger"> *</span>
+                                    </b>
+                                </label>
+                                <textarea formControlName="descricao"  maxlength="60" type="text" class="form-control row-12" required [disabled]="selecionado" [readOnly]="selecionado" required style="height:60px;"></textarea>
+                            </div>
+                        </div>
+                    </div><br>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger btn-square danger-sigae" data-dismiss="modal" type="reset" (click)="this.resetForm()">
+                            <span class="fa fa-refresh"></span> Limpar
+                        </button>
+                        <button class="btn btn-square text-light primary-sigae" type="submit" id="btns" [disabled]="!form.valid">
+                            Registar
+                        </button> </div>
+                </form>
+       
+    </div>
+  </div>
+ 

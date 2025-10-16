@@ -1,0 +1,167 @@
+
+   <div class="modal fade" id="logout-modal" style="border-radius: unset">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-ms">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div
+            class="modal-title w-100 d-flex justify-content-between align-items-center"
+          >
+            Terminar sessão
+            <a
+              data-dismiss="modal"
+              class="bi bi-x-lg text-danger"
+              style="cursor: pointer"
+            ></a>
+          </div>
+        </div>
+        <div
+          class="modal-body text-center"
+          style="font-size: 16px; color: #041b43"
+        >
+          <span>Confirmas o termino da sessão?</span>
+          <div class="btn-groups my-2">
+            <a class="btn btn-link" style="text-decoration: none; color: #041b43"
+              >Sim</a
+            >
+            <div
+              class="btn btn-link"
+              data-dismiss="modal"
+              style="text-decoration: none; color: #041b43"
+            >
+              Não
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <aside id="asidebar" class="asidebar">
+    <ul class="asidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/piips/ep/dashboard']" ariaCurrentWhenActive="page">
+          <i class="bi bi-easel2"></i><span>Painel de Controlo</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a
+          class="nav-link collapsed d-flex justify-content-center"
+          data-target="#work-scale"
+          data-toggle="collapse"
+          href="#"
+          routerLinkActive="active"
+        >
+        <i class="bi bi-book"></i>
+          <span>Denuncias</span>
+          <i
+            class="bi bi-chevron-down ms-auto flex-fill"
+            style="text-align: right"
+          ></i>
+        </a>
+        <ul
+          id="work-scale"
+          class="nav-content collapse bg-light rounded-bottom py-0"
+          data-parent="#sidebar-nav"
+        >
+          <li>
+            <a
+              class="d-flex justify-content-between align-items-center pr-2"
+              routerLink="/"
+              [routerLink]="['/piips/ep/denuncias/emergencias']"
+              ariaCurrentWhenActive="page"
+              >Emergencias <i class="bi bi-download" style="font-size: 1.2rem"></i
+            ></a>
+          </li>
+          <li>
+            <a
+              class="d-flex justify-content-between align-items-center pr-2"
+              routerLink="/"
+              routerLink="work"
+              [routerLink]="['/piips/ep/denuncias/normal']"
+              >Normal<i
+                class="bi bi-arrow-repeat"
+                style="font-size: 1.2rem"
+              ></i
+            ></a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link collapsed d-flex justify-content-center"
+          data-target="#ask-menu"
+          data-toggle="collapse"
+          href="#"
+          routerLinkActive="active"
+        >
+        <i class="bi bi-buildings"></i>
+          <span>Comunidades</span>
+          <i class="bi bi-chevron-down flex-fill" style="text-align: right"></i>
+        </a>
+        <ul
+          id="ask-menu"
+          class="nav-content collapse bg-light rounded-bottom py-0"
+          data-parent="#sidebar-nav"
+        >
+
+          <li>
+            <a
+              class="d-flex justify-content-between align-items-center pr-2"
+              routerLink="/"
+              [routerLink]="['/piips/ep/comunidades/comunidade']"
+              ariaCurrentWhenActive="page"
+              >Comunidades<i class="bi bi-arrow-repeat" style="font-size: 1.2rem"></i
+            ></a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link collapsed d-flex justify-content-center"
+          data-target="#reclamation-menu"
+          data-toggle="collapse"
+          href="#"
+          routerLinkActive="active"
+        >
+        <i class="bi bi-forward"></i>
+          <span>Proveniencia</span>
+          <i class="bi bi-chevron-down flex-fill" style="text-align: right"></i>
+        </a>
+        <ul
+          id="reclamation-menu"
+          class="nav-content collapse bg-light rounded-bottom py-0"
+          data-parent="#sidebar-nav"
+        >
+          <li>
+            <a
+              class="d-flex justify-content-between align-items-center pr-2"
+              routerLink="/"
+              [routerLink]="['/piips/ep/proveniencas/provenienca']"
+              ariaCurrentWhenActive="page"
+              >Proveniecas<i class="bi bi-list-ul" style="font-size: 1.2rem"></i
+            ></a>
+          </li>
+        </ul>
+      </li>
+  
+      <li class="nav-item">
+        <a class="nav-link" routerLink="push" style="cursor: pointer">
+          <i class="bi bi-gear"></i>
+          <span>Configuraçoes</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          data-toggle="modal"
+          data-target="#logout-modal"
+          style="cursor: pointer"
+        >
+          <i class="bi bi-power" id="cor_icone"></i>
+          <span>Sair</span>
+        </a>
+      </li>
+    </ul>
+  </aside>

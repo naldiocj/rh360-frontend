@@ -1,0 +1,39 @@
+<div class="modal fade " id="modalRegistarOuEditar" aria-labelledby="modalRegistarOuEditarLabel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true" >
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-prima text-white">
+          <h4 class="modal-title">
+          eee
+          </h4>
+          
+          <a type="button" data-bs-dismiss="modal" aria-label="Close" >
+            <i class="bi bi-backspace-reverse-fill cursor-pointer rounded-lg " style="font-size: 1.5em"></i>
+          </a>
+        </div>
+   
+            <div class="content">
+             
+                <h2>Abertura do Expediente / Processo Crime</h2>
+                <form [formGroup]="expedienteForm" (ngSubmit)="onSubmit()">
+                  <div>
+                    <label>Denunciante:</label>
+                    <input formControlName="denunciante" placeholder="Nome do denunciante" />
+                  </div>
+                  <div>
+                    <label>Descrição:</label>
+                    <textarea formControlName="descricao" placeholder="Descrição dos fatos"></textarea>
+                  </div>
+                  <div>
+                    <label>Órgão de Polícia (OPCs):</label>
+                    <input formControlName="opcs" placeholder="Nome do órgão" />
+                  </div>
+                  <button type="submit" [disabled]="expedienteForm.invalid">Registrar Expediente</button>
+                </form>
+  
+            </div>
+         
+      </div>
+    </div>
+  </div>
+  
+    

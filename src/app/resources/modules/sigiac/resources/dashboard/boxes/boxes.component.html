@@ -1,0 +1,22 @@
+<div class="box p-3 mb-3 bg-light d-flex" *ngFor="let boxes of box">
+  <div class="figura">
+    <i id="img" class="{{ boxes.icone }}"></i>
+  </div>
+  <div class="detalhes">
+    <div class="infor">
+      <h4>{{boxes.titulo}}</h4>
+      <p>
+        {{boxes.descricao}}
+      </p>
+    </div>
+    <div class="count d-flex">
+      <div class="dados">
+        <h2>{{boxes.dados}}</h2>
+        <p>Dados dinâmicos</p>
+      </div>
+      <div class="rota">
+        <a routerLink="{{boxes.link}}" class=""><i class="cam bi-arrow-right-circle-fill"></i></a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+.content{
+    padding-left: 200px;
+}
+
+th{
+    background: #041B4E;
+    color: white;
+    text-align: center;
+}
+
+td{
+    text-align: center;
+}

@@ -1,0 +1,121 @@
+<div class="modal fade" id="modalEnviarCorrrespondencia" aria-labelledby="modalsigpqprovimentopromocaoemtempo"
+  aria-hidden="true">.
+  <div class="modal-dialog modal-dialog-centered" role="document" style="min-width: 60%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>
+          <i class="fa" [class.fa-plus]="!this.getCorrespondenciaId" [class.fa-edit]="this.getCorrespondenciaId"></i>
+          GESTÃO DE ARQUIVOS |
+          {{
+          this.getCorrespondenciaId
+          ? "Actualizar Documentos"
+          : "Arquivar Documentos"
+          }}
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="content p-2">
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="row">
+              <div class="col-lg-12">
+                <form [formGroup]="this.simpleForm">
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label style="color: #002d54"><b>Tipo <span class="text-red">*</span></b></label>
+                        <ng-select2 [options]="options" [data]="tipoCorrespondencia"
+                          formControlName="id_tipoDoc">
+                        </ng-select2>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label style="color: #002d54"><b>Referência do Documentos</b></label>
+                        <input type="text" class="form-control" formControlName="referenciaDoc">
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label style="color: #002d54"><b>Assunto</b></label>
+                        <input type="text" class="form-control" formControlName="assunto">
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label style="color: #002d54"><b>Procedência <span class="text-red">*</span></b></label>
+                        <ng-select2 [options]="this.options" [data]="procedenciaCorrespondencia"
+                          (valueChanged)="this.selecionarProcedencia($event)"
+                          formControlName="procedencia_correspondencia_id">
+                        </ng-select2>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label style="color: #002d54"><b>Direcção/Órgao</b></label>
+                        <ng-select2 [options]="this.options" [data]="tipoEstruturaOrganicas"
+                          (valueChanged)="this.selecionarOrgaoOuComandoProvincial($event)" formControlName="tipo_orgao">
+                        </ng-select2>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label style="color: #002d54"><b>Titular do Documento</b></label>
+                        <ng-select2 [options]="this.options" [data]="pessoaJuridicas" 
+                        (valueChanged)="this.handlerDirecaoOrgao($event)"
+                           formControlName="pessoajuridica_id">
+                        </ng-select2>
+                      </div>
+                    </div>
+
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label style="color: #002d54"><b>Escanear Documento</b></label>
+                        <button type="button" class="btn btn-primary" (click)="scanWithoutAspriseDialog()">
+                          <i class="fa fa-scanner"></i> Escanear
+                        </button>
+                        <div id="images" style="margin-top: 20px;"></div>
+                      </div>
+                    </div>
+                              
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 d-flex justify-content-end">
+                      <button class="btn-piips btn-piips-red py-2 m-0" (click)="this.reiniciarFormulario()">
+                        <span class="fa fa-refresh"></span> Limpar
+                      </button>
+
+                      <button [disabled]="this.carregando|| this.submitted || !this.simpleForm.valid" type="button"
+                        (click)="onSubmit()" class="btn-piips btn-piips-primary m-0 py-2" style="border-radius: 0px">
+                        <ng-container *ngIf="this.carregando || this.submitted; else naoRegistar">
+                          <div class="spinner-border spinner-border-sm m-1"></div>
+                          Carregando...
+                        </ng-container>
+                        <ng-template #naoRegistar>
+
+                          {{this.getId ? 'Editar': 'Enviar'}}
+
+                        </ng-template>
+                      </button>
+
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

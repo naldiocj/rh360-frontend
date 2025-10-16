@@ -1,0 +1,94 @@
+
+
+
+
+
+
+/* styles.css ou componente específico
+ background-color: #f5f8fa;
+  border-color: #f5f8fa;
+  color: #5e6278;
+  transition: color 0.2s ease;
+  */
+ 
+
+  .bg-lightt { 
+    padding: 1px;  
+    border-radius: 4px !important;
+  }
+  .decricao{ 
+    word-wrap: break-word;
+    word-break: normal; 
+    background: linear-gradient(#ffffff, #ffffff) !important;
+    max-width: 100%;
+    margin-bottom: 3px;
+    border-radius: 10px; 
+    cursor: pointer;
+  }
+  .decricao a{ 
+    color: #17007c;
+    cursor: pointer;
+  }
+  .hidden-banner {
+    display: none;
+  }
+  .nav-btn-button {
+    border:none;
+    border-top-right-radius: 16px !important;
+    border-top-left-radius: 16px !important;
+    border-bottom-right-radius: 5px !important;
+    border-bottom-left-radius: 5px !important;
+    border: 1px solid #e8ecec !important;
+    min-height: 40px;
+    max-height: 50px;
+    margin-right: 4px;
+  }
+  
+   
+ 
+  details:first-child {
+    border-top-left-radius: 18px; /* Raio da borda superior esquerda */
+    border-top-right-radius: 18px;
+  }
+  
+  details:last-child {
+    border-bottom-left-radius: 12px; /* Raio da borda superior direita */
+    border-bottom-right-radius: 12px;
+  }
+    /* Estilização para o elemento <details> */
+    details {
+      background: linear-gradient(#f6f6f6, #f6f6f6);
+      margin-bottom: 1px;
+      width: 98%;
+      padding: 2px;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      color: var(--bs-accordion-color);
+      box-shadow: 0 0 2px rgba(0, 0, 0, 0.275);
+    }
+    details:hover {
+      background-color: #f6f6f6; 
+      transition: all 0.3s cubic-bezier(.175, .885, .32, 1.275);
+      color: #000000;
+    }
+  
+    /* Estilização para o resumo (summary) */
+    summary {
+      padding: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(.175, .885, .32, 1.275);
+    }
+  /* Ocultar a seta */
+  details.no-arrow summary::-webkit-details-marker {
+    display: none;
+  }
+  
+  details.no-arrow summary::before {
+    content: "+";
+    color: #000000; /* Seta invisível */
+  }
+  
+  /* Exibir a seta apenas se houver registros */
+  details.custom-details summary::-webkit-details-marker {
+    display: block;
+  }

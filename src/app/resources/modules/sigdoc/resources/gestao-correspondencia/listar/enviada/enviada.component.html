@@ -1,0 +1,210 @@
+<main id="main_" class="main_">
+<div class="content">
+  <div class="header-ficha">
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 d-flex justify-content-start align-items-start"
+        style="row-gap: 0.8rem;">
+        <div class="image">
+          <img src="../../../../../../../assets/dashboard/Vector 51.png" alt="" style="width: 130px;" />
+        </div>
+        <div class="logos mx-2">
+          <h1>POLÍCIA NACIONAL DE ANGOLA</h1>
+          <h3 class="text-uppercase">
+            Sistema Integrado de Gestão - Documental e Arquivos
+          </h3>
+          <h4 class="text-light">
+            <b>Documentos Enviados </b>
+          </h4>
+          <h4 class="title mt-3">DAS - {{ orgaoId }}</h4>
+        </div>
+      </div>
+    </div>
+    <div class="row my-6">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="row mt-4">
+          <div class="col-xl-10 col-lg-10 col-md-12 col-sm-12 d-flex align-item-center justify-content-end">
+            <div class="d-flex justify-content-end align-items-center" style="gap:.4rem">
+              <span class="legend-item" *ngFor="let item of this.estados">
+                <div class="legend-color" [style.backgroundColor]="item.cor"></div>
+                <span style="color: white;" class="legend-text">{{item.texto}}</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <nav class="navbar navbar-light bg-light w-100">
+        <form class="form-inline">
+          <select class="form-control mr-sm-2" (change)="filtrarPagina('perPage', $event)">
+            <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">
+              {{ item }}
+            </option>
+          </select>
+          <input class="form-control mr-sm-2" type="text" [ngModel]="filtro.search"
+            (ngModelChange)="filtrarPagina('search', $event)" placeholder="Pesquisa ..." />
+          <button (click)="this.recarregarPagina()" class="btn-piips btn-piips-secondary py-2 m-0" type="submit">
+            <i style="font-size: 14px" class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+            Recarregar
+          </button>
+        </form>
+      </nav>
+    </div>
+
+    <div class="col-lg-12">
+        <table class="table table-border table-striped custom-table datatable">
+          <thead> 
+            <th>#</th>
+            <th>Nº de Referência</th>
+            <th>Natureza</th>
+            <th>Importância</th>
+            <th>Tipo Documento</th>
+            <!--th>Procedência</th-->
+            <th>Destinário</th>
+            <th>Data de Envio</th>
+            <th class="text-right">Operação</th>
+          </thead>
+          <tbody>
+            <tr *ngIf="this.isLoading">
+              <td colspan="9">
+                <aside *ngIf="this.isLoading">
+                  <loading-page [texto]="'lista de documentos enviados na tramitação'"></loading-page>
+                </aside>
+              </td>
+            </tr>
+            <tr *ngFor="
+              let item of this.correspondencias
+                | paginate
+                  : {
+                      id: 'idCorrespondencia',
+                      itemsPerPage: this.pagination.per_page,
+                      currentPage: this.pagination.current_page,
+                      totalItems: this.pagination.total
+                    };
+              index as i
+            ">
+              <th [style.backgroundColor]="item?.tratamento?.cor"></th>
+              <td>
+                <a ariaCurrentWhenActive="page"
+                  [routerLink]="['/piips/sigdoc/gestao-correspondencia/ver-um','enviado', item.id]">
+                  {{ item.referenciaDoc }}
+                </a>
+              </td>
+              <td>{{ item.natureza }}</td>
+              <td>{{ item.importancia }}</td>
+              <td>{{ item.tipo_correspondencia }}</td>
+              <!--td>{{ item.procedencia_correspondencia }}</td-->
+              <td>{{ item.orgao_sigla }} - {{item.orgao}} </td>
+              <td>{{ item.created_at }}</td>
+
+              <td class="text-right">
+                <div class="dropdown dropdown-action mr-4">
+                  <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
+                      class="fa fa-ellipsis-v"></i></a>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="javarcript::void(0)" data-toggle="modal" data-target="#ver-documento-correspondencia-enviada"
+                      (click)="visualizar(item)"><i class="fa fa-eye m-r-5"></i>
+                      Ver documento
+                    </a>
+                    <a class="dropdown-item" href="javarcript::void(0)" data-toggle="modal"
+                    data-target="#modalEnviarCorrrespondencia" (click)="editar(item)">
+                    <i class="fa fa-pencil m-r-5"></i>
+                    Editar
+                    </a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-sm-6">
+          Mostrando de {{ this.pagination.current_page }} á
+          {{ this.pagination.per_page }} de {{ this.pagination.total }} Registo
+        </div>
+        <div class="col-sm-6">
+          <div class="float-right">
+            <pagination-controls id="idCorrespondencia" (pageChange)="this.filtrarPagina('page', $event)"
+              [directionLinks]="true" [autoHide]="true" previousLabel="Anterior" nextLabel="Próximo" [maxSize]="4"
+              [responsive]="true"></pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+
+<app-sigdoc-ocorrencia-modal (onEnviarOcorrencia)="this.recarregarPagina()" [documento]="this.documento"></app-sigdoc-ocorrencia-modal>
+
+<div class="modal fade" id="ver-documento-correspondencia-enviada" aria-labelledby="modalVisualizarIndividual"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document" style="overflow-y: hidden;min-width: 70%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>
+          <i class="fa fa-user"></i>
+          Visualizar documento agora
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="content">
+        <div class="modal-body">
+          <div class="row">
+
+            <div class="col-sm-12">
+              <nav class="navbar navbar-light bg-light">
+                <h3>{{this.documento?.sigdoc_tipo_documento_nome}}</h3>
+                <aside *ngIf="this.documento">
+                  <span *ngIf="this.documento.activo" class="custom-badge status-green">Activo</span>
+                  <span *ngIf="!this.documento.activo" class="custom-badge status-orange">Inactivo</span>
+                </aside>
+              </nav>
+              <div class="col-sm-12">
+                <aside *ngIf="carregarDocumento;else carregarDocumentoVerMensagem">
+                  <div class="container">
+                    <div class="row justify-content-center">
+                      Carregando documento ...
+                      <div class="col-sm-12 text-center">
+                        <div class="spinner-border text-primary" style="width: 2rem; height: 2rem;" role="status">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </aside>
+                <ng-template #carregarDocumentoVerMensagem>
+                  <aside *ngIf="fileUrl; else verMensagem">
+                    <iframe [src]="fileUrl" width="100%" height="700px"></iframe>
+                  </aside>
+                  <ng-template #verMensagem>
+                    <div class="container">
+                      <div class="row justify-content-center">
+                        <div class="col-sm-12 text-center">
+                          Sem documento adicionado
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                </ng-template>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            <span class="fa fa-close m-r-2"></span>Fechar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

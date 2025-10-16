@@ -1,0 +1,71 @@
+
+  <details>
+    <summary class="d-flex">
+      <div *ngIf="this.veiculos?.length; else noVeiculos" class="mr-2">
+        <i class="bi bi-plus-lg"></i>
+      </div>
+      <ng-template #noVeiculos>
+        <div class="mr-2">
+          <i class="bi bi-x-lg"></i> <!-- Ícone ou conteúdo alternativo -->
+        </div>
+      </ng-template>
+        Veiculos
+    </summary>
+    <div class=" ">
+       
+  <details class="details"  *ngFor="let item of this.veiculos index as i" >
+    <summary class="summary d-flex">
+      <div *ngIf="this.veiculos?.length; else noVeiculos" class="mr-2">
+        <i class="bi bi-plus-lg"></i>
+      </div>
+      <ng-template #noVeiculos>
+        <div class="mr-2">
+          <i class="bi bi-x-lg"></i> <!-- Ícone ou conteúdo alternativo -->
+        </div>
+      </ng-template>
+      <i class="bi">
+          
+        </i>
+       
+        
+          Veiculo {{ item.marca | slice : 0 : 14 }} 
+      
+    
+    </summary>
+    <div class=" bg-lightt">
+        
+      <div class="col-10">Marca: {{ item.marca | slice : 0 : 14 }}</div>
+      <div class="col-10">Modelo: {{ item.modelo | slice : 0 : 14 }}</div>
+      <div class="col-10">Matricula: {{ item.matricula | slice : 0 : 14 }}</div>
+      <div class="col-10">Cor: {{ item.cor | slice : 0 : 14 }}</div>
+      
+            
+    </div>
+  </details>
+
+ 
+    </div>
+  </details>
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

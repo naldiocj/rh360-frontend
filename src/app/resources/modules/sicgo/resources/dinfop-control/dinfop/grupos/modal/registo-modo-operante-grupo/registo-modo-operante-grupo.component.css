@@ -1,0 +1,28 @@
+/* modal */
+.bg-prima {
+    background-color: #041b4e;
+  }
+  
+  .modal-content {
+    border-radius: 15px;
+  }
+  .modal-lk {
+    max-width: 45%;
+    margin:3% auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+  }
+  input,
+  select,
+  textarea {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -5px,
+      rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+    border-radius: 5px;
+    border: 1px solid #dbdbdb !important;
+  }
+  .bt-radius {
+    border-radius: 5px;
+  }
+  

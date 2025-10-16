@@ -1,0 +1,161 @@
+<div class="row">
+    <div class="col d-flex align-items-end w-100 mt-4">
+        <h1 class="t"> <img src="../../../../../../assets/sigcod/finger.png" alt="ici" height="80px" width="80px" /> Gerando codigo QR
+        </h1>
+    </div>
+
+</div>
+<br>
+
+<section class="section dashboard my-2">
+
+    <div class="row ">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 d-grid justify-content-around">
+                    <a [routerLink]="['/piips/sigcod/listar-qr']">
+
+                        <div class=" card  d-grid justify-content-between" id="card">
+                            <div class="row d-flex justify-content-between m-t-20 align-center card-head">
+                                <h4 class="title-name m-l-30"> Total de Passes
+                                </h4> <img src="" alt="armas" style="margin-left: -40px;visibility:hidden;">
+
+                            </div>
+
+                            <h4 class="stock-ponto">{{numQr==0?0:numQr}}</h4>
+                            <div class="w-100  d-flex bg-light tema-barra">
+
+                                <div class="d-flex justify-content-center w-100 align-center h-100 m-t-10">
+                                    <h4 id="percetangem " class="text-dark "> <span [style]="{'color':'#008000'}" [className]="numQr==0?'text-danger':'text-success'">{{((numQr*100)/numQr)!=((numQr*100)/numQr)?0:((numQr*100)/numQr)}}%</span> Deste a ultima semana </h4>
+                                </div> <img src="../../../../../../assets/img/icons do sigae/checked.png" height="24px" width="25px" alt="ic" class="d-flex justify-content-end m-t-10 m-r-10">
+
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+
+                    <a [routerLink]="['/piips/sigcod/listar-guia']">
+                        <div class=" card  d-grid justify-content-between" id="card">
+                            <div class="row d-flex justify-content-between m-t-20 align-center card-head">
+                                <h4 class="title-name m-l-30"> Total de Guia
+                                </h4> <img src="../../../../../../assets/img/icons do sigae/Explosive.png" alt="armas" style="margin-left: -40px;visibility:hidden;">
+
+                            </div>
+
+                            <h4 class="stock-ponto">{{ this.numGuia==0?0:this.numGuia}}</h4>
+                            <div class="w-100  d-flex bg-light tema-barra">
+
+                                <div class="d-flex justify-content-center w-100 align-center h-100 m-t-10">
+                                    <h4 id="percetangem " class="text-dark "> <span [style]="{'color':'#008000'}" [className]="numGuia==0?'text-danger':'text-success'">{{((numGuia*100)/numGuia)!=((numGuia*100)/numGuia)?0:((numGuia*100)/numGuia)}}%</span> Deste a ultima semana
+                                    </h4>
+
+
+                                </div> <img src="../../../../../../assets/img/icons do sigae/checked.png" height="24px" width="25px" alt="ic" class="d-flex justify-content-end m-t-10 m-r-10">
+
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+
+                    <a [routerLink]="['/piips/sigcod/listar-nip']">
+                        <div class=" card  d-grid justify-content-between" id="card">
+                            <div class="row d-flex justify-content-between m-t-20 align-center card-head">
+                                <h4 class="title-name m-l-30"> Total de Nip
+                                </h4> <img src="../../../../../../assets/img/icons do sigae/Rifle Magazine.png" alt="armas" style="margin-left: -40px;visibility:hidden;">
+
+                            </div>
+                            <h4 class="stock-ponto">{{ this.numNip==0?0:this.numNip}}</h4>
+                            <div class="w-100  d-flex bg-light tema-barra">
+
+                                <div class="d-flex justify-content-center w-100 align-center h-100 m-t-10">
+                                    <h4 id="percetangem " class="text-dark "> <span [style]="{'color':'#008000'}" [className]="numNip==0?'text-danger':'text-sucess'">{{((numNip*100)/numNip)!=((numNip*100)/numNip)?0:((numNip*100)/numNip)}}%</span> Deste a ultima semana </h4>
+
+                                </div> <img src="../../../../../../assets/img/icons do sigae/checked.png" height="24px" width="25px" alt="ic" class="d-flex justify-content-end m-t-10 m-r-10">
+
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+                <hr border="2">
+            </div>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 d-grid justify-content-around">
+                    <a [routerLink]="['/piips/sigcod/listar-qr']">
+
+                        <div class=" card  d-grid justify-content-between" id="card">
+                            <div class="row d-flex justify-content-between m-t-20 align-center card-head">
+                                <h4 class="title-name m-l-30"> Total de Passes Criados
+                                </h4> <img src="" alt="armas" style="margin-left: -40px;visibility:hidden;">
+
+                            </div>
+
+                            <h4 class="stock-ponto">{{ATQr==0?0:ATQr}}</h4>
+                            <div class="w-100  d-flex bg-light tema-barra">
+
+                                <div class="d-flex justify-content-center w-100 align-center h-100 m-t-10">
+                                    <h4 id="percetangem " class="text-dark "> <span [style]="{'color':'#008000'}" [className]="ATQr==0?'text-danger':'text-success'">{{((ATQr*100)/ATQr)!=((ATQr*100)/ATQr)?0:((ATQr*100)/ATQr)}}%</span> Deste a ultima semana </h4>
+                                </div> <img src="../../../../../../assets/img/icons do sigae/checked.png" height="24px" width="25px" alt="ic" class="d-flex justify-content-end m-t-10 m-r-10">
+
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+
+                    <a [routerLink]="['/piips/sigcod/Natribuidos']">
+                        <div class=" card  d-grid justify-content-between" id="card">
+                            <div class="row d-flex justify-content-between m-t-20 align-center card-head">
+                                <h4 class="title-name m-l-30"> Total de Nip não Atribuidos
+                                </h4> <img src="../../../../../../assets/img/icons do sigae/Explosive.png" alt="armas" style="margin-left: -40px;visibility:hidden;">
+
+                            </div>
+
+                            <h4 class="stock-ponto">{{ this.NaNip==0?0:this.NaNip}}</h4>
+                            <div class="w-100  d-flex bg-light tema-barra">
+
+                                <div class="d-flex justify-content-center w-100 align-center h-100 m-t-10">
+                                    <h4 id="percetangem " class="text-dark "> <span [style]="{'color':'#008000'}" [className]="NaNip==0?'text-danger':'text-success'">{{((NaNip*100)/NaNip)!=((NaNip*100)/NaNip)?0:((NaNip*100)/NaNip)}}%</span> Deste a ultima semana
+                                    </h4>
+
+
+                                </div> <img src="../../../../../../assets/img/icons do sigae/checked.png" height="24px" width="25px" alt="ic" class="d-flex justify-content-end m-t-10 m-r-10">
+
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+
+                    <a [routerLink]="['/piips/sigcod/atribuidos']">
+                        <div class=" card  d-grid justify-content-between" id="card">
+                            <div class="row d-flex justify-content-between m-t-20 align-center card-head">
+                                <h4 class="title-name m-l-30"> Total de Nip Atribuidos
+                                </h4> <img src="../../../../../../assets/img/icons do sigae/Rifle Magazine.png" alt="armas" style="margin-left: -40px;visibility:hidden;">
+
+                            </div>
+                            <h4 class="stock-ponto">{{ this.ATNip==0?0:this.ATNip}}</h4>
+                            <div class="w-100  d-flex bg-light tema-barra">
+
+                                <div class="d-flex justify-content-center w-100 align-center h-100 m-t-10">
+                                    <h4 id="percetangem " class="text-dark "> <span [style]="{'color':'#008000'}" [className]="ATNip==0?'text-danger':'text-sucess'">{{((ATNip*100)/ATNip)!=((ATNip*100)/ATNip)?0:((ATNip*100)/ATNip)}}%</span> Deste a ultima semana </h4>
+
+                                </div> <img src="../../../../../../assets/img/icons do sigae/checked.png" height="24px" width="25px" alt="ic" class="d-flex justify-content-end m-t-10 m-r-10">
+
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+                <hr border="2">
+            </div>
+        </div>
+    </div>
+
+
+</section>

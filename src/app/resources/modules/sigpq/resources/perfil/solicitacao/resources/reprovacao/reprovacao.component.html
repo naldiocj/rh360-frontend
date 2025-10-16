@@ -1,0 +1,117 @@
+<div class="modal fade" id="reprovacao-solicitacao" aria-labelledby="modalPortalRegistarAcidente" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document" style="overflow-y: hidden;min-width: 30%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="title-header">
+          <i class="fa fa-calendar"></i>
+          Documento para a reprovação de solicitação de {{solicitacao?.tipo_evento_nome}}
+
+        </h5>
+
+        <button type="button" class="close" id="btn-close-reprovacao" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="content">
+          <div class="tab-vertical">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a class="nav-link show active" id="dados-proficionais-tab" data-toggle="tab" href="#pdf-personalizado"
+                  role="tab" aria-selected="true" (click)="personalizado(true)">
+                  Declaração personalizado
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="dados-pessoais-tab" data-toggle="tab" href="#pdf-doc" role="tab"
+                  aria-selected="false" (click)="personalizado(false)">
+                  Declaração em [PDF]
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content" id="tabContent1">
+              <div class="tab-pane fade show active" id="pdf-personalizado" role="tabpanel"
+                aria-labelledby="dados-proficionais-tab">
+                <form [formGroup]="this.relatorioForm"  class="w-100">
+
+                  <div class="row">
+                    <div class="col-12">
+                      <angular-editor [config]="editorConfig" formControlName="conteudo"></angular-editor>
+                    </div>
+                  </div>
+                  <div class="row d-flex justify-content-end align-items-end my-4">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <div class="btn-group">
+                        <button class="btn btn-success" (click)="onSubmit()" [disabled]="this.relatorioForm.invalid">
+                          <ng-container *ngIf="this.carregando; else notLoading">
+                            <i class="spinner-border spinner-border-sm m-1"></i>
+                            Enviando...
+                          </ng-container>
+                          <ng-template #notLoading>
+                            <i class="fa fa-check"></i>
+                            Enviar
+                          </ng-template>
+                        </button>
+                        <button class="btn btn-danger" data-dismiss="modal" (click)="this.resetForm()"><i
+                            class="fa fa-times"></i>
+                          Cancelar</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="tab-pane fade" id="pdf-doc" role="tabpanel" aria-labelledby="dados-proficionais-tab">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="row">
+                      <div class="col-lg-10 col-md-10 col-sm-12">
+                        <div class="iframe-wrapper">
+                          <iframe [src]="previewFile" frameborder="0" class="iframe" *ngIf="this.previewFile">
+                          </iframe>
+                        </div>
+                      </div>
+                      <div class="col-lg-2 col-md-2 col-sm-12">
+                        <label for="file"
+                          class="btn btn-primary w-100 d-flex justify-content-between align-items-center"><i
+                            class="bi bi-file-pdf-fill"></i> Carregar</label>
+                        <input type="file" id="file" class="d-none" (change)="handlerFile($event)"
+                          accept="application/pdf">
+                      </div>
+                    </div>
+                    <div class="row  d-flex justify-content-end align-items-end  my-4">
+                      <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="btn-group">
+                          <button class="btn btn-success" (click)="onSubmit()" [disabled]="this.simpleForm.invalid">
+                            <ng-container *ngIf="this.carregando; else notLoading">
+                              <i class="spinner-border spinner-border-sm m-1"></i>
+                              Enviando...
+                            </ng-container>
+                            <ng-template #notLoading>
+                              <i class="fa fa-check"></i>
+                              Enviar
+                            </ng-template>
+                          </button>
+                          <button class="btn btn-danger" data-dismiss="modal" (click)="this.resetForm()"><i
+                              class="fa fa-times"></i>
+                            Cancelar</button>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="d-flex justify-content-end align-items-end">
+                <span class="inc">
+                  PNA / DTTI
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,23 @@
+#btn-success{
+    background-color: green;
+    font-weight: 500;
+}
+
+#btn-success:active{
+    background-color: rgb(10, 102, 10);
+    font-weight: 500;
+}
+
+
+#btn-success:disabled{
+    background-color: rgb(10, 102, 10,0.56);
+    font-weight: 500;
+}
+
+input {
+    height: 40px;
+    min-height: 40px;
+    max-height: 45px;
+    border-width: 0.5px;
+    
+}

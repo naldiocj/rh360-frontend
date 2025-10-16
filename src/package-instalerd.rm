@@ -1,0 +1,11 @@
+npm i @auth0/angular-jwt
+npm i jwt-decode
+npm install --save jquery
+npm install --save @types/jquery
+npm install --save ngx-apexchart
+npm install --save ngx-print
+
+ 
+  
+    "rxjs": "~7.5.0",
+    "save": "^2.9.0",

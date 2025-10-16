@@ -1,0 +1,264 @@
+/* Estilo da sobreposição (overlay) */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Estilo da modal */
+.modal-container {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  width: 400px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  
+}
+
+/* Header e botão de fechar */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+
+ /* Estilo para o vídeo */
+ .video-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* Estilo para o canvas gerado pelo face-api.js */
+.video-container canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+/* Ajuste do tamanho do vídeo para centralizá-lo corretamente */
+video {
+  display: block;
+  object-fit: cover;
+  width: 400px;
+  height: 400px;
+  background-color: black;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  margin-left: 15%; 
+
+  z-index: -5; 
+  grid-template-areas: 'stack';
+  
+}
+ 
+
+button {
+  margin: 2px;
+}
+
+.captured-images {
+  border: 1px dashed #bdbbbb;
+  display: block;
+  justify-content: center;
+  gap: 5px;
+  flex-wrap: wrap;
+  background-color: #e8e8e8;
+}
+
+.image-container {
+  border: 2px dashed #ddd;
+  width: 125px;
+  height: 145px;
+  overflow: hidden;
+}
+
+.image-container h3{
+  font-size: 10pt;
+}
+
+.image-container img {
+  border: 2px dashed #bdbbbb;
+  max-width: 100%;
+  height: auto;
+}
+
+
+
+.camera-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+
+#vercamera {
+  transition: all 0.3s cubic-bezier(.175, .885, .32, 1.275);
+  text-transform: uppercase;
+  line-height: 20px;
+  position: fixed;
+  bottom: 0;
+}
+
+@media (max-width: 1199px) {
+  #vercamera {
+    padding: 0px;
+  }
+}
+
+@media (min-width: 1200px) {
+  #vercamera {
+    margin-left: 0px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+:root {
+  --aqua:  #7FDBFF;
+  --blue:  #0074D9;
+  --navy:  #001F3F;
+  --teal:  #39CCCC;
+  --green: #2ECC40;
+  --olive: #3D9970;
+  --lime:  #01FF70;
+
+  --yellow:  #FFDC00;
+  --orange:  #FF851B;
+  --red:     #FF4136;
+  --fuchsia: #F012BE;
+  --purple:  #B10DC9;
+  --maroon:  #85144B;
+
+  --white:  #FFFFFF;
+  --silver: #DDDDDD;
+  --gray:   #AAAAAA;
+  --black:  #111111;
+}
+ 
+.stack {
+  display: grid;
+  grid-template-areas: 'stack';
+}
+.blobs {
+  display: grid;
+  grid-template-areas: 'stack';
+  position: absolute;
+  -webkit-animation: spin infinite 5s linear;
+          animation: spin infinite 5s linear;
+  grid-area: stack;
+  margin-left: 15%;
+}
+ 
+video:before {
+  --border-radius: 115% 140% 145% 110% / 125% 140% 110% 125%;
+  --border-width: 5vmin;
+  aspect-ratio: 1;
+  display: absolute;
+  grid-area: stack;
+  background-size: calc(100% + var(--border-width) * 2);
+  background-repeat: no-repeat;
+  background-position: center;
+  border: var(--border-width) solid transparent;
+  border-radius: var(--border-radius, 50%);
+  -webkit-mask-image:
+    linear-gradient(transparent, transparent),
+    linear-gradient(black, white)
+  ;
+          mask-image:
+    linear-gradient(transparent, transparent),
+    linear-gradient(black, white)
+  ;
+  -webkit-mask-clip: padding-box, border-box;
+          mask-clip: padding-box, border-box;
+  -webkit-mask-composite: source-in, xor;
+          mask-composite: intersect;
+  mix-blend-mode: screen;
+  height: 60vmin;
+  filter: blur(1vmin);
+  
+  &:nth-child(1) {
+    background-color: var(--blue);
+    background-image: linear-gradient(var(--blue), var(--teal), var(--blue));
+    rotate: 30deg;
+    scale: 1.03;
+  }
+  
+  &:nth-child(2) {
+    background-color: var(--red);
+    background-image: linear-gradient(var(--red), var(--orange), var(--red));
+    rotate: 60deg;
+    scale: 0.95;
+  }
+  
+  &:nth-child(3) {
+    background-color: var(--olive);
+    background-image: linear-gradient(var(--olive), var(--lime), var(--olive));
+    rotate: 90deg;
+    scale: 0.97;
+  }
+  
+  &:nth-child(4) {
+    background-color: var(--purple);
+    background-image: linear-gradient(var(--purple), var(--maroon), var(--purple));
+    rotate: 120deg;
+    scale: 1.02;
+  }
+}
+
+@-webkit-keyframes spin {
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: 360deg;
+  }
+}
+
+@keyframes spin {
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: 360deg;
+  }
+}
+
+
+
+

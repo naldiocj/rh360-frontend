@@ -1,0 +1,5 @@
+
+10/01/2024
+Foi adicionado um trecho de código CSS no style global do formulario de registo do agente
+
+Os titulos de collapse e painel de formulario do agente, transformado em maisculos

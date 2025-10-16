@@ -1,0 +1,20 @@
+<ng-container>
+   <li>Nome: {{this.capitalize(this.utilsHelper.criarApelido(this.person?.nome_completo, this.person?.apelido,
+      false))}}</li>
+   <li>Apelido: {{this.capitalize(this.utilsHelper.criarApelido(this.person?.nome_completo, this.person?.apelido))}}
+   </li>
+   <li>Data de nascimento: {{this.person?.data_nascimento}}</li>
+   <li>Nacionalidade: {{this.person?.nacionalidade}}</li>
+   <li>Estado cívil: {{this.person?.estado_civil_nome}}</li>
+   <li>Género: {{this.utilsHelper.buscarGenero(this.person?.genero)}}</li>
+   <li>Filiação: {{ this.utilsHelper.capitalize(this.person?.nome_pai)}}</li>
+   <li>E de :{{ this.utilsHelper.capitalize(this.person?.nome_mae)}}</li>
+   <li>Grupo sanguíneo : {{ this.person?.tipo_sanguineo}}</li>
+   <li>B.I N.º : {{this.person?.sigpq_documentos?.nid ?? 'S/N'}}</li>
+   <li>IBAN : {{this.person?.iban ?? 'S/N'}}</li>
+   <li>Carta de Condução N.º:{{this.person?.sigpq_carta_conducao?.nid ?? 'S/N'}}</li>
+   <li>Passaporte N.º: {{this.person?.sigpq_passaporte?.nid ?? 'S/N'}}</li>
+   <li>Habilitações Literárias: {{this.person?.sigpq_habilitacao_literaria?.habilitacao_literaria ?? 'S/N'}}</li>
+   <li *ngIf="this.person?.email_pessoal">E-mail: {{this.person?.email_pessoal}}</li>
+   <li>Telefone: {{this.utilsHelper.add244(this.person?.sigpq_contacto_pessoal?.contacto)}}</li>
+</ng-container>

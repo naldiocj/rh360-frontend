@@ -1,0 +1,377 @@
+<main id="main_" class="main_">
+  <div class="pagetitle mb-4">
+    <h1> <i class="bi bi-journal-text"></i><span class="mx-2">Processo - reclamação </span></h1>
+  </div>
+  <div class="content">
+   
+    <div class="row">
+      <div class="col-md-2">
+        <div class="card">
+          <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+            <img src="assets/img/user.jpg" alt="Profile" class="rounded-circle my-2" />
+            <h5 class="my-1">{{ this.arguido?.nome_completo }}</h5>
+            <h6 class="text-muted">{{ this.arguido?.patente_nome }}</h6>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-md-10">
+        <div class="tab-vertical">
+          <ul class="nav nav-tabs nav-tabs-solid nav-justified">
+            <li class="nav-item" (click)="this.clicked(1)">
+              <a class="nav-link show active" id="dados-processo-tab" data-toggle="tab" href="#dados-processo" role="tab"
+                aria-controls="contact" aria-selected="true">
+                Dados do Processo
+              </a>
+            </li>
+  
+            <li class="nav-item" (click)="this.clicked(2)">
+              <a class="nav-link" id="arguido-principal-tab" data-toggle="tab" href="#arguido-principal" role="tab"
+                aria-selected="false">
+                Dados do Reclamante
+              </a>
+            </li> 
+            <li class="nav-item" (click)="this.clicked(4)">
+              <a class="nav-link" id="parecer-tab" data-toggle="tab" href="#parecer" role="tab" aria-controls="contact"
+                aria-selected="false">
+                Parecer
+              </a>
+            </li>
+  
+            <li class="nav-item" (click)="this.clicked(5)">
+              <a class="nav-link" id="decisao-tab" data-toggle="tab" href="#decisao" role="tab" aria-controls="contact"
+                aria-selected="false">
+                Decisão
+              </a>
+            </li>
+  
+          </ul>
+          <div class="tab-content" id="tabContent1">
+            <div class="tab-pane fade show active" id="dados-processo" role="tabpanel"
+              aria-labelledby="dados-processo-tab">
+              <div class="col-sm-6 pull-left">
+                <aside class="mb-1">
+                  <b>ID:</b> 000{{ this.reclamacaos?.id }}/DAJ
+                </aside>
+                <aside class="mb-1">
+                  <b>Nº do Oficío: </b> {{ this.reclamacaos?.oficio }} <br />
+                </aside>
+                <aside class="mb-1">
+                  <b>Orgão:</b> {{ this.reclamacaos?.orgao }}<br />
+                </aside>
+                <div class="mb-1">
+                  <b class="my-2">Assunto</b>
+                  <div class="mb-1 overflow-auto text-justify"
+                    style="word-wrap: break-word; width: 100%; overflow-y: scroll">
+                    {{ this.reclamacaos?.assunto }}
+                  </div>
+                </div>
+  
+                
+                <div class="mb-1 my-4">
+                  <h4><b>{{this.reclamacaoTotal == 1 ? 'Factor Primário':'Antecedentes' }}</b></h4>
+                  <aside >
+                   {{ this.disciplinarTipo }}
+                   <b> {{ this.disciplinarTotal }}</b>
+                  </aside>
+                  <aside class="mb-1">
+                   {{ this.reclamacaoTipo }}
+                   <b> {{ this.reclamacaoTotal}} </b> 
+                  </aside>
+                  <aside class="mb-1"> 
+                    <b>Total: </b> {{ this.reclamacaoTotal + this.disciplinarTotal  }}
+                  </aside>
+                </div>
+              </div>
+            </div>
+  
+            <div class="tab-pane fade" id="arguido-principal" role="tabpanel" aria-labelledby="arguido-principal-tab">
+              <div class="row ">
+                <div class="col-lg-4 col-md-6 col-6"> 
+                  <p><b>Nome</b></p>
+                    {{ this.arguido?.nome_completo }}
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-6"> 
+                  <p><b>Apelido</b></p>
+                    {{ this.arguido?.apelido }}
+                </div>
+
+                 <div class="col-lg-4 col-md-6 col-6"> 
+                  <p><b>Nip</b></p>
+                    {{ this.arguido?.nip }}
+                </div>
+  
+                <div class="col-lg-4 col-md-6 col-6"> 
+                  <p><b>Nascimento</b></p>
+                    {{ this.arguido?.data_nascimento }}
+                </div>
+  
+                <div class="col-lg-4 col-md-6 col-6"> 
+                  <p><b>Nome do pai</b></p>
+                    {{ this.arguido?.nome_pai }}
+                </div>
+  
+                <div class="col-lg-4 col-md-6 col-6"> 
+                  <p><b>Nome da mãe</b></p>
+                    {{ this.arguido?.nome_mae }}
+                </div>
+              </div>
+            </div> 
+            <div class="tab-pane fade" id="parecer" aria-labelledby="parecer-tab">
+              <div class="card-body">
+                <!-- <aside *ngIf="this.diversos.id === this.getId  ; else verDisciplinar"> -->
+  
+                <div class="col-sm-6 pull-left">
+                  <aside class="mb-1">
+                    <b>ID: </b> {{ this.dadosParecer?.id }}
+                  </aside>
+                  <aside class="mb-1">
+                    <b>Nº do Processo: </b> 000{{this.dadosParecer?.processo}}/DAJ/{{this.dadosDecisao?.created_at}}
+                  </aside>
+                  <aside class="mb-1">
+                    <b>Nº do Oficío: </b> {{ this.dadosParecer?.oficio }}
+                  </aside>
+  
+                  <aside class="mb-1">
+                    <b>Parecer:</b> {{ this.dadosParecer?.assunto }}<br />
+                  </aside>
+                </div> 
+              </div>
+              <nav class="navbar navbar-light" style="margin-top:10em">
+                <form class="form-inline">
+                  <select
+                    class="form-control mr-sm-1"
+                    (change)="filtrarPecasParecer('perPage', $event)"
+                  >
+                    <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">
+                      {{ item }}
+                    </option>
+                  </select>
+                  <input
+                    class="form-control mr-sm-1"
+                    type="text"
+                    [ngModel]="filtro.search"
+                    (ngModelChange)="filtrarPecasParecer('search', $event)"
+                    placeholder="Pesquisa ..."
+                  />
+                  <button
+                    (click)="this.recarregarPecasParecer()"
+                    id="btpe1"
+                    class="btn btn-outline-success my-2 my-sm-0"
+                    type="submit"
+                  >
+                    <i
+                      style="font-size: 14px"
+                      class="fa fa-refresh fa-spin fa-3x fa-fw"
+                    ></i>
+                    <b>Pesquisar</b>
+                  </button>
+                </form>
+              </nav>
+              <div class="col-sm-12">
+                  <table
+                    class="table table-border table-striped custom-table datatable mb-0"
+                  >
+                    <thead>
+                      <tr>
+                        <th>Peças do Parecer</th>
+                        <th>Data do Parecer</th>
+                        <th>Visualizar</th>
+                        <th class="text-right">Baixar</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        *ngFor="
+                          let item of this.pecasParecer
+                            | paginate
+                              : {
+                                  itemsPerPage: this.pagination.per_page,
+                                  currentPage: this.pagination.current_page,
+                                  totalItems: this.pagination.total
+                                };
+                          index as i
+                        "
+                      >
+                        <td>{{ item.id }}</td>
+                        <td>{{ this.dadosParecer?.data }}</td>
+                        <td>
+                          <button
+                            (click)="verFile(item)"
+                            class="btn btn-outline-primary bi bi-eye-fill"
+                          ></button>
+                        </td>
+  
+                        <td class="text-right">
+                          <button
+                            (click)="downloadFile(item)"
+                            class="btn btn-outline-primary bi bi-download"
+                          ></button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table> 
+              </div>
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-sm-6">
+                    Mostrando de {{ this.pagination.current_page }} á
+                    {{ this.pagination.per_page }} de
+                    {{ this.pagination.total }} Registo
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="float-right">
+                      <pagination-controls
+                        id="funcionarioEspecial"
+                        (pageChange)="
+                          this.filtrarPecasParecer('page', $event)
+                        "
+                        [directionLinks]="true"
+                        [autoHide]="true"
+                        previousLabel="Anterior"
+                        nextLabel="Próximo"
+                        [maxSize]="4"
+                        [responsive]="true"
+                      ></pagination-controls>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <div class="tab-pane fade" id="decisao" aria-labelledby="decisao-tab">
+              <div class="card-body">
+                <!-- <aside *ngIf="this.diversos.id === this.getId  ; else verDisciplinar"> -->
+  
+                <div class="col-sm-6 pull-left">
+                  <aside class="mb-1">
+                    <b>ID: </b> {{ this.dadosDecisao?.id }}
+                  </aside>
+                  <aside class="mb-1">
+                    <b>Nº do Processo: </b> 000{{this.dadosDecisao?.processo}}/DAJ/{{this.dadosDecisao?.created_at}}
+                  </aside>
+                  <aside class="mb-1">
+                    <b>Nº do Oficío: </b> {{ this.dadosDecisao?.oficio }}
+                  </aside>
+                  <aside class="mb-1">
+                    <b>N* Despcaho:</b> {{ this.dadosDecisao?.despacho }}<br />
+                  </aside>
+                  <aside class="mb-1">
+                    <b>Tipo de Decisao:</b> {{ this.dadosDecisao?.decisao }}<br />
+                  </aside>
+                  <aside class="mb-1">
+                    <b>Despacho:</b> {{ this.dadosDecisao?.transcricao }}
+                  </aside>
+                </div>
+              </div>
+  
+              <nav class="navbar navbar-light bg-light" style="margin-top:10em">
+                <form class="form-inline">
+                  <select
+                    class="form-control mr-sm-1"
+                    (change)="filtrarPecasDecisao('perPage', $event)"
+                  >
+                    <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">
+                      {{ item }}
+                    </option>
+                  </select>
+                  <input
+                    class="form-control mr-sm-1"
+                    type="text"
+                    [ngModel]="filtro.search"
+                    (ngModelChange)="filtrarPecasDecisao('search', $event)"
+                    placeholder="Pesquisa ..."
+                  />
+                  <button
+                    (click)="this.recarregarPecasDecisao()"
+                    id="btpe1"
+                    class="btn btn-outline-success my-2 my-sm-0"
+                    type="submit"
+                  >
+                    <i
+                      style="font-size: 14px"
+                      class="fa fa-refresh fa-spin fa-3x fa-fw"
+                    ></i>
+                    <b>Pesquisar</b>
+                  </button>
+                </form>
+              </nav>
+  
+              <div class="col-sm-12">
+                  <table
+                    class="table table-border table-striped custom-table datatable mb-0"
+                  >
+                    <thead>
+                      <tr>
+                        <th>Peças da Decisão</th>
+                        <th>Dados da Decisão</th>
+                        <th>Visualizar</th>
+                        <th class="text-right">Baixar</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        *ngFor="
+                          let item of this.pecasDecisao
+                            | paginate
+                              : {
+                                  itemsPerPage: this.pagination.per_page,
+                                  currentPage: this.pagination.current_page,
+                                  totalItems: this.pagination.total
+                                };
+                          index as i
+                        "
+                      >
+                        <td>{{ item.id }}</td>
+                        <td>{{ this.dadosDecisao?.data }}</td>
+                        <td>
+                          <button
+                            (click)="verFile(item)"
+                            class="btn btn-outline-primary bi bi-eye-fill"
+                          ></button>
+                        </td>
+  
+                        <td class="text-right">
+                          <button
+                            (click)="downloadFile(item)"
+                            class="btn btn-outline-primary bi bi-download"
+                          ></button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table> 
+              </div>
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-sm-6">
+                    Mostrando de {{ this.pagination.current_page }} á
+                    {{ this.pagination.per_page }} de
+                    {{ this.pagination.total }} Registo
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="float-right">
+                      <pagination-controls
+                        id="funcionarioEspecial"
+                        (pageChange)="this.filtrarPecasDecisao('page', $event)"
+                        [directionLinks]="true"
+                        [autoHide]="true"
+                        previousLabel="Anterior"
+                        nextLabel="Próximo"
+                        [maxSize]="4"
+                        [responsive]="true"
+                      ></pagination-controls>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+ 
+</main>

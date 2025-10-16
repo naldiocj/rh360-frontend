@@ -1,0 +1,71 @@
+<main id="main_" class="main_">
+
+  <div class="pagetitle mb-4">
+    <h1> <i class="bi bi-stickies-fill"></i><span class="mx-2">Meu arquivo</span></h1>
+  </div>
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body p-0">
+            <ul class="nav nav-tabs nav-tabs-bordered d-flex" id="borderedTabJustified" role="tablist">
+              <li class="nav-item flex-fill" role="presentation">
+                <a class="nav-link w-100 d-flex align-items-center justify-content-center" id="home-tab"
+                  data-toggle="tab" href="#enviar" role="tab" aria-controls="home" aria-selected="false"><i
+                    class="bi bi-cloud-upload mx-2" style="font-size:1.2rem"></i>Enviar</a>
+              </li>
+              <li class="nav-item flex-fill" role="presentation">
+                <a class="nav-link w-100 active d-flex align-items-center justify-content-center" id="profile-tab"
+                  data-toggle="tab" href="#listagem" role="tab" aria-controls="listagem" aria-selected="true"><i
+                    class="bi bi-list-check mx-2" style="font-size:1.2rem"></i>Listagem</a>
+              </li>
+            </ul>
+            <div class="tab-content pt-2" id="borderedTabJustifiedContent">
+              <div class="tab-pane show" id="enviar" role="tabpanel" aria-labelledby="home-tab">
+                <div class="card" style="box-shadow:unset">
+                  <div class="card-body">
+                    <h5 class="card-title">Anexe um ficheiro [Formato PDF][Formato PNG]</h5>
+                    <form class="row d-flex align-items-center" [formGroup]="simpleForm" (ngSubmit)="onSubmit()">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="descricao" style="font-size: 14px; font-weight: 600; color:#041b43">Descrição (Ex:
+                            Curriculum Vitae)</label>
+                          <input type="email" class="form-control py-4" id="descricao" formControlName="descricao"
+                            placeholder=" " style="border-radius: 5px; border: 2px solid #041b43; color:#041b43">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="col-sm-10">
+                          <label for="formFile"
+                            class="btn btn-outline-primary d-flex align-items-center justify-content-center "
+                            style="border-radius: 5px">
+                            <i class="bi bi-file-pdf-fill  mx-2 " style="font-size:1.3rem"></i>
+                            Escolher o ficheiro
+                          </label>
+                          <input class="form-control" type="file" id="formFile" style="display:none"
+                            (change)="onSelectFile($event)">
+                        </div>
+                      </div>
+                      <div class="">
+                        <button type="submit" class="btn btn-outline-primary px-2 m-2" style="border-radius: 2px;"
+                          [disabled]="this.simpleForm.invalid"><i class="bi bi-cloud-upload mx-2"></i>Enviar</button>
+                        <button type="reset" class="btn btn-outline-danger" style="border-radius: 2px;"><i
+                            class="bi bi-cloud-slash mx-2"></i>Cancelar</button>
+                        <span class="mx-5 my-1 spin" *ngIf="turn"></span>
+                      </div>
+                    </form>
+
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade active show" id="listagem" role="tabpanel" aria-labelledby="profile-tab">
+                <app-arquivos></app-arquivos>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

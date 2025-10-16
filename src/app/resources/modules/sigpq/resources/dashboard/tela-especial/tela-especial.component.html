@@ -1,0 +1,56 @@
+
+<aside *ngIf="this.isLoading; else showDashboard">
+  <br><br><br>
+  <loading-page [texto]="'os dashboards'"></loading-page>
+</aside>
+
+<ng-template #showDashboard>
+<div class="text-center">
+  <span class="d-flex text-center"><p>Total de Efectivos: </p> <p class="dados">{{dashboardService.data_dashboard.resumo[0].total}}</p></span>
+</div>
+
+<div class="text-center">
+  <div class="row mt-5">
+    <!-- Coluna Amarela -->
+    <div class="col-6 container d-flex flex-column justify-content-between p-3 box">
+      <!-- Parte Superior -->
+      <div class="flex-fill">
+        <span class="d-flex"><p>Regime Especial: </p> <p class="dados">{{dashboardService.data_dashboard.resumo[1].total}}</p></span>
+      </div>
+      <!-- Parte Inferior -->
+      <div class="flex-fill container d-flex count">
+        <div class="flex-fill">
+         <span class="d-flex" (click)="redirect('efectivo-especial-activo')"><p>Activo:</p> <p class="dados"> {{dashboardService.data_dashboard.especial[5].total}}</p></span>
+         <span class="d-flex"><p>Masculino:</p> <p class="dados"> {{dashboardService.data_dashboard.especial[1].total}}</p></span>
+         <span class="d-flex"><p>Femenino: </p> <p class="dados">{{dashboardService.data_dashboard.especial[2].total}}</p></span>
+        </div>
+        <div class="flex-fill">
+         <span class="d-flex" (click)="redirect('efectivo-especial-passivo')"><p>Passivo: </p> <p class="dados">{{dashboardService.data_dashboard.especial[6].total}}</p></span>
+         <span class="d-flex"><p>Masculino: </p> <p class="dados">{{dashboardService.data_dashboard.especial[3].total}}</p></span>
+         <span class="d-flex"><p>Feminino: </p> <p class="dados">{{dashboardService.data_dashboard.especial[4].total}}</p></span>
+        </div>
+     </div>
+    </div>
+    <!-- Outra Coluna -->
+    <div class="col-6 container d-flex flex-column justify-content-between p-3 box">
+      <!-- Parte Superior -->
+      <div class="flex-fill">
+        <span class="d-flex"><p>Regime Geral: </p> <p class="dados">{{dashboardService.data_dashboard.resumo[2].total}}</p></span>
+      </div>
+      <!-- Parte Inferior -->
+      <div class="flex-fill container d-flex count">
+         <div class="flex-fill">
+          <span class="d-flex"><p>Activo: </p> <p class="dados">{{dashboardService.data_dashboard.geral[5].total}}</p></span>
+          <span class="d-flex"><p>Masculino: </p> <p class="dados">{{dashboardService.data_dashboard.geral[1].total}}</p></span>
+          <span class="d-flex"><p>Femenino: </p> <p class="dados">{{dashboardService.data_dashboard.geral[2].total}}</p></span>
+         </div>
+         <div class="flex-fill">
+          <span class="d-flex"><p>Passivo: </p> <p class="dados">{{dashboardService.data_dashboard.geral[6].total}}</p></span>
+          <span class="d-flex"><p>Masculino: </p> <p class="dados">{{dashboardService.data_dashboard.geral[3].total}}</p></span>
+          <span class="d-flex"><p>Feminino: </p> <p class="dados">{{dashboardService.data_dashboard.geral[4].total}}</p></span>
+         </div>
+      </div>
+    </div>
+  </div>
+</div>
+</ng-template>

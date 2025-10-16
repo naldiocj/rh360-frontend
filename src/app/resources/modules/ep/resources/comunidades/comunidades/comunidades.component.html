@@ -1,0 +1,252 @@
+<div class="content">
+    <div class="row">
+      <div class="col-sm-7">
+        <h4 style="color: #002d59" class="page-title">
+            <i class="bi bi-buildings"></i>          
+            <b>Comunidades</b>
+        </h4>
+        <h4 style="font-size: 14px">Comunidades Registados no Sistema</h4>
+      </div>
+    </div>
+    <div class="row down">
+      <nav class="navbar navbar-light bg-light">
+        <form class="form-inline">
+          <select class="form-control mr-sm-1">
+            <option>Pendentes</option>
+  
+            <option>Resolvidos</option>
+          </select>
+  
+          <select class="form-control mr-sm-1">
+            <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">
+              {{ item }}
+            </option>
+          </select>
+          <input
+            class="form-control mr-sm-1"
+            type="text"
+            placeholder="Pesquisa ..."
+          />
+
+          <button
+            id="btpe1"
+            class="btn btn-outline-success my-2 my-sm-0"
+            type="submit"
+          >
+
+            <i style="font-size: 14px"></i>
+            <b>Pesquisar</b>
+          </button>
+  
+          <button
+            id="btpe1"
+            class="btn btn-outline-success my-2 my-sm-0"
+            type="submit"
+          >
+
+            <i style="font-size: 14px"></i>
+            <img
+              src="assets/dashboard/veiculos/Synchronize.png"
+              alt=""
+              class="fa fa-refresh fa-spin fa-3x fa-fw"
+            />
+
+            <b>Recarregar</b>
+          </button>
+  
+          <a
+            href="javascript:void(0)"
+            data-toggle="modal"
+            data-target="#modalRegistarOuEditarCurso"
+            class="btn btn-primary btnRegistar">
+            
+            <img
+              class="options-img"
+              src="assets/dashboard/veiculos/Plus.png"
+              alt=""
+            />
+            Registar </a
+          >&nbsp;
+        </form>
+      </nav>
+  
+      <div class="col-md-12">
+        <table class="table table-border table-striped custom-table mb-2">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nome</th>
+              <th>Idade</th>
+              <th>Genero</th>
+              <th>Estádo</th>
+              <th>Descrição</th>
+              <th>Data de Registo</th>
+              <th class="text-center">Operação</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Álvaro Miguel</td>
+              <td>20</td>
+              <td>Masculino</td>
+  
+              <td>Resolvido</td>
+  
+              <td>Bla Bla Bla</td>
+              <td>20-02-2024</td>
+  
+              <td class="text-center">
+                <div class="dropdown dropdown-action">
+                  <a
+                    href="#"
+                    class="action-icon dropdown-toggle"
+                    data-toggle="dropdown"
+                    aria-expanded="false"
+                    ><i class="fa fa-ellipsis-v"></i
+                  ></a>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <a
+                      class="dropdown-item"
+                      routerLink="/"
+                      href="javascript:void(0)"
+                    >
+                      <i class="fa fa-eye m-r-5"></i>
+                      Visualizar
+                    </a>
+                    <a
+                      class="dropdown-item"
+                      href="#"
+                      data-toggle="modal"
+                      data-target="#modalRegistarOuEditarVeiculo"
+                    >
+                      <i class="fa fa-pencil m-r-5"></i>
+                      Editar
+                    </a>
+                    <a
+                      class="dropdown-item"
+                      href="#"
+                      data-toggle="modal"
+                      data-target="#delete_perfil"
+                    >
+                      <i class="fa fa-trash-o m-r-5"></i> Apagar
+                    </a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+  <div
+    class="modal fade"
+    id="modalRegistarOuEditarCurso"
+    aria-labelledby="modalRegistarOuEditarCurso"
+    aria-hidden="true"
+  >
+    <div
+      class="modal-dialog"
+      role="document"
+      style="overflow-y: hidden; min-width: 70%"
+    >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5
+            style="
+              color: #041b48;
+              font-size: 20px;
+              font-style: normal;
+              line-height: normal;
+              font-weight: bold;
+              font-family: Poppins;
+            "
+          >
+            <img src="../../../../../../../assets/sigef/Parchment.png" alt="" />
+            Registar Comunidade
+          </h5>
+  
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+  
+        <div style="padding-left: 0" class="content">
+          <div class="main-img"></div>
+          <form [formGroup]="this.simpleForm">
+            <div class="modal-body">
+              <div class="row">
+                <div class="form-group col-6">
+                  <label class="placeholder">Nome do Curso*</label>
+                  <input
+                    formControlName="curso_nome"
+                    type="text"
+                    class="form-control"
+                  />
+                </div>
+  
+                <div class="form-group col-6">
+                  <label>Sigla*</label>
+                  <input
+                    formControlName="sigla"
+                    class="form-control"
+                    type="text"
+                  />
+                </div>
+  
+                <div class="form-group col-12">
+                  <label>Descrição</label>
+  
+                  <angular-editor
+                    style="width: 100%"
+                    class="editor"
+                    formControlName="descricao"
+                  ></angular-editor>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                style="
+                  background-color: #e31212;
+                  border-radius: 3px;
+                  color: #fff;
+                  border: none;
+                  width: 130px;
+                  height: 32px;
+                "
+                type="reset"
+                disabled="true"
+              >
+                Limpar
+              </button>
+  
+              <button
+                style="
+                  background-color: #041b4e;
+                  border-radius: 3px;
+                  color: #fff;
+                  border: none;
+                  width: 130px;
+                  height: 32px;
+                "
+                type="reset"
+              >
+                Registrar
+              </button>
+  
+              <ng-template #ocultarBotao> </ng-template>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  

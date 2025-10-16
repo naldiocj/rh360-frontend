@@ -1,0 +1,23 @@
+/* * {
+    background-color: #041B4E;
+    color: aliceblue;
+    font-family: 'Arial';
+}
+
+.sidebar-menu li a:hover {
+    color: #123071;
+    font-weight: bold;
+    background-color: #123071;
+} */
+
+/* .sidebar .sidebar-menu>ul>li>a span {
+    color: #123071; */
+    /* transition: all 0.2s ease-in-out 0s; */
+    /* display: inline-block; */
+    /* margin-left: 10px; */
+    /* white-space: nowrap; */
+/* } */
+
+*{
+    font-family: Poppins-Regular !important;
+  }

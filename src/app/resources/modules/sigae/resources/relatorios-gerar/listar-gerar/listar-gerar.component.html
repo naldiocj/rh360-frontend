@@ -1,0 +1,115 @@
+<main class="d-grid w-10">
+    <div class="h-auto col-xl-12 col-sm-12 col-md-12">
+        <div class="row">
+            <div class="col-sm-7">
+                <h4 style="color: #002d59;font-size:clamp(1.3em,1.8em,2.2em);" class="page-title"><b>Relatorio de Armas
+                    </b></h4>
+                <h4 style="font-size: clamp(12px,16px,19px);margin-left: 5.4%;">Sistema de Gestão de <b> armamento</b>
+                </h4>
+                <h6 class="col-xl-10 w-100" style="margin-left: 3%;">
+                    <span class="text-danger"> *</span>Preencha as colunas que deseja incluir no relatório: <br>
+                &nbsp;<span class="fs-4 text-danger">Para gerar a lista, é necessário selecionar pelo menos duas opções</span>.
+                </h6>
+            </div>
+        </div>
+        <div class="row h-auto">
+            <nav class="navbar navbar-light  h-auto">
+                <form class="form-inline d-grid h-auto" [formGroup]="form" (ngSubmit)="gerarRelatorios()">
+                    <div class="d-xl-flex d-sm-grid col-12 col-sm-12 col-xl-9">
+                        <br>
+                        <div class="col-xl-5 col-sm-12 col-md-12 mt-2 text-left">
+                            <label class="text-left"
+                                style="text-align: left!important;margin-left:-63%;"><b>Classificação da arma </b><span
+                                    class="text-danger"> *</span></label>
+                            <ng-select2 [options]="options" [data]="this.classeSelect" formControlName="classe" >
+
+                            </ng-select2>
+                        </div>
+
+                        <br>
+                        <div class="col-xl-5 col-sm-12 col-md-12 mt-2 text-left">
+                            <label class="text-left" style="text-align: left!important;margin-left:-80%;"><b>Nº de
+                                    série</b><span class="text-danger"> *</span></label>
+                            <ng-select2 [options]="options" [data]="this.serieSelect" formControlName="serie" >
+
+                            </ng-select2>
+                        </div>
+
+                        <div class="col-xl-5 col-sm-12 col-md-12 mt-2 text-left">
+                            <label class="text-left" style="text-align: left!important;margin-left:-73%;"><b>Calibre da
+                                    arma</b><span class="text-danger"> *</span></label>
+                            <ng-select2 [options]="options" [data]="this.calibreSelect" formControlName="calibre" >
+
+                            </ng-select2>                          
+                        </div>
+                    </div>
+
+                    <div class="d-xl-flex d-sm-grid col-12 col-sm-12 col-xl-9">
+
+
+                        <br>
+                        <div class="col-xl-5 col-sm-12 col-md-12 mt-2 text-left">
+                            <label class="text-left" style="text-align: left!important;margin-left:-83%;"><b>Tipo
+                                    Arma</b><span class="text-danger"> *</span></label>
+                            <ng-select2 [options]="options" [data]="this.tipoSelect" formControlName="tipo" >
+                            </ng-select2>
+                        </div>
+
+                        <br>
+                        <div class="col-xl-5 col-sm-12 col-md-12 mt-2 text-left">
+                            <label class="text-left" style="text-align: left!important;margin-left:-73%;"><b>Marca de
+                                    Arma:</b><span class="text-danger"> *</span></label>
+                            <ng-select2 [options]="options" [data]="this.marcaSelect" formControlName="marca" >
+                            </ng-select2>
+                        </div>
+
+                        <br>
+                        <div class="col-xl-5 col-sm-12 col-md-12 mt-2 text-left">
+                            <label class="text-left" style="text-align: left!important;margin-left:-73%;"><b>Modelo da
+                                    Arma </b><span class="text-danger"> *</span></label>
+                            <ng-select2 [options]="options" [data]="this.modeloSelect" formControlName="modelo" >
+                            </ng-select2>
+                        </div>
+                    </div>
+
+                    <div class="d-xl-flex d-sm-grid col-12 col-sm-12 col-xl-9">
+                        <br>
+                        <div class="col-xl-5 col-sm-12 col-md-12 mt-2 text-left">
+                            <label class="text-left" style="text-align: left!important;margin-left:-75%;"><b>Pais de
+                                    Origem </b><span class="text-danger"> *</span></label>
+                            <ng-select2 [options]="options" [data]="this.paisSelect" formControlName="pais">
+                            </ng-select2>
+                        </div>
+
+
+                        <br>
+                        <div class="col-xl-5 col-sm-12 col-md-12 mt-2 text-left">
+                            <label class="text-left" style="text-align: left!important;margin-left:-75%;"><b>Ano de
+                                    Fabrico </b><span class="text-danger"> *</span></label>
+                            <input [disabled]="true" class="formControl col-xl-6 w-50" style="border-radius:0px" (change)="setfabrico($event)" type="date" formControlName="fabrico"/>
+                            <input [disabled]="true" selected class="formControl col-xl-6 w-50" style="border-radius:0px" (change)="setfabrico($event)" type="date" formControlName="fabrico"/>
+                        </div>
+
+                        <br>
+                      
+
+                        <div class="col-xl-5 col-sm-12 col-md-12 mt-2">
+                            <br>
+                            <button type="submit" class="shadow btn btn-lg bg-primary text-white w-100 " id="btn-success">
+                                Gerar Relatorio
+                            </button>
+                        </div>
+
+
+                    </div>
+                    <div class="col-xl-11 col-sm-12 col-md-12 mt-2 text-left ml-2">
+                        <label class="text-left" style="text-align: left!important;margin-left:-88%;"><b>Selecione as Colunas:</b><span class="text-danger"> *</span></label>
+                        <ng-select2 [options]="optionsColunas" [data]="this.colunas" (valueChanged)="setColunas($event)">
+                        </ng-select2>
+                        <span class="fs-6 text-danger">Selecione as colunas que preencheu para o Relatorio, seguindo a mesma ordenação.</span>
+                    </div>
+                </form>
+            </nav>
+        </div>
+    </div>
+</main>

@@ -1,0 +1,695 @@
+ 
+<main class="id">
+  <section class="main_" id="main_">
+    <div class="tab__content">
+      <section class="tab__main">
+        <section>
+          <div class="row">
+            <div class="row col-lgkv-1">
+              <div class="col-xl-10 col-sm-10 col-lg-10 col-md-10 mt-2">
+                <div class="row d-flex">
+                  <div class="col-md-auto ml-0">
+                    <!-- Avatar -->
+                    <div class="avatars avatars-xl text-primary">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="30"
+                        height="30"
+                        fill="currentColor"
+                        class="bi bi-people-fill"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"
+                        ></path>
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="col col-lg-5 infor-top-o">
+                    <h3 class="fs-4 mb-0">Delituosos</h3>
+                    <!-- Breadcrumb -->
+                    <span class="text-body-secondary"
+                      >Lista dos Potencias delituosos</span
+                    >
+                  </div>
+                </div>
+
+                <div class="weister">
+                  <div class="alerta" *ngFor="let item of this.estados">
+                    <span
+                      class="legend-color cod_"
+                      [style.backgroundColor]="item.cor"
+                    >
+                      <i class="bi bi-info-lg"></i>
+                    </span>
+                    <div class="textos legend-text">
+                      <h4>{{ item.texto }}</h4>
+                      <p>Estatu de Tratamento</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-2 col-sm-2 col-lg-2 col-md-2 mt-4">
+                <div class="container text-center">
+                  <div class="row card-b">
+                    <div class="col-6 col-sm-3 col1">
+                      <i class="bi bi-fingerprint font-18"></i>
+                    </div>
+                    <div class="col-6 col-sm-3 col1">
+                      <i
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalGetFacialRecon"
+                        class="bi bi-person-bounding-box font-18"
+                      ></i>
+                    </div>
+
+                    <!-- Force next columns to break to new line -->
+                    <div class="w-100"></div>
+
+                    <div class="col-6 col-sm-3 col1">
+                      <i
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"
+                        class="bi bi-person-vcard-fill font-18"
+                      ></i>
+                    </div>
+                    <div class="col-6 col-sm-3 col1">
+                      <i
+                        data-bs-toggle="modal"
+                        data-bs-target="#vozModal"
+                        class="bi bi-mic-fill"
+                      ></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-12 col-sm-12 col-lg-12 col-md-12">
+              <div class="d-flex justify-content-between ml-3">
+                <ul class="nav nav-pills">
+                  <li class="nav-item">
+                    <div
+                      class="custom-radius btn-group"
+                      role="group"
+                      aria-label="Basic example"
+                    >
+                      <button
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalRegistarOuEditarDelituoso"
+                        ariaCurrentWhenActive="page"
+                        type="button"
+                        class="btn btn-primary"
+                      >
+                        <i class="bi bi-plus-circle-fill"></i>
+                        Indicios de Suspeitos
+                      </button>
+                    </div>
+                  </li>
+                  <li class="nav-item ml-2">
+                    <div
+                      class="custom-radius btn-group"
+                      role="group"
+                      aria-label="Basic example"
+                    >
+                      <select
+                        class="btn input-select"
+                        (change)="filtrarPagina('search', $event)"
+                      >
+                        <option
+                          *ngFor="let item of [5, 10, 20, 50]"
+                          [value]="item"
+                        >
+                          {{ item }}
+                        </option>
+                      </select>
+                      <button
+                        (click)="this.recarregarPagina()"
+                        class="btn input-filtro btn-primary p-3"
+                        type="button"
+                      >
+                        <i
+                          style="font-size: 12px"
+                          class="fa fa-refresh fa-spin fa-3x fa-fw mr-2"
+                        ></i>
+                      </button>
+                      <input
+                        class="btn input-search"
+                        type="search"
+                        [ngModel]="filtro.search"
+                        name="search"
+                        (ngModelChange)="filtrarPagina('search', $event)"
+                        placeholder="Pesquisar nome completo, bi, 360% Pesquisa ..."
+                      />
+                      <button
+                        data-bs-target="#ToggleExternalContent"
+                        aria-controls="navbarToggleExternalContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
+                        class="btn input-filtro w-30s"
+                        type="button"
+                        data-bs-toggle="collapse"
+                      >
+                        <i class="bi bi-filter toggle-sidebar-btn"></i>
+                      </button>
+                    </div>
+                    <!-- <select [(ngModel)]="filtro.genero" (change)="filtrarPagina($event,'perPage')">
+                                        <option value="">Selecione o gênero</option>
+                                        <option value="Masculino">Masculino</option>
+                                        <option value="Feminino">Feminino</option>
+                                    </select> -->
+                  </li>
+                </ul>
+
+                <div
+                  class="colv-6 custom-radius btn-group justify-content-between"
+                  role="group"
+                  aria-label="Basic example"
+                >
+                  <button
+                    data-toggle="modal"
+                    data-target="#modalVerSelecionados"
+                    ariaCurrentWhenActive="page"
+                    type="button"
+                    class="btn impro"
+                    *ngIf="selectedIds.length > 0"
+                  >
+                    <i class="fa fa-eye"></i>
+                    {{ this.selectedIds ? "Ver todos" : "Ver" }}
+                  </button>
+
+                  <button
+                    data-toggle="modals"
+                    data-target="#modalProcuradoss"
+                    (click)="procurado()"
+                    *ngIf="selectedIds.length > 0"
+                    class="btn impro"
+                  >
+                    <i class="bi bi-people-fill"></i>
+                    {{ this.selectedIds ? "Procurado" : "Procurados" }}
+                  </button>
+                  <button *ngIf="selectedIds.length > 1" class="btn impro">
+                    <i class="bi bi-people-fill"></i>
+                    Criar Grupo
+                  </button>
+                  <button
+                    *ngIf="selectedIds.length > 0"
+                    (click)="eliminarSelecionados()"
+                    type="button"
+                    class="btn impro"
+                  >
+                    <i class="bi bi-people-fill"></i>
+                    {{ this.selectedIds ? "Eliminar" : "Elimina-los" }}
+                  </button>
+                </div>
+              </div>
+              <div
+                id="ToggleExternalContent"
+                class="row col-7 collapse ml-2 mt-3"
+                data-bs-theme="dark"
+              >
+                <div class="col-lg-4">
+                  <div class="form-group">
+                    <label for="status">
+                      <b>Filtrar por Status:</b>
+                    </label>
+                    <select
+                      id="status"
+                      class="input form-control"
+                      [(ngModel)]="filtro.status"
+                      (change)="onStatusChange(filtro.status)"
+                    >
+                      <option value>Todos</option>
+                      <option value="Ativo">Ativo</option>
+                      <option value="Passivo">Passivo</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="form-group">
+                    <label for="status">
+                      <b>Filtrar por Idade:</b>
+                    </label>
+                    <input
+                      class="input"
+                      type="number"
+                      [(ngModel)]="filtro.idade"
+                      (change)="onIdadeChange(filtro.idade)"
+                      placeholder="Idade mínima"
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="form-group">
+                    <label for="status">
+                      <b>Filtrar por Genero:</b>
+                    </label>
+                    <select
+                      class="input"
+                      [(ngModel)]="filtro.genero"
+                      (change)="filtrarPagina('genero', $event)"
+                    >
+                      <option value>Selecione o gênero</option>
+                      <option value="Masculino">Masculino</option>
+                      <option value="Feminino">Feminino</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="form-group">
+                    <label>
+                      <b>Provincia</b>
+                    </label>
+                    <ng-select2
+                      class="custom-border ng-select-container"
+                      [options]="this.options"
+                      [data]="this.provincia"
+                      formControlName="sicgo_provincia_id"
+                      (valueChanged)="
+                        filtrarPagina('sicgo_provincia_id', $event)
+                      "
+                    ></ng-select2>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="form-group">
+                    <label>
+                      <b>Municipio</b>
+                    </label>
+                    <ng-select2
+                      [options]="options"
+                      formControlName="sicgo_municipio_id"
+                      [data]="this.municipio"
+                      (valueChanged)="
+                        filtrarPagina('sicgo_municipio_id', $event)
+                      "
+                    >
+                    </ng-select2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <table class="table table-striped mt-2" #tableToPrint>
+            <thead class="table-thead">
+              <tr>
+                <th class="text-justify">#</th>
+                <th class="text-justify">Código</th>
+                <th class="text-justify">ESTADO</th>
+                <th class="text-justify">Fotos</th>
+                <th class="text-justify">Nome</th>
+                <th class="text-justify">Apelido</th>
+                <th class="text-justify">Alcunha</th>
+                <th class="text-justify">Gênero</th>
+                <th class="text-justify">Data de Nascimento</th>
+                <th class="text-justify">Idade</th>
+                <th class="text-justify">Nacionalidade</th>
+                <th class="text-justify">Operação</th>
+              </tr>
+            </thead>
+
+            <tbody class="table-tbody">
+              <tr *ngIf="this.isLoading">
+                <td colspan="13">
+                  <loading-page [texto]="'lista de delituosos'"></loading-page>
+                </td>
+              </tr>
+              <tr
+                *ngFor="
+                  let item of this.delituosos
+                    | paginate
+                      : {
+                          id: 'idDelituoso',
+                          itemsPerPage: this.pagination.per_page,
+                          currentPage: this.pagination.current_page,
+                          totalItems: this.pagination.total
+                        };
+                  index as i
+                "
+              >
+                <td>
+                  <div class="checkboxes__item">
+                    <label class="checkbox style-c">
+                      <input
+                        title="f"
+                        type="checkbox"
+                        [id]="item.id"
+                        [(ngModel)]="item.selected"
+                        (change)="onSelectItem(item)"
+                        [checked]="validarSelecionado(item.id)"
+                      />
+                      <div
+                        class="checkbox__checkmark hover:bg-muted-100 dark:hover:bg-muted-700/70"
+                      ></div>
+                    </label>
+                  </div>
+                </td>
+                <td (click)="toggle(item.id)">
+                  <span class="ml-4">{{ item.codigo_sistema }}</span>
+                </td>
+                <td class="small-td">
+                  <!-- Acessar diretamente o objeto "stado" -->
+                  <label
+                    class="switch switch-green"
+                    [attr.aria-checked]="item.stado.status === 'Ativo'"
+                  >
+                    <input
+                      [id]="item.id"
+                      type="checkbox"
+                      class="switch-input"
+                      (change)="Status(item.stado, item.id)"
+                      [checked]="item.stado.status === 'Ativo'"
+                    />
+                    <span
+                      class="switch-label"
+                      data-on="Ativo"
+                      data-off="Passivo"
+                    ></span>
+                    <span
+                      class="switch-handle"
+                      [style.backgroundColor]="item.stado.cor"
+                    >
+                      <span *ngIf="item.stado">{{ item.stado.estado }}</span>
+                    </span>
+                  </label>
+                </td>
+                <td>
+                  <div class="borders">
+                    <img
+                      (click)="
+                        openPhotoViewer(
+                          item.fileUrlFrontal || fotodfault,
+                          item.id
+                        )
+                      "
+                      [src]="item.fileUrlFrontal || fotodfault"
+                      alt
+                    />
+                  </div>
+                </td>
+                <td (click)="toggle(item.id)">
+                  {{ item.nome | uppercase | slice : 0 : 28 }}..
+                </td>
+                <td (click)="toggle(item.id)">
+                  {{ item.apelido | uppercase | slice : 0 : 14 }}..
+                </td>
+                <td (click)="toggle(item.id)">
+                  {{ item.alcunha | uppercase | slice : 0 : 14 }}..
+                </td>
+                <td class="text-center" (click)="toggle(item.id)">
+                  {{ item.genero | uppercase }}
+                </td>
+                <td class="text-center" (click)="toggle(item.id)">
+                  {{ item.dataNascimento | uppercase }}
+                </td>
+                <td class="text-center" (click)="toggle(item.id)">
+                  {{ calculateAge(item.dataNascimento) }}
+                  <div *ngIf="idade !== null">{{ idade }}</div>
+                </td>
+                <td (click)="toggle(item.id)" class="text-center">
+                  {{ item.pais }}
+                </td>
+                <td>
+                  <div class="dropdown dropdown-action text-right">
+                    <a
+                      href="#"
+                      class="action-icon dropdown-toggle"
+                      data-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <i class="bi bi-three-dots-vertical"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-arrow">
+                      <a
+                        class="dropdown-item first-item"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalRegistarOuEditarDelituoso"
+                        (click)="editar(item)"
+                      >
+                        <i class="fas fa-edit m-r-5"></i>
+                        <b>Editar</b>
+                      </a>
+                      <!-- Button trigger modal -->
+                      <a
+                        (click)="setAr(item)"
+                        class="dropdown-item"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalRegistarOuEditarDelituosofoto"
+                        ariaCurrentWhenActive="page"
+                      >
+                        <i class="m-r-5 bi bi-person-bounding-box"></i>
+                        Fotos
+                      </a>
+
+                      <a
+                        (click)="setAr(item)"
+                        class="dropdown-item"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalRegistarOuEditarDelituosoArquivos"
+                        ariaCurrentWhenActive="page"
+                      >
+                        <i class="m-r-5 bi bi-person-bounding-box"></i>
+                        Arquivos
+                      </a>
+
+                      <a
+                        href="javascript:void()"
+                        (click)="setAr(item); getSavedFingerprints(item)"
+                        class="dropdown-item"
+                        data-bs-toggle="modal"
+                        data-bs-target="#fingerprint"
+                        ariaCurrentWhenActive="page"
+                      >
+                        <i class="bi bi-fingerprint"></i>
+                        Biometrico
+                      </a>
+
+                      <a
+                        data-toggle="modal"
+                        class="dropdown-item"
+                        data-target="#modalRegistarOuEditarDelituosoOrigem"
+                        (click)="setAr(item)"
+                      >
+                        <i class="bi bi-person-lock"></i>
+                        Fonte Origem
+                      </a>
+
+                      <a
+                        data-toggle="modal"
+                        class="dropdown-item"
+                        data-target="#modalRegistarOuEditarAssociar"
+                        (click)="setAr(item)"
+                      >
+                        <i class="bi bi-graph-up"></i>
+                        Associar a grupos
+                      </a>
+
+                      <a
+                        data-toggle="modal"
+                        class="dropdown-item"
+                        data-target="#modal1"
+                        (click)="setAr(item)"
+                      >
+                        <i class="bi bi-people-fill"></i>
+                        Associar delituosos
+                      </a>
+
+                      <a
+                        data-toggle="modal"
+                        class="dropdown-item"
+                        data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop"
+                        (click)="setAr(item)"
+                      >
+                        <i class="bi bi-person-lock"></i>
+                        Antecedentes
+                      </a>
+
+                      <a
+                        data-toggle="modal"
+                        class="dropdown-item"
+                        data-bs-toggle="modal"
+                        data-bs-target="#ModoOperante"
+                        (click)="setAr(item)"
+                      >
+                        <i class="bi bi-person-lock"></i>
+                        Adicionar Informção
+                      </a>
+
+                      <a
+                        data-toggle="modal"
+                        class="dropdown-item"
+                        data-bs-toggle="modal"
+                        data-bs-target="#ModoOperante"
+                        (click)="setAr(item)"
+                      >
+                        <i class="bi bi-person-lock"></i>
+                        Modo Operante
+                      </a>
+
+                      <a
+                        data-toggle="modal"
+                        class="dropdown-item"
+                        data-bs-toggle="modal"
+                        data-bs-target="#tratamentoModal"
+                        data-bs-whatever="@tratamento"
+                        (click)="setAr(item)"
+                      >
+                        <i class="bi bi-person-lock"></i>
+                        Estatus
+                      </a>
+                      <a
+                        data-toggle="modal"
+                        class="dropdown-item"
+                        data-bs-toggle="modal"
+                        data-bs-target="#fichaDelituosoBackdrop"
+                        (click)="setId(item.id)"
+                      >
+                        <i class="bi bi-file-earmark-text-fill"></i>
+                        Ficha
+                      </a>
+
+                      <div class="dropdown-divider"></div>
+                      <a
+                        class="dropdown-item last-item"
+                        (click)="eliminarSelecionados()"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="27"
+                          height="27"
+                          viewBox="0 0 24 24"
+                        >
+                          <rect width="24" height="24" fill="none"></rect>
+                          <path
+                            fill="currentColor"
+                            d="M3 6.524c0-.395.327-.714.73-.714h4.788c.006-.842.098-1.995.932-2.793A3.68 3.68 0 0 1 12 2a3.68 3.68 0 0 1 2.55 1.017c.834.798.926 1.951.932 2.793h4.788c.403 0 .73.32.73.714a.72.72 0 0 1-.73.714H3.73A.72.72 0 0 1 3 6.524M11.607 22h.787c2.707 0 4.06 0 4.94-.863s.971-2.28 1.151-5.111l.26-4.08c.098-1.537.146-2.306-.295-2.792c-.442-.487-1.187-.487-2.679-.487H8.23c-1.491 0-2.237 0-2.679.487c-.441.486-.392 1.255-.295 2.791l.26 4.08c.18 2.833.27 4.249 1.15 5.112S8.9 22 11.607 22"
+                          ></path>
+                        </svg>
+                        Eliminar
+                      </a>
+                    </div>
+                  </div>
+                </td>
+                <sicgo-preview-img
+                  *ngIf="isPhotoViewerOpen"
+                  [photoUrl]="selectedPhotoUrl"
+                  [photoId]="selectedPhotoId"
+                  (closeViewer)="isPhotoViewerOpen = false"
+                ></sicgo-preview-img>
+              </tr>
+
+              <tr *ngIf="!isLoading && delituosos.length === 0">
+                <td colspan="13">
+                  <div class="nenhum">
+                    <p>Nenhum delituoso encontrado.</p>
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td colspan="6">
+                  <!-- Adicionar controles de paginação -->
+                  <div *ngIf="pagination">
+                    <div class="col-md-12 d-flex">
+                      Mostrando de {{ this.pagination.current_page }} a
+                      {{ this.pagination.per_page }} de
+                      {{ this.pagination.total }}
+                      <aside
+                        *ngIf="this.pagination.total < 2; else outrosRegistos"
+                      >
+                        registos
+                      </aside>
+                      <ng-template #outrosRegistos>registos</ng-template>
+                    </div>
+                  </div>
+                </td>
+                <td colspan="6">
+                  <!-- Adicionar controles de paginação -->
+                  <div class="float-right">
+                    <pagination-controls
+                      id="idDelituoso"
+                      (pageChange)="this.filtrarPagina('page', $event, false)"
+                      [directionLinks]="true"
+                      [autoHide]="false"
+                      previousLabel="Anterior"
+                      nextLabel="Próximo"
+                      [maxSize]="4"
+                      [responsive]="true"
+                    ></pagination-controls>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </section>
+    </div>
+  </section>
+
+</main>
+
+<delituoso-view [showBannerup]="this.isOffcanvasVisible"></delituoso-view>
+ 
+
+<app-busca-delituoso-voz></app-busca-delituoso-voz>
+<app-busca-facial-delituoso></app-busca-facial-delituoso>
+<app-busca-delituoso-bi></app-busca-delituoso-bi>
+<app-registo-situacao-condenado
+  (eventRegistarOuEditar)="buscarDelituoso()"
+></app-registo-situacao-condenado>
+<dinfop-registo-decisao-tribunal
+  (eventRegistarOuEditar)="buscarDelituoso()"
+></dinfop-registo-decisao-tribunal>
+<app-sicgo-dinfop-ver-selecionados
+  [agentesSelecionados]="selectedIds"
+></app-sicgo-dinfop-ver-selecionados>
+<app-sicgo-difonp-registar-ou-editar-procurados
+  [delituosoIds]="selectedIds"
+  (eventRegistarOuEditModel)="this.buscarDelituoso()"
+></app-sicgo-difonp-registar-ou-editar-procurados>
+<sigop-registar-ou-editar-delituoso
+  [delitouso]="this.delituoso"
+  (eventRegistarOuEditar)="buscarDelituoso()"
+></sigop-registar-ou-editar-delituoso>
+<sicgo-registo-facial
+  [delituosoId]="this.isOffVisible.id"
+  (eventRegistarOuEditar)="buscarDelituoso()"
+></sicgo-registo-facial>
+<app-sicgo-registar-ou-editar-arquivos
+  [delituosoId]="this.isOffVisible.id"
+  (eventRegistarOuEditar)="buscarDelituoso()"
+></app-sicgo-registar-ou-editar-arquivos>
+<sicgo-registo-biometrico
+  [delituosoId]="this.isOffVisible.id"
+  (eventRegistarOuEditar)="buscarDelituoso()"
+></sicgo-registo-biometrico>
+<app-sicgo-registo-ou-editar-tratamento
+  [delituosoId]="delituoso"
+  (eventRegistarOuEditar)="buscarDelituoso()"
+></app-sicgo-registo-ou-editar-tratamento>
+<registo-origem
+  [delituosoId]="this.isOffVisible.id"
+  (eventRegistarOuEditar)="buscarDelituoso()"
+></registo-origem>
+<app-sicgo-registo-associar-grupo
+  [delituosoId]="this.isOffVisible.id"
+  (eventRegistarOuEditar)="buscarDelituoso()"
+></app-sicgo-registo-associar-grupo>
+<sicgo-dinfop-delituoso-registo-antecedente
+  [delituosoId]="this.isOffVisible.id"
+  (eventRegistarOuEditar)="buscarDelituoso()"
+></sicgo-dinfop-delituoso-registo-antecedente>
+<sicgo-dinfop-associar-delituosos
+  [delituosoId]="this.isOffVisible.id"
+  (eventRegistarOuEditar)="buscarDelituoso()"
+></sicgo-dinfop-associar-delituosos>
+<sicgo-dinfop-registo-modo-operante
+  [delituosoId]="this.isOffVisible.id"
+  (eventRegistarOuEditar)="buscarDelituoso()"
+></sicgo-dinfop-registo-modo-operante>
+<sicgo-dinfop-ficha-delituoso
+  [delituosoId]="this.isForID"
+></sicgo-dinfop-ficha-delituoso>
+<app-sicgo-dinfop-boletim-delituoso></app-sicgo-dinfop-boletim-delituoso>

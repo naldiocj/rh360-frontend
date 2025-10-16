@@ -1,0 +1,244 @@
+<div class="modal fade" id="view-correspondencia">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+      <div class="modal-content rounded-0 p-0">
+        <div class="card rounded-0 p-0 shadow border-0">
+          <div class="card-body rounded-0 p-0 border-0">
+            <div class="row">
+              <div class="col-xl-4 col-lg-5 col-sm-12 col-sm-12">
+                <div class="content-top card-content">
+                  <div class="row row-gap-4">
+                    <div
+                      class="col-xl-12 col-lg-12 col-md-12 col-sm-12 d-flex align-items-center justify-content-between"
+                    >
+                      <h5 class="card-title some-info fw-bolder">
+                        Envio de corresondência
+                      </h5>
+                      <button
+                        data-dismiss="modal"
+                        class="bg-transparent border-0 p-2"
+                        (click)="fecharModal()"
+                        id="close-view"
+                      >
+                        <i
+                          class="bi bi-x-circle-fill text-light"
+                          style="font-size: 1.6rem"
+                        ></i>
+                      </button>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <div class="row row-gap-3">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                          <!-- <ng-container *ngIf="this.fileUrl; else semImage">
+                            <img
+                              [src]="this.fileUrl"
+                              alt="Image-Agente"
+                              class="rounded my-2 img-fluid shadow"
+                            />
+                          </ng-container>
+                          <ng-template #semImage>
+                        </ng-template> -->
+                        <img
+                          src="assets/img/user.jpg"
+                          alt="Image-Agente"
+                          class="rounded my-2 img-fluid shadow"
+                        />
+                        </div>
+                        <div
+                          class="col-xl-12 col-lg-12 col-md-12 col-sm-12 d-flex flex-column row-gap-4 image-fundo"
+                        >
+                          <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                              <span class="content-text">
+                                {{ this.correspondencia}}
+                              </span>
+                            </div>
+                            <!-- <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                              <span class="content-text">
+                                NAS
+                                {{ this.getFuncionario?.numero_agente }} &nbsp; |
+                                &nbsp; NIP {{ this.getFuncionario?.nip }}
+                              </span>
+                            </div>
+  
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                              <span class="content-text">
+                                {{ this.getFuncionario?.nome_completo }}
+                                {{ this.getFuncionario?.apelido }}
+                              </span>
+                            </div> -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-8 col-lg-7 col-sm-12 col-sm-12">
+                <div class="content-bottom card-content">
+                  <div class="row row-gap-3">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <div
+                        class="d-flex align-items-center justify-content-between"
+                      >
+                        <span class="content-text" style="text-align: left"></span>
+                        <span
+                          class="p-2 w-25 text-center rounded"
+                          style="color: var(--light-white)"
+                          [style.backgroundColor]="
+                            this.correspondencia?.cor
+                          "
+                          >{{
+                            this.correspondencia?.status
+                          }}</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row row-gap-3">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <span
+                        class="content-text"
+                        style="justify-content: space-between"
+                      >
+                        Enviado para: {{ this.correspondencia?.orgao_sigla }} -
+                        {{ this.correspondencia?.orgao }}
+                      </span>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <span
+                        class="content-text"
+                        style="justify-content: space-between"
+                      >
+                        <!-- Direcção / Comando: {{ this.solicitacao?.orgao_sigla }} -
+                        {{ this.solicitacao?.orgao }} -->
+                      </span>
+                    </div>
+                  </div>
+                  <div class="row row-gap-3">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <span
+                        class="content-text"
+                        style="justify-content: flex-start"
+                      >
+                        <!-- Data de realização : {{ this.solicitacao?.mes }} -
+                        {{ this.solicitacao?.ano }} -->
+                      </span>
+                    </div>
+                  </div>
+                  <div class="row row-gap-3">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <span
+                        class="content-text"
+                        style="justify-content: flex-start"
+                      >
+                        <!-- Data de realização : {{ this.solicitacao?.mes }} -
+                        {{ this.solicitacao?.ano }} -->
+                      </span>
+                    </div>
+                  </div>
+                  <div class="row row-gap-3">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <span
+                        class="content-text"
+                        style="justify-content: flex-start"
+                      >
+                        <!-- Observação : &nbsp;
+                        {{ this.solicitacao?.observacao }}. -->
+                      </span>
+                    </div>
+                  </div>
+                  <div class="row row-gap-3">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <div
+                        class="d-flex align-items-center justify-content-between"
+                      >
+                        <span
+                          class="content-text"
+                          style="justify-content: flex-start"
+                        >
+                          <!-- Solicitado em : &nbsp;
+                          {{ this.solicitacao?.createdAt }} -->
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div
+                    class="row row-gap-3 mt-5"
+                    *ngIf="
+                      this.isAgente &&
+                      this.solicitacao?.estado == 'E' &&
+                      !this.abrirJustificar
+                    "
+                  >
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <div class="btn-groups d-flex justify-content-end">
+                        <button
+                          class="btn btn-primary"
+                          style="border-radius: 5px 0px 0px 5px"
+                        >
+                          Editar
+                        </button> 
+                        <button
+                          class="btn btn-danger"
+                          (click)="this.podeJustificar()"
+                          style="border-radius: 5px 5px 5px 5px"
+                        >
+                          Cancelar a solicitação
+                        </button>
+                      </div>
+                    </div>
+                  </div> -->
+                  <!-- <div class="row row-gap-3 mt-5" *ngIf="this.abrirJustificar">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <form
+                        action=""
+                        [formGroup]="this.simpleForm"
+                        (ngSubmit)="onSubmit()"
+                      >
+                        <div class="form">
+                          <label for="observacao"
+                            ><b> Justisficação para cancelar </b>
+                            <span class="text-danger"><b>*</b> </span></label
+                          >
+                          <textarea
+                            class="form-control"
+                            rows="8"
+                            style="resize: none; width: 100%"
+                            formControlName="justificacao"
+                          ></textarea>
+                        </div>
+                        <div class="btn-groups d-flex justify-content-end my-2">
+                          <button
+                            type="submit"
+                            class="btn btn-primary d-flex align-items-center"
+                            style="border-radius: 5px 0px 0px 5px"
+                            [disabled]="!this.simpleForm.valid || this.isLoading"
+                          >
+                            <ng-container *ngIf="!this.isLoading; else naoEnviando">
+                              Enviar
+                            </ng-container>
+                            <ng-template #naoEnviando>
+                              <i class="fa fa-refresh fa-spin  fa-fw mx-2"></i>
+                              Enviando
+                            </ng-template>
+                          </button>
+                          <button
+                            (click)="this.podeJustificar($event)"
+                            class="btn btn-danger"
+                            style="border-radius: 0px 5px 5px 0px"
+                          >
+                            Cancelar
+                          </button>
+                        </div>
+                      </form> 
+                    </div>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

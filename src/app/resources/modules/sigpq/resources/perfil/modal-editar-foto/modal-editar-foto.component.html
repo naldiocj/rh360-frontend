@@ -1,0 +1,99 @@
+<div class="modal fade" id="modalEditarFoto" aria-labelledby="modalEditarFoto" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="overflow-y: hidden;min-width: 50%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>
+                    <i class="fa fa-picture-o" aria-hidden="true"></i>
+                    Editar foto
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="content">
+                <form [formGroup]="this.simpleForm">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div
+                                class="col-lg-6 col-md-6 col-sm-6 mb-4 pt-0 d-flex flex-column align-items-center text-center">
+                                <div class="form-group col-md-6">
+                                    <aside *ngIf="this.foto_efectivo; else outraImg">
+                                        <img [src]="this.foto_efectivo" width="100" height="100" alt="Profile"
+                                            class="rounded-circle my-2">
+                                    </aside>
+                                    <ng-template #outraImg>
+                                        <img src="assets/img/user.jpg" width="100" height="100" alt="Profile"
+                                            class="rounded-circle my-2">
+                                    </ng-template>
+                                </div>
+                                <label><b>Foto do efectivo</b></label>
+                                <div class="profile-upload">
+                                    <div class="upload-img">
+                                        <img alt="" src="assets/img/user-documento.png">
+                                    </div>
+                                    <div class="upload-input">
+                                        <input type="file" formControlName="foto_efectivo" class="form-control"
+                                            (change)="uploadFile($event, 'foto_efectivo')" [accept]="this.formatAccept">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div
+                                class="col-lg-6 col-md-6 col-sm-6 mb-4 pt-0 d-flex flex-column align-items-center text-center">
+                                <div class="form-group col-md-6">
+                                    <aside *ngIf="this.foto_civil; else outraImg">
+                                        <img [src]="this.foto_civil" width="100" height="100" alt="Profile"
+                                            class="rounded-circle my-2">
+                                    </aside>
+                                    <ng-template #outraImg>
+                                        <img src="assets/img/user.jpg" width="100" height="100" alt="Profile"
+                                            class="rounded-circle my-2">
+                                    </ng-template>
+                                </div>
+                                <label><b>Foto do civil</b></label>
+                                <div class="profile-upload">
+                                    <div class="upload-img">
+                                        <img alt="" src="assets/img/user-documento.png">
+                                    </div>
+                                    <div class="upload-input">
+                                        <input type="file" formControlName="foto_civil" class="form-control"
+                                            (change)="uploadFile($event, 'foto_civil')" [accept]="this.formatAccept">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger btn-square" type="reset" (click)="this.reiniciarFormulario()"
+                            disabled="true">
+                            <span class="fa fa-refresh"></span> Limpar
+                        </button>
+                        <ng-container *ngIf="this.simpleForm.valid; else ocultarBotao">
+                            <aside *ngIf="this.isLoading; else regista">
+                                <button id="bookreset" disabled="true" class="btn btn-primary btnRegistar">
+                                    <div class="spinner-border spinner-border-sm m-1"></div>
+                                    <a style="text-decoration: none;color: white;"> A
+                                        Alterando ...</a>
+                                </button>
+                            </aside>
+                            <ng-template #regista>
+                                <button id="bookreset" (click)="onSubmit()" class="btn btn-primary btnRegistar">
+                                    <i class="fa fa-plus-circle"></i>
+                                    Alterar
+                                </button>
+                            </ng-template>
+                        </ng-container>
+                        <ng-template #ocultarBotao>
+                            <button id="bookreset" disabled="true" class="btn btn-primary btnRegistar">
+                                <i class="fa fa-plus-circle"></i>
+                                Registar
+                            </button>
+                        </ng-template>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

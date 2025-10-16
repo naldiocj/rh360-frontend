@@ -1,0 +1,186 @@
+<div class="modal fade" id="listarEfectivos" data-backdrop="static" data-keyboard="false" aria-labelledby="documentoLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document" style="min-width: 60%;">
+        <div class="modal-content">
+            <div class="modal-header align-items-center" style="background-color: #041b4e; color: white; height: 55px;">
+                <h1 class="modal-title fl-5 my-0" id="staticBackdropLabel" style="font-size: 1.1rem;">
+                    <i class="bi bi-person-fill" style="font-size: 1.3rem; margin-top: 0px; margin-right: 5px;"></i>
+                    Listar Funcionários ou Efectivos
+                </h1>
+                <button type="button" class="btn ms-auto" data-dismiss="modal" aria-label="Close" style="color: white;"
+                    (click)="fecharModal()" id="btn-close-efectivos">
+                    <i class="bi bi-backspace-fill" style="font-size: 1.2rem;"></i>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <section class="row container-fluid cadastro-container pr-0 pt-0">
+                    <div class="col-12 p-0 m-0" style="width: 100%;">
+                   
+                        <ng-container>
+                            <div class="container-fluid m-0  conteudo-container p-0 mb-4">
+                              <div class="table-dashboard table-responsive">
+                                <div class="row container-fluid pl-0 pr-0 inputs">
+                                  <div class="col-1  primeiro pr-0">
+                                    <select class="form-select form-select-sm" class="form-control"
+                                      (change)="filtrarPagina('perPage',$event)">
+                                      <option *ngFor="let item of [10,5,20,50]" [value]="item">{{item}}</option>
+                                    </select>
+                                  </div>
+                                  <!-- Select que lista as categorias -->
+                                  <!--
+                                      <div class="col-1  primeiro pe-0">
+                                          <select [(ngModel)]="selectedOption" (change)="onChange($event)" class="ps-2">
+                                              <option *ngFor="let option of options" value="{{option.value}}">{{option.label}}</option>
+                                              </select>
+                                      </div>
+                                      -->
+                                  <div class="col-9 pr-0">
+                                    <form class="segundo">
+                                      <input required type="search" class="pl-3" [ngModel]="filtro.search"
+                                        (ngModelChange)="filtrarPagina('search',$event)" placeholder="Pesquisar">
+                                      <button type="button" (click)="recarregarPagina()">
+                                        <img src="../../../../../../../assets/assets_sigv/img/img/new/Refresh.png" alt="" id="gira"
+                                          class="mr-2" height="20" width="20"> Actualizar
+                                      </button>
+                                    </form>
+                                  </div>
+                                  <!-- Button trigger modal -->
+                                  <!-- <div class="col-2 ml-0 terceiro pr-0 p-0">
+                                    <button type="button" class="btn" data-toggle="modal" data-target="#modalRegistar">
+                                      <i class="bi bi-plus-square"></i> Nova
+                                    </button>
+                                  </div> -->
+                                  <div class="col-2 quarto pr-0 pl-0">
+                                    <button type="button" class="p-0 offset-1">
+                                      Total <span class="ml-2">{{ this.pagination.total}}</span>
+                                    </button>
+                                  </div>
+                                </div>
+                                <table class="table table-striped lightweight-table custom-table datatable" *ngIf="loadingPage; else loading">
+                                  <thead>
+                                    <tr id="cabecalho" class="lightweight-table">
+                                      <th>#</th>
+                                      <th style="width: 50px; text-align: center;">IMG</th>
+                                      <th>ID</th>
+                                      <th>NIP</th>
+                                      <th>NAS</th>
+                                      <th>PATENTE</th>
+                                      <th>NOME</th>
+                                      <th>ÓRGÃO</th>
+                                      <th>ESTADO</th>
+                                      <th>Última actualização</th>
+                                      <th class="text-center">Operação</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr *ngFor="
+                                              let item of funcionario
+                                                | paginate
+                                                  : {
+                                                      id: 'idAllCat',
+                                                      itemsPerPage: this.pagination.per_page,
+                                                      currentPage: this.pagination.current_page,
+                                                      totalItems: this.pagination.total
+                                                    };
+                                              index as i
+                                            ">
+                                      <td>
+                                        <input type="checkbox" (change)="onCheckboxChange($event, item)">
+                                      </td>
+                                      <td style="width: 50px;">
+                                        <div class="img-efectivo-container-nmg">
+                                          <!-- <img *ngIf="item?.foto_efectivo" [src]="item?.foto_efectivo" alt="img" class="img-responsive"> -->
+                                          <ng-container> <!-- *ngIf="!item?.foto_efectivo" -->
+                                            <img src="assets/assets_sigv/img/img/img-capa.png" alt="img" class="img-responsive"> <!-- (click)="setItem('ver-foto', item)" data-toggle="modal" data-target="#verFoto" -->
+                                          </ng-container>
+                                        </div>
+                                      </td>
+                                      <td class=""> {{(i+1) <= 9 ? '0' + (i+1) : i+1}} </td>
+                                      <td class=""> {{ item?.quadro}} {{item?.nip}} </td>
+                                      <td class=""> {{item?.numero_agente}} </td>
+                                      <td class=""> {{item?.patente_nome}} </td>
+                                      <td class=""> {{item?.nome_completo}} </td>
+                                      <td>
+                                        <abbr title="{{item?.orgao?.nome}}">
+                                          {{ item?.sigla}}
+                                        </abbr>
+                                      </td>
+                                      <td> {{item?.estado}}</td>
+                                      <td> {{item?.updated_at}}</td>
+                                      <td class=" text-center">
+                                        <div class="dropdown dropdown-action position-static">
+                                          <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
+                                              class="bi bi-three-dots-vertical"></i></a>
+                                          <div class="dropdown-menu dropdown-menu-right lista-option">
+                                            <a class="dropdown-item" href="javascript:void(0)" (click)="validarFuncionario(item)">
+                                              <i class="bi bi-check-lg"></i>
+                                              Validar
+                                            </a>
+                                            <a (click)="setItem(item)" class="dropdown-item" href="javascript:void(0)" data-toggle="modal"
+                                              data-target="#atribuirMeios">
+                                              <i class="bi bi-plus-circle"></i>
+                                              Atribuir meios
+                                            </a>
+                                            <!-- <a class="dropdown-item" href="javascript:void(0)" data-bs-toggle="modal"
+                                              data-bs-target="#modalEliminar" (click)="this.validarEliminar(item)" style="color: #dc3545;">
+                                              <i class="bi bi-trash-fill"></i>
+                                              Eliminar
+                                            </a> -->
+                                          </div>
+                                        </div>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                                <!-- Exemplo implementado paginação para verificar se funciona - teste -->
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                  <div class="row">
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                      Mostrando de {{ this.pagination.current_page }} a
+                                      {{ this.pagination.per_page }} de {{ this.pagination.total}}
+                                      <aside *ngIf="this.pagination.total < 2; else outrosRegistos">registos</aside>
+                                      <ng-template #outrosRegistos>registos</ng-template>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                      <div class="float-right">
+                                        <pagination-controls id="idAllCat" (pageChange)="filtrarPagina('page', $event, false)"
+                                          [directionLinks]="true" [autoHide]="false" previousLabel="Anterior" nextLabel="Próximo"
+                                          [maxSize]="4" [responsive]="true">
+                                        </pagination-controls>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- Fim do exemplo, posso usá-lo dentro de uma div-->
+                              </div>
+                              <ng-template #loading>
+                                <span class="loading"><strong>Processando todos os efectivos...</strong> <br>Nota: se este processo durar
+                                  por muito tempo, verifique o seguinte:
+                                  <li>A conexão de internet.</li>
+                                  <li>Se o servidor está no ar.</li>
+                                  <li>Actualize a página.</li>
+                                  <li>Procure por ajuda.</li>
+                                </span>
+                                <div style="text-align: center; padding-top: 5rem; margin-bottom: 4rem;">
+                                  <img src="../../../../../../../assets/assets_sigv/img/img1/figprocess.gif" alt="" width="90">
+                                </div>
+                              </ng-template>
+                            </div>
+                          </ng-container>
+                    </div>
+                    <button type="button" (click)="executarAcao()">Executar Ação</button>
+                </section>
+            </div>
+
+            <!--
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Understood</button>
+            </div>
+        -->
+        </div>
+    </div>
+</div>
+
+<sigvest-atribuir-meios-modal [atribuir_meios_ao_efectivo_dados_do_agente]="this.atribuir_meios_ao_efectivo_dados_do_agente" (registadoComSucesso)="produtosAtribuidosComSucesso()"></sigvest-atribuir-meios-modal>

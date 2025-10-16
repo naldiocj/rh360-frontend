@@ -1,0 +1,233 @@
+<div class="content">
+  <div class="row">
+    <div class="col-sm-7">
+      <h4 style="color: #002d59" class="page-title">
+        <b>Listagem de Material Extraviados</b>
+      </h4>
+      <h4 style="font-size: 14px">Sistema de Gestão de <b> armamento</b></h4>
+    </div>
+    <div class="col-sm-5 text-right m-b-20"></div>
+  </div>
+  <div class="row">
+    <nav class="navbar navbar-light bg-light">
+      <form class="form-inline">
+        <select
+          class="form-control mr-sm-1"
+          (change)="filtrarPagina('perPage', $event)"
+        >
+          <option *ngFor="let item of [10, 20, 50, 100]" [value]="item">
+            {{ item }}
+          </option>
+        </select>
+        <input
+          class="form-control mr-sm-1"
+          type="search"
+          placeholder="Pesquisa ..."
+          [(ngModel)]="valor"
+          (ngModelChange)="filtrarPagina('search', $event)"
+        />
+
+        <button
+          id="btpe1"
+          class="btn btn-outline-success my-2 my-sm-0"
+          (click)="recarregarPagina()"
+          type="submit"
+        >
+          <i
+            style="font-size: 14px"
+            class="fa fa-refresh fa-spin fa-3x fa-fw"
+          ></i
+          ><b> Recarregar</b>
+        </button>
+      </form>
+    </nav>
+
+    <div class="col-md-12">
+      <table
+        class="table table-border table-striped custom-table datatable mb-0"
+      >
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Nome do Produto</th>
+            <th>Quantidade</th>
+            <th>atribuido</th>
+            <th>descrição</th>
+            <th>Data de Registado</th>
+            <th>Ultima actualização</th>
+            <th class="text-center">Operação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let item of materias
+                | paginate
+                  : {
+                      itemsPerPage: this.pagination.per_page,
+                      currentPage: this.pagination.current_page,
+                      totalItems: this.pagination.total
+                    };
+              index as i
+            "
+          >
+            <td>{{ i + 1 }}</td>
+            <td>{{ item.nome }}</td>
+            <td>{{ item.quantidade }}</td>
+            <td>{{ item.nome_completo }}</td>
+            <td>{{ item.descricao }}</td>
+            <td>{{ item.createdAt }}</td>
+            <td>{{ item.updatedAt }}</td>
+            <td>
+              <div class="dropdown dropdown-action">
+                <a
+                  href="#"
+                  class="action-icon dropdown-toggle"
+                  data-toggle="dropdown"
+                  aria-expanded="false"
+                  ><i class="fa fa-ellipsis-v"></i
+                ></a>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                    data-toggle="modal"
+                    data-target="#verAnexo"
+                    (click)="getFileInformation(item.user_id, item.foto)"
+                    ><i
+                      class="bi bi-eye"
+                      *ngIf="this.is == 0 || this.is == 1"
+                    ></i>
+                    Ver Anexo</a
+                  >
+                </div>
+              </div>
+            </td>
+
+            <div
+              class="modal fade"
+              id="delete-modal"
+              style="border-radius: unset"
+            >
+              <div class="modal-dialog modal-dialog-centered modal-dialog-ms">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <div
+                      class="modal-title w-100 d-flex justify-content-between align-items-center"
+                    >
+                      Eliminação de Calibre
+                      <a
+                        data-dismiss="modal"
+                        class="bi bi-x-lg text-danger"
+                        style="cursor: pointer"
+                      ></a>
+                    </div>
+                  </div>
+                  <div
+                    class="modal-body text-center"
+                    style="font-size: 16px; color: #041b43"
+                  >
+                    <span>Confirmas a eliminação ?</span>
+                    <div class="btn-groups my-2">
+                      <a
+                        class="btn btn-link"
+                        style="text-decoration: none; color: #041b43"
+                        (click)="this.delete_(this.id)"
+                        >Sim</a
+                      >
+                      <div
+                        class="btn btn-link"
+                        data-dismiss="modal"
+                        style="text-decoration: none; color: #041b43"
+                      >
+                        Não
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-sm-6">
+          Mostrando de {{ this.pagination.current_page }} á
+          {{ this.pagination.per_page }} de {{ this.pagination.total }} Registo
+        </div>
+        <div class="col-sm-6">
+          <div class="float-right">
+            <pagination-controls
+              (pageChange)="this.filtrarPagina('page', $event)"
+              previousLabel="Anterior"
+              nextLabel="Próximo"
+            ></pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="verAnexo"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-primary w-100">
+        <h5
+          class="modal-title text-light"
+          style="font-size: 20px"
+          id="exampleModalLabel"
+        >
+          Arma em Lotes
+        </h5>
+        <button
+          type="button"
+          class="btn-light bg-transparent border-0 text-light"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <h5
+            style="font-size: 20px; font-stretch: 600"
+            class="d-sm-none d-xl-inline"
+          >
+            Visualização de Anexo de Guia
+          </h5>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-body" style="padding: 5px">
+          <div class="holder" id="viewerHolder">
+            <iframe
+              id="viewerPro"
+              style="height: 800px"
+              class="w-100"
+              [src]="this.getPathCaminho"
+            >
+            </iframe>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="modal-footer d-xl-flex d-sm-grid d-lg-flex d-md-grid justify-content-center w-100"
+      >
+        <button type="button" class="btn btn-danger w-25" data-dismiss="modal">
+          Fechar
+        </button>
+        <a class="btn btn-primary w-25" (click)="baixarFile(getPathCaminho)"
+          >Baixar</a
+        >
+      </div>
+    </div>
+  </div>
+</div>

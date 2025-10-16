@@ -1,0 +1,657 @@
+<div class="container_main">
+  <h1 class="title">Direção de Pessoal E Quadros</h1>
+  <hr />
+  <div class="card" id="top_content">
+    <div>
+      <img src="assets/logopolice.png" alt="" />
+    </div>
+  </div>
+
+  <div style="justify-content: space-between; display: flex">
+    <div></div>
+    <div
+      [routerLink]="['/piips/sigef/instruendos/listar']"
+      ariaCurrentWhenActive="page"
+      class="see"
+    >
+      <i class="bi bi-eye"><span>Visualizar a listagem</span></i>
+    </div>
+  </div>
+</div>
+
+<div class="container_main">
+  <div class="content">
+    <div class="main-img"></div>
+    <form [formGroup]="this.simpleForm">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-12" style="width: 100%">
+            <div class="card">
+              <div class="card-body">
+                <div class="profile-tabs">
+                  <div class="row">
+                    <ul class="nav nav-tabs nav-tabs-bottom col-sm-12">
+                      <li class="nav-item">
+                        <a
+                          class="nav-link active"
+                          href="#about-cont"
+                          data-toggle="tab"
+                          ><b style="font-size: 12px"
+                            >INFORMAÇÕES INICIAIS</b
+                          ></a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          class="nav-link"
+                          href="#bottom-tab1"
+                          data-toggle="tab"
+                          ><b style="font-size: 12px">INFOMAÇÃO PESSOAL</b></a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          class="nav-link"
+                          href="#bottom-tab2"
+                          data-toggle="tab"
+                          ><b style="font-size: 12px"
+                            >COORDENADAS BANCÁRIAS</b
+                          ></a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          class="nav-link"
+                          href="#bottom-tab3"
+                          data-toggle="tab"
+                          ><b style="font-size: 12px">FORMAÇÃO ACADÉMICA</b></a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          class="nav-link"
+                          href="#bottom-tab4"
+                          data-toggle="tab"
+                          ><b style="font-size: 12px"
+                            >CURSOS PROFISSIONAIS</b
+                          ></a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          class="nav-link"
+                          href="#bottom-tab5"
+                          data-toggle="tab"
+                          ><b style="font-size: 12px"
+                            >EXPERIÊNCIA PROFISSIONAL</b
+                          ></a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          class="nav-link"
+                          href="#bottom-tab6"
+                          data-toggle="tab"
+                          ><b style="font-size: 12px">LÍNGUAS FALADAS</b></a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          class="nav-link"
+                          href="#bottom-tab7"
+                          data-toggle="tab"
+                          ><b style="font-size: 12px"
+                            >PROVÍNCIA DE POSSIVEL COLOCAÇÃO</b
+                          ></a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="tab-content">
+                    <div class="tab-pane show active" id="about-cont">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="table-responsive">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <label>DESPACHO DE ADMISSÃO AO CURSO:</label>
+                                <input
+                                  formControlName="numero_des_admissao"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+
+                              <div class="col-md-6">
+                                <label>N.º DE ORDEM NO DESPACHO::</label>
+                                <input
+                                  formControlName="num_ord_despacho"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+
+                              <div class="col-md-6">
+                                <label>NIP</label>
+                                <input
+                                  formControlName="num_nip"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+
+                              <div class="col-md-6">
+                                <label>NURI</label>
+                                <input
+                                  formControlName="num_nuri"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+                            </div>
+                            <div class="button-submit"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="tab-pane" id="bottom-tab1">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="table-responsive">
+                            <div class="row">
+                              <div class="col-md-4">
+                                <label for="">NOME COMPLETO</label>
+                                <input
+                                  formControlName="fullName"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+                              <div class="col-md-4">
+                                <label>NOME DO PAI</label>
+                                <input
+                                  formControlName="nome_pai"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+                              <div class="col-md-4">
+                                <label>NOME DA MÃE</label>
+                                <input
+                                  formControlName="nome_mae"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-md-4">
+                                <label>PROVÍNCIA</label>
+                                <ng-select2
+                                  formControlName="provincia"
+                                  [options]="options"
+                                  [data]="provincias"
+                                >
+                                </ng-select2>
+                              </div>
+                              <div class="col-md-4">
+                                <label for="">NATURALIDADE</label>
+                                <input
+                                  formControlName="naturalidade"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+                              <div class="col-md-4">
+                                <label>MORADA ACTUAL</label>
+                                <input
+                                  formControlName="morada"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-md-4">
+                                <label for="">BILHETE DE IDENTIDADE</label>
+                                <input
+                                  formControlName="num_bilhete"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+                              <div class="col-md-4">
+                                <label>DATA DE NASCIMENTO</label>
+                                <input
+                                  formControlName="data_nascimento"
+                                  class="form-control"
+                                  type="date"
+                                />
+                              </div>
+                              <div class="col-md-4">
+                                <label>ESTADO CIVÍL:</label>
+                                <ng-select2
+                                  formControlName="idEstado_civil"
+                                  [options]="options"
+                                  [data]="estadoCivil"
+                                >
+                                </ng-select2>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-md-2">
+                                <label>GÊNERO</label>
+                                <ng-select2
+                                  [options]="options"
+                                  formControlName="genero"
+                                >
+                                  <option>Masculino</option>
+                                  <option>Femenino</option>
+                                  <option></option
+                                ></ng-select2>
+                              </div>
+                              <div class="col-md-2">
+                                <label>ALTURA</label>
+                                <input
+                                  formControlName="altura"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+                              <div class="col-md-2">
+                                <label>PESO:</label>
+                                <input
+                                  formControlName="peso"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+                              <div class="col-md-2">
+                                <label>N.º DO CALÇADO</label>
+                                <input
+                                  formControlName="tam_calcado"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+                              <div class="col-md-2">
+                                <label>CONTACTO/Nº TELEFONE:</label>
+                                <input
+                                  formControlName="numero"
+                                  class="form-control"
+                                  type="number"
+                                />
+                              </div>
+                              <div class="col-md-2">
+                                <label>OUTROS CONTACTOS</label>
+                                <input
+                                  formControlName="mais_contacto"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-md-12">
+                                <label>E-MAIL</label>
+                                <input
+                                  formControlName="email"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="tab-pane" id="bottom-tab2">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="table-responsive">
+                            <div class="row">
+                              <div class="col-md-4">
+                                <label>N.º DE CONTA</label>
+                                <input
+                                  formControlName="num_conta"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+
+                              <div class="col-md-4">
+                                <label>IBAN</label>
+                                <input
+                                  formControlName="num_iban"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+
+                              <div class="col-md-4">
+                                <label>BANCO</label>
+                                <input
+                                  formControlName="banco"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="tab-pane" id="bottom-tab3">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="table-responsive">
+                            <div class="row">
+                              <div class="col-md-4">
+                                <label for="">HABILITAÇÕES LITERÁRIAS</label>
+                                <input class="form-control" type="text" />
+                              </div>
+
+                              <div class="col-md-4">
+                                <label>CURSO</label>
+                                <input
+                                  formControlName="curso"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+
+                              <div class="col-md-4">
+                                <label>INSTITUIÇÃO DE ENSINO</label>
+                                <input
+                                  formControlName="loca_instrucao"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-md-6">
+                                <label>Especialidade</label>
+                                <input
+                                  formControlName="especialidade"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+
+                              <div class="col-md-6">
+                                <label>ANO DE CONCLUSÃO</label>
+                                <input
+                                  formControlName="ano_conclusao"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="tab-pane" id="bottom-tab4">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="table-responsive">
+                            <div class="row">
+                              <div class="col-md-3">
+                                <label for="">CURSO</label>
+                                <input
+                                  formControlName="cursos"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+
+                              <div class="col-md-3">
+                                <label for="">CURSO</label>
+                                <input
+                                  formControlName="cursos"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+
+                              <div class="col-md-3">
+                                <label for="">CURSO</label>
+                                <input
+                                  formControlName="cursos"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+
+                              <div class="col-md-3">
+                                <label for="">CURSO</label>
+                                <input
+                                  formControlName="cursos"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-md-3">
+                                <label for="">CURSO</label>
+                                <input
+                                  formControlName="cursos"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+
+                              <div class="col-md-3">
+                                <label for="">CURSO</label>
+                                <input
+                                  formControlName="cursos"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+
+                              <div class="col-md-3">
+                                <label for="">CURSO</label>
+                                <input
+                                  formControlName="cursos"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+
+                              <div class="col-md-3">
+                                <label for="">CURSO</label>
+                                <input
+                                  formControlName="cursos"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+
+                              <div class="col-md-3">
+                                <label for="">CURSO</label>
+                                <input
+                                  formControlName="cursos"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+
+                              <div class="col-md-3">
+                                <label for="">CURSO</label>
+                                <input
+                                  formControlName="cursos"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+
+                              <div class="col-md-3">
+                                <label for="">CURSO</label>
+                                <input
+                                  formControlName="cursos"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+
+                              <div class="col-md-3">
+                                <label for="">CURSO</label>
+                                <input
+                                  formControlName="cursos"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="tab-pane" id="bottom-tab5">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="table-responsive">
+                            <div class="row">
+                              <div class="col-md-12">
+                                <label for=""
+                                  >Escrever experienciâ profissional...</label
+                                >
+                                <textarea
+                                  formControlName="desc_experiencia"
+                                  class="form-control"
+                                >
+                                </textarea>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="tab-pane" id="bottom-tab6">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="table-responsive">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <label>NACIONAIS</label>
+                                <input
+                                  formControlName="linguas"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+
+                              <div class="col-md-6">
+                                <label>ESTRANGEIRAS</label>
+                                <input class="form-control" type="text" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="tab-pane" id="bottom-tab7">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="table-responsive">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <label>SELECIONE A PRIMEIRA OPÇÃO</label>
+                                <input
+                                  formControlName="provincia_aloc"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+
+                              <div class="col-md-6">
+                                <label for="">SELECIONE A SEGUNDA OPÇÃO</label>
+                                <input class="form-control" type="text" />
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-md-6">
+                                <label
+                                  >REGIÃO MILITAR DE PROVENIÊNCIA ( P/
+                                  EX-MILITARES )</label
+                                >
+                                <input
+                                  formControlName="regiao_militar_prov"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+
+                              <div class="col-md-6">
+                                <label for="">PROVÍNCIA DA REGIÃO</label>
+                                <input class="form-control" type="text" />
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-md-6">
+                                <label for=""
+                                  >PROVÍNCIA DE RECRUTAMENTO E SELECÇÃO ( P/
+                                  SOC. CIVIL )</label
+                                >
+                                <input
+                                  formControlName="provincia_recr"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+
+                              <div class="col-md-6">
+                                <label>CENTRO DE INSTRUÇÃO POLICIAL</label>
+                                <input
+                                  formControlName="loca_instrucao"
+                                  class="form-control"
+                                  type="text"
+                                />
+                              </div>
+                            </div>
+
+                            <div class="btn-registar">
+                              <div></div>
+                              <div>
+                                <button id="cancelar">Cancelar</button>&nbsp;
+                                <button (click)="onSubmit()" id="registrar">
+                                  Registrar
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <ng-template #ocultarBotao> </ng-template>
+      </div>
+    </form>
+  </div>
+</div>

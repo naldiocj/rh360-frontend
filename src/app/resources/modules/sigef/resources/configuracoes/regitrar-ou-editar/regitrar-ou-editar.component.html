@@ -1,0 +1,122 @@
+<div
+  class="modal fade"
+  id="modalRegistrarOuEditarHabilitacoes"
+  aria-labelledby="modalRegistrarOuEditarHabilitacoes"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog"
+    role="document"
+    style="overflow-y: hidden; min-width: 70%"
+  >
+    <div class="modal-content">
+      <div style="background: #041b48" class="modal-header">
+        <h5
+          style="
+            color: #fff;
+            font-size: 20px;
+            font-style: normal;
+            line-height: normal;
+            font-weight: bold;
+            font-family: Poppins;
+          "
+        >
+          <img
+            src="../../../../../../../assets/sigef/sidebar/Diploma.png"
+            alt=""
+          />
+          Registar Habilitações
+        </h5>
+
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="content">
+        <div class="main-img"></div>
+        <form [formGroup]="this.simpleForm">
+          <div class="modal-body">
+            <div class="row">
+              <div class="form-group col-6">
+                <label class="placeholder">Nome *</label>
+                <input
+                  formControlName="nome"
+                  type="text"
+                  class="form-control"
+                />
+              </div>
+
+              <div class="form-group col-6">
+                <label class="placeholder">Sigla *</label>
+                <input
+                  formControlName="sigla"
+                  type="text"
+                  class="form-control"
+                />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-6">
+                <label>Selecione o tipo</label>
+                <ng-select2
+                  [options]="options"
+                  formControlName="tipo_habilitacaos_id"
+                  [data]="this.tipo_habilitacoes"
+                >
+
+                </ng-select2>
+              </div>
+
+              <div class="form-group col-6">
+                <label>Estado</label>
+                <ng-select2 [options]="options" formControlName="estado">
+                  <option>Activo</option>
+                  <option>Inativo</option>
+                  ></ng-select2
+                >
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              style="
+                background-color: #e31212;
+                border-radius: 3px;
+                color: #fff;
+                border: none;
+                width: 130px;
+                height: 32px;
+              "
+              type="reset"
+            >
+              Limpar
+            </button>
+
+            <button
+              style="
+                background-color: #041b4e;
+                border-radius: 3px;
+                color: #fff;
+                border: none;
+                width: 130px;
+                height: 32px;
+              "
+              type="submit"
+              (click)="onSubmit()"
+            >
+              Registrar
+            </button>
+            <ng-template #ocultarBotao> </ng-template>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

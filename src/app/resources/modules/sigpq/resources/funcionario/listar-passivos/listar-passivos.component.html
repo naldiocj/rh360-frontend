@@ -1,0 +1,266 @@
+<div class="content">
+  <sigpq-header></sigpq-header>
+  <div class="header-ficha mt-1">
+    <div class="row" style="align-items: center;">
+      <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 d-flex justify-content-start align-items-start">
+        <div class="mais-info d-flex justify-content-center align-items">
+          <!-- <h4 class="text-white"><b>Listagem dos Agentes {{tituloSituacao}}s</b></h4> -->
+          <h4 class="text-white"><b>Listagem dos Agentes Passivos</b></h4>
+        </div>
+      </div>
+      <!-- <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 d-flex justify-content-end align-items-center"
+        style="gap:.4rem">
+        <span class="legend-item" *ngFor="let item of this.estados">
+          <div class="legend-color" [style.backgroundColor]="item.cor"></div>
+          <span class="legend-text">{{item.texto}}</span>
+        </span>
+      </div> -->
+    </div>
+    <!-- <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 d-flex justify-content-end align-items-start">
+        <a href="javascript:void(0)" href="javascript:void(0)" data-toggle="modal" data-target="#"
+          class="btn-piips btn-piips-secondary border m-0 py-2 px-4"><i class="fa fa-list-alt"></i>
+          Exportar</a>
+      </div>
+    </div> -->
+  </div>
+  <div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+      <legend class="border-top d-flex justify-content-end align-item-center"> <button
+          class="btn-piips btn-piips-secondary m-0 py-2 border" data-toggle="collapse" href="#pesquisa-avancada"
+          role="button" aria-expanded="false" aria-controls="pesquisa-avancada" style="cursor: pointer;"> <i
+            class="fa fa-search mx-2"></i>Pesquisa avançada</button></legend>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+      <fieldset class="w-100 p-1">
+        <div class="row py-2">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
+            <aside class="row" style="align-items: center; row-gap: .4rem;">
+              <div class="col-xl-1 col-lg-1 col-md-4 col-sm-12">
+                <select class="form-control w-100" (change)="filtrarPagina('perPage',$event)">
+                  <option *ngFor="let item of [5,10,20,50]" [value]="item">{{item}}</option>
+                </select>
+              </div>
+
+              <div class="col-xl-9 col-lg-9 col-md-8 col-sm-12">
+                <input class="form-control w-100" type="text" [ngModel]="filtro.search"
+                  (ngModelChange)="filtrarPagina('search',$event)" placeholder="Pesquisar nome completo, nip, nas, ...">
+              </div>
+              <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 d-flex justify-content-end align-item-center">
+                <button type="button" (click)="this.recarregarPagina()"
+                  class="btn-piips btn-piips-secondary m-0 py-2 w-100" type="submit">
+                  <i style="font-size: 14px;" class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+                  <b>Recarregar</b>
+                </button>
+              </div>
+            </aside>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <aside class="row collapse" id="pesquisa-avancada">
+              <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+                <label for=""><b>Regime de Carreira</b></label>
+                <ng-select2 [data]="this.regimes" [options]="this.options" [ngModel]="this.filtro.regimeId"
+                  name="regimeId" (valueChanged)="filtrarPagina('regimeId',$event)">
+                </ng-select2>
+              </div>
+
+              <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+                <label for=""><b>Tipo de Vínculo</b></label>
+                <ng-select2 [data]="this.tipoVinculos" [options]="this.options" [ngModel]="this.filtro.tipoVinculoId"
+                  name="tipoVinculoId" (valueChanged)="filtrarPagina('tipoVinculoId',$event)">
+                </ng-select2>
+              </div>
+              <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4" >
+                <label for=""><b>{{ filtro.regimeId === '2' ? 'Carreira' : 'Classe' }}</b></label><br>
+                <ng-select2 [data]="this.patenteClasses" [ngModel]="this.filtro.patenteClasse" name="patenteClasse"
+                  (valueChanged)="filtrarPagina('patenteClasse',$event)" [options]="this.options">
+
+                </ng-select2>
+              </div>
+
+              <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4" >
+                <label for=""><b>{{ filtro.regimeId === '2' ? 'Categoria' : 'Posto' }}</b></label><br>
+                <ng-select2 [data]="this.patentes" [options]="this.options" [ngModel]="this.filtro.patenteId"
+                  name="patenteId" (valueChanged)="filtrarPagina('patenteId',$event)">
+
+                </ng-select2>
+              </div>
+
+
+
+              <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+                <label for=""><b>Sexo</b></label>
+                <ng-select2 [options]="options" [ngModel]="this.filtro.genero" name="genero"
+                  (valueChanged)="filtrarPagina('genero',$event)" [data]="this.generos">
+                </ng-select2>
+              </div>
+              <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+                <label for=""><b>Situação Laboral <span class="text-danger"></span></b></label>
+                <ng-select2 [options]="options" (valueChanged)="this.filtrarPagina('situacaoId',$event)"
+                  [data]="this.situacaoEstados" [ngModel]="this.filtro.situacaoId">
+                </ng-select2>
+              </div>
+              <div class="col-xl-3 col-lg-4 col-md-6  col-sm-12 mb-4">
+                <label for=""><b>{{this.tituloSituacao}} <span class="text-danger">&nbsp;</span></b></label>
+                <ng-select2 [options]="options" (valueChanged)="this.filtrarPagina('estadoId',$event)"
+                  [data]="this.estado">
+                </ng-select2>
+              </div>
+
+              <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4" *ngIf="this.getAuth?.user?.aceder_todos_agentes">
+                <label for=""><b>Tipo de Órgão</b></label>
+                <ng-select2 [options]="options" [data]="this.tipoEstruturaOrganicas"
+                  (valueChanged)="selecionarOrgaoOuComandoProvincial($event);">
+                </ng-select2>
+              </div>
+
+              <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4" *ngIf="this.getAuth?.user?.aceder_todos_agentes">
+                <label for=""><b>Direcção/Comando </b></label>
+                <ng-select2 [options]="options" (valueChanged)="filtrarPagina('orgaoId',$event)" [data]="this.orgaos"
+                  [ngModel]="this.filtro.orgaoId" name="orgaoId">
+                </ng-select2>
+              </div>
+              <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+                <label for=""><b>Faixa Etária (De-Até)</b></label>
+                <div class="d-flex">
+                  <input [min]="this.idadeMenos" type="number" [ngModel]="this.filtro.idadeMenos" class="form-control"
+                    (change)="filtrarPagina('idadeMenos',$event)">
+
+                  <input [min]="this.filtro.idadeMenos!='null' ? this.filtro.idadeMenos : this.idadeMenos" type="number"
+                    [ngModel]="this.filtro.idadeMais" class="form-control" (change)="filtrarPagina('idadeMais',$event)">
+                </div>
+
+              </div>
+              <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+                <label for=""><b>Tempo de Serviço (De-Até)</b></label>
+                <div class="d-flex">
+                  <input type="number" class="form-control" [ngModel]="this.filtro.anoMenos" [min]="0"
+                    (change)="filtrarPagina('anoMenos',$event)">
+
+                  <input type="number" class="form-control" [ngModel]="this.filtro.anoMais"
+                    [min]="this.filtro.anoMenos!='null' ? this.filtro.anoMenos : 0 "
+                    (change)="filtrarPagina('anoMais',$event)">
+
+                </div>
+              </div>
+
+            </aside>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+      <div class="table-responsive">
+        <table class="table table-border table-striped custom-table datatable mb-0">
+          <thead>
+            <tr>
+              <!-- <th *ngIf="type.name!='Inactivo'">#</th> -->
+              <th>ID</th>
+              <th>Posto</th>
+              <th>Nome Completo</th>
+              <th>NIP</th>
+              <th>NAS</th>
+              <th>B.I N.º</th>
+              <th>Colocação</th>
+              <!-- <th>Cargo</th> -->
+              <th>Situação Laboral</th>
+              <th>Data de última Actualização</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="this.isLoading">
+              <td colspan="9">
+                <aside *ngIf="this.isLoading">
+                  <loading-page [texto]="'lista de agentes'"></loading-page>
+                </aside>
+              </td>
+            </tr>
+            <tr
+              *ngFor="let item of this.funcionarios | paginate: { id: 'funcionarioEspecial', itemsPerPage: this.pagination.per_page, currentPage: this.pagination.current_page,totalItems: this.pagination.total }; index as i">
+              <!-- <td *ngIf="type.name!='Inactivo'" [style.backgroundColor]="item?.data_inicio_inatividade?(inatividadeExpirada(calcularFimInatividade(item?.data_inicio_inatividade,item.duracao_inatividade))?'red':'rgb(254, 176, 25)'):'rgb(254, 176, 25)'"></td> -->
+              <td>{{ this.totalBase + i }}</td>
+              <td>
+                <ng-container *ngIf="item.patente_nome; else elseTemplate">
+                  {{ item.patente_nome }}
+                </ng-container>
+                <ng-template #elseTemplate> S/N </ng-template>
+              </td>
+              <td>
+                <strong>
+                  <a
+                    routerLink="/"
+                    ariaCurrentWhenActive="page"
+                    [routerLink]="['/piips/sigpg/perfil/', item.id]"
+                    style="font-size: 15px"
+                  >
+                    {{ item.nome_completo | uppercase }}
+                    {{ item.apelido | uppercase }}
+                  </a>
+                </strong>
+              </td>
+              <td class="text-start">
+                <ng-container
+                  *ngIf="
+                    item.nip && this.utilsHelper.temQuadro(item?.quadro);
+                    else elseTemplate
+                  "
+                >
+                  {{ item.quadro }} {{ item.nip }}
+                </ng-container>
+                <ng-template #elseTemplate> S/N </ng-template>
+              </td>
+              <td class="text-start">
+                <ng-container *ngIf="item.numero_agente; else elseTemplate">
+                  {{ item.numero_agente }}
+                </ng-container>
+                <ng-template #elseTemplate> S/N </ng-template>
+              </td>
+              <td class="text-start">
+                <ng-container *ngIf="item.documento?.nid; else elseTemplate">
+                  {{ item?.documento?.nid }}
+                </ng-container>
+                <ng-template #elseTemplate> S/N </ng-template>
+              </td>
+              <td
+                class="text-start"
+                [title]="item?.orgao?.nome"
+                style="cursor: pointer"
+              >
+                <ng-container *ngIf="item.orgao?.nome; else elseOrgao">
+                  {{ item?.orgao?.sigla }}
+                </ng-container>
+                <ng-template #elseOrgao> S/N </ng-template>
+              </td>
+              <td class="text-center">{{ item.estado ?? "S/N" }}</td>
+              <td class="text-center">{{ item?.updated_at }}</td>
+            
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+          Mostrando de {{ this.pagination.current_page }} a {{ this.pagination.per_page }} de {{
+          this.pagination.total}}
+          <aside *ngIf="this.pagination.total < 2; else outrosRegistos">registos</aside>
+          <ng-template #outrosRegistos>registos</ng-template>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+          <div class="float-right">
+            <pagination-controls id="funcionarioEspecial" (pageChange)="this.filtrarPagina('page', $event, false)"
+              [directionLinks]="true" [autoHide]="true" previousLabel="Anterior" nextLabel="Próximo" [maxSize]="4"
+              [responsive]="true"></pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<sigpq-informacao-fora-de-efetividade [agenteSelecionado]="agenteSelecionado" [propositoModal]="efeitoModal"
+(eventSucesso)="buscarFuncionario()"></sigpq-informacao-fora-de-efetividade>
+

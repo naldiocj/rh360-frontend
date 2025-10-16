@@ -1,0 +1,68 @@
+<header id="header_" class="header_ fixed-top d-flex align-items-center ">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="#" [routerLink]="['/piips']" class="logo_ d-flex align-items-center">
+        <img src="assets/img/sigiac.png" alt="">
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn" (click)="toggle()"></i>
+    </div>
+  
+    <nav class="header-nav_ flex-fill d-flex">
+      <ul class="d-flex align-items-center">
+  
+  
+        <li class="nav-item dropdown">
+  
+          <a class="nav-link nav-profile d-flex align-items-center" href="#" data-toggle="dropdown">
+            <div class="foto r">
+              <img src="assets/img/user.jpg" alt="Profile" style="width: 40px; height: 60px; border-radius:50%">
+              <span class="dot"></span>
+            </div>
+            <span class="d-none d-md-block dropdown-toggle pl-2">{{nomeUtilizador}}</span>
+          </a>
+  
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header text-center">
+              <h6>{{this.nomeUtilizador}}</h6>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+  
+            <li>
+              <a class="dropdown-item d-flex align-items-center text-dark"  [routerLink]="['/piips/sigiac/perfil/listagem', this.user.id]">
+                <i class="bi bi-person"></i>
+                <span>Meu Perfil</span>
+              </a>
+            </li>
+  
+            <li>
+              <!-- <a class="dropdown-item" [routerLink]="['/piips']">Ir em Piips</a> -->
+              <a class="dropdown-item d-flex align-items-center text-dark" [routerLink]="['/piips']">
+                <i class="bi fa-birthday-cake"></i>
+                <span>Ir em Piips</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+  
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+  
+            <li>
+              <a class="dropdown-item d-flex align-items-center" data-toggle="modal" data-target="#logout-modal"
+                style="cursor:pointer;" (click)="this.sair()" >
+                <i class="bi bi-power"></i>
+                <span>Terminar sessão</span>
+              </a>
+            </li>
+  
+          </ul>
+        </li>
+  
+      </ul>
+    </nav>
+  
+  </header>

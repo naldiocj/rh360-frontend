@@ -1,0 +1,154 @@
+<div class="modal fade" id="modal-visualizar-passe" data-backdrop="static" aria-labelledby="modalVisualizarFicha" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="overflow-y: hidden; min-width: 40%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>
+                    <i class="fa fa-user"></i>
+                    Visualização de Passe Profissional
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="this.fechar()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="content " id="passe">
+                <div class="container p-5">
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                            <div class="d-flex flex-column justify-content-center align-items-center"
+                                style="row-gap: 4rem">
+                                <div class="card-pna card-front d-flex flex-column py-4 px-2">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="d-flex flex-column" style="row-gap:-1rem;">
+                                            <span class="title-pass text-pass-header">REPÚBLICA DE ANGOLA</span>
+                                            <span class="title-pass text-pass-header">MINISTÉRIO DO INTERIOR</span>
+                                            <span class="title-pass text-pass-header">COMANDO GERAL DA POLÍCIA
+                                                NACIONAL</span>
+                                        </div>
+                                        <div class="d-flex flex-column"
+                                            style="row-gap: .4rem; margin-top: -20px; margin-right: 40px;">
+                                            <span
+                                                class="title-pass  text-pass-header move-out">{{agente?.codigo}}{{agente?.nip
+                                                ? '/' : ''}}{{agente?.nip}}</span>
+                                            <img src="/assets/img/logopolice.png" alt=""
+                                                style="width: 130px; height: 145px;">
+                                        </div>
+                                    </div>
+                                    <div class="d-flex photo-pass">
+                                        <div class="d-flex flex-column" style="row-gap: .8rem;">
+                                            <span class="title-pass text-pass-header">CARTÃO DE IDENTIDADE</span>
+                                            <ng-container *ngIf="this.fileUrl; else semFoto">
+                                                <img [src]="this.fileUrl" alt="pna-alt-image" class="pass-image">
+                                            </ng-container>
+                                            <ng-template #semFoto>
+                                                <img src="/assets/img/passe-foto.png" alt="" alt="pna-alt-image"
+                                                    class="pass-image">
+                                            </ng-template>
+                                        </div>
+                                        <div class="d-flex flex-column nomes-pass">
+                                            <div class="d-flex align-items-center" style="column-gap:.4rem">
+                                                <span class="title-pass text-bold">NOME: </span>
+                                                <span class="title-pass">{{agente?.nome_completo}} {{ agente?.apelido ?
+                                                    this.toMaiscula(agente?.apelido) : '' }}</span>
+                                            </div>
+                                            <!-- <div *ngIg="this.agente?.apalido" class="d-flex align-items-center"
+                                                style="column-gap:.4rem">
+                                                <span class="title-pass text-bold">APELIDO: </span>
+                                                <span class="title-pass">{{agente?.apelido | uppercase}} </span>
+                                            </div> -->
+                                            <div class="d-flex align-items-center"
+                                                style="column-gap:.4rem">
+                                                <span class="title-pass text-bold">PATENTE: </span>
+                                                <span class="title-pass">{{agente?.patente_nome | uppercase}} </span>
+                                            </div>
+                                            <div *ngIf="!this.isPatente(this.agente?.patente_id) && this.agente?.funcao"
+                                                class="d-flex align-items-center" style="column-gap:.4rem">
+                                                <span class="title-pass text-bold">FUNÇÃO: </span>
+                                                <span class="title-pass">{{agente?.funcao}}</span>
+                                            </div>
+                                            <div *ngIf="this.isPatente(this.agente?.patente_id) && this.agente?.cargo"
+                                                class="d-flex align-items-center" style="column-gap:.4rem">
+                                                <span class="title-pass text-bold">CARGO: </span>
+                                                <span class="title-pass">{{agente?.cargo}}</span>
+                                            </div>
+                                            <div class="d-flex align-items-center" style="column-gap:.4rem">
+                                                <span class="title-pass text-bold">COLOCAÇÃO: </span>
+                                                <span class="title-pass">{{agente?.orgao_sigla | uppercase}}</span>
+                                            </div>
+                                            <div class="d-flex align-items-center" style="column-gap:.4rem">
+                                                <span class="title-pass text-bold">DATA DE EMISSÃO: </span>
+                                                <span class="title-pass">{{this.agente?.created_at}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="card-pna card-back py-4 px-4 d-flex flex-column"
+                                    style="color: rgba(0, 0, 0, 0.867)">
+                                    <div class="row" style="row-gap: 2rem;">
+                                        <div class="col-xl-12 col-md-12 col-sm-12">
+                                            <div class="row">
+                                                <div class="col-xl-12 col-lg-12 col-md-12">
+                                                    <p class="text-justify">
+                                                        Este documento tem por finalidade identificar o portador, na sua
+                                                        qualidade
+                                                        de
+                                                        membro
+                                                        da
+                                                        polícia nacional e de agente de autoridade nos termos da lei, o
+                                                        qual tem o
+                                                        direito
+                                                        ao
+                                                        uso e
+                                                        porte de arma de qualquer modelo, livre acesso e permanência em
+                                                        todos os
+                                                        recintos
+                                                        públicos e
+                                                        a quem deve ser prestado auxílio para o exercício das suas
+                                                        funções.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-12 col-md-12 col-lg-12 col-sm-12">
+                                            <div class="row">
+                                                <div
+                                                    class="col-xl-12 col-lg-12 col-md-12 d-flex justify-content-center flex-column align-items-center">
+                                                    <div class="w-75 d-flex flex-column align-items-center">
+                                                        <p>COMANDANTE GERAL DA POLÍCIA NACIONAL</p>
+                                                        <div
+                                                            class="w-100 d-flex justify-content-center align-items-center">
+                                                            <img src="/assets/img/sign.png" alt="assinature"
+                                                                style="width: 150px; height: 70px; margin-top: -30px;object-fit: cover;">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-12 col-lg-12 col-md-12  mt-2 "
+                                                    style="transform: translateY(-35px);">
+                                                    <div class="w-100 d-flex justify-content-end align-items-center  "
+                                                        style="padding-right: 4rem!important; width: max-content;">
+                                                        <div style="width: 50px; height: 50px;">
+                                                            <img src="/assets/img/qr.png" alt=""
+                                                                style="width: 100%; height: 100%;">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="this.imprimir" class="modal-footer">
+                <button type="button" class="btn-piips btn-piips-primary m-0" data-dismiss="modal"
+                    (click)="imprim('passe')">
+                    <i class="fa fa-print"></i> Imprimir
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

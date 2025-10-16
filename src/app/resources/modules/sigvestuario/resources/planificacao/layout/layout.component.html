@@ -1,0 +1,75 @@
+<div class="ml-4 pl-1 pt-2 pr-2 pb-2 mr-4 sigv-breadCrumb mt-4">
+    <ul type="none" class="d-flex align-items-center m-0 pl-0">
+        <li>
+            <a [routerLink]="['/piips/sigvest/dashboard']">
+                <i class="bi bi-house-door-fill"></i> <i class="bi bi-chevron-right"></i>
+            </a>
+        </li>
+        <li routerLinkActive="efeito-breadcrumb">
+            <a [routerLink]="['/piips/sigvest/planificacao']">
+                <span>Planificação</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<h3 class="ml-3 pl-3 mb-4 mt-3 titulo">
+    <img src="../../../../../../assets/assets_sigv/img/img1/document.gif" alt="">
+    <!-- <i class="bi bi-tools ii"></i> -->
+    <span>
+        Planificações
+        <div>Gestão de planificações dos Vestuários</div>
+    </span>
+</h3>
+
+<section>
+    <div class="container-fluid">
+        <div class="row px-3 opcoes-container">
+            <div class="col-12" [routerLink]="['/piips/sigvest/planificacao/plano-de-necessidades']">
+                <a [routerLink]="['/piips/sigvest/planificacao/plano-de-necessidades']"
+                    class="d-flex justify-content-between align-items-center">
+                    <span class="d-flex align-items-center">
+                        <i class="bi bi-bookmark-check iii"></i>
+                        <span>
+                            Plano de Necessidades - MININT
+                            <aside>registe todos os abastecimentos na logística dos Vestuários.</aside>
+                        </span>
+                    </span>
+
+                    <span><i class="bi bi-chevron-right"></i></span>
+                </a>
+            </div>
+
+            <div class="col-12" [routerLink]="['/piips/sigvest/planificacao/plano-de-distribuicao']">
+                <a [routerLink]="['/piips/sigvest/planificacao/plano-de-distribuicao']"
+                    class="d-flex justify-content-between align-items-center">
+                    <span class="d-flex align-items-center">
+                        <i class="bi bi-bookmark-check iii"></i>
+                        <span>
+                            Plano de Distribuição
+                            <aside>Listar todos os planos e meios relacionados...</aside>
+                        </span>
+                    </span>
+
+                    <span><i class="bi bi-chevron-right"></i></span>
+                </a>
+            </div>
+
+            <div class="col-12" [routerLink]="['/piips/sigvest/planificacao/pre-despacho']">
+                <a [routerLink]="['/piips/sigvest/planificacao/pre-despacho']"
+                    class="d-flex justify-content-between align-items-center">
+                    <span class="d-flex align-items-center">
+                        <i class="bi bi-journal-bookmark-fill iii"></i>
+                        <span>
+                            Pré - Despacho
+                            <aside>Listar todos abastecimeentos e produtos relacionados...</aside>
+                        </span>
+                    </span>
+
+                    <span><i class="bi bi-chevron-right"></i></span>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</section>

@@ -1,0 +1,112 @@
+ 
+div:has(#huey) {
+  background: rgb(224, 224, 224);
+  border-radius: 12px;
+  padding:5px;
+  margin: 0px 4px 4px 4px;
+}
+
+div:has(#dewey) {
+    background: rgb(161, 161, 161);
+    border-radius: 12px;
+    padding:5px;
+    margin: 0px 4px 4px 4px;
+  }
+  div:has(#louie) {
+    background: rgb(255, 255, 255);
+    border-radius: 12px;
+    padding:5px;
+    margin: 0px 4px 4px 4px;
+  }
+    
+::view-transition-group(*) {
+  animation-timing-function: var(--ease-squish-1);
+  animation-timing-function: var(--ease-spring-2);
+  animation-duration: 0.75s;
+}
+
+/* fixex ghosting at the bottom */
+::view-transition-old(opt-1),
+::view-transition-old(opt-2),
+::view-transition-old(opt-3),
+::view-transition-new(opt-1),
+::view-transition-new(opt-2),
+::view-transition-new(opt-3) {
+  height: 100%;
+}
+
+@layer demo {
+  .bento {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: var(--size-3);
+
+    min-inline-size: 75vw;
+    aspect-ratio: var(--ratio-widescreen);
+
+    & > * {
+      border-radius: var(--radius-3);
+      background: var(--surface-2);
+
+      @media (prefers-reduced-motion: no-preference) {
+        &:nth-child(1) {
+          view-transition-name: opt-1;
+          & > label {
+            view-transition-name: opt-1-label;
+          }
+          & > input {
+            view-transition-name: opt-1-input;
+          }
+        }
+        &:nth-child(2) {
+          view-transition-name: opt-2;
+          & > label {
+            view-transition-name: opt-2-label;
+          }
+          & > input {
+            view-transition-name: opt-2-input;
+          }
+        }
+        &:nth-child(3) {
+          view-transition-name: opt-3;
+          & > label {
+            view-transition-name: opt-3-label;
+          }
+          & > input {
+            view-transition-name: opt-3-input;
+          }
+        }
+
+        & :is(label, input) {
+          width: fit-content;
+        }
+      }
+    }
+
+    & > div:has(input:checked) {
+      grid-row: 1 / -1;
+      grid-column: 1;
+    }
+  }
+}
+
+@layer demo.support {
+  html {
+    view-transition-name: none;
+  }
+
+  fieldset {
+    border: none;
+
+    > div {
+      display: grid;
+      grid: 1fr / 1fr;
+      padding: var(--size-3);
+
+      & > label {
+        grid-area: 1 / 1;
+      }
+    }
+  }
+}

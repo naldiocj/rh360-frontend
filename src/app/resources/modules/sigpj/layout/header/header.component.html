@@ -1,0 +1,138 @@
+<!-- <div class="header-left">
+  <a href="javascript:void(0);" class="logo">
+    <img class="imgp" src="assets/img/Logotipo.png" style="width: 70px; height: 30px;" alt="SIGPQ">
+    <img class="imgp" src="assets/img/Logotipo.png" alt="SIGPQ" style="width: 100%"> -->
+<!--   </a>
+</div> --> 
+<!-- <a id="toggle_btn" href="javascript:void(0);">
+  <i id="home" class="fa fa-bars"></i>
+</a> -->
+<!-- <a style="color: black;" id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
+
+<ul class="nav user-menu float-right">
+
+  <li class="nav-item dropdown">
+    <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
+      <span class="user-img">
+        <span class="fa fa-bell" style="color: rgb(17, 16, 16);"> </span>
+      </span>
+      <span id="ad"></span>
+    </a>
+    <div class="dropdown-menu" style="width: auto;">
+      <a class="dropdown-item" href="#">Sem mensagens disponíveis</a>
+       <a class="dropdown-item"> -->
+       <!--        Ver mais
+          </a> --> 
+<!--     </div>
+  </li>
+  <li class="nav-item dropdown">
+    <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
+      <span class="user-img">
+        <img class="rounded-circle" src="assets/img/user.jpg" width="40" alt="Admin">
+        <span class="status online"></span>
+      </span>
+      <span id="ad" style="word-wrap: break-word; word-break: keep-all;"> {{this.nomeUtilizador}}</span>
+    </a>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" [routerLink]="['/piips/sigpg']">Ir na DPQ</a> -->
+      <!-- <a class="dropdown-item" [routerLink]="['/piips/sigpg']" *ngIf="this.aceder_painel_piips">Ir na DQP</a> -->
+<!--       <a class="dropdown-item" href="javascript:void(0)">Perfil</a>
+      <a href="javascript:void(0)" data-toggle="modal" data-target="#modalDefinicoes" class="dropdown-item">Definições -->
+        <!-- <i class="fa fa-plus-circle"></i>  -->
+    <!--   </a> -->
+      <!-- <a class="dropdown-item" [routerLink]="['/definicoes']">Definições</a> -->
+<!--       <a class="dropdown-item" href="#" (click)="this.sair()">
+        Sair
+      </a>
+    </div>
+  </li>
+</ul>
+ -->
+<!-- // Modo telefone -->
+<!-- <div class="dropdown mobile-user-menu float-right">
+  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+    <span class="user-img">
+      <img class="rounded-circle" src="assets/img/user.jpg" width="40" alt="Admin">
+      <span class="status online"></span>
+    </span> -->
+    <!-- <span id="ad">Utilizadores</span> -->
+<!--   </a>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" [routerLink]="['/piips']">Ir em Piips</a>
+    <a class="dropdown-item" href="#">Definições</a>
+    <a class="dropdown-item" href="#" (click)="this.sair()">
+      Sair
+    </a>
+  </div>
+</div> -->
+
+<!-- <app-definicoes></app-definicoes> -->
+
+<header id="header_" class="header_ fixed-top d-flex align-items-center ">
+
+  <div class="d-flex align-items-center justify-content-between">
+    <a href="#" [routerLink]="['/piips']" class="logo_ d-flex align-items-center">
+      <h2>SIG<span style="color: aqua; font-weight: bold;">PJ</span></h2>
+    </a>
+    <i class="bi bi-list toggle-sidebar-btn" (click)="toggle()"></i>
+  </div>
+
+  <nav class="header-nav_ flex-fill d-flex">
+    <ul class="d-flex align-items-center">
+
+
+      <li class="nav-item dropdown">
+
+        <a class="nav-link nav-profile d-flex align-items-center" href="#" data-toggle="dropdown">
+          <div class="foto r">
+            <img src="assets/img/user.jpg" alt="Profile" style="width: 40px; height: 60px; border-radius:50%">
+            <span class="dot"></span>
+          </div>
+          <span class="d-none d-md-block dropdown-toggle pl-2">{{nomeUtilizador}}</span>
+        </a>
+
+        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+          <li class="dropdown-header text-center">
+            <h6>{{this.nomeUtilizador}}</h6>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+
+          <li>
+            <a class="dropdown-item d-flex align-items-center text-dark"  [routerLink]="['/piips/sigiac/perfil/listagem', this.user.id]">
+              <i class="bi bi-person"></i>
+              <span>Meu Perfil</span>
+            </a>
+          </li>
+
+          <li>
+            <!-- <a class="dropdown-item" [routerLink]="['/piips']">Ir em Piips</a> -->
+            <a class="dropdown-item d-flex align-items-center text-dark" [routerLink]="['/piips']">
+              <i class="bi fa-birthday-cake"></i>
+              <span>Ir em Piips</span>
+            </a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+
+          <li>
+            <a class="dropdown-item d-flex align-items-center" data-toggle="modal" data-target="#logout-modal"
+              style="cursor:pointer;" (click)="this.sair()" >
+              <i class="bi bi-power"></i>
+              <span>Terminar sessão</span>
+            </a>
+          </li>
+
+        </ul>
+      </li>
+
+    </ul>
+  </nav>
+
+</header>

@@ -1,0 +1,12 @@
+<div *ngIf="expediente">
+  <h3>Detalhes do Expediente (ID: {{ expediente.id }})</h3>
+  <p>Status: {{ expediente.status }}</p>
+  <!-- Botões para transitar entre as etapas -->
+  <button (click)="despachar()" *ngIf="expediente.status === 'Registrado'">Despacho Secretaria</button>
+  <button (click)="remeterMinisterio()" *ngIf="expediente.status === 'Despacho Secretaria'">Remeter Ministério</button>
+  <button (click)="receberOpcs()" *ngIf="expediente.status === 'Remetido Ministério Público'">Receber OPCS</button>
+  <button (click)="distribuirChefia()" *ngIf="expediente.status === 'Recebido OPCS'">Distribuir à Chefia</button>
+  <button (click)="distribuirDepartamento()" *ngIf="expediente.status === 'Distribuído à Chefia'">Distribuir ao Departamento</button>
+  <button (click)="iniciarInstrucao()" *ngIf="expediente.status === 'Distribuído ao Departamento'">Em Instrução</button>
+  <button (click)="concluir()" *ngIf="expediente.status === 'Em Instrução'">Concluir</button>
+</div>

@@ -1,0 +1,127 @@
+<div class="ml-4 pl-1 pt-2 pr-2 pb-2 mr-4 sigv-breadCrumb mt-4">
+    <ul type="none" class="d-flex align-items-center m-0 pl-0">
+      <li>
+        <a [routerLink]="['/piips/sigvest/dashboard']">
+            <i class="bi bi-house-door-fill"></i> <i class="bi bi-chevron-right"></i>
+        </a>
+      </li>
+      <li routerLinkActive="efeito-breadcrumb">
+        <a [routerLink]="['/piips/sigvest/configuracoes']">
+          <span>Configurações</span>
+        </a>
+      </li>
+    </ul>
+</div>
+
+<h3 class="ml-3 pl-3 mb-4 mt-3 titulo">
+    <img src="../../../../../../assets/assets_sigv/img/img1/tools.gif" alt="">
+    <!-- <i class="bi bi-tools ii"></i> -->
+      <span>
+        Configurações
+        <div>Central de Configurações da aplicação</div>
+      </span>
+</h3>
+
+<section>
+    <div class="container-fluid">
+        <div class="row px-3 opcoes-container">
+            <div class="col-12">
+                <a class="d-flex justify-content-between align-items-center">
+                    <span class="d-flex align-items-center">
+                        <i class="bi bi-person-circle iii"></i>
+                        <span>
+                            Controlo de Usuários  
+                            <aside>Gerencia todos os usuários registados na logística dos Vestuários.</aside>
+                        </span>
+                    </span>
+
+                    <span><i class="bi bi-chevron-right"></i></span>
+                </a>
+            </div>
+
+            <div class="col-12">
+                <a [routerLink]="['/piips/sigvest/configuracoes/tipo-de-meios']" class="d-flex justify-content-between align-items-center">
+                    <span class="d-flex align-items-center">
+                        <i class="bi bi-dribbble iii"></i>
+                        <span>
+                            Tipos de Meios
+                            <aside>Gerencia os tipos de meios que serão utilizadas para a aplicação...</aside>
+                        </span>
+                    </span>
+
+                    <span><i class="bi bi-chevron-right"></i></span>
+                </a>
+            </div>
+
+            <div class="col-12">
+                <a [routerLink]="['/piips/sigvest/configuracoes/designacao-de-meios']" class="d-flex justify-content-between align-items-center">
+                    <span class="d-flex align-items-center">
+                        <i class="bi bi-info-circle-fill iii"></i>
+                        <span>
+                            Designação de Meios
+                            <aside>Gerencia os tipos de Produtos que serão cadastrados na lógistica para evitar possíveis erros de digitação</aside>
+                        </span>
+                    </span>
+
+                    <span><i class="bi bi-chevron-right"></i></span>
+                </a>
+            </div>
+
+            <div class="col-12">
+                <a [routerLink]="['/piips/sigvest/configuracoes/tipo-de-norma-pessoas']" class="d-flex justify-content-between align-items-center">
+                    <span class="d-flex align-items-center">
+                        <i class="bi bi-dribbble iii"></i>
+                        <span>
+                            Tipos de Norma Pessoas
+                            <aside>Gerencia os tipos de norma pessoas que serão utilizadas para a aplicação...</aside>
+                        </span>
+                    </span>
+
+                    <span><i class="bi bi-chevron-right"></i></span>
+                </a>
+            </div>
+
+            <div class="col-12">
+                <a [routerLink]="['/piips/sigvest/configuracoes/designacao-de-norma-pessoas']" class="d-flex justify-content-between align-items-center">
+                    <span class="d-flex align-items-center">
+                        <i class="bi bi-info-circle-fill iii"></i>
+                        <span>
+                            Designação de Norma Pessoas
+                            <aside>Gerencia os tipos de Normas Pessoas que serão cadastrados na lógistica para evitar possíveis erros de digitação</aside>
+                        </span>
+                    </span>
+
+                    <span><i class="bi bi-chevron-right"></i></span>
+                </a>
+            </div>
+
+            <div class="col-12">
+                <a class="d-flex justify-content-between align-items-center" [routerLink]="['/piips/sigvest/dashboard']">
+                    <span class="d-flex align-items-center">
+                        <i class="bi bi-truck-front-fill iii"></i>
+                        <span>
+                            Gestão de Fornecedores  
+                            <aside>Gerencia os teus fornecedores, de forma rápida e segura para usos futuros...</aside>
+                        </span>
+                    </span>
+
+                    <span><i class="bi bi-chevron-right"></i></span>
+                </a>
+            </div>
+
+            <div class="col-12">
+                <a [routerLink]="['/piips/sigvest/dashboard']" class="d-flex justify-content-between align-items-center">
+                    <span class="d-flex align-items-center">
+                        <i class="bi bi-clipboard-fill iii"></i>
+                        <span>
+                            Referência do Plano  
+                            <aside>Gerencia os teus Planos para deixá-los mais dinâmicos</aside>
+                        </span>
+                    </span>
+
+                    <span><i class="bi bi-chevron-right"></i></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

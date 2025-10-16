@@ -1,0 +1,84 @@
+ 
+ <div class="modal fade" id="modalRegistarOuEditarAssociar" aria-labelledby="modalRegistarOuEditarAssociar" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-prima text-white">
+          <h4 class="modal-title"><b>Delituosos</b></h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form>
+          <div class="modal-body">
+             
+              <div class="row">
+                
+                <div class="col-xl-11 col-md-12">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <ng-container *ngIf="delituososSelecionados?.length === 0; else temAgentesSelecionados">
+                        <h5 class="text-danger">Nenhum delituoso selecionado <i class="fa fa-times"></i></h5>
+                      </ng-container>
+                      <ng-template #temAgentesSelecionados>
+                        <h5 class="text-success">
+                          {{ delituososSelecionados?.length }} {{ delituososSelecionados?.length === 1 ? 'Delituoso Selecionado' : 'Delituosos Selecionados' }} <i class="fa fa-check"></i>
+                        </h5>
+                      </ng-template>
+                    </div>
+                     
+                  </div>
+                </div>
+              </div>           
+  
+              <table class="table table-striped" #tableToPrint>
+                <thead class="thead-light">
+                  <tr>
+                    <th>#</th>
+                    <th>Código</th>
+                    <th>Nome</th>
+                    <th>Gênero</th>
+                    <th>Data de Nascimento</th>
+                    <th>Idade</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of delituosos">
+                    <td>
+                      <input type="checkbox" (change)="selecionarDelituosoParaOcorrencia(item.id)" [checked]="validarSelecionado(item?.id)" />
+                    </td>
+                    <td>{{ item.codigo_sistema }}</td>
+                    <td>
+                      <img class="rounded-circle" width="30" height="30" [src]="item.fileUrlFrontal || fotodfault" alt="Foto de {{ item.nome }}">
+                      {{ item.nome | uppercase }}
+                    </td>
+                    <td>{{ item.genero }}</td>
+                    <td>{{ item.dataNascimento | date:'dd/MM/yyyy' }}</td>
+                    <td>{{ calculateAge(item.dataNascimento) }} anos</td>
+                    <td class="text-right">
+                      <div class="dropdown">
+                        <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="fa fa-ellipsis-v"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item" href="javascript:void(0)" (click)="removerDelituosoSelecionado(item)">
+                            <i class="fa fa-trash m-r-5"></i> Remover
+                          </a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+             
+          </div>
+  
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            <button type="submit" class="btn btn-primary" (click)="addGrupos()">Associar ao Grupo</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  

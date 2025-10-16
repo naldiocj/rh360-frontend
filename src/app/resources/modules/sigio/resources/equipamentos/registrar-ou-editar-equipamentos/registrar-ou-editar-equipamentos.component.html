@@ -1,0 +1,81 @@
+<div class="novoProcesso">
+  <h1 class="title">Novo Equipamento</h1>
+  <hr />
+
+  <div style="justify-content: end" class="row">
+    <form [formGroup]="this.simpleForm" >
+    <div class="card" style="width: 50%">
+      <div class="form-group col-md-12">
+        <label>
+          <b>
+            Nome do Equipamento
+            <span class="text-required"> *</span>
+          </b>
+        </label>
+        <input formControlName="nome_equipamento" class="form-control" type="text" />
+
+        <label>
+          <b>
+            Tipo de Equipamento
+            <span class="text-required"> *</span>
+          </b>
+        </label>
+        <input formControlName="tipo_equipamento" class="form-control" type="text" />
+
+        <label>
+          <b>
+            Sigla
+            <span class="text-required"> *</span>
+          </b>
+        </label>
+        <input formControlName="sigla" class="form-control" type="text" />
+      </div>
+    </div>
+
+    <div class="form-group col-md-6">
+      <label>
+        <b>
+          Quantidade
+          <span class="text-required"> *</span>
+        </b>
+      </label>
+      <input formControlName="quantidade" type="text" class="form-control" />
+      <label>
+        <b>
+          Preço*
+          <span class="text-required"> *</span>
+        </b>
+      </label>
+      <input formControlName="preco" type="text" class="form-control" />
+      <label>
+        <b>
+          Outros
+          <span class="text-required"> *</span>
+        </b>
+      </label>
+      <input formControlName="outros" type="text" class="form-control" />
+      <hr />
+    </div>
+
+    <div class="form-group col-12">
+      <label>Descrição</label>
+      <angular-editor
+        formControlName="descricao"
+        [config]="editorConfig"
+        style="width: 100%"
+        class="editor"
+      ></angular-editor>
+    </div>
+
+    <div>
+      <div></div>
+
+      <div class="btn">
+        <button class="cancelar">Cancelar</button>
+        &nbsp;
+        <button (click)="OnSubmit()" type="submit" class="registar">Registar</button>
+      </div>
+    </div>
+  </form>
+  </div>
+</div>

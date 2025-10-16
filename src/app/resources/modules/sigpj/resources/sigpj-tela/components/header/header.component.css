@@ -1,0 +1,49 @@
+.header-pipna {
+    width: 100%;
+    margin: 0 auto;
+    background-color: #292E88;
+    position: fixed;
+}
+
+.navbar {
+    background-color: #292E88;
+    font-weight: normal !important;
+    box-shadow: 1px solid 23px 12px 12px 23px;
+    box-shadow: var(--shadow) !important;
+}
+
+.logo_ {
+    margin-right: 5%;
+    color: white;
+}
+
+.logo_ strong {
+    font-size: 1rem !important;
+    font-weight: bolder;
+    color: white;
+}
+
+.btn-options {
+    gap: .4rem;
+
+    a {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: .2rem;
+        color: white;
+        cursor: pointer;
+
+        i {
+            font-size: 20px;
+
+
+        }
+
+        &:last-child {
+            i {
+                color: var(--red);
+            }
+        }
+    }
+}

@@ -1,0 +1,204 @@
+<div class="modal fade" id="modalRegistarOuEditarReclamacao" aria-labelledby="modalRegistarOuEditarReclamacao"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document"
+    style="overflow-y: hidden; overflow-x: hidden; min-width: 80%; min-height: 80%">
+    <div class="modal-content" style="padding-top: 4em;">
+      <div class="modal-header">
+        <div class="col-lg-8 offset-lg-2">
+          <h4 class="page-title"> <b>Registar Reclamação</b></h4>
+          <p>Os campos com (<span id="ob"><b>*</b></span>) são de carácter obrigatório </p>
+        </div>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="content">
+        <div class="col-lg-8 offset-lg-2">
+          <div class="col-md-12 filtrar-funcionario">
+            <form class="form-inline">
+              <select class="form-control mr-sm-1" (change)="filtrarPagina('perPage', $event)">
+                <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">
+                  {{ item }}
+                </option>
+              </select>
+              <input class="form-control mr-sm-1" type="text" [ngModel]="filtro.search"
+                (ngModelChange)="filtrarPagina('search', $event)" placeholder="Pesquisa ..." />
+              <button (click)="this.recarregarPagina()" id="btpe1" class="btn btn-outline-success my-2 my-sm-0"
+                type="submit">
+                <i style="font-size: 14px" class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+                <b>Pesquisar</b>
+              </button>
+
+            </form>
+
+            <div class="col-md-12">
+              <table class="table table-border table-striped custom-table datatable mb-0" style="margin-left: -15px;">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Apelido</th>
+                    <th>Genero</th>
+                    <th>NIP</th>
+                    <th>Patente</th>
+                    <th class="text-right">Operação</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="
+                      let item of this.funcionarios
+                        | paginate
+                          : {
+                              itemsPerPage: this.pagination.per_page,
+                              currentPage: this.pagination.current_page,
+                              totalItems: this.pagination.total
+                            };
+                      index as i
+                    ">
+                    <td>000{{ item.id }}/DAJ</td>
+                    <td>{{ item.nome_completo }}</td>
+                    <td>{{ item.apelido }}</td>
+                    <td>{{ item.genero }}</td>
+                    <td>{{ item.nip }}</td>
+                    <td>{{ item.patente_nome }}</td>
+                    <td class="text-right">
+                      <div class="dropdown dropdown-action">
+                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
+                            class="fa fa-ellipsis-v"></i></a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                          <a class="dropdown-item" (click)="selectedFuncionario(item)">
+                            <i class="fa fa-eye m-r-5"></i>
+                            Adicionar
+                          </a>
+
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-sm-6">
+                    Mostrando de {{ this.pagination.current_page }} á
+                    {{ this.pagination.per_page }} de
+                    {{ this.pagination.total }} Registo
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="float-right">
+                      <pagination-controls id="funcionarioEspecial" (pageChange)="this.filtrarPagina('page', $event)"
+                        [directionLinks]="true" [autoHide]="true" previousLabel="Anterior" nextLabel="Próximo"
+                        [maxSize]="4" [responsive]="true"></pagination-controls>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <nav style="border: 0.5px solid black;">
+            <div class="card">
+              <div class="card-header">
+                <div class="col-sm-6 pull pull-left" style="color: black; padding: 5px 5px 5px 5px">
+                  Dados do Reclamante
+                </div>
+
+              </div>
+              <aside *ngIf="this.Funcionario.id; else verFuncionario">
+                <div class="card-body">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-center align-items-start">
+                      <div class="col-md-6 col-6 col-lg-4">
+                        <aside class="mb-1">
+                          <b>Nome</b>: {{ this.Funcionario.nome_completo }} <br />
+                        </aside>
+  
+                        <aside class="mb-1">
+                          <b>Apelido</b>: {{ this.Funcionario.apelido }} <br />
+                        </aside>
+  
+                      </div>
+                      <div class="col-md-6 col-6 col-lg-4">
+                        <aside class="mb-1">
+                          <b>NIP</b>: {{ this.Funcionario.nip }}<br />
+                        </aside>
+                       
+                        <aside class="mb-1">
+                          <b>Patente</b>: {{ this.Funcionario.patente_nome
+                          }}<br />
+                        </aside>
+                         
+                      </div>
+  
+                      <div class="col-md-6 col-6 col-lg-4">
+                        <aside class="mb-1">
+                          <b>Gênero</b>:
+                          {{
+                          this.Funcionario.genero == "M"
+                          ? "Masculino"
+                          : "Feminino"
+                          }}
+                          <br />
+                        </aside>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </aside>
+              <ng-template #verFuncionario>
+                <div class="card-body text-center">
+                  <aside class="mb-1">Sem Reclamante</aside>
+                </div>
+              </ng-template>
+            </div>
+          </nav>
+
+          <form [formGroup]="reclamacaoForm" (submit)="registrar()" >
+
+
+            <div class="row"> 
+                <div class="col-6 col-md-6 col-lg-4 form-group">
+                  <label><b>Nº do Ofício </b><span class="text-danger">*</span></label>
+                  <input style="width: 172px;" type="text" id="name" class="form-control" required
+                    formControlName="oficio">
+
+                </div> 
+
+                <div class="col-6 col-md-6 col-lg-4 form-group">
+                  <label><b>Orgão </b><span class="text-danger">*</span></label>
+                  <ng-select2 [options]="options" formControlName="orgao_id" [data]="this.orgaos">
+                  </ng-select2>
+                </div>
+            </div>
+
+
+            <div style="top: 25px;">
+              <div class="form-group">
+                <label><b>Assunto</b></label>
+                <input style="width: 565px;" type="text" id="name" class="form-control" required
+                  formControlName="assunto">
+              </div>
+
+            </div>
+            <div class="form-group my-2">
+              <div class="d-flex flex-row" >
+                <label class="upload-input " id="label">
+                  <i class="bi bi-file-pdf-fill  mx-2 " style="font-size:1.3rem"></i>
+                  Carregar peças
+                  <input id="file" type="file" (change)="onFileSelected($event)" class="form-control" multiple />
+                </label>
+                <button class="btn btn-primary submit-btn mx-4" type="submit" style=" height: 2.5em;">
+                  Registar
+                </button>
+              </div>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<div class="modal fade" id="modalAdicionarPecas" aria-labelledby="modalAdicionarPecas" aria-hidden="true">
+    <div class="modal-dialog" role="document"
+        style="overflow-y: hidden; overflow-x: hidden; min-width: 50%; min-height: 50%">
+        <div class="modal-content" style="padding-top: 4em;">
+            <div class="modal-header">
+                <div class="col-lg-8 offset-lg-2">
+                    <h4 class="page-title"> <b>Novas Peças</b></h4>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="content d-flex align-items-center justify-content-center"  >
+                <div class="mx-4 " style="margin-top: 10px;"  >
+                    <input type="file" id="fileupload" class="form-control" name="file"
+                        (change)="onFileSelected($event)" multiple>
+                    <label  for="fileupload" class="styled d-flex align-items-center justify-content-center">carregar</label>
+                </div> 
+                <button  type="submit" (click)="onSubmit()" class="button d-flex align-items-center justify-content-center" >
+                   <label>Adicionar</label>
+                </button>
+                
+            </div>
+        </div>
+    </div>
+</div>

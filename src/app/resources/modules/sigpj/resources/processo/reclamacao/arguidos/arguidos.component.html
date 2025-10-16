@@ -1,0 +1,124 @@
+<!-- Início das tabs -->
+
+
+
+<main id="main_" class="main_">
+  <div class="pagetitle mb-4">
+    <h1> <i class="bi bi-person-square"></i><span class="mx-2">Adicionar reclamantes </span></h1>
+  </div>
+
+
+  <div class="content"> 
+
+      <div class="col-md-12 filtrar-funcionario">
+        <form class="form-inline">
+          <select class="form-control mr-sm-1" (change)="filtrarPagina('perPage', $event)">
+            <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">
+              {{ item }}
+            </option>
+          </select>
+          <input class="form-control mr-sm-1" type="text" [ngModel]="filtro.search"
+            (ngModelChange)="filtrarPagina('search', $event)" placeholder="Pesquisa ..." />
+          <button (click)="this.recarregarPagina()" id="btpe1" class="btn btn-outline-success my-2 my-sm-0"
+            type="submit">
+            <i style="font-size: 14px" class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+            <b>Pesquisar</b>
+          </button>
+
+        </form>
+
+        <div class="col-md-12 col-12">
+          <table class="table table-border table-striped custom-table datatable mb-0" style="margin-left:-15px;">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Apelido</th>
+                <th>Genero</th>
+                <th>NIP</th>
+                <th>Patente</th>
+                <th class="text-right">Operação</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="
+                  let item of this.funcionarios
+                    | paginate
+                      : {
+                          itemsPerPage: this.pagination.per_page,
+                          currentPage: this.pagination.current_page,
+                          totalItems: this.pagination.total
+                        };
+                  index as i
+                ">
+                <td>000{{ item.id }}/DAJ</td>
+                <td>{{ item.nome_completo }}</td>
+                <td>{{ item.apelido }}</td>
+                <td>{{ item.genero }}</td>
+                <td>{{ item.numero_agente }}</td>
+                <td>{{ item.patente_nome }}</td>
+                <td class="text-right">
+                  <div class="dropdown dropdown-action">
+                    <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
+                        class="fa fa-ellipsis-v"></i></a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <a class="dropdown-item" (click)="selectedFuncionario(item)">
+                        <i class="fa fa-eye m-r-5"></i>
+                        Adicionar
+                      </a>
+
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-sm-6">
+                Mostrando de {{ this.pagination.current_page }} á
+                {{ this.pagination.per_page }} de
+                {{ this.pagination.total }} Registo
+              </div>
+              <div class="col-sm-6">
+                <div class="float-right">
+                  <pagination-controls id="funcionarioEspecial" (pageChange)="this.filtrarPagina('page', $event)"
+                    [directionLinks]="true" [autoHide]="true" previousLabel="Anterior" nextLabel="Próximo" [maxSize]="4"
+                    [responsive]="true"></pagination-controls>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12 col-12">
+        <table  class="table table-border table-striped custom-table datatable mb-0">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Apelido</th>
+              <th>Patente</th>
+              <th>NIP</th>
+              <th>Gênero</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of this.arguidos">
+              <td>{{item.nome_completo}}</td>
+              <td>{{item.apelido}}</td>
+              <td>{{item.patente_nome}}</td>
+              <td>{{item.nip}}</td>
+              <td>{{item.genero=='M'? 'Masculino':'Femenino'}}</td>
+            </tr>
+          </tbody>
+          <button class="btn btn-primary " type="submit" (click)="addArguidos()">
+            Adicionar
+          </button>
+        </table>
+  
+      </div>
+  </div>
+
+
+</main>

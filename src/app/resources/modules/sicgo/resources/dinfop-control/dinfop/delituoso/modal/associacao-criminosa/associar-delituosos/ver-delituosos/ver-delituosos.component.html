@@ -1,0 +1,104 @@
+<!-- Segunda Modal -->
+<div
+    class="modal fade"
+    id="modal2"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="modal2Label"
+    aria-hidden="true"
+>
+    <div
+        class="modal-dialog"
+        role="document"
+    >
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5
+                    class="modal-title"
+                    id="modal2Label"
+                >
+                    Associação de Delituosos {{delituosoId}}
+                </h5>
+                <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                >
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="content bg-light p-3 rounded">
+
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12 order-md-last">
+
+                            <div class="scrollable">
+                                <ul class="list-group mb-2">
+                                    <li class="list-group-item d-flex justify-content-between">
+
+                                        <ng-container *ngIf="delituososSelecionados?.length === 0; else temAgentesSelecionados">
+                                            <h5 class="text-danger">
+                                                Nenhum delituoso selecionado
+                                                <i class="fa fa-times"></i>
+                                            </h5>
+                                        </ng-container>
+                                        <ng-template #temAgentesSelecionados>
+                                            <h5 class="text-success">
+                                                <span class="badge bg-primary rounded-pill">{{ delituososSelecionados?.length }}</span>
+                                                {{ delituososSelecionados?.length === 1 ? 'Delituoso Selecionado' : 'Delituosos Selecionados' }}
+                                                <i class="fa fa-check"></i>
+                                            </h5>
+                                        </ng-template>
+                                    </li>
+                                    <li
+                                        class="list-group-item d-flex justify-content-between lh-sm"
+                                        *ngFor="let item of delituosos"
+                                    >
+                                        <div>
+                                            <input
+                                                type="checkbox"
+                                                (change)="selecionarDelituosoParaDelituoso(item.id)"
+                                                [checked]="validarSelecionado(item?.id)"
+                                            >
+                                        </div>
+
+                                        <div>
+                                            <img
+                                                class="rounded-circle"
+                                                width="50"
+                                                height="50"
+                                                [src]="item.fileUrlFrontal || fotodfault"
+                                                alt="Foto de {{ item.nome }}"
+                                            >
+
+                                        </div>
+                                        <div>
+                                            <h6 class="my-0">{{ item.nome | uppercase }}</h6>
+                                            <small class="text-body-secondary">{{ item.codigo_sistema }}</small>
+                                        </div>
+                                        <button (click)="addDelituoso(item.id,item.nome,item.fileUrlFrontal,item.dataNascimento)">Add</button>
+                                         
+                                    </li>
+
+
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-dismiss="modal"
+                >
+                    Fechar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

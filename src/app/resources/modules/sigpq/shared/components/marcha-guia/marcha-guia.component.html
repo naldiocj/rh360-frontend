@@ -1,0 +1,124 @@
+<div class="modal fade" id="ver-guia-marcha">
+  <div class="modal-dialog modal-lg border-0 arounded-0">
+    <div class="modal-content border-0 arounded-0">
+      <div class="modal-header d-flex justifty-content-between align-items-center border-0 arounded-0"
+        style="background-color: var(--use-color)">
+        <h5 class="text-uppercase" style="color: var(--white)">Guia de Marcha / Mobilidade do agente</h5>
+        <button type="button" style="
+              background-color: transparent;
+              border: none;
+              padding: 0px !important;
+              outline: none;
+              font-size:16px;
+            " data-dismiss="modal">
+          <i class="fa fa-close text-danger"></i>
+        </button>
+      </div>
+      <div class="modal-body d-flex flex-row align-items-start" style="column-gap: .8rem">
+
+
+        <div class="wrapper-pdf" id="wrapper-pdf">
+          <div class="card">
+            <div class="card-header">
+              <div class="header-pdf">
+                <div class="insigina">
+                  <img src="assets/img/insignia.png" alt="Insignia de Angola">
+                </div>
+                <div class="header-angola">
+                  <span class="text-header">
+                    REPÚBLICA DE ANGOLA
+                  </span>
+                  <span class="text-header">
+                    ---«»---
+                  </span>
+                  <span class="text-header">
+                    MINISTÉRIO DO INTERIOR
+                  </span>
+                  <span class="text-header">
+                    SERVIÇO DE INVESTIGAÇÃO CRIMINAL
+                  </span>
+                  <span class="text-header">
+                    <u><b> DIRECCÃO NACIONAL DE RECURSOS HUMANOS</b></u>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <span class="text-header titulo-numero">GUIA DE MARCHA Nº <u>45</u> / CPPNA-BE/2023</span>
+              <div class="text-body">
+                Faz-se constar as autoridades a quem o conhecimento desta competir, que segue deste,
+                para <b>Comando
+                  Provincial de Malange/PNA</b>, onde foi <b>Transferido</b>, por <b>Despacho n.º
+                  1140/CGPNA/2023 de 06
+                  de Novembro</b>, de Sua Excelência Comandante Geral da PNA, contido na <b>Ordem de
+                  Serviço nº53/2023
+                  de 02 de Novembro da DPQ/PNA</b>, o Agente de 3ª Classe NAS <b>9934374 Filipe
+                  Lourenço Neto João</b>
+              </div>
+            </div>
+            <div class="card-body text-poppins">
+              <div class="text-body" style="margin-bottom: 1.4rem;">
+                Segue fardado ou a civil
+              </div>
+              <div class="text-body ">
+                <i>E para que lhe não ponha impedimento, passou-se a presente <b>GUIA</b> que vai
+                  assinado.</i>
+              </div>
+              <div class="text-body">
+                <b class="orgao">DIRECÃO DE TELECOMUNICAÇÃO E TECNOLOGIAS DE INFORMAÇÃO, 12/02/2023</b>
+              </div>
+            </div>
+
+            <div class="card-body ordenante">
+              <div class="text-body" style="font-weight:  500;">
+                O COMANDO PROVINCIAL
+              </div>
+              <div class="text-body" style="font-weight: bolder;">
+                GIL FAMOSO
+              </div>
+              <div class="text-body" style="font-family: 300;">
+                COMISSÁRIO
+              </div>
+            </div>
+
+
+            <div class="card-footer">
+              <div class="font-diferente origin">
+                <p class="only-p">Elab: Josefina Manuel Tiago</p>
+                <div class="another-text">
+                  <p>Av. 4 de Fevereiro</p>
+                  <p>Marginal Edifício Sede-R/C</p>
+                  <p>Telef: 222 33 34 44</p>
+                  <p>Email: dpq.dtti@pn.gov.ao</p>
+                  <p>Facebook: Policia Nacional de Angola</p>
+                </div>
+              </div>
+              <div class="simbolos font-diferente">
+                <div class="rpa">
+                  <img src="assets/img/rpa_.png" alt="Foto-footer-Republica-Angola">
+                </div>
+                <div class="pna">
+                  <span class="pna-site">
+                    pna.gov.ao
+                  </span>
+                  <span class="pna-name">
+                    Policia Nacional de Angola
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button (click)="this.download('wrapper-pdf')" type="button" class="btn-piips btn-piips-primary m-0 py-2"
+          data-dismiss="modal">
+          <i class="fa fa-save"></i> Descarregar
+        </button>
+        <button (click)="this.imprimir('wrapper-pdf')" type="button" class="btn-piips btn-piips-primary m-0 py-2"
+          data-dismiss="modal">
+          <i class="fa fa-print"></i> Imprimir
+        </button>
+      </div>
+    </div>
+  </div>

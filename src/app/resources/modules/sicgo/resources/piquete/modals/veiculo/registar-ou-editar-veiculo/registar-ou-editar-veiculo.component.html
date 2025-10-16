@@ -1,0 +1,220 @@
+<div class="modal fade " id="modalRegistarOuEditarVeiculo" aria-labelledby="modalRegistarOuEditarVeiculoLabel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true" >
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-prima text-white">
+        <h4 class="modal-title">
+          {{ ocorrencia ? "Editar" : "Registar" }} Veiculo
+        </h4>
+        
+        <a type="button" data-bs-dismiss="modal" aria-label="Close">
+          <i class="bi bi-backspace-reverse-fill cursor-pointer rounded-lg " style="font-size: 1.5em"></i>
+        </a>
+      </div>
+ 
+          <div class="content">
+              <form [formGroup]="this.veiculoForm" (ngSubmit)="this.onSubmit()">
+                  <div class="modal-body"> 
+                    <div class="page__content">
+                      <div class="page__frame">
+                          <div class="page-tab-header"> 
+                            <p class="ml-0 pl-3"><i class="bi bi-exclamation-triangle-fill text-warning"></i> Os campos marcados com ( <strong class="asterisco">*</strong> ) são de carácter <strong>obrigatório</strong>. </p>
+                              <nav class="navigation" id="js--navid">
+                                  <ul class="navigation-menu">
+                                      <li class="nav-item">
+                                          <a class="nav-tab t--tab" title="Alpha" (click)="addVeiculo()">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24">
+                                            <rect width="24" height="24" fill="none" />
+                                            <path fill="#000" d="M7 12.125a.75.75 0 0 0 0 1.5h1.5a.75.75 0 0 0 0-1.5zm7.75.75a.75.75 0 0 1 .75-.75H17a.75.75 0 0 1 0 1.5h-1.5a.75.75 0 0 1-.75-.75" />
+                                            <path fill="#000" d="M7.699 3.25a2.25 2.25 0 0 0-2.107 1.46L3.706 9.746A3.74 3.74 0 0 0 2.5 12.5v.75a3.75 3.75 0 0 0 2.25 3.438V18a1.5 1.5 0 0 0 3 0v-1h8.5v1a1.5 1.5 0 0 0 3 0v-1.312a3.75 3.75 0 0 0 2.25-3.438v-.75a3.74 3.74 0 0 0-1.207-2.756L18.408 4.71A2.25 2.25 0 0 0 16.3 3.25zM17.75 15.5H6.25A2.25 2.25 0 0 1 4 13.25v-.75a2.25 2.25 0 0 1 2.25-2.25h11.5A2.25 2.25 0 0 1 20 12.5v.75a2.25 2.25 0 0 1-2.25 2.25m.586-6.705a4 4 0 0 0-.586-.045H6.25q-.3 0-.587.046l1.333-3.56A.75.75 0 0 1 7.7 4.75h8.6a.75.75 0 0 1 .702.487z" />
+                                          </svg>
+                                              Adicionar Veiculo
+                                          </a>
+                                      </li> 
+                                  </ul>
+                              </nav>
+                          </div>
+                      </div>
+
+
+                      <section class="page__segment">
+                          <div class="page__frame">
+                              <div class="tab__content p-3">
+
+
+                                
+                            <!-- *ngIf="this.orgaoSigla === 'DTSER'" -->
+                            <div  > 
+                             
+                              <div formArrayName="veiculos" class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                <div *ngFor="let veiculo of veiculos; let i = index" [formGroupName]="i">
+                                  <div class="row">
+                                    <!-- Ícone -->
+                                     
+                                    <!-- Matrícula -->
+                                    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 mt-4">
+                                      <label for="matricula">
+                                        <b>
+                                          Matrícula
+                                          <span class="text-red">*</span>
+                                        </b>
+                                      </label>
+                                      <input type="text" class="form-control" id="matricula" formControlName="matricula" placeholder="Ex: ABCD 12 AB" />
+                                      <span *ngIf="veiculo.get('matricula')?.valid && veiculo.get('matricula')?.touched" class="icon icon-valid">
+                                        ✔️
+                                      </span>
+                                      <span *ngIf="veiculo.get('matricula')?.invalid && veiculo.get('matricula')?.touched" class="icon icon-invalid">
+                                        ❌
+                                      </span>
+                            
+                                      <div *ngIf="veiculo.get('matricula')?.invalid && veiculo.get('matricula')?.touched" class="error">
+                                        Matrícula inválida! O formato correto é: ABCD 12 AB.
+                                      </div>
+                                    </div>
+                            
+                                    <!-- DANOS -->
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 mt-4">
+                                      <label>
+                                        <b>
+                                          DANOS-AVALIADOS
+                                          <span class="text-red">*</span>
+                                        </b>
+                                      </label>
+                                      <input type="text" formControlName="danos" class="form-control" placeholder="500.000kz" />
+                                    </div>
+                                  </div>
+                            
+                                  <div class="row">
+                                    <!-- Marca -->
+                                    <div class="form-group col-4 mt-2">
+                                      <label>
+                                        <b>
+                                          Marca
+                                          <span class="text-red">*</span>
+                                        </b>
+                                      </label>
+                                      <br>
+                                      <ng-select2
+                                         
+                                        formControlName="marca"
+                                        [options]="options"
+                                        [(ngModel)]="selectedMarca"
+                                        [data]="marcas"
+                                        [valueField]="'id'"
+                                        [labelField]="'text'"
+                                        (ngModelChange)="onMarcaChange()">
+                                      </ng-select2>
+                                    </div>
+                                    
+                                    <!-- Modelo -->
+                                    <div class="form-group col-xl-4 col-lg-4 col-md-4 col-sm-4 mt-2">
+                                      <label>
+                                        <b>
+                                          Modelo
+                                          <span class="text-red">*</span>
+                                        </b>
+                                      </label>
+                                      <br>
+                                      <ng-select2 
+                                        formControlName="modelo"
+                                        [options]="options"
+                                        [(ngModel)]="selectedModelo"
+                                        [data]="modelosDisponiveis"
+                                        [valueField]="'id'"
+                                        [labelField]="'text'">
+                                      </ng-select2>
+                                    </div>
+                            
+                                    <!-- Cor -->
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 mt-2">
+                                      <label>
+                                        <b>
+                                          COR
+                                          <span class="text-red">*</span>
+                                        </b>
+                                      </label>
+                                      <select formControlName="cor" class="form-control">
+                                        <option value="Vermelha">Vermelha</option>
+                                        <option value="Azul">Azul</option>
+                                        <option value="Castanha">Castanha</option>
+                                        <option value="Verde">Verde</option>
+                                        <option value="Preta">Preta</option>
+                                        <option value="Sizenta">Sizenta</option>
+                                        <option value="Amarela">Amarela</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                            
+                                  <div class="row">
+                                    <!-- Botão para remover veículo -->
+                                    <div class="btn-group d-grid gap-2 mx-auto p-2 col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-4">
+                                      <button type="button" class="btn btn-danger" (click)="removeVeiculo(i)">
+                                        <i class="bi bi-trash3-fill"></i> Remover o veículo
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            
+                              
+                            
+                            </div>
+                            
+
+                              </div>
+                          </div>
+                      </section>
+                  </div>
+                       
+
+                      <div class="modal-footer mt-3">
+                        
+                  
+                
+                
+                          
+                          <div
+                              class="btn-group w-100"
+                              role="group"
+                          >
+                          
+                              <button
+                                  class="btn btn-danger btn-square"
+                                  type="reset"
+                                  (click)="this.reiniciarFormulario()"
+                              >
+                                  Limpar
+                              </button>
+                              <button  
+                                  [disabled]="this.isLoading  || this.submitted"
+                                  type="submit"
+                                  class="btn btn-primary w-100"
+
+                                 
+                              >
+                                  <ng-container *ngIf="this.isLoading; else regista">
+                                      <i class="spinner-border spinner-border-sm mx-1"></i>
+                                      Carregando..
+                                  </ng-container>
+                                  <ng-template #regista>
+                                    <i class="bi bi-floppy2"></i>
+                                      {{ ocorrenciaId? "Registar" : " Actualizar" }}
+                                  </ng-template>
+                              </button>
+                          </div>
+
+
+
+                      </div>
+
+
+                  </div>
+                </form>
+
+
+          </div>
+       
+    </div>
+  </div>
+</div>
+
+  
