@@ -12,6 +12,8 @@ import { Select2OptionData } from 'ng-select2';
 import { finalize, first } from 'rxjs';
 import { FicheiroService } from '../../../../../../../core/services/Ficheiro.service';
 
+import { AuthService } from '@core/authentication/auth.service';
+
 const COLOCACAO_ORGAO = 'Orgão';
 @Component({
   selector: 'sigpq-funcionario-colocao',
@@ -80,7 +82,8 @@ export class FuncionarioColocaoComponent implements OnInit {
     private departamentoService: DepartamentoService,
     private seccaoService: SeccaoService,
     private estruturaOrganicaServico: TipoEstruturaOrganica,
-    private ficheiroService: FicheiroService
+    private ficheiroService: FicheiroService,
+    private authService: AuthService
   ) {}
   ngOnInit(): void {
     this.criarForm();
@@ -102,7 +105,7 @@ export class FuncionarioColocaoComponent implements OnInit {
       .pipe(finalize((): void => {}))
       .subscribe((response: any): void => {
         this.tipoEstruturaOrganicas = response.map((item: any) => ({
-          id: item.sigla,
+          id: item.id,
           text: item.name,
         }));
       });
@@ -139,24 +142,25 @@ export class FuncionarioColocaoComponent implements OnInit {
       numero_despacho: [null, [Validators.required]],
       pessoajuridicaPassadoId: [null, [Validators.required]],
       departamentoPassadoId: [null],
-      unidadePassadoId: [null],
-      seccaoPassadoId: [null],
+      // unidadePassadoId: [null],
+      // seccaoPassadoId: [null],
       data_ingresso: [null, [Validators.required]],
       // numero_ordem: [null, [Validators.required]],
       anexo: [null],
       ordenante: ['Gil Sebastião Famoso'],
-      unidade_id: [null],
+      // unidade_id: [null],
       departamento_id: [null],
       numero_guia: [null, Validators.required],
-      seccao_id: [null],
+      // seccao_id: [null],
       // data_ordem: [null, [Validators.required]],
-      data_despacho: [null, [Validators.required]],
+      despacho_data: [null, [Validators.required]],
       situacao: ['anterior', Validators.required],
       orgao_anterior_id: [null],
       orgao_destino_id: [null, [Validators.required]],
-      unidade_anterior: [null],
+      // unidade_anterior: [null],
       seccao_anterior: [null],
       brigada_anterior: [null],
+      direccao_destino_id: [null],
       seccao: [null],
       brigada: [null],
     });
@@ -166,7 +170,6 @@ export class FuncionarioColocaoComponent implements OnInit {
         '',
         [Validators.required, Validators.pattern('^[0-9]+$')],
       ],
-      despacho_data: ['', [Validators.required]],
       numero_guia: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
       guia_data: ['', [Validators.required]],
     });
@@ -199,18 +202,18 @@ export class FuncionarioColocaoComponent implements OnInit {
         })
       )
       .subscribe(() => {
-        this.recarregarPagina();
-        this.reiniciarFormulario();
+        // this.recarregarPagina();
+        // this.reiniciarFormulario();
       });
   }
+
+  get user_id() {
+    return this.authService?.user?.id?.toString().toLowerCase();
+  }
+
   private get getFormDados() {
     const dados = new FormData();
-    const orgaoDestinoId = this.simpleForm.get('orgao_destino_id')?.value;
-    console.log(
-      'Valor FINAL de orgao_destino_id antes de enviar:',
-      orgaoDestinoId,
-      typeof orgaoDestinoId
-    );
+
     // if (
     //   !orgaoDestinoId ||
     //   isNaN(Number(orgaoDestinoId)) ||
@@ -222,40 +225,67 @@ export class FuncionarioColocaoComponent implements OnInit {
     //   alert('Selecione uma Direção/Órgão válida antes de enviar!');
     //   throw new Error('Direção/Órgão inválida');
     // }
-    dados.append('orgao_destino_id', String(orgaoDestinoId));
+
+    const formValue = this.simpleForm.getRawValue();
+
+    dados.append('user_id', String(this.user_id));
+    dados.append('agentes_id', String(this.getPessoaId));
+    dados.append(
+      'orgao_destino_id',
+      this.simpleForm.get('orgao_destino_id')?.value
+    );
+    dados.append(
+      'direccao_destino_id',
+      this.simpleForm.get('direccao_destino_id')?.value
+    );
     dados.append('anexo', this.simpleForm.get('anexo')?.value);
     dados.append('despacho', this.simpleForm.get('numero_despacho')?.value);
     dados.append('data_ingresso', this.simpleForm.get('data_ingresso')?.value);
     dados.append('ordenante', this.simpleForm.get('ordenante')?.value);
     // dados.append('numero_ordem', this.simpleForm.get('numero_ordem')?.value)
     dados.append(
-      'pessoajuridicaPassadoId',
+      'pessoajuridica_passado_id',
       this.simpleForm.get('pessoajuridicaPassadoId')?.value
     );
     dados.append(
       'departamentoPassadoId',
       this.simpleForm.get('departamentoPassadoId')?.value
     );
-    dados.append(
-      'unidadePassadoId',
-      this.simpleForm.get('unidadePassadoId')?.value
-    );
-    dados.append(
-      'seccaoPassadoId',
-      this.simpleForm.get('seccaoPassadoId')?.value
-    );
-    dados.append('unidade_id', this.simpleForm.get('unidade_id')?.value);
-    dados.append('unidade_destino', this.simpleForm.get('unidade_destino')?.value);
+    // dados.append(
+    //   'unidadePassadoId',
+    //   this.simpleForm.get('unidadePassadoId')?.value
+    // );
+    // dados.append(
+    //   'seccaoPassadoId',
+    //   this.simpleForm.get('seccaoPassadoId')?.value
+    // );
+    // dados.append('unidade_id', this.simpleForm.get('unidade_id')?.value);
+    // dados.append(
+    //   'unidade_destino',
+    //   this.simpleForm.get('unidade_destino')?.value
+    // );
     dados.append(
       'departamento_id',
       this.simpleForm.get('departamento_id')?.value
     );
-    dados.append('seccao_id', this.simpleForm.get('seccao_id')?.value);
-    dados.append('seccao_destino', this.simpleForm.get('seccao_destino')?.value);
+    // dados.append('seccao_id', this.simpleForm.get('seccao_id')?.value);
+
     // dados.append('data_ordem', this.simpleForm.get('data_ordem')?.value)
     dados.append('numero_guia', this.simpleForm.get('numero_guia')?.value);
-    dados.append('data_despacho', this.simpleForm.get('data_despacho')?.value);
-    dados.append('situacao', this.simpleForm.get('situacao')?.value);
+    dados.append('despacho_data', this.simpleForm.get('despacho_data')?.value);
+    dados.append('situacao', 'actual');
+
+    dados.append(
+      'seccao_anterior',
+      this.simpleForm.get('seccao_anterior')?.value
+    );
+    dados.append(
+      'brigada_anterior',
+      this.simpleForm.get('brigada_anterior')?.value
+    );
+
+    dados.append('seccao', this.simpleForm.get('seccao')?.value);
+    dados.append('brigada', this.simpleForm.get('brigada')?.value);
 
     return dados;
   }
@@ -462,31 +492,10 @@ export class FuncionarioColocaoComponent implements OnInit {
 
   public selecionarDirecao($event: any, $type: any) {
     let valor = $event;
-    if (
-      valor &&
-      typeof valor === 'object' &&
-      valor.id &&
-      !isNaN(Number(valor.id))
-    ) {
-      valor = String(valor.id);
-    }
-    if (
-      valor &&
-      !isNaN(Number(valor)) &&
-      valor !== 'NaN' &&
-      valor !== null &&
-      valor !== undefined &&
-      valor !== ''
-    ) {
-      valor = String(valor);
-      console.log('Direção/Órgão selecionado (id):', valor);
-      this.simpleForm.get('orgao_destino_id').setValue(valor);
-      this.buscarUnidade(valor, $type);
-      this.buscarDepartamento(valor, $type);
-    } else {
-      // alert('Selecione uma Direção/Órgão válida!');
-      this.simpleForm.get('orgao_destino_id').setValue(null);
-    }
+
+    // alert(JSON.stringify(this.simpleForm.get('orgao_destino_id')?.value));
+
+    this.buscarDepartamento(valor, $type);
   }
   public buscarUnidade($event: any, $type: any) {
     if (!$event) return;

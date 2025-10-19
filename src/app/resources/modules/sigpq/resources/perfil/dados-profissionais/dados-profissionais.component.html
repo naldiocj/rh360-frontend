@@ -1,75 +1,146 @@
 <div class="card rounded-0 p-2 py-4 border">
-    <div class="col-md-12">
-        <div class="row">
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-1">
-                Pseudônimo : <b style="color: var(--use-color)">{{ this.dadosProfissionais?.pseudonimo }}</b>
-            </div>
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-1">
+        Pseudônimo :
+        <b style="color: var(--use-color)">{{
+          this.dadosProfissionais?.pseudonimo
+        }}</b>
+      </div>
 
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-1">
-                {{this.dadosProfissionais?.regime_nome=='Geral'?"RG":"NIP"}} : <b style="color: var(--use-color)">
-                    <ng-container
-                        *ngIf="this.dadosProfissionais?.nip && this.utilsHelper.temQuadro(this.dadosProfissionais?.regime_quadro); else semQuadro">
-                        {{this.dadosProfissionais?.regime_quadro}} {{ this.dadosProfissionais.nip }}
-                    </ng-container>
-                    <ng-template #semQuadro>
-                        S/N
-                    </ng-template>
-                </b>
-            </div>
-            <!--<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-1">
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-1">
+        {{ this.dadosProfissionais?.regime_nome == "Geral" ? "RG" : "NIP" }} :
+        <b style="color: var(--use-color)">
+          <ng-container
+            *ngIf="
+              this.dadosProfissionais?.nip &&
+                this.utilsHelper.temQuadro(
+                  this.dadosProfissionais?.regime_quadro
+                );
+              else semQuadro
+            "
+          >
+            {{ this.dadosProfissionais?.regime_quadro }}
+            {{ this.dadosProfissionais.nip }}
+          </ng-container>
+          <ng-template #semQuadro> S/N </ng-template>
+        </b>
+      </div>
+      <!--<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-1">
                 Classe/Carreira : <b style="color: var(--use-color)">{{ this.dadosProficionais?.patente_classe }}</b>
             </div>-->
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-1">
-                {{this.dadosProfissionais?.regime_nome=='Geral'?"Categoria":"Posto"}} : <b style="color: var(--use-color)">{{ this.dadosProfissionais?.patente_nome }}</b>
-            </div>
-            <!-- <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-1">
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-1">
+        {{
+          this.dadosProfissionais?.regime_nome == "Geral"
+            ? "Categoria"
+            : "Posto"
+        }}
+        :
+        <b style="color: var(--use-color)">{{
+          this.dadosProfissionais?.patente_nome
+        }}</b>
+      </div>
+      <!-- <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-1">
                 Regime de Carreira : <b style="color: var(--use-color)">{{ this.dadosProfissionais?.regime_nome }}</b>
             </div> -->
 
-           <!--  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-1">
+      <!--  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-1">
                 Vínculo : <b style="color: var(--use-color)">{{ this.dadosProfissionais?.sigpq_tipo_vinculo_nome }}</b>
             </div> -->
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-1">
-                Número de Agente : <b style="color: var(--use-color)">{{ this.dadosProfissionais?.numero_agente }}</b>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-1">
-                Função : <b style="color: var(--use-color)">
-                    {{this.dadosProfissionais?.funcao}} </b> 
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-1">
-                Colocação : <b style="color: var(--use-color)">
-                    {{this.utilsHelper.capitalize(this.buscarOrgaoDoAgente?.nome_completo)}}</b>
-            </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-1">
+        Número de Agente :
+        <b style="color: var(--use-color)">{{
+          this.dadosProfissionais?.numero_agente
+        }}</b>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-1">
+        Função :
+        <b style="color: var(--use-color)">
+          {{ this.dadosProfissionais?.funcao }}
+        </b>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-1">
+        Colocação :
+        <b style="color: var(--use-color)">
+          {{
+            this.utilsHelper.capitalize(this.buscarOrgaoDoAgente?.nome_completo)
+          }}</b
+        >
+      </div>
 
-
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-1" *ngIf="this.buscarDepartamentoAgente">
-                Departamento/Comando Municipal/Unidade : <b style="color: var(--use-color)">
-                    {{ this.utilsHelper.capitalize(this.buscarDepartamentoAgente?.nome_completo)}}</b>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-1" *ngIf="this.buscarSeccaoAgente">
-                Secção/Esquadra/Subunidade : <b style="color: var(--use-color)">
-                    {{ this.utilsHelper.capitalize(this.buscarSeccaoAgente?.nome_completo)}}</b>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-1" *ngIf="this.buscarPostoAgente">
-                Posto policial : <b style="color: var(--use-color)">
-                    {{ this.utilsHelper.capitalize(this.buscarPostoAgente?.nome_completo)}}</b>
-            </div>
-            <!-- <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-1">
+      <div
+        class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-1"
+        *ngIf="this.buscarDepartamentoAgente"
+      >
+        Departamento/Comando Municipal/Unidade :
+        <b style="color: var(--use-color)">
+          {{
+            this.utilsHelper.capitalize(
+              this.buscarDepartamentoAgente?.nome_completo
+            )
+          }}</b
+        >
+      </div>
+      <div
+        class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-1"
+        *ngIf="this.buscarSeccaoAgente"
+      >
+        Secção/Esquadra/Subunidade :
+        <b style="color: var(--use-color)">
+          {{
+            this.utilsHelper.capitalize(this.buscarSeccaoAgente?.nome_completo)
+          }}</b
+        >
+      </div>
+      <div
+        class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-1"
+        *ngIf="this.buscarPostoAgente"
+      >
+        Posto policial :
+        <b style="color: var(--use-color)">
+          {{
+            this.utilsHelper.capitalize(this.buscarPostoAgente?.nome_completo)
+          }}</b
+        >
+      </div>
+      <!-- <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-1">
             Número de processo : <b style="color: var(--use-color)">{{ this.dadosProfissionais?.numero_processo }}</b>
         </div> -->
 
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-1">
-                Data de Ingresso : <b style="color: var(--use-color)">{{ this.dadosProfissionais?.data_adesao }}</b>
-            </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-1">
+        Data de Ingresso :
+        <b style="color: var(--use-color)">{{
+          this.dadosProfissionais?.data_adesao
+        }}</b>
+      </div>
 
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-1">
+        Registado aos :
+        <b style="color: var(--use-color)">{{
+          this.dadosProfissionais?.created_at
+        }}</b>
+      </div>
 
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-1">
-                Registado aos : <b style="color: var(--use-color)">{{ this.dadosProfissionais?.created_at }}</b>
-            </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-1">
+        Última actualização :
+        <b style="color: var(--use-color)">{{
+          this.dadosProfissionais?.updated_at
+        }}</b>
+      </div>
 
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-1">
-                Última actualização : <b style="color: var(--use-color)">{{ this.dadosProfissionais?.updated_at }}</b>
-            </div>
-        </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-1">
+        Situação Laboral :
+        <b style="color: var(--use-color)">{{
+          this.dadosProfissionais?.sigpq_funcionario_estados?.nome
+        }}</b>
+      </div>
+
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-1">
+        Motivo da Situação Laboral :
+        <b style="color: var(--use-color)">{{
+          this.dadosProfissionais?.motivo_situacao_laboral
+        }}</b>
+      </div>
     </div>
+  </div>
 </div>

@@ -35,7 +35,7 @@ import { ImpressaoDigitalComponent } from './registar-ou-editar/impressao-digita
 import { AssinaturaDigitalComponent } from './registar-ou-editar/assinatura-digital/assinatura-digital.component';
 import { GeometriaDeRostoComponent } from './registar-ou-editar/geometria-de-rosto/geometria-de-rosto.component';
 import { MaosBiometricoComponent } from './registar-ou-editar/impressao-digital/maos-biometrico/maos-biometrico.component';
-
+import { HistoricoPolicialComponent } from './registar-ou-editar/historico-policial/historico-policial.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +62,8 @@ import { MaosBiometricoComponent } from './registar-ou-editar/impressao-digital/
     ImpressaoDigitalComponent,
     AssinaturaDigitalComponent,
     GeometriaDeRostoComponent,
-    MaosBiometricoComponent
+    MaosBiometricoComponent,
+    HistoricoPolicialComponent,
     // LoadingPageComponent
   ],
   imports: [
@@ -75,8 +76,8 @@ import { MaosBiometricoComponent } from './registar-ou-editar/impressao-digital/
     NgSelect2Module,
     SharedComponentsModule,
     ComponentsModule,
-    LoadingPageModule
+    LoadingPageModule,
   ],
-  exports:[ListarComponent]
+  exports: [ListarComponent],
 })
-export class FuncionarioModule { }
+export class FuncionarioModule {}

@@ -99,6 +99,29 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
   public estado: Array<Select2OptionData> = [];
   public estadoReformas: Array<Select2OptionData> = [];
   public direcaoOuOrgao: Array<Select2OptionData> = [];
+  public numero_camisas: Array<Select2OptionData> = [
+    {
+      id: 'XS',
+      text: 'XS - Extra Pequeno',
+    },
+    {
+      id: 'S',
+      text: 'S - Pequeno',
+    },
+    {
+      id: 'M',
+      text: 'M - Médio',
+    },
+    {
+      id: 'L',
+      text: 'L - Grande',
+    },
+    {
+      id: 'XL',
+      text: 'XL - Extra Grande',
+    },
+  ];
+
   public colocaoOrgao: boolean = false;
   public formatAccept = ['.png', '.jpg', '.jpeg'];
   public patentes_: any;
@@ -206,109 +229,6 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
       });
   }
 
-  public populate() {
-    this.listarPais();
-    this.listarCursos();
-    this.listarProvincias();
-    this.buscarEstadoCivil();
-    this.listarTipoSanguineo();
-    this.buscarTipoHabilitacaoLiteraria();
-    this.buscarRegime();
-    this.buscarTipoVinculo();
-    this.buscarSituacaoEstados();
-    this.buscarTipoEstruturaOrganica();
-    this.buscarTipoFuncao();
-    this.buscarActoProgressao();
-    this.buscarActoNomeacao();
-
-    this.buscarCategorias();
-
-    this.buscarTipoCargo();
-
-    this.simpleForm.patchValue({
-      nome_completo: 'NALDIO JOAQUIM',
-      data_nascimento: this.formatarDataHelper.formatDate('05-23-1990'),
-      genero: 1,
-      sigpq_estado_id: 1,
-      sigpq_estado_reforma_id: 1,
-      sigpq_situacao_id: 1,
-      local_nascimento: 'LUANDA',
-
-      // foto_civil: response?.foto_civil,
-      // foto_efectivo: response?.foto_efectivo,
-      // anexo: response?.sigpq_provimento.anexo,
-      // habilitacao_literaria_certificado: response?.sigpq_habilitacao_literaria?,
-
-      residencia_bi: 'AVENIDA 1 DE JUNHO, N. 123',
-      nid: '001519709KS038',
-      data_expira: this.formatarDataHelper.formatDate('05-23-1990'),
-      data_emissao: this.formatarDataHelper.formatDate('05-23-1990'),
-      nome_pai: 'JOAQUIM ANTÓNIO',
-      nome_mae: 'MARIA JOAQUIM',
-      numero_passaporte: 'AA1234567',
-      data_expira_passaporte: this.formatarDataHelper.formatDate('05-23-1990'),
-      residencia_actual: 'AVENIDA 1 DE JUNHO, N. 123',
-      iban: '123456789012345678901',
-      numero_carta_conducao: '12345678',
-      data_expira_carta_conducao:
-        this.formatarDataHelper.formatDate('05-23-1990'),
-
-      sigpq_tipo_habilitacao_literaria_id: 1,
-
-      sigpq_tipo_curso_id: 1,
-      pais_id: 1,
-
-      sigpq_tipo_sanguineo_id: 1,
-      contacto: '923456789',
-      contacto_servico: '923456789',
-      contacto_alternativo: '923456789',
-      email: 'naldiocj@gmaail.com',
-
-      pseudonimo: 'GOD OF WAR',
-      regime_id: 1,
-      sigpq_tipo_vinculo_id: 1,
-      sigpq_vinculo_id: 1,
-      numero_despacho: '123/2020',
-      numero_ordem: '123/2020',
-      sigpq_acto_progressao_id: 1,
-
-      nip: '123456',
-      niic: '654321',
-      numero_agente: '12345928',
-      orgao_id: 1,
-      tipo_orgao: 'Comando Provincial',
-      pessoajuridica_id: 1,
-
-      // departamento_id: 1,
-
-      // seccao_id: 1,
-      // brigada_id: 1,
-
-      data_despacho_nomeacao: this.formatarDataHelper.formatDate('05-23-1990'),
-      numero_despacho_nomeacao: '123/2020',
-      // patente_id: response?.patente_id,
-      data_ordem: this.formatarDataHelper.formatDate('05-23-1990'),
-      data_despacho: this.formatarDataHelper.formatDate('05-23-1990'),
-      sigpq_tipo_cargo_id: 1,
-      sigpq_acto_nomeacao_id: 1,
-      sigpq_tipo_funcao_id: 1,
-      sigpq_tipo_categoria_id: 1,
-      data_adesao: this.formatarDataHelper.formatDate('05-23-1990'),
-      seccao: 'SECÇÃO X',
-      brigada: 'BRIGADA X',
-      email_institucional: 'naldio.joaquim@sic.gov.ao',
-      nps: '1011201920201020',
-    });
-
-    //    estado_civil_id: 1,
-    // naturalidade_id: 11,
-    // municipio_id: 108,
-    // distrito_id: 20,
-
-    // this.simpleForm.get('naturalidade_id')?.setValue(11);
-    // this.simpleForm.get('municipio_id')?.setValue(108);
-  }
-
   public buscarActoProgressao(): void {
     const opcoes = {};
     this.actoProgressaoService
@@ -357,6 +277,10 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
           this.fileUrlCivil = this.ficheiroService.createImageBlob(file);
         }
       });
+  }
+
+  public get getPessoaId(): any {
+    return this.params.getId ?? this.params.getInfo;
   }
 
   buscarUmFuncionario() {
@@ -514,7 +438,7 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
           ),
           sigpq_tipo_cargo_id: response?.sigpq_cargo?.sigpq_tipo_cargo_id,
           sigpq_acto_nomeacao_id: response?.sigpq_cargo?.sigpq_acto_nomeacao_id,
-          sigpq_tipo_funcao_id: response?.tipo_cargo_id,
+          sigpq_tipo_funcao_id: response?.tipo_funcao_id,
           sigpq_tipo_categoria_id:
             response?.sigpq_categoria?.sigpq_tipo_carreira_id,
           data_adesao: this.formatarDataHelper.formatDate(
@@ -523,6 +447,11 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
           seccao: response?.seccao,
           brigada: response?.brigada,
           nps: response?.nps,
+          linguas_internacionais: response?.linguas_internacionais,
+          linguas_nacionais: response?.linguas_nacionais,
+          numero_calcado: response?.numero_calcado,
+          numero_camisa: response?.numero_camisa,
+          motivo_situacao_laboral: response?.motivo_situacao_laboral,
         });
         this.selectedPatente = response?.patente_id;
         this.ajustarFotoFardado();
@@ -751,6 +680,12 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
       nps: [null, [Validators.pattern('^[0-9A-Z-]*$')]],
       data_adesao: [null, [Validators.required]],
       email_institucional: [null],
+
+      linguas_internacionais: [null],
+      linguas_nacionais: [null],
+      numero_calcado: [null],
+      numero_camisa: [null],
+      motivo_situacao_laboral: [null],
     });
 
     this.ajustarFotoFardado();
@@ -1150,12 +1085,12 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
   }
 
   public validarRegime($event: any): void {
-    if (!$event) {
-      this.simpleForm.get('sigpq_tipo_vinculo_id')?.disable();
-      this.simpleForm.get('sigpq_tipo_vinculo_id')?.setValue(null);
-      this.validarVinculo(null);
-      return;
-    }
+    // if (!$event) {
+    //   this.simpleForm.get('sigpq_tipo_vinculo_id')?.disable();
+    //   this.simpleForm.get('sigpq_tipo_vinculo_id')?.setValue(null);
+    //   this.validarVinculo(null);
+    //   return;
+    // }
 
     const [regime_] = this.regimes_.filter((item: any) => item.id == $event);
     this.regimeQuadro = regime_?.quadro;
@@ -1164,13 +1099,13 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
 
     /* console.log("Regime selecionado:",this.regimeQuadro=="I") */
 
-    if (!this.getInfo) {
-      this.simpleForm.get('sigpq_tipo_vinculo_id')?.enable();
-      this.simpleForm.get('sigpq_tipo_vinculo_id')?.setValue(null);
-      this.simpleForm
-        .get('sigpq_tipo_vinculo_id')
-        ?.setValidators(this.dataValidalitors);
-    }
+    // if (!this.getInfo) {
+    //   this.simpleForm.get('sigpq_tipo_vinculo_id')?.enable();
+    //   this.simpleForm.get('sigpq_tipo_vinculo_id')?.setValue(null);
+    //   this.simpleForm
+    //     .get('sigpq_tipo_vinculo_id')
+    //     ?.setValidators(this.dataValidalitors);
+    // }
     if ($event == 1) {
       this.validarClasse($event, true, true);
       //this.patentes = this.patentes.filter((p) => Number(p.id) < 17)
@@ -1193,22 +1128,22 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
         this.simpleForm.get('anexo')?.enable();
         this.simpleForm.get('patente_id')?.enable();
         if (this.simpleForm.get('patente_id')?.value < 7) {
-          this.simpleForm.get('sigpq_tipo_cargo_id')?.disable();
-          this.simpleForm.get('sigpq_tipo_cargo_id')?.setValue(null);
+          // this.simpleForm.get('sigpq_tipo_cargo_id')?.disable();
+          // this.simpleForm.get('sigpq_tipo_cargo_id')?.setValue(null);
         } else {
-          this.simpleForm.get('sigpq_tipo_cargo_id')?.enable();
+          // this.simpleForm.get('sigpq_tipo_cargo_id')?.enable();
         }
 
-        this.simpleForm.get('patente_id')?.setValue(this.selectedPatente);
+        // this.simpleForm.get('patente_id')?.setValue(this.selectedPatente);
       } else {
-        this.regimeTipo = false;
-        this.simpleForm.get('nip')?.disable();
-        this.simpleForm.get('data_ordem')?.disable();
-        this.simpleForm.get('numero_ordem')?.disable();
-        this.simpleForm.get('numero_despacho')?.enable();
-        this.simpleForm.get('data_despacho')?.enable();
-        this.simpleForm.get('sigpq_acto_progressao_id')?.disable();
-        this.simpleForm.get('anexo')?.disable();
+        // this.regimeTipo = false;
+        // this.simpleForm.get('nip')?.disable();
+        // this.simpleForm.get('data_ordem')?.disable();
+        // this.simpleForm.get('numero_ordem')?.disable();
+        // this.simpleForm.get('numero_despacho')?.enable();
+        // this.simpleForm.get('data_despacho')?.enable();
+        // this.simpleForm.get('sigpq_acto_progressao_id')?.disable();
+        // this.simpleForm.get('anexo')?.disable();
         /* this.simpleForm.get('patente_id').setValue(17)
         this.simpleForm.get('patente_id').disable() */
       }
@@ -1218,20 +1153,20 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
     if (!this.getInfo) {
       if ($event == 1) {
         this.regimeTipo = true;
-        this.simpleForm.get('nip')?.enable();
-        this.simpleForm.get('data_ordem')?.enable();
-        this.simpleForm.get('data_ordem')?.setValue(null);
-        // this.simpleForm.get('data_despacho')?.disable();
-        // this.simpleForm.get('numero_despacho')?.disable();
-        this.simpleForm.get('data_despacho')?.setValue(null);
-        this.simpleForm.get('numero_despacho')?.setValue(null);
-        this.simpleForm.get('numero_ordem')?.enable();
-        this.simpleForm.get('numero_ordem')?.setValue(null);
-        this.simpleForm.get('anexo')?.enable();
-        this.simpleForm.get('sigpq_acto_progressao_id')?.setValue(null);
-        this.simpleForm.get('sigpq_acto_progressao_id')?.enable();
-        this.simpleForm.get('patente_id')?.setValue(null);
-        this.simpleForm.get('patente_id')?.enable();
+        // this.simpleForm.get('nip')?.enable();
+        // this.simpleForm.get('data_ordem')?.enable();
+        // this.simpleForm.get('data_ordem')?.setValue(null);
+        // // this.simpleForm.get('data_despacho')?.disable();
+        // // this.simpleForm.get('numero_despacho')?.disable();
+        // this.simpleForm.get('data_despacho')?.setValue(null);
+        // this.simpleForm.get('numero_despacho')?.setValue(null);
+        // this.simpleForm.get('numero_ordem')?.enable();
+        // this.simpleForm.get('numero_ordem')?.setValue(null);
+        // this.simpleForm.get('anexo')?.enable();
+        // this.simpleForm.get('sigpq_acto_progressao_id')?.setValue(null);
+        // this.simpleForm.get('sigpq_acto_progressao_id')?.enable();
+        // this.simpleForm.get('patente_id')?.setValue(null);
+        // this.simpleForm.get('patente_id')?.enable();
 
         this.simpleForm.get('nip')?.setValidators(this.dataValidalitors);
         this.simpleForm.get('data_ordem')?.setValidators(this.dataValidalitors);
@@ -1255,31 +1190,31 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
       } else {
         this.regimeTipo = false;
 
-        this.simpleForm.get('nip')?.setValue(null);
-        this.simpleForm.get('numero_despacho')?.setValue(null);
-        this.simpleForm.get('numero_ordem')?.setValue(null);
-        this.simpleForm.get('anexo')?.setValue(null);
-        this.simpleForm.get('sigpq_acto_progressao_id')?.setValue(null);
-        this.simpleForm.get('sigpq_acto_progressao_id')?.disable();
+        // this.simpleForm.get('nip')?.setValue(null);
+        // this.simpleForm.get('numero_despacho')?.setValue(null);
+        // this.simpleForm.get('numero_ordem')?.setValue(null);
+        // this.simpleForm.get('anexo')?.setValue(null);
+        // this.simpleForm.get('sigpq_acto_progressao_id')?.setValue(null);
+        // this.simpleForm.get('sigpq_acto_progressao_id')?.disable();
 
-        this.simpleForm
-          .get('numero_despacho')
-          ?.setValidators(this.dataValidalitors);
-        this.simpleForm
-          .get('data_despacho')
-          ?.setValidators(this.dataValidalitors);
+        // this.simpleForm
+        //   .get('numero_despacho')
+        //   ?.setValidators(this.dataValidalitors);
+        // this.simpleForm
+        //   .get('data_despacho')
+        //   ?.setValidators(this.dataValidalitors);
 
-        this.simpleForm.get('data_ordem')?.disable();
-        // this.simpleForm.get('data_despacho').disable()
-        this.simpleForm.get('data_ordem')?.setValue(null);
-        this.simpleForm.get('data_despacho')?.setValue(null);
+        // this.simpleForm.get('data_ordem')?.disable();
+        // // this.simpleForm.get('data_despacho').disable()
+        // this.simpleForm.get('data_ordem')?.setValue(null);
+        // this.simpleForm.get('data_despacho')?.setValue(null);
 
-        this.simpleForm.get('nip')?.disable();
-        // this.simpleForm.get('numero_despacho').disable()
-        this.simpleForm.get('numero_ordem')?.disable();
-        this.simpleForm.get('numero_despacho')?.enable();
-        this.simpleForm.get('data_despacho')?.enable();
-        this.simpleForm.get('anexo')?.disable();
+        // this.simpleForm.get('nip')?.disable();
+        // // this.simpleForm.get('numero_despacho').disable()
+        // this.simpleForm.get('numero_ordem')?.disable();
+        // this.simpleForm.get('numero_despacho')?.enable();
+        // this.simpleForm.get('data_despacho')?.enable();
+        // this.simpleForm.get('anexo')?.disable();
 
         /*  this.simpleForm.get('patente_id').setValue(17)
          this.simpleForm.get('patente_id').disable() */
@@ -1764,17 +1699,23 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
           console.log('Resposta do backend:', response);
           console.log('Tipo da resposta:', typeof response);
           console.log('Estrutura da resposta:', Object.keys(response || {}));
-          if (!response) {
-            console.error('Resposta vazia do backend');
-            // alert(
-            //   'Nenhuma resposta do backend. Verifique se todos os campos obrigatórios estão preenchidos.'
-            // );
-            return;
-          }
+          // if (!response) {
+          //   console.error('Resposta vazia do backend');
+          //   // alert(
+          //   //   'Nenhuma resposta do backend. Verifique se todos os campos obrigatórios estão preenchidos.'
+          //   // );
+          //   return;
+          // }
           // Sucesso na operação
           if (isEditing) {
             console.log('Edição realizada com sucesso');
-            alert('Dados atualizados com sucesso!');
+
+            setTimeout(() => {
+              this.router.navigate([
+                '/piips/sigpg/funcionario/registar-ou-editar/mais-informacao',
+                this.getPessoaId,
+              ]);
+            }, 300);
             // Pode redirecionar ou atualizar a página conforme necessário
           } else {
             console.log('Registro realizado com sucesso');
@@ -1784,7 +1725,7 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
             setTimeout(() => {
               this.router.navigate([
                 '/piips/sigpg/funcionario/registar-ou-editar/mais-informacao',
-                response.pessoaId,
+                this.getPessoaId,
               ]);
             }, 300);
           }

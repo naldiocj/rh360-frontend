@@ -30,13 +30,6 @@
                 >
                   Dados pessoais
                 </button>
-                <button
-                  class="btn-piips btn-piips-secondary m-0 py-2"
-                  style="border-radius: 0px"
-                  (click)="this.populate()"
-                >
-                  POPULAR
-                </button>
               </li>
               <!-- <li class="flex-fill">
                 <button (click)="alterarPasso(1)"
@@ -836,6 +829,57 @@
                       </div>
                     </div>
                   </div>
+
+                  <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                    <label for=""><b>Linguais Internacionais</b></label>
+                    <input
+                      type="text"
+                      class="form-control input-editable"
+                      formControlName="linguas_internacionais"
+                      placeholder="Exemplo: Inglês, Francês"
+                    />
+                  </div>
+
+                  <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                    <label for=""><b>Linguais Nacionais</b></label>
+                    <input
+                      type="text"
+                      class="form-control input-editable"
+                      formControlName="linguas_nacionais"
+                      placeholder="Exemplo: Umbundu, Kimbundu"
+                    />
+                  </div>
+
+                  <div
+                    class="col-xl-4 col-lg-6 col-md-6 col-sm-12 d-flex align-item-center"
+                  >
+                    <div class="d-flex flex-column w-50">
+                      <label for=""
+                        ><b
+                          >N.º Calçado<span class="text-red">*</span></b
+                        ></label
+                      >
+                      <input
+                        class="form-control"
+                        type="number"
+                        formControlName="numero_calcado"
+                        min="30"
+                        max="49"
+                      />
+                    </div>
+                    <div class="d-flex flex-column flex-grow-1">
+                      <label for=""
+                        ><b>Nº Camisa<span class="text-red">*</span></b></label
+                      >
+                      <ng-select2
+                        id="curso"
+                        [options]="options"
+                        formControlName="numero_camisa"
+                        [data]="this.numero_camisas"
+                      >
+                      </ng-select2>
+                    </div>
+                  </div>
                 </div>
                 <div class="row my-2" style="row-gap: 2rem">
                   <div
@@ -1168,6 +1212,35 @@
                             [data]="this.situacaoEstados"
                           >
                           </ng-select2>
+                        </div>
+                        <div class="col-xl-8 col-lg-6 col-md-6 col-sm-12">
+                          <label for=""
+                            ><b
+                              >Motivo da situação laboral
+                              <span class="text-danger">*</span></b
+                            ></label
+                          >
+                          <input
+                            class="form-control input-editable"
+                            type="text"
+                            formControlName="motivo_situacao_laboral"
+                            [ngClass]="{
+                              'is-invalid':
+                                this.simpleForm.controls[
+                                  'motivo_situacao_laboral'
+                                ].dirty &&
+                                this.simpleForm.controls[
+                                  'motivo_situacao_laboral'
+                                ].errors,
+                              'is-valid':
+                                this.simpleForm.controls[
+                                  'motivo_situacao_laboral'
+                                ].dirty &&
+                                !this.simpleForm.controls[
+                                  'motivo_situacao_laboral'
+                                ].errors
+                            }"
+                          />
                         </div>
                         <!-- <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
                           <label for=""
@@ -1867,19 +1940,6 @@
 
                   <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
                     <label for=""><b>E-mail Instituição</b></label>
-                    <!-- <input type="text" class="form-control input-editable" [ngClass]="{
-                      'is-invalid':
-                        this.simpleForm.controls?.email.dirty &&
-                        this.simpleForm.controls?.email.errors,
-                      'is-valid':
-                        this.simpleForm.controls?.email.dirty &&
-                        !this.simpleForm.controls?.email.errors
-                    }" formControlName="email" />
-                    <div *ngIf="this.simpleForm.controls?.email?.dirty && this.simpleForm.controls?.email?.errors">
-                      <div *ngIf="this.simpleForm.controls?.email?.errors?.pattern" style="color: #dc3545">
-                        Digite um email válido
-                      </div>
-                    </div> -->
                     <input
                       type="text"
                       class="form-control input-editable"

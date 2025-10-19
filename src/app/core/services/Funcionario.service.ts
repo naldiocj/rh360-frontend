@@ -243,11 +243,11 @@ export class FuncionarioService {
     formData.append('numero_ordem', String(form['numero_ordem'] ?? '').trim());
     formData.append(
       'data_despacho_nomeacao',
-      String(form['data_ordem'] ?? '').trim()
+      String(form['data_despacho_nomeacao'] ?? '').trim()
     );
     formData.append(
       'numero_despacho_nomeacao',
-      String(form['numero_ordem'] ?? '').trim()
+      String(form['numero_despacho_nomeacao'] ?? '').trim()
     );
     formData.append('sigpq_tipo_cargo_id', Number(form['sigpq_tipo_cargo_id']));
     formData.append(
@@ -259,6 +259,21 @@ export class FuncionarioService {
       String(form['sigpq_tipo_categoria_id'] ?? '').trim()
     );
     formData.append('data_adesao', String(form['data_adesao'] ?? '').trim());
+
+    formData.append(
+      'linguas_internacionais',
+      String(form['linguas_internacionais']).trim()
+    );
+    formData.append(
+      'linguas_nacionais',
+      String(form['linguas_nacionais']).trim()
+    );
+    formData.append('numero_calcado', String(form['numero_calcado']).trim());
+    formData.append('numero_camisa', String(form['numero_camisa']).trim());
+    formData.append(
+      'motivo_situacao_laboral',
+      String(form['motivo_situacao_laboral']).trim()
+    );
 
     // Adiciona o campo pessoajuridica_id usando o valor do órgão selecionado
     const pessoajuridicaId = Number(form['pessoajuridica_id']);
@@ -520,10 +535,10 @@ export class FuncionarioService {
       String(form.get('numero_despacho_nomeacao')?.value).trim()
     );
 
-    formData.append(
-      'sigpq_tipo_cargo_id',
-      Number(form.get('sigpq_tipo_cargo_id')?.value)
-    );
+    // formData.append(
+    //   'sigpq_tipo_cargo_id',
+    //   Number(form.get('sigpq_tipo_cargo_id')?.value)
+    // );
     formData.append(
       'sigpq_tipo_funcao_id',
       String(form.get('sigpq_tipo_funcao_id')?.value).trim()
@@ -537,11 +552,33 @@ export class FuncionarioService {
       String(form.get('data_adesao')?.value).trim()
     );
 
+    formData.append(
+      'linguas_internacionais',
+      String(form.get('linguas_internacionais')?.value).trim()
+    );
+    formData.append(
+      'linguas_nacionais',
+      String(form.get('linguas_nacionais')?.value).trim()
+    );
+    formData.append(
+      'numero_calcado',
+      String(form.get('numero_calcado')?.value).trim()
+    );
+    formData.append(
+      'numero_camisa',
+      String(form.get('numero_camisa')?.value).trim()
+    );
+    formData.append(
+      'motivo_situacao_laboral',
+      String(form.get('motivo_situacao_laboral')?.value).trim()
+    );
+
     formData.append('seccao', String(form.get('seccao')?.value).trim());
+
     formData.append('brigada', String(form.get('brigada')?.value).trim());
     formData.append(
-      'tipo_cargo_id',
-      String(form.get('sigpq_tipo_funcao_id')?.value).trim()
+      'sigpq_tipo_cargo_id',
+      String(form.get('sigpq_tipo_cargo_id')?.value).trim()
     );
     formData.append(
       'tipo_orgao',

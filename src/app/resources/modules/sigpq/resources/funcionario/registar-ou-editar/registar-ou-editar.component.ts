@@ -116,9 +116,17 @@ export class RegistarOuEditarComponent implements OnInit {
   // }
 
   public get maisInformacao(): boolean {
+    if (
+      this.getParams?.getInfo != null &&
+      this.getParams?.getInfo !== undefined
+    ) {
+      return false;
+    }
+
     return isNaN(this.getParams?.getId) ||
       this.getParams?.getId === '' ||
-      this.getParams?.getId === null || this.getParams?.getId === 'undefined'
+      this.getParams?.getId === null ||
+      this.getParams?.getId === 'undefined'
       ? true
       : false;
   }

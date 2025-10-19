@@ -1,8 +1,7 @@
-
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from '@core/guards/auth.guard'; 
-import { ListarComponent } from './listar/listar.component'; 
+import { AuthGuard } from '@core/guards/auth.guard';
+import { ListarComponent } from './listar/listar.component';
 
 const routes: Routes = [
   {
@@ -21,22 +20,21 @@ const routes: Routes = [
         path: 'registar-ou-editar',
         data: {
           breadcrumb: 'Registar ou editar',
-        }, 
+        },
       },
       {
         path: 'listar',
         data: {
           breadcrumb: 'Listar',
         },
-        component: ListarComponent
-      }
-    ]
-
-  }
+        component: ListarComponent,
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class DirecaoOrOrgaoRoutingModule { }
+export class DirecaoOrOrgaoRoutingModule {}
