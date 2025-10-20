@@ -452,6 +452,7 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
           numero_calcado: response?.numero_calcado,
           numero_camisa: response?.numero_camisa,
           motivo_situacao_laboral: response?.motivo_situacao_laboral,
+          numero_calca: response?.numero_calca
         });
         this.selectedPatente = response?.patente_id;
         this.ajustarFotoFardado();
@@ -686,6 +687,7 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
       numero_calcado: [null],
       numero_camisa: [null],
       motivo_situacao_laboral: [null],
+      numero_calca: [null],
     });
 
     this.ajustarFotoFardado();
@@ -851,13 +853,13 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
     } else if (!$event) {
       // this.simpleForm.get('sigpq_tipo_funcao_id').enable()
       // this.simpleFormvalidarVinculo.get('sigpq_tipo_funcao_id').setValue(null)
-      $('#anexo_nomeacao').prop('disabled', true);
-      // this.simpleForm.get('anexo_nomeacao')?.disable();
-      this.simpleForm.get('anexo_nomeacao')?.setValue(null);
-      // this.simpleForm.get('numero_despacho_nomeacao')?.disable();
-      this.simpleForm.get('numero_despacho_nomeacao')?.setValue(null);
-      // this.simpleForm.get('data_despacho_nomeacao')?.disable();
-      this.simpleForm.get('data_despacho_nomeacao')?.setValue(null);
+      // $('#anexo_nomeacao').prop('disabled', true);
+      // // this.simpleForm.get('anexo_nomeacao')?.disable();
+      // this.simpleForm.get('anexo_nomeacao')?.setValue(null);
+      // // this.simpleForm.get('numero_despacho_nomeacao')?.disable();
+      // this.simpleForm.get('numero_despacho_nomeacao')?.setValue(null);
+      // // this.simpleForm.get('data_despacho_nomeacao')?.disable();
+      // this.simpleForm.get('data_despacho_nomeacao')?.setValue(null);
       this.buscarTipoFuncao();
     }
   }
@@ -1218,7 +1220,7 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
 
         /*  this.simpleForm.get('patente_id').setValue(17)
          this.simpleForm.get('patente_id').disable() */
-        this.simpleForm.get('sigpq_acto_progressao_id')?.disable();
+        // this.simpleForm.get('sigpq_acto_progressao_id')?.disable();
       }
     }
 
@@ -1570,6 +1572,20 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
       console.log('Formulário válido:', this.simpleForm.valid);
       console.log('Formulário submetido:', this.submitted);
       this.utilService.validarCampo(this.simpleForm);
+
+      Object.keys(this.simpleForm.controls).forEach(key => {
+        const control = this.simpleForm.controls[key];
+        
+        // Check if the individual control is invalid
+        if (control.invalid) {
+          console.error(`Control: ${key}`);
+          console.error(`Errors:`, control.errors); // Log the validation errors object
+          console.error(`Value: ${control.value}`);
+          console.error(`Status: ${control.status}`);
+        }
+      });
+
+      
       return;
     }
     // Garante que pessoajuridica_id receba o valor correto de orgao_id

@@ -19,7 +19,7 @@
                                 MINISTÉRIO DO INTERIOR
                             </span>
                             <span class="text-header">
-                                POLÍCIA NACIONAL DE ANGOLA
+                                SERVIÇO DE INVESTIGAÇÃO CRIMINAL
                             </span>
                             <span class="text-header">
                                 <u><b>{{this.listarPDF?.pessoajuridica_passado?.nome_completo | uppercase}} </b></u>
@@ -32,14 +32,12 @@
                         <span class="text-header titulo-numero">GUIA DE MARCHA Nº <u>{{this.listarPDF?.numero_guia}}</u>
                         </span>
                         <div class="text-body">
-                            Faz-se constar as autoridades a quem o conhecimento desta competir, que segue deste,
-                            para <b>
-                                {{this.listarPDF?.pessoajuridica_actual?.nome_completo | uppercase}}/PNA</b>, onde foi
+                            Faz-se constar as autoridades a quem o conhecimento desta competir, que segue deste orgão, <b>
+                                {{this.listarPDF?.pessoajuridica_actual?.nome_completo | uppercase}}</b>, onde foi
                             <b>Transferido</b>, por <b>Despacho n.º
-                                {{this.listarPDF?.despacho}} </b>, de Sua Excelência Comandante Geral da PNA, contido na
-                            <b>Ordem de
-                                Serviço {{this.listarPDF?.numero_ordem}}</b>, {{this.funcionarios[0].patente_nome}}
-                            {{this.funcionarios[0]?.nip ? 'NIP': '' }} <b>{{this.funcionarios[0]?.nip}}</b>
+                                {{this.listarPDF?.despacho}} </b>, de Sua Excelência Director Geral do Serviço de Investigação Criminal, contido na
+                            <b>Ordem de Serviço {{this.listarPDF?.numero_ordem}}</b>, {{this.funcionarios[0].patente_nome}}
+                            {{this.funcionarios[0]?.nip ? 'Nº de Agente': '' }} <b>{{this.funcionarios[0]?.nip}}</b>
                             {{this.funcionarios[0]?.numero_agente ? 'NAS': '' }}
                             <b>{{this.funcionarios[0]?.numero_agente}}</b>
                             <b>{{this.funcionarios[0]?.nome_completo}}</b>
@@ -67,9 +65,9 @@
                         <div class="text-body">
                             Faz-se constar as autoridades a quem o conhecimento desta competir, que segue deste,
                             para <b>
-                                {{this.listarPDF?.pessoajuridica_actual?.nome_completo | uppercase}}/PNA</b>, onde foram
+                                {{this.listarPDF?.pessoajuridica_actual?.nome_completo | uppercase}}/SIC</b>, onde foram
                             <b>Transferidos</b>, por <b>Despacho
-                                {{this.listarPDF?.despacho_descricao}} </b>, de Sua Excelência Comandante Geral da PNA,
+                                {{this.listarPDF?.despacho_descricao}} </b>, de Sua Excelência Director Geral do Serviço de Investigação Criminal,
                             contido na
                             <b>Ordem {{this.listarPDF?.ordem_descricao}}</b>.
                         </div>
@@ -104,10 +102,10 @@
                         O DIRECTOR NACIONAL
                     </div>
                     <div class="text-body" style="font-weight: bolder;">
-                        <h5>Gil Famoso Sebastião Da Silva</h5>
+                        <h5>Teresa Gaspar Faria Catate</h5>
                     </div>
                     <div class="text-body" style="font-family: 300;">
-                        <h5>**COMISSÁRIO**</h5>
+                        <h5>***Superintendente-Chefe***</h5>
                     </div>
                 </div>
                 <div class="card-footer">

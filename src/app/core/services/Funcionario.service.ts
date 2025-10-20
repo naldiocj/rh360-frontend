@@ -270,6 +270,7 @@ export class FuncionarioService {
     );
     formData.append('numero_calcado', String(form['numero_calcado']).trim());
     formData.append('numero_camisa', String(form['numero_camisa']).trim());
+    formData.append('numero_calca', String(form['numero_calca']).trim());
     formData.append(
       'motivo_situacao_laboral',
       String(form['motivo_situacao_laboral']).trim()
@@ -567,6 +568,10 @@ export class FuncionarioService {
     formData.append(
       'numero_camisa',
       String(form.get('numero_camisa')?.value).trim()
+    );
+    formData.append(
+      'numero_calca',
+      String(form.get('numero_calca')?.value).trim()
     );
     formData.append(
       'motivo_situacao_laboral',
