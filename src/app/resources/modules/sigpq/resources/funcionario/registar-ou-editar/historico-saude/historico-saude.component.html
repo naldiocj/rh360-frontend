@@ -35,7 +35,7 @@
                     >
                     <ng-select2
                       [options]="options"
-                      formControlName="sigpq_tipo_familiar_id"
+                      formControlName="grau_parentesco"
                       [data]="this.grauParentesco"
                     >
                     </ng-select2>
@@ -49,30 +49,18 @@
                   <input
                     type="text"
                     id="nome-familiar"
-                    formControlName="nome"
+                    formControlName="qual_historico_saude"
                     class="form-control"
                     autofocus
-                    [ngClass]="{
-                      'is-invalid':
-                        this.simpleForm.controls?.nome.errors &&
-                        this.simpleForm.controls?.nome.dirty,
-                      'is-valid':
-                        this.simpleForm.controls?.nome.dirty &&
-                        !this.simpleForm.controls?.nome.errors
-                    }"
                   />
                 </div>
 
-                <ng-container
-                  *ngIf="(this.isHidden == true)
-                  "
-                >
+                <ng-container *ngIf="isNotLFCOrAT()">
                   <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
                     <label for=""> <b>Tempo </b></label>
                     <input
                       type="text"
-                      id="nome-familiar"
-                      formControlName="nome"
+                      formControlName="tempo_historico_saude"
                       class="form-control"
                     />
                   </div>
@@ -162,21 +150,19 @@
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Nome</th>
+                <th>Tipo de histórico de saúde</th>
                 <th>Grau parentesco</th>
-                <th>Contacto</th>
-                <th>Documento</th>
-                <th>Estado</th>
+                <th>Qual</th>
+                <th>Tempo</th>
                 <th>Data de Registo</th>
                 <th>Data de Actualização</th>
-                <th>Data de nascimento</th>
-                <th class="text-right">Operação</th>
+                <th>Operações</th>
               </tr>
             </thead>
             <tbody>
               <tr
                 *ngFor="
-                  let item of this.agregadosFamiliares
+                  let item of this.historicoSaude
                     | paginate
                       : {
                           id: 'agregadoId',
@@ -188,27 +174,19 @@
                 "
               >
                 <td>{{ i + 1 }}</td>
-                <td>{{ item?.nome }}</td>
-                <td>{{ item?.sigpq_tipo_familiar_nome }}</td>
+                <td>{{ item?.tipo_historico_saude }}</td>
                 <td>
                   {{
-                    item?.contacto == "null" || !item?.contacto
+                    item?.grau_parentesco == "null" || !item?.grau_parentesco
                       ? "S/N"
-                      : item?.contacto
+                      : item?.grau_parentesco
                   }}
                 </td>
-                <td>{{ item?.sigpq_tipo_documento_nome ?? "S/N" }}</td>
-                <td>
-                  <span *ngIf="item.activo" class="custom-badge status-green"
-                    >Aprovado</span
-                  >
-                  <span *ngIf="!item.activo" class="custom-badge status-orange"
-                    >Pendente</span
-                  >
-                </td>
+                <td>{{ item?.qual_historico_saude ?? "S/N" }}</td>
+                <td>{{ item?.tempo_historico_saude ?? "S/N" }}</td>
+
                 <td>{{ item?.created_at }}</td>
                 <td>{{ item?.updated_at }}</td>
-                <td>{{ item?.data_de_nascimento ?? "S/D" }}</td>
                 <td class="text-right">
                   <div class="dropdown dropdown-action">
                     <a

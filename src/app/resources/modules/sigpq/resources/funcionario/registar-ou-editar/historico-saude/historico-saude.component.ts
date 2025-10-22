@@ -11,57 +11,58 @@ import { Select2OptionData } from 'ng-select2';
 import { finalize } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { TYPE_HISTORICO_SAUDE } from './HistoricoSaudeTypes';
+import { HistoricoSaudeService } from '@resources/modules/sigpq/core/service/HistoricoSaudeService';
 
 @Component({
   selector: 'sigpq-historico-saude',
   templateUrl: './historico-saude.component.html',
-  styleUrls: ['./historico-saude.component.css']
+  styleUrls: ['./historico-saude.component.css'],
 })
 export class HistoricoSaudeComponent implements OnInit {
-
-  public simpleForm: any
-  public isLoading: any
-  @Input() public params: any
-  @Input() public options: any
-  public agregadosFamiliares: any = []
-  public agregadosFamiliar: any = []
-  public agregadosFamiliarFile: any = []
-  public totalBase: number = 0
-  public documento: any
+  public simpleForm: any;
+  public isLoading: any;
+  @Input() public params: any;
+  @Input() public options: any;
+  public historicoSaude: any = [];
+  public agregadosFamiliar: any = [];
+  public agregadosFamiliarFile: any = [];
+  public totalBase: number = 0;
+  public documento: any;
   public carregarDocumento: boolean = false;
 
-  public TYPES = {...TYPE_HISTORICO_SAUDE}
+  public TYPES = { ...TYPE_HISTORICO_SAUDE };
 
   public tipoHistoricoSaude: Array<Select2OptionData> = [
     { id: TYPE_HISTORICO_SAUDE.APF, text: 'Antecedente Patológico Familiar' },
     { id: TYPE_HISTORICO_SAUDE.APP, text: 'Antecedente Patológico Pessoal' },
-    { id: TYPE_HISTORICO_SAUDE.DOP, text: 'Doença Ocupacional ou Profissional' },
+    {
+      id: TYPE_HISTORICO_SAUDE.DOP,
+      text: 'Doença Ocupacional ou Profissional',
+    },
     { id: TYPE_HISTORICO_SAUDE.DAT, text: 'Doença Arquirida no Trabalho' },
     { id: TYPE_HISTORICO_SAUDE.AT, text: 'Acidente de Trabalho' },
     { id: TYPE_HISTORICO_SAUDE.LFC, text: 'Lesão ou Fractura no Corpo' },
-  ]
+  ];
   public grauParentesco: Array<Select2OptionData> = [
     { id: 'AVOS', text: 'Avós' },
-    { id: '', text: 'Pai' },
-    { id: '2', text: 'Mãe' },
-  ]
+    { id: 'PAI', text: 'Pai' },
+    { id: 'MÃE', text: 'Mãe' },
+  ];
 
-  public fileUrl: any
-  public pagination: Pagination = new Pagination()
-  private id: any
+  public fileUrl: any;
+  public pagination: Pagination = new Pagination();
+  private id: any;
   public filtro = {
     page: 1,
     perPage: 5,
     search: '',
+  };
+  tipoDocumentos: Array<Select2OptionData> = [];
+  tipoFamiliares: Array<Select2OptionData> = [];
 
+  public formatAccept = ['.pdf'];
 
-  }
-  tipoDocumentos: Array<Select2OptionData> = []
-  tipoFamiliares: Array<Select2OptionData> = []
-
-  public formatAccept = ['.pdf']
-
-  tipoOutrosDados: Array<Select2OptionData> = []
+  tipoOutrosDados: Array<Select2OptionData> = [];
 
   public submitted: boolean = false;
   public isHidden: boolean = false;
@@ -71,82 +72,84 @@ export class HistoricoSaudeComponent implements OnInit {
     private tipoFamiliarService: TipoFamiliarService,
     private tipoDocumentoService: TipoDocumentoService,
     private agregadoFamiliarService: AgregadoFamiliarService,
+    private historicoSaudeService: HistoricoSaudeService,
     private ficheiroService: FicheiroService,
-    public formatarDataHelper: FormatarDataHelper) { }
+    public formatarDataHelper: FormatarDataHelper
+  ) {}
 
-  
   ngOnInit(): void {
-    this.buscarTipoOutrosDados()
-    this.criarForm()
-    this.buscarTipoFamiliarService()
-    this.buscarAgregadoFamiliares()
+    this.buscarTipoOutrosDados();
+    this.criarForm();
+    this.buscarTipoFamiliarService();
+    this.buscarHistoricoSaude();
 
-    this.simpleForm.get('tipo_historico_saude')?.setValue(this.TYPES.APF)
-
+    this.simpleForm.get('tipo_historico_saude')?.setValue(this.TYPES.APF);
   }
 
-  // public get getId() {
-  //   return this.activatedRoute.snapshot.params["id"] as number
-  // }
+  public get getId() {
+    return this.params?.getId as number;
+  }
 
-  public isNotQuestion()  {
-    if (this.simpleForm.get('tipo_historico_saude')?.value !== this.TYPES.LFC || this.simpleForm.get('tipo_historico_saude')?.value !== this.TYPES.AT) {
-      this.isHidden = true
+  public isNotQuestion() {
+    if (
+      this.simpleForm.get('tipo_historico_saude')?.value !== this.TYPES.LFC ||
+      this.simpleForm.get('tipo_historico_saude')?.value !== this.TYPES.AT
+    ) {
+      this.isHidden = false;
     }
 
-    this.isHidden = false
+    this.isHidden = true;
+  }
+
+  public isNotLFCOrAT() {
+    const tipo = this.simpleForm.get('tipo_historico_saude')?.value;
+    return tipo !== this.TYPES.LFC && tipo !== this.TYPES.AT;
   }
 
   buscarTipoOutrosDados(): void {
-    const opcoes = {}
-    this.tipoDocumentoService.listarTodos(opcoes)
-      .pipe(
-        finalize((): void => {
-
-        })
-      )
+    const opcoes = {};
+    this.tipoDocumentoService
+      .listarTodos(opcoes)
+      .pipe(finalize((): void => {}))
       .subscribe((response: any): void => {
-        this.tipoOutrosDados = response.map((item: any) => ({ id: item.id, text: item.nome }))
+        this.tipoOutrosDados = response.map((item: any) => ({
+          id: item.id,
+          text: item.nome,
+        }));
         // somente BI e Boletim de nascimento
-        this.tipoDocumentos = response.filter((item: any) => item.id == 1 || item.id == 9)
-          .map((item: any) => ({ id: item.id, text: item.nome }))
-      })
+        this.tipoDocumentos = response
+          .filter((item: any) => item.id == 1 || item.id == 9)
+          .map((item: any) => ({ id: item.id, text: item.nome }));
+      });
   }
 
   buscarTipoFamiliarService(): void {
-    const opcoes = {}
-    this.tipoFamiliarService.listar(opcoes)
+    const opcoes = {};
+    this.tipoFamiliarService
+      .listar(opcoes)
       .pipe(
         finalize((): void => {
           this.tipoFamiliares = this.tipoFamiliares.filter((item: any) => {
-            return ['Filho (a)', 'Esposo (a)'].includes(item?.text?.toString())
-          })
+            return ['Filho (a)', 'Esposo (a)'].includes(item?.text?.toString());
+          });
         })
       )
       .subscribe((response: any): void => {
-        const tipo = response.map((item: any) => ({ id: item.id, text: item.nome }))
+        const tipo = response.map((item: any) => ({
+          id: item.id,
+          text: item.nome,
+        }));
         this.tipoFamiliares = tipo.filter((item: any) => item.id > 2); // excepto pai e mãe
-      })
+      });
   }
 
-
-
   private criarForm() {
-    //const regexTelefone = /^9\d{8}$/;
-    const regexTelefone = /^\d{8,15}$/;
-    const regexNome = '^[A-Za-zÀ-ÖØ-öø-ÿ- ]*$';
     this.simpleForm = this.fb.group({
-      nome: ['', [Validators.required, Validators.minLength(4), Validators.pattern(regexNome)]],
-      contacto: ['', Validators.pattern(regexTelefone)],
-      sigpq_tipo_familiar_id: ['', Validators.required],
-      sigpq_tipo_documento_id: ['', Validators.required],
-      data_de_nascimento: ['', [
-        Validators.required
-      ]],
-      pessoafisica_id: [this.getPessoaId, Validators.required],
-      anexo: ['', Validators.required],
-      tipo_historico_saude: [null]
-    })
+      tipo_historico_saude: [null],
+      grau_parentesco: [null],
+      qual_historico_saude: [null],
+      tempo_historico_saude: [null],
+    });
   }
 
   validateInput(event: Event): void {
@@ -154,17 +157,14 @@ export class HistoricoSaudeComponent implements OnInit {
     input.value = input.value.replace(/[^0-9]/g, ''); // Permite somente números
   }
 
-
-
-
   uploadFile(event: any, campo: any = null): void {
-    let file: File | Blob = event.target.files[0]
+    let file: File | Blob = event.target.files[0];
     this.simpleForm.get(campo)?.setValue(file);
     this.simpleForm.get(campo)?.updateValueAndValidity();
   }
 
   public handlerCollapse($evt: any) {
-    const collapse: any = document.querySelector(`#${$evt}`)
+    const collapse: any = document.querySelector(`#${$evt}`);
     const faInput: any = collapse.querySelector('.fa-1');
 
     if (faInput) {
@@ -173,88 +173,92 @@ export class HistoricoSaudeComponent implements OnInit {
     }
   }
 
-
   private get getData() {
-    const formData = new FormData()
-    formData.append('nome', String(this.simpleForm.value.nome).trim().toUpperCase())
-    formData.append('contacto', this.simpleForm.value.contacto)
-    formData.append('sigpq_tipo_familiar_id', this.simpleForm.value.sigpq_tipo_familiar_id)
-    formData.append('sigpq_tipo_documento_id', this.simpleForm.value.sigpq_tipo_documento_id)
-    formData.append('anexo', this.simpleForm.value.anexo)
-    formData.append('data_de_nascimento', this.simpleForm.value.data_de_nascimento)
-    formData.append('pessoafisica_id', this.simpleForm.value.pessoafisica_id)
-    if(!this.buscarId)formData.append('activo','1')
-    return formData
-  }
- 
-  public onSubmit() {
+    const formData = new FormData();
+    formData.append(
+      'tipo_historico_saude',
+      this.simpleForm?.value?.tipo_historico_saude
+    );
+    formData.append('grau_parentesco', this.simpleForm?.value?.grau_parentesco);
+    formData.append(
+      'qual_historico_saude',
+      this.simpleForm?.value?.qual_historico_saude
+    );
+    formData.append(
+      'tempo_historico_saude',
+      this.simpleForm?.value?.tempo_historico_saude
+    );
+    formData.append('funcionario_id', this.getId.toString());
 
-    if (this.simpleForm.invalid || this.submitted)
-      return
-    const formData = this.getData
-    this.isLoading = true
+    return formData;
+  }
+
+  public onSubmit() {
+    if (this.simpleForm.invalid || this.submitted) return;
+    const formData = this.getData;
+    this.isLoading = true;
     this.submitted = true;
 
-    const type = this.buscarId ? this.agregadoFamiliarService.editar(formData, this.buscarId) : this.agregadoFamiliarService.registar(formData)
+    const type = this.buscarId
+      ? this.historicoSaudeService.editar(formData, this.buscarId)
+      : this.historicoSaudeService.registar(formData);
 
-    type.pipe(
-      finalize(() => {
-        this.isLoading = false;
-        this.submitted = false;
-      })
-    ).subscribe({
-      next: () => {
-        this.reiniciarFormulario()
-        this.recarregarPagina()
-        this.limparItem()
-      }
-    })
-
-  }
-
-  private get getDado_activo() {
-    const formData = new FormData()
-    formData.append('activo','1')
-    return formData
-  }
-
-
-    setItemAprovar(item:any)
-  {
-    const dados = this.getDado_activo
-      const type = this.agregadoFamiliarService.activo(dados, item.id)
-  
-      type.pipe(
+    type
+      .pipe(
         finalize(() => {
           this.isLoading = false;
           this.submitted = false;
         })
-      ).subscribe({
+      )
+      .subscribe({
         next: () => {
-          this.reiniciarFormulario()
-          this.recarregarPagina()
-          this.limparItem()
-        }
-      })
+          this.reiniciarFormulario();
+          this.recarregarPagina();
+          this.limparItem();
+        },
+      });
   }
 
+  private get getDado_activo() {
+    const formData = new FormData();
+    formData.append('activo', '1');
+    return formData;
+  }
+
+  setItemAprovar(item: any) {
+    const dados = this.getDado_activo;
+    const type = this.agregadoFamiliarService.activo(dados, item.id);
+
+    type
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+          this.submitted = false;
+        })
+      )
+      .subscribe({
+        next: () => {
+          this.reiniciarFormulario();
+          this.recarregarPagina();
+          this.limparItem();
+        },
+      });
+  }
 
   public reiniciarFormulario = () => {
-    $('#file-familiar').val('')
-    this.simpleForm.reset()
+    $('#file-familiar').val('');
+    this.simpleForm.reset();
     this.simpleForm.patchValue({
-      pessoafisica_id: this.getPessoaId
-    })
-  }
+      pessoafisica_id: this.getPessoaId,
+    });
+  };
 
   public recarregarPagina() {
     this.filtro.page = 1;
-    this.filtro.perPage = 5
-    this.filtro.search = ''
-    this.buscarAgregadoFamiliares()
+    this.filtro.perPage = 5;
+    this.filtro.search = '';
+    this.buscarHistoricoSaude();
   }
-
-
 
   public filtrarPagina(key: any, $e: any, reiniciar: boolean = true) {
     if (key == 'page') {
@@ -265,116 +269,118 @@ export class HistoricoSaudeComponent implements OnInit {
       this.filtro.search = $e;
     }
 
-    this.buscarAgregadoFamiliares()
+    this.buscarHistoricoSaude();
   }
 
-  private buscarAgregadoFamiliares() {
-    this.agregadoFamiliarService.listar({ ...this.filtro, pessoafisica_id: this.getPessoaId }).pipe().subscribe({
-      next: (response: any) => {
+  private buscarHistoricoSaude() {
+    this.historicoSaudeService
+      .listar({ ...this.filtro, funcionario_id: this.getId })
+      .pipe()
+      .subscribe({
+        next: (response: any) => {
+          // this.agregadosFamiliarFile = response.data.filter((documento: any) => {
 
+          //   // Use includes para verificar se o valor está presente no array
+          //   if (['Bilhete de Identidade', 'Boletim de Nascimento'].includes(documento?.sigpq_tipo_documento_nome)) {
+          //     return true; // Retorna true para incluir o documento no resultado
+          //   }
+          //   return false
+          // });
 
+          this.historicoSaude = response.data;
+          // this.agregadosFamiliarFile = response.data;
 
-        // this.agregadosFamiliarFile = response.data.filter((documento: any) => {
+          // this.historicoSaude = response.data.filter((documento: any) => {
 
-        //   // Use includes para verificar se o valor está presente no array
-        //   if (['Bilhete de Identidade', 'Boletim de Nascimento'].includes(documento?.sigpq_tipo_documento_nome)) {
-        //     return true; // Retorna true para incluir o documento no resultado
-        //   }
-        //   return false
-        // });
+          //   // Use includes para verificar se o valor está presente no array
+          //   if (['Bilhete de Identidade', 'Boletim de Nascimento'].includes(documento?.sigpq_tipo_documento_nome)) {
+          //     return true; // Retorna true para incluir o documento no resultado
+          //   } else {
+          //     return false; // Retorna false para excluir o documento do resultado
+          //   }
+          // });
 
+          this.totalBase = response.meta.current_page
+            ? response.meta.current_page === 1
+              ? 1
+              : (response.meta.current_page - 1) * response.meta.per_page + 1
+            : this.totalBase;
 
+          this.pagination = this.pagination.deserialize(response.meta);
+        },
+      });
 
-        this.agregadosFamiliares = response.data
-        this.agregadosFamiliarFile = response.data
-
-        // this.agregadosFamiliares = response.data.filter((documento: any) => {
-
-        //   // Use includes para verificar se o valor está presente no array
-        //   if (['Bilhete de Identidade', 'Boletim de Nascimento'].includes(documento?.sigpq_tipo_documento_nome)) {
-        //     return true; // Retorna true para incluir o documento no resultado
-        //   } else {
-        //     return false; // Retorna false para excluir o documento do resultado
-        //   }
-        // });
-
-        this.totalBase = response.meta.current_page ?
-          response.meta.current_page === 1 ? 1
-            : (response.meta.current_page - 1) * response.meta.per_page + 1
-          : this.totalBase;
-
-        this.pagination = this.pagination.deserialize(response.meta);
-      }
-    });
-
-    //hasConjuge=this.agregadosFamiliares.filter((item:any)=>{item.})
-    //console.log("Dados recuperados:",this.agregadosFamiliares)
-
+    //hasConjuge=this.historicoSaude.filter((item:any)=>{item.})
+    //console.log("Dados recuperados:",this.historicoSaude)
   }
-
 
   public get getPessoaId(): number {
-    return this.params?.getInfo as number ?? this.params?.getId as number
+    return (this.params?.getInfo as number) ?? (this.params?.getId as number);
   }
 
   construcao() {
-    alert('Em construção')
+    alert('Em construção');
   }
 
   visualizar(documento: any) {
-
-
     const opcoes = {
       pessoaId: this.getPessoaId,
-      url: ''
-    }
+      url: '',
+    };
 
-    this.fileUrl = null
+    this.fileUrl = null;
 
-    if (['Bilhete de Identidade', 'Boletim De Nascimento'].includes(documento?.sigpq_tipo_documento_nome)) {
-      opcoes.url = documento?.anexo || null
+    if (
+      ['Bilhete de Identidade', 'Boletim De Nascimento'].includes(
+        documento?.sigpq_tipo_documento_nome
+      )
+    ) {
+      opcoes.url = documento?.anexo || null;
     } else {
-      const documentoAux = this.agregadosFamiliarFile.find((f: any) => f.sigpq_tipo_documento_id == documento.sigpq_tipo_documento_id)
-      opcoes.url = documentoAux?.anexo || null
+      const documentoAux = this.agregadosFamiliarFile.find(
+        (f: any) =>
+          f.sigpq_tipo_documento_id == documento.sigpq_tipo_documento_id
+      );
+      opcoes.url = documentoAux?.anexo || null;
     }
 
-    if (!opcoes.url) return false
+    if (!opcoes.url) return false;
 
-    this.carregarDocumento = true
-    this.ficheiroService.getFile(opcoes).pipe(
-      finalize(() => {
-        this.carregarDocumento = false
-      })
-    ).subscribe((file) => {
-      this.fileUrl = this.ficheiroService.createImageBlob(file);
-    });
+    this.carregarDocumento = true;
+    this.ficheiroService
+      .getFile(opcoes)
+      .pipe(
+        finalize(() => {
+          this.carregarDocumento = false;
+        })
+      )
+      .subscribe((file) => {
+        this.fileUrl = this.ficheiroService.createImageBlob(file);
+      });
 
-    return true
+    return true;
   }
 
-
   public setItem(item: any) {
-    if (!item) return
-    this.agregadosFamiliar = item
+    if (!item) return;
+    this.agregadosFamiliar = item;
 
     if (item?.anexo) {
-      $('#text').css('color', 'green').text('Contem arquivo*')
+      $('#text').css('color', 'green').text('Contem arquivo*');
     } else {
-      $('#text').css('color', 'red').text('Não contem arquivo*')
+      $('#text').css('color', 'red').text('Não contem arquivo*');
     }
-  console.log("Dados recebidos:",item)
+    console.log('Dados recebidos:', item);
     this.simpleForm.patchValue({
       nome: item?.nome,
       contacto: item?.contacto,
       sigpq_tipo_familiar_id: item?.sigpq_tipo_familiar_id,
       sigpq_tipo_documento_id: item?.sigpq_tipo_documento_id,
-      data_de_nascimento:item?.data_de_nascimento
-      ? this.formatarData(item.data_de_nascimento)
-      : null, // Converte para 'YYYY-MM-DD' ou null
+      data_de_nascimento: item?.data_de_nascimento
+        ? this.formatarData(item.data_de_nascimento)
+        : null, // Converte para 'YYYY-MM-DD' ou null
       anexo: item?.anexo,
-    })
-
-
+    });
   }
 
   private corrigirFormatoData(data: string): string | null {
@@ -393,8 +399,6 @@ export class HistoricoSaudeComponent implements OnInit {
     const [, dia, mes, ano, hora = '00', minuto = '00', segundo = '00'] = match;
     return `${ano}-${mes}-${dia}T${hora}:${minuto}:${segundo}Z`; // Z garante UTC
   }
-
-
 
   private formatarData(data: any): string | null {
     if (!data) return null;
@@ -415,14 +419,12 @@ export class HistoricoSaudeComponent implements OnInit {
     return parsedDate.toISOString().split('T')[0];
   }
 
-
   public limparItem() {
-    this.agregadosFamiliar = null
-    $('#text').css('color', 'none').text('')
+    this.agregadosFamiliar = null;
+    $('#text').css('color', 'none').text('');
   }
 
   public get buscarId() {
-    return this.agregadosFamiliar?.id
+    return this.agregadosFamiliar?.id;
   }
-
 }
