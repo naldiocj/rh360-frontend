@@ -158,15 +158,17 @@ export class ListarComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit() {
     this.fillTipoOrdenacao();
-  }
 
-  ngAfterViewInit() {
     this.buscarRegimes();
     //this.buscarClasses()
     this.validarBuscaDeAgentes();
     this.buscarTipoEstruturaOrganica();
     this.buscarSituacaoEstados();
     this.buscarTipoCargo();
+  }
+
+  ngAfterViewInit() {
+    
   }
 
   buscarTipoCargo(): void {
@@ -261,14 +263,14 @@ export class ListarComponent implements OnInit, OnDestroy, AfterViewInit {
               this.funcionarios = response.data;
               this.contarFuncionariosPorPagina();
 
-              this.totalBase = response.meta.current_page
+              this.totalBase = response?.meta?.current_page
                 ? response.meta.current_page === 1
                   ? 1
-                  : (response.meta.current_page - 1) * response.meta.per_page +
+                  : (response.meta.current_page - 1) * response?.meta?.per_page +
                     1
                 : this.totalBase;
 
-              this.pagination = this.pagination.deserialize(response.meta);
+              this.pagination = this.pagination.deserialize(response?.meta);
             });
         })
       )
@@ -834,8 +836,8 @@ export class ListarComponent implements OnInit, OnDestroy, AfterViewInit {
   async contarFuncionariosPorPagina() {
     this.estaTudoPreenchido =
       this.funcionariosSelecionados.filter(
-        (funcionario) => funcionario.page == this.filtro.page
-      ).length == this.funcionarios.length;
+        (funcionario) => funcionario.page == this.filtro?.page
+      )?.length == this.funcionarios?.length;
   }
 
   showModal(modalName: string) {

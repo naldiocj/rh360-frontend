@@ -36,6 +36,7 @@ import { AssinaturaDigitalComponent } from './registar-ou-editar/assinatura-digi
 import { GeometriaDeRostoComponent } from './registar-ou-editar/geometria-de-rosto/geometria-de-rosto.component';
 import { MaosBiometricoComponent } from './registar-ou-editar/impressao-digital/maos-biometrico/maos-biometrico.component';
 import { HistoricoPolicialComponent } from './registar-ou-editar/historico-policial/historico-policial.component';
+import { HistoricoSaudeComponent } from './registar-ou-editar/historico-saude/historico-saude.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { HistoricoPolicialComponent } from './registar-ou-editar/historico-polic
     GeometriaDeRostoComponent,
     MaosBiometricoComponent,
     HistoricoPolicialComponent,
+    HistoricoSaudeComponent
     // LoadingPageComponent
   ],
   imports: [

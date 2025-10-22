@@ -232,6 +232,20 @@
         <i class="fa fa-cubes"></i> Outros Empregos
       </button>
     </li>
+    <li class="flex-fill d-flex justify-content-between align-item-center">
+      <button
+        type="button"
+        [disabled]="this.maisInformacao"
+        (click)="alterarPasso(13)"
+        class="text-uppercase border flex-fill m-0 py-2 px-3  d-block btn-piips {{
+          this.maisInformacao ? 'btn-secondary' : 'btn-piips-secondary'
+        }} {{ this.tabCount == 13 ? 'active' : '' }}"
+        href="#solid-justified-tab5"
+        data-toggle="tab"
+      >
+        <i class="fa fa-heartbeat" aria-hidden="true"></i> Histórico de Saúde
+      </button>
+    </li>
     <!-- <li class="flex-fill d-flex justify-content-between align-item-center">
       <button
         type="button"
@@ -411,6 +425,15 @@
         [params]="this.getParams"
       ></sigpq-historico-policial>
     </div> -->
+    <div
+      class="tab-pane {{ this.tabCount == 13 ? 'show active' : '' }}"
+      id="solid-justified-tab7"
+    >
+      <sigpq-historico-saude
+        [options]="options"
+        [params]="this.getParams"
+      ></sigpq-historico-saude>
+    </div>
   </div>
 
   <!-- <form [formGroup]="this.simpleForm">

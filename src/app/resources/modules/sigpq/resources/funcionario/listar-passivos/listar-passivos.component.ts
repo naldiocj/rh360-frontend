@@ -216,13 +216,13 @@ export class ListarPassivoComponent implements OnInit, OnDestroy {
       )
       .subscribe((response) => {
         this.funcionarios = response.data;
-        this.totalBase = response.meta.current_page
+        this.totalBase = response?.meta?.current_page
           ? response.meta.current_page === 1
             ? 1
-            : (response.meta.current_page - 1) * response.meta.per_page + 1
+            : (response?.meta?.current_page - 1) * response?.meta?.per_page + 1
           : this.totalBase;
 
-        this.pagination = this.pagination.deserialize(response.meta);
+        this.pagination = this.pagination.deserialize(response?.meta);
       });
   }
 

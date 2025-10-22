@@ -548,6 +548,82 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
       });
   }
 
+  // Dentro do seu componente...
+
+public populate() {
+    const fakeData = this.getFakeFormData();
+    this.simpleForm.patchValue(fakeData); 
+}
+
+
+public getFakeFormData(): any {
+  // -----------------------------------------------------------------
+  // DADOS REAIS DE SIMULAÇÃO (Angola/Lusófono - respeitando as regex)
+  // -----------------------------------------------------------------
+
+  const today = new Date();
+  const todayString = today.toISOString().split('T')[0];
+  const date30YearsAgo = new Date(today.setFullYear(today.getFullYear() - 30)).toISOString().split('T')[0];
+  const date5YearsAgo = new Date(today.setFullYear(today.getFullYear() + 25)).toISOString().split('T')[0]; // Ajustando de volta para 5 anos atrás
+  const dateIn5Years = new Date(today.setFullYear(today.getFullYear() + 35)).toISOString().split('T')[0]; // Data futura para expiração
+
+  return {
+    // ----------------------------------
+    // DADOS DE IDENTIFICAÇÃO E REQUERIDOS
+    // ----------------------------------
+    nome_completo: 'Joaquim Silva Santos', // Mínimo 4, só letras e espaços (regexNome)
+    data_nascimento: date30YearsAgo, // Data de 30 anos atrás (Requerido)
+    genero: 1, // ID do Gênero (Ex: Masculino)
+    estado_civil_id: 2, // ID do Estado Civil (Ex: Solteiro)
+    naturalidade_id: 15, // ID da Naturalidade
+    residencia_bi: 'Bairro Cassenda, Rua 123', // Endereço do BI
+    nid: '001234567AO001', 
+    niic: '789012', // 6 digitos (Opcional)
+    data_emissao: date5YearsAgo, // Data de emissão (Requerido)
+    data_expira: dateIn5Years, // Data futura (Opcional)
+    nome_pai: 'António Joaquim', // (Opcional)
+    nome_mae: 'Maria Santos', // (Opcional)
+    local_nascimento: 'Luanda', // Mínimo 4 caracteres (Requerido)
+    patente_id: 3, // ID da Patente (Requerido)
+    sigpq_tipo_funcao_id: 7, // ID do Tipo de Função (Requerido)
+    sigpq_tipo_categoria_id: 4, // ID da Categoria (Requerido)
+    orgao_id: 101, // ID do Orgão (Requerido)
+    tipo_orgao: 1, // Tipo de Orgão (Requerido)
+    pessoajuridica_id: 101, // Geralmente o mesmo que orgao_id (Requerido)
+
+    nip: '987654', // 6 digitos (Opcional)
+    // Numero Agente: 8 digitos (Requerido)
+    numero_agente: '11223344', 
+    data_adesao: date5YearsAgo, // Data de adesão (Requerido)
+    
+    regime_id: 1, // ID do Regime (Requerido)
+    sigpq_tipo_vinculo_id: 2, // ID do Tipo de Vínculo (Requerido)
+    sigpq_situacao_id: 1, // ID da Situação Laboral (Requerido)
+    sigpq_tipo_habilitacao_literaria_id: 6,
+    sigpq_tipo_sanguineo_id: 3,
+    contacto: '933445566', 
+    contacto_alternativo: '88112233', 
+    contacto_servico: '88998877',
+    
+    email: 'joaquim.santos@email.com', 
+    iban: '000500000000000000021',
+    nps: '01A23456B7-89',
+    numero_despacho: '12342/SGP/2020',
+    seccao:'Seccão X',
+    brigada: 'Brigada Y',
+    residencia_actual: 'Nova residência para correspondência',
+    numero_carta_conducao: '1234567890',
+    pseudonimo: 'Jota',
+    linguas_internacionais: 'Inglês',
+    linguas_nacionais: 'Kimbundo',
+    numero_calcado: 42,
+    numero_camisa: 'M',
+    motivo_situacao_laboral: null,
+    numero_calca: 44,
+    email_institucional: 'jsantos@sic.gov.ao',
+  };
+}
+
   private criarForm() {
     const regexTelefone = /^9\d{8}$/;
     const regexTelefoneAlternativo = /^\d{8,15}$/;
