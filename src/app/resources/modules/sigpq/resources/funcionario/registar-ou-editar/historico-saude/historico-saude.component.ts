@@ -24,6 +24,7 @@ export class HistoricoSaudeComponent implements OnInit {
   @Input() public params: any;
   @Input() public options: any;
   public historicoSaude: any = [];
+  public historicosSaude: any = [];
   public agregadosFamiliar: any = [];
   public agregadosFamiliarFile: any = [];
   public totalBase: number = 0;
@@ -287,7 +288,7 @@ export class HistoricoSaudeComponent implements OnInit {
           //   return false
           // });
 
-          this.historicoSaude = response.data;
+          this.historicosSaude = response.data;
           // this.agregadosFamiliarFile = response.data;
 
           // this.historicoSaude = response.data.filter((documento: any) => {
@@ -363,24 +364,17 @@ export class HistoricoSaudeComponent implements OnInit {
 
   public setItem(item: any) {
     if (!item) return;
-    this.agregadosFamiliar = item;
+    this.historicoSaude = item;
 
-    if (item?.anexo) {
-      $('#text').css('color', 'green').text('Contem arquivo*');
-    } else {
-      $('#text').css('color', 'red').text('Não contem arquivo*');
-    }
     console.log('Dados recebidos:', item);
     this.simpleForm.patchValue({
-      nome: item?.nome,
-      contacto: item?.contacto,
-      sigpq_tipo_familiar_id: item?.sigpq_tipo_familiar_id,
-      sigpq_tipo_documento_id: item?.sigpq_tipo_documento_id,
-      data_de_nascimento: item?.data_de_nascimento
-        ? this.formatarData(item.data_de_nascimento)
-        : null, // Converte para 'YYYY-MM-DD' ou null
-      anexo: item?.anexo,
+      tipo_historico_saude: item?.tipo_historico_saude,
+      grau_parentesco: item?.grau_parentesco,
+      qual_historico_saude: item?.qual_historico_saude,
+      tempo_historico_saude: item?.tempo_historico_saude,
     });
+
+    this.isNotQuestion()
   }
 
   private corrigirFormatoData(data: string): string | null {
@@ -420,11 +414,11 @@ export class HistoricoSaudeComponent implements OnInit {
   }
 
   public limparItem() {
-    this.agregadosFamiliar = null;
+    this.historicoSaude = null;
     $('#text').css('color', 'none').text('');
   }
 
   public get buscarId() {
-    return this.agregadosFamiliar?.id;
+    return this.historicoSaude?.id;
   }
 }
