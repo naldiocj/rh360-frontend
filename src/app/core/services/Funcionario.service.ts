@@ -330,7 +330,7 @@ export class FuncionarioService {
       // 'sigpq_vinculo_id',
       // 'sigpq_estado_id',
       'sigpq_situacao_id',
-      'nip',
+      // 'nip',
       'numero_agente',
       'orgao_id',
       'patente_id',

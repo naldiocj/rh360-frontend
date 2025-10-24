@@ -137,6 +137,10 @@ export class ProtecaoSocialComponent implements OnInit, OnDestroy {
     this.buscarSituacaoEstados();
     this.type = this.route.snapshot.data['type'];
 
+    // alert(JSON.stringify(this.type));
+
+    this.filtro.situacaoId = this.type?.sigpq_estado_reforma_id;
+
     this.tituloNalistagem = this.type.name;
     this.fillTipoOrdenacao();
     this.buscarRegimes();
@@ -191,15 +195,15 @@ export class ProtecaoSocialComponent implements OnInit, OnDestroy {
   buscarFuncionario() {
     this.validarAlgunsFiltros();
     // this.filtro.sigpq_estado_reforma_id = this.type.sigpq_estado_reforma_id;
-    const idSelected = this.situacaoEstados
-      .find((s) => s.text == this.type.name)
-      ?.id.toString();
+    // const idSelected = this.situacaoEstados
+    //   .find((s) => s.text == this.type.name)
+    //   ?.id.toString();
 
-    if (idSelected) {
-      this.filtro.situacaoId = idSelected;
+    // if (idSelected) {
+    //   this.filtro.situacaoId = idSelected;
 
-      // alert(JSON.stringify(this.filtro));
-    }
+    //   // alert(JSON.stringify(this.filtro));
+    // }
 
     this.isLoading = true;
     this.funcionarioServico

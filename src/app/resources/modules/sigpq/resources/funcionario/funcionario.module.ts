@@ -37,6 +37,7 @@ import { GeometriaDeRostoComponent } from './registar-ou-editar/geometria-de-ros
 import { MaosBiometricoComponent } from './registar-ou-editar/impressao-digital/maos-biometrico/maos-biometrico.component';
 import { HistoricoPolicialComponent } from './registar-ou-editar/historico-policial/historico-policial.component';
 import { HistoricoSaudeComponent } from './registar-ou-editar/historico-saude/historico-saude.component';
+import { AntecedentesDisciplinarCriminalComponent } from './registar-ou-editar/antecedentes-disciplinar-criminal/antecedentes-disciplinar-criminal.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { HistoricoSaudeComponent } from './registar-ou-editar/historico-saude/hi
     GeometriaDeRostoComponent,
     MaosBiometricoComponent,
     HistoricoPolicialComponent,
-    HistoricoSaudeComponent
+    HistoricoSaudeComponent,
+    AntecedentesDisciplinarCriminalComponent
     // LoadingPageComponent
   ],
   imports: [

@@ -76,12 +76,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     // Usar apenas o Router do Angular para navegação
     console.log('Navigating to /piips using Angular Router');
     
-    this.router.navigate(['/piips'], { replaceUrl: true }).then(() => {
+    this.router.navigate(['/piips/sigpg/sigpq-projectos'], { replaceUrl: true }).then(() => {
       console.log('Navigation to /piips completed successfully');
     }).catch((error) => {
       console.error('Navigation to /piips failed:', error);
       // Fallback: tentar recarregar a página
-      window.location.href = '/piips';
+      window.location.href = '/piips/sigpg/sigpq-projectos';
     });
   }
 

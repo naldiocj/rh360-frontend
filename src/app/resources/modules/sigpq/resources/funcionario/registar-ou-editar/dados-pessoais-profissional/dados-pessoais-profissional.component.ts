@@ -728,7 +728,7 @@ public getFakeFormData(): any {
         Validators.pattern('^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,6}$'),
       ],
 
-      foto_efectivo: [null, null],
+      foto_efectivo: [null],
       pseudonimo: [null],
       regime_id: [null, [Validators.required]],
       sigpq_tipo_vinculo_id: [null, [Validators.required]],
@@ -1692,7 +1692,7 @@ public getFakeFormData(): any {
       return;
     }
     // Campos obrigatórios essenciais (sempre obrigatórios)
-    const camposObrigatorios = [
+    let camposObrigatorios = [
       'nome_completo',
       'data_nascimento',
       'genero',
@@ -1707,6 +1707,10 @@ public getFakeFormData(): any {
       'patente_id',
       'sigpq_tipo_categoria_id',
     ];
+
+    if (this.regimeQuadro == 'II') {
+
+    }
     // Validação de campos obrigatórios
     for (const campo of camposObrigatorios) {
       const control = this.simpleForm.get(campo);
@@ -1773,7 +1777,8 @@ public getFakeFormData(): any {
     console.log('Modo:', isEditing ? 'Edição' : 'Registro');
     console.log('ID:', this.getId);
     // Envia os dados diretamente sem teste de conexão
-    const type = isEditing
+    try {
+      const type = isEditing
       ? this.funcionarioServico.editar(this.getId, this.simpleForm)
       : this.funcionarioServico.registar(formValue);
 
@@ -1860,6 +1865,9 @@ public getFakeFormData(): any {
           console.log('Subscribe complete');
         },
       });
+    } catch (error) {
+      console.log(error)
+    }
     console.log('Fim do onSubmit');
 
     // alert('Chamou');

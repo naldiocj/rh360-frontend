@@ -78,21 +78,21 @@ const routes: Routes = [
         path: 'protecao-social-reformados',
         data: {
           breadcrumb: 'Protecao-social-reformados',
-          type:{name:'Reformados',sigpq_estado_reforma_id:8}
+          type:{name:'Reformados',sigpq_estado_reforma_id:6}
         },
         component: ProtecaoSocialComponent
       },{
         path: 'protecao-social-falecidos',
         data: {
           breadcrumb: 'Protecao-social-falecido',
-          type:{name:'Falecidos',sigpq_estado_reforma_id:9}
+          type:{name:'Falecidos',sigpq_estado_reforma_id:8}
         },
         component: ProtecaoSocialComponent
       },{
         path: 'protecao-social-demitidos',
         data: {
           breadcrumb: 'Protecao-social-demitido',
-          type:{name:'Demitidos',sigpq_estado_reforma_id:10}
+          type:{name:'Demitidos',sigpq_estado_reforma_id:7}
         },
         component: ProtecaoSocialComponent
       }
