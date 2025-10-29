@@ -8,13 +8,13 @@ import { debounceTime, map, Observable } from "rxjs";
 })
 export class SigpjApiService {
 
-  public api: string = '/api/v1/sigpj';
+  public api: string = '/api/v1';
 
   constructor(private httpApi: ApiService) { }
 
   listarSituacaoDisciplinarAgentes(options: any): Observable<any> {
     return this.httpApi
-      .get(`${this.api}/disciplinar/api/listar-situacao-disciplinar-agentes`, options)
+      .get(`${this.api}/sigpq/antecedente-disciplinar-criminal`, options)
       .pipe(
         debounceTime(500),
         map((response: Object): any => {

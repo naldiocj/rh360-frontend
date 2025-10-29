@@ -103,7 +103,7 @@ const routes: Routes = [
           ).then((m) => m.MobilidadeModule)
       },
       {
-        path: 'sistuacao-disciplinar',
+        path: 'situacao-disciplinar',
         data: {
           breadcrumb: 'Mobilidade',
         },

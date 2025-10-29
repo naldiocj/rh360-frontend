@@ -433,8 +433,10 @@ export class ListarComponent implements OnInit {
   public setMobilidade(numeroGuia: any) {
     this.numeroGuia = numeroGuia
   }
+
   fileUrl:any;
   carregando:boolean=false
+  
   visualizarDocumento(item:any)
    {
     this.carregando=true

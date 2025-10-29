@@ -6,121 +6,270 @@
 <div class="content">
   <sigpq-header></sigpq-header>
 
-  <!-- <section class="section"> -->
-  <div class="col-lg-12">
-    <nav class="navbar navbar-light bg-light">
-      <form class="form-inline">
-        <select id="perPageSelector" class="form-control mr-sm-1" (change)="filtrarPagina('perPage',$event)">
-          <option *ngFor="let item of [5,10,20,50]" [value]="item">{{item}}</option>
+  <div class="header-ficha mt-1">
+    <div class="row" style="align-items: center">
+      <div
+        class="col-xl-8 col-lg-8 col-md-8 col-sm-12 d-flex justify-content-start align-items-start"
+      >
+        <div class="mais-info d-flex justify-content-center align-items">
+          <h4 class="text-white">
+            <b>Situação Disciplinar</b>
+          </h4>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 d-flex justify-content-end align-items-start">
+          <a href="javascript:void(0)" href="javascript:void(0)" data-toggle="modal" data-target="#"
+            class="btn-piips btn-piips-secondary border m-0 py-2 px-4"><i class="fa fa-list-alt"></i>
+            Exportar</a>
+        </div>
+      </div> -->
+  </div>
+  <div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+      <legend class="border-top d-flex justify-content-end align-item-center">
+        <button
+          class="btn-piips btn-piips-secondary m-0 py-2 border"
+          data-toggle="collapse"
+          href="#pesquisa-avancada"
+          role="button"
+          aria-expanded="false"
+          aria-controls="pesquisa-avancada"
+          style="cursor: pointer"
+        >
+          <i class="fa fa-search mx-2"></i>Pesquisa avançada
+        </button>
+      </legend>
+    </div>
+  </div>
+  <fieldset class="p-2">
+    <aside class="row">
+      <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12">
+        <select
+          class="form-control"
+          (change)="filtrarPagina('perPage', $event)"
+        >
+          <option *ngFor="let item of [5, 10, 20, 50]" [value]="item">
+            {{ item }}
+          </option>
         </select>
-        <!-- <select class="form-control mr-sm-1" (change)="filtrarPagina('estado',$event)">
-          <option *ngFor="let item of estados" [value]="item" selected>{{buscarTexto(item)}}</option>
-        </select> -->
-        <!-- <select id="regimeSelector" class="form-control mr-sm-1" (change)="filtrarPagina('regime',$event)">
-                <option *ngFor="let item of this.regimes" [value]="item.id">{{item.sigla}}</option>
-            </select> -->
-        <!-- <select id="vinculoSelector" class="form-control mr-sm-1" (change)="filtrarPagina('vinculo',$event)">
-            <option *ngFor="let item of this.tipoVinculos" [value]="item?.id">{{item.text}}</option>
-          </select> -->
-        <!-- <input class="form-control mr-sm-1" type="text" [ngModel]="filtro.search"
-                (ngModelChange)="filtrarPagina('search',$event)" placeholder="Pesquisa ..."> -->
-        <button (click)="this.recarregarPagina()" id="btpe1" class="btn btn-outline-success my-2 my-sm-0" type="submit">
-          <i style="font-size: 14px;" class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+      </div>
+
+      <div class="col-xl-8 col-lg-8 col-md-6 col-sm-12">
+        <input
+          class="form-control mr-sm-1"
+          type="text"
+          [ngModel]="filtro.search"
+          name="search"
+          (ngModelChange)="filtrarPagina('search', $event)"
+          placeholder="Pesquisar nome completo, nip, nas, ..."
+        />
+      </div>
+
+      <div
+        class="col-xl-2 col-lg-2 col-md-12 col-sm-12 d-flex justify-content-end align-items-center"
+      >
+        <button
+          type="button"
+          data-toggle="modal"
+          data-target="#ver-guia-marcha"
+          (click)="this.recarregarPagina()"
+          class="btn-piips btn-piips-secondary m-0 py-2"
+        >
+          <i
+            style="font-size: 14px"
+            class="fa fa-refresh fa-spin fa-3x fa-fw"
+          ></i>
           <b>Recarregar</b>
         </button>
-      </form>
-      <!-- <div>
-        <span *ngFor="let item of estados" class="btn btn-primary float-right"
-          [ngStyle]="{'background-color': buscarCor(item)}">{{buscarTexto(item)}}</span>
-      </div> -->
-    </nav>
-  </div>
-  <!-- </section> -->
+      </div>
+    </aside>
+    <aside class="row mt-2 collapse" id="pesquisa-avancada">
+      <div
+        class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-4"
+        *ngIf="this.getAuth?.user?.aceder_todos_agentes"
+      >
+        <label for=""><b>Tipo de Órgão</b></label>
+        <ng-select2
+          [options]="options"
+          [data]="this.agentes"
+          (valueChanged)="selecionarOrgaoOuComandoProvincial($event)"
+        >
+        </ng-select2>
+      </div>
 
-  <div class="col-md-12">
-    <table class="table table-border table-striped custom-table datatable mb-0">
-      <thead>
-        <tr>
-          <!-- <th>#</th> -->
-          <th>ID</th>
-          <th>Nome Completo</th>
-          <th>Sexo</th>
-          <th>NIP</th>
-          <th>Número de Agente</th>
-          <th class="text-center">Total Processos</th>
-          <th class="text-center">Operação</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngIf="this.isLoading">
-          <td colspan="9">
-            <aside *ngIf="this.isLoading">
-              <loading-page [texto]="'lista de mobilidade'"></loading-page>
-            </aside>
-          </td>
-        </tr>
-        <tr *ngFor="
-            let item of this.agentes
-              | paginate
-                : {
-                    id: 'situacao-disciplinar-agentes',
-                    itemsPerPage: this.pagination.per_page,
-                    currentPage: this.pagination.current_page,
-                    totalItems: this.pagination.total
-                  };
-            index as i
-          ">
-          <!-- <td [ngStyle]="{'background-color': buscarCor(item.estado)}"></td> -->
-          <td>{{ this.totalBase + i }}</td>
-          <td>
-            <strong>
-              <a routerLink="/" ariaCurrentWhenActive="page" [routerLink]="['/piips/sigpg/perfil/',item.id]"
-                style="font-size: 15px;">
-                {{item.nome_completo | uppercase}} {{item.apelido | uppercase}}
-              </a>
-            </strong>
-          </td>
-          <td>
-            {{item.genero == 'M'? 'Masculino':'Feminino'}}
-          </td>
-          <td>
-            {{item.nip}}
-          </td>
-          <td>
-            {{item.numero_agente}}
-          </td>
-          <td class="text-center">
-            {{item.total}}
-          </td>
-          <td class="text-right">
-            <div class="dropdown dropdown-action position-static">
-              <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
-                  class="fa fa-ellipsis-v"></i></a>
-              <div class="dropdown-menu dropdown-menu-right">
-                <a href="javascript:void(0)" class="dropdown-item">
-                  <i class="bi bi-list-ul m-r-5"></i>Visualizar
-                </a>
-              </div>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+      <div
+        class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-4"
+        *ngIf="this.getAuth?.user?.aceder_todos_agentes"
+      >
+        <label for=""><b>Direcção/Comando </b></label>
+        <ng-select2
+          [options]="options"
+          (valueChanged)="filtrarPagina('orgaoId', $event)"
+          [data]="this.orgaos"
+          [ngModel]="this.filtro.page"
+          name="orgaoId"
+        >
+        </ng-select2>
+      </div>
+    </aside>
+  </fieldset>
 
-  <div class="col-md-12">
-    <div class="row">
-      <div class="col-md-6">
-        Mostrando de {{ this.pagination.current_page }} á
-        {{ this.pagination.per_page }} de {{ this.pagination.total }} {{ this.pagination.total < 2? 'Registo'
-          : 'Registos' }} </div>
-          <div class="col-md-6">
-            <div class="float-right">
-              <pagination-controls id="situacao-disciplinar-agentes"
-                (pageChange)="this.filtrarPagina('page', $event, false)" [directionLinks]="true" [autoHide]="true"
-                previousLabel="Anterior" nextLabel="Próximo" [maxSize]="4" [responsive]="true"></pagination-controls>
-            </div>
-          </div>
+  <div class="row">
+    <div class="col-xl-12 col-lg-12 col-m-d12 col-sm-12">
+      <div class="table-responsive">
+        <table
+          class="table table-border table-striped custom-table datatable mb-0"
+        >
+          <thead>
+            <tr>
+              <!-- <th>#</th> -->
+              <th>ID</th>
+              <th>Nome Completo</th>
+              <th>Nº Processo</th>
+              <th>Refêrencia</th>
+              <th>Ofendido</th>
+              <th>Data de Registo</th>
+              <th>Operações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="this.isLoading">
+              <td colspan="9">
+                <aside *ngIf="this.isLoading">
+                  <loading-page
+                    [texto]="'lista de situações disciplinares'"
+                  ></loading-page>
+                </aside>
+              </td>
+            </tr>
+            <tr
+              *ngFor="
+                let item of this.agentes
+                  | paginate
+                    : {
+                        id: 'situacao-disciplinar-agentes',
+                        itemsPerPage: this.pagination.per_page,
+                        currentPage: this.pagination.current_page,
+                        totalItems: this.pagination.total
+                      };
+                index as i
+              "
+            >
+              <!-- <td [ngStyle]="{'background-color': buscarCor(item.estado)}"></td> -->
+              <td>{{ this.totalBase + i }}</td>
+              <td>
+                <strong>
+                  <a
+                    routerLink="/"
+                    ariaCurrentWhenActive="page"
+                    [routerLink]="['/piips/sigpg/perfil/', item.id]"
+                    style="font-size: 15px"
+                  >
+                    {{ item.nome_completo | uppercase }}
+                    <!-- {{ item.apelido | uppercase }} -->
+                  </a>
+                </strong>
+              </td>
+              <td>
+                {{ item.numero_processo ?? "N/A" }}
+              </td>
+              <td>
+                {{ item.referencia }}
+              </td>
+              <td>
+                {{ item.ofendido }}
+              </td>
+              <td>
+                {{ item.created_at }}
+              </td>
+              <td class="text-right">
+                <div class="dropdown dropdown-action position-static">
+                  <a
+                    href="#"
+                    class="action-icon dropdown-toggle"
+                    data-toggle="dropdown"
+                    aria-expanded="false"
+                    ><i class="fa fa-ellipsis-v"></i
+                  ></a>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <a
+                      href="javascript:void(0)"
+                      class="dropdown-item"
+                      (click)="visualizar(item)"
+                      data-toggle="modal"
+                      data-target="#modalVisualizarSituacaoDisciplinar"
+                    >
+                      <i class="bi bi-list-ul m-r-5"></i>Visualizar Documento
+                    </a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      Mostrando de {{ this.pagination.current_page }} á
+      {{ this.pagination.per_page }} de {{ this.pagination.total }}
+      {{ this.pagination.total < 2 ? "Registo" : "Registos" }}
+    </div>
+    <div class="col-md-6">
+      <div class="float-right">
+        <pagination-controls
+          id="situacao-disciplinar-agentes"
+          (pageChange)="this.filtrarPagina('page', $event, false)"
+          [directionLinks]="true"
+          [autoHide]="true"
+          previousLabel="Anterior"
+          nextLabel="Próximo"
+          [maxSize]="4"
+          [responsive]="true"
+        ></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="modalVisualizarSituacaoDisciplinar"
+  aria-labelledby="modalVisualizarSituacaoDisciplinar"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog"
+    role="document"
+    style="overflow-y: hidden; min-width: 40%"
+  >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>
+          <i class="fa fa-user"></i>
+          Situação Disciplinar do Agente
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="content p-4">
+        <iframe
+          [src]="fileUrl"
+          width="100%"
+          frameborder="0"
+          style="min-height: 700px"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+</div>
