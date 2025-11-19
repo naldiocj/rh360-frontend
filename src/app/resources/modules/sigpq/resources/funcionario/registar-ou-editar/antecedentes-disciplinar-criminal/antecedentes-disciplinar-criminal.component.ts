@@ -96,7 +96,7 @@ export class AntecedentesDisciplinarCriminalComponent implements OnInit {
   }
 
   public get getId() {
-    return this.params?.getId as number;
+    return (this.params?.getId ?? this.params.getInfo) as number;
   }
 
   public getPessoas() {
@@ -172,7 +172,7 @@ export class AntecedentesDisciplinarCriminalComponent implements OnInit {
       descricao: [null],
       pessoa_id: [null],
       funcionario_id: [null],
-      anexo: [null]
+      anexo: [null],
     });
   }
 
@@ -203,9 +203,10 @@ export class AntecedentesDisciplinarCriminalComponent implements OnInit {
     formData.append('referencia', this.simpleForm?.value?.referencia);
     formData.append('ofendido', this.simpleForm?.value?.ofendido);
     formData.append('anexo', this.simpleForm.get('anexo')?.value);
-    formData.append('funcionario_id', this.getId.toString());
+    formData.append('funcionario_id', this.getId?.toString());
     formData.append('descricao', this.simpleForm?.value?.descricao);
     formData.append('pessoa_id', this.simpleForm?.value?.pessoa_id);
+
 
     return formData;
   }
@@ -243,7 +244,7 @@ export class AntecedentesDisciplinarCriminalComponent implements OnInit {
           this.limparItem();
         },
         error(err) {
-          console.log(err)
+          console.log(err);
         },
       });
   }
@@ -401,7 +402,6 @@ export class AntecedentesDisciplinarCriminalComponent implements OnInit {
       pessoa_id: item?.pessoa_id,
       descricao: item?.descricao,
     });
-
   }
 
   private corrigirFormatoData(data: string): string | null {
@@ -443,7 +443,7 @@ export class AntecedentesDisciplinarCriminalComponent implements OnInit {
   public limparItem() {
     this.historicoSaude = null;
     $('#text').css('color', 'none').text('');
-    this.simpleForm.get('anexo').setValue(null)
+    this.simpleForm.get('anexo').setValue(null);
   }
 
   public get buscarId() {

@@ -284,6 +284,7 @@ export class FuncionarioService {
       formData.append('pessoajuridica_id', '');
     }
 
+    formData.append('niic', String(form['niic'] ?? '').trim());
     formData.append('seccao', String(form['seccao'] ?? '').trim());
     formData.append('brigada', String(form['brigada'] ?? '').trim());
     formData.append('tipo_orgao_id', String(form['tipo_orgao'] ?? '').trim());
@@ -434,6 +435,10 @@ export class FuncionarioService {
     formData.append(
       'contacto_servico',
       String(form.get('contacto_servico')?.value).trim()
+    );
+    formData.append(
+      'niic',
+      String(form.get('niic')?.value).trim()
     );
     formData.append(
       'email_servico',

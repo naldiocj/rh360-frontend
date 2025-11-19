@@ -18,6 +18,7 @@ import { PropostaProvimentoService } from '@resources/modules/sigpq/core/service
 import { TipoCargoService } from '@resources/modules/sigpq/core/service/Tipo-cargo.service';
 import { ActoNomeacaoService } from '@resources/modules/sigpq/core/service/config/Acto-Nomeacao.service';
 import { ActoProgressaoService } from '@resources/modules/sigpq/core/service/config/Acto-Progressao.service';
+import { TipoCarreiraOuCategoriaService } from '@resources/modules/sigpq/core/service/config/Tipo-carreira-ou-categoria.service';
 import { TipoFuncaoService } from '@resources/modules/sigpq/core/service/config/TipoFuncao.service';
 import { UtilService } from '@resources/modules/sigpq/core/utils/util.service';
 
@@ -76,15 +77,18 @@ export class PromoverModalComponent implements OnInit, OnDestroy, OnChanges {
     private tipoCargoService: TipoCargoService,
     private tipoFuncaoService: TipoFuncaoService,
     private formatarDataHelper: FormatarDataHelper,
-    private utilService: UtilService
+    private utilService: UtilService,
+    private tipoCarreiraOuCategoriaService: TipoCarreiraOuCategoriaService
   ) {}
 
   ngOnInit(): void {
     this.createForm();
-    this.buscarPatente();
     this.buscarActoNomeacao();
     this.buscarTipoCargo();
     this.buscarTipoFuncao();
+    this.buscarCategorias();
+
+    this.patenteClasse = this.emTempos[0]?.patenteClasse;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -107,6 +111,7 @@ export class PromoverModalComponent implements OnInit, OnDestroy, OnChanges {
         }));
       });
   }
+
   buscarTipoCargo(): void {
     const opcoes = {};
     this.tipoCargoService
@@ -119,19 +124,19 @@ export class PromoverModalComponent implements OnInit, OnDestroy, OnChanges {
         }));
       });
   }
+
   private formData() {
     const data: FormData = new FormData();
 
-   
     Object.entries(this.simpleForm.value).forEach(([key, value]) => {
       if (key !== 'pessoas_id' && value != undefined)
         data.append(key, (value as string).toString());
     });
     data.append('pessoas_id', this.simpleForm.value?.pessoas_id);
 
-   
     return data;
   }
+
   private createForm() {
     this.simpleForm = this.fb.group({
       patente_id: [null, [Validators.required]],
@@ -147,18 +152,32 @@ export class PromoverModalComponent implements OnInit, OnDestroy, OnChanges {
   public get pessoasId() {
     return this.emTempos?.id;
   }
-  buscarPatente(): void {
-    this.patenteService
+
+  private buscarCategorias(): void {
+    this.tipoCarreiraOuCategoriaService
       .listar({})
       .pipe(finalize((): void => {}))
       .subscribe((response: any): void => {
-        this.patentes = response.map((item: any) => ({
+        this.classes = response
+        // .filter((item: any) => item.id >= this.emTempos[0]?.patente_classe && item.id <= 11)
+        .map((item: any) => ({
           id: item.id,
-          text: item.nome,
+          text: `${item.nome}`,
         }));
-        this._patentes = this.patentes;
       });
   }
+
+  // buscarPatente(): void {
+  //   this.patenteService
+  //     .listar({})
+  //     .pipe(finalize((): void => {}))
+  //     .subscribe((response: any): void => {
+  //       this.patentes = response.map((item: any) => ({
+  //         id: item.id,
+  //         text: item.nome,
+  //       }));
+  //     });
+  // }
 
   private buscarActoProgressao(options: any = null): void {
     const opcoes = {
@@ -251,6 +270,32 @@ export class PromoverModalComponent implements OnInit, OnDestroy, OnChanges {
     );
   }
 
+  public definirPatenteAndClasse($event: string | string[]) {
+    const patentId = this.emTempos[0]?.patente_id;
+    this.buscarPatentes(patentId);
+    this.buscarCategorias();
+
+    const [tipoActo]: { id: string; text: string }[] =
+      this.actoProgressaos.filter((item) => item.id == $event);
+
+    this.tituloPatente = '""';
+    const { text } = tipoActo;
+    this.tituloPatente = this.utilService.getActoVerbos(text)!;
+    this.tituloClasse = 'Classe de ' + this.patenteClasse;
+
+    // if (this.utilService.isPromocao(text) || this.utilService.isGraducao(text))
+    //   this.filtarPosto(this.emTempos);
+    // else if (
+    //   this.utilService.isDespromocao(text) ||
+    //   this.utilService.isDesgraducao(text)
+    // )
+    //   this.filtarPosto(this.emTempos, false);
+    // else {
+    //   this._patentes = [];
+    //   return;
+    // }
+  }
+
   public handlerTipoPatente($event: string | string[]) {
     const [tipoActo]: { id: string; text: string }[] =
       this.actoProgressaos.filter((item) => item.id == $event);
@@ -273,49 +318,69 @@ export class PromoverModalComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
+  public buscarPatentes(patentId: string | any = null): void {
+    // const classeSelecionada = this.tipoCarreiraOuCategorias_.filter(
+    //   (x: any) => x.id == idCategoria
+    // )[0]?.nome;
+
+    this.patenteService
+      .listar({})
+      .pipe(finalize((): void => {}))
+      .subscribe((response: any): void => {
+        response.sort((a: any, b: any) => a.id - b.id);
+        this.patentes = response
+          // .filter((p: any) => p.id >= patentId)
+          .map((item: any) => ({
+            id: item.id,
+            text: `${item.nome}`,
+          }));
+          this._patentes = this.patentes; 
+      });
+  }
+
   private filtarPosto(efectivos: any[], ascender: boolean = true) {
     this._patentes = [];
 
-    const patentesEfectivos = ProvimentoHelper.buscarPatentEfectivos(efectivos);
+    // const patentesEfectivos = ProvimentoHelper.buscarPatentEfectivos(efectivos);
 
-    let patentesValidas = ProvimentoHelper.buscarPatentesValidaPorPatente(
-      efectivos,
-      this.patentes
-    );
+    // let patentesValidas = ProvimentoHelper.buscarPatentesValidaPorPatente(
+    //   efectivos,
+    //   this.patentes
+    // );
 
-    if (patentesValidas.length === 0) {
-      console.error('Nenhuma patente válida encontrada.');
-      return;
-    }
-    if (ascender) {
-      patentesValidas = ProvimentoHelper.ordemPatente(patentesValidas);
-      const patenteMaisAlta = patentesValidas[0];
+    // if (patentesValidas.length === 0) {
+    //   console.error('Nenhuma patente válida encontrada.');
+    //   return;
+    // }
+    // if (ascender) {
+    //   patentesValidas = ProvimentoHelper.ordemPatente(patentesValidas);
+    //   const patenteMaisAlta = patentesValidas[0];
 
-      const patenteSeguinte = ProvimentoHelper.patenteSeguinte(
-        this.patentes,
-        patentesValidas
-      );
+    //   const patenteSeguinte = ProvimentoHelper.patenteSeguinte(
+    //     this.patentes,
+    //     patentesValidas
+    //   );
 
-      if (patenteSeguinte) {
-        this._patentes.push(patenteSeguinte);
-      } else {
-        this._patentes.push(patenteMaisAlta);
-      }
-    } else {
-      patentesValidas = ProvimentoHelper.ordemPatente(patentesValidas, false);
-      const patenteMaisBaixa = patentesValidas[0];
+    //   if (patenteSeguinte) {
+    //     this._patentes.push(patenteSeguinte);
+    //   } else {
+    //     this._patentes.push(patenteMaisAlta);
+    //   }
+    // } else {
+    //   patentesValidas = ProvimentoHelper.ordemPatente(patentesValidas, false);
+    //   const patenteMaisBaixa = patentesValidas[0];
 
-      const patenteAnterior = ProvimentoHelper.patenteAnterior(
-        this.patentes,
-        patentesValidas
-      );
+    //   const patenteAnterior = ProvimentoHelper.patenteAnterior(
+    //     this.patentes,
+    //     patentesValidas
+    //   );
 
-      if (patenteAnterior) {
-        this._patentes.push(patenteAnterior);
-      } else {
-        this._patentes.push(patenteMaisBaixa);
-      }
-    }
+    //   if (patenteAnterior) {
+    //     this._patentes.push(patenteAnterior);
+    //   } else {
+    //     this._patentes.push(patenteMaisBaixa);
+    //   }
+    // }
 
     this.patenteService
       .listar({})

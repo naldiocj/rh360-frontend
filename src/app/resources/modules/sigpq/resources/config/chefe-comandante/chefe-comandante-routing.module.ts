@@ -18,12 +18,12 @@ const routes: Routes = [
       breadcrumb: 'Chefe-Comandante',
     },
     children: [
-      {
-        path: 'registar-ou-editar',
-        data: {
-          breadcrumb: 'Registar ou editar',
-        },
-      },
+      // {
+      //   path: 'registar-ou-editar',
+      //   data: {
+      //     breadcrumb: 'Registar ou editar',
+      //   },
+      // },
       {
         path: 'listar',
         data: {

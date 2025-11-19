@@ -159,6 +159,10 @@ export class UtilsHelper {
     this.location.back()
   }
 
+   public toUpperCase(str: string): string {
+    return str.toUpperCase();
+  }
+
   public eInscrito(valor: string | null): { texto: string; bg: string; inscrito: boolean, } {
     const isInscrito = valor !== null;
 

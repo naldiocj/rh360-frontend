@@ -273,10 +273,10 @@
 <!-- MODAL SOMENTE QUANDO ESTAMOS PARA ADICIONAR UMA LICENÇA -->
  <ng-template #aparecer_agendar_licenca>
   <div class="content"> 
+    <!-- [licencaSelecionada]="filtro.tipo_licenca_id"  -->
     <app-agendar-licenca 
     [agenteSelecionado]="agenteSelecionado" 
     [informacao]="informacao"
-    [licencaSelecionada]="filtro.tipo_licenca_id" 
     [anoAtual]="converterParaNumero(filtro.ano)" 
     [mesAtual]="converterParaNumero(filtro.mes)-1" 
     [local]="local" 

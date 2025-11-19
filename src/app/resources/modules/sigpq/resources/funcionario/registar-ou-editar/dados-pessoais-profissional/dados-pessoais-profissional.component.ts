@@ -452,7 +452,7 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
           numero_calcado: response?.numero_calcado,
           numero_camisa: response?.numero_camisa,
           motivo_situacao_laboral: response?.motivo_situacao_laboral,
-          numero_calca: response?.numero_calca
+          numero_calca: response?.numero_calca,
         });
         this.selectedPatente = response?.patente_id;
         this.ajustarFotoFardado();
@@ -554,7 +554,7 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
     const regexNome = '^[A-Za-zÀ-ÖØ-öø-ÿ- ]*$';
 
     this.simpleForm = this.fb.group({
-      foto_civil: [null, [Validators.required]],
+      foto_civil: [null],
       nome_completo: [
         null,
         [
@@ -572,13 +572,7 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
       distrito_id: [null],
       residencia_bi: [null, [Validators.required]],
 
-      nid: [
-        null,
-        [
-          Validators.required,
-          Validators.pattern('^[0-9]{9}[a-zA-Z]{2}[0-9]{3}$'),
-        ],
-      ],
+      nid: [null, [Validators.pattern('^[0-9]{9}[a-zA-Z]{2}[0-9]{3}$')]],
       niic: [
         null,
         [
@@ -900,6 +894,12 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
       this.validarCargo(null);
     }
   }
+
+  public toUpperCase($event: any, field: string): void {
+    const value = $event.target.value;
+    this.simpleForm.controls[field].setValue(value.toUpperCase());
+  }
+
   public handlerProvincias($event: any) {
     if (!$event) return;
 
@@ -1567,25 +1567,29 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
       alert('Formulário não inicializado!');
       return;
     }
-    if (this.simpleForm.invalid || this.submitted) {
+    if (!this.getId && this.simpleForm.invalid || this.submitted) {
       console.log('Formulário inválido ou já submetido');
       console.log('Formulário válido:', this.simpleForm.valid);
       console.log('Formulário submetido:', this.submitted);
-      this.utilService.validarCampo(this.simpleForm);
 
-      Object.keys(this.simpleForm.controls).forEach(key => {
-        const control = this.simpleForm.controls[key];
-        
-        // Check if the individual control is invalid
-        if (control.invalid) {
-          console.error(`Control: ${key}`);
-          console.error(`Errors:`, control.errors); // Log the validation errors object
-          console.error(`Value: ${control.value}`);
-          console.error(`Status: ${control.status}`);
-        }
-      });
+      console.log('[]:', !this.getId, this.submitted);
 
-      
+      if (!this.getId) {
+        this.utilService.validarCampo(this.simpleForm);
+
+        Object.keys(this.simpleForm.controls).forEach((key) => {
+          const control = this.simpleForm.controls[key];
+
+          // Check if the individual control is invalid
+          if (control.invalid) {
+            console.error(`Control: ${key}`);
+            console.error(`Errors:`, control.errors); // Log the validation errors object
+            console.error(`Value: ${control.value}`);
+            console.error(`Status: ${control.status}`);
+          }
+        });
+      }
+
       return;
     }
     // Garante que pessoajuridica_id receba o valor correto de orgao_id
@@ -1633,7 +1637,6 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
     ];
 
     if (this.regimeQuadro == 'II') {
-
     }
     // Validação de campos obrigatórios
     for (const campo of camposObrigatorios) {
@@ -1642,7 +1645,7 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
         !control ||
         control.value === undefined ||
         control.value === null ||
-        control.value === ''
+        (control.value === '' && !this.getId)
       ) {
         console.error(`Campo obrigatório não preenchido: ${campo}`);
         console.error(`Valor do campo:`, control?.value);
@@ -1703,94 +1706,94 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
     // Envia os dados diretamente sem teste de conexão
     try {
       const type = isEditing
-      ? this.funcionarioServico.editar(this.getId, this.simpleForm)
-      : this.funcionarioServico.registar(formValue);
+        ? this.funcionarioServico.editar(this.getId, this.simpleForm)
+        : this.funcionarioServico.registar(formValue);
 
-    type
-      .pipe(
-        takeUntil(this.destroy$),
-        finalize(() => {
-          this.isLoading = false;
-          this.submitted = false;
-          console.log('Finalizou o carregamento');
-        })
-      )
-      .subscribe({
-        next: (response: any) => {
-          console.log('Resposta do backend:', response);
-          console.log('Tipo da resposta:', typeof response);
-          console.log('Estrutura da resposta:', Object.keys(response || {}));
-          // if (!response) {
-          //   console.error('Resposta vazia do backend');
-          //   // alert(
-          //   //   'Nenhuma resposta do backend. Verifique se todos os campos obrigatórios estão preenchidos.'
-          //   // );
-          //   return;
-          // }
-          // Sucesso na operação
-          if (isEditing) {
-            console.log('Edição realizada com sucesso');
+      type
+        .pipe(
+          takeUntil(this.destroy$),
+          finalize(() => {
+            this.isLoading = false;
+            this.submitted = false;
+            console.log('Finalizou o carregamento');
+          })
+        )
+        .subscribe({
+          next: (response: any) => {
+            console.log('Resposta do backend:', response);
+            console.log('Tipo da resposta:', typeof response);
+            console.log('Estrutura da resposta:', Object.keys(response || {}));
+            // if (!response) {
+            //   console.error('Resposta vazia do backend');
+            //   // alert(
+            //   //   'Nenhuma resposta do backend. Verifique se todos os campos obrigatórios estão preenchidos.'
+            //   // );
+            //   return;
+            // }
+            // Sucesso na operação
+            if (isEditing) {
+              console.log('Edição realizada com sucesso');
 
-            setTimeout(() => {
-              this.router.navigate([
-                '/piips/sigpg/funcionario/registar-ou-editar/mais-informacao',
-                this.getPessoaId ?? response.pessoaId,
-              ]);
-            }, 300);
-            // Pode redirecionar ou atualizar a página conforme necessário
-          } else {
-            console.log('Registro realizado com sucesso');
-            console.log('pessoaId:', response.pessoaId);
-            alert('Funcionário registado com sucesso!');
-            this.restaurarFormulario();
-            setTimeout(() => {
-              this.router.navigate([
-                '/piips/sigpg/funcionario/registar-ou-editar/mais-informacao',
-                this.getPessoaId ?? response.pessoaId,
-              ]);
-            }, 300);
-          }
-        },
-        error: (err) => {
-          this.isLoading = false;
-          this.submitted = false;
-          console.error('Erro ao salvar:', err);
-          console.error('Status do erro:', err.status);
-          console.error('Status text:', err.statusText);
-          console.error('URL da requisição:', err.url);
-          console.error('Detalhes do erro:', JSON.stringify(err));
-          // Tratamento de erro mais específico
-          let errorMessage = 'Erro ao salvar os dados!';
-          if (err.error && err.error.message) {
-            errorMessage = err.error.message;
-          } else if (
-            err.error &&
-            err.error.object &&
-            err.error.object.message
-          ) {
-            errorMessage = err.error.object.message;
-          } else if (err.message) {
-            errorMessage = err.message;
-          } else if (err.status === 422) {
-            errorMessage =
-              'Dados inválidos. Verifique se todos os campos obrigatórios estão preenchidos corretamente.';
-          } else if (err.status === 500) {
-            errorMessage =
-              'Erro interno do servidor. Tente novamente mais tarde.';
-          } else if (err.status === 401) {
-            errorMessage = 'Sessão expirada. Faça login novamente.';
-          } else if (err.status === 403) {
-            errorMessage = 'Sem permissão para realizar esta operação.';
-          }
-          console.error('Mensagem de erro final:', errorMessage);
-          alert(errorMessage);
-        },
-        complete: () => {
-          console.log('Subscribe complete');
-        },
-      });
+              setTimeout(() => {
+                this.router.navigate([
+                  '/piips/sigpg/funcionario/registar-ou-editar/mais-informacao',
+                  this.getPessoaId ?? response.pessoaId,
+                ]);
+              }, 300);
+              // Pode redirecionar ou atualizar a página conforme necessário
+            } else {
+              console.log('Registro realizado com sucesso');
+              console.log('pessoaId:', response.pessoaId);
+              alert('Funcionário registado com sucesso!');
+              this.restaurarFormulario();
+              setTimeout(() => {
+                this.router.navigate([
+                  '/piips/sigpg/funcionario/registar-ou-editar/mais-informacao',
+                  this.getPessoaId ?? response.pessoaId,
+                ]);
+              }, 300);
+            }
+          },
+          error: (err) => {
+            this.isLoading = false;
+            this.submitted = false;
+            console.error('Erro ao salvar:', err);
+            console.error('Status do erro:', err.status);
+            console.error('Status text:', err.statusText);
+            console.error('URL da requisição:', err.url);
+            console.error('Detalhes do erro:', JSON.stringify(err));
+            // Tratamento de erro mais específico
+            let errorMessage = 'Erro ao salvar os dados!';
+            if (err.error && err.error.message) {
+              errorMessage = err.error.message;
+            } else if (
+              err.error &&
+              err.error.object &&
+              err.error.object.message
+            ) {
+              errorMessage = err.error.object.message;
+            } else if (err.message) {
+              errorMessage = err.message;
+            } else if (err.status === 422) {
+              errorMessage =
+                'Dados inválidos. Verifique se todos os campos obrigatórios estão preenchidos corretamente.';
+            } else if (err.status === 500) {
+              errorMessage =
+                'Erro interno do servidor. Tente novamente mais tarde.';
+            } else if (err.status === 401) {
+              errorMessage = 'Sessão expirada. Faça login novamente.';
+            } else if (err.status === 403) {
+              errorMessage = 'Sem permissão para realizar esta operação.';
+            }
+            console.error('Mensagem de erro final:', errorMessage);
+            alert(errorMessage);
+          },
+          complete: () => {
+            console.log('Subscribe complete');
+          },
+        });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
     console.log('Fim do onSubmit');
 

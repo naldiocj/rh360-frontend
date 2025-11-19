@@ -60,9 +60,9 @@ export class UtilService {
       nome_mae: '(mãe)',
       local_nascimento: 'local de nascimento',
 
-      numero_passaporte: 'passaporte N.º',
-      data_expira_passaporte: 'data de validade ',
-      patente_id: 'Posto/Categória',
+      // numero_passaporte: 'passaporte N.º',
+      // data_expira_passaporte: 'data de validade ',
+      // patente_id: 'Posto/Categória',
 
       sigpq_acto_progressao_id: 'tipo de acto de provimento',
       numero_despacho: 'despacho n.º',
@@ -82,10 +82,10 @@ export class UtilService {
       tipo_orgao: 'tipo de órgão',
 
       departamento_id: 'departamento/comando provincial / unidade',
-      seccao_id: 'secção / esquadra/subunidade',
+      // seccao_id: 'secção / esquadra/subunidade',
       posto_id: 'posto policial',
       residencia_actual: 'residência actual',
-      iban: 'IBAN',
+      // iban: 'IBAN',
       numero_carta_conducao: 'carta de condução n.º',
       data_expira_carta_conducao: 'data de validade da carta de condução',
 
@@ -95,9 +95,9 @@ export class UtilService {
       habilitacao_literaria_certificado: 'anexo da habilitações literária',
       sigpq_tipo_sanguineo_id: 'grupo sanguíneo',
       contacto: 'contacto telefonico',
-      contacto_alternativo: 'contacto telefonico alternativo',
-      contacto_servico: 'contacto telefonico profissional',
-      email: 'e-mail pessoal',
+      // contacto_alternativo: 'contacto telefonico alternativo',
+      // contacto_servico: 'contacto telefonico profissional',
+      // email: 'e-mail pessoal',
       // foto_efectivo: 'Foto do fardado',
       pseudonimo: 'pseudonimo',
       regime_id: 'regime de carreira',
@@ -106,9 +106,9 @@ export class UtilService {
       // sigpq_estado_id: 'a seguir da situacão laboral',
       // sigpq_estado_reforma_id: 'a seguir da situação laboral',
       sigpq_situacao_id: 'laboral situacao laboral',
-      nip: 'nip',
+      // nip: 'nip',
       numero_agente: 'número  de agente',
-      nps: 'número de proteção social',
+      // nps: 'número de proteção social',
       data_adesao: 'data de ingresso',
     };
     this.validarCampoComAlerta(form, objectos);

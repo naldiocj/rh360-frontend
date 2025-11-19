@@ -17,12 +17,12 @@ const routes: Routes = [
       breadcrumb: 'Departamento',
     },
     children: [
-      {
-        path: 'registar-ou-editar',
-        data: {
-          breadcrumb: 'Registar ou editar',
-        }, 
-      },
+      // {
+      //   path: 'registar-ou-editar',
+      //   data: {
+      //     breadcrumb: 'Registar ou editar',
+      //   }, 
+      // },
       {
         path: 'listar',
         data: {

@@ -68,7 +68,7 @@
                     [options]="options"
                     formControlName="sigpq_acto_progressao_id"
                     [data]="this.actoProgressaos"
-                    (valueChanged)="this.handlerTipoPatente($event)"
+                    (valueChanged)="this.definirPatenteAndClasse($event)"
                   >
                   </ng-select2>
                 </div>
@@ -81,7 +81,7 @@
                   <ng-select2
                     [options]="options"
                     formControlName="patente_id"
-                    [data]="this._patentes"
+                    [data]="this.patentes"
                   >
                   </ng-select2>
                 </div>

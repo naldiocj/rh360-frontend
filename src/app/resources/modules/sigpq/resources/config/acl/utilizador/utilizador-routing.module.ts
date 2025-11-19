@@ -21,13 +21,13 @@ const routes: Routes = [
       breadcrumb: 'SIGT',
     },
     children: [
-      {
-        path: 'registar-ou-editar',
-        data: {
-          breadcrumb: 'Registar ou editar',
-        },
-        // component: RegistarOuEditarComponent
-      },
+      // {
+      //   path: 'registar-ou-editar',
+      //   data: {
+      //     breadcrumb: 'Registar ou editar',
+      //   },
+      //   // component: RegistarOuEditarComponent
+      // },
       {
         path: 'listar',
         data: {

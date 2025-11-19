@@ -71,8 +71,11 @@ export class RegistarOuEditarComponent implements OnInit {
       sigpq_vinculo_id: [null, Validators.required],
       // Adicione outros campos necessários aqui
     });
-    if (this.getId) {
-      const a = window.btoa(unescape(encodeURIComponent(this.getId)));
+
+    if (this.activatedRoute.snapshot.params['info']) {
+      this.router.navigateByUrl(this.router.url, { skipLocationChange: true }).then(() => {
+        this.router.navigate([this.router.url]);
+      });
     }
   }
 
