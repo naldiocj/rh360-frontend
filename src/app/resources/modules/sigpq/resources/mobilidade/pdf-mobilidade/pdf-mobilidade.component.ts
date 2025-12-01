@@ -44,21 +44,22 @@ export class PdfMobilidadeComponent implements OnChanges, OnDestroy {
   }
 
   private buscarFuncionario() {
-    this.isLoading = true;
-    const options = {
-      numero_guia: this.listarPDF?.numero_guia
-    }
-    this.mobilidadeService.listarPorGuia(options).pipe(
-      finalize((): void => {
-        this.isLoading = false;
-      })
-    ).subscribe({
-      next: (response: any) => {
-        this.funcionarios = response;
+    // this.isLoading = true;
+    this.funcionarios = this.listarPDF
+    // const options = {
+    //   numero_guia: this.listarPDF?.numero_guia
+    // }
+    // this.mobilidadeService.listarPorGuia(options).pipe(
+    //   finalize((): void => {
+    //     this.isLoading = false;
+    //   })
+    // ).subscribe({
+    //   next: (response: any) => {
+    //     this.funcionarios = response;
 
-        console.log()
-      }
-    })
+    //     console.log()
+    //   }
+    // })
   }
 
   get umAgente(): boolean {

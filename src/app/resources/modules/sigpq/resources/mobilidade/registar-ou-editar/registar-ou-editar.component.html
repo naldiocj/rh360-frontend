@@ -1,18 +1,32 @@
-<div class="modal fade" id="modalRegistarAlocacao" aria-labelledby="modalRegistarAlocacao" aria-hidden="true">
-  <div class="modal-dialog" role="document" style="overflow-y: hidden;min-width: 60%;margin-top: 10%;">
+<div
+  class="modal fade"
+  id="modalRegistarAlocacao"
+  aria-labelledby="modalRegistarAlocacao"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog"
+    role="document"
+    style="overflow-y: hidden; min-width: 60%; margin-top: 10%"
+  >
     <div class="modal-content">
       <div class="modal-header">
         <h4 style="color: var(--use-color)">
           <i class="fa fa-resistance"></i>
           Mover o agente
         </h4>
-        <button style="border:none; outline:none;" type="button" class="close text-red" data-dismiss="modal"
-          aria-label="Close">
+        <button
+          style="border: none; outline: none"
+          type="button"
+          class="close text-red"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="content">
-        <form [formGroup]="this.simpleForm">
+        <!-- <form [formGroup]="this.simpleForm">
           <div class="modal-body">
             <aside *ngIf="this.agentesId?.length == 0; else temAgentesSelecionados">
               <h5 style="color: var(--red);font-weight:normal!important;"> Nenhum agente selecionado <i
@@ -148,9 +162,334 @@
                 <i class="fa fa-plus-circle"></i>
                 Mover
               </button>
-            </ng-template>
+            </ng-template> 
           </div>
-        </form>
+        </form> -->
+
+        <div class="container-fluid">
+          <div id="historico-colocacao" class="w-100">
+            <div class="row">
+              <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12 ms-auto">
+                <form class="m-0 w-100" [formGroup]="this.simpleForm">
+                  <div class="card mt-0 py-0" style="border-radius: 0px">
+                    <div class="row p-2 my-1" style="row-gap: 1.2rem">
+
+                      <h4 class="col-12">Órgão de Destino</h4>
+                      <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                        <label for="" style="color: var(--use-color)"
+                          ><b
+                            >Tipo de Órgão<span class="text-red">*</span></b
+                          ></label
+                        >
+                        <ng-select2
+                          [options]="options"
+                          [data]="this.tipoEstruturaOrganicas"
+                          formControlName="orgao_destino_id"
+                        >
+                        </ng-select2>
+                        <!-- (valueChanged)="selecionarOrgaoOuComandoProvincial($event, 'actual')" -->
+                      </div>
+                      <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                        <label for="" style="color: var(--use-color)"
+                          ><b>Direcção<span class="text-red">*</span></b></label
+                        >
+                        <ng-select2
+                          [options]="options"
+                          [data]="this.orgaos"
+                          formControlName="direccao_destino_id"
+                          (valueChanged)="selecionarDirecao($event, 'actual')"
+                        >
+                        </ng-select2>
+                      </div>
+                      <!-- <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                  <label for="" style="color: var(--use-color)"
+                    ><b>Unidade</b></label
+                  >
+                 
+                  <input
+                    class="form-control"
+                    type="text"
+                    formControlName="unidade_destino"
+                  />
+                </div> -->
+                      <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                        <label for="" style="color: var(--use-color)"
+                          ><b>Departamento</b></label
+                        >
+                        <ng-select2
+                          [options]="options"
+                          (valueChanged)="
+                            selecionarDepartamento($event, 'actual')
+                          "
+                          [data]="this.departamentos"
+                          formControlName="departamento_id"
+                        >
+                        </ng-select2>
+                      </div>
+
+                      <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                        <label for="" style="color: var(--use-color)"
+                          ><b>Secção</b></label
+                        >
+                        <!-- <ng-select2 [options]="options" [data]="this.seccoes" formControlName="seccao_destino_id">
+                  </ng-select2> -->
+                        <input
+                          class="form-control"
+                          type="text"
+                          formControlName="seccao"
+                        />
+                      </div>
+                      <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                        <label for="" style="color: var(--use-color)"
+                          ><b>Brigada</b></label
+                        >
+                        <!-- <ng-select2 [options]="options" [data]="this.seccoes" formControlName="brigada_destino_id">
+                  </ng-select2> -->
+                        <input
+                          class="form-control"
+                          type="text"
+                          formControlName="brigada"
+                        />
+                      </div>
+                      <!-- <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                  <label style="color:var(--use-color)" for=""><b>Posto/Classe<span class="text-red">*</span></b></label>
+                  <ng-select2 [options]="options" [data]="this.patentes" formControlName="patente_id">
+                  </ng-select2>
+                </div> -->
+                      <!-- <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 d-flex align-items-center justify-content-center">
+                  <div class="d-flex flex-column flex-grow-1">
+                    <label style="color:var(--use-color)" for=""><b>Ordem n.º<span class="text-red">*</span></b></label>
+                    <input class="form-control" type="text" formControlName="numero_ordem" [ngClass]="{
+                                    'is-invalid':
+                                      this.simpleForm.controls?.numero_ordem.dirty &&
+                                      this.simpleForm.controls?.numero_ordem.errors,
+                                    'is-valid':
+                                      this.simpleForm.controls?.numero_ordem.dirty &&
+                                      !this.simpleForm.controls?.numero_ordem.errors
+                                  }" />
+                    <div *ngIf="this.simpleForm.controls?.numero_ordem?.dirty &&
+                                            this.simpleForm.controls?.numero_ordem?.errors" class="invalid-feedback">
+                      <div *ngIf="this.simpleForm.controls?.numero_ordem?.errors?.required">
+                        Este campo é obrigatório
+                      </div>
+                      <div
+                        *ngIf="this.simpleForm.controls?.numero_ordem?.dirty && this.simpleForm.controls?.numero_ordem?.errors">
+                        <div *ngIf="this.simpleForm.controls?.numero_ordem?.errors?.pattern" style="color: #dc3545;">
+                          Digite um n.º válido
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-column flex-grow-1">
+                    <label style="color:var(--use-color)" for=""><b>Data<span class="text-red">*</span></b></label>
+                    <input id="data_acto" type="date" formControlName="data_ordem" class="form-control"
+                      [max]="this.validarDataAdesao">
+                  </div>
+                </div> -->
+                      <div
+                        class="col-xl-4 col-lg-6 col-md-6 col-sm-12 d-flex align-items-center justify-content-center"
+                      >
+                        <div class="d-flex flex-column flex-grow-1">
+                          <label style="color: var(--use-color)" for=""
+                            ><b
+                              >Ordem n.º<span class="text-red">*</span></b
+                            ></label
+                          >
+                          <input
+                            class="form-control"
+                            type="text"
+                            formControlName="numero_despacho"
+                            [ngClass]="{
+                              'is-invalid':
+                                this.simpleForm.controls?.numero_despacho
+                                  .dirty &&
+                                this.simpleForm.controls?.numero_despacho
+                                  .errors,
+                              'is-valid':
+                                this.simpleForm.controls?.numero_despacho
+                                  .dirty &&
+                                !this.simpleForm.controls?.numero_despacho
+                                  .errors
+                            }"
+                          />
+                          <div
+                            *ngIf="
+                              this.simpleForm.controls?.numero_despacho
+                                ?.dirty &&
+                              this.simpleForm.controls?.numero_despacho?.errors
+                            "
+                            class="invalid-feedback"
+                          >
+                            <div
+                              *ngIf="
+                                this.simpleForm.controls?.numero_despacho
+                                  ?.errors?.required
+                              "
+                            >
+                              Este campo é obrigatório
+                            </div>
+                            <div
+                              *ngIf="
+                                this.simpleForm.controls?.numero_despacho
+                                  ?.dirty &&
+                                this.simpleForm.controls?.numero_despacho
+                                  ?.errors
+                              "
+                            >
+                              <div
+                                *ngIf="
+                                  this.simpleForm.controls?.numero_despacho
+                                    ?.errors?.pattern
+                                "
+                                style="color: #dc3545"
+                              >
+                                Digite um n.º válido
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="d-flex flex-column flex-grow-1">
+                          <label style="color: var(--use-color)" for=""
+                            ><b>Data<span class="text-red">*</span></b></label
+                          >
+                          <input
+                            id="data_aco"
+                            type="date"
+                            formControlName="despacho_data"
+                            class="form-control"
+                            [max]="this.validarDataAdesao"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        class="col-xl-4 col-lg-6 col-md-6 col-sm-12 d-flex align-items-center justify-content-center"
+                      >
+                        <div class="d-flex flex-column flex-grow-1">
+                          <label style="color: var(--use-color)" for=""
+                            ><b
+                              >Guia nº<span class="text-red">*</span></b
+                            ></label
+                          >
+                          <input
+                            class="form-control"
+                            type="text"
+                            formControlName="numero_guia"
+                            [ngClass]="{
+                              'is-invalid':
+                                this.simpleForm.controls?.numero_guia.dirty &&
+                                this.simpleForm.controls?.numero_guia.errors,
+                              'is-valid':
+                                this.simpleForm.controls?.numero_guia.dirty &&
+                                !this.simpleForm.controls?.numero_guia.errors
+                            }"
+                          />
+                          <div
+                            *ngIf="
+                              this.simpleForm.controls?.numero_guia?.dirty &&
+                              this.simpleForm.controls?.numero_guia?.errors
+                            "
+                            class="invalid-feedback"
+                          >
+                            <div
+                              *ngIf="
+                                this.simpleForm.controls?.numero_guia?.errors
+                                  ?.required
+                              "
+                            >
+                              Este campo é obrigatório
+                            </div>
+                            <div
+                              *ngIf="
+                                this.simpleForm.controls?.numero_guia?.dirty &&
+                                this.simpleForm.controls?.numero_guia?.errors
+                              "
+                            >
+                              <div
+                                *ngIf="
+                                  this.simpleForm.controls?.numero_guia?.errors
+                                    ?.pattern
+                                "
+                                style="color: #dc3545"
+                              >
+                                Digite um n.º válido
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="d-flex flex-column flex-grow-1">
+                          <label style="color: var(--use-color)" for=""
+                            ><b>Data<span class="text-red">*</span></b></label
+                          >
+                          <input
+                            id="data_aco"
+                            type="date"
+                            formControlName="data_ingresso"
+                            class="form-control"
+                            [max]="this.validarDataAdesao"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-lg-4 col-md-4 col-sm-12">
+                        <label style="color: var(--use-color)" for=""
+                          ><b
+                            >Anexo de ordem de serviço. (formato pdf)
+                            <span class="text-red">*</span></b
+                          ></label
+                        >
+                        <div class="upload-img">
+                          <div id="input-Img" class="upload-input">
+                            <input
+                              id="anexo-ordem"
+                              type="file"
+                              class="form-control"
+                              accept="application/pdf"
+                              (change)="this.uploadFile($event, 'anexo')"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row p-2 my-1" style="row-gap: 1.2rem">
+                      <div
+                        class="col-xl-12 col-lg-12 col-md-12 col-sm-12 d-flex justify-content-end align-items-center my-2"
+                      >
+                        <button
+                          class="btn-piips btn-piips-red m-0 py-1"
+                          (click)="this.reiniciarFormulario()"
+                        >
+                          Cancelar
+                        </button>
+
+                        <!-- [disabled]="this.carregando || this.submitted || !this.simpleForm.valid" -->
+
+                        <button
+                          type="button"
+                          (click)="onSubmit()"
+                          class="btn-piips btn-piips-primary m-0 py-1"
+                          style="border-radius: 0px"
+                        >
+                          <ng-container
+                            *ngIf="
+                              this.carregando || this.submitted;
+                              else naoRegistar
+                            "
+                          >
+                            <div class="spinner-border spinner-border-sm"></div>
+                            Carregando...
+                          </ng-container>
+                          <ng-template #naoRegistar>
+                            {{ this.getId ? "Editar" : "Registar" }}
+                          </ng-template>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+</div>

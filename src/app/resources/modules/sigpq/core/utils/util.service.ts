@@ -30,6 +30,12 @@ export class UtilService {
     return estados[key?.toString().toLowerCase()];
   };
 
+  public addDomain(email: string) {
+    const domain = 'sic.gov.ao';
+    const user = email + domain;
+    return user.toString().trim();
+  }
+
   public tratamentoPedente(key: any) {
     return key?.toString().toLowerCase().includes('p');
   }
@@ -45,20 +51,17 @@ export class UtilService {
       foto_civil: 'foto cívil',
       nome_completo: 'nome completo',
       data_nascimento: 'data de nascimento',
-
+      naturalidade_id: 'província',
+      local_nascimento: 'local de nascimento',
       genero: 'gênero',
       estado_civil_id: 'estado civil',
-      naturalidade_id: 'província',
-      municipio_id: 'muncicipio',
-      distrito_id: 'distrito',
-      residencia_bi: 'residência B.I',
-
+      sigpq_tipo_habilitacao_literaria_id: 'Habilitações literárias',
       nid: 'B.I. N.º',
-      data_expira: 'data de validade B.I.',
       data_emissao: 'data de emissão B.I',
-      nome_pai: 'filiação (pai)',
-      nome_mae: '(mãe)',
-      local_nascimento: 'local de nascimento',
+      residencia_bi: 'residência B.I',
+      sigpq_tipo_sanguineo_id: 'grupo sanguíneo',
+      // nome_pai: 'filiação (pai)',
+      // nome_mae: '(mãe)',
 
       // numero_passaporte: 'passaporte N.º',
       // data_expira_passaporte: 'data de validade ',
@@ -89,11 +92,9 @@ export class UtilService {
       numero_carta_conducao: 'carta de condução n.º',
       data_expira_carta_conducao: 'data de validade da carta de condução',
 
-      sigpq_tipo_habilitacao_literaria_id: 'Habilitações literárias',
       sigpq_tipo_curso_id: 'curso',
 
       habilitacao_literaria_certificado: 'anexo da habilitações literária',
-      sigpq_tipo_sanguineo_id: 'grupo sanguíneo',
       contacto: 'contacto telefonico',
       // contacto_alternativo: 'contacto telefonico alternativo',
       // contacto_servico: 'contacto telefonico profissional',
@@ -113,6 +114,50 @@ export class UtilService {
     };
     this.validarCampoComAlerta(form, objectos);
   }
+
+  public validarCamposPessoais(form: any) {
+    const objectos: any = {
+      foto_civil: 'foto cívil',
+      nome_completo: 'nome completo',
+      data_nascimento: 'data de nascimento',
+      naturalidade_id: 'província',
+      local_nascimento: 'local de nascimento',
+      genero: 'gênero',
+      estado_civil_id: 'estado civil',
+      sigpq_tipo_habilitacao_literaria_id: 'Habilitações literárias',
+      nid: 'B.I. N.º',
+      data_emissao: 'data de emissão B.I',
+      residencia_bi: 'residência B.I',
+      sigpq_tipo_sanguineo_id: 'grupo sanguíneo',
+    };
+    return this.validarCampoComAlertaSimple(form, objectos);
+  }
+
+  public validarCamposProfissionais(form: any) {
+    const objectos: any = {
+      data_adesao: 'data de ingresso',
+      regime_id: 'regime de carreira',
+      sigpq_tipo_vinculo_id: 'tipo de vínculo',
+      sigpq_situacao_id: 'laboral situacao laboral',
+      numero_agente: 'número  de agente',
+      sigpq_tipo_categoria_id: 'classe/carreira',
+      patente_id: 'Posto/Categória',
+      sigpq_acto_progressao_id: 'tipo de acto de provimento',
+      numero_despacho: 'despacho n.º',
+      data_despacho: 'data do despacho',
+      numero_ordem: 'ordem n.º',
+      data_ordem: 'data da ordem',
+      data_despacho_nomeacao: 'data do despacho da nomeação',
+      numero_despacho_nomeacao: 'despacho n.º da nomeação',
+      sigpq_acto_nomeacao_id: 'tipo de acto da nomeação',
+      sigpq_tipo_funcao_id: 'função',
+      tipo_orgao: 'tipo de órgão',
+      orgao_id: 'direcção / comando',
+      departamento_id: 'departamento/comando provincial / unidade',
+    };
+    return this.validarCampoComAlertaSimple(form, objectos);
+  }
+
   public validarDirecao(form: any) {
     const objectos: any = {
       nome_completo: 'nome',
@@ -134,6 +179,21 @@ export class UtilService {
         break;
       }
     }
+  }
+
+  public validarCampoComAlertaSimple(form: any, objectos: any) {
+    let hasError = false;
+    for (const [key, value] of Object.entries(objectos)) {
+      const control = form.controls[key];
+      if (!control || typeof control.status === 'undefined') continue;
+      if (control.status == 'INVALID') {
+        this.iziToast.alerta(`Preencha o campo ${value}`);
+        hasError = true;
+        break;
+      }
+    }
+
+    return hasError;
   }
 
   public isPromocao(text: string): boolean {

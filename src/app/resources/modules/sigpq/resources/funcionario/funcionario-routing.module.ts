@@ -26,7 +26,8 @@ const routes: Routes = [
         data: {
           breadcrumb: 'Registar ou editar',
         },
-        component: RegistarOuEditarComponent
+        component: RegistarOuEditarComponent,
+        runGuardsAndResolvers: 'always'
       },
       {
         path: 'registar-ou-editar/:id',

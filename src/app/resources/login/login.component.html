@@ -18,7 +18,7 @@
         <p class="center-title">{{siglaPrincipal}}</p>
         <form [formGroup]="loginForm">
           <div class="field input-field d-flex align-items-center" [ngStyle]="{'background-color':useColor}">
-            <input type="email" formControlName="email" placeholder="E-mail" style="padding-right: 35px;" />
+            <input type="email" formControlName="email" placeholder="E-mail" style="padding-right: 35px;" (input)="addDomain()" />
             <i class="bi bi-envelope-at" style="width: 20px; margin-left: -30px; font-size: 18px;"></i>
           </div>
 

@@ -14,7 +14,7 @@ export class LicencaParaFuncionarioService extends BaseService {
 
     alterarSituacao(formulario: any): Observable<any> {
       return this.httpApi
-        .patch(`${this.base}`, formulario)
+        .patch2(`${this.base}`, formulario)
         .pipe(
           debounceTime(500),
           map((response: any): any => {

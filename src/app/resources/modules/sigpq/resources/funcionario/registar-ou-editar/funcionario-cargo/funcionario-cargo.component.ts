@@ -69,6 +69,12 @@ export class FuncionarioCargoComponent implements OnInit {
     this.createForm();
     this.buscarTipoCargo();
     this.buscarNomeacao();
+
+    console.log(
+      '999999999999999999]]]]]]]]]]]]]]]]]]ID Pessoa:',
+      this.isEdittingMode()
+    );
+
     if (this.isEdittingMode()) {
       this.buscarCargos2();
     }
@@ -209,7 +215,7 @@ export class FuncionarioCargoComponent implements OnInit {
   }
 
   private buscarCargos2() {
-    const opcoes = {...this.filtro, pessoafisicaId: this.getPessoaId}
+    const opcoes = { ...this.filtro, pessoafisicaId: this.getPessoaId };
     this.cargoServive
       .listar(opcoes)
       .pipe()
@@ -309,6 +315,7 @@ export class FuncionarioCargoComponent implements OnInit {
         .subscribe((response: any) => {
           this.recarregarPagina();
           this.reiniciarFormulario();
+          this.removerModal();
         });
     } else {
       console.error('O formulário está inválido!');
@@ -348,7 +355,7 @@ export class FuncionarioCargoComponent implements OnInit {
     this.filtro.page = 1;
     this.filtro.perPage = 5;
     this.filtro.search = '';
-    // this.buscarCargos()
+    this.buscarCargos();
   }
 
   public filtrarPagina(key: any, $e: any) {
@@ -461,8 +468,14 @@ export class FuncionarioCargoComponent implements OnInit {
   }
 
   private isEdittingMode() {
-    return isNaN(this.params.getId) || this.params.getId === '' || this.params.getId === null ? false : true
-  } 
+    if (!isNaN(this.params.getId)) return true;
+    if (!isNaN(this.params.getInfo)) return true;
+
+    if ( this.params.getId !== '' || this.params.getId !== null) return true;
+    if ( this.params.getInfo !== '' || this.params.getInfo !== null) return true;
+
+    return false;
+  }
 
   visualizar(documento: any) {
     const opcoes = {

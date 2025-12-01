@@ -23,6 +23,17 @@ export class MobilidadeService extends BaseService {
               );
           }
 
+    aprovarMobilidade(numero_guia: any): Observable<any> {
+            return this.httpApi
+              .put2(`${this.base}/aprovar/${numero_guia}`)
+              .pipe(
+                debounceTime(500),
+                map((response: any): any => {
+                  return response.object;
+                })
+              );
+          }
+
     pdfIndividual() { }
     pdfEmGrupo(numero_guia: any) {
         return this.httpApi

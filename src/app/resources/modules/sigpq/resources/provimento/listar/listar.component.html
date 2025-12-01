@@ -184,7 +184,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-md-12">
             <div class="row">
                 <div class="col-sm-6">
@@ -204,6 +204,33 @@
                 </div>
             </div>
         </div>
+    </div> -->
+~
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+          Mostrando de {{ this.pagination.current_page }} a
+          {{ this.pagination.per_page }} de {{ this.pagination.total }}
+          <aside *ngIf="this.pagination.total < 2; else outrosRegistos">
+            registos
+          </aside>
+          <ng-template #outrosRegistos>registos</ng-template>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+          <div class="float-right">
+            <pagination-controls
+              id="funcionarioEspecial"
+              (pageChange)="this.filtrarPagina('page', $event, false)"
+              [directionLinks]="true"
+              [autoHide]="true"
+              previousLabel="Anterior"
+              nextLabel="Próximo"
+              [maxSize]="4"
+              [responsive]="true"
+            ></pagination-controls>
+          </div>
+        </div>
+      </div>
     </div>
 </div>
 

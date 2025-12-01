@@ -35,6 +35,7 @@ import { event } from 'jquery';
 import { Select2OptionData } from 'ng-select2';
 import { Subject, finalize, first, takeUntil } from 'rxjs';
 import { AppConfig } from '../../../../../../../config/app.config';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'sigpq-dados-pessoais-profissional',
@@ -227,6 +228,16 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
           }));
         },
       });
+  }
+
+  public addDomain(field: string) {
+    const emailControl = this.simpleForm.get(field);
+    if (emailControl) {
+      let emailValue = emailControl.value;
+      if (emailValue && emailValue.includes('@')) {
+        emailControl.setValue(this.utilService.addDomain(emailValue));
+      }
+    }
   }
 
   public buscarActoProgressao(): void {
@@ -492,6 +503,8 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
         }
       }
     }, 0);
+
+    // this.populate();
   }
 
   _validarData(): void {
@@ -554,7 +567,7 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
     const regexNome = '^[A-Za-zÀ-ÖØ-öø-ÿ- ]*$';
 
     this.simpleForm = this.fb.group({
-      foto_civil: [null],
+      foto_civil: [null, Validators.required],
       nome_completo: [
         null,
         [
@@ -564,15 +577,20 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
         ],
       ],
       data_nascimento: [null, [Validators.required]],
-
+      naturalidade_id: [null, [Validators.required]],
       genero: [null, [Validators.required]],
       estado_civil_id: [null, [Validators.required]],
-      naturalidade_id: [null, [Validators.required]],
       municipio_id: [null],
       distrito_id: [null],
       residencia_bi: [null, [Validators.required]],
 
-      nid: [null, [Validators.pattern('^[0-9]{9}[a-zA-Z]{2}[0-9]{3}$')]],
+      nid: [
+        null,
+        [
+          Validators.required,
+          Validators.pattern('^[0-9]{9}[a-zA-Z]{2}[0-9]{3}$'),
+        ],
+      ],
       niic: [
         null,
         [
@@ -592,10 +610,10 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
       patente_id: [null, [Validators.required]],
 
       sigpq_acto_progressao_id: [null],
-      numero_despacho: [null],
-      numero_ordem: [null],
-      data_despacho: [null],
-      data_ordem: [null],
+      numero_despacho: [null, Validators.required],
+      data_despacho: [null, Validators.required],
+      numero_ordem: [null, Validators.required],
+      data_ordem: [null, Validators.required],
       anexo: [null],
 
       data_despacho_nomeacao: [null],
@@ -701,8 +719,8 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
 
   ajustarFotoFardado() {
     if (this.regimeQuadro == 'I') {
-      this.simpleForm.get('foto_efectivo')?.setValidators(Validators.required);
-      this.simpleForm.get('foto_efectivo')?.updateValueAndValidity();
+      // this.simpleForm.get('foto_efectivo')?.setValidators(Validators.required);
+      // this.simpleForm.get('foto_efectivo')?.updateValueAndValidity();
     } else {
       this.simpleForm.get('foto_efectivo')?.setValidators(null);
       this.simpleForm.get('foto_efectivo')?.updateValueAndValidity();
@@ -1188,7 +1206,7 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
         //   this.simpleForm.get('sigpq_tipo_cargo_id').enable()
         // }
 
-        this.simpleForm.get('patente_id')?.setValue(this.selectedPatente);
+        // this.simpleForm.get('patente_id')?.setValue(this.selectedPatente);
       } else {
         this.regimeTipo = false;
 
@@ -1567,45 +1585,33 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
       alert('Formulário não inicializado!');
       return;
     }
-    if (!this.getId && this.simpleForm.invalid || this.submitted) {
+    if (this.simpleForm.invalid || this.submitted) {
       console.log('Formulário inválido ou já submetido');
       console.log('Formulário válido:', this.simpleForm.valid);
       console.log('Formulário submetido:', this.submitted);
 
-      console.log('[]:', !this.getId, this.submitted);
+      let hasError = this.utilService.validarCamposPessoais(this.simpleForm);
+      if (hasError) {
+        if (this.tabCount > 0) {
+          this.tabCount = 0;
+        }
 
-      if (!this.getId) {
-        this.utilService.validarCampo(this.simpleForm);
-
-        Object.keys(this.simpleForm.controls).forEach((key) => {
-          const control = this.simpleForm.controls[key];
-
-          // Check if the individual control is invalid
-          if (control.invalid) {
-            console.error(`Control: ${key}`);
-            console.error(`Errors:`, control.errors); // Log the validation errors object
-            console.error(`Value: ${control.value}`);
-            console.error(`Status: ${control.status}`);
-          }
-        });
+        return;
       }
 
-      return;
+      hasError = this.utilService.validarCamposProfissionais(this.simpleForm);
+      if (hasError) return;
     }
     // Garante que pessoajuridica_id receba o valor correto de orgao_id
     const orgaoId = this.simpleForm.value.orgao_id;
-    console.log('orgao_id:', orgaoId);
+
     if (orgaoId && !isNaN(Number(orgaoId)) && Number(orgaoId) > 0) {
       this.simpleForm.patchValue({ pessoajuridica_id: Number(orgaoId) });
-      console.log('pessoajuridica_id definido como:', Number(orgaoId));
     } else {
       this.simpleForm.patchValue({ pessoajuridica_id: null });
-      console.log('pessoajuridica_id definido como null - orgao_id inválido');
     }
     const formValue = this.simpleForm.getRawValue();
 
-    console.log('Valores do formulário:', formValue);
-    console.log('pessoajuridica_id:', formValue.pessoajuridica_id);
     // Validação extra para pessoajuridica_id
     if (
       formValue.pessoajuridica_id === null ||
@@ -1619,90 +1625,15 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
       );
       return;
     }
-    // Campos obrigatórios essenciais (sempre obrigatórios)
-    let camposObrigatorios = [
-      'nome_completo',
-      'data_nascimento',
-      'genero',
-      'estado_civil_id',
-      'nid',
-      'data_adesao',
-      'regime_id',
-      'sigpq_tipo_vinculo_id',
-      'sigpq_situacao_id',
-      'numero_agente',
-      'orgao_id',
-      'patente_id',
-      'sigpq_tipo_categoria_id',
-    ];
 
-    if (this.regimeQuadro == 'II') {
-    }
-    // Validação de campos obrigatórios
-    for (const campo of camposObrigatorios) {
-      const control = this.simpleForm.get(campo);
-      if (
-        !control ||
-        control.value === undefined ||
-        control.value === null ||
-        (control.value === '' && !this.getId)
-      ) {
-        console.error(`Campo obrigatório não preenchido: ${campo}`);
-        console.error(`Valor do campo:`, control?.value);
-        alert(`O campo ${campo} é obrigatório!`);
-        return;
-      }
-    }
-    // Validação condicional para sigpq_vinculo_id
-    const sigpqTipoVinculoId = this.simpleForm.get(
-      'sigpq_tipo_vinculo_id'
-    )?.value;
-    const sigpqVinculoId = this.simpleForm.get('sigpq_vinculo_id')?.value;
-    if (
-      sigpqTipoVinculoId &&
-      this.vinculos.length > 0 &&
-      (!sigpqVinculoId || sigpqVinculoId === '')
-    ) {
-      console.error(
-        'Campo sigpq_vinculo_id é obrigatório quando há opções disponíveis'
-      );
-      alert('O campo sigpq_vinculo_id é obrigatório!');
-      return;
-    }
-    // Validação condicional para sigpq_tipo_cargo_id e sigpq_tipo_funcao_id
-    const sigpqActoNomeacaoId = this.simpleForm.get(
-      'sigpq_acto_nomeacao_id'
-    )?.value;
-    const sigpqTipoCargoId = this.simpleForm.get('sigpq_tipo_cargo_id')?.value;
-    const sigpqTipoFuncaoId = this.simpleForm.get(
-      'sigpq_tipo_funcao_id'
-    )?.value;
-    if (sigpqActoNomeacaoId) {
-      // Se tem ato de nomeação, cargo é obrigatório
-      if (!sigpqTipoCargoId || sigpqTipoCargoId === '') {
-        console.error(
-          'Campo sigpq_tipo_cargo_id é obrigatório quando há ato de nomeação'
-        );
-        alert('O campo Cargo é obrigatório!');
-        return;
-      }
-    } else {
-      // Se não tem ato de nomeação, função é obrigatória
-      if (!sigpqTipoFuncaoId || sigpqTipoFuncaoId === '') {
-        console.error(
-          'Campo sigpq_tipo_funcao_id é obrigatório quando não há ato de nomeação'
-        );
-        alert('O campo Função é obrigatório!');
-        return;
-      }
-    }
     this.submitted = true;
     this.isLoading = true;
+
     console.log('Enviando dados para o backend...');
+
     // Determina se é edição ou registro
     const isEditing = !!this.getId;
-    console.log('Modo:', isEditing ? 'Edição' : 'Registro');
-    console.log('ID:', this.getId);
+
     // Envia os dados diretamente sem teste de conexão
     try {
       const type = isEditing
@@ -1723,13 +1654,15 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
             console.log('Resposta do backend:', response);
             console.log('Tipo da resposta:', typeof response);
             console.log('Estrutura da resposta:', Object.keys(response || {}));
-            // if (!response) {
-            //   console.error('Resposta vazia do backend');
-            //   // alert(
-            //   //   'Nenhuma resposta do backend. Verifique se todos os campos obrigatórios estão preenchidos.'
-            //   // );
-            //   return;
-            // }
+
+            if (!response) {
+              console.error('Resposta vazia do backend');
+              alert(
+                'Nenhuma resposta do backend. Verifique se todos os campos obrigatórios estão preenchidos.'
+              );
+              return;
+            }
+
             // Sucesso na operação
             if (isEditing) {
               console.log('Edição realizada com sucesso');
@@ -1743,7 +1676,6 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
               // Pode redirecionar ou atualizar a página conforme necessário
             } else {
               console.log('Registro realizado com sucesso');
-              console.log('pessoaId:', response.pessoaId);
               alert('Funcionário registado com sucesso!');
               this.restaurarFormulario();
               setTimeout(() => {
@@ -1795,25 +1727,6 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
     } catch (error) {
       console.log(error);
     }
-    console.log('Fim do onSubmit');
-
-    // alert('Chamou');
-
-    // return new Promise((resolve, reject) => {
-    //   this.employeeService
-    //     .save({})
-    //     .pipe(takeUntil(this.destroy$))
-    //     .subscribe({
-    //       next: (response) => {
-    //         console.log('Teste de conexão bem-sucedido:', response);
-    //         resolve('');
-    //       },
-    //       error: (err) => {
-    //         console.error('Erro no teste de conexão:', err);
-    //         reject(err);
-    //       },
-    //     });
-    // });
   }
 
   // Método para testar conexão com o backend
@@ -2061,7 +1974,48 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
       });
   }
 
+  formatDateToInput(date: Date): string {
+    const dataBruta = date;
+
+    const ano = dataBruta.getFullYear();
+    const mes = (dataBruta.getMonth() + 1).toString().padStart(2, '0');
+    const dia = dataBruta.getDate().toString().padStart(2, '0');
+
+    return `${ano}-${mes}-${dia}`;
+  }
+
+  populate() {
+    const conteudo = `Conteúdo do arquivo simulado...`;
+    const blob = new Blob([conteudo], { type: 'text/plain;charset=utf-8' });
+    this.simpleForm.patchValue({
+      foto_civil: new File([blob], 'FOTOX', { type: 'text/plain' }),
+      nome_completo: 'Alexandre Silva',
+      data_nascimento: this.formatDateToInput(new Date('1990-08-15')),
+      naturalidade_id: 11,
+      local_nascimento: 'GABELA',
+      genero: 'M',
+      estado_civil_id: 1,
+      sigpq_tipo_habilitacao_literaria_id: 1,
+      nid: '123456789KS039',
+      data_emissao: this.formatDateToInput(new Date('2025-08-15')),
+      residencia_bi: 'XPTO123456789',
+      sigpq_tipo_sanguineo_id: 2,
+      data_adesao: this.formatDateToInput(new Date('2023-09-01')),
+      regime_id: 1,
+      sigpq_tipo_vinculo_id: 1,
+      sigpq_situacao_id: 1,
+      numero_agente: '12345678',
+      sigpq_tipo_categoria_id: 8,
+      // patente_id: 7
+    });
+  }
+
   proximo(id: any) {
+    if (this.simpleForm.invalid) {
+      const hasError = this.utilService.validarCamposPessoais(this.simpleForm);
+      if (hasError) return;
+    }
+
     const btnNext: any = document.querySelector(`#${id}`);
     if (!btnNext) return;
 

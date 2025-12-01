@@ -239,6 +239,17 @@
                       <i class="fa fa-eye m-r-5"></i>
                       Ver guia de marcha
                     </a>
+
+
+                    <a
+                      *ngIf="item?.tratamento?.cor !== 'rgb(0, 143, 251)'"
+                      class="dropdown-item"
+                      href="javascript:void(0)"
+                      (click)="aprovarMobilidade(item)"
+                    >
+                        <i class="fa fa-eye m-r-5"></i>
+                        Aprovar mobilidade
+                    </a>
                   </div>
                 </div>
               </td>
@@ -353,6 +364,7 @@
     </div>
   </div>
 </div>
+
 <!-- <app-sigpq-mobilidade-registar-ou-editar [agentesId]="this.agentesSelecionados"
     (eventRegistarOuEditModel)="this.buscarFuncionario();this.limparVariaveis()"></app-sigpq-mobilidade-registar-ou-editar>
 <app-sigpq-mobilidade-ver-selecionados

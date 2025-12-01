@@ -230,13 +230,14 @@ export class AgendarLicencaComponent implements OnInit, AfterViewInit {
                 item.nome.toLowerCase() !== 'disciplina'
             );
           } else if (this.local === 'feria') {
-            aux = response.filter(
-              (item: any) =>
-                /* item.nome.toLowerCase() === "falta" ||
-          item.nome.toLowerCase() === "faltas" */
-                item.nome.toLowerCase() === 'disciplinar' ||
-                item.nome.toLowerCase() === 'disciplina'
-            );
+            aux = response
+          // .filter(
+          //     (item: any) =>
+          //       /* item.nome.toLowerCase() === "falta" ||
+          // item.nome.toLowerCase() === "faltas" */
+          //       item.nome.toLowerCase() === 'disciplinar' ||
+          //       item.nome.toLowerCase() === 'disciplina'
+          //   );
           }
           this.licencas = aux;
           this.licencasSelect2 = this.licencas.map((licenca) => {

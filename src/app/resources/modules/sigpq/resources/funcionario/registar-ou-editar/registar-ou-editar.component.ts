@@ -73,9 +73,13 @@ export class RegistarOuEditarComponent implements OnInit {
     });
 
     if (this.activatedRoute.snapshot.params['info']) {
-      this.router.navigateByUrl(this.router.url, { skipLocationChange: true }).then(() => {
-        this.router.navigate([this.router.url]);
-      });
+      setTimeout(() => {
+        this.router
+          .navigateByUrl(this.router.url, { skipLocationChange: true })
+          .then(() => {
+            this.router.navigate([this.router.url]);
+          });
+      }, 500);
     }
   }
 

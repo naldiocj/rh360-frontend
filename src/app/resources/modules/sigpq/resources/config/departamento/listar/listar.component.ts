@@ -154,12 +154,12 @@ export class ListarComponent implements OnInit {
   selecionarOrgaoOuComandoProvincial($event: any): void {
     if (!$event) return
     const opcoes = {
-      tipo_estrutura_sigla: $event
+      // tipo_estrutura_sigla: $event
+      orgao_comando_provincial: 'Órgão'
     }
     this.direcaoOuOrgaoService.listarTodos(opcoes)
       .pipe(
         finalize((): void => {
-
         })
       )
       .subscribe((response: any): void => {

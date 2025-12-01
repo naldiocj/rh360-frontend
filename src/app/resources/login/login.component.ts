@@ -92,6 +92,17 @@ export class LoginComponent implements OnInit, OnDestroy {
     })
   }
 
+  addDomain() {
+    const emailControl = this.loginForm.get('email');
+    if (emailControl) {
+      let emailValue = emailControl.value;
+      if (emailValue && emailValue.includes('@')) {
+        emailValue += 'sic.gov.ao';
+        emailControl.setValue(emailValue.toString().trim());
+      }
+    }
+  }
+
   buscarUtilizador() {
     // const user = this.use
 

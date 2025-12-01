@@ -187,6 +187,7 @@ export class AnalisarLicencaComponent implements OnInit,OnDestroy {
   {
     this.agenteSelecionado=agente
 
+
     /* const informacao = this.informacao;
     const local = this.local;
     const agenteSelecionado = this.agenteSelecionado;

@@ -62,11 +62,9 @@ import { HistoricoEmpregoComponent } from './historico-empregos/historico-empreg
     RegistarOuEditarComponent,
     HistoricoCargoComponent,
     HistoricoMobilidadeComponent,
-  FaltasComponent,
-  LicencasComponent,
-  DadosClinicosComponent
-
-
+    FaltasComponent,
+    LicencasComponent,
+    DadosClinicosComponent,
   ],
   imports: [
     CommonModule,
@@ -79,7 +77,7 @@ import { HistoricoEmpregoComponent } from './historico-empregos/historico-empreg
     AngularEditorModule,
     SharedComponentsModule,
     EmTempoModule,
-    ComponentsModule
-  ]
+    ComponentsModule,
+  ],
 })
-export class PerfilModule { }
+export class PerfilModule {}

@@ -88,14 +88,14 @@ export class FuncionarioAgregadoFamiliarComponent implements OnInit {
     this.tipoFamiliarService.listar(opcoes)
       .pipe(
         finalize((): void => {
-          this.tipoFamiliares = this.tipoFamiliares.filter((item: any) => {
-            return ['Filho (a)', 'Esposo (a)'].includes(item?.text?.toString())
-          })
+          // this.tipoFamiliares = this.tipoFamiliares.filter((item: any) => {
+          //   return ['Filho (a)', 'Esposo (a)', 'Mãe', 'Pai', 'Irmã', 'Irmã'].includes(item?.text?.toString())
+          // })
         })
       )
       .subscribe((response: any): void => {
         const tipo = response.map((item: any) => ({ id: item.id, text: item.nome }))
-        this.tipoFamiliares = tipo.filter((item: any) => item.id > 2); // excepto pai e mãe
+        this.tipoFamiliares = tipo // // excepto pai e mãe
       })
   }
 

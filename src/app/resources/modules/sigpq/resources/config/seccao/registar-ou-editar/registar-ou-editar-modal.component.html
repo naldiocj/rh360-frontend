@@ -24,7 +24,7 @@
               <div class="form-group col-xl-6 col-lg-6 col-md-12 col-sm-12">
                 <label><b>Direcção </b><span class="text-danger"> *</span></label>
                 <ng-select2 [options]="options" [data]="this.pessoajuridicas" formControlName="direcao_id"
-                  (valueChanged)="selecionarDireccao($event)">
+                  (valueChanged)="buscarDepartamento($event)">
                 </ng-select2>
               </div>
 

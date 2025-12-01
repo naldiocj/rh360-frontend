@@ -176,7 +176,7 @@ export class ListarAgentesComponent implements OnInit {
             : (response.meta.current_page - 1) * response.meta.per_page + 1
           : this.totalBase;
 
-        this.pagination = this.pagination.deserialize(response.meta);
+        this.pagination = this.pagination.deserialize(response.meta); 
       });
   }
 
@@ -511,7 +511,6 @@ export class ListarAgentesComponent implements OnInit {
   visualizar(item: any) {
     this.listarPDF = [];
     this.listarPDF.push(item);
-    // this.listarPDF.push(item)
   }
 
   public get getTemAgentesSelecionados(): boolean {

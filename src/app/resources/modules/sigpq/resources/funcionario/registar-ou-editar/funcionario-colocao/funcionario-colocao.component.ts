@@ -147,14 +147,14 @@ export class FuncionarioColocaoComponent implements OnInit {
       data_ingresso: [null, [Validators.required]],
       // numero_ordem: [null, [Validators.required]],
       anexo: [null],
-      ordenante: ['Gil Sebastião Famoso'],
+      ordenante: [null],
       // unidade_id: [null],
       departamento_id: [null],
       numero_guia: [null, Validators.required],
       // seccao_id: [null],
       // data_ordem: [null, [Validators.required]],
       despacho_data: [null, [Validators.required]],
-      situacao: ['anterior', Validators.required],
+      situacao: [null, Validators.required],
       orgao_anterior_id: [null],
       orgao_destino_id: [null, [Validators.required]],
       // unidade_anterior: [null],
@@ -202,8 +202,8 @@ export class FuncionarioColocaoComponent implements OnInit {
         })
       )
       .subscribe(() => {
-        // this.recarregarPagina();
-        // this.reiniciarFormulario();
+        this.recarregarPagina();
+        this.reiniciarFormulario();
       });
   }
 

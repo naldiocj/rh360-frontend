@@ -16,6 +16,7 @@ import {
 
 import { ModalService } from '@core/services/config/Modal.service';
 import { TipoEstruturaOrganica } from '@core/services/config/TipoEstruturaOrganica.service';
+import { DepartamentoService } from '@shared/services/config/Departamento.service';
 import { DirecaoOuOrgaoService } from '@shared/services/config/DirecaoOuOrgao.service';
 import { SeccaoService } from '@shared/services/config/Seccao.service';
 
@@ -55,12 +56,13 @@ export class RegistarOuEditarModalComponent implements OnInit, OnChanges {
     private modalService: ModalService,
     private estruturaOrganicaServico: TipoEstruturaOrganica,
     private direcaoOuOrgaoService: DirecaoOuOrgaoService,
+    private departamentoService: DepartamentoService
   ) { }
 
   ngOnInit(): void {
     this.createForm();
     this.buscarTipoEstruturaOrganica()
-
+    this.buscarDireccao()
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -89,15 +91,15 @@ export class RegistarOuEditarModalComponent implements OnInit, OnChanges {
 
   createForm() {
     this.simpleForm = this.fb.group({
-      sigla: ['', [Validators.required]],
-      nome_completo: ['', [Validators.required, Validators.minLength(4)]],
-      direcao_id: ['', Validators.required],
-      estruturaOrganica: ['', Validators.required],
-      pessoajuridica_id: ['', [Validators.required]],
+      sigla: [null, [Validators.required]],
+      nome_completo: [null, [Validators.required, Validators.minLength(4)]],
+      direcao_id: [null, Validators.required],
+      estruturaOrganica: [null, Validators.required],
+      pessoajuridica_id: [null, [Validators.required]],
       tipo_pessoajuridica_id: [null, Validators.required],
-      orgao_comando_provincial: [null, Validators.required],
-      descricao: [''],
-      activo: [true],
+      // orgao_comando_provincial: [null, Validators.required],
+      descricao: [null],
+      // activo: [true],
     });
     this.seccao=null
   }
@@ -114,12 +116,30 @@ export class RegistarOuEditarModalComponent implements OnInit, OnChanges {
       })
   }
 
+  public buscarDepartamento($event: any) {
+    const opcoes = {
+      pessoajuridica_id: $event,
+    };
+    this.departamentoService
+      .listarTodos(opcoes)
+      .pipe(finalize((): void => {}))
+      .subscribe({
+        next: (response: any) => {
+          this.departamentos = response.map((item: any) => ({
+            id: item.id,
+            text: item.sigla + ' - ' + item.nome_completo,
+          }));
+        },
+      });
+  }
+
 
   public selecionarDireccao($event: any): void {
     if (!$event) return
 
     const opcoes = {
-      pessoafisica: $event
+      pessoafisica: $event,
+      orgao_comando_provincial: 'Departamento'
     }
     this.direcaoOuOrgaoService.listarTodos(opcoes)
       .pipe(
@@ -135,23 +155,23 @@ export class RegistarOuEditarModalComponent implements OnInit, OnChanges {
 
   public selecionarDepartamento($event: any): void {
 
-    if (!$event) return
-    const [departamentoSelecionado] = this.departamentosClone.filter((d: any) => d.id == $event)
+    // if (!$event) return
+    // const [departamentoSelecionado] = this.departamentosClone.filter((d: any) => d.id == $event)
 
-    if (departamentoSelecionado?.orgao_comando_provincial?.toString()?.includes('Comando Municipal')) {
-      this.simpleForm.get('tipo_pessoajuridica_id')?.setValue(8)
-      this.simpleForm.get('orgao_comando_provincial')?.setValue('Esquadra')
-    } else if (departamentoSelecionado?.orgao_comando_provincial?.toString()?.includes('Departamento')) {
-      this.simpleForm.get('tipo_pessoajuridica_id')?.setValue(3)
-      this.simpleForm.get('orgao_comando_provincial')?.setValue('Secção')
-    } else if (departamentoSelecionado?.orgao_comando_provincial?.toString()?.includes('Unidade')) {
-      this.simpleForm.get('tipo_pessoajuridica_id')?.setValue(10)
-      this.simpleForm.get('orgao_comando_provincial')?.setValue('Subunidade')
-    }
-    else {
-      this.simpleForm.get('tipo_pessoajuridica_id')?.setValue(null)
-      this.simpleForm.get('orgao_comando_provincial')?.setValue(null)
-    }
+    // if (departamentoSelecionado?.orgao_comando_provincial?.toString()?.includes('Comando Municipal')) {
+    //   this.simpleForm.get('tipo_pessoajuridica_id')?.setValue(8)
+    //   this.simpleForm.get('orgao_comando_provincial')?.setValue('Esquadra')
+    // } else if (departamentoSelecionado?.orgao_comando_provincial?.toString()?.includes('Departamento')) {
+    //   this.simpleForm.get('tipo_pessoajuridica_id')?.setValue(3)
+    //   this.simpleForm.get('orgao_comando_provincial')?.setValue('Secção')
+    // } else if (departamentoSelecionado?.orgao_comando_provincial?.toString()?.includes('Unidade')) {
+    //   this.simpleForm.get('tipo_pessoajuridica_id')?.setValue(10)
+    //   this.simpleForm.get('orgao_comando_provincial')?.setValue('Subunidade')
+    // }
+    // else {
+    //   this.simpleForm.get('tipo_pessoajuridica_id')?.setValue(null)
+    //   this.simpleForm.get('orgao_comando_provincial')?.setValue(null)
+    // }
   }
 
   onSubmit() {
@@ -190,24 +210,39 @@ export class RegistarOuEditarModalComponent implements OnInit, OnChanges {
     return this.seccao?.id;
   }
 
+  buscarDireccao() {
+    const opcoes = {
+      orgao_comando_provincial: 'Órgão'
+    }
+    this.direcaoOuOrgaoService
+        .listarTodos(opcoes)
+        .pipe(finalize((): void => {}))
+        .subscribe((response: any): void => {
+          this.pessoajuridicas = response.map((item: any) => ({
+            id: item.id,
+            text: item.sigla + ' - ' + item.nome_completo,
+          }));
+        });
+  }
+
   ngOnDestroy(): void {
   }
 
   selecionarOrgaoOuComandoProvincial($event: any): void {
-    if (!$event) return
+    // if (!$event) return
 
-    const opcoes = {
-      tipo_estrutura_sigla: $event
-    }
-    this.direcaoOuOrgaoService.listarTodos(opcoes)
-      .pipe(
-        finalize((): void => {
+    // const opcoes = {
+    //   tipo_estrutura_sigla: $event
+    // }
+    // this.direcaoOuOrgaoService.listarTodos(opcoes)
+    //   .pipe(
+    //     finalize((): void => {
 
-        })
-      )
-      .subscribe((response: any): void => {
-        this.pessoajuridicas = response.map((item: any) => ({ id: item.id, text: item.sigla + ' - ' + item.nome_completo }))
-      })
+    //     })
+    //   )
+    //   .subscribe((response: any): void => {
+    //     this.pessoajuridicas = response.map((item: any) => ({ id: item.id, text: item.sigla + ' - ' + item.nome_completo }))
+    //   })
   }
 
 }

@@ -95,6 +95,14 @@ export class ApiService {
       .pipe(catchError(this.formatErrors));
   }
 
+   public patch2(path: string, body: Object = {}): Observable<any> {
+    return this.http
+      .patch(environment.app_url + path, body, {
+        // headers: this.secureService.getHeaders,
+      })
+      .pipe(catchError(this.formatErrors));
+  }
+
   public delete(path: string): Observable<any> {
     return this.http
       .delete(environment.app_url + path, {

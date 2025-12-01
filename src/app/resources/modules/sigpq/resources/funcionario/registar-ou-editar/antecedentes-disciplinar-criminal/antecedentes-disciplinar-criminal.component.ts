@@ -46,10 +46,10 @@ export class AntecedentesDisciplinarCriminalComponent implements OnInit {
     { id: TYPE_HISTORICO_SAUDE.AT, text: 'Acidente de Trabalho' },
     { id: TYPE_HISTORICO_SAUDE.LFC, text: 'Lesão ou Fractura no Corpo' },
   ];
-  public grauParentesco: Array<Select2OptionData> = [
-    { id: 'AVOS', text: 'Avós' },
-    { id: 'PAI', text: 'Pai' },
-    { id: 'MÃE', text: 'Mãe' },
+  public tiposReferencias: Array<Select2OptionData> = [
+    { id: 'DISCIPLINAR', text: 'Disciplinar' },
+    { id: 'CRIMINAL', text: 'Criminal' },
+    { id: 'DISCIPLINAR_CRIMINAL', text: 'Disciplinar / Criminal' },
   ];
 
   public fileUrl: any;

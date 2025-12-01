@@ -6,71 +6,7 @@
           <form class="m-0 w-100" [formGroup]="this.simpleForm">
             <div class="card mt-0 py-0" style="border-radius: 0px">
               <div class="row p-2 my-1" style="row-gap: 1.2rem">
-                <h4 class="col-12">
-                  <!-- Órgão de Proveniência -->
-                  Órgão atual
-                </h4>
-                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
-                  <label style="color: var(--use-color)" for=""
-                    ><b>Tipo de Órgão<span class="text-red">*</span></b></label
-                  >
-                  <ng-select2
-                    [options]="options"
-                    [data]="this.tipoEstruturaOrganicas"
-                    formControlName="orgao_anterior_id"
-                  >
-                  </ng-select2>
-                </div>
-                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
-                  <label style="color: var(--use-color)" for=""
-                    ><b>Direcção<span class="text-red">*</span></b></label
-                  >
-                  <ng-select2
-                    [options]="options"
-                    [data]="this.orgaos_anterior"
-                    formControlName="pessoajuridicaPassadoId"
-                    (valueChanged)="selecionarDirecao($event, 'anterior')"
-                  >
-                  </ng-select2>
-                </div>
 
-                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
-                  <label for="" style="color: var(--use-color)"
-                    ><b>Departamento</b></label
-                  >
-                  <ng-select2
-                    [options]="options"
-                    (valueChanged)="selecionarDepartamento($event, 'anterior')"
-                    [data]="this.departamentos_anterior"
-                    formControlName="departamentoPassadoId"
-                  >
-                  </ng-select2>
-                </div>
-
-                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
-                  <label for="" style="color: var(--use-color)"
-                    ><b>Secção</b></label
-                  >
-                  <!-- <ng-select2 [options]="options" [data]="this.seccoes_anterior" formControlName="nome_da_seccao_anterior">
-                  </ng-select2> -->
-                  <input
-                    class="form-control"
-                    type="text"
-                    formControlName="seccao_anterior"
-                  />
-                </div>
-                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
-                  <label for="" style="color: var(--use-color)"
-                    ><b>Brigada</b></label
-                  >
-                  <!-- <ng-select2 [options]="options" [data]="this.seccoes_anterior" formControlName="nome_da_brigada_anterior">
-                  </ng-select2> -->
-                  <input
-                    class="form-control"
-                    type="text"
-                    formControlName="brigada_anterior"
-                  />
-                </div>
                 <h4 class="col-12">Órgão de Destino</h4>
                 <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
                   <label for="" style="color: var(--use-color)"
@@ -184,7 +120,7 @@
                 >
                   <div class="d-flex flex-column flex-grow-1">
                     <label style="color: var(--use-color)" for=""
-                      ><b>Despacho n.º<span class="text-red">*</span></b></label
+                      ><b>Ordem n.º<span class="text-red">*</span></b></label
                     >
                     <input
                       class="form-control"

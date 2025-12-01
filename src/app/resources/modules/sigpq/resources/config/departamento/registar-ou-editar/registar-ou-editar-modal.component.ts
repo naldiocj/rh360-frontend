@@ -6,13 +6,9 @@ import {
   Input,
   OnDestroy,
   OnChanges,
-  SimpleChanges
+  SimpleChanges,
 } from '@angular/core';
-import {
-  FormGroup,
-  FormBuilder,
-  Validators
-} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ModalService } from '@core/services/config/Modal.service';
 import { TipoEstruturaOrganica } from '@core/services/config/TipoEstruturaOrganica.service';
 import { DepartamentoService } from '@shared/services/config/Departamento.service';
@@ -24,52 +20,59 @@ import { Subject, finalize, takeUntil } from 'rxjs';
   selector: 'sigpq-registar-ou-editar-modal',
   templateUrl: './registar-ou-editar-modal.component.html',
   styles: [
-    ` /deep/ .ng-dropdown-panel .scroll-host {
-          max-height: 120px  !important;
+    `
+      /deep/ .ng-dropdown-panel .scroll-host {
+        max-height: 120px !important;
       }
-  `]
+    `,
+  ],
 })
 export class RegistarOuEditarModalComponent implements OnInit, OnChanges {
-
   options: any = {
-    placeholder: "Selecione uma opção",
-    width: '100%'
+    placeholder: 'Selecione uma opção',
+    width: '100%',
   };
 
-  simpleForm: FormGroup = new FormGroup({})
-  isLoading: boolean = false
-  public destroy$ = new Subject<void>()
+  simpleForm: FormGroup = new FormGroup({});
+  isLoading: boolean = false;
+  public destroy$ = new Subject<void>();
 
-  pessoajuridicas: Array<Select2OptionData> = []
-  pessoajuridicasClone: any = []
+  pessoajuridicas: Array<Select2OptionData> = [];
+  pessoajuridicasClone: any = [];
   public tipoEstruturaOrganicas: Array<Select2OptionData> = [];
-  perfis: any
+  perfis: any;
 
-  @Input() public departamento: any = null
-  @Output() eventRegistarOuEditModel = new EventEmitter<boolean>()
+  @Input() public departamento: any = null;
+  @Output() eventRegistarOuEditModel = new EventEmitter<boolean>();
 
   constructor(
     private fb: FormBuilder,
     private direcaoOuOrgaoService: DirecaoOuOrgaoService,
     private departamentoService: DepartamentoService,
     private modalService: ModalService,
-    private estruturaOrganicaServico: TipoEstruturaOrganica,
-
-  ) { }
+    private estruturaOrganicaServico: TipoEstruturaOrganica
+  ) {}
 
   ngOnInit(): void {
     this.createForm();
-    this.buscarTipoEstruturaOrganica()
+    this.buscarTipoEstruturaOrganica();
+    this.buscarDireccoes();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['departamento'].currentValue != changes['departamento'].previousValue && this.departamento) {
-      this.preenchaForm()
+    if (
+      changes['departamento'].currentValue !=
+        changes['departamento'].previousValue &&
+      this.departamento
+    ) {
+      this.preenchaForm();
     }
   }
 
   private preenchaForm() {
-    this.selecionarOrgaoOuComandoProvincial(this.departamento?.tipo_estrutura_organica_sigla)
+    this.selecionarOrgaoOuComandoProvincial(
+      this.departamento?.tipo_estrutura_organica_sigla
+    );
     // console.log(this.departamento)
     this.simpleForm.patchValue({
       estruturaOrganica: this.departamento?.tipo_estrutura_organica_sigla,
@@ -78,67 +81,83 @@ export class RegistarOuEditarModalComponent implements OnInit, OnChanges {
       pessoajuridica_id: this.departamento?.pessoajuridica_id,
       tipo_pessoajuridica_id: this.departamento?.tipo_pessoajuridica_id,
       orgao_comando_provincial: this.departamento?.orgao_comando_provincial,
-      descricao: [ this.departamento?.descricao],
+      descricao: [this.departamento?.descricao],
       activo: [true],
-
     });
   }
   private buscarTipoEstruturaOrganica() {
-    this.estruturaOrganicaServico.listar({})
+    this.estruturaOrganicaServico
+      .listar({})
       .pipe(
         takeUntil(this.destroy$),
-        finalize((): void => {
-
-        })
+        finalize((): void => {})
       )
       .subscribe((response: any): void => {
-        this.tipoEstruturaOrganicas = response.map((item: any) => ({ id: item.sigla, text: item.name }))
-      })
+        this.tipoEstruturaOrganicas = response.map((item: any) => ({
+          id: item.sigla,
+          text: item.name,
+        }));
+      });
   }
   createForm() {
     this.simpleForm = this.fb.group({
-      estruturaOrganica: [null, Validators.required],
-      sigla: ['', [Validators.required]],
-      nome_completo: ['', [Validators.required, Validators.minLength(4)]],
-      pessoajuridica_id: [null, [Validators.required]],
-      tipo_pessoajuridica_id: [null, Validators.required],
-      orgao_comando_provincial: [null, Validators.required],
+      estruturaOrganica: [null],
+      sigla: [''],
+      nome_completo: ['', [, Validators.minLength(4)]],
+      pessoajuridica_id: [null],
+      tipo_pessoajuridica_id: [null],
+      orgao_comando_provincial: ['Departamento'],
       descricao: [''],
       activo: [true],
     });
-    this.departamento=null
+    this.departamento = null;
   }
 
-
-
   onSubmit() {
+
+    
+
+    Object.keys(this.simpleForm.controls).forEach((key) => {
+      const control = this.simpleForm.controls[key];
+
+      // Check if the individual control is invalid
+      if (control.invalid) {
+        console.error(`Control: ${key}`);
+        console.error(`Errors:`, control.errors); // Log the validation errors object
+        console.error(`Value: ${control.value}`);
+        console.error(`Status: ${control.status}`);
+      }
+    });
+
+    this.simpleForm.controls['orgao_comando_provincial'].setValue('Departamento');
+    this.simpleForm.controls['tipo_pessoajuridica_id'].setValue('2');
 
     if (this.simpleForm.invalid || this.isLoading) {
       return;
     }
 
-    this.isLoading = true
-    const type =
-      this.buscarId() ?
-        this.departamentoService.editar(this.simpleForm.value, this.buscarId()) :
-        this.departamentoService.registar(this.simpleForm.value)
+    this.isLoading = true;
+    const type = this.buscarId()
+      ? this.departamentoService.editar(this.simpleForm.value, this.buscarId())
+      : this.departamentoService.registar(this.simpleForm.value);
 
-    type.pipe(
-      finalize(() => {
-        this.isLoading = false
-      })
-    ).subscribe(() => {
-      this.reiniciarFormulario()
-      this.modalService.fechar('close')
-      this.eventRegistarOuEditModel.emit(true)
-    })
-
+    type
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+        })
+      )
+      .subscribe(() => {
+        this.reiniciarFormulario();
+        this.modalService.fechar('close');
+        this.eventRegistarOuEditModel.emit(true);
+      });
   }
 
   reiniciarFormulario() {
-    this.simpleForm.reset()
+    this.simpleForm.reset();
 
-    this.simpleForm.get('activo')?.setValue(true)
+    this.simpleForm.get('activo')?.setValue(true);
   }
 
   buscarId(): number {
@@ -146,48 +165,74 @@ export class RegistarOuEditarModalComponent implements OnInit, OnChanges {
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next()
-    this.destroy$.complete
+    this.destroy$.next();
+    this.destroy$.complete;
+  }
+
+  buscarDireccoes() {
+    const opcoes = {
+      orgao_comando_provincial: 'Órgão',
+    };
+    this.direcaoOuOrgaoService
+      .listarTodos(opcoes)
+      .pipe(finalize((): void => {}))
+      .subscribe((response: any): void => {
+        this.pessoajuridicasClone = response;
+        this.pessoajuridicas = response.map((item: any) => ({
+          id: item.id,
+          text: item.sigla + ' - ' + item.nome_completo,
+        }));
+      });
   }
 
   selecionarOrgaoOuComandoProvincial($event: any): void {
-    if (!$event) return
-
-    const opcoes = {
-      tipo_estrutura_sigla: $event
-    }
-    this.direcaoOuOrgaoService.listarTodos(opcoes)
-      .pipe(
-        finalize((): void => {
-
-        })
-      )
-      .subscribe((response: any): void => {
-        this.pessoajuridicasClone = response
-        this.pessoajuridicas = response.map((item: any) => ({ id: item.id, text: item.sigla + ' - ' + item.nome_completo }))
-      })
+    // if (!$event) return
+    // const opcoes = {
+    //   tipo_estrutura_sigla: $event
+    // }
+    // this.direcaoOuOrgaoService.listarTodos(opcoes)
+    //   .pipe(
+    //     finalize((): void => {
+    //     })
+    //   )
+    //   .subscribe((response: any): void => {
+    //     this.pessoajuridicasClone = response
+    //     this.pessoajuridicas = response.map((item: any) => ({ id: item.id, text: item.sigla + ' - ' + item.nome_completo }))
+    //   })
   }
 
   public selecionarDireccao($event: any) {
-    if (!$event) return
-    const [pessoajuridicasSelecionado] = this.pessoajuridicasClone.filter((p: any) => p.id == $event)
+    // if (!$event) return;
+    // const [pessoajuridicasSelecionado] = this.pessoajuridicasClone.filter(
+    //   (p: any) => p.id == $event
+    // );
 
-    if (pessoajuridicasSelecionado?.tipo_estrutura_organica_sigla?.toString()?.includes('UT')) {
-      this.simpleForm.get('tipo_pessoajuridica_id')?.setValue(7)
-      this.simpleForm.get('orgao_comando_provincial')?.setValue('Comando Municipal')
-    } else if (pessoajuridicasSelecionado?.tipo_estrutura_organica_sigla?.toString()?.includes('SAT')) {
-      this.simpleForm.get('tipo_pessoajuridica_id')?.setValue(2)
-      this.simpleForm.get('orgao_comando_provincial')?.setValue('Departamento')
-    } else if (pessoajuridicasSelecionado?.tipo_estrutura_organica_sigla?.toString()?.includes('UC')) {
-      this.simpleForm.get('tipo_pessoajuridica_id')?.setValue(6)
-      this.simpleForm.get('orgao_comando_provincial')?.setValue('Unidade')
-    } else {
-      this.simpleForm.get('tipo_pessoajuridica_id')?.setValue(null)
-      this.simpleForm.get('orgao_comando_provincial')?.setValue(null)
-
-    }
-
+    // if (
+    //   pessoajuridicasSelecionado?.tipo_estrutura_organica_sigla
+    //     ?.toString()
+    //     ?.includes('UT')
+    // ) {
+    //   this.simpleForm.get('tipo_pessoajuridica_id')?.setValue(7);
+    //   this.simpleForm
+    //     .get('orgao_comando_provincial')
+    //     ?.setValue('Comando Municipal');
+    // } else if (
+    //   pessoajuridicasSelecionado?.tipo_estrutura_organica_sigla
+    //     ?.toString()
+    //     ?.includes('SAT')
+    // ) {
+    //   this.simpleForm.get('tipo_pessoajuridica_id')?.setValue(2);
+    //   this.simpleForm.get('orgao_comando_provincial')?.setValue('Departamento');
+    // } else if (
+    //   pessoajuridicasSelecionado?.tipo_estrutura_organica_sigla
+    //     ?.toString()
+    //     ?.includes('UC')
+    // ) {
+    //   this.simpleForm.get('tipo_pessoajuridica_id')?.setValue(6);
+    //   this.simpleForm.get('orgao_comando_provincial')?.setValue('Unidade');
+    // } else {
+    //   this.simpleForm.get('tipo_pessoajuridica_id')?.setValue(null);
+    //   this.simpleForm.get('orgao_comando_provincial')?.setValue(null);
+    // }
   }
 }
-
-

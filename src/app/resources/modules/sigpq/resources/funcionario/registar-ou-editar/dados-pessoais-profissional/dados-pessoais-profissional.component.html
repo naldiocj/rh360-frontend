@@ -861,7 +861,7 @@
                     <div class="d-flex flex-column flex-grow-1">
                       <label for=""
                         ><b
-                          >N.º Calçado<span class="text-red">*</span></b
+                          >N.º Calçado</b
                         ></label
                       >
                       <input
@@ -909,7 +909,7 @@
 
                     <div class="d-flex flex-column flex-grow-1">
                       <label for=""
-                        ><b>Nº Camisa<span class="text-red">*</span></b></label
+                        ><b>Nº Camisa</b></label
                       >
                       <ng-select2
                         id="curso"
@@ -922,7 +922,7 @@
 
                     <div class="d-flex flex-column flex-grow-1">
                       <label for=""
-                        ><b>Nº Calça<span class="text-red">*</span></b></label
+                        ><b>Nº Calça</b></label
                       >
                       <input
                         class="form-control"
@@ -2025,6 +2025,7 @@
                       type="text"
                       class="form-control input-editable"
                       formControlName="email_institucional"
+                      (input)="this.addDomain('email_institucional')"
                     />
                   </div>
                 </div>

@@ -53,62 +53,6 @@ export class FuncionarioService {
   registar(form: any): Observable<any> {
     const formData: any = new FormData();
 
-    // Validação de campos obrigatórios
-    // const camposObrigatorios = [
-    //   'nome_completo',
-    //   'apelido',
-    //   'data_nascimento',
-    //   'genero',
-    //   'nid',
-    //   'sigpq_tipo_sanguineo_id',
-    //   'naturalidade_id',
-    //   'regime_id',
-    //   'sigpq_tipo_vinculo_id',
-    //   'sigpq_vinculo_id',
-    //   'sigpq_estado_id',
-    //   'sigpq_situacao_id',
-    //   'nip',
-    //   'numero_agente',
-    //   'orgao_id',
-    //   'patente_id',
-    //   'data_adesao',
-    // ];
-
-    // Verificar campos obrigatórios
-    // for (const campo of camposObrigatorios) {
-    //   if (
-    //     !form[campo] ||
-    //     form[campo] === '' ||
-    //     form[campo] === null ||
-    //     form[campo] === undefined
-    //   ) {
-    //     throw new Error(`O campo ${campo} é obrigatório!`);
-    //   }
-    // }
-
-    // Validação específica para números
-    // const camposNumericos = [
-    //   'naturalidade_id',
-    //   'regime_id',
-    //   'sigpq_tipo_vinculo_id',
-    //   'sigpq_vinculo_id',
-    //   'sigpq_estado_id',
-    //   'sigpq_situacao_id',
-    //   'numero_agente',
-    //   'patente_id',
-    //   'orgao_id',
-    // ];
-
-    // for (const campo of camposNumericos) {
-    //   const valor = Number(form[campo]);
-    //   if (isNaN(valor) || valor <= 0) {
-    //     throw new Error(
-    //       `O campo ${campo} deve ser um número válido maior que zero!`
-    //     );
-    //   }
-    // }
-
-    // Adicionar dados ao FormData com validação
     formData.append('foto_civil', form['foto_civil']);
     formData.append(
       'nome_completo',
@@ -159,10 +103,6 @@ export class FuncionarioService {
       'contacto_alternativo',
       String(form['contacto_alternativo'] ?? '').trim()
     );
-    // formData.append(
-    //   'contacto_profissional',
-    //   String(form['contacto_servico'] ?? '').trim()
-    // );
     formData.append(
       'contacto_servico',
       String(form['contacto_servico'] ?? '').trim()
@@ -317,57 +257,6 @@ export class FuncionarioService {
   editar(id: any, form: any): Observable<any> {
     const formData: any = new FormData();
 
-    // Validação de campos obrigatórios para edição
-    const camposObrigatorios = [
-      'nome_completo',
-      // 'apelido',
-      'data_nascimento',
-      'genero',
-      'nid',
-      'sigpq_tipo_sanguineo_id',
-      'naturalidade_id',
-      'regime_id',
-      // 'sigpq_tipo_vinculo_id',
-      // 'sigpq_vinculo_id',
-      // 'sigpq_estado_id',
-      'sigpq_situacao_id',
-      // 'nip',
-      'numero_agente',
-      'orgao_id',
-      'patente_id',
-      'data_adesao',
-    ];
-
-    // Verificar campos obrigatórios
-    for (const campo of camposObrigatorios) {
-      const valor = form.get(campo)?.value;
-      if (!valor || valor === '' || valor === null || valor === undefined) {
-        throw new Error(`O campo ${campo} é obrigatório!`);
-      }
-    }
-
-    // Validação específica para números
-    const camposNumericos = [
-      'naturalidade_id',
-      'regime_id',
-      // 'sigpq_tipo_vinculo_id',
-      // 'sigpq_vinculo_id',
-      // 'sigpq_estado_id',
-      'sigpq_situacao_id',
-      'numero_agente',
-      'patente_id',
-      'orgao_id',
-    ];
-
-    for (const campo of camposNumericos) {
-      const valor = Number(form.get(campo)?.value);
-      if (isNaN(valor) || valor <= 0) {
-        throw new Error(
-          `O campo ${campo} deve ser um número válido maior que zero!`
-        );
-      }
-    }
-
     // Adicionar dados ao FormData com validação
     formData.append('foto_civil', form.get('foto_civil')?.value);
     formData.append(
@@ -428,10 +317,6 @@ export class FuncionarioService {
       'contacto_alternativo',
       String(form.get('contacto_alternativo')?.value).trim()
     );
-    // formData.append(
-    //   'contacto_profissional',
-    //   String(form.get('contacto_servico')?.value).trim()
-    // );
     formData.append(
       'contacto_servico',
       String(form.get('contacto_servico')?.value).trim()
@@ -540,11 +425,6 @@ export class FuncionarioService {
       'numero_despacho_nomeacao',
       String(form.get('numero_despacho_nomeacao')?.value).trim()
     );
-
-    // formData.append(
-    //   'sigpq_tipo_cargo_id',
-    //   Number(form.get('sigpq_tipo_cargo_id')?.value)
-    // );
     formData.append(
       'sigpq_tipo_funcao_id',
       String(form.get('sigpq_tipo_funcao_id')?.value).trim()
@@ -557,7 +437,6 @@ export class FuncionarioService {
       'data_adesao',
       String(form.get('data_adesao')?.value).trim()
     );
-
     formData.append(
       'linguas_internacionais',
       String(form.get('linguas_internacionais')?.value).trim()
@@ -582,9 +461,7 @@ export class FuncionarioService {
       'motivo_situacao_laboral',
       String(form.get('motivo_situacao_laboral')?.value).trim()
     );
-
     formData.append('seccao', String(form.get('seccao')?.value).trim());
-
     formData.append('brigada', String(form.get('brigada')?.value).trim());
     formData.append(
       'sigpq_tipo_cargo_id',
@@ -602,74 +479,6 @@ export class FuncionarioService {
     } else {
       formData.append('pessoajuridica_id', '');
     }
-    // parte 1
-    // formData.append('foto_civil', form.get('foto_civil')?.value);
-    // formData.append('nome_completo', String(form.get('nome_completo')?.value).trim());
-    // formData.append('apelido', String(form.get('apelido')?.value).trim());
-    // formData.append('data_nascimento', String(form.get('data_nascimento')?.value).trim());
-    // formData.append('genero', String(form.get('genero')?.value).trim());
-    // formData.append('estado_civil_id', String(form.get('estado_civil_id')?.value).trim());
-    // formData.append('nome_conjunge', String(form.get('nome_conjunge')?.value).trim());
-    // formData.append('nid', String(form.get('nid')?.value).trim());
-    // formData.append('data_expira', String(form.get('data_expira')?.value).trim());
-    // formData.append('sigpq_tipo_sanguineo_id', String(form.get('sigpq_tipo_sanguineo_id')?.value).trim());
-    // formData.append('naturalidade_id', Number(form.get('naturalidade_id')?.value));
-    // formData.append('residencia_bi', String(form.get('residencia_bi')?.value).trim());
-    // formData.append('residencia_actual', String(form.get('residencia_actual')?.value).trim());
-    // formData.append('nome_pai', String(form.get('nome_pai')?.value).trim());
-    // formData.append('nome_mae', String(form.get('nome_mae')?.value).trim());
-    // formData.append('numero_passaporte', String(form.get('numero_passaporte')?.value).trim());
-    // formData.append('data_expira_passaporte', String(form.get('data_expira_passaporte')?.value).trim());
-    // formData.append('contacto', String(form.get('contacto')?.value).trim());
-    // formData.append('email', String(form.get('email')?.value).trim());
-    // formData.append('iban', String(form.get('iban')?.value).trim());
-    // formData.append('numero_carta_conducao', String(form.get('numero_carta_conducao')?.value).trim());
-    // formData.append('data_expira_carta_conducao', String(form.get('data_expira_carta_conducao')?.value).trim());
-    // formData.append('sigpq_tipo_habilitacao_literaria_id', Number(form.get('sigpq_tipo_habilitacao_literaria_id')?.value));
-    // formData.append('sigpq_tipo_curso_id', String(form.get('sigpq_tipo_curso_id')?.value).trim());
-    // formData.append('pais_id', String(form.get('pais_id')?.value).trim());
-
-    // formData.append("documento_familiar", JSON.stringify(form.get('documento_familiar')?.value) || []);
-    // for (let i = 0; i < form.value?.documento_familiar_anexo.length; i++) {
-    //     formData.append('documento_familiar_anexo' + [i], form.value?.documento_familiar_anexo[i] || [])
-    // }
-
-    // parte 3
-    // formData.append('foto_efectivo', form.get('foto_efectivo')?.value);
-    // formData.append('pseudonimo', String(form.get('pseudonimo')?.value).trim());
-    // formData.append('regime_id', Number(form.get('regime_id')?.value));
-    // formData.append('sigpq_tipo_vinculo_id', Number(form.get('sigpq_tipo_vinculo_id')?.value));
-    // formData.append('estado', String(form.get('estado')?.value).trim());
-    // formData.append('nip', String(form.get('nip')?.value).trim());
-    // formData.append('numero_agente', Number(form.get('numero_agente')?.value));
-    // formData.append('orgao_id', String(form.get('orgao_id')?.value).trim());
-    // formData.append('patente_id', Number(form.get('patente_id')?.value));
-    // formData.append('data_patenteamento', String(form.get('data_patenteamento')?.value).trim());
-    // formData.append('numero_despacho', String(form.get('numero_despacho')?.value).trim());
-    // formData.append('sigpq_tipo_cargo_id', Number(form.get('sigpq_tipo_cargo_id')?.value));
-    // formData.append('sigpq_tipo_funcao_id', String(form.get('sigpq_tipo_funcao_id')?.value).trim());
-    // formData.append('sigpq_tipo_categoria_id', String(form.get('sigpq_tipo_categoria_id')?.value).trim());
-    // formData.append('data_adesao', String(form.get('data_adesao')?.value).trim());
-
-    // parte 3
-    // formData.append("processo_individual", JSON.stringify(form.get('processo_individual')?.value) || []);
-    // for (let i = 0; i < form.value?.processo_individual_anexo.length; i++) {
-    //     formData.append('processo_individual_anexo' + [i], form.value?.processo_individual_anexo[i] || [])
-    // }
-
-    // formData.append("processo_individual_parentes", JSON.stringify(form.get('processo_individual_parentes')?.value) || []);
-    // for (let i = 0; i < form.value?.processo_individual_parentes_anexo.length; i++) {
-    //     formData.append('processo_individual_parentes_anexo' + [i], form.value?.processo_individual_parentes_anexo[i] || [])
-    // }
-
-    // formData.append("outros_dados[]", JSON.stringify(form.get('outros_dados')?.value) || []);
-    // enviar vários anexos
-    // for (let i = 0; i < form.value.outros_dados_anexos.length; i++) {
-    //     formData.append('outros_dados_anexos' + [i], form.value.outros_dados_anexos[i] || [])
-    // }
-
-    // parte 4
-    // formData.append("meios", JSON.stringify(form.get('meios')?.value) || []);
 
     return this.httpApi.put2(`${this.base}/${id}`, formData).pipe(
       debounceTime(500),
@@ -677,7 +486,7 @@ export class FuncionarioService {
         console.log('Resposta bruta do backend (editar):', response);
         const result = response.object;
         console.log('Resultado processado (editar):', result);
-        return result;
+        return response;
       })
     );
   }
