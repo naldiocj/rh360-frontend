@@ -232,6 +232,10 @@ export class FuncionarioService {
       'tipo_cargo_id',
       String(form['sigpq_tipo_funcao_id'] ?? '').trim()
     );
+    formData.append(
+      'orgao_proveniencia',
+      String(form['orgao_proveniencia'] ?? '').trim()
+    );
 
     // Log detalhado para debug
     const logPayload: any = {};
@@ -470,6 +474,10 @@ export class FuncionarioService {
     formData.append(
       'tipo_orgao',
       String(form.get('tipo_orgao')?.value ?? '').trim()
+    );
+    formData.append(
+      'orgao_proveniencia',
+      String(form.get('orgao_proveniencia')?.value ?? '').trim()
     );
 
     // Adiciona o campo pessoajuridica_id usando o valor do órgão selecionado

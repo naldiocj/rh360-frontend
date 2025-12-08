@@ -464,6 +464,7 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
           numero_camisa: response?.numero_camisa,
           motivo_situacao_laboral: response?.motivo_situacao_laboral,
           numero_calca: response?.numero_calca,
+          orgao_proveniencia: response?.orgao_proveniencia
         });
         this.selectedPatente = response?.patente_id;
         this.ajustarFotoFardado();
@@ -491,6 +492,7 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
 
     this.ajustarFotoFardado();
     this.criarForm();
+
 
     // Usar setTimeout para evitar ExpressionChangedAfterItHasBeenCheckedError
     setTimeout(() => {
@@ -700,6 +702,7 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
       numero_camisa: [null],
       motivo_situacao_laboral: [null],
       numero_calca: [null],
+      orgao_proveniencia: [null]
     });
 
     this.ajustarFotoFardado();
@@ -1355,229 +1358,6 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
       });
   }
 
-  // onSubmit() {
-  //   console.log('Início do onSubmit');
-
-  //   // Validação básica do formulário
-  //   if (!this.simpleForm) {
-  //     alert('Formulário não inicializado!');
-  //     return;
-  //   }
-
-  //   if (this.simpleForm.invalid || this.submitted) {
-  //     console.log('Formulário inválido ou já submetido');
-  //     console.log('Formulário válido:', this.simpleForm.valid);
-  //     console.log('Formulário submetido:', this.submitted);
-  //     this.utilService.validarCampo(this.simpleForm);
-  //     return;
-  //   }
-
-  //   // Garante que pessoajuridica_id receba o valor correto de orgao_id
-  //   const orgaoId = this.simpleForm.value.orgao_id;
-  //   console.log('orgao_id:', orgaoId);
-  //   if (orgaoId && !isNaN(Number(orgaoId)) && Number(orgaoId) > 0) {
-  //     this.simpleForm.patchValue({ pessoajuridica_id: Number(orgaoId) });
-  //     console.log('pessoajuridica_id definido como:', Number(orgaoId));
-  //   } else {
-  //     this.simpleForm.patchValue({ pessoajuridica_id: null });
-  //     console.log('pessoajuridica_id definido como null - orgao_id inválido');
-  //   }
-
-  //   const formValue = this.simpleForm.getRawValue();
-  //   console.log('Valores do formulário:', formValue);
-  //   console.log('pessoajuridica_id:', formValue.pessoajuridica_id);
-
-  //   // Validação extra para pessoajuridica_id
-  //   if (
-  //     formValue.pessoajuridica_id === null ||
-  //     formValue.pessoajuridica_id === undefined ||
-  //     isNaN(Number(formValue.pessoajuridica_id)) ||
-  //     Number(formValue.pessoajuridica_id) <= 0
-  //   ) {
-  //     console.error('pessoajuridica_id inválido:', formValue.pessoajuridica_id);
-  //     alert(
-  //       'Erro: Selecione uma Direção/Órgão válido! O campo pessoajuridica_id está inválido.'
-  //     );
-  //     return;
-  //   }
-
-  //   // Campos obrigatórios essenciais (sempre obrigatórios)
-  //   const camposObrigatorios = [
-  //     'nome_completo',
-  //     'data_nascimento',
-  //     'genero',
-  //     'estado_civil_id',
-  //     'nid',
-  //     'data_adesao',
-  //     'regime_id',
-  //     'sigpq_tipo_vinculo_id',
-  //     'sigpq_situacao_id',
-  //     'numero_agente',
-  //     'orgao_id',
-  //     'patente_id',
-  //     'sigpq_tipo_categoria_id',
-  //   ];
-
-  //   // Validação de campos obrigatórios
-  //   for (const campo of camposObrigatorios) {
-  //     const control = this.simpleForm.get(campo);
-  //     if (
-  //       !control ||
-  //       control.value === undefined ||
-  //       control.value === null ||
-  //       control.value === ''
-  //     ) {
-  //       console.error(`Campo obrigatório não preenchido: ${campo}`);
-  //       console.error(`Valor do campo:`, control?.value);
-  //       alert(`O campo ${campo} é obrigatório!`);
-  //       return;
-  //     }
-  //   }
-
-  //   // Validação condicional para sigpq_vinculo_id
-  //   const sigpqTipoVinculoId = this.simpleForm.get(
-  //     'sigpq_tipo_vinculo_id'
-  //   )?.value;
-  //   const sigpqVinculoId = this.simpleForm.get('sigpq_vinculo_id')?.value;
-  //   if (
-  //     sigpqTipoVinculoId &&
-  //     this.vinculos.length > 0 &&
-  //     (!sigpqVinculoId || sigpqVinculoId === '')
-  //   ) {
-  //     console.error(
-  //       'Campo sigpq_vinculo_id é obrigatório quando há opções disponíveis'
-  //     );
-  //     alert('O campo sigpq_vinculo_id é obrigatório!');
-  //     return;
-  //   }
-
-  //   // Validação condicional para sigpq_tipo_cargo_id e sigpq_tipo_funcao_id
-  //   const sigpqActoNomeacaoId = this.simpleForm.get(
-  //     'sigpq_acto_nomeacao_id'
-  //   )?.value;
-  //   const sigpqTipoCargoId = this.simpleForm.get('sigpq_tipo_cargo_id')?.value;
-  //   const sigpqTipoFuncaoId = this.simpleForm.get(
-  //     'sigpq_tipo_funcao_id'
-  //   )?.value;
-
-  //   if (sigpqActoNomeacaoId) {
-  //     // Se tem ato de nomeação, cargo é obrigatório
-  //     if (!sigpqTipoCargoId || sigpqTipoCargoId === '') {
-  //       console.error(
-  //         'Campo sigpq_tipo_cargo_id é obrigatório quando há ato de nomeação'
-  //       );
-  //       alert('O campo Cargo é obrigatório!');
-  //       return;
-  //     }
-  //   } else {
-  //     // Se não tem ato de nomeação, função é obrigatória
-  //     if (!sigpqTipoFuncaoId || sigpqTipoFuncaoId === '') {
-  //       console.error(
-  //         'Campo sigpq_tipo_funcao_id é obrigatório quando não há ato de nomeação'
-  //       );
-  //       alert('O campo Função é obrigatório!');
-  //       return;
-  //     }
-  //   }
-
-  //   this.submitted = true;
-  //   this.isLoading = true;
-  //   console.log('Enviando dados para o backend...');
-
-  //   // Determina se é edição ou registro
-  //   const isEditing = !!this.getId;
-  //   console.log('Modo:', isEditing ? 'Edição' : 'Registro');
-  //   console.log('ID:', this.getId);
-
-  //   // Envia os dados diretamente sem teste de conexão
-  //   const type = isEditing
-  //     ? this.funcionarioServico.editar(this.getId, this.simpleForm)
-  //     : this.funcionarioServico.registar(formValue);
-
-  //   type
-  //     .pipe(
-  //       takeUntil(this.destroy$),
-  //       finalize(() => {
-  //         this.isLoading = false;
-  //         this.submitted = false;
-  //         console.log('Finalizou o carregamento');
-  //       })
-  //     )
-  //     .subscribe({
-  //       next: (response: any) => {
-  //         console.log('Resposta do backend:', response);
-  //         console.log('Tipo da resposta:', typeof response);
-  //         console.log('Estrutura da resposta:', Object.keys(response || {}));
-
-  //         if (!response) {
-  //           console.error('Resposta vazia do backend');
-  //           alert(
-  //             'Nenhuma resposta do backend. Verifique se todos os campos obrigatórios estão preenchidos.'
-  //           );
-  //           return;
-  //         }
-
-  //         // Sucesso na operação
-  //         if (isEditing) {
-  //           console.log('Edição realizada com sucesso');
-  //           alert('Dados atualizados com sucesso!');
-  //           // Pode redirecionar ou atualizar a página conforme necessário
-  //         } else {
-  //           console.log('Registro realizado com sucesso');
-  //           console.log('pessoaId:', response.pessoaId);
-  //           alert('Funcionário registado com sucesso!');
-  //           this.restaurarFormulario();
-  //           setTimeout(() => {
-  //             this.router.navigate([
-  //               '/piips/sigpg/funcionario/registar-ou-editar/mais-informacao',
-  //               response.pessoaId,
-  //             ]);
-  //           }, 300);
-  //         }
-  //       },
-  //       error: (err) => {
-  //         console.error('Erro ao salvar:', err);
-  //         console.error('Status do erro:', err.status);
-  //         console.error('Status text:', err.statusText);
-  //         console.error('URL da requisição:', err.url);
-  //         console.error('Detalhes do erro:', JSON.stringify(err));
-
-  //         // Tratamento de erro mais específico
-  //         let errorMessage = 'Erro ao salvar os dados!';
-
-  //         if (err.error && err.error.message) {
-  //           errorMessage = err.error.message;
-  //         } else if (
-  //           err.error &&
-  //           err.error.object &&
-  //           err.error.object.message
-  //         ) {
-  //           errorMessage = err.error.object.message;
-  //         } else if (err.message) {
-  //           errorMessage = err.message;
-  //         } else if (err.status === 422) {
-  //           errorMessage =
-  //             'Dados inválidos. Verifique se todos os campos obrigatórios estão preenchidos corretamente.';
-  //         } else if (err.status === 500) {
-  //           errorMessage =
-  //             'Erro interno do servidor. Tente novamente mais tarde.';
-  //         } else if (err.status === 401) {
-  //           errorMessage = 'Sessão expirada. Faça login novamente.';
-  //         } else if (err.status === 403) {
-  //           errorMessage = 'Sem permissão para realizar esta operação.';
-  //         }
-
-  //         console.error('Mensagem de erro final:', errorMessage);
-  //         alert(errorMessage);
-  //       },
-  //       complete: () => {
-  //         console.log('Subscribe complete');
-  //       },
-  //     });
-
-  //   console.log('Fim do onSubmit');
-  // }
-
   onSubmit() {
     console.log('Início do onSubmit nd');
     // Validação básica do formulário
@@ -1676,7 +1456,6 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
               // Pode redirecionar ou atualizar a página conforme necessário
             } else {
               console.log('Registro realizado com sucesso');
-              alert('Funcionário registado com sucesso!');
               this.restaurarFormulario();
               setTimeout(() => {
                 this.router.navigate([
@@ -1782,22 +1561,22 @@ export class DadosPessoaisProfissionalComponent implements OnInit, OnDestroy {
 
     console.log('Dados de teste:', dadosTeste);
 
-    this.funcionarioServico
-      .registar(dadosTeste)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (response) => {
-          console.log('Teste de salvamento bem-sucedido:', response);
-          alert('Teste de salvamento bem-sucedido!');
-        },
-        error: (err) => {
-          console.error('Erro no teste de salvamento:', err);
-          alert(
-            'Erro no teste de salvamento: ' +
-              (err.message || 'Erro desconhecido')
-          );
-        },
-      });
+    // this.funcionarioServico
+    //   .registar(dadosTeste)
+    //   .pipe(takeUntil(this.destroy$))
+    //   .subscribe({
+    //     next: (response) => {
+    //       console.log('Teste de salvamento bem-sucedido:', response);
+    //       alert('Teste de salvamento bem-sucedido!');
+    //     },
+    //     error: (err) => {
+    //       console.error('Erro no teste de salvamento:', err);
+    //       alert(
+    //         'Erro no teste de salvamento: ' +
+    //           (err.message || 'Erro desconhecido')
+    //       );
+    //     },
+    //   });
   }
 
   public selecionarOrgaoComBaseNoDepartamento(departamento: number) {
